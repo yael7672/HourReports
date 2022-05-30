@@ -1,0 +1,62 @@
+<div class="aImg">
+  <a (click)="openPopUp('creatTask',true)"><i class="fa fa-plus" style="font-size:30px"></i></a>
+  <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-plus" style="font-size:30px"></i></a>
+  <a (click)="openPopUp('login',true)">
+    <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+      class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
+  </a>
+</div>
+
+
+<p class="p-of-title ">דיווחי שעות </p>
+<div class="menu">
+  <div>
+  <div class="input-group">
+    <div class="form-outline">
+      <input type="search" id="form1" class="form-control" placeholder="חפש לפי פרוייקט" />
+    </div>
+    <button type="button" class="btn btn-primary">
+      <i class="fa fa-search"></i> 
+       </button>
+  </div>
+  <app-smart-card [title]="titleTableTask">
+    <div body >
+      <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
+        [thArr]="thArrTask"  (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr" [tableDataKeys]="taskListKeys"></app-show-my-task>
+    </div>
+  </app-smart-card>
+  </div>
+  <div>
+    <app-smart-card [title]="titleCard" [arrFunc]="arrFunc">
+      <div  body>
+        <app-specific-task  [listData]="taskListDataDetails"
+          [listDataKeys]="taskListKeys"[isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart" [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
+          (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)" (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
+        </app-specific-task>
+      </div>
+    </app-smart-card>
+    <app-smart-card [title]="titleTableProjectContentItemComponent">
+      <div body >
+        <app-show-my-task  [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'"
+          [thArr]="thArrTableProjectContentItemComponent"  [tableData]="taskArr" [tableDataKeys]="taskListKeys"></app-show-my-task>
+      </div>
+    </app-smart-card>
+  </div>
+</div>
+<div *ngIf="isPopUpOpen?.creatTask">
+  <app-create-new-task></app-create-new-task>
+</div>
+
+<div *ngIf="isPopUpOpen?.updateTask">
+  <app-update-an-existing-task></app-update-an-existing-task>
+</div>
+<div *ngIf="isPopUpOpen?.endTask">
+  <app-end-of-task></app-end-of-task>
+</div>
+<div *ngIf="isPopUpOpen?.login">
+  <app-login></app-login>
+</div>
+
+ <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
+  <app-create-aproject-content-item></app-create-aproject-content-item>
+</div>  
