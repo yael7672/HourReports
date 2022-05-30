@@ -1,0 +1,16 @@
+<h1 *ngIf="listData?.Subject">{{listData.Subject}}</h1>
+<h6 *ngIf="listData?.Subject" class="card-subtitle mb-2 text-muted">{{listData.Subject}}</h6>
+<p *ngIf="listData?.Description" class="card-text">{{listData.Description}}</p>
+
+<div class="button-of-task">
+  <button [disabled]="isDisabledStart" (click)="startTimer(); clickOfButton('start',true)"
+    class="btn btn-color">התחל</button>
+  <button [disabled]="isDisabledPouse" (click)="pauseTimer(workTime); clickOfButton('pouse',true)"
+    class="btn btn-color">הפסק</button>
+  <button [disabled]="isDisabledEnd" (click)="deleteTimer(workTime); clickOfButton('end',true)"
+    class="btn btn-color">משימה הושלמה</button>
+  <!-- <button (click)="CancelTask(taskGuid)" class="btn btn-color">בטל הפעלה</button> -->
+</div>
+<br>
+<p *ngIf="workTime" class="Time">{{workTime[0]+ ":"+ workTime[1]+":"
+  +workTime[2]}}</p>

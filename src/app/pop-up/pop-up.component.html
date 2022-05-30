@@ -1,0 +1,16 @@
+<div *ngIf="!isClose">
+  <div class="actionArea">
+    <form class="popContainer">
+      <a class="close" (click)="closePopUp()">&times;</a>
+      <h1>{{text}}</h1>
+      <div class="header">
+        <ng-content select="[header]"></ng-content>
+      </div>
+      <div class="body">
+        <ng-content select="[body]"></ng-content>
+      </div>
+      <div class=".footer">
+        <ng-content select="[footer]"></ng-content>
+      </div>
+    </form>
+  </div>

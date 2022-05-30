@@ -1,0 +1,21 @@
+
+
+
+    <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
+        <thead>
+          <tr>
+            <th *ngFor="let th of thArr" scope="col">{{th}}</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="tableData">
+          <tr *ngFor="let tableData of tableData" >
+            <ng-container *ngFor="let tableDataKey of tableDataKeys">
+              <td>{{tableData[tableDataKey]}}</td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    
+
+
+

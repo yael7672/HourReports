@@ -1,0 +1,54 @@
+<form>
+    <app-pop-up #upPopUP>
+        <h4 header class="mb-4">עדכון משימה</h4>
+        <div body>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
+                    placeholder=" תאריך " required />
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+            <select id="inputState" class="form-control ">
+                <option value="">בחר איזו משימה ברצונך לעדכן</option>
+                <option value="">'משימה א</option>
+                <option value=""> 'משימה ב</option>
+
+            </select></div>
+         
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control ">
+                    <option value="">?האם שעות לחיוב</option>
+                    <option value="">כן </option>
+                    <option value=""> לא</option>
+
+                </select>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control ">
+                    <option value="">פרוייקט (לגבי)</option>
+                    <option value="">כן </option>
+                    <option value=""> לא</option>
+
+                </select>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control ">
+                    <option value="">סוג עבודה</option>
+                    <option value="">כן </option>
+                    <option value=""> לא</option>
+
+                </select>
+            </div>
+            <div class="form-outline d-flex justify-content-center ">
+                <input type="text" id="FirstName" name="FirstName" class="form-control"
+                    placeholder="הערות למנהל פרוייקט" required />
+            </div>
+            <div class="form-outline d-flex justify-content-center ">
+                <textarea  style="max-height:100%;" type="text" id="FirstName" name="FirstName" class="form-control textarea" placeholder=" תאור המשימה  "
+                    required ></textarea>
+        </div>
+        </div>
+        <div footer>
+            <button type="submit" class="btn ">התחל משימה </button>
+        </div>
+    </app-pop-up>
+</form>
