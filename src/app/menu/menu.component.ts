@@ -2,12 +2,11 @@ import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
-import { Task } from '../interfacees/task';
+import { Project } from '../interfacees/project';
+import { ProjectContentItem } from '../interfacees/project-content-item';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
-import { ProjectContentItem } from '../interfacees/project-content-item';
-import { Project } from '../interfacees/project';
-import { FilterPipe } from '../filter.pipe';
+
 
 
 

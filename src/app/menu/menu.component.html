@@ -11,19 +11,17 @@
 <p class="p-of-title ">דיווחי שעות </p>
 <div class="menu">
   <div>
-    
-    <div>
+    <div class="input-group">
       <div class="form-outline">
-        <input  list="menace" name="menace" (click)="GetProject()">
-        <datalist id="menace">
-          <option *ngFor="let menace of projectArr">{{menace.Name}} </option>
+        <input type="search" id="form1" class="form-control" placeholder="חפש לפי פרוייקט"  list="project" name="project" (click)="GetProject()"/>
+        <datalist id="project">
+          <option *ngFor="let project of projectArr">{{project.Name}} </option>
         </datalist>
-        <button type="button" class="btn btn-primary">
-          <i class="fa fa-search"></i>
-        </button>
       </div>
+      <button type="button" class="btn btn-primary">
+        <i class="fa fa-search"></i> 
+         </button>
     </div>
-
     <app-smart-card [title]="titleTableTask">
       <div body>
         <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
