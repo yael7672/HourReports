@@ -16,6 +16,7 @@ import { SmartCardComponent } from './smart-card/smart-card.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ProjectContentItemComponent } from './project-content-item/project-content-item.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ProjectContentItemComponent } from './project-content-item/project-cont
     SpecificTaskComponent,
     SmartCardComponent,
     LoginComponent,
-    ProjectContentItemComponent
+    ProjectContentItemComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

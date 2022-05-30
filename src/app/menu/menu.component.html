@@ -11,34 +11,42 @@
 <p class="p-of-title ">דיווחי שעות </p>
 <div class="menu">
   <div>
-  <div class="input-group">
-    <div class="form-outline">
-      <input type="search" id="form1" class="form-control" placeholder="חפש לפי פרוייקט" />
+    
+    <div>
+      <div class="form-outline">
+        <input  list="menace" name="menace" (click)="GetProject()">
+        <datalist id="menace">
+          <option *ngFor="let menace of projectArr">{{menace.Name}} </option>
+        </datalist>
+        <button type="button" class="btn btn-primary">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
     </div>
-    <button type="button" class="btn btn-primary">
-      <i class="fa fa-search"></i> 
-       </button>
-  </div>
-  <app-smart-card [title]="titleTableTask">
-    <div body >
-      <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
-        [thArr]="thArrTask"  (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr" [tableDataKeys]="taskListKeys"></app-show-my-task>
-    </div>
-  </app-smart-card>
+
+    <app-smart-card [title]="titleTableTask">
+      <div body>
+        <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
+          [thArr]="thArrTask" (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr"
+          [tableDataKeys]="taskListKeys"></app-show-my-task>
+      </div>
+    </app-smart-card>
   </div>
   <div>
     <app-smart-card [title]="titleCard" [arrFunc]="arrFunc">
-      <div  body>
-        <app-specific-task  [listData]="taskListDataDetails"
-          [listDataKeys]="taskListKeys"[isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart" [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
-          (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)" (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
+      <div body>
+        <app-specific-task [listData]="taskListDataDetails" [listDataKeys]="taskListKeys"
+          [isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart"
+          [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
+          (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)"
+          (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
         </app-specific-task>
       </div>
     </app-smart-card>
     <app-smart-card [title]="titleTableProjectContentItemComponent">
-      <div body >
-        <app-show-my-task  [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'"
-          [thArr]="thArrTableProjectContentItemComponent"  [tableData]="taskArr" [tableDataKeys]="taskListKeys"></app-show-my-task>
+      <div body>
+        <app-show-my-task [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem"
+          [tableData]="projectContentItemArr" [tableDataKeys]="projectContentItemListKeys"></app-show-my-task>
       </div>
     </app-smart-card>
   </div>
@@ -57,6 +65,6 @@
   <app-login></app-login>
 </div>
 
- <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
+<div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
   <app-create-aproject-content-item></app-create-aproject-content-item>
-</div>  
+</div>

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
 import { WorkType } from './interfacees/work-type';
@@ -29,5 +29,9 @@ export class UserServiceService {
   GetProjectContentItemByTaskGuid(taskId:string){
     return this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?TaskId='+taskId);
 
+  }
+  GetProject()
+  {
+    return this.http.get<any>(environment.url + 'GetProject/');
   }
 }

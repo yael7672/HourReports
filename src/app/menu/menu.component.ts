@@ -5,13 +5,19 @@ import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Task } from '../interfacees/task';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
+import { ProjectContentItem } from '../interfacees/project-content-item';
+import { Project } from '../interfacees/project';
+import { FilterPipe } from '../filter.pipe';
+
+
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+
+export class MenuComponent implements OnInit   {
   isPopUpOpen!: any;
   taskListData: any;
   taskListDataDetails: any;
@@ -25,12 +31,21 @@ export class MenuComponent implements OnInit {
   workTime!: any;
   titleTableTask = 'המשימות שלי';
   titleTableProjectContentItemComponent = 'דיווחי שעות';
-
   titleCard = 'פרטי המשימה';
-  thArrTask= ['שם המשימה', 'תאריך', 'פרוייקט'];
-  thArrTableProjectContentItemComponent = ['שם ', 'תאריך', 'פרוייקט','סוג עבודה','משך זמן המשימה','משימת '];
-
+  thArrTask = ['שם המשימה', 'תאריך', 'פרוייקט'];
+  thArrTableProjectContentItem = ['שם ', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה', 'פרוייקט'];
   taskListKeys = ['Subject', 'CreatedOn'];
+  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType.Name', 'Project.Name'];
+  characters = [
+    'Ant-Man',
+    'Aquaman',
+    'Asterix',
+    'The Atom',
+    'The Avengers',
+    'Batgirl',
+    'Batman',
+    'Batwoman'
+  ]
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
   val = ['', 'worktime', 'worktime'];
@@ -44,9 +59,11 @@ export class MenuComponent implements OnInit {
   isButtobChoose: any;
   massageFromServer!: string;
   isTaskAccomplished!: boolean;
-  y!: number;
   parseTime!: any;
   timetoSend: any;
+  query="";
+  projectContentItemArr!: ProjectContentItem[]
+  projectArr!: Project[];
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -107,6 +124,7 @@ export class MenuComponent implements OnInit {
     this.taskListDataDetails = val;
     console.log(this.taskListDataDetails);
     clearInterval(this.interval);
+    this.GetProjectContentItemByTaskGuid();
   }
   SelectedStart() {
     this.interval = setInterval(() => {
@@ -116,10 +134,10 @@ export class MenuComponent implements OnInit {
       else {
         this.seconds++;
       }
-      this.workTime = this.transform(this.seconds)
+      this.workTime = this.transformNumber(this.seconds)
     }, 1000)
   }
-  transform(value: number) {
+  transformNumber(value: number) {
     var sec_num = value;
     var hours = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
@@ -187,4 +205,33 @@ export class MenuComponent implements OnInit {
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
-}
+  GetProjectContentItemByTaskGuid() {
+    this.userService.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid).subscribe(
+      res => {
+        if (res) {
+          this.projectContentItemArr = res;
+          console.log(this.projectContentItemArr);
+        }
+      },
+      err => {
+        console.log(err.error);
+      })
+  }
+  GetProject() {
+    this.userService.GetProject().subscribe(res => {
+      if (res) {
+        this.projectArr = res;
+        console.log(this.projectArr);
+        
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
+  }
+
+  
+  
+  }
+ 
+
