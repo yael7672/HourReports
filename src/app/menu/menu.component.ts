@@ -4,6 +4,7 @@ import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Project } from '../interfacees/project';
 import { ProjectContentItem } from '../interfacees/project-content-item';
+import { Task } from '../interfacees/task';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 
@@ -16,7 +17,7 @@ import { UserServiceService } from '../user-service.service';
   styleUrls: ['./menu.component.css']
 })
 
-export class MenuComponent implements OnInit   {
+export class MenuComponent implements OnInit {
   isPopUpOpen!: any;
   taskListData: any;
   taskListDataDetails: any;
@@ -32,26 +33,15 @@ export class MenuComponent implements OnInit   {
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'תאריך', 'פרוייקט'];
-  thArrTableProjectContentItem = ['שם ', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה', 'פרוייקט'];
+  thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה', 'פרוייקט'];
   taskListKeys = ['Subject', 'CreatedOn'];
-  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType.Name', 'Project.Name'];
-  characters = [
-    'Ant-Man',
-    'Aquaman',
-    'Asterix',
-    'The Atom',
-    'The Avengers',
-    'Batgirl',
-    'Batman',
-    'Batwoman'
-  ]
+  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType[Name]', 'Project'];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
   val = ['', 'worktime', 'worktime'];
   buttonName = ['התחל', 'השהה', 'השלם'];
   isDisabledKey = ['start', 'pouse', 'end'];
   arrFunc = [{ nameOfFunc: this.nameOfFunc }, { buttonName: this.buttonName }]
-  taskArr!: Task;
   isDisabledEnd = false;
   isDisabledPouse = false;
   isDisabledStart = false;
@@ -60,8 +50,14 @@ export class MenuComponent implements OnInit   {
   isTaskAccomplished!: boolean;
   parseTime!: any;
   timetoSend: any;
-  query="";
+  query = "";
+  selectedOption = "";
   projectContentItemArr!: ProjectContentItem[]
+  taskArrCopy!: any[]
+  taskArr!: Task[];
+  isSelected=false;
+
+
   projectArr!: Project[];
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -96,6 +92,8 @@ export class MenuComponent implements OnInit   {
         this.isDisabledPouse = true;
         this.workTime = "";
         this.seconds = 0;
+        this.isSelected=true;
+
       }
       console.log(this.isButtobChoose);
     })
@@ -221,16 +219,21 @@ export class MenuComponent implements OnInit   {
       if (res) {
         this.projectArr = res;
         console.log(this.projectArr);
-        
+
       }
     },
       err => {
         console.log(err.error);
       })
   }
-
-  
-  
+  onSearchProject() {
+    alert(this.selectedOption)
+    this.taskArrCopy = [...this.taskArr]
+    let arr: any;
+    this.taskArr=this.taskArrCopy.filter(f => f.Project.Name ==this.selectedOption)
+    alert("yes")
   }
- 
+}
+
+
 

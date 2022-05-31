@@ -22,6 +22,7 @@ export class SpecificTaskComponent implements OnInit {
   @Input() isDisabledEnd!: boolean;
   @Input() isDisabledPouse!: boolean;
   @Input() isDisabledStart!: boolean;
+  @Output()clickCloseCard = new EventEmitter<any>();
   @Output()clickStartTimer = new EventEmitter<any>();
   @Output()clickPauseTimer = new EventEmitter<any>();
   @Output()clickdeleteTimer = new EventEmitter<any>();
@@ -64,5 +65,9 @@ export class SpecificTaskComponent implements OnInit {
   clickOfButton(kindOfButton:string,type:boolean)
   {
     this.getDataClickOfButton.emit({"kind":kindOfButton,"type":type})
+  }
+  CloseCard()
+  {
+    
   }
 }
