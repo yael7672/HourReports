@@ -1,0 +1,13 @@
+<div class="menu">
+    <div class="card card-of-task">
+        <div class="card-body">
+            <h5 class="card-title"> {{title}}</h5>
+            <div class="body ">
+                <ng-content select="[body]"></ng-content>
+            </div>
+            <div class="footer">
+                <ng-content select="[footer]"></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

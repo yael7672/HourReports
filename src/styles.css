@@ -1,1 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
+.form-control {
+  margin-right: 20px;
+  margin: 0 0 10px 0;
+  text-align: right;
+  width: 20rem;
+}
+
+.card-of-task .card-of-description .card-body form .input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-of-task {
+  width: 21rem;
+}
+
+h4 {
+  direction: rtl !important;
+  color: black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+}
+
+.card-body {
+  direction: rtl !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.close {
+  width: 100%;
+  display: flex;
+  direction: rtl;
+}
+
+.menu {
+  display: flex;
+  direction: rtl;
+  padding: 2rem;
+  justify-content: space-around;
+  padding-top: 2rem;
+  flex-wrap: wrap;
+}
+.button-of-task {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+
+::placeholder {
+  font-weight: normal;
+  display: block;
+  white-space: nowrap;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;
+  text-align: right;
+}
+
+.btn {
+  background-color: #f1b93c;
+  color: black;
+}
+.all-page.pop-up-open
+{
+  overflow: hidden;
+  height: 100vh;
+}
+tr{
+text-align: center;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3vw;
+  border-radius: 8px;
+  background-color: #fff;
+  max-width: 100%;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  overflow-x: hidden;
+  min-width: 300px;
+}

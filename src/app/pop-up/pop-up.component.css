@@ -1,0 +1,34 @@
+.popContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3vw;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px #04010312;
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  overflow-x: hidden;
+
+
+}
+
+.actionArea {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 19;
+  background-color: #0e1b34de;
+  width: 100%;
+  height: 100%;
+  padding-top: 5%;
+  overflow: auto;
+}
+
+
+.header div h3 {
+  font-size: 900px;
+}

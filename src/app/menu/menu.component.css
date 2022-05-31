@@ -1,0 +1,53 @@
+.card-title {
+    text-align: center;
+}
+.p-of-title {
+    text-align: center;
+    color: rgba(6, 6, 19, 0.795);
+    font-size: 40pt;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+}
+
+.profile-image-pic {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    direction: rtl;
+    margin-right: 15px;
+}
+
+.aImg {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.fa-plus {
+    padding-left: 2rem;
+    margin-top: 2rem;
+}
+.input-group {
+justify-content: center;
+}
+.btn
+ {   margin-right: 1rem;
+    height: calc(1.5em + 0.75rem + 2px);
+} 
+.form-control
+{
+    width: 15rem;
+}
+
+.a{
+    width: 30rem;
+}
+.fa-coffee {
+    padding: 1.8rem;
+}
+.fa-calendar-check-o
+{
+    padding: 1.8rem;
+}
+.fa-edit{
+    padding: 1.8rem;
+}

@@ -1,10 +1,18 @@
 <div class="aImg">
+<<<<<<< HEAD
   <a (click)="openPopUp('creatTask',true)"><i class="fa fa-plus" style="font-size:30px"></i></a>
   <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-plus" style="font-size:30px"></i></a>
+=======
+  <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" style="font-size:35px"></i></a>
+  <a><i class="fa fa-coffee" style="font-size:35px"></i></a>
+  <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o" style="font-size:35px"></i>
+  </a>
+>>>>>>> adirevivo
   <a (click)="openPopUp('login',true)">
     <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
       class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
   </a>
+<<<<<<< HEAD
 </div>
 
 
@@ -39,6 +47,47 @@
       <div body >
         <app-show-my-task  [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'"
           [thArr]="thArrTableProjectContentItemComponent"  [tableData]="taskArr" [tableDataKeys]="taskListKeys"></app-show-my-task>
+=======
+
+</div>
+<p class="p-of-title ">דיווחי שעות </p>
+<div class="menu">
+  <div>
+    <div  class="input-group">
+      <div class="form-outline">
+        <input   type="search" id="form1" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]='selectedOption' list="project" name="project" (click)="GetProject()" />
+        <datalist id="project"  >
+          <option   *ngFor="let project of projectArr" >{{project.Name}} </option>
+        </datalist>
+      </div>
+      <button  type="button" class="btn btn-primary" (click)="onSearchProject()">
+        <i class="fa fa-search"></i>
+         </button>
+    </div>
+    <app-smart-card [title]="titleTableTask">
+      <div body>
+        <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
+          [thArr]="thArrTask" (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr"
+          [tableDataKeys]="taskListKeys"></app-show-my-task>
+      </div>
+    </app-smart-card>
+  </div>
+  <div>
+    <app-smart-card *ngIf="isSelected" [title]="titleCard" [arrFunc]="arrFunc">
+      <div body>
+        <app-specific-task [listData]="taskListDataDetails" [listDataKeys]="taskListKeys"
+          [isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart"
+          [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
+          (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)"
+          (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
+        </app-specific-task>
+      </div>
+    </app-smart-card>
+    <app-smart-card *ngIf="isSelected" [title]="titleTableProjectContentItemComponent">
+      <div body>
+        <app-show-my-task [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem"
+          [tableData]="projectContentItemArr" [tableDataKeys]="projectContentItemListKeys"></app-show-my-task>
+>>>>>>> adirevivo
       </div>
     </app-smart-card>
   </div>
@@ -57,6 +106,12 @@
   <app-login></app-login>
 </div>
 
+<<<<<<< HEAD
  <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
   <app-create-aproject-content-item></app-create-aproject-content-item>
 </div>  
+=======
+<div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
+  <app-create-aproject-content-item></app-create-aproject-content-item>
+</div>
+>>>>>>> adirevivo
