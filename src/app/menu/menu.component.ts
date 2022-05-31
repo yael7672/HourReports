@@ -4,7 +4,6 @@ import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Project } from '../interfacees/project';
 import { ProjectContentItem } from '../interfacees/project-content-item';
-import { Task } from '../interfacees/task';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 
