@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ProjectContentItemComponent } from './project-content-item/project-content-item.component';
 import { FilterPipe } from './filter.pipe';
+import { MassgeToUserComponent } from './massge-to-user/massge-to-user.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FilterPipe } from './filter.pipe';
     SmartCardComponent,
     LoginComponent,
     ProjectContentItemComponent,
-    FilterPipe
+    FilterPipe,
+    MassgeToUserComponent
   ],
   imports: [
     BrowserModule,

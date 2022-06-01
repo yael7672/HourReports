@@ -11,9 +11,7 @@
   flex-direction: column;
 }
 
-.card-of-task {
-  width: 21rem;
-}
+
 
 h4 {
   direction: rtl !important;
@@ -39,7 +37,7 @@ h4 {
   display: flex;
   direction: rtl;
   padding: 2rem;
-  justify-content: space-around;
+  justify-content: center;
   padding-top: 2rem;
   flex-wrap: wrap;
 }
@@ -87,4 +85,10 @@ text-align: center;
   padding: 20px;
   overflow-x: hidden;
   min-width: 300px;
+  max-width: 55vw;
+
 }
+  /* .card{
+    width: 100%;
+    max-width: 70vw ;
+} */
