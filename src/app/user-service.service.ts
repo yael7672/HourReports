@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
+import { ProjectContentItem } from './interfacees/project-content-item';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
 import { User } from './interfacees/user';
 import { WorkType } from './interfacees/work-type';
@@ -38,5 +39,14 @@ export class UserServiceService {
  
   logIn(email:any) {
     return this.http.get<User[]>(environment.url + 'Login/?email='+ email);
+  }
+  PauseWork(SystemGuid:any ,ActualTime:any){
+    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause/?SystemGuid='+ SystemGuid +"&ActualTime" + ActualTime);
+
+  }
+  // לשנות- לממשק של יצירת פריט תכולת פרויקט רגיל
+  CreateNewProjectItem(projectContentItem:any){
+    return this.http.get<ProjectContentItem[]>(environment.url + 'Login='+ projectContentItem);
+
   }
 }

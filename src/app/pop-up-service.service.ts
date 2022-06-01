@@ -13,6 +13,7 @@ export class PopUpServiceService {
   setSpecificPopUp(data: boolean, type: string) {
     var obj = {
       login: type === 'login' ? data : false,
+      pause: type === 'pause'? data : false,
       creatTask: type === 'creatTask' ? data : false,
       updateTask: type === 'updateTask' ? data : false,
       endTask: type === 'endTask' ? data : false,

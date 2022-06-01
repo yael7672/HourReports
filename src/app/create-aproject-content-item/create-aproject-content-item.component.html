@@ -1,54 +1,73 @@
-<form>
+
     <app-pop-up #upPopUP>
         <h4 header class="mb-4">יצירת  פריט תכולת פרוייקט חדשה</h4>
         <div body>
+            <form (ngSubmit)="CreateNewProjectItem(f)" #f="ngForm">
             <div class="form-outline d-flex justify-content-center">
-                <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
+                <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd'}}" class="form-control"
                     placeholder=" תאריך " required />
             </div>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="FirstName" name="FirstName" class="form-control" placeholder="נושא המשימה "
                     required />
             </div>
-            <div class="form-outline d-flex justify-content-center ">
-                <textarea  style="max-height:100%;" type="text" id="FirstName" name="FirstName" class="form-control textarea" placeholder=" תאור המשימה  "
-                    required ></textarea>
-            </div>
-            <div class="form-outline d-flex justify-content-center ">
-                <input type="text" id="FirstName" name="FirstName" class="form-control"
-                    placeholder="הערות למנהל פרוייקט" required />
-            </div>
-            <div class="form-outline d-flex justify-content-center ">
-                <input type="number" id="FirstName" name="FirstName" class="form-control"
-                    placeholder="משך" required />
-            </div>
-            <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control ">
-                    <option value="">?האם שעות לחיוב</option>
-                    <option value="">כן </option>
-                    <option value=""> לא</option>
-
-                </select>
-            </div>
-            <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control ">
-                    <option value="">פרוייקט (לגבי)</option>
-                    <option value="">כן </option>
-                    <option value=""> לא</option>
-
-                </select>
-            </div>
             <div class="form-outline d-flex justify-content-center">
                 <select id="inputState" class="form-control ">
                     <option value="">סוג עבודה</option>
                     <option value="">כן </option>
                     <option value=""> לא</option>
+                </select>
+            </div>
+         
+      
+            <div class="form-outline d-flex justify-content-center ">
+                <input type="number" id="FirstName" name="HoursActually" class="form-control"
+                    placeholder="שעות שבוצעו בפועל" required />
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control " name="billingHours">
+                    <option value="">?האם שעות לחיוב</option>
+                    <option value="">כן</option>
+                    <option value="">לא</option>
 
                 </select>
             </div>
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control " name="SourceTask">
+                    <option value="">משימת מקור</option>
+                    <option value="">כן </option>
+                    <option value=""> לא</option>
+
+                </select>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control " name="project">
+                    <option value="">פרוייקט (לגבי)</option>
+                    <option value="">כן </option>
+                    <option value=""> לא</option>
+                </select>
+            </div>
+            <div class="form-outline d-flex justify-content-center ">
+                <textarea  style="max-height:100%;" type="text" id="FirstName" name="Description" class="form-control textarea" placeholder=" תאור המשימה  "
+                    required ></textarea>
+            </div>
+            <div class="form-outline d-flex justify-content-center ">
+                <input type="text" id="FirstName" name="NoteToProjectManager" class="form-control"
+                    placeholder="הערות למנהל פרוייקט" required />
+            </div>
+        </form>
         </div>
         <div footer>
             <button type="submit" class="btn " >צור פריט תכולת פרוייקט חדשה</button>
         </div>
     </app-pop-up>
-</form>
+
+<!-- Execution Date
+Hours actually performed
+work hours
+Have billing hours
+Source task
+project
+Description
+Notes to Project Manager
+owner -->
