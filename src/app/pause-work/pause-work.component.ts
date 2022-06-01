@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServiceService } from '../user-service.service';
 
@@ -9,7 +9,7 @@ import { UserServiceService } from '../user-service.service';
   styleUrls: ['./pause-work.component.css']
 })
 export class PauseWorkComponent implements OnInit {
-
+ 
   todayDate!:any;
   myDate=new Date()
   pauseAlert:any
@@ -22,11 +22,13 @@ export class PauseWorkComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
 PauseWork(form:NgForm){
   this.userServiceService.PauseWork(this.systemGuid ,form.value.ActualTime).subscribe(
     (res: any) => {
       this.pauseAlert = res;
-      console.log(this.pauseAlert);
+      console.log(this.pauseAlert)
+      alert("עודכן");
     },
     (err: any) =>
       alert("error")

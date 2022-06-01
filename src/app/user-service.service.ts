@@ -41,12 +41,15 @@ export class UserServiceService {
     return this.http.get<User[]>(environment.url + 'Login/?email='+ email);
   }
   PauseWork(SystemGuid:any ,ActualTime:any){
-    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause/?SystemGuid='+ SystemGuid +"&ActualTime" + ActualTime);
+    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?SystemGuid='+ SystemGuid + "&ActualTime="+ ActualTime);
 
   }
   // לשנות- לממשק של יצירת פריט תכולת פרויקט רגיל
-  CreateNewProjectItem(projectContentItem:any){
+  CreateNewProjectItemByGuid(projectContentItem:any){
     return this.http.get<ProjectContentItem[]>(environment.url + 'Login='+ projectContentItem);
 
+  }
+  CreateNewProjectItem(projectContentItem:any){
+    return this.http.get<ProjectContentItem[]>(environment.url + 'CreateNewProjectItem' + projectContentItem);
   }
 }

@@ -21,9 +21,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
   CreateNewProjectItem(form:NgForm){
     this.userServiceService.CreateNewProjectItem(form.value).subscribe(
       (res: any) => {
-        this.user = res;
-        console.log(this.user);
-        alert(this.user+"ברוך הבא")
+        // this.user = res;
+        // console.log(this.user);
+        // alert(this.user+"ברוך הבא")
       },
       (err: any) =>
         alert("error")

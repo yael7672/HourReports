@@ -55,6 +55,7 @@ export class MenuComponent implements OnInit {
   taskArrCopy!: any[]
   taskArr!: Task[];
   isSelected=false;
+  hideButtonCancel=false
 
 
   projectArr!: Project[];
