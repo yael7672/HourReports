@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-massge-to-user',
@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./massge-to-user.component.css']
 })
 export class MassgeToUserComponent implements OnInit {
+  @Output()clickYes = new EventEmitter<any>();
+  @Output()clickNo = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+  BtnYes() {
+    this.clickYes.emit()
+  }
+  BtnNo() {
+    this.clickNo.emit()
   }
 
 }

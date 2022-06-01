@@ -7,21 +7,22 @@
     <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
       class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
   </a>
-
 </div>
+
 <p class="p-of-title ">דיווחי שעות </p>
 <div class="menu">
   <div>
-    <div  *ngIf="tableMyTaskOpen" class="input-group">
+    <div *ngIf="tableMyTaskOpen" class="input-group">
       <div class="form-outline">
-        <input   type="search" id="form1" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]='selectedOption' list="project" name="project" (click)="GetProject()" />
-        <datalist id="project"  >
-          <option   *ngFor="let project of projectArr" >{{project.Name}} </option>
+        <input type="search" id="form1" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]='selectedOption'
+          list="project" name="project" (click)="GetProject()" />
+        <datalist id="project">
+          <option *ngFor="let project of projectArr">{{project.Name}} </option>
         </datalist>
       </div>
-      <button  type="button" class="btn btn-primary" (click)="onSearchProject()">
+      <button type="button" class="btn btn-primary" (click)="onSearchProject()">
         <i class="fa fa-search"></i>
-         </button>
+      </button>
     </div>
     <app-smart-card *ngIf="tableMyTaskOpen" [title]="titleTableTask">
       <div body>
@@ -32,16 +33,19 @@
     </app-smart-card>
   </div>
   <div>
-    <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleCard" [arrFunc]="arrFunc">
+
+    <app-smart-card (clickCloseCard)="clickCloseCard()" [ifX]="true" *ngIf="tableSpecificTaskOpen" [title]="titleCard"
+      [arrFunc]="arrFunc">
       <div body>
         <app-specific-task [listData]="taskListDataDetails" [listDataKeys]="taskListKeys"
           [isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart"
           [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
           (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)"
-          (clickdeleteTimer)="SelectedEnd($event)" (clickCloseCard)="CloseCard()" [workTime]="workTime">
+          (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
         </app-specific-task>
       </div>
     </app-smart-card>
+
     <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
       <div body>
         <app-show-my-task [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem"
@@ -50,16 +54,19 @@
     </app-smart-card>
   </div>
 </div>
+
 <div *ngIf="isPopUpOpen?.creatTask">
-  <app-create-new-task ></app-create-new-task>
+  <app-create-new-task></app-create-new-task>
 </div>
 
 <div *ngIf="isPopUpOpen?.updateTask">
   <app-update-an-existing-task></app-update-an-existing-task>
 </div>
+
 <div *ngIf="isPopUpOpen?.endTask">
   <app-end-of-task></app-end-of-task>
 </div>
+
 <div *ngIf="isPopUpOpen?.login">
   <app-login></app-login>
 </div>
@@ -68,12 +75,10 @@
   <app-create-aproject-content-item></app-create-aproject-content-item>
 </div>
 
-
-
-<div class="show-pop-up" *ngif="" >
-      <app-pop-up >
-        <div body>
-      <app-massge-to-user></app-massge-to-user>
+<div *ngIf="showMassgeToUser">
+  <app-pop-up>
+    <div body>
+  <app-massge-to-user (clickYes)="clickYes()"  (clickNo)="clickNo()" ></app-massge-to-user>
     </div>
-      </app-pop-up>
-    </div> 
+</app-pop-up>
+</div>

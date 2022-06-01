@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ButtonWorkingTaskService {
   private kindOfButton$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private timeOfWorkingTask$: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor() { }
 
@@ -24,5 +25,11 @@ export class ButtonWorkingTaskService {
   }
   getKindOfButton() {
     return this.kindOfButton$;
+  }
+  setTimeOfWorkingTask(val: any) {
+    this.timeOfWorkingTask$.next(val)
+  }
+  getTimeOfWorkingTask() {
+    return this.timeOfWorkingTask$;
   }
 }

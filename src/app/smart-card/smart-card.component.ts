@@ -12,15 +12,16 @@ export class SmartCardComponent implements OnInit {
   @Input()arrFunc:any;
   @Input()nameOfFunc:any;
   @Input()sizeOfCard:any;
+  @Input()ifX:any;
 
-  
+  @Output()clickCloseCard = new EventEmitter<any>();
   @Output()clickStartTimer = new EventEmitter<any>();
   @Output()clickPauseTimer = new EventEmitter<any>();
   @Output()clickdeleteTimer = new EventEmitter<any>();
   ngOnInit(): void {
   }
-  startTimer()
+  closeCard()
   {
-    
+    this.clickCloseCard.emit();
   }
 }

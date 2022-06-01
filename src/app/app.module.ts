@@ -18,6 +18,8 @@ import { FormsModule } from '@angular/forms';
 import { ProjectContentItemComponent } from './project-content-item/project-content-item.component';
 import { FilterPipe } from './filter.pipe';
 import { MassgeToUserComponent } from './massge-to-user/massge-to-user.component';
+import { CommonModule } from '@angular/common';  
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { MassgeToUserComponent } from './massge-to-user/massge-to-user.component
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule 
+    FormsModule ,
+    CommonModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

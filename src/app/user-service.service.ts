@@ -13,7 +13,7 @@ export class UserServiceService {
   constructor(private http: HttpClient) { }
 
   GetMyTask(userMail: string) {
-    return this.http.get<any>(environment.url+'/GetTask/?AccountEmail='+userMail)
+    return this.http.get<any>(environment.url + '/GetTask/?AccountEmail=' + userMail)
   }
   AddNewTask(TaskObj: any) {
     return this.http.post<string>(environment.url + '/AddNewTask', TaskObj);
@@ -24,22 +24,20 @@ export class UserServiceService {
   GetRegarding() {
     return this.http.get<Regardingobjectid[]>(environment.url + 'GetRegarding');
   }
-  UpdateProjectContentItem(duration:string,taskId:string,isTaskAccomplished:boolean) {
-    return this.http.get<any>(environment.url + 'UpdateProjectContentItem/?taskId='+taskId+'&duration='+duration+'&IsTaskAccomplished='+isTaskAccomplished);
+  UpdateProjectContentItem(duration: string, taskId: string, isTaskAccomplished: boolean) {
+    return this.http.get<any>(environment.url + 'UpdateProjectContentItem/?taskId=' + taskId + '&duration=' + duration + '&IsTaskAccomplished=' + isTaskAccomplished);
   }
-  GetProjectContentItemByTaskGuid(taskId:string){
-    return this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?TaskId='+taskId);
+  GetProjectContentItemByTaskGuid(taskId: string) {
+    return this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?TaskId=' + taskId);
 
   }
-  GetProject()
-  {
+  GetProject() {
     return this.http.get<any>(environment.url + 'GetProject/');
   }
-  CreateProjectContentItemByTaskGuid(SystemGuid:string,TaskGuid:string)
-  {
-    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?SystemGuid='+SystemGuid+'&TaskGuid='+TaskGuid);
+  CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string) {
+    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
   }
-  logIn(email:any) {
-    return this.http.get<User[]>(environment.url + 'Login/?email='+ email);
+  logIn(email: any) {
+    return this.http.get<User[]>(environment.url + 'Login/?email=' + email);
   }
 }

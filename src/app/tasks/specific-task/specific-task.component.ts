@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppService } from 'src/app/app-service.service';
-import { UserServiceService } from 'src/app/user-service.service';
+import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
+import { PopUpServiceService } from 'src/app/pop-up-service.service';
 
 @Component({
   selector: 'app-specific-task',
@@ -22,12 +23,12 @@ export class SpecificTaskComponent implements OnInit {
   @Input() isDisabledEnd!: boolean;
   @Input() isDisabledPouse!: boolean;
   @Input() isDisabledStart!: boolean;
-  @Output()clickCloseCard = new EventEmitter<any>();
-  @Output()clickStartTimer = new EventEmitter<any>();
-  @Output()clickPauseTimer = new EventEmitter<any>();
-  @Output()clickdeleteTimer = new EventEmitter<any>();
-  @Output()objectEmitter = new EventEmitter<any>();
-  @Output()getDataClickOfButton = new EventEmitter<any>();
+  @Output() clickCloseCard = new EventEmitter<any>();
+  @Output() clickStartTimer = new EventEmitter<any>();
+  @Output() clickPauseTimer = new EventEmitter<any>();
+  @Output() clickdeleteTimer = new EventEmitter<any>();
+  @Output() objectEmitter = new EventEmitter<any>();
+  @Output() getDataClickOfButton = new EventEmitter<any>();
   heberwDateRecords: any;
   ifDescriptionPanel = false;
   descriptionPanel: any;
@@ -36,9 +37,8 @@ export class SpecificTaskComponent implements OnInit {
   seconds: number = 0;
   hours: number = 0;
   //workTime!: any;
-  constructor(
-    private userService: UserServiceService,
-    private appService: AppService) { }
+  constructor(private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
+  }
 
   ngOnInit(): void {
   }
@@ -50,24 +50,21 @@ export class SpecificTaskComponent implements OnInit {
   }
 
   startTimer() {
-  this.clickStartTimer.emit()
+    this.clickStartTimer.emit()
   }
-  pauseTimer(worktime:any) {
+  pauseTimer(worktime: any) {
     this.clickPauseTimer.emit(worktime)
   }
   deleteTimer(val: any) {
     this.clickdeleteTimer.emit(val)
   }
-  SelectedData(val:any)
-  {
-   this.objectEmitter.emit(val)
+  SelectedData(val: any) {
+    this.objectEmitter.emit(val)
   }
-  clickOfButton(kindOfButton:string,type:boolean)
-  {
-    this.getDataClickOfButton.emit({"kind":kindOfButton,"type":type})
+  clickOfButton(kindOfButton: string, type: boolean) {
+    this.getDataClickOfButton.emit({ "kind": kindOfButton, "type": type })
   }
-  CloseCard()
-  {
+  CloseCard() {
     this.clickCloseCard.emit()
   }
 }

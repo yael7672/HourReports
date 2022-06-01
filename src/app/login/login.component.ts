@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
         alert(this.user.Name + "ברוך הבא");
         localStorage.clear();
         localStorage.setItem('systemGuid', this.user.SystemGuid);
-
       },
       (err: any) =>
         alert("error")

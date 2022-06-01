@@ -1,11 +1,11 @@
-<form class="card-body cardbody-color p-lg-5">
+<form >
         <app-pop-up #upPopUP [ifX]="true"> 
         <div header class="text-center">
             <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
         </div>
         <div body>
-             <form (ngSubmit)="Login(f)" #f="ngForm" class="card-body  p-lg-5">
+             <form (ngSubmit)="Login(f)" #f="ngForm" class="card-body">
             <div class="mb-3">
                 <input type="text" class="form-control" id="Username" aria-describedby="emailHelp"
                     placeholder="שם משתמש" #SystemUserName="ngModel" name="SystemUserName" ngModel>

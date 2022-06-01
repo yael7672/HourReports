@@ -52,8 +52,10 @@ export class MenuComponent implements OnInit {
   taskArr!: Task[];
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
-
+  systemGuid: any;
   projectArr!: Project[];
+  showMassgeToUser = false;
+  timeToSave: any;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -123,6 +125,16 @@ export class MenuComponent implements OnInit {
 
   }
   SelectedStart() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid).subscribe(res => {
+      if (res) {
+        this.massageFromServer = res;
+        console.log(this.massageFromServer);
+
+      }
+    }, err => {
+      console.log(err.error);
+    })
     this.interval = setInterval(() => {
       if (this.seconds === 0) {
         this.seconds++;
@@ -131,6 +143,7 @@ export class MenuComponent implements OnInit {
         this.seconds++;
       }
       this.workTime = this.transformNumber(this.seconds)
+      localStorage.setItem('workTime',this.workTime)
     }, 1000)
   }
   transformNumber(value: number) {
@@ -155,7 +168,6 @@ export class MenuComponent implements OnInit {
     else {
       this.parseTime = this.timetoSend[0] + "." + this.timetoSend[1];
     }
-    alert(this.parseTime)
     this.isTaskAccomplished = false;
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
       res => {
@@ -184,19 +196,18 @@ export class MenuComponent implements OnInit {
     }
     else {
       this.parseTime = this.timetoSend[0] + "." + this.timetoSend[1];
-
-      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
-        res => {
-          if (res) {
-            this.massageFromServer = res;
-            alert(this.massageFromServer)
-          }
-        },
-        err => {
-          console.log(err.error);
-        }
-      )
     }
+    this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
+      res => {
+        if (res) {
+          this.massageFromServer = res;
+          alert(this.massageFromServer)
+        }
+      },
+      err => {
+        console.log(err.error);
+      }
+    )
   }
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
@@ -232,9 +243,19 @@ export class MenuComponent implements OnInit {
     this.taskArr = this.taskArrCopy.filter(f => f.Project.Name == this.selectedOption)
     alert("yes")
   }
-  CloseCard() {
+  clickCloseCard() {
+    this.showMassgeToUser = true;
+  }
+  clickYes() {
     this.tableMyTaskOpen = true;
     this.tableSpecificTaskOpen = false;
+    this.showMassgeToUser = false;
+    this.SelectedStop(this.workTime)
+  }
+  clickNo() {
+    this.showMassgeToUser = false;
+    this.tableMyTaskOpen = false;
+    this.tableSpecificTaskOpen = true;
   }
 }
 
