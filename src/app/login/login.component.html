@@ -5,17 +5,19 @@
                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
         </div>
         <div body>
+             <form (ngSubmit)="Login(f)" #f="ngForm" class="card-body  p-lg-5">
             <div class="mb-3">
                 <input type="text" class="form-control" id="Username" aria-describedby="emailHelp"
-                    placeholder="שם משתמש">
+                    placeholder="שם משתמש" #SystemUserName="ngModel" name="SystemUserName" ngModel>
             </div>
-            <div class="mb-3">
-                <input type="password" class="form-control" id="password" placeholder="סיסמא">
-            </div>
+            <!-- <div class="mb-3">
+                <input type="password" class="form-control" id="password" #SystemUserName="ngModel" name="SystemUserName" ngModel placeholder="סיסמא">
+            </div> -->
+            <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100">התחבר</button></div>
+        </form>
         </div>
         <div footer>
-        <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100">התחבר</button></div>
       
         </div>
-        </app-pop-up>
-</form> 
+ 
+ </app-pop-up>
