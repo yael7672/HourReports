@@ -53,6 +53,10 @@ export class MenuComponent implements OnInit {
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
   systemGuid: any;
+
+  isSelected=false;
+  hideButtonCancel=false
+
   projectArr!: Project[];
   showMassgeToUser = false;
   timeToSave: any;

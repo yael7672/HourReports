@@ -17,8 +17,10 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ProjectContentItemComponent } from './project-content-item/project-content-item.component';
 import { FilterPipe } from './filter.pipe';
+
 import { MassgeToUserComponent } from './massge-to-user/massge-to-user.component';
 import { CommonModule } from '@angular/common';  
+import { PauseWorkComponent } from './pause-work/pause-work.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { CommonModule } from '@angular/common';
     LoginComponent,
     ProjectContentItemComponent,
     FilterPipe,
-    MassgeToUserComponent
+    MassgeToUserComponent,
+    PauseWorkComponent
+
   ],
   imports: [
     BrowserModule,

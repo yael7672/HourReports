@@ -10,7 +10,11 @@ import { PopUpServiceService } from '../pop-up-service.service';
 export class PopUpComponent implements OnInit {
   isClose!:boolean
   @Input()text!:string;
+
   @Input()ifX!:boolean;
+
+
+  @Input() hideButton!: any;
 
   constructor(private popUpService:PopUpServiceService,private appService:AppService) { }
 

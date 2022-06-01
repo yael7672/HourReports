@@ -1,6 +1,6 @@
 <div class="aImg">
   <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" style="font-size:35px"></i></a>
-  <a><i class="fa fa-coffee" style="font-size:35px"></i></a>
+  <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee" style="font-size:35px"></i></a>
   <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o" style="font-size:35px"></i>
   </a>
   <a (click)="openPopUp('login',true)">
@@ -75,10 +75,15 @@
   <app-create-aproject-content-item></app-create-aproject-content-item>
 </div>
 
+
 <div *ngIf="showMassgeToUser">
   <app-pop-up>
     <div body>
   <app-massge-to-user (clickYes)="clickYes()"  (clickNo)="clickNo()" ></app-massge-to-user>
     </div>
 </app-pop-up>
+</div>
+
+<div *ngIf="isPopUpOpen?.pause">
+  <app-pause-work></app-pause-work>
 </div>

@@ -1,0 +1,19 @@
+<app-pop-up #upPopUP>
+    <h4 header class="mb-4">יצירת פריט תכולת פרוייקט חדשה</h4>
+    <div body>
+        <form (ngSubmit)="PauseWork(f)" #f=ngForm>
+            <!-- <div class="form-outline d-flex justify-content-center">
+                <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
+                    placeholder=" תאריך " required />
+            </div> -->
+            <div class="form-outline d-flex justify-content-center">
+                <input type="text" id="actualTime" name="ActualTime" class="form-control" placeholder="שעות בפועל "
+                 ngModel   required />
+            </div>
+            <button type="submit" class="btn ">אישור</button>
+        </form>
+    </div>
+    <div footer>
+
+    </div>
+</app-pop-up>
