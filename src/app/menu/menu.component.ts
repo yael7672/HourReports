@@ -120,9 +120,6 @@ export class MenuComponent implements OnInit {
     this.GetProjectContentItemByTaskGuid();
     this.tableSpecificTaskOpen = true;
     this.tableMyTaskOpen = false;
-
-
-
   }
   SelectedStart() {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -130,7 +127,6 @@ export class MenuComponent implements OnInit {
       if (res) {
         this.massageFromServer = res;
         console.log(this.massageFromServer);
-
       }
     }, err => {
       console.log(err.error);
