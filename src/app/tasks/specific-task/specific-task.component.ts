@@ -68,6 +68,6 @@ export class SpecificTaskComponent implements OnInit {
   }
   CloseCard()
   {
-    
+    this.clickCloseCard.emit()
   }
 }

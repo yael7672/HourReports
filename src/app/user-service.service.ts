@@ -34,4 +34,8 @@ export class UserServiceService {
   {
     return this.http.get<any>(environment.url + 'GetProject/');
   }
+  CreateProjectContentItemByTaskGuid(SystemGuid:string,TaskGuid:string)
+  {
+    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?SystemGuid='+SystemGuid+'&TaskGuid='+TaskGuid);
+  }
 }

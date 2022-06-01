@@ -6,10 +6,6 @@ import { Project } from '../interfacees/project';
 import { ProjectContentItem } from '../interfacees/project-content-item';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
-
-
-
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -32,9 +28,9 @@ export class MenuComponent implements OnInit {
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'תאריך', 'פרוייקט'];
-  thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה', 'פרוייקט'];
+  thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   taskListKeys = ['Subject', 'CreatedOn'];
-  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType[Name]', 'Project'];
+  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType[Name]'];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
   val = ['', 'worktime', 'worktime'];
@@ -54,8 +50,8 @@ export class MenuComponent implements OnInit {
   projectContentItemArr!: ProjectContentItem[]
   taskArrCopy!: any[]
   taskArr!: Task[];
-  isSelected=false;
-
+  tableSpecificTaskOpen = false;
+  tableMyTaskOpen = true;
 
   projectArr!: Project[];
   constructor(private popUpService: PopUpServiceService,
@@ -91,7 +87,6 @@ export class MenuComponent implements OnInit {
         this.isDisabledPouse = true;
         this.workTime = "";
         this.seconds = 0;
-        this.isSelected=true;
 
       }
       console.log(this.isButtobChoose);
@@ -121,6 +116,11 @@ export class MenuComponent implements OnInit {
     console.log(this.taskListDataDetails);
     clearInterval(this.interval);
     this.GetProjectContentItemByTaskGuid();
+    this.tableSpecificTaskOpen = true;
+    this.tableMyTaskOpen = false;
+
+
+
   }
   SelectedStart() {
     this.interval = setInterval(() => {
@@ -229,8 +229,12 @@ export class MenuComponent implements OnInit {
     alert(this.selectedOption)
     this.taskArrCopy = [...this.taskArr]
     let arr: any;
-    this.taskArr=this.taskArrCopy.filter(f => f.Project.Name ==this.selectedOption)
+    this.taskArr = this.taskArrCopy.filter(f => f.Project.Name == this.selectedOption)
     alert("yes")
+  }
+  CloseCard() {
+    this.tableMyTaskOpen = true;
+    this.tableSpecificTaskOpen = false;
   }
 }
 

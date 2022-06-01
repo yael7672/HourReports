@@ -12,7 +12,7 @@
 <p class="p-of-title ">דיווחי שעות </p>
 <div class="menu">
   <div>
-    <div  class="input-group">
+    <div  *ngIf="tableMyTaskOpen" class="input-group">
       <div class="form-outline">
         <input   type="search" id="form1" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]='selectedOption' list="project" name="project" (click)="GetProject()" />
         <datalist id="project"  >
@@ -23,7 +23,7 @@
         <i class="fa fa-search"></i>
          </button>
     </div>
-    <app-smart-card [title]="titleTableTask">
+    <app-smart-card *ngIf="tableMyTaskOpen" [title]="titleTableTask">
       <div body>
         <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
           [thArr]="thArrTask" (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr"
@@ -32,17 +32,17 @@
     </app-smart-card>
   </div>
   <div>
-    <app-smart-card *ngIf="isSelected" [title]="titleCard" [arrFunc]="arrFunc">
+    <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleCard" [arrFunc]="arrFunc">
       <div body>
         <app-specific-task [listData]="taskListDataDetails" [listDataKeys]="taskListKeys"
           [isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart"
           [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
           (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)"
-          (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
+          (clickdeleteTimer)="SelectedEnd($event)" (clickCloseCard)="CloseCard()" [workTime]="workTime">
         </app-specific-task>
       </div>
     </app-smart-card>
-    <app-smart-card *ngIf="isSelected" [title]="titleTableProjectContentItemComponent">
+    <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
       <div body>
         <app-show-my-task [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem"
           [tableData]="projectContentItemArr" [tableDataKeys]="projectContentItemListKeys"></app-show-my-task>
@@ -51,7 +51,7 @@
   </div>
 </div>
 <div *ngIf="isPopUpOpen?.creatTask">
-  <app-create-new-task></app-create-new-task>
+  <app-create-new-task ></app-create-new-task>
 </div>
 
 <div *ngIf="isPopUpOpen?.updateTask">
@@ -67,3 +67,13 @@
 <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
   <app-create-aproject-content-item></app-create-aproject-content-item>
 </div>
+
+
+
+<div class="show-pop-up" *ngif="" >
+      <app-pop-up >
+        <div body>
+      <app-massge-to-user></app-massge-to-user>
+    </div>
+      </app-pop-up>
+    </div> 
