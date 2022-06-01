@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
+import { User } from './interfacees/user';
 import { WorkType } from './interfacees/work-type';
 
 @Injectable({
@@ -33,5 +34,9 @@ export class UserServiceService {
   GetProject()
   {
     return this.http.get<any>(environment.url + 'GetProject/');
+  }
+ 
+  logIn(email:any) {
+    return this.http.get<User[]>(environment.url + 'Login/?email='+ email);
   }
 }
