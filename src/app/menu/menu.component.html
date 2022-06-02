@@ -72,14 +72,14 @@
 </div>
 
 <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
-  <app-create-aproject-content-item></app-create-aproject-content-item>
+  <app-create-aproject-content-item [MyTask]="taskArr"></app-create-aproject-content-item>
 </div>
 
 
 <div *ngIf="showMassgeToUser">
   <app-pop-up>
     <div body>
-  <app-massge-to-user (clickYes)="clickYes()"  (clickNo)="clickNo()" ></app-massge-to-user>
+  <app-massge-to-user [massgeUserHeader]="massgeUserCloseTask1" [massgeUserBody1]="massgeUserCloseTask2" [massgeUserBody2]="massgeUserCloseTask3" (clickYes)="clickYes()"  (clickNo)="clickNo()" ></app-massge-to-user>
     </div>
 </app-pop-up>
 </div>

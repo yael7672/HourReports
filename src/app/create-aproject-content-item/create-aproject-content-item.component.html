@@ -1,19 +1,18 @@
 <form>
     <app-pop-up #upPopUP [ifX]="true">
-
         <h4 header class="mb-4">יצירת  פריט תכולת פרוייקט חדשה</h4>
         <div body>
             <form (ngSubmit)="CreateNewProjectItem(f)" #f="ngForm">
             <div class="form-outline d-flex justify-content-center">
                 <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd'}}" class="form-control"
-                    placeholder=" תאריך " required />
+                    placeholder=" תאריך " required ngModel/>
             </div>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="FirstName" name="FirstName" class="form-control" placeholder="נושא המשימה "
-                    required />
+                ngModel   required />
             </div>
             <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control ">
+                <select id="inputState" class="form-control " name="workType" ngModel>
                     <option value="">סוג עבודה</option>
                     <option
                     *ngFor="let workType of this.WorkType"
@@ -25,10 +24,10 @@
 
             <div class="form-outline d-flex justify-content-center ">
                 <input type="number" id="FirstName" name="HoursActually" class="form-control"
-                    placeholder="שעות בפועל" required />
+                    placeholder="שעות בפועל" required ngModel/>
             </div>
             <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control " name="billingHours">
+                <select id="inputState" class="form-control " ngModel name="billingHours">
                     <option value="">?האם שעות לחיוב</option>
                     <option value="">כן </option>
                     <option value=""> לא</option>
@@ -36,15 +35,18 @@
                 </select>
             </div>
             <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control " name="SourceTask">
-                    <option value="">משימת מקור</option>
-                    <option value="">כן </option>
-                    <option value=""> לא</option>
+                    <select id="inputState" class="form-control" ngModel name="SourceTask" >
+                        <option value="">סוג עבודה</option>
+                        <option
+                        *ngFor="let MyTask of MyTask"
+                         value="{{MyTask.TaskGuid}}">
+                        {{MyTask.Subject}}
+                   </option>
+                    </select>
 
-                </select>
             </div>
             <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control " name="project">
+                <select id="inputState" class="form-control " ngModel name="project">
                     <option value="">פרוייקט (לגבי)</option>
                     <option
                     *ngFor="let regarding of this.Regarding"
@@ -55,25 +57,17 @@
             </div>
             <div class="form-outline d-flex justify-content-center ">
                 <textarea  style="max-height:100%;" type="text" id="FirstName" name="Description" class="form-control textarea" placeholder=" תאור המשימה  "
-                    required ></textarea>
+                ngModel   required ></textarea>
             </div>
             <div class="form-outline d-flex justify-content-center ">
                 <input type="text" id="FirstName" name="NoteToProjectManager" class="form-control"
-                    placeholder="הערות למנהל פרוייקט" required />
-            </div>
+                    placeholder="הערות למנהל פרוייקט" required ngModel />
+            </div> 
+              <button type="submit" class="btn " >צור פריט תכולת פרוייקט חדשה</button>
         </form>
         </div>
         <div footer>
-            <button type="submit" class="btn " >צור פריט תכולת פרוייקט חדשה</button>
+            
         </div>
     </app-pop-up>
 
-<!-- Execution Date
-Hours actually performed
-work hours
-Have billing hours
-Source task
-project
-Description
-Notes to Project Manager
-owner -->
