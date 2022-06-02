@@ -4,6 +4,7 @@ import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Project } from '../interfacees/project';
 import { ProjectContentItem } from '../interfacees/project-content-item';
+import { Task } from '../interfacees/task';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 @Component({
@@ -29,7 +30,7 @@ export class MenuComponent implements OnInit {
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'תאריך', 'פרוייקט'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
-  taskListKeys = ['Subject', 'CreatedOn'];
+  taskListKeys = ['Subject', 'CreatedOn', 'Project'];
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType[Name]'];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
@@ -48,7 +49,7 @@ export class MenuComponent implements OnInit {
   query = "";
   selectedOption = "";
   projectContentItemArr!: ProjectContentItem[]
-  taskArrCopy!: any[]
+  taskArrCopy!: Task[]
   taskArr!: Task[];
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
@@ -105,6 +106,7 @@ export class MenuComponent implements OnInit {
       res => {
         if (res)
           this.taskArr = res;
+        this.taskArrCopy = res;
         console.log(this.taskArr);
 
       }, err =>
@@ -156,17 +158,19 @@ export class MenuComponent implements OnInit {
     return [hours, minutes, seconds]
   }
   SelectedStop(time: any) {
-     this.timetoSend = [...time]
-        ///this.timetoSend = [1,20,0]
+    if(time!="")
+    {
+    this.timetoSend = [...time]
+    ///this.timetoSend = [1,20,0]
     clearInterval(this.interval);
     this.seconds = 0;
     if (this.timetoSend[2] > 30) {
       this.timetoSend[1] += 1;
     }
-      this.timetoSend[1] = (this.timetoSend[1] / 60) 
-      this.parseTime = this.timetoSend[0]+ this.timetoSend[1];
-      alert(this.parseTime)
-      this.isDisabledStart = false;
+    this.timetoSend[1] = (this.timetoSend[1] / 60)
+    this.parseTime = this.timetoSend[0] + this.timetoSend[1];
+    alert(this.parseTime)
+    this.isDisabledStart = false;
     this.isTaskAccomplished = false;
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
       res => {
@@ -180,7 +184,10 @@ export class MenuComponent implements OnInit {
       }
     )
   }
+}
   SelectedEnd(time: any) {
+    if(time!="")
+    {
     this.timetoSend = [...time]
     this.seconds = 0;
     clearInterval(this.interval);
@@ -207,7 +214,7 @@ export class MenuComponent implements OnInit {
         console.log(err.error);
       }
     )
-  }
+  }}
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
@@ -236,11 +243,10 @@ export class MenuComponent implements OnInit {
       })
   }
   onSearchProject() {
-    alert(this.selectedOption)
-    this.taskArrCopy = [...this.taskArr]
-    let arr: any;
-    this.taskArr = this.taskArrCopy.filter(f => f.Project.Name == this.selectedOption)
-    alert("yes")
+    this.taskArr = [...this.taskArrCopy]
+    if (this.selectedOption != "") {
+      this.taskArr = this.taskArr.filter(f => f.Project?.Name == this.selectedOption)
+    }
   }
   clickCloseCard() {
     this.showMassgeToUser = true;

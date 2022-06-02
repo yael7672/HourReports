@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AppService } from 'src/app/app-service.service';
+import { Project } from 'src/app/interfacees/project';
 
 import { Regardingobjectid } from 'src/app/interfacees/regardingobjectid';
 import { Task } from 'src/app/interfacees/task';
@@ -21,6 +22,7 @@ export class CreateNewTaskComponent implements OnInit {
   tasks!: any
   workTypecc = "bb";
   massage!: string;
+  projectArr!: Project[];
   constructor(private datePipe: DatePipe, private userService: UserServiceService, private appService: AppService,private popUpService:PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
@@ -28,6 +30,7 @@ export class CreateNewTaskComponent implements OnInit {
   ngOnInit(): void {
     this.GetRegarding();
     this.GetWorkType();
+    this.GetProject();
   }
   startTask() {
   }
@@ -58,12 +61,15 @@ export class CreateNewTaskComponent implements OnInit {
   CreateNewTask(form: NgForm) {
     this.tasks =
     {
-      Description: form.value.Description,
-      BillableHours: form.value.BillableHours,
+      Description:form.value.Description,
+      BillableHours:form.value.BillableHours,
       Subject: form.value.Subject,
+      NotesToTheProjectManager: form.value.CommentsToTheProjectManager,
       Regardingobjectid: { "Guid": form.value.Regardingobject },
       WorkType: { "Guid": form.value.WorkType },
-      OwnerId: { "Guid": localStorage.getItem('systemGuid') }
+      OwnerId: { "Guid": localStorage.getItem('systemGuid') },
+      Project: { "Guid": form.value.Project  }
+
     }
     this.userService.AddNewTask(this.tasks).subscribe(res => {
       if (res) {
@@ -77,5 +83,17 @@ export class CreateNewTaskComponent implements OnInit {
         console.log(err.error);
       }
     )
+  }
+  GetProject() {
+    this.userService.GetProject().subscribe(res => {
+      if (res) {
+        this.projectArr = res;
+        console.log(this.projectArr);
+
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
   }
 }

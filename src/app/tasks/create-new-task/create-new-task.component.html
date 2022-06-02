@@ -35,6 +35,13 @@
                         {{Regardingobject.Name}}</option>
                 </select>
             </div>
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control" name="Project" ngModel>
+                    <option value="">פרוייקט</option>
+                    <option *ngFor="let projectArr of projectArr" value="{{projectArr.Guid}}">
+                        {{projectArr.Name}}</option>
+                </select>
+            </div>
 
             <div class="form-outline d-flex justify-content-center">
                 <select id="inputState" class="form-control" name="WorkType" ngModel>
