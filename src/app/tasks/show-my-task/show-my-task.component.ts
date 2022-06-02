@@ -13,6 +13,7 @@ export class ShowMyTaskComponent implements OnInit {
   constructor() { }
 
   heberwDateRecords: any;
+  @Input()hideProjectTh!:Boolean;
   @Input() title!: string;
   @Input() thArr!: any;
   @Input() tableData!: any;

@@ -54,10 +54,9 @@ export class MenuComponent implements OnInit {
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
   systemGuid: any;
-
+  hideProjectTh=false;
   isSelected=false;
   hideButtonCancel=false
-
   projectArr!: Project[];
   showMassgeToUser = false;
   timeToSave: any;
@@ -256,8 +255,10 @@ export class MenuComponent implements OnInit {
       })
   }
   onSearchProject() {
+     
     this.taskArr = [...this.taskArrCopy]
-    if (this.selectedOption != "") {
+   if (this.selectedOption != "") {
+     this.hideProjectTh=true;
       this.taskArr = this.taskArr.filter(f => f.Project?.Name == this.selectedOption)
     }
   }

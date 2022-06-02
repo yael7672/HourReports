@@ -26,7 +26,7 @@
     </div>
     <app-smart-card *ngIf="tableMyTaskOpen" [title]="titleTableTask">
       <div body>
-        <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
+        <app-show-my-task (clickSelectedTask)="SelectedTask($event)"  [hideProjectTh]="hideProjectTh" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
           [thArr]="thArrTask" (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr"
           [tableDataKeys]="taskListKeys"></app-show-my-task>
       </div>

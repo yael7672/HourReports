@@ -1,7 +1,14 @@
 <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
   <thead>
     <tr>
-      <th *ngFor="let th of thArr" scope="col">{{th}}</th>
+      <th *ngFor="let th of thArr" scope="col">
+        <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
+          {{th}}
+        </ng-container>
+        <ng-template #projectTh >
+          <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container></ng-template>
+           
+      </th>
     </tr>
   </thead>
   <tbody *ngIf="tableData">
@@ -10,7 +17,7 @@
         <ng-container *ngIf="tableDataKey !== 'Project'; else project">
           <td>{{tableData[tableDataKey]}}</td>
         </ng-container>
-        <ng-template  #project>
+        <ng-template #project>
           <!-- <ng-container *ngFor="let project of 'project'">
             <td>{{tableData.project.Name}}</td>
           </ng-container> -->
