@@ -60,6 +60,7 @@ export class MenuComponent implements OnInit {
   projectArr!: Project[];
   showMassgeToUser = false;
   timeToSave: any;
+  SystemGuid: any;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -103,7 +104,8 @@ export class MenuComponent implements OnInit {
     this.GetMyTask()
   }
   GetMyTask() {
-    this.userService.GetMyTask("crm@orvaezer.co.il").subscribe(
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetMyTask(this.systemGuid).subscribe(
       res => {
         if (res)
           this.taskArr = res;
@@ -152,6 +154,19 @@ export class MenuComponent implements OnInit {
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
     return [hours, minutes, seconds]
+  }
+  SelectedStartPause() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.interval = setInterval(() => {
+      if (this.seconds === 0) {
+        this.seconds++;
+      }
+      else {
+        this.seconds++;
+      }
+      this.workTime = this.transformNumber(this.seconds)
+      localStorage.setItem('workTime',this.workTime)
+    }, 1000)
   }
   SelectedStop(time: any) {
     this.timetoSend = [...time]

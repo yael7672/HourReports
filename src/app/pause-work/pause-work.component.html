@@ -1,5 +1,5 @@
 <app-pop-up #upPopUP>
-    <h4 header class="mb-4">יצירת פריט תכולת פרוייקט חדשה</h4>
+    <h4 header class="mb-4">הפסקה</h4>
     <div body>
         <form (ngSubmit)="PauseWork(f)" #f=ngForm>
             <!-- <div class="form-outline d-flex justify-content-center">
@@ -8,10 +8,15 @@
             </div> -->
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="actualTime" name="ActualTime" class="form-control" placeholder="שעות בפועל "
-                 ngModel   required />
+                    ngModel required />
             </div>
-            <button type="submit" class="btn ">אישור</button>
+            <button *ngIf="endButton" type="submit" class="btn ">סיים הפסקה</button>
         </form>
+       <div class="form-outline d-flex justify-content-center" >
+                <button class="btn"  (click)="startPause()">התחל הפסקה</button>
+             </div>
+             <p *ngIf="workTime" class="Time">{{workTime[0]+ ":"+ workTime[1]+":"
+                 +workTime[2]}}</p>
     </div>
     <div footer>
 

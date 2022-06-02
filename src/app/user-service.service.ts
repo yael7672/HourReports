@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
+import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
 import { User } from './interfacees/user';
@@ -13,8 +14,8 @@ export class UserServiceService {
 
   constructor(private http: HttpClient) { }
 
-  GetMyTask(userMail: string) {
-    return this.http.get<any>(environment.url + '/GetTask/?AccountEmail=' + userMail)
+  GetMyTask(SystemGuid: string) {
+    return this.http.get<any>(environment.url + '/GetTask/?SystemGuid=' + SystemGuid)
   }
   AddNewTask(TaskObj: any) {
     return this.http.post<string>(environment.url + '/AddNewTask', TaskObj);
@@ -53,4 +54,5 @@ export class UserServiceService {
   CreateNewProjectItem(projectContentItem:any){
     return this.http.get<ProjectContentItem[]>(environment.url + 'CreateNewProjectItem' + projectContentItem);
   }
+
 }
