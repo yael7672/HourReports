@@ -12,8 +12,8 @@ export class UserServiceService {
 
   constructor(private http: HttpClient) { }
 
-  GetMyTask(userMail: string) {
-    return this.http.get<any>(environment.url + '/GetTask/?AccountEmail=' + userMail)
+  GetMyTask(SystemGuid: string) {
+    return this.http.get<any>(environment.url + '/GetTask/?SystemGuid=' + SystemGuid)
   }
   AddNewTask(TaskObj: any) {
     return this.http.post<string>(environment.url + '/AddNewTask', TaskObj);

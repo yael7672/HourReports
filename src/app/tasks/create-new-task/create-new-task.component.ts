@@ -1,10 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AppService } from 'src/app/app-service.service';
 
 import { Regardingobjectid } from 'src/app/interfacees/regardingobjectid';
 import { Task } from 'src/app/interfacees/task';
 import { WorkType } from 'src/app/interfacees/work-type';
+import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
 @Component({
   selector: 'app-create-new-task',
@@ -19,7 +21,7 @@ export class CreateNewTaskComponent implements OnInit {
   tasks!: any
   workTypecc = "bb";
   massage!: string;
-  constructor(private datePipe: DatePipe, private userService: UserServiceService) {
+  constructor(private datePipe: DatePipe, private userService: UserServiceService, private appService: AppService,private popUpService:PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
   }
@@ -61,12 +63,14 @@ export class CreateNewTaskComponent implements OnInit {
       Subject: form.value.Subject,
       Regardingobjectid: { "Guid": form.value.Regardingobject },
       WorkType: { "Guid": form.value.WorkType },
-      OwnerId: { "Name": "crm@orvaezer.co.il" }
+      OwnerId: { "Guid": localStorage.getItem('systemGuid') }
     }
     this.userService.AddNewTask(this.tasks).subscribe(res => {
       if (res) {
         this.massage = res;
         console.log(this.massage);
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
       }
     },
       err => {

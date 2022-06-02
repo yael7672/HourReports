@@ -56,6 +56,7 @@ export class MenuComponent implements OnInit {
   projectArr!: Project[];
   showMassgeToUser = false;
   timeToSave: any;
+  timeToSendAfterConvert: any
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -99,14 +100,15 @@ export class MenuComponent implements OnInit {
     this.GetMyTask()
   }
   GetMyTask() {
-    this.userService.GetMyTask("crm@orvaezer.co.il").subscribe(
+    this.systemGuid = localStorage.getItem('systemGuid')
+    this.userService.GetMyTask(this.systemGuid).subscribe(
       res => {
         if (res)
           this.taskArr = res;
         console.log(this.taskArr);
 
       }, err =>
-      console.log(err.massage)
+      console.log(err.error)
     )
   }
   openPopUp(data: string, type: boolean) {
@@ -143,7 +145,7 @@ export class MenuComponent implements OnInit {
         this.seconds++;
       }
       this.workTime = this.transformNumber(this.seconds)
-      localStorage.setItem('workTime',this.workTime)
+      localStorage.setItem('workTime', this.workTime)
     }, 1000)
   }
   transformNumber(value: number) {
@@ -154,20 +156,17 @@ export class MenuComponent implements OnInit {
     return [hours, minutes, seconds]
   }
   SelectedStop(time: any) {
-    this.timetoSend = [...time]
+     this.timetoSend = [...time]
+        ///this.timetoSend = [1,20,0]
     clearInterval(this.interval);
-    console.log(this.interval);
     this.seconds = 0;
-    let a = "0." + this.timetoSend[2]
-    if (Math.round(Number(a)) != 0) {
+    if (this.timetoSend[2] > 30) {
       this.timetoSend[1] += 1;
     }
-    if (this.timetoSend[1] < 10) {
-      this.parseTime = this.timetoSend[0] + ".0" + this.timetoSend[1];
-    }
-    else {
-      this.parseTime = this.timetoSend[0] + "." + this.timetoSend[1];
-    }
+      this.timetoSend[1] = (this.timetoSend[1] / 60) 
+      this.parseTime = this.timetoSend[0]+ this.timetoSend[1];
+      alert(this.parseTime)
+      this.isDisabledStart = false;
     this.isTaskAccomplished = false;
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
       res => {
