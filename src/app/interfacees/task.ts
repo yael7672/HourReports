@@ -3,7 +3,7 @@ import { Regardingobjectid } from "./regardingobjectid";
 import { WorkType } from "./work-type";
 
 export interface Task {
-    project: Project[];
+    Project: Project;
     AccountEmail: string;
     Regardingobjectid: Regardingobjectid;
     Description: string;

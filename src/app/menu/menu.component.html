@@ -48,8 +48,8 @@
 
     <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
       <div body>
-        <app-show-my-task [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem"
-          [tableData]="projectContentItemArr" [tableDataKeys]="projectContentItemListKeys"></app-show-my-task>
+        <app-project-content-item [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem"
+          [tableData]="projectContentItemArr" [tableDataKeys]="projectContentItemListKeys"></app-project-content-item>
       </div>
     </app-smart-card>
   </div>
