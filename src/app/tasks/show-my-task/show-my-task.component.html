@@ -1,21 +1,39 @@
+<table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
+  <thead>
+    <tr>
+      <th *ngFor="let th of thArr" scope="col">
+        <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
+          {{th}}
+        </ng-container>
+        <ng-template #projectTh >
+          <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container></ng-template>
+           
+      </th>
+    </tr>
+  </thead>
+  <tbody *ngIf="tableData">
+    <tr *ngFor="let tableData of tableData" (click)="SelectedData(tableData); clickOfButton('chooseAnotherTask',true)">
+      <ng-container *ngFor="let tableDataKey of tableDataKeys;">
+        <ng-container *ngIf="tableDataKey !== 'Project'; else project">
+          <td>{{tableData[tableDataKey]}}</td>
+        </ng-container>
+        <ng-template #project>
+          <!-- <ng-container *ngFor="let project of 'project'">
+            <td>{{tableData.project.Name}}</td>
+          </ng-container> -->
+          <td>{{tableData?.tableDataKey?.Name}}</td>
+        </ng-template>
+      </ng-container>
+
+    </tr>
+  </tbody>
+</table>
 
 
 
-    <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
-        <thead>
-          <tr>
-            <th *ngFor="let th of thArr" scope="col">{{th}}</th>
-          </tr>
-        </thead>
-        <tbody *ngIf="tableData">
-          <tr *ngFor="let tableData of tableData" (click)="SelectedData(tableData); clickOfButton('chooseAnotherTask',true)">
-            <ng-container *ngFor="let tableDataKey of tableDataKeys">
-              <td>{{tableData[tableDataKey]}}</td>
-            </ng-container>
-          </tr>
-        </tbody>
-      </table>
-    
-
-
-
+<!--      <ng-container *ngIf="objectKey != 'CreatedOn'; else dateFormat">
+        : {{objectOrArr[objectKey]}}
+    </ng-container>
+    <ng-template #dateFormat>
+        : {{objectOrArr[objectKey] | date: 'dd/MM/yyyy'}}
+    </ng-template> -->

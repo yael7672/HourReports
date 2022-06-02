@@ -4,6 +4,7 @@ import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Project } from '../interfacees/project';
 import { ProjectContentItem } from '../interfacees/project-content-item';
+import { Task } from '../interfacees/task';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 @Component({
@@ -29,8 +30,8 @@ export class MenuComponent implements OnInit {
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'תאריך', 'פרוייקט'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
-  taskListKeys = ['Subject', 'CreatedOn'];
-  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType[Name]'];
+  taskListKeys = ['Subject', 'CreatedOn', 'Project'];
+  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType'];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
   val = ['', 'worktime', 'worktime'];
@@ -48,13 +49,15 @@ export class MenuComponent implements OnInit {
   query = "";
   selectedOption = "";
   projectContentItemArr!: ProjectContentItem[]
-  taskArrCopy!: any[]
+  taskArrCopy!: Task[]
   taskArr!: Task[];
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
   systemGuid: any;
+
   isSelected = false;
   hideButtonCancel = false
+  hideProjectTh=false;
   projectArr!: Project[];
   showMassgeToUser = false;
   timeToSave: any;
@@ -82,17 +85,17 @@ export class MenuComponent implements OnInit {
       this.isButtobChoose = res;
       this.isDisabledPouse = true;
 
-      if (this.isButtobChoose.start) {
+      if (this.isButtobChoose?.start) {
         this.isDisabledStart = true;
         this.isDisabledPouse = false;
 
       }
-      if (this.isButtobChoose.end) {
+      if (this.isButtobChoose?.end) {
         this.isDisabledStart = true;
         this.isDisabledEnd = true;
         this.isDisabledPouse = true;
       }
-      if (this.isButtobChoose.chooseAnotherTask) {
+      if (this.isButtobChoose?.chooseAnotherTask) {
         this.isDisabledStart = false;
         this.isDisabledEnd = false;
         this.isDisabledPouse = true;
@@ -113,10 +116,11 @@ export class MenuComponent implements OnInit {
       res => {
         if (res)
           this.taskArr = res;
+        this.taskArrCopy = res;
         console.log(this.taskArr);
 
       }, err =>
-      console.log(err.massage)
+      console.log(err.error)
     )
   }
   openPopUp(data: string, type: boolean) {
@@ -173,20 +177,19 @@ export class MenuComponent implements OnInit {
     }, 1000)
   }
   SelectedStop(time: any) {
+    if(time!="")
+    {
     this.timetoSend = [...time]
+    ///this.timetoSend = [1,20,0]
     clearInterval(this.interval);
-    console.log(this.interval);
     this.seconds = 0;
-    let a = "0." + this.timetoSend[2]
-    if (Math.round(Number(a)) != 0) {
+    if (this.timetoSend[2] > 30) {
       this.timetoSend[1] += 1;
     }
-    if (this.timetoSend[1] < 10) {
-      this.parseTime = this.timetoSend[0] + ".0" + this.timetoSend[1];
-    }
-    else {
-      this.parseTime = this.timetoSend[0] + "." + this.timetoSend[1];
-    }
+    this.timetoSend[1] = (this.timetoSend[1] / 60)
+    this.parseTime = this.timetoSend[0] + this.timetoSend[1];
+    alert(this.parseTime)
+    this.isDisabledStart = false;
     this.isTaskAccomplished = false;
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
       res => {
@@ -200,7 +203,10 @@ export class MenuComponent implements OnInit {
       }
     )
   }
+}
   SelectedEnd(time: any) {
+    if(time!="")
+    {
     this.timetoSend = [...time]
     this.seconds = 0;
     clearInterval(this.interval);
@@ -227,7 +233,7 @@ export class MenuComponent implements OnInit {
         console.log(err.error);
       }
     )
-  }
+  }}
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
@@ -256,11 +262,12 @@ export class MenuComponent implements OnInit {
       })
   }
   onSearchProject() {
-    alert(this.selectedOption)
-    this.taskArrCopy = [...this.taskArr]
-    let arr: any;
-    this.taskArr = this.taskArrCopy.filter(f => f.Project.Name == this.selectedOption)
-    alert("yes")
+     
+    this.taskArr = [...this.taskArrCopy]
+   if (this.selectedOption != "") {
+     this.hideProjectTh=true;
+      this.taskArr = this.taskArr.filter(f => f.Project?.Name == this.selectedOption)
+    }
   }
   clickCloseCard() {
     this.showMassgeToUser = true;
