@@ -5,28 +5,17 @@
         <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
           {{th}}
         </ng-container>
-        <ng-template #projectTh >
-          <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container></ng-template>
-           
+        <ng-template #projectTh>
+          <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
+        </ng-template>
       </th>
     </tr>
   </thead>
   <tbody *ngIf="tableData">
-    <tr *ngFor="let tableData of tableData" (click)="SelectedData(tableData); clickOfButton('chooseAnotherTask',true)">
-      <ng-container *ngFor="let tableDataKey of tableDataKeys;">
-        <ng-container *ngIf="tableDataKey !== 'Project'; else project">
-          <td>{{tableData[tableDataKey]}}</td>
-        </ng-container>
-        <ng-template #project>
-          <!-- <ng-container *ngFor="let project of 'project'">
-            <td>{{tableData.project.Name}}</td>
-          </ng-container> -->
-          <td>{{tableData?.tableDataKey?.Name}}</td>
-        </ng-template>
+    <tr *ngFor="let colData of tableData" (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
+      <ng-container *ngFor="let tableDataKey of tableDataKeys">
+        <td >{{returnColDataByType(colData, tableDataKey)}}</td>
       </ng-container>
-
     </tr>
   </tbody>
 </table>
-
-

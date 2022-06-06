@@ -12,24 +12,35 @@ export class ShowMyTaskComponent implements OnInit {
 
   constructor() { }
 
-  heberwDateRecords: any;
-  @Input()hideProjectTh!:Boolean;
+  taskDateRecords: any;
+  @Input() hideProjectTh!: Boolean;
   @Input() title!: string;
   @Input() thArr!: any;
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
   @Output() clickSelectedTask = new EventEmitter<any>();
-  @Output()getDataClickOfButton = new EventEmitter<any>();
-
+  @Output() getDataClickOfButton = new EventEmitter<any>();
+  IftableDataKeyIdProject!:boolean;
   ngOnInit(): void {
   }
   SelectedData(val: object) {
-    this.heberwDateRecords = val;
-    this.clickSelectedTask.emit(this.heberwDateRecords)
+    this.taskDateRecords = val;
+    this.clickSelectedTask.emit(this.taskDateRecords)
   }
-  clickOfButton(kindOfButton:string,type:boolean)
-  {
-    this.getDataClickOfButton.emit({"kind":kindOfButton,"type":type})
+  clickOfButton(kindOfButton: string, type: boolean) {
+    this.getDataClickOfButton.emit({ "kind": kindOfButton, "type": type })
+  }
+  returnColDataByType(colData: any, tableDataKey: any) {
+    if (tableDataKey && typeof tableDataKey === 'string') {
+      return colData[tableDataKey]
+    }
+    else {
+      if (colData[tableDataKey[0]]) {
+        return colData[tableDataKey[0]][tableDataKey[1]];
+        
+      }
+      else return null;
+    }
   }
 }

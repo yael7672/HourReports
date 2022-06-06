@@ -1,0 +1,17 @@
+<div class="actionArea">
+  <div class="card"> <div *ngIf="systemGuid">
+    <div class="card-body">
+     
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+          class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+
+        <h5 class="card-title">{{systemName}}</h5>
+        <p class="card-text">{{systemMail}}</p>
+      </div>
+    </div>
+      <div *ngIf="!systemGuid">
+      <h3 style="text-align:center">!אף אחד לא מחובר</h3>
+      </div></div>
+    
+  
+</div>

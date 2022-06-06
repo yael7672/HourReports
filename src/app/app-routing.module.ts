@@ -10,9 +10,12 @@ import { EndOfTaskComponent } from './tasks/end-of-task/end-of-task.component';
 import { ShowMyTaskComponent } from './tasks/show-my-task/show-my-task.component';
 import { SpecificTaskComponent } from './tasks/specific-task/specific-task.component';
 import { SmartCardComponent } from './smart-card/smart-card.component';
+import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 
 const routes: Routes = [
-  { path: '', component: MenuComponent },
+  { path: '', component: LoginComponent },
+  { path: 'menu', component: MenuComponent },
+
  // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'login', component: LoginComponent },
   { path: 'createTask', component: CreateNewTaskComponent },
@@ -23,6 +26,8 @@ const routes: Routes = [
   { path: 'showMyTask', component: ShowMyTaskComponent },
   { path: 'specificTask', component: SpecificTaskComponent },
   { path: 'smartCard', component: SmartCardComponent },
+  { path: 'personalDetails', component: PersonalDetailsComponent },
+
 
 
 ];

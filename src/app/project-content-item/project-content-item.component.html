@@ -8,13 +8,14 @@
           </tr>
         </thead>
         <tbody *ngIf="tableData">
-          <tr *ngFor="let tableData of tableData" >
+          <tr *ngFor="let colData of tableData" >
             <ng-container *ngFor="let tableDataKey of tableDataKeys">
             <ng-container *ngIf="tableDataKey!=='WorkingHours'; else WorkingHours;">
-              <td>{{tableData[tableDataKey]}}</td>
+              <!-- <td>{{tableData[tableDataKey]}}</td> -->
+             <td>{{returnColDataByType(colData, tableDataKey)}}</td>               
             </ng-container>
             <ng-template #WorkingHours>                
-              <td>{{tableData[tableDataKey]|number}}</td>
+              <td>{{colData[tableDataKey]|number}}</td>
             </ng-template>
             </ng-container>
           </tr>

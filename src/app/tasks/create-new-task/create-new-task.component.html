@@ -24,13 +24,14 @@
             <div class="form-outline d-flex justify-content-center">
                 <select id="inputState" class="form-control" name="BillableHours" ngModel>
                     <option>?האם שעות לחיוב</option>
-                    <option value="true">כן </option>
-                    <option value="false"> לא</option>
+                    <option value="1">כן </option>
+                    <option value="2">לא</option>
+                    <option value="970140002">אחר</option>
                 </select>
             </div>
             <div class="form-outline d-flex justify-content-center">
                 <select id="inputState" class="form-control" name="Regardingobject" ngModel>
-                    <option value="">פרוייקט (לגבי)</option>
+                    <option value="">לגבי</option>
                     <option *ngFor="let Regardingobject of RegardingobjectArr" value="{{Regardingobject.Guid}}">
                         {{Regardingobject.Name}}</option>
                 </select>

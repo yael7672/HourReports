@@ -5,6 +5,7 @@ import { AppService } from '../app-service.service';
 import { User } from '../interfacees/user';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
+import swal from 'sweetalert';
 
 
 
@@ -26,9 +27,13 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         this.user = res;
         console.log(this.user);
-        alert(this.user.Name + "ברוך הבא");
+        swal(this.user.Name + "ברוך הבא");
         localStorage.clear();
         localStorage.setItem('systemGuid', this.user.SystemGuid);
+        localStorage.setItem('systemName', this.user.Name);
+        localStorage.setItem('systemMail', this.user.Mail);
+        this.router.navigate(["/menu"]);
+
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },

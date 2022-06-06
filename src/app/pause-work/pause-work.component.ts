@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-pause-work',
@@ -48,7 +49,7 @@ BeforePauseWork(){
       (res: any) => {
         this.pauseAlert = res;
         console.log(this.pauseAlert)
-        alert(this.pauseAlert);
+        swal(this.pauseAlert);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
@@ -68,7 +69,6 @@ BeforePauseWork(){
   }
 
   clickYes() { 
-    alert("yes")
     console.log(this.formWorkPause);
     this.PauseWork(this.formWorkPause)
    
@@ -76,7 +76,6 @@ BeforePauseWork(){
 
   }
   clickNo() {
-    alert("no")
     this.showMassgeToUser=false
   }
 }

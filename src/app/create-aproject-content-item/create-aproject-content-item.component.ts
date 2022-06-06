@@ -40,8 +40,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
       (res: any) => {
         this.ProjectContentItem = res;
         alert(this.ProjectContentItem)
-        // console.log(this.user);
-        // alert(this.user+"ברוך הבא")
+      
       },
       (err: any) =>
         alert("error")
@@ -53,7 +52,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
       (res: any) => {
         this.Regarding = res;
         console.log(this.Regarding);
-        // alert(this.user+"ברוך הבא")
       },
       (err: any) =>
         alert("error")
@@ -65,7 +63,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
       (res: any) => {
         this.WorkType = res;
         console.log(this.WorkType);
-        // alert(this.user+"ברוך הבא")
       },
       (err: any) =>
         alert("error")
@@ -77,7 +74,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
       (res: any) => {
         this.Project = res;
         console.log( this.Project);
-        // alert(this.user+"ברוך הבא")
       },
       (err: any) =>
         alert("error")

@@ -3,7 +3,7 @@
   <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee" style="font-size:35px"></i></a>
   <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o" style="font-size:35px"></i>
   </a>
-  <a (click)="openPopUp('login',true)">
+  <a (mouseover)="mouseOvePersonalDetails()" (mouseleave)="mouseLeavePersonalDetails()">
     <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
       class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
   </a>
@@ -11,7 +11,7 @@
 
 <p class="p-of-title ">דיווחי שעות </p>
 <div class="menu">
-  <div>
+  <div *ngIf="ifThereAreTasks">
     <div *ngIf="tableMyTaskOpen" class="input-group">
       <div class="form-outline">
         <input type="search" id="form1" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]='selectedOption'
@@ -26,11 +26,16 @@
     </div>
     <app-smart-card *ngIf="tableMyTaskOpen" [title]="titleTableTask">
       <div body>
-        <app-show-my-task (clickSelectedTask)="SelectedTask($event)"  [hideProjectTh]="hideProjectTh" [kindOfCard]="'tableCard'" [title]="'המשימות שלי'"
-          [thArr]="thArrTask" (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr"
-          [tableDataKeys]="taskListKeys"></app-show-my-task>
+        <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
+          [kindOfCard]="'tableCard'" [title]="'המשימות שלי'" [thArr]="thArrTask"
+          (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr" [tableDataKeys]="taskListKeys">
+        </app-show-my-task>
       </div>
     </app-smart-card>
+  </div>
+  <div *ngIf="!ifThereAreTasks">
+    <br>
+    <h2>אין משימות פעילות!</h2>
   </div>
   <div>
 
@@ -45,13 +50,15 @@
         </app-specific-task>
       </div>
     </app-smart-card>
-
-    <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
-      <div body>
-        <app-project-content-item [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem"
-          [tableData]="projectContentItemArr" [tableDataKeys]="projectContentItemListKeys"></app-project-content-item>
-      </div>
-    </app-smart-card>
+    <div >
+      <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
+        <div body >
+          <app-project-content-item [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'"
+            [thArr]="thArrTableProjectContentItem" [tableData]="projectContentItemArr"
+            [tableDataKeys]="projectContentItemListKeys"></app-project-content-item>
+        </div>
+      </app-smart-card>
+    </div>
   </div>
 </div>
 
@@ -67,8 +74,9 @@
   <app-end-of-task></app-end-of-task>
 </div>
 
-<div *ngIf="isPopUpOpen?.login">
-  <app-login></app-login>
+<div *ngIf="openPersonalDetails">
+  <app-personal-details></app-personal-details>
+
 </div>
 
 <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
@@ -79,9 +87,10 @@
 <div *ngIf="showMassgeToUser">
   <app-pop-up>
     <div body>
-  <app-massge-to-user [massgeUserHeader]="massgeUserCloseTask1" [massgeUserBody1]="massgeUserCloseTask2" [massgeUserBody2]="massgeUserCloseTask3" (clickYes)="clickYes()"  (clickNo)="clickNo()" ></app-massge-to-user>
+      <app-massge-to-user [massgeUserHeader]="massgeUserCloseTask1" [massgeUserBody1]="massgeUserCloseTask2"
+        [massgeUserBody2]="massgeUserCloseTask3" (clickYes)="clickYes()" (clickNo)="clickNo()"></app-massge-to-user>
     </div>
-</app-pop-up>
+  </app-pop-up>
 </div>
 
 <div *ngIf="isPopUpOpen?.pause">

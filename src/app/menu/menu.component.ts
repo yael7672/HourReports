@@ -1,5 +1,6 @@
 import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import  swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Project } from '../interfacees/project';
@@ -30,8 +31,8 @@ export class MenuComponent implements OnInit {
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'תאריך', 'פרוייקט'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
-  taskListKeys = ['Subject', 'CreatedOn', 'Project'];
-  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', 'WorkType'];
+  taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name']];
+  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
   val = ['', 'worktime', 'worktime'];
@@ -54,20 +55,19 @@ export class MenuComponent implements OnInit {
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
   systemGuid: any;
-
+  ifThereAreTasks = true;
+  ifThereAreprojectContentItem=false;
   isSelected = false;
   hideButtonCancel = false
-  hideProjectTh=false;
+  hideProjectTh = false;
   projectArr!: Project[];
   showMassgeToUser = false;
   timeToSave: any;
   SystemGuid: any;
-  massgeUserCloseTask1="?האם אתה בטוח שברצונך לצאת"
-  massgeUserCloseTask2="!שים לב"
-  massgeUserCloseTask3="פעולה זו סוגרת לך את המשימה"
-  
-  // massgeUserCloseWorkPause2=
-  // massgeUserCloseWorkPause3=
+  massgeUserCloseTask1 = "?האם אתה בטוח שברצונך לצאת";
+  massgeUserCloseTask2 = "!שים לב";
+  massgeUserCloseTask3 = "פעולה זו סוגרת לך את המשימה";
+  openPersonalDetails = false;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -114,13 +114,16 @@ export class MenuComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetMyTask(this.systemGuid).subscribe(
       res => {
-        if (res)
+        if (res) {
           this.taskArr = res;
-        this.taskArrCopy = res;
-        console.log(this.taskArr);
-
-      }, err =>
+          this.taskArrCopy = res;
+          this.ifThereAreTasks = true;
+          console.log(this.taskArr);
+        }
+      }, err => {
       console.log(err.error)
+      this.ifThereAreTasks = false;
+    }
     )
   }
   openPopUp(data: string, type: boolean) {
@@ -177,63 +180,62 @@ export class MenuComponent implements OnInit {
     }, 1000)
   }
   SelectedStop(time: any) {
-    if(time!="")
-    {
-    this.timetoSend = [...time]
-    ///this.timetoSend = [1,20,0]
-    clearInterval(this.interval);
-    this.seconds = 0;
-    if (this.timetoSend[2] > 30) {
-      this.timetoSend[1] += 1;
-    }
-    this.timetoSend[1] = (this.timetoSend[1] / 60)
-    this.parseTime = this.timetoSend[0] + this.timetoSend[1];
-    alert(this.parseTime)
-    this.isDisabledStart = false;
-    this.isTaskAccomplished = false;
-    this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
-      res => {
-        if (res) {
-          this.massageFromServer = res;
-          alert(this.massageFromServer)
-        }
-      },
-      err => {
-        console.log(err.error);
+    if (time != "") {
+      this.timetoSend = [...time]
+      ///this.timetoSend = [1,20,0]
+      clearInterval(this.interval);
+      this.seconds = 0;
+      if (this.timetoSend[2] > 30) {
+        this.timetoSend[1] += 1;
       }
-    )
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.parseTime = this.timetoSend[0] + this.timetoSend[1];
+      this.isDisabledStart = false;
+      this.isTaskAccomplished = false;
+      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
+        res => {
+          if (res) {
+            this.massageFromServer = res;
+            alert(this.massageFromServer)
+          }
+        },
+        err => {
+          console.log(err.error);
+        }
+      )
+    }
   }
-}
   SelectedEnd(time: any) {
-    if(time!="")
-    {
-    this.timetoSend = [...time]
-    this.seconds = 0;
-    clearInterval(this.interval);
+    if (time != "") {
+      this.timetoSend = [...time]
+      this.seconds = 0;
+      clearInterval(this.interval);
+      // this.workTime = time;
+      let a = "0." + this.timetoSend[2];
+      if (Math.round(Number(a)) != 0) {
+        this.timetoSend[1] += 1;
+      }
+      if (this.timetoSend[1] < 10) {
+        this.parseTime = this.timetoSend[0] + ".0" + this.timetoSend[1];
+      }
+      else {
+        this.parseTime = this.timetoSend[0] + "." + this.timetoSend[1];
+      }
+    }
     this.isTaskAccomplished = true;
-    // this.workTime = time;
-    let a = "0." + this.timetoSend[2];
-    if (Math.round(Number(a)) != 0) {
-      this.timetoSend[1] += 1;
-    }
-    if (this.timetoSend[1] < 10) {
-      this.parseTime = this.timetoSend[0] + ".0" + this.timetoSend[1];
-    }
-    else {
-      this.parseTime = this.timetoSend[0] + "." + this.timetoSend[1];
-    }
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
       res => {
         if (res) {
           this.massageFromServer = res;
-          alert(this.massageFromServer)
+          swal(this.massageFromServer)
         }
       },
       err => {
         console.log(err.error);
       }
     )
-  }}
+
+  }
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
@@ -242,11 +244,14 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.projectContentItemArr = res;
+          this.ifThereAreprojectContentItem=true;
           console.log(this.projectContentItemArr);
+          
         }
       },
       err => {
         console.log(err.error);
+        this.ifThereAreprojectContentItem=false;
       })
   }
   GetProject() {
@@ -262,10 +267,10 @@ export class MenuComponent implements OnInit {
       })
   }
   onSearchProject() {
-     
+
     this.taskArr = [...this.taskArrCopy]
-   if (this.selectedOption != "") {
-     this.hideProjectTh=true;
+    if (this.selectedOption != "") {
+      this.hideProjectTh = true;
       this.taskArr = this.taskArr.filter(f => f.Project?.Name == this.selectedOption)
     }
   }
@@ -282,6 +287,13 @@ export class MenuComponent implements OnInit {
     this.showMassgeToUser = false;
     this.tableMyTaskOpen = false;
     this.tableSpecificTaskOpen = true;
+  }
+  mouseLeavePersonalDetails() {
+    this.openPersonalDetails = false;
+  }
+  mouseOvePersonalDetails() {
+    this.openPersonalDetails = true;
+
   }
 }
 

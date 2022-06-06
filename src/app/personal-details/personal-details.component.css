@@ -1,0 +1,20 @@
+.actionArea {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 19;
+    /* background-color: #0e1b34de; */
+    width: 35%;
+    padding-top: 6%;
+    
+  }
+  .card {
+    min-width: 75px;
+    max-width: 20vw;
+    min-height: 30vw;
+}
+.profile-image-pic{
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}

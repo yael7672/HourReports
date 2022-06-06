@@ -21,6 +21,7 @@ import { FilterPipe } from './filter.pipe';
 import { MassgeToUserComponent } from './massge-to-user/massge-to-user.component';
 import { CommonModule } from '@angular/common';  
 import { PauseWorkComponent } from './pause-work/pause-work.component';
+import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { PauseWorkComponent } from './pause-work/pause-work.component';
     ProjectContentItemComponent,
     FilterPipe,
     MassgeToUserComponent,
-    PauseWorkComponent
+    PauseWorkComponent,
+    PersonalDetailsComponent
 
   ],
   imports: [

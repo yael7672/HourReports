@@ -17,5 +17,15 @@ export class ProjectContentItemComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  returnColDataByType(colData: any, tableDataKey: any) {
+    if (tableDataKey && typeof tableDataKey === 'string') {
+      return colData[tableDataKey]
+    }
+    else {
+      if (colData[tableDataKey[0]]) {
+        return colData[tableDataKey[0]][tableDataKey[1]];
+      }
+      else return null;
+    }
+  }
 }

@@ -9,6 +9,7 @@ import { Task } from 'src/app/interfacees/task';
 import { WorkType } from 'src/app/interfacees/work-type';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
+import  swal from 'sweetalert';
 @Component({
   selector: 'app-create-new-task',
   templateUrl: './create-new-task.component.html',
@@ -69,12 +70,11 @@ export class CreateNewTaskComponent implements OnInit {
       WorkType: { "Guid": form.value.WorkType },
       OwnerId: { "Guid": localStorage.getItem('systemGuid') },
       Project: { "Guid": form.value.Project  }
-
     }
     this.userService.AddNewTask(this.tasks).subscribe(res => {
       if (res) {
         this.massage = res;
-        console.log(this.massage);
+        swal(this.massage);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       }
