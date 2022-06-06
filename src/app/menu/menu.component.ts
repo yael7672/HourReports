@@ -54,13 +54,20 @@ export class MenuComponent implements OnInit {
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
   systemGuid: any;
+
+  isSelected = false;
+  hideButtonCancel = false
   hideProjectTh=false;
-  isSelected=false;
-  hideButtonCancel=false
   projectArr!: Project[];
   showMassgeToUser = false;
   timeToSave: any;
   SystemGuid: any;
+  massgeUserCloseTask1="?האם אתה בטוח שברצונך לצאת"
+  massgeUserCloseTask2="!שים לב"
+  massgeUserCloseTask3="פעולה זו סוגרת לך את המשימה"
+  
+  // massgeUserCloseWorkPause2=
+  // massgeUserCloseWorkPause3=
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -166,7 +173,7 @@ export class MenuComponent implements OnInit {
         this.seconds++;
       }
       this.workTime = this.transformNumber(this.seconds)
-      localStorage.setItem('workTime',this.workTime)
+      localStorage.setItem('workTime', this.workTime)
     }, 1000)
   }
   SelectedStop(time: any) {

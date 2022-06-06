@@ -31,7 +31,6 @@ export class UserServiceService {
   }
   GetProjectContentItemByTaskGuid(taskId: string) {
     return this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?TaskId=' + taskId);
-
   }
   GetProject() {
     return this.http.get<any>(environment.url + 'GetProject/');
@@ -52,7 +51,7 @@ export class UserServiceService {
 
   }
   CreateNewProjectItem(projectContentItem:any){
-    return this.http.get<ProjectContentItem[]>(environment.url + 'CreateNewProjectItem' + projectContentItem);
+    return this.http.post<string>(environment.url + 'CreateNewProjectItem' , projectContentItem);
   }
 
 }
