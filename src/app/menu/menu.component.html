@@ -50,7 +50,7 @@
         </app-specific-task>
       </div>
     </app-smart-card>
-    <div >
+    <div  *ngIf="ifThereAreprojectContentItem" >
       <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
         <div body >
           <app-project-content-item [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'"

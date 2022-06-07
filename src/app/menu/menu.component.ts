@@ -196,7 +196,7 @@ export class MenuComponent implements OnInit {
         res => {
           if (res) {
             this.massageFromServer = res;
-            alert(this.massageFromServer)
+            swal(this.massageFromServer)
           }
         },
         err => {
@@ -242,11 +242,14 @@ export class MenuComponent implements OnInit {
   GetProjectContentItemByTaskGuid() {
     this.userService.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid).subscribe(
       res => {
-        if (res) {
+        if (res.length>0) {
           this.projectContentItemArr = res;
           this.ifThereAreprojectContentItem=true;
           console.log(this.projectContentItemArr);
-          
+        }
+        else
+        {
+          this.ifThereAreprojectContentItem=false;
         }
       },
       err => {
