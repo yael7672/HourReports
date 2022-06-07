@@ -6,9 +6,7 @@ export interface Task {
 
     TaskGuid:string
     project: Project[];
-
     Project: Project;
-
     AccountEmail: string;
     Regardingobjectid: Regardingobjectid;
     Description: string;

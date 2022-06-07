@@ -51,7 +51,7 @@ export class UserServiceService {
 
   }
   CreateNewProjectItem(projectContentItem:any){
-    return this.http.post<string>(environment.url + 'CreateNewProjectItem' , projectContentItem);
+    return this.http.post<string>(environment.url + 'CreateProjectContentItem' , projectContentItem);
   }
 
 }
