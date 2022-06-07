@@ -67,11 +67,5 @@ export class SpecificTaskComponent implements OnInit {
   CloseCard() {
     this.clickCloseCard.emit()
   }
-  // pauseTimer(worktime: any) {
-  //   this.workTime1[0]=1;
-  //   this.workTime1[0]=2;
-  //   this.workTime1[0]=3;
 
-  //   this.clickPauseTimer.emit(this.workTime1)
-  // }
 }

@@ -1,6 +1,7 @@
 .card-title {
     text-align: center;
 }
+
 .p-of-title {
     text-align: center;
     color: rgba(6, 6, 19, 0.795);
@@ -9,8 +10,8 @@
 }
 
 .profile-image-pic {
-    height: 60px;
-    width: 60px;
+    height: 65px;
+    width: 65px;
     object-fit: cover;
     direction: rtl;
     margin-right: 15px;
@@ -26,34 +27,56 @@
     padding-left: 2rem;
     margin-top: 2rem;
 }
+
 .input-group {
-justify-content: center;
+    justify-content: center;
 }
-.btn
- {   margin-right: 1rem;
+
+.btn {
+    margin-right: 1rem;
     height: calc(1.5em + 0.75rem + 2px);
-} 
-.form-control
-{
+}
+
+.form-control {
     width: 15rem;
 }
 
-.a{
+.a {
     width: 30rem;
 }
-.fa-coffee {
-    padding: 1.8rem;
+
+.fa-coffee,
+.fa-calendar-check-o,
+.fa-edit
+  {
+    padding: 1rem;
 }
-.fa-calendar-check-o
-{
-    padding: 1.8rem;
-}
-.fa-edit{
-    padding: 1.8rem;
-}
-h2{
+h2 {
     text-align: center;
     color: rgba(6, 6, 19, 0.795);
     font-size: 30pt;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+}
+
+.task-card-timer {
+    max-width: 600px;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+ .fa-search
+ {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+ }
+ .p-of-title{
+    padding: 1rem;
+    margin-right: 5rem;
+
+
+ }
+ .my-3 {
+    margin-top: 0rem!important;
+    /* margin-bottom: 1rem!important; */
 }

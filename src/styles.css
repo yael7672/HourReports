@@ -65,7 +65,7 @@ h4 {
 .all-page.pop-up-open
 {
   overflow: hidden;
-  height: 100vh;
+  height: 90vh;
 }
 tr{
 text-align: center;
@@ -85,6 +85,4 @@ text-align: center;
   padding: 20px;
   overflow-x: hidden;
   min-width: 300px;
-  max-width: 55vw;
-
 }

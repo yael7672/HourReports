@@ -1,6 +1,6 @@
 import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import  swal from 'sweetalert';
+import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Project } from '../interfacees/project';
@@ -8,6 +8,9 @@ import { ProjectContentItem } from '../interfacees/project-content-item';
 import { Task } from '../interfacees/task';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
+import { Observable, OperatorFunction } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -15,6 +18,7 @@ import { UserServiceService } from '../user-service.service';
 })
 
 export class MenuComponent implements OnInit {
+  public model: any;
   isPopUpOpen!: any;
   taskListData: any;
   taskListDataDetails: any;
@@ -56,11 +60,12 @@ export class MenuComponent implements OnInit {
   tableMyTaskOpen = true;
   systemGuid: any;
   ifThereAreTasks = true;
-  ifThereAreprojectContentItem=false;
+  ifThereAreprojectContentItem = false;
   isSelected = false;
   hideButtonCancel = false
   hideProjectTh = false;
   projectArr!: Project[];
+  projectArrName!: string[];
   showMassgeToUser = false;
   timeToSave: any;
   SystemGuid: any;
@@ -108,7 +113,8 @@ export class MenuComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.arrFunc);
-    this.GetMyTask()
+    this.GetMyTask();
+    this.GetProject();
   }
   GetMyTask() {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -121,9 +127,9 @@ export class MenuComponent implements OnInit {
           console.log(this.taskArr);
         }
       }, err => {
-      console.log(err.error)
-      this.ifThereAreTasks = false;
-    }
+        console.log(err.error)
+        this.ifThereAreTasks = false;
+      }
     )
   }
   openPopUp(data: string, type: boolean) {
@@ -156,6 +162,21 @@ export class MenuComponent implements OnInit {
         this.seconds++;
       }
       this.workTime = this.transformNumber(this.seconds)
+      if(this.workTime[0]<10)
+      {
+        this.workTime[0]="0"+this.workTime[0]
+      }
+      if(this.workTime[1]<10)
+      {
+        this.workTime[1]="0"+this.workTime[1]
+      }
+      if(this.workTime[2]<10)
+      {
+        this.workTime[2]="0"+this.workTime[2]
+      }
+      
+      console.log(this.workTime);
+      
       localStorage.setItem('workTime', this.workTime)
     }, 1000)
   }
@@ -242,39 +263,41 @@ export class MenuComponent implements OnInit {
   GetProjectContentItemByTaskGuid() {
     this.userService.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid).subscribe(
       res => {
-        if (res.length>0) {
+        if (res.length > 0) {
           this.projectContentItemArr = res;
-          this.ifThereAreprojectContentItem=true;
+          this.ifThereAreprojectContentItem = true;
           console.log(this.projectContentItemArr);
         }
-        else
-        {
-          this.ifThereAreprojectContentItem=false;
+        else {
+          this.ifThereAreprojectContentItem = false;
         }
       },
       err => {
         console.log(err.error);
-        this.ifThereAreprojectContentItem=false;
+        this.ifThereAreprojectContentItem = false;
       })
   }
   GetProject() {
     this.userService.GetProject().subscribe(res => {
       if (res) {
         this.projectArr = res;
+        this.projectArrName  = this.projectArr.map(project => project.Name);
         console.log(this.projectArr);
-
       }
     },
       err => {
         console.log(err.error);
       })
   }
-  onSearchProject() {
-
-    this.taskArr = [...this.taskArrCopy]
-    if (this.selectedOption != "") {
-      this.hideProjectTh = true;
-      this.taskArr = this.taskArr.filter(f => f.Project?.Name == this.selectedOption)
+  onSearchProject(filterKey = "") {
+    console.log(filterKey);
+    this.taskArr = [...this.taskArrCopy];
+    this.projectArrName  = this.projectArr.map(project => project.Name);
+    if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
+      this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+    }
+    else {
+      this.taskArr = [...this.taskArrCopy];
     }
   }
   clickCloseCard() {
@@ -298,6 +321,13 @@ export class MenuComponent implements OnInit {
     this.openPersonalDetails = true;
 
   }
+ // formatter = (result: any) => result.Name;
+  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term === '' ? []
+        : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
 }
 
 

@@ -2,7 +2,7 @@
     <div class="card card-of-task">
         <a *ngIf="ifX" class="close" (click)="closeCard()">&times;</a>
         <div class="card-body">
-            <h5 class="card-title"> {{title}}</h5>
+            <h3 class="card-title"> {{title}}</h3>
             <div class="body ">
                 <ng-content select="[body]"></ng-content>
             </div>

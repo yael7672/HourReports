@@ -22,6 +22,7 @@ import { MassgeToUserComponent } from './massge-to-user/massge-to-user.component
 import { CommonModule } from '@angular/common';  
 import { PauseWorkComponent } from './pause-work/pause-work.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { PersonalDetailsComponent } from './personal-details/personal-details.co
     AppRoutingModule,
     HttpClientModule,
     FormsModule ,
-    CommonModule
+    CommonModule,
+    NgbModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
