@@ -8,7 +8,7 @@
                     placeholder=" תאריך " required ngModel/>
             </div>
             <div class="form-outline d-flex justify-content-center">
-                <input type="text" id="FirstName" name="FirstName" class="form-control" placeholder="נושא המשימה "
+                <input type="text" id="Subject" name="Subject" class="form-control" placeholder="נושא המשימה "
                 ngModel   required />
             </div>
             <div class="form-outline d-flex justify-content-center">
@@ -49,9 +49,9 @@
                 <select id="inputState" class="form-control " ngModel name="project">
                     <option value=""> לגבי</option>
                     <option
-                    *ngFor="let regarding of this.Regarding"
-                     value="{{regarding.Guid}}">
-                    {{regarding.Name}}
+                    *ngFor="let project of this.Project"
+                     value="{{project.Guid}}">
+                    {{project.Name}}
                </option>
                 </select>
             </div>

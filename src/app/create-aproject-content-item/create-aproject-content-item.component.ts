@@ -23,6 +23,10 @@ export class CreateAprojectContentItemComponent implements OnInit {
   Regarding!:Regardingobjectid[];
   ProjectContentItem!:any
   systemGuid: any;
+  ProjectItem!:any
+  taskGuid!:any
+  projectGuid:any
+  workTypeGuid: any;
   constructor(private datePipe: DatePipe ,private userServiceService:UserServiceService ) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
    console.log(this.todayDate);
@@ -34,13 +38,23 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   CreateNewProjectItem(form:NgForm){
-
-    form.value.systemGuid=localStorage.getItem("systemGuid")
-    this.userServiceService.CreateNewProjectItem(form.value).subscribe(
+    this.taskGuid= form.value.SourceTask.toUpperCase()
+    this.projectGuid= form.value.project.toUpperCase()
+    this.workTypeGuid= form.value.workType.toUpperCase()
+    
+    this.ProjectItem =
+    {
+       OwnerId: { "Guid": localStorage.getItem('systemGuid') },
+       Name:form.value.Subject,
+       Project: { "Guid": this.projectGuid },
+       CustomTask:{"TaskGuid":this.taskGuid},
+       WorkType: { "Guid": this.workTypeGuid },
+    }
+    this.userServiceService.CreateNewProjectItem(this.ProjectItem).subscribe(
       (res: any) => {
         this.ProjectContentItem = res;
         alert(this.ProjectContentItem)
-      
+
       },
       (err: any) =>
         alert("error")
