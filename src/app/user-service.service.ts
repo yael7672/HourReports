@@ -41,8 +41,8 @@ export class UserServiceService {
   logIn(email: any) {
     return this.http.get<User[]>(environment.url + 'Login/?email=' + email);
   }
-  PauseWork(SystemGuid:any ,ActualTime:any){
-    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?SystemGuid='+ SystemGuid + "&ActualTime="+ ActualTime);
+  CreatePauseWork(SystemGuid:any ){
+    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?SystemGuid='+ SystemGuid );
 
   }
   // לשנות- לממשק של יצירת פריט תכולת פרויקט רגיל
@@ -52,6 +52,9 @@ export class UserServiceService {
   }
   CreateNewProjectItem(projectContentItem:any){
     return this.http.post<string>(environment.url + 'CreateProjectContentItem' , projectContentItem);
+  }
+  PauseWork(SystemGuid:any,ActualTime:any){
+    return this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid='+ SystemGuid +'&ActualTime=' + ActualTime);
   }
 
 }

@@ -167,7 +167,6 @@ export class MenuComponent implements OnInit {
     return [hours, minutes, seconds]
   }
   SelectedStartPause() {
-    this.systemGuid = localStorage.getItem('systemGuid');
     this.interval = setInterval(() => {
       if (this.seconds === 0) {
         this.seconds++;
@@ -179,6 +178,7 @@ export class MenuComponent implements OnInit {
       localStorage.setItem('workTime', this.workTime)
     }, 1000)
   }
+
   SelectedStop(time: any) {
     if (time != "") {
       this.timetoSend = [...time]
