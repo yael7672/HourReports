@@ -71,7 +71,7 @@ export class MenuComponent implements OnInit {
   SystemGuid: any;
   massgeUserCloseTask1 = "?האם אתה בטוח שברצונך לצאת";
   massgeUserCloseTask2 = "!שים לב";
-  massgeUserCloseTask3 = "פעולה זו סוגרת לך את המשימה";
+  massgeUserCloseTask3 = "פעולה זו סוגרת  את הטיימר של המשימה";
   openPersonalDetails = false;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -162,21 +162,18 @@ export class MenuComponent implements OnInit {
         this.seconds++;
       }
       this.workTime = this.transformNumber(this.seconds)
-      if(this.workTime[0]<10)
-      {
-        this.workTime[0]="0"+this.workTime[0]
+      if (this.workTime[0] < 10) {
+        this.workTime[0] = "0" + this.workTime[0]
       }
-      if(this.workTime[1]<10)
-      {
-        this.workTime[1]="0"+this.workTime[1]
+      if (this.workTime[1] < 10) {
+        this.workTime[1] = "0" + this.workTime[1]
       }
-      if(this.workTime[2]<10)
-      {
-        this.workTime[2]="0"+this.workTime[2]
+      if (this.workTime[2] < 10) {
+        this.workTime[2] = "0" + this.workTime[2]
       }
-      
+
       console.log(this.workTime);
-      
+
       localStorage.setItem('workTime', this.workTime)
     }, 1000)
   }
@@ -281,7 +278,7 @@ export class MenuComponent implements OnInit {
     this.userService.GetProject().subscribe(res => {
       if (res) {
         this.projectArr = res;
-        this.projectArrName  = this.projectArr.map(project => project.Name);
+        this.projectArrName = this.projectArr.map(project => project.Name);
         console.log(this.projectArr);
       }
     },
@@ -292,7 +289,7 @@ export class MenuComponent implements OnInit {
   onSearchProject(filterKey = "") {
     console.log(filterKey);
     this.taskArr = [...this.taskArrCopy];
-    this.projectArrName  = this.projectArr.map(project => project.Name);
+    this.projectArrName = this.projectArr.map(project => project.Name);
     if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
       this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
     }
@@ -321,7 +318,7 @@ export class MenuComponent implements OnInit {
     this.openPersonalDetails = true;
 
   }
- // formatter = (result: any) => result.Name;
+  // formatter = (result: any) => result.Name;
   search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),

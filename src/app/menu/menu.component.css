@@ -47,10 +47,10 @@
 
 .fa-coffee,
 .fa-calendar-check-o,
-.fa-edit
-  {
+.fa-edit {
     padding: 1rem;
 }
+
 h2 {
     text-align: center;
     color: rgba(6, 6, 19, 0.795);
@@ -64,19 +64,39 @@ h2 {
     display: block;
     margin: 0 auto;
 }
- .fa-search
- {
+
+.fa-search {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-right: 1rem;
- }
- .p-of-title{
+}
+
+.p-of-title {
     padding: 1rem;
     margin-right: 5rem;
+}
 
+.my-3 {
+    margin-top: 0rem !important;
+}
 
- }
- .my-3 {
-    margin-top: 0rem!important;
-    /* margin-bottom: 1rem!important; */
+@media (max-width: 650px) {
+    .p-of-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (min-width: 651px) {
+    .p-of-title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .p-of-title {
+        font-size: 1.4rem;
+    }
+    .fa-edit{
+        font-size:30px
+    }
 }
