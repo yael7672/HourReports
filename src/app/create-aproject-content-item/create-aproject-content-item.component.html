@@ -10,14 +10,14 @@
 
                 </div>
                 <div *ngIf="f.submitted && date.invalid" class="text-danger">
-                    <h6 *ngIf="date.errors">Product is Required</h6>
+                    <h6 *ngIf="date.errors">שדה זה חובה</h6>
                 </div>
                 <div class="form-outline d-flex justify-content-center">
                     <input type="text" id="Subject" name="Subject" class="form-control" placeholder="נושא המשימה"
                         ngModel #subject="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required />
                 </div>
                 <div *ngIf="f.submitted && subject.invalid" class="text-danger">
-                    <h6 *ngIf="subject.errors">subject is Required</h6>
+                    <h6 *ngIf="subject.errors">שדה זה חובה</h6>
                 </div>
                 <div class="form-outline d-flex justify-content-center">
                     <select id="inputState" class="form-control " name="workType"  #workType="ngModel"
@@ -30,7 +30,7 @@
 
                 </div>
                 <div *ngIf="f.submitted && workType.invalid" class="text-danger">
-                    <h6 *ngIf="workType.errors">workType is Required</h6>
+                    <h6 *ngIf="workType.errors">שדה זה חובה</h6>
                 </div>
 
                 <div class="form-outline d-flex justify-content-center ">
@@ -39,18 +39,19 @@
                         [ngClass]="{ 'is-invalid': f.submitted && HoursActually.invalid }" >
                 </div>
                 <div *ngIf="f.submitted && HoursActually.invalid" class="text-danger">
-                    <h6 *ngIf="HoursActually.errors">workType is Required</h6>
+                    <h6 *ngIf="HoursActually.errors">שדה זה חובה</h6>
                 </div>
                 <div class="form-outline d-flex justify-content-center">
                     <select id="inputState" class="form-control"  name="billingHours"  #billingHours="ngModel" ngModel
                     [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }" required >
-                        <option value="">?האם שעות לחיוב</option>
+                        <option >?האם שעות לחיוב</option>
                         <option value="1">כן </option>
                         <option value="2">לא </option>
+                        <option value="970140002">אחר </option>
                     </select>
                 </div>
                 <div *ngIf="f.submitted && billingHours.invalid" class="text-danger">
-                    <h6 *ngIf="billingHours.errors">workType is Required</h6>
+                    <h6 *ngIf="billingHours.errors">שדה זה חובה</h6>
                 </div>
                 <div class="form-outline d-flex justify-content-center">
                     <select id="inputState" class="form-control" ngModel name="SourceTask"   #SourceTask="ngModel"
@@ -62,7 +63,7 @@
                     </select>
                 </div>
                 <div *ngIf="f.submitted && SourceTask.invalid" class="text-danger">
-                    <h6 *ngIf="SourceTask.errors">workType is Required</h6>
+                    <h6 *ngIf="SourceTask.errors">שדה זה חובה</h6>
                 </div>
                 <div class="form-outline d-flex justify-content-center">
                     <select id="inputState" class="form-control " ngModel name="project" #project="ngModel"
@@ -75,7 +76,7 @@
                     </select>
                 </div>
                 <div *ngIf="f.submitted && project.invalid" class="text-danger">
-                    <h6 *ngIf="project.errors">workType is Required</h6>
+                    <h6 *ngIf="project.errors">שדה זה חובה</h6>
                 </div>
                 <div class="form-outline d-flex justify-content-center ">
                     <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
@@ -84,7 +85,7 @@
                         </textarea>
                 </div>
                 <div *ngIf="f.submitted && Description.invalid" class="text-danger">
-                    <h6 *ngIf="Description.errors">workType is Required</h6>
+                    <h6 *ngIf="Description.errors">שדה זה חובה</h6>
                 </div>
                 <div class="form-outline d-flex justify-content-center ">
                     <input type="text" id="FirstName" name="NoteToProjectManager" class="form-control"  ngModel name="NoteToProjectManager" #NoteToProjectManager="ngModel"
@@ -93,7 +94,7 @@
                         
                 </div>
                 <div *ngIf="f.submitted && NoteToProjectManager.invalid" class="text-danger">
-                    <h6 *ngIf="NoteToProjectManager.errors">workType is Required</h6>
+                    <h6 *ngIf="NoteToProjectManager.errors">שדה זה חובה</h6>
                 </div>
                 <button type="submit" class="btn ">צור פריט תכולת פרוייקט חדשה</button>
             </form>
