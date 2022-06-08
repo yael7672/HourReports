@@ -1,4 +1,4 @@
-<app-pop-up #upPopUP>
+<app-pop-up #upPopUP [ifX]="ifX">
     <h4 header class="mb-4">הפסקה</h4>
     <div body>
         <form (ngSubmit)="OpenPopUpIfCloseTask()" #f=ngForm>
@@ -15,9 +15,9 @@
     </div>
 </app-pop-up>
 <div *ngIf="showMassgeToUser">
-    <app-pop-up>
+    <app-pop-up >
         <div body>
-            <app-massge-to-user [massgeUserHeader]="massgeUserCloseWorkPause1" (clickYes)="clickYes(workTimeHour)"
+            <app-massge-to-user  [massgeUserHeader]="massgeUserCloseWorkPause1" (clickYes)="clickYes(workTimeHour)"
                 (clickNo)="clickNo()"></app-massge-to-user>
         </div>
     </app-pop-up>
