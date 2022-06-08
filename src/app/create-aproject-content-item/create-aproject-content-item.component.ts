@@ -8,6 +8,9 @@ import { Regardingobjectid } from '../interfacees/regardingobjectid';
 import { WorkType } from '../interfacees/work-type';
 import { ProjectContentItemComponent } from '../project-content-item/project-content-item.component';
 import { UserServiceService } from '../user-service.service';
+import swal from 'sweetalert';
+import { AppService } from '../app-service.service';
+import { PopUpServiceService } from '../pop-up-service.service';
 
 @Component({
   selector: 'app-create-aproject-content-item',
@@ -27,7 +30,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
   taskGuid!:any
   projectGuid:any
   workTypeGuid: any;
-  constructor(private datePipe: DatePipe ,private userServiceService:UserServiceService ) {
+  constructor(private datePipe: DatePipe ,private userServiceService:UserServiceService ,
+    private appService:AppService ,private popUpService:PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
    console.log(this.todayDate);
 }
@@ -51,12 +55,13 @@ export class CreateAprojectContentItemComponent implements OnInit {
        WorkType: { "Guid": this.workTypeGuid },
     }
     this.userServiceService.CreateNewProjectItem(this.ProjectItem).subscribe(
-      (res: any) => {
+      (res) => {
         this.ProjectContentItem = res;
-        alert(this.ProjectContentItem)
-
+        swal(this.ProjectContentItem)
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
       },
-      (err: any) =>
+      (err) =>
         alert("error")
     )
   }

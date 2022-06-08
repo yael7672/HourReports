@@ -12,24 +12,26 @@ import swal from 'sweetalert';
   styleUrls: ['./pause-work.component.css']
 })
 export class PauseWorkComponent implements OnInit {
-  massgeUserCloseWorkPause1="האם אתה בטוח שברצונך לסיים הפסקה"
+  massgeUserCloseWorkPause1 = "האם אתה בטוח שברצונך לסיים הפסקה"
   todayDate!: any;
   myDate = new Date()
   pauseAlert: any
   systemGuid: any
   @Input() workTime!: any;
   @Output() ClickStartPause = new EventEmitter<any>();
-
+  workTimeHour:any
   descriptionPanel: any;
   interval: any;
   minutes: number = 0;
   seconds: number = 0;
   hours: number = 0;
   endButton!: boolean
+  timetoSend:any;
+  parseTime:any;
   showMassgeToUser!: boolean
-  formWorkPause!:NgForm
+  formWorkPause!: NgForm
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
-    private appService:AppService ,private popUpService :PopUpServiceService) {
+    private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
   }
@@ -37,15 +39,14 @@ export class PauseWorkComponent implements OnInit {
   ngOnInit(): void {
 
   }
-BeforePauseWork(){
-  this.showMassgeToUser=true
 
-}
+  BeforePauseWork() {
+    this.showMassgeToUser = true
+  }
 
-  PauseWork(form: any) {
-    this.showMassgeToUser=true
+  PauseWork(workTime: any) {
     this.systemGuid = localStorage.getItem("systemGuid")
-    this.userServiceService.PauseWork(this.systemGuid, form.ActualTime).subscribe(
+    this.userServiceService.PauseWork(this.systemGuid, workTime).subscribe(
       (res: any) => {
         this.pauseAlert = res;
         console.log(this.pauseAlert)
@@ -57,25 +58,72 @@ BeforePauseWork(){
         alert("error")
     )
   }
+
+
+  SelectedStartPause() {
+    this.interval = setInterval(() => {
+      if (this.seconds === 0) {
+        this.seconds++;
+      }
+      else {
+        this.seconds++;
+      }
+      this.workTimeHour = this.transformNumber(this.seconds)
+      localStorage.setItem('workTime', this.workTimeHour)
+    }, 1000)
+  }
+
+  transformNumber(value: number) {
+    var sec_num = value;
+    var hours = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+    return [hours, minutes, seconds]
+  }
+
   startPause() {
     this.endButton = true
-    this.ClickStartPause.emit()
-    
-  }
-  OpenPopUpIfCloseTask(form:NgForm){
-    this.showMassgeToUser=true
-    this.formWorkPause = form.value
+    this.CreatePauseWork()
+    this.SelectedStartPause()
 
   }
-
-  clickYes() { 
-    console.log(this.formWorkPause);
-    this.PauseWork(this.formWorkPause)
-   
+  OpenPopUpIfCloseTask() {
+    this.showMassgeToUser = true
 
 
+  }
+
+  clickYes(time: any) {
+      if (time != "") {
+        this.timetoSend = [...time]
+        clearInterval(this.interval);
+        this.seconds = 0;
+        if (this.timetoSend[2] > 30) {
+          this.timetoSend[1] += 1;
+        }
+        this.timetoSend[1] = (this.timetoSend[1] / 60)
+        this.parseTime = this.timetoSend[0] + this.timetoSend[1];
+        this.PauseWork(this.parseTime)
+
+      }
   }
   clickNo() {
-    this.showMassgeToUser=false
+    this.showMassgeToUser = false
+  }
+
+
+  CreatePauseWork() {
+    this.systemGuid = localStorage.getItem("systemGuid")
+    this.userServiceService.CreatePauseWork(this.systemGuid).subscribe(
+      (res: any) => {
+        this.pauseAlert = res;
+        // console.log(this.pauseAlert)
+        // swal(this.pauseAlert);
+        // this.appService.setIsPopUpOpen(false);
+        // this.popUpService.setClosePopUp();
+      },
+      (err: any) =>
+        alert(err.error)
+    )
   }
 }
