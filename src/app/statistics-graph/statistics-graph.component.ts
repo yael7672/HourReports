@@ -8,7 +8,7 @@ import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, T
   styleUrls: ['./statistics-graph.component.css']
 })
 export class StatisticsGraphComponent implements OnInit {
- 
+  LineChartText!: string;
   constructor() {
     Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
   }
@@ -48,10 +48,45 @@ export class StatisticsGraphComponent implements OnInit {
           }, y1: {
             type: 'linear',
             display: true,
-            position: 'right'}
+            position: 'right'
+          }
         }
       }
     });
+
+
+    const chart = new Chart('lineChart', {
+      type: 'line',
+      data: {
+        labels: [
+          "יום חמישי", "יום רבעי", "יום שלישי", "יום שני", "יום ראשון"
+        ],
+        datasets: [{
+          label: 'שעות לחיוב',
+          data: [2, 3, 4, 4, 10],
+          borderWidth: 1,
+          fill: false,
+          borderColor: 'red'
+        },
+        {
+          label: 'שעות בפועל',
+          data: [2, 3.5, 3, 4, 4],
+          borderWidth: 1,
+          fill: false,
+          borderColor: 'green'
+        },
+        ]
+      },
+      options: {
+        scales: {
+          // yAxes: [{
+          //   ticks: {
+          //     beginAtZero: true
+          //   }
+          // }]
+        }
+      }
+    });
+
   }
-  }
-  
+}

@@ -118,8 +118,8 @@ export class MenuComponent implements OnInit {
     this.GetMyTask();
     this.GetProject();
   }
-    
-  
+
+
   GetMyTask() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetMyTask(this.systemGuid).subscribe(
@@ -202,8 +202,9 @@ export class MenuComponent implements OnInit {
   }
 
   SelectedStop(time: any) {
-    if (time.worktime != "") {
-      this.timetoSend = [...time.worktime]
+    
+    if (time.worktime != "" || time!=null) {
+      this.timetoSend =time.worktime?[...time.worktime]:[...time]
       clearInterval(this.interval);
       this.seconds = 0;
       if (this.timetoSend[2] > 30) {
@@ -212,8 +213,8 @@ export class MenuComponent implements OnInit {
       this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
       this.isDisabledStart = false;
-      this.isTaskAccomplished = false;      
-      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished,time.descriptionTask).subscribe(
+      this.isTaskAccomplished = false;
+      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
         res => {
           if (res) {
             this.massageFromServer = res;
@@ -239,7 +240,7 @@ export class MenuComponent implements OnInit {
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
     }
     this.isTaskAccomplished = true;
-    this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished,time.descriptionTask).subscribe(
+    this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
       res => {
         if (res) {
           this.massageFromServer = res;
@@ -298,7 +299,13 @@ export class MenuComponent implements OnInit {
     }
   }
   clickCloseCard() {
-    this.showMassgeToUser = true;
+    if (this.workTime) {
+      this.showMassgeToUser = true;
+    }
+    else {
+      this.tableMyTaskOpen = true;
+      this.tableSpecificTaskOpen = false;
+    }
   }
   clickYes() {
     this.tableMyTaskOpen = true;
