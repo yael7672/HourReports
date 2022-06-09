@@ -2,6 +2,12 @@
 <!-- <h6 *ngIf="listData?.Subject" class="card-subtitle mb-2 text-muted">{{listData.Subject}}</h6> -->
 <p *ngIf="listData?.Description" class="card-text">{{listData.Description}}</p>
 <br>
+<div class="form-outline d-flex justify-content-center ">
+  <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
+    class="form-control textarea" placeholder="תאור המשימה" [(ngModel)]="descriptionTask" ngModel>
+      </textarea>
+</div>
+<br>
 <div class="button-of-task">
   <button [disabled]="isDisabledStart" (click)="startTimer(); clickOfButton('start',true)"
     class="btn btn-color">התחל</button>

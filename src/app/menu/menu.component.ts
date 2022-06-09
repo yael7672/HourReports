@@ -10,6 +10,8 @@ import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 import { Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Chart } from 'chart.js';
+import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
 
 @Component({
   selector: 'app-menu',
@@ -116,6 +118,8 @@ export class MenuComponent implements OnInit {
     this.GetMyTask();
     this.GetProject();
   }
+    
+  
   GetMyTask() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetMyTask(this.systemGuid).subscribe(
@@ -198,9 +202,8 @@ export class MenuComponent implements OnInit {
   }
 
   SelectedStop(time: any) {
-    if (time != "") {
-      this.timetoSend = [...time]
-      ///this.timetoSend = [1,20,0]
+    if (time.worktime != "") {
+      this.timetoSend = [...time.worktime]
       clearInterval(this.interval);
       this.seconds = 0;
       if (this.timetoSend[2] > 30) {
@@ -209,8 +212,8 @@ export class MenuComponent implements OnInit {
       this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
       this.isDisabledStart = false;
-      this.isTaskAccomplished = false;
-      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
+      this.isTaskAccomplished = false;      
+      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished,time.descriptionTask).subscribe(
         res => {
           if (res) {
             this.massageFromServer = res;
@@ -224,28 +227,25 @@ export class MenuComponent implements OnInit {
     }
   }
   SelectedEnd(time: any) {
-    if (time != "") {
-      this.timetoSend = [...time]
+    if (time.worktime != "") {
+      this.timetoSend = [...time.worktime]
       this.seconds = 0;
       clearInterval(this.interval);
       // this.workTime = time;
-      let a = "0." + this.timetoSend[2];
-      if (Math.round(Number(a)) != 0) {
+      if (this.timetoSend[2] > 30) {
         this.timetoSend[1] += 1;
       }
-      if (this.timetoSend[1] < 10) {
-        this.parseTime = this.timetoSend[0] + ".0" + this.timetoSend[1];
-      }
-      else {
-        this.parseTime = this.timetoSend[0] + "." + this.timetoSend[1];
-      }
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.parseTime = this.timetoSend[0] + this.timetoSend[1];
     }
     this.isTaskAccomplished = true;
-    this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished).subscribe(
+    this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished,time.descriptionTask).subscribe(
       res => {
         if (res) {
           this.massageFromServer = res;
-          swal(this.massageFromServer)
+          swal(this.massageFromServer);
+          this.tableMyTaskOpen = true;
+          this.tableSpecificTaskOpen = false;
         }
       },
       err => {
@@ -325,7 +325,5 @@ export class MenuComponent implements OnInit {
       distinctUntilChanged(),
       map(term => term === '' ? []
         : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
+
 }
-
-
-

@@ -23,7 +23,10 @@ import { CommonModule } from '@angular/common';
 import { PauseWorkComponent } from './pause-work/pause-work.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
+ 
+// import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
+// var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FilterPipe,
     MassgeToUserComponent,
     PauseWorkComponent,
-    PersonalDetailsComponent
+    PersonalDetailsComponent,
+    StatisticsGraphComponent
 
   ],
   imports: [
@@ -51,7 +55,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     FormsModule ,
     CommonModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
