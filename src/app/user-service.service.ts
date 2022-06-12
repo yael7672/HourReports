@@ -27,8 +27,8 @@ export class UserServiceService {
   GetRegarding() {
     return this.http.get<Regardingobjectid[]>(environment.url + 'GetRegarding');
   }
-  UpdateProjectContentItem(duration: string, taskId: string, isTaskAccomplished: boolean) {
-    return this.http.get<any>(environment.url + 'UpdateProjectContentItem/?taskId=' + taskId + '&duration=' + duration + '&IsTaskAccomplished=' + isTaskAccomplished);
+  UpdateProjectContentItem(duration: string, taskId: string, isTaskAccomplished: boolean, descriptionTask: string) {
+    return this.http.get<any>(environment.url + 'UpdateProjectContentItem/?taskId=' + taskId + '&duration=' + duration + '&IsTaskAccomplished=' + isTaskAccomplished + '&DescriptionTask=' + descriptionTask);
   }
   GetProjectContentItemByTaskGuid(taskId: string) {
     return this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?TaskId=' + taskId);
@@ -42,20 +42,20 @@ export class UserServiceService {
   logIn(email: any) {
     return this.http.get<User[]>(environment.url + 'Login/?email=' + email);
   }
-  CreatePauseWork(SystemGuid:any ){
-    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?SystemGuid='+ SystemGuid );
+  CreatePauseWork(SystemGuid: any) {
+    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?SystemGuid=' + SystemGuid);
 
   }
   // לשנות- לממשק של יצירת פריט תכולת פרויקט רגיל
-  CreateNewProjectItemByGuid(projectContentItem:any){
-    return this.http.get<ProjectContentItem[]>(environment.url + 'Login='+ projectContentItem);
+  CreateNewProjectItemByGuid(projectContentItem: any) {
+    return this.http.get<ProjectContentItem[]>(environment.url + 'Login=' + projectContentItem);
 
   }
-  CreateNewProjectItem(projectContentItem:any){
-    return this.http.post<string>(environment.url + 'CreateProjectContentItem' , projectContentItem);
+  CreateNewProjectItem(projectContentItem: any) {
+    return this.http.post<string>(environment.url + 'CreateProjectContentItem', projectContentItem);
   }
-  PauseWork(SystemGuid:any,ActualTime:any){
-    return this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid='+ SystemGuid +'&ActualTime=' + ActualTime);
+  PauseWork(SystemGuid: any, ActualTime: any) {
+    return this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime);
   }
   GetTaskByGuid(SystemGuid:any,TaskGuid:any){
     return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?SystemGuid='+ SystemGuid +'&TaskGuid=' + TaskGuid);

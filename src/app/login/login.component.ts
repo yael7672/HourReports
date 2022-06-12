@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
         this.popUpService.setClosePopUp();
       },
       (err: any) =>
-        alert("error")
+        alert(err.error)
+        
     )
   }
 }

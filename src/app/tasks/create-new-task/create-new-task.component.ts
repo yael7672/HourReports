@@ -65,8 +65,8 @@ export class CreateNewTaskComponent implements OnInit {
       Description:form.value.Description,
       BillableHours:form.value.BillableHours,
       Subject: form.value.Subject,
-      NotesToTheProjectManager: form.value.CommentsToTheProjectManager,
-      Regardingobjectid: { "Guid": form.value.Regardingobject },
+      // NotesToTheProjectManager: form.value.CommentsToTheProjectManager,הערות למנהל הפרוייקט
+      // Regardingobjectid: { "Guid": form.value.Regardingobject },לגבי
       WorkType: { "Guid": form.value.WorkType },
       OwnerId: { "Guid": localStorage.getItem('systemGuid') },
       Project: { "Guid": form.value.Project  }

@@ -31,6 +31,7 @@ export class SpecificTaskComponent implements OnInit {
   @Output() objectEmitter = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
   @Output() clickBackToMyTask= new EventEmitter<any>();
+  descriptionTask!:string
   heberwDateRecords: any;
   ifDescriptionPanel = false;
   descriptionPanel: any;
@@ -55,10 +56,11 @@ export class SpecificTaskComponent implements OnInit {
     this.clickStartTimer.emit()
   }
   pauseTimer(worktime: any) {
-    this.clickPauseTimer.emit(worktime)
+    this.clickPauseTimer.emit({worktime:worktime,descriptionTask:this.descriptionTask})
+
   }
-  deleteTimer(val: any) {
-    this.clickdeleteTimer.emit(val)
+  deleteTimer(worktime: any) {
+    this.clickdeleteTimer.emit({worktime:worktime,descriptionTask:this.descriptionTask})
   }
   SelectedData(val: any) {
     this.objectEmitter.emit(val)

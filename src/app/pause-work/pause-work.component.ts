@@ -12,7 +12,7 @@ import swal from 'sweetalert';
   styleUrls: ['./pause-work.component.css']
 })
 export class PauseWorkComponent implements OnInit {
-  massgeUserCloseWorkPause1 = "האם אתה בטוח שברצונך לסיים הפסקה"
+  massgeUserCloseWorkPause1 = "?האם אתה בטוח שברצונך לסיים הפסקה"
   todayDate!: any;
   myDate = new Date()
   pauseAlert: any
@@ -30,6 +30,7 @@ export class PauseWorkComponent implements OnInit {
   parseTime:any;
   showMassgeToUser!: boolean
   formWorkPause!: NgForm
+  ifX=true;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -69,6 +70,15 @@ export class PauseWorkComponent implements OnInit {
         this.seconds++;
       }
       this.workTimeHour = this.transformNumber(this.seconds)
+      if (this.workTimeHour[0] < 10) {
+        this.workTimeHour[0] = "0" + this.workTimeHour[0]
+      }
+      if (this.workTimeHour[1] < 10) {
+        this.workTimeHour[1] = "0" + this.workTimeHour[1]
+      }
+      if (this.workTimeHour[2] < 10) {
+        this.workTimeHour[2] = "0" + this.workTimeHour[2]
+      }
       localStorage.setItem('workTime', this.workTimeHour)
     }, 1000)
   }
@@ -82,15 +92,13 @@ export class PauseWorkComponent implements OnInit {
   }
 
   startPause() {
-    this.endButton = true
-    this.CreatePauseWork()
-    this.SelectedStartPause()
-
+    this.ifX=false;
+    this.endButton = true;
+    this.CreatePauseWork();
+    this.SelectedStartPause();
   }
   OpenPopUpIfCloseTask() {
-    this.showMassgeToUser = true
-
-
+    this.showMassgeToUser = true;
   }
 
   clickYes(time: any) {
@@ -122,10 +130,6 @@ export class PauseWorkComponent implements OnInit {
     this.userServiceService.CreatePauseWork(this.systemGuid).subscribe(
       (res: any) => {
         this.pauseAlert = res;
-        // console.log(this.pauseAlert)
-        // swal(this.pauseAlert);
-        // this.appService.setIsPopUpOpen(false);
-        // this.popUpService.setClosePopUp();
       },
       (err: any) =>
         alert(err.error)

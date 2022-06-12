@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PauseWorkComponent } from './pause-work.component';
+import { StatisticsGraphComponent } from './statistics-graph.component';
 
-describe('PauseWorkComponent', () => {
-  let component: PauseWorkComponent;
-  let fixture: ComponentFixture<PauseWorkComponent>;
+describe('StatisticsGraphComponent', () => {
+  let component: StatisticsGraphComponent;
+  let fixture: ComponentFixture<StatisticsGraphComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PauseWorkComponent ]
+      declarations: [ StatisticsGraphComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PauseWorkComponent);
+    fixture = TestBed.createComponent(StatisticsGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

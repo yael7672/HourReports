@@ -24,7 +24,10 @@ import { PauseWorkComponent } from './pause-work/pause-work.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartsComponent } from './charts/charts.component';
-
+import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
+ 
+// import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
+// var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
 
 @NgModule({
   declarations: [
@@ -46,6 +49,7 @@ import { ChartsComponent } from './charts/charts.component';
     PersonalDetailsComponent,
     ChartsComponent
 
+
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,7 @@ import { ChartsComponent } from './charts/charts.component';
     HttpClientModule,
     FormsModule ,
     CommonModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
