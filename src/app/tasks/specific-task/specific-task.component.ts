@@ -23,7 +23,7 @@ export class SpecificTaskComponent implements OnInit {
   @Input() isDisabledEnd!: boolean;
   @Input() isDisabledPouse!: boolean;
   @Input() isDisabledStart!: boolean;
-  @Input() textButtonBackToMyTask:any;
+  @Input() textButtonBack:any;
   @Output() clickCloseCard = new EventEmitter<any>();
   @Output() clickStartTimer = new EventEmitter<any>();
   @Output() clickPauseTimer = new EventEmitter<any>();

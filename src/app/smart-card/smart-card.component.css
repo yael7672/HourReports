@@ -3,9 +3,10 @@ a {
 }
 
 .back {
-    direction: ltr !important;
+    justify-content: left;
+   
 }
 
 .btn {
-    display: flex;
+    /* display: flex; */
 }

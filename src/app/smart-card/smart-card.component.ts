@@ -14,12 +14,14 @@ export class SmartCardComponent implements OnInit {
   @Input()sizeOfCard:any;
   @Input()ifX:any;
   @Input()textButtonBackToMyTask:any;
-
+  @Input() isDisabledStart!: any;
+  @Input() textButtonBack!: any;
+  @Output() clickBackToMyTask= new EventEmitter<any>();
   @Output()clickCloseCard = new EventEmitter<any>();
   @Output()clickStartTimer = new EventEmitter<any>();
   @Output()clickPauseTimer = new EventEmitter<any>();
   @Output()clickdeleteTimer = new EventEmitter<any>();
-  @Output()clickBackToMyTask= new EventEmitter<any>();
+
   ngOnInit(): void {
   }
   closeCard()

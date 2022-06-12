@@ -76,7 +76,7 @@ export class MenuComponent implements OnInit {
   massgeUserCloseTask1 = "?האם אתה בטוח שברצונך לצאת";
   massgeUserCloseTask2 = "!שים לב";
   massgeUserCloseTask3 = "פעולה זו סוגרת  את הטיימר של המשימה";
-  textButtonBack="חזרה למשימות שלי"
+  textButtonBack = "חזרה למשימות שלי"
   TaskByGuidObject!: TaskByGuid;
 
   openPersonalDetails = false;
@@ -207,9 +207,9 @@ export class MenuComponent implements OnInit {
   }
 
   SelectedStop(time: any) {
-    
-    if (time.worktime != "" || time!=null) {
-      this.timetoSend =time.worktime?[...time.worktime]:[...time]
+
+    if (time.worktime != "" || time != null) {
+      this.timetoSend = time.worktime ? [...time.worktime] : [...time]
       clearInterval(this.interval);
       this.seconds = 0;
       if (this.timetoSend[2] > 30) {
@@ -233,7 +233,7 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  
+
 
   SelectedEnd(time: any) {
     if (time.worktime != "") {
@@ -252,14 +252,10 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.massageFromServer = res;
-          // this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid)
+          this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime)
           swal(this.massageFromServer)
-        // this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid)
-
-          swal(this.massageFromServer);
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
-
         }
       },
       err => {
@@ -268,13 +264,16 @@ export class MenuComponent implements OnInit {
     )
 
   }
-  AlertIfActualHoursLessThanAllottedHours(TaskGuid:any){
+  AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any) {
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.userService.GetTaskByGuid(this.systemGuid,TaskGuid).subscribe(
+    this.userService.GetTaskByGuid(this.systemGuid, TaskGuid).subscribe(
       res => {
         if (res) {
           this.TaskByGuidObject = res;
-          console.log("this.TaskByGuidObject",this.TaskByGuidObject);
+          console.log("this.TaskByGuidObject", this.TaskByGuidObject);
+          if (this.TaskByGuidObject.WorkingHours < this.parseTime) {
+            swal("כל הכבוד")
+          }
         }
       },
       err => {
@@ -282,8 +281,9 @@ export class MenuComponent implements OnInit {
       }
     )
 
+
   }
-  
+
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
@@ -364,9 +364,11 @@ export class MenuComponent implements OnInit {
         : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
 
 
-BackToMyTask(){
-  this.tableMyTaskOpen = true;
-}
+  BackToMyTask() {
+    this.tableMyTaskOpen = true;
+    this.tableSpecificTaskOpen = false;
+
+  }
 
 }
 

@@ -18,6 +18,7 @@ p {
 }
 
 .back{
-  justify-items: left;
+  justify-content: right;
+  width: 50%;
 }
 

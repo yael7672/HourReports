@@ -1,6 +1,5 @@
 
 <h5 *ngIf="listData?.Subject">{{listData.Subject}}</h5>
-<!-- <h6 *ngIf="listData?.Subject" class="card-subtitle mb-2 text-muted">{{listData.Subject}}</h6> -->
 <p *ngIf="listData?.Description" class="card-text">{{listData.Description}}</p>
 <br>
 <div class="form-outline d-flex justify-content-center ">
@@ -21,8 +20,8 @@
 <p *ngIf="workTime" class="Time">{{workTime[0]+ ":"+ workTime[1]+":"
   +workTime[2]}}</p>
   
-<div class="back">
-  <button class="btn btn-color" *ngIf="textButtonBackToMyTask" (click)="backToMyTask()">
-    {{textButtonBackToMyTask}} <i class="fa fa-arrow-left" aria-hidden="true"></i>
+<!-- <div class="back">
+  <button class="btn btn-color" *ngIf="textButtonBack" [disabled]="isDisabledStart" (click)="backToMyTask()">
+    {{textButtonBack}} <i class="fa fa-arrow-left" aria-hidden="true"></i>
   </button>
-</div>
+</div> -->
