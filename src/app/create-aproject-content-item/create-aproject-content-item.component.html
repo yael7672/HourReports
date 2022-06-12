@@ -4,13 +4,8 @@
         <div body>
             <form (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm">
                 <div class="form-outline d-flex justify-content-center">
-                    <input type="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd'}}" class="form-control"
-                        placeholder=" תאריך " #date="ngModel" ngModel
-                        [ngClass]="{ 'is-invalid': f.submitted && date.invalid }" required>
-
-                </div>
-                <div *ngIf="f.submitted && date.invalid" class="text-danger">
-                    <span *ngIf="date.errors">שדה זה חובה</span>
+                    <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
+                        placeholder=" תאריך " />
                 </div>
                 <div class="form-outline d-flex justify-content-center">
                     <input type="text" id="Subject" name="Subject" class="form-control" placeholder="נושא המשימה"
@@ -80,21 +75,13 @@
                 </div>
                 <div class="form-outline d-flex justify-content-center ">
                     <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
-                        class="form-control textarea" placeholder=" תאור המשימה  " ngModel 
-                        [ngClass]="{ 'is-invalid': f.submitted && Description.invalid }" required>
+                        class="form-control textarea" placeholder=" תאור המשימה  " ngModel >
                         </textarea>
-                </div>
-                <div *ngIf="f.submitted && Description.invalid" class="text-danger">
-                    <span *ngIf="Description.errors">שדה זה חובה</span>
                 </div>
                 <div class="form-outline d-flex justify-content-center ">
                     <input type="text" id="FirstName" name="NoteToProjectManager" class="form-control"  ngModel name="NoteToProjectManager" #NoteToProjectManager="ngModel"
-                        placeholder="הערות למנהל פרוייקט"  
-                        [ngClass]="{ 'is-invalid': f.submitted && NoteToProjectManager.invalid }" required>
+                        placeholder="הערות למנהל פרוייקט"  >
                         
-                </div>
-                <div *ngIf="f.submitted && NoteToProjectManager.invalid" class="text-danger">
-                    <span *ngIf="NoteToProjectManager.errors">שדה זה חובה</span>
                 </div>
                 <button type="submit" class="btn ">צור פריט תכולת פרוייקט חדשה</button>
             </form>

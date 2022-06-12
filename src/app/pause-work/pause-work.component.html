@@ -1,19 +1,23 @@
-<app-pop-up #upPopUP>
-    <h4 header class="mb-4">הפסקה</h4>
-    <div body>
-        <form (ngSubmit)="OpenPopUpIfCloseTask()" #f=ngForm>
-            <button *ngIf="endButton" type="submit" class="btn ">סיים הפסקה</button>
-        </form>
-        <div class="form-outline d-flex justify-content-center">
-            <button class="btn" *ngIf="!endButton" (click)="startPause()">התחל הפסקה</button>
-            <p *ngIf="workTimeHour" class="Time">
-                {{workTimeHour[0]+ ":"+ workTimeHour[1]+":"+workTimeHour[2]}}
-            </p>
+<app-pop-up  #upPopUP>    
+      <!-- <a header *ngIf="!endButton" class="close" (click)="closePopUp()">&times;</a> -->
+        <div header> 
+            <a  *ngIf="!endButton" class="close" (click)="closePopUp()">&times;</a>
+             <h4  class="mb-4">הפסקה</h4>
         </div>
-    </div>
-    <div footer>
-    </div>
-</app-pop-up>
+        <div body>
+            <form (ngSubmit)="OpenPopUpIfCloseTask()" #f=ngForm>
+                <button *ngIf="endButton" type="submit" class="btn ">סיים הפסקה</button>
+            </form>
+            <div class="form-outline d-flex justify-content-center">
+                <button class="btn" *ngIf="!endButton" (click)="startPause()">התחל הפסקה</button>
+                <p *ngIf="workTimeHour" class="Time">
+                    {{workTimeHour[0]+ ":"+ workTimeHour[1]+":"+workTimeHour[2]}}
+                </p>
+            </div>
+        </div>
+        <div footer>
+        </div>
+    </app-pop-up>
 <div *ngIf="showMassgeToUser">
     <app-pop-up>
         <div body>

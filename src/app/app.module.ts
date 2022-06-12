@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
 import { PauseWorkComponent } from './pause-work/pause-work.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChartsComponent } from './charts/charts.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FilterPipe,
     MassgeToUserComponent,
     PauseWorkComponent,
-    PersonalDetailsComponent
+    PersonalDetailsComponent,
+    ChartsComponent
 
   ],
   imports: [

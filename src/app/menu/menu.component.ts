@@ -10,6 +10,7 @@ import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 import { Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { TaskByGuid } from '../interfacees/TaskByGuid';
 
 @Component({
   selector: 'app-menu',
@@ -72,6 +73,9 @@ export class MenuComponent implements OnInit {
   massgeUserCloseTask1 = "?האם אתה בטוח שברצונך לצאת";
   massgeUserCloseTask2 = "!שים לב";
   massgeUserCloseTask3 = "פעולה זו סוגרת  את הטיימר של המשימה";
+  textButtonBack="חזרה למשימות שלי"
+  TaskByGuidObject!: TaskByGuid;
+
   openPersonalDetails = false;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -223,6 +227,9 @@ export class MenuComponent implements OnInit {
       )
     }
   }
+
+  
+
   SelectedEnd(time: any) {
     if (time != "") {
       this.timetoSend = [...time]
@@ -245,7 +252,9 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.massageFromServer = res;
+          // this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid)
           swal(this.massageFromServer)
+        // this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid)
         }
       },
       err => {
@@ -254,9 +263,26 @@ export class MenuComponent implements OnInit {
     )
 
   }
+  AlertIfActualHoursLessThanAllottedHours(TaskGuid:any){
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetTaskByGuid(this.systemGuid,TaskGuid).subscribe(
+      res => {
+        if (res) {
+          this.TaskByGuidObject = res;
+          console.log("this.TaskByGuidObject",this.TaskByGuidObject);
+        }
+      },
+      err => {
+        console.log(err.error);
+      }
+    )
+
+  }
+  
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
+
   GetProjectContentItemByTaskGuid() {
     this.userService.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid).subscribe(
       res => {
@@ -325,7 +351,11 @@ export class MenuComponent implements OnInit {
       distinctUntilChanged(),
       map(term => term === '' ? []
         : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
+
+
+BackToMyTask(){
+  this.tableMyTaskOpen = true;
 }
 
-
+}
 

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment.prod';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
+import { TaskByGuid } from './interfacees/TaskByGuid';
 import { User } from './interfacees/user';
 import { WorkType } from './interfacees/work-type';
 
@@ -55,6 +56,10 @@ export class UserServiceService {
   }
   PauseWork(SystemGuid:any,ActualTime:any){
     return this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid='+ SystemGuid +'&ActualTime=' + ActualTime);
+  }
+  GetTaskByGuid(SystemGuid:any,TaskGuid:any){
+    return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?SystemGuid='+ SystemGuid +'&TaskGuid=' + TaskGuid);
+
   }
 
 }
