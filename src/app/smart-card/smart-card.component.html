@@ -2,27 +2,18 @@
     <div class="card card-of-task">
         <a *ngIf="ifX" class="close" (click)="closeCard()">&times;</a>
         <div class="back">
-                    <button class="btn btn-color"  [disabled]="isDisabledStart" *ngIf="textButtonBack"
-                        (click)="backToMyTask()">{{textButtonBack}}
-                    </button>
-                </div>
+            <button class="btn btn-color" [disabled]="isDisabledStart" *ngIf="textButtonBack"
+                (click)="backToMyTask()">{{textButtonBack}}
+            </button>
+        </div>
         <div class="card-body">
             <h3 class="card-title"> {{title}}</h3>
-<<<<<<< HEAD
             <div class="header">
                 <ng-content select="[header]"></ng-content>
             </div>
-           
             <div class="card-content">
-=======
-            <div class="body ">
-        
->>>>>>> e16f7a6b817c29ddd6dcac68df1bcc989ee4b73d
-                <ng-content select="[body]"></ng-content>
-            <!-- </div>
-            <div class="card-footer">
-                <ng-content select="[footer]"></ng-content>
-            </div> -->
+                <div class="body ">
+                    <ng-content select="[body]"></ng-content>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
