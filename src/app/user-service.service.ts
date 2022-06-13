@@ -66,8 +66,8 @@ export class UserServiceService {
     return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?SystemGuid='+ SystemGuid +'&TaskGuid=' + TaskGuid);
 
   }
-  GetActualTaskHours(TaskGuid:any){
-    return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?TaskGuid=' + TaskGuid);
+  GetActualTaskHours(SystemGuid:any,TaskGuid:any){
+    return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?SystemGuid='+ SystemGuid +'&TaskGuid=' + TaskGuid);
 
   }
 }
