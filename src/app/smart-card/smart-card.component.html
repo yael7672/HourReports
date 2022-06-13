@@ -3,12 +3,16 @@
         <a *ngIf="ifX" class="close" (click)="closeCard()">&times;</a>
         <div class="card-body">
             <h3 class="card-title"> {{title}}</h3>
-            <div class="body ">
+            <div class="header">
+                <ng-content select="[header]"></ng-content>
+            </div>
+           
+            <div class="card-content">
                 <ng-content select="[body]"></ng-content>
-            </div>
-            <div class="footer">
+            <!-- </div>
+            <div class="card-footer">
                 <ng-content select="[footer]"></ng-content>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

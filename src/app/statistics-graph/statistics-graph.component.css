@@ -1,18 +1,14 @@
 .canvas {
     display: block;
-    width: 400px;
-    height: 400px;
+    width: 450px;
 }
-.wrap-login100 {
-
-    background: #e8e8e8;
-    border-radius: 10px;
-    overflow: hidden;
-    padding: 10px 10px 10px 10px;
-  
-    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-    -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-    -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-  }
+.btn{
+    margin-right: 1rem;
+}
+.form-group{
+    display: flex;
+}
+.input-group-addon
+{
+padding: 0.5rem
+}

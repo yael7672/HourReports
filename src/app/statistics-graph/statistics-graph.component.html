@@ -1,29 +1,67 @@
-<div class="canvas">
-<canvas id="myChart"></canvas>
-</div>
-<div class="canvas">
-    <canvas id="myChart1"></canvas>
+
+
+
+
+
+<app-smart-card [title]="'השוואה בן שעות עבודה לשעות בפועל'"  class="task-card-timer">
+  <div header>
+    <div class="form-group ">
+      <br>
+      <div class="input-group input-daterange">
+        <input type="date" class="form-control" [(ngModel)]="dateOfSearchBeforeForLineChart" [ngModelOptions]="{standalone: true}">
+        <div class="input-group-addon">ל - </div>
+        <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForLineChart" [ngModelOptions]="{standalone: true}">
+      </div>
+<button (click)="GetMyProjectContentItemByTimeLineChart()" class="btn btn-color">השווה</button>
+  </div> 
+  </div>
+  <div body>
+    <div class="canvas ">
+      <canvas id="lineChart">
+      </canvas>
     </div>
-    <div class="canvas">
-        <canvas id="myChart2"></canvas>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 col-md-8">
-              <!--GraphTwo-->
-              <div id="GraphTwo">
-                <div class="wrap-login100">
-                  <div class="card-body">
-                    <!--Line chart-->
-                    <!--<canvas id="speedChart" width="400" height="100"></canvas>-->
-                    <canvas id="lineChart"></canvas>
-                  </div>
-                  <div class="card-footer">
-                    <hr />
-                    <div class="card-stats">
-                      <!--כאן יהיה תיאור של מה שהגרף מציג על פי החודשים-->
-                      <i class="fa fa-check"></i> {{LineChartText}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+  </div>
+  <div class="card-footer">
+    <hr />
+    <div class="card-stats">
+      <i class="fa fa-check"></i> {{LineChartText}}
+    </div>
+  </div>
+</app-smart-card>
+
+
+
+
+
+
+<app-smart-card [title]="' השוואה בן שעות עבודה לשעות בפועל באחוזים'"  class="task-card-timer">
+  <div header>
+    <div class="form-group ">
+      <br>
+      <div class="input-group input-daterange">
+        <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForBarChart" [ngModelOptions]="{standalone: true}">
+        <div class="input-group-addon">ל - </div>
+        <input type="date" class="form-control" [(ngModel)]="dateOfSearchBeforeForBarChart" [ngModelOptions]="{standalone: true}">
+      </div>
+<button (click)="GetMyProjectContentItemByTimeBarChart()" class="btn btn-color">השווה</button>
+  </div> 
+  </div>
+  <div body>
+    <div class="canvas ">
+      <canvas id="BarChart">
+      </canvas>
+    </div>
+  </div>
+  <div class="card-footer">
+    <hr />
+    <div class="card-stats">
+      <i class="fa fa-check"></i> {{LineChartText}}
+    </div>
+  </div>
+</app-smart-card>
+
+
+
+
+
+
