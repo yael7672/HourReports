@@ -23,14 +23,15 @@ export class SpecificTaskComponent implements OnInit {
   @Input() isDisabledEnd!: boolean;
   @Input() isDisabledPouse!: boolean;
   @Input() isDisabledStart!: boolean;
+  @Input() textButtonBack:any;
   @Output() clickCloseCard = new EventEmitter<any>();
   @Output() clickStartTimer = new EventEmitter<any>();
   @Output() clickPauseTimer = new EventEmitter<any>();
   @Output() clickdeleteTimer = new EventEmitter<any>();
   @Output() objectEmitter = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
+  @Output() clickBackToMyTask= new EventEmitter<any>();
   descriptionTask!:string
-
   heberwDateRecords: any;
   ifDescriptionPanel = false;
   descriptionPanel: any;
@@ -69,6 +70,10 @@ export class SpecificTaskComponent implements OnInit {
   }
   CloseCard() {
     this.clickCloseCard.emit()
+  }
+  backToMyTask()
+  {
+    this.clickBackToMyTask.emit();
   }
 
 }

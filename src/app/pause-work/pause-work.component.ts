@@ -119,7 +119,12 @@ export class PauseWorkComponent implements OnInit {
     this.showMassgeToUser = false
   }
 
-
+  closePopUp()
+  {   
+    this.appService.setIsPopUpOpen(false);
+    this.popUpService.setClosePopUp();
+  }
+  
   CreatePauseWork() {
     this.systemGuid = localStorage.getItem("systemGuid")
     this.userServiceService.CreatePauseWork(this.systemGuid).subscribe(

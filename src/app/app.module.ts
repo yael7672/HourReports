@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
 import { PauseWorkComponent } from './pause-work/pause-work.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChartsComponent } from './charts/charts.component';
 import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
  
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
@@ -46,7 +47,9 @@ import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.co
     MassgeToUserComponent,
     PauseWorkComponent,
     PersonalDetailsComponent,
+    ChartsComponent,
     StatisticsGraphComponent
+
 
   ],
   imports: [

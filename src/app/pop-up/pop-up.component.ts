@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
 
@@ -10,12 +10,11 @@ import { PopUpServiceService } from '../pop-up-service.service';
 export class PopUpComponent implements OnInit {
   isClose!:boolean
   @Input()text!:string;
-
   @Input()ifX!:boolean;
+   @Input() hideButton!: any; 
+  @Input() textButtonBack:any;
 
-
-  @Input() hideButton!: any;
-
+  
   constructor(private popUpService:PopUpServiceService,private appService:AppService) { }
 
   ngOnInit(): void {
@@ -25,4 +24,5 @@ export class PopUpComponent implements OnInit {
     this.appService.setIsPopUpOpen(false);
     this.popUpService.setClosePopUp();
   }
+
 }

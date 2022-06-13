@@ -11,6 +11,7 @@ import { ShowMyTaskComponent } from './tasks/show-my-task/show-my-task.component
 import { SpecificTaskComponent } from './tasks/specific-task/specific-task.component';
 import { SmartCardComponent } from './smart-card/smart-card.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
+import { ChartsComponent } from './charts/charts.component';
 import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
 
 const routes: Routes = [
@@ -28,9 +29,8 @@ const routes: Routes = [
   { path: 'specificTask', component: SpecificTaskComponent },
   { path: 'smartCard', component: SmartCardComponent },
   { path: 'personalDetails', component: PersonalDetailsComponent },
+  { path: 'charts9', component: ChartsComponent },
   { path: 'StatisticsGraph', component: StatisticsGraphComponent },
-
-  
 
 
 ];

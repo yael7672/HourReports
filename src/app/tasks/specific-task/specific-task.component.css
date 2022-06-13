@@ -12,3 +12,13 @@ p {
   font-weight: bold;
   font-size: large;
 }
+
+.Timeback{
+  justify-items: left;
+}
+
+.back{
+  justify-content: right;
+  width: 50%;
+}
+

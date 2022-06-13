@@ -10,8 +10,10 @@ import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 import { Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { TaskByGuid } from '../interfacees/TaskByGuid';
 import { Chart } from 'chart.js';
 import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
+
 
 @Component({
   selector: 'app-menu',
@@ -74,6 +76,9 @@ export class MenuComponent implements OnInit {
   massgeUserCloseTask1 = "?האם אתה בטוח שברצונך לצאת";
   massgeUserCloseTask2 = "!שים לב";
   massgeUserCloseTask3 = "פעולה זו סוגרת  את הטיימר של המשימה";
+  textButtonBack = "חזרה למשימות שלי"
+  TaskByGuidObject!: TaskByGuid;
+
   openPersonalDetails = false;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -202,9 +207,9 @@ export class MenuComponent implements OnInit {
   }
 
   SelectedStop(time: any) {
-    
-    if (time.worktime != "" || time!=null) {
-      this.timetoSend =time.worktime?[...time.worktime]:[...time]
+
+    if (time.worktime != "" || time != null) {
+      this.timetoSend = time.worktime ? [...time.worktime] : [...time]
       clearInterval(this.interval);
       this.seconds = 0;
       if (this.timetoSend[2] > 30) {
@@ -227,6 +232,9 @@ export class MenuComponent implements OnInit {
       )
     }
   }
+
+
+
   SelectedEnd(time: any) {
     if (time.worktime != "") {
       this.timetoSend = [...time.worktime]
@@ -244,9 +252,10 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.massageFromServer = res;
-          swal(this.massageFromServer);
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
+          this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
+
         }
       },
       err => {
@@ -255,9 +264,38 @@ export class MenuComponent implements OnInit {
     )
 
   }
+  AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any, massageFromServerUpdate: any) {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetActualTaskHours(TaskGuid).subscribe(
+      res => {
+        if (res) {
+          this.TaskByGuidObject = res;
+          console.log("this.TaskByGuidObject", this.TaskByGuidObject);
+          if (this.TaskByGuidObject.WorkingHours == "0") {
+            swal(massageFromServerUpdate)
+          }
+          else
+          if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
+            swal("כל הכבוד!", "", "success");
+          }
+          else {
+            swal(massageFromServerUpdate)
+          }
+
+        }
+      },
+      err => {
+        console.log(err.error);
+      }
+    )
+
+
+  }
+
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
+
   GetProjectContentItemByTaskGuid() {
     this.userService.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid).subscribe(
       res => {
@@ -333,4 +371,13 @@ export class MenuComponent implements OnInit {
       map(term => term === '' ? []
         : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
 
+
+  BackToMyTask() {
+    this.tableMyTaskOpen = true;
+    this.tableSpecificTaskOpen = false;
+
+  }
+
 }
+
+

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment.prod';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
+import { TaskByGuid } from './interfacees/TaskByGuid';
 import { User } from './interfacees/user';
 import { WorkType } from './interfacees/work-type';
 
@@ -61,5 +62,12 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + 'GetMyProjectContentItemByTime?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate);
 
   }
+  GetTaskByGuid(SystemGuid:any,TaskGuid:any){
+    return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?SystemGuid='+ SystemGuid +'&TaskGuid=' + TaskGuid);
 
+  }
+  GetActualTaskHours(TaskGuid:any){
+    return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?TaskGuid=' + TaskGuid);
+
+  }
 }
