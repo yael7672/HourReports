@@ -252,10 +252,10 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.massageFromServer = res;
-          this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime)
-          swal(this.massageFromServer)
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
+          this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
+
         }
       },
       err => {
@@ -264,16 +264,24 @@ export class MenuComponent implements OnInit {
     )
 
   }
-  AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any) {
+  AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any, massageFromServerUpdate: any) {
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.userService.GetTaskByGuid(this.systemGuid, TaskGuid).subscribe(
+    this.userService.GetActualTaskHours(TaskGuid).subscribe(
       res => {
         if (res) {
           this.TaskByGuidObject = res;
           console.log("this.TaskByGuidObject", this.TaskByGuidObject);
-          if (this.TaskByGuidObject.WorkingHours < this.parseTime) {
-            swal("כל הכבוד")
+          if (this.TaskByGuidObject.WorkingHours == "0") {
+            swal(massageFromServerUpdate)
           }
+          else
+          if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
+            swal("כל הכבוד!", "", "success");
+          }
+          else {
+            swal(massageFromServerUpdate)
+          }
+
         }
       },
       err => {
