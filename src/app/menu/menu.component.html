@@ -89,12 +89,20 @@
 <div *ngIf="showMassgeToUser">
   <app-pop-up>
     <div body>
-      <app-massge-to-user [massgeUserHeader]="massgeUserCloseTask1" [massgeUserBody1]="massgeUserCloseTask2"
-        [massgeUserBody2]="massgeUserCloseTask3" (clickYes)="clickYes()" (clickNo)="clickNo()"></app-massge-to-user>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageIsifCloseTask" [massgeUserHeader]="massgeUserCloseTaskHeader" [massgeUserBody1]="massgeUserCloseTaskBody"
+        [massgeUserBody2]="massgeUserCloseTaskFooter" (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
 
+<div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATask">
+  <app-pop-up>
+    <div body>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATask" [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody" [massgeUserHeader]="massgeUseIfInTheMiddleOfWorkOnATaskHeader" [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody"
+        [massgeUserBody2]="taskNameFromLocalStorage" (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+    </div>
+  </app-pop-up>
+</div>
 <div *ngIf="isPopUpOpen?.pause">
   <app-pause-work (ClickStartPause)="SelectedStartPause()" [workTime]="workTime"></app-pause-work>
 </div>
