@@ -274,7 +274,7 @@ export class MenuComponent implements OnInit {
   }
   AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any, massageFromServerUpdate: any) {
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.userService.GetActualTaskHours(TaskGuid).subscribe(
+    this.userService.GetActualTaskHours(this.systemGuid,TaskGuid).subscribe(
       res => {
         if (res) {
           this.TaskByGuidObject = res;
