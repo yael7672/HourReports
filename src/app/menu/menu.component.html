@@ -1,7 +1,7 @@
 <div class="aImg">
   <div>
   <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" style="font-size:30px"></i></a>
-  <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee" style="font-size:30px"></i></a>
+  <a (click)="CheckIfProjectContentItemOpen()"><i class="fa fa-coffee" style="font-size:30px"></i></a>
   <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o" style="font-size:30px"></i>
   </a>
 </div>
@@ -103,6 +103,16 @@
     </div>
   </app-pop-up>
 </div>
+
+<div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
+  <app-pop-up>
+    <div body>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause" [inputValue]="taskNameFromLocalStorage2" [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody" [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [massgeUserBody1]=""
+       (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+    </div>
+  </app-pop-up>
+</div>
+
 <div *ngIf="isPopUpOpen?.pause">
   <app-pause-work (ClickStartPause)="SelectedStartPause()" [workTime]="workTime"></app-pause-work>
 </div>
