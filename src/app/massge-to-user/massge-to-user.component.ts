@@ -6,21 +6,33 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./massge-to-user.component.css']
 })
 export class MassgeToUserComponent implements OnInit {
-  @Input() massgeUserHeader:any
-  @Input() massgeUserBody2:any
-  @Input() massgeUserBody1:any
-  @Output()clickYes = new EventEmitter<any>();
-  @Output()clickNo = new EventEmitter<any>();
+  @Input() massgeUserHeader: any
+  @Input() massgeUserBody2: any
+  @Input() massgeUserBody1: any
+  @Input() kindOfMassage: any;
+  @Output() clickYes = new EventEmitter<any>();
+  @Output() clickNo = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
   BtnYes() {
-    this.clickYes.emit()
+    if (this.kindOfMassage == 'kindOfMassageIsifCloseTask') {
+      this.clickYes.emit('kindOfMassageIsifCloseTask')
+    }
+    else {
+      if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
+        this.clickYes.emit('kindOfMassageifInTheMiddleOfWorkOnATask')
+      }
+    }
   }
   BtnNo() {
-    this.clickNo.emit()
-  }
-
+    if (this.kindOfMassage == 'kindOfMassageIsifCloseTask')
+      this.clickNo.emit('kindOfMassageIsifCloseTask')
+else
+    if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
+      this.clickNo.emit('kindOfMassageifInTheMiddleOfWorkOnATask')
+    }
+}
 }

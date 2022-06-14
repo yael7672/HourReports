@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
   public model: any;
   isPopUpOpen!: any;
   taskListData: any;
-  taskListDataDetails: any;
+  taskListDataDetails!: any;
   taskListDataDetails1: any;
   ifDescriptionPanel = false;
   descriptionPanel: any;
@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit {
   titleTableTask = 'המשימות שלי';
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
-  thArrTask = ['שם המשימה', 'תאריך', 'פרוייקט'];
+  thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name']];
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
@@ -73,13 +73,20 @@ export class MenuComponent implements OnInit {
   showMassgeToUser = false;
   timeToSave: any;
   SystemGuid: any;
-  massgeUserCloseTask1 = "?האם אתה בטוח שברצונך לצאת";
-  massgeUserCloseTask2 = "!שים לב";
-  massgeUserCloseTask3 = "פעולה זו סוגרת  את הטיימר של המשימה";
+  massgeUserCloseTaskHeader = "?האם אתה בטוח שברצונך לצאת";
+  massgeUseIfInTheMiddleOfWorkOnATaskHeader = "!יש לך משימה פתוחה";
+  massgeUserIfInTheMiddleOfWorkOnATaskBody = "?האם בצונך לחזור אליה";
+  massgeUserCloseTaskBody = "!שים לב";
+  massgeUserCloseTaskFooter = "פעולה זו סוגרת  את הטיימר של המשימה";
   textButtonBack = "חזרה למשימות שלי"
   TaskByGuidObject!: TaskByGuid;
-
   openPersonalDetails = false;
+  taskGuidFromLocalStorage: any;
+  taskNameFromLocalStorage: any;
+  kindOfMassageIsifCloseTask = 'kindOfMassageIsifCloseTask';
+  kindOfMassageifInTheMiddleOfWorkOnATask = 'kindOfMassageifInTheMiddleOfWorkOnATask';
+  showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
+  workTimeFromLocalStorage!:any;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -122,6 +129,7 @@ export class MenuComponent implements OnInit {
     console.log(this.arrFunc);
     this.GetMyTask();
     this.GetProject();
+    this.CheckWhetherInTheMiddleOfWorkOnaTask();
   }
 
 
@@ -149,11 +157,13 @@ export class MenuComponent implements OnInit {
     this.taskListDataDetails = val;
     console.log(this.taskListDataDetails);
     clearInterval(this.interval);
-    this.GetProjectContentItemByTaskGuid();
+    this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
     this.tableSpecificTaskOpen = true;
     this.tableMyTaskOpen = false;
   }
   SelectedStart() {
+    localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
+    localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid).subscribe(res => {
       if (res) {
@@ -207,6 +217,8 @@ export class MenuComponent implements OnInit {
   }
 
   SelectedStop(time: any) {
+    localStorage.removeItem('TaskGuid');
+    localStorage.removeItem('TaskName');
 
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? [...time.worktime] : [...time]
@@ -219,11 +231,15 @@ export class MenuComponent implements OnInit {
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
       this.isDisabledStart = false;
       this.isTaskAccomplished = false;
+      if (time.descriptionTask == undefined) {
+        time.descriptionTask = "";
+      }
       this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
         res => {
           if (res) {
             this.massageFromServer = res;
-            swal(this.massageFromServer)
+            swal(this.massageFromServer);
+            this.workTime = ["00", "00", "00"];
           }
         },
         err => {
@@ -236,6 +252,8 @@ export class MenuComponent implements OnInit {
 
 
   SelectedEnd(time: any) {
+    localStorage.removeItem('TaskGuid');
+    localStorage.removeItem('TaskName');
     if (time.worktime != "") {
       this.timetoSend = [...time.worktime]
       this.seconds = 0;
@@ -248,12 +266,18 @@ export class MenuComponent implements OnInit {
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
     }
     this.isTaskAccomplished = true;
+    if (time.descriptionTask == undefined) {
+      time.descriptionTask = "";
+    }
+    this.workTime = ["00", "00", "00"];
+
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
       res => {
         if (res) {
           this.massageFromServer = res;
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
+
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
 
         }
@@ -266,7 +290,7 @@ export class MenuComponent implements OnInit {
   }
   AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any, massageFromServerUpdate: any) {
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.userService.GetActualTaskHours(this.systemGuid,TaskGuid).subscribe(
+    this.userService.GetActualTaskHours(this.systemGuid, TaskGuid).subscribe(
       res => {
         if (res) {
           this.TaskByGuidObject = res;
@@ -275,12 +299,12 @@ export class MenuComponent implements OnInit {
             swal(massageFromServerUpdate)
           }
           else
-          if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
-            swal("כל הכבוד!", "", "success");
-          }
-          else {
-            swal(massageFromServerUpdate)
-          }
+            if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
+              swal("כל הכבוד!", "", "success");
+            }
+            else {
+              swal(massageFromServerUpdate)
+            }
 
         }
       },
@@ -288,16 +312,14 @@ export class MenuComponent implements OnInit {
         console.log(err.error);
       }
     )
-
-
   }
 
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
 
-  GetProjectContentItemByTaskGuid() {
-    this.userService.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid).subscribe(
+  GetProjectContentItemByTaskGuid(taskGuid: string) {
+    this.userService.GetProjectContentItemByTaskGuid(taskGuid).subscribe(
       res => {
         if (res.length > 0) {
           this.projectContentItemArr = res;
@@ -337,24 +359,46 @@ export class MenuComponent implements OnInit {
     }
   }
   clickCloseCard() {
-    if (this.workTime) {
-      this.showMassgeToUser = true;
-    }
-    else {
+    if (this.workTime[0] === "00" && this.workTime[1] === "00" && this.workTime[2] === "00" || this.workTime === "") {
       this.tableMyTaskOpen = true;
       this.tableSpecificTaskOpen = false;
     }
+    else {
+      this.showMassgeToUser = true;
+    }
   }
-  clickYes() {
-    this.tableMyTaskOpen = true;
-    this.tableSpecificTaskOpen = false;
-    this.showMassgeToUser = false;
-    this.SelectedStop(this.workTime)
+  clickYes(kindOfMassage: string) {
+    if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
+      this.tableMyTaskOpen = true;
+      this.tableSpecificTaskOpen = false;
+      this.showMassgeToUser = false;
+      this.SelectedStop(this.workTime)
+    }
+    if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
+      this.GetProjectContentItemByTaskGuid(this.taskGuidFromLocalStorage);
+      this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
+      this.tableSpecificTaskOpen = true;
+      this.tableMyTaskOpen = false;
+      this.taskListDataDetails=this.taskNameFromLocalStorage;
+      this.workTimeFromLocalStorage=localStorage.getItem('workTime');
+      this.workTime= this.workTimeFromLocalStorage;
+
+    }
+
   }
-  clickNo() {
-    this.showMassgeToUser = false;
-    this.tableMyTaskOpen = false;
-    this.tableSpecificTaskOpen = true;
+  clickNo(kindOfMassage: string) {
+    if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
+      this.showMassgeToUser = false;
+      this.tableMyTaskOpen = false;
+      this.tableSpecificTaskOpen = true;
+    }
+    else {
+      if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
+        this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
+        this.tableMyTaskOpen = true;
+
+      }
+    }
   }
   mouseLeavePersonalDetails() {
     this.openPersonalDetails = false;
@@ -375,6 +419,14 @@ export class MenuComponent implements OnInit {
   BackToMyTask() {
     this.tableMyTaskOpen = true;
     this.tableSpecificTaskOpen = false;
+
+  }
+  CheckWhetherInTheMiddleOfWorkOnaTask() {
+    if (localStorage.getItem('TaskGuid')) {
+      this.taskGuidFromLocalStorage = localStorage.getItem('TaskGuid')
+      this.taskNameFromLocalStorage = localStorage.getItem('TaskName')
+      this.showMassgeToUserIfInTheMiddleOfWorkOnATask = true;
+    }
 
   }
 
