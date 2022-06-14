@@ -99,12 +99,12 @@ export class StatisticsGraphComponent implements OnInit {
     });
   }
 
-  GetMyProjectContentItemByTimeLineChart() {
+  GetMyProjectContentItemByTimeLineChart(val=null) {
     this.LineChart1.render();
     this.systemGuid = localStorage.getItem('systemGuid');
     this.dateOfSearchBeforeForLineChart = this.datepipe.transform(this.dateOfSearchBeforeForLineChart, 'dd/MM/yyyy')
     this.dateOfSearchAfterForLineChart = this.datepipe.transform(this.dateOfSearchAfterForLineChart, 'dd/MM/yyyy')
-    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart).subscribe(res => {
+    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart,val).subscribe(res => {
       if (res) {
         this.WorkingHoursAndActualHoursForLineChart = res;
         console.log(this.WorkingHoursAndActualHoursForLineChart);
@@ -127,12 +127,12 @@ export class StatisticsGraphComponent implements OnInit {
     }
 
   }
-  GetMyProjectContentItemByTimeBarChart() {
+  GetMyProjectContentItemByTimeBarChart(val=null) {
     this.LineChart1.render();
     this.systemGuid = localStorage.getItem('systemGuid');
     this.dateOfSearchBeforeForBarChart = this.datepipe.transform(this.dateOfSearchBeforeForBarChart, 'dd/MM/yyyy')
     this.dateOfSearchAfterForBarChart = this.datepipe.transform(this.dateOfSearchAfterForBarChart, 'dd/MM/yyyy')
-    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchAfterForBarChart, this.dateOfSearchBeforeForBarChart).subscribe(res => {
+    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchAfterForBarChart, this.dateOfSearchBeforeForBarChart,val).subscribe(res => {
       if (res) {
         this.WorkingHoursAndActualHoursForBarChart = res;
         console.log(this.WorkingHoursAndActualHoursForBarChart);

@@ -58,7 +58,7 @@ export class UserServiceService {
     return this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime);
 
   }
-  GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string) {
+  GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string,SelectedTime:any) {
     return this.http.get<any>(environment.url + 'GetMyProjectContentItemByTime?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate);
 
   }

@@ -1,4 +1,4 @@
-import { outputAst } from '@angular/compiler';
+import { jsDocComment, outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
   minutes: number = 0;
   seconds: number = 0;
   hours: number = 0;
-  workTime!: any;
+  workTime: any;
   titleTableTask = 'המשימות שלי';
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
@@ -86,7 +86,10 @@ export class MenuComponent implements OnInit {
   kindOfMassageIsifCloseTask = 'kindOfMassageIsifCloseTask';
   kindOfMassageifInTheMiddleOfWorkOnATask = 'kindOfMassageifInTheMiddleOfWorkOnATask';
   showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
-  workTimeFromLocalStorage!:any;
+  workTimeFromLocalStorage!: any;
+  arr1!: null | string;
+  a: any;
+
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -163,7 +166,10 @@ export class MenuComponent implements OnInit {
   }
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
+    localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
+
     localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
+
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid).subscribe(res => {
       if (res) {
@@ -193,7 +199,9 @@ export class MenuComponent implements OnInit {
 
       console.log(this.workTime);
 
-      localStorage.setItem('workTime', this.workTime)
+      localStorage.setItem('workTime', JSON.stringify(this.workTime))
+
+
     }, 1000)
   }
   transformNumber(value: number) {
@@ -212,13 +220,14 @@ export class MenuComponent implements OnInit {
         this.seconds++;
       }
       this.workTime = this.transformNumber(this.seconds)
-      localStorage.setItem('workTime', this.workTime)
+      //   localStorage.setItem('workTime', this.workTime)
     }, 1000)
   }
 
   SelectedStop(time: any) {
     localStorage.removeItem('TaskGuid');
     localStorage.removeItem('TaskName');
+    localStorage.getItem('TaskGuidToSend');
 
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? [...time.worktime] : [...time]
@@ -234,7 +243,7 @@ export class MenuComponent implements OnInit {
       if (time.descriptionTask == undefined) {
         time.descriptionTask = "";
       }
-      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
+      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid?this.taskListDataDetails.TaskGuid:localStorage.getItem('TaskGuidToSend'), this.isTaskAccomplished, time.descriptionTask).subscribe(
         res => {
           if (res) {
             this.massageFromServer = res;
@@ -253,6 +262,8 @@ export class MenuComponent implements OnInit {
 
   SelectedEnd(time: any) {
     localStorage.removeItem('TaskGuid');
+    localStorage.removeItem('TaskGuidTosend');
+
     localStorage.removeItem('TaskName');
     if (time.worktime != "") {
       this.timetoSend = [...time.worktime]
@@ -379,9 +390,16 @@ export class MenuComponent implements OnInit {
       this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
       this.tableSpecificTaskOpen = true;
       this.tableMyTaskOpen = false;
-      this.taskListDataDetails=this.taskNameFromLocalStorage;
-      this.workTimeFromLocalStorage=localStorage.getItem('workTime');
-      this.workTime= this.workTimeFromLocalStorage;
+      this.taskListDataDetails = this.taskNameFromLocalStorage;
+      this.isDisabledStart=true;
+      this.isDisabledPouse=false;
+
+      this.a = localStorage.getItem('workTime')
+      this.workTime = JSON.parse(this.a)
+      let hours   =Number(this.workTime[0] )/ 3600; // get hours
+      let minutes =Number(this.workTime[1]) - (hours * 3600) / 60; // get minutes
+      let seconds = Number(this.workTime[2])+ (hours * 3600) + (minutes * 60); 
+      this.ContinueToWorkOnATask(seconds)
 
     }
 
@@ -428,6 +446,30 @@ export class MenuComponent implements OnInit {
       this.showMassgeToUserIfInTheMiddleOfWorkOnATask = true;
     }
 
+  }
+  ContinueToWorkOnATask(timeToContinue:any) {
+    this.interval = setInterval(() => {
+      if (timeToContinue === 0) {
+        timeToContinue++;
+      }
+      else {
+        timeToContinue++;
+      }
+      this.workTime = this.transformNumber(timeToContinue)
+      if (this.workTime[0] < 10) {
+        this.workTime[0] = "0" + this.workTime[0]
+      }
+      if (this.workTime[1] < 10) {
+        this.workTime[1] = "0" + this.workTime[1]
+      }
+      if (this.workTime[2] < 10) {
+        this.workTime[2] = "0" + this.workTime[2]
+      }
+      console.log(this.workTime);
+      localStorage.setItem('workTime', JSON.stringify(this.workTime))
+
+    }, 1000)
+   
   }
 
 }
