@@ -9,6 +9,7 @@
         <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForLineChart"
           [ngModelOptions]="{standalone: true}">
       </div>
+<<<<<<< HEAD
 
       <button (click)="GetMyProjectContentItemByTimeLineChart()" class="btn btn-color">השווה</button>
     </div>
@@ -20,6 +21,10 @@
         <option value="3"> החודש האחרון</option>
       </select>
 
+=======
+      <button (click)="GetMyProjectContentItemByTimeLineChart()" class="btn btn-color">השווה</button>
+   
+>>>>>>> 7a8946dcac3303674d1e7c7805f5d08aa14e3f7b
     </div>
   </div>
   <div body>
@@ -27,12 +32,20 @@
       <canvas id="lineChart">
       </canvas>
     </div>
+    <br>
+    <div class="row">
+      <h6 class="col-md-4"> <span class="label label-default">ממוצע הפסקות:</span></h6>
+      <h6  class="col-md-3">{{this.AverageBreaks | number }}</h6>
+      <h6  class="col-md-3">= {{AverageBreaksByTimeLineChart.DiffrenceDay}}/ {{AverageBreaksByTimeLineChart.TotalBreakHours}}</h6>
+   
+    </div>
   </div>
   <div class="card-footer">
     <hr />
     <div class="card-stats">
       <i class="fa fa-check"></i> {{LineChartText}}
     </div>
+
   </div>
 </app-smart-card>
 

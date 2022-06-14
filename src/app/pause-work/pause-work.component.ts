@@ -5,6 +5,8 @@ import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 import swal from 'sweetalert';
+import { MenuComponent } from '../menu/menu.component';
+import { ButtonWorkingTaskService } from '../button-working-task.service';
 
 @Component({
   selector: 'app-pause-work',
@@ -19,20 +21,26 @@ export class PauseWorkComponent implements OnInit {
   systemGuid: any
   @Input() workTime!: any;
   @Output() ClickStartPause = new EventEmitter<any>();
-  workTimeHour:any
+  workTimeHour: any
   descriptionPanel: any;
   interval: any;
   minutes: number = 0;
   seconds: number = 0;
   hours: number = 0;
   endButton!: boolean
-  timetoSend:any;
-  parseTime:any;
+  timetoSend: any;
+  parseTime: any;
   showMassgeToUser!: boolean
   formWorkPause!: NgForm
-  ifX=true;
+  ifX = true;
+  taskGuid: any;
+  ifInMiddleTask = false
+  openSpecificTask = false
+  taskListDataDetails: any
+  popUpPause = "popUpPause"
+  workTimeLS: any;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
-    private appService: AppService, private popUpService: PopUpServiceService) {
+    private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
   }
@@ -47,6 +55,7 @@ export class PauseWorkComponent implements OnInit {
 
   PauseWork(workTime: any) {
     this.systemGuid = localStorage.getItem("systemGuid")
+    this.taskGuid = localStorage.getItem("TaskGuid")
     this.userServiceService.PauseWork(this.systemGuid, workTime).subscribe(
       (res: any) => {
         this.pauseAlert = res;
@@ -54,6 +63,16 @@ export class PauseWorkComponent implements OnInit {
         swal(this.pauseAlert);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
+        if (this.taskGuid) {
+          // if (this.ifInMiddleTask == true) {
+            this.openSpecificTask = true
+            setTimeout(() => {
+              this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
+              let myCompMenu = new MenuComponent(this.popUpService, this.userServiceService, this.appService, this.buttonWorkingTaskService)
+              myCompMenu.SelectedTask(this.taskListDataDetails)
+            }, 500)
+          }
+        // }
       },
       (err: any) =>
         alert("error")
@@ -62,6 +81,11 @@ export class PauseWorkComponent implements OnInit {
 
 
   SelectedStartPause() {
+   this.workTimeLS= localStorage.getItem('workTime')
+    if(this.workTimeLS)
+    {
+      this.workTimeHour = this.workTimeLS
+    }
     this.interval = setInterval(() => {
       if (this.seconds === 0) {
         this.seconds++;
@@ -92,7 +116,7 @@ export class PauseWorkComponent implements OnInit {
   }
 
   startPause() {
-    this.ifX=false;
+    this.ifX = false;
     this.endButton = true;
     this.CreatePauseWork();
     this.SelectedStartPause();
@@ -102,29 +126,28 @@ export class PauseWorkComponent implements OnInit {
   }
 
   clickYes(time: any) {
-      if (time != "") {
-        this.timetoSend = [...time]
-        clearInterval(this.interval);
-        this.seconds = 0;
-        if (this.timetoSend[2] > 30) {
-          this.timetoSend[1] += 1;
-        }
-        this.timetoSend[1] = (this.timetoSend[1] / 60)
-        this.parseTime = this.timetoSend[0] + this.timetoSend[1];
-        this.PauseWork(this.parseTime)
-
+    if (time != "") {
+      this.timetoSend = [...time]
+      clearInterval(this.interval);
+      this.seconds = 0;
+      if (this.timetoSend[2] > 30) {
+        this.timetoSend[1] += 1;
       }
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.parseTime = this.timetoSend[0] + this.timetoSend[1];
+      this.PauseWork(this.parseTime)
+
+    }
   }
   clickNo() {
     this.showMassgeToUser = false
   }
 
-  closePopUp()
-  {   
+  closePopUp() {
     this.appService.setIsPopUpOpen(false);
     this.popUpService.setClosePopUp();
   }
-  
+
   CreatePauseWork() {
     this.systemGuid = localStorage.getItem("systemGuid")
     this.userServiceService.CreatePauseWork(this.systemGuid).subscribe(

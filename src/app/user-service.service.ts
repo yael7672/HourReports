@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
+import { averageBreaks } from './interfacees/averageBreaks';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
@@ -68,6 +69,8 @@ export class UserServiceService {
   }
   GetActualTaskHours(SystemGuid:any,TaskGuid:any){
     return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?SystemGuid='+ SystemGuid +'&TaskGuid=' + TaskGuid);
-
+  }
+  GetAverageBreaks(SystemGuid:any, FromDate: string, UntilDate: string){
+    return this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?SystemGuid='+ SystemGuid +'&FromDate=' + FromDate +'&UntilDate=' + UntilDate);
   }
 }

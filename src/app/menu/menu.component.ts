@@ -75,7 +75,7 @@ export class MenuComponent implements OnInit {
   SystemGuid: any;
   massgeUserCloseTaskHeader = "?האם אתה בטוח שברצונך לצאת";
   massgeUseIfInTheMiddleOfWorkOnATaskHeader = "!יש לך משימה פתוחה";
-  massgeUserIfInTheMiddleOfWorkOnATaskBody = "?האם בצונך לחזור אליה";
+  massgeUserIfInTheMiddleOfWorkOnATaskBody = "?האם ברצונך לחזור אליה";
   massgeUserCloseTaskBody = "!שים לב";
   massgeUserCloseTaskFooter = "פעולה זו סוגרת  את הטיימר של המשימה";
   textButtonBack = "חזרה למשימות שלי"
@@ -85,11 +85,14 @@ export class MenuComponent implements OnInit {
   taskNameFromLocalStorage: any;
   kindOfMassageIsifCloseTask = 'kindOfMassageIsifCloseTask';
   kindOfMassageifInTheMiddleOfWorkOnATask = 'kindOfMassageifInTheMiddleOfWorkOnATask';
+  kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause'
   showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
   workTimeFromLocalStorage!: any;
-  arr1!: null | string;
-  a: any;
-
+  showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false;
+  massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "את/ה באמצע עבודה על משימה"
+  massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "האם ברצונך לצאת להפסקה?"
+  taskNameFromLocalStorage2: any;
+  a!: any;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -158,6 +161,7 @@ export class MenuComponent implements OnInit {
   }
   SelectedTask(val: any) {
     this.taskListDataDetails = val;
+    localStorage.setItem('taskListDataDetails',JSON.stringify(val))
     console.log(this.taskListDataDetails);
     clearInterval(this.interval);
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
@@ -325,6 +329,17 @@ export class MenuComponent implements OnInit {
     )
   }
 
+  CheckIfProjectContentItemOpen() {
+    if (localStorage.getItem('TaskGuid')) {
+      this.taskNameFromLocalStorage2 = "שם המשימה:" + localStorage.getItem('TaskName')
+      this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true
+    }
+    else {
+      this.openPopUp('pause', true)
+    }
+  }
+
+
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
@@ -402,6 +417,13 @@ export class MenuComponent implements OnInit {
       this.ContinueToWorkOnATask(seconds)
 
     }
+    if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {     
+      this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
+      this.SelectedStop(this.workTime)
+      this.openPopUp('pause', true)
+      
+    }
+
 
   }
   clickNo(kindOfMassage: string) {
@@ -415,6 +437,11 @@ export class MenuComponent implements OnInit {
         this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
         this.tableMyTaskOpen = true;
 
+      }
+      else {
+        if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
+          this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
+        }
       }
     }
   }

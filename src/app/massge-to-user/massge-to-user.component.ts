@@ -10,6 +10,7 @@ export class MassgeToUserComponent implements OnInit {
   @Input() massgeUserBody2: any
   @Input() massgeUserBody1: any
   @Input() kindOfMassage: any;
+  @Input() inputValue: any;
   @Output() clickYes = new EventEmitter<any>();
   @Output() clickNo = new EventEmitter<any>();
 
@@ -25,14 +26,38 @@ export class MassgeToUserComponent implements OnInit {
       if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
         this.clickYes.emit('kindOfMassageifInTheMiddleOfWorkOnATask')
       }
+      else {
+        if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
+          this.clickYes.emit('kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause')
+        }
+        else {
+          if (this.kindOfMassage == 'popUpPause') {
+            this.clickYes.emit('popUpPause')
+          }
+        }
+      }
     }
   }
   BtnNo() {
     if (this.kindOfMassage == 'kindOfMassageIsifCloseTask')
       this.clickNo.emit('kindOfMassageIsifCloseTask')
-else
-    if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
-      this.clickNo.emit('kindOfMassageifInTheMiddleOfWorkOnATask')
-    }
-}
+    else
+      if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
+        this.clickNo.emit('kindOfMassageifInTheMiddleOfWorkOnATask')
+      }
+      else {
+        if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
+          this.clickNo.emit('kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause')
+        }
+        else
+        {
+          if(this.kindOfMassage == 'popUpPause')
+          {
+            this.clickNo.emit('popUpPause')
+          }
+        }
+      }
+  }
+
+
 }

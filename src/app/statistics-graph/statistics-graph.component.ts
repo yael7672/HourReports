@@ -3,6 +3,8 @@ import Chart from 'chart.js/auto';
 import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
 import { UserServiceService } from '../user-service.service';
 import { DatePipe } from '@angular/common';
+import swal from 'sweetalert';
+import { averageBreaks } from '../interfacees/averageBreaks';
 
 @Component({
   selector: 'app-statistics-graph',
@@ -30,6 +32,9 @@ export class StatisticsGraphComponent implements OnInit {
   BarChart: any;
   culculte!: any[];
   x!: any;
+  AverageBreaksByTimeLineChart!: averageBreaks;
+  AverageBreaksByTimeBarChart!: averageBreaks;
+  AverageBreaks: any;
   constructor(private userService: UserServiceService, public datepipe: DatePipe) {
     Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
   }
@@ -45,8 +50,7 @@ export class StatisticsGraphComponent implements OnInit {
           data: 0,
           borderWidth: 1,
           fill: false,
-          borderColor:'#ffb000',
-
+          borderColor: '#ffb000',
         },
         {
           label: 'שעות בפועל',
@@ -152,10 +156,39 @@ export class StatisticsGraphComponent implements OnInit {
         console.log(err.error);
       })
 
-    this.BarChart.data.datasets[0].data =this.culculte;
-      this.BarChart.data.labels = this.dateArrForBarChart;
+    this.BarChart.data.datasets[0].data = this.culculte;
+    this.BarChart.data.labels = this.dateArrForBarChart;
 
     this.BarChart.update();
 
   }
+
+  GetAverageBreaksByTimeLineChart(systemGuid: any, dateOfSearchBeforeForLineChart: any, dateOfSearchAfterForLineChart: any) {
+    this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForLineChart, dateOfSearchAfterForLineChart).subscribe(
+      res => {
+        if (res) {
+          this.AverageBreaksByTimeLineChart = res
+          this.AverageBreaks = (this.AverageBreaksByTimeLineChart.TotalBreakHours)/(this.AverageBreaksByTimeLineChart.DiffrenceDay) 
+          // swal(res + "GetAverageBreaksByTimeLineChart")
+        }
+      },
+      err => {
+        console.log(err.error);
+      })
+  }
+
+  GetAverageBreaksByTimeBarChart(systemGuid: any, dateOfSearchBeforeForBarChart: any, dateOfSearchAfterForBarChart: any) {
+    this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForBarChart, dateOfSearchAfterForBarChart).subscribe(
+      res => {
+        if (res) {
+          this.AverageBreaksByTimeBarChart = res
+
+          // swal(res + "GetAverageBreaksByTimeBarChart")
+        }
+      },
+      err => {
+        console.log(err.error);
+      })
+  }
+
 }
