@@ -1,19 +1,29 @@
-<app-smart-card [title]="'השוואה בן שעות עבודה לשעות בפועל'"  class="task-card-timer">
+<app-smart-card [title]="'השוואה בן שעות עבודה לשעות בפועל'" class="task-card-timer">
   <div header>
     <div class="form-group ">
       <br>
       <div class="input-group input-daterange">
-        <input type="date" class="form-control" [(ngModel)]="dateOfSearchBeforeForLineChart" [ngModelOptions]="{standalone: true}">
+        <input type="date" class="form-control" [(ngModel)]="dateOfSearchBeforeForLineChart"
+          [ngModelOptions]="{standalone: true}">
         <div class="input-group-addon">ל - </div>
-        <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForLineChart" [ngModelOptions]="{standalone: true}">
+        <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForLineChart"
+          [ngModelOptions]="{standalone: true}">
       </div>
-<button (click)="GetMyProjectContentItemByTimeLineChart()" class="btn btn-color">השווה</button>
-  </div> 
+      <button (click)="GetMyProjectContentItemByTimeLineChart()" class="btn btn-color">השווה</button>
+   
+    </div>
   </div>
   <div body>
     <div class="canvas ">
       <canvas id="lineChart">
       </canvas>
+    </div>
+    <br>
+    <div class="row">
+      <h6 class="col-md-4"> <span class="label label-default">ממוצע הפסקות:</span></h6>
+      <h6  class="col-md-3">{{this.AverageBreaks | number }}</h6>
+      <h6  class="col-md-3">= {{AverageBreaksByTimeLineChart.DiffrenceDay}}/ {{AverageBreaksByTimeLineChart.TotalBreakHours}}</h6>
+   
     </div>
   </div>
   <div class="card-footer">
@@ -21,20 +31,23 @@
     <div class="card-stats">
       <i class="fa fa-check"></i> {{LineChartText}}
     </div>
+
   </div>
 </app-smart-card>
 
-<app-smart-card [title]="' השוואה בן שעות עבודה לשעות בפועל באחוזים'"  class="task-card-timer">
+<app-smart-card [title]="' השוואה בן שעות עבודה לשעות בפועל באחוזים'" class="task-card-timer">
   <div header>
     <div class="form-group ">
       <br>
       <div class="input-group input-daterange">
-        <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForBarChart" [ngModelOptions]="{standalone: true}">
+        <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForBarChart"
+          [ngModelOptions]="{standalone: true}">
         <div class="input-group-addon">ל - </div>
-        <input type="date" class="form-control" [(ngModel)]="dateOfSearchBeforeForBarChart" [ngModelOptions]="{standalone: true}">
+        <input type="date" class="form-control" [(ngModel)]="dateOfSearchBeforeForBarChart"
+          [ngModelOptions]="{standalone: true}">
       </div>
-<button (click)="GetMyProjectContentItemByTimeBarChart()" class="btn btn-color">השווה</button>
-  </div> 
+      <button (click)="GetMyProjectContentItemByTimeBarChart()" class="btn btn-color">השווה</button>
+    </div>
   </div>
   <div body>
     <div class="canvas ">
@@ -49,9 +62,3 @@
     </div>
   </div>
 </app-smart-card>
-
-
-
-
-
-
