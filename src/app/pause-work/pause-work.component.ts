@@ -8,6 +8,7 @@ import swal from 'sweetalert';
 import { MenuComponent } from '../menu/menu.component';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 
+
 @Component({
   selector: 'app-pause-work',
   templateUrl: './pause-work.component.html',
@@ -46,7 +47,7 @@ export class PauseWorkComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    localStorage.setItem("endButtonPause",String(this.endButton))
   }
 
   BeforePauseWork() {
@@ -81,7 +82,8 @@ export class PauseWorkComponent implements OnInit {
 
 
   SelectedStartPause() {
-   this.workTimeLS= localStorage.getItem('workTime')
+   this.workTimeLS = localStorage.getItem('workTime');
+
     if(this.workTimeLS)
     {
       this.workTimeHour = this.workTimeLS
@@ -103,7 +105,7 @@ export class PauseWorkComponent implements OnInit {
       if (this.workTimeHour[2] < 10) {
         this.workTimeHour[2] = "0" + this.workTimeHour[2]
       }
-      localStorage.setItem('workTime', this.workTimeHour)
+      // localStorage.setItem('workTime', this.workTimeHour)
     }, 1000)
   }
 
@@ -118,6 +120,7 @@ export class PauseWorkComponent implements OnInit {
   startPause() {
     this.ifX = false;
     this.endButton = true;
+    localStorage.setItem("endButtonPause",String(this.endButton))
     this.CreatePauseWork();
     this.SelectedStartPause();
   }
