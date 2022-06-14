@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit {
   titleTableTask = 'המשימות שלי';
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
-  thArrTask = ['שם המשימה', 'תאריך', 'פרוייקט'];
+  thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name']];
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
@@ -219,6 +219,10 @@ export class MenuComponent implements OnInit {
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
       this.isDisabledStart = false;
       this.isTaskAccomplished = false;
+      if(time.descriptionTask==undefined)
+      {
+        time.descriptionTask="";
+      }
       this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
         res => {
           if (res) {
@@ -248,6 +252,10 @@ export class MenuComponent implements OnInit {
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
     }
     this.isTaskAccomplished = true;
+    if(time.descriptionTask==undefined)
+    {
+      time.descriptionTask="";
+    }
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
       res => {
         if (res) {
