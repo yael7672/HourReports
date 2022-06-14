@@ -394,8 +394,8 @@ export class MenuComponent implements OnInit {
       this.isDisabledStart=true;
       this.isDisabledPouse=false;
 
-      this.a = localStorage.getItem('workTime')
-      this.workTime = JSON.parse(this.a)
+      this.a = localStorage.getItem('workTime');
+      this.workTime = JSON.parse(this.a);
       let hours   =Number(this.workTime[0] )/ 3600; // get hours
       let minutes =Number(this.workTime[1]) - (hours * 3600) / 60; // get minutes
       let seconds = Number(this.workTime[2])+ (hours * 3600) + (minutes * 60); 
