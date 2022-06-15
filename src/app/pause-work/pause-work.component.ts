@@ -21,8 +21,9 @@ export class PauseWorkComponent implements OnInit {
   pauseAlert: any
   systemGuid: any
   @Input() workTime!: any;
+  @Input() buttonEnd!: any;
   @Output() ClickStartPause = new EventEmitter<any>();
-  workTimeHour: any
+  workTimeHour!: any
   descriptionPanel: any;
   interval: any;
   minutes: number = 0;
@@ -39,15 +40,31 @@ export class PauseWorkComponent implements OnInit {
   openSpecificTask = false
   taskListDataDetails: any
   popUpPause = "popUpPause"
-  workTimeLS: any;
+  workTimeLS!: any;
+  workTimeHourLS!: any;
+  workTime1: any;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
+
   }
 
   ngOnInit(): void {
-    localStorage.setItem("endButtonPause",String(this.endButton))
+    if (localStorage.getItem("endButton") == "true") { this.endButton = true }
+    if (localStorage.getItem("endButton") == "false") { this.endButton = false }
+    this.workTimeHourLS = localStorage.getItem('WorkTimePause')
+    this.workTimeHour = JSON.parse(this.workTimeHourLS);
+    console.log(this.workTimeHour);
+
+    let hours = Number(this.workTimeHour[0]) / 3600; // get hours
+    let minutes = Number(this.workTimeHour[1]) - (hours * 3600) / 60; // get minutes
+    let seconds = Number(this.workTimeHour[2]) + (hours * 3600) + (minutes * 60);
+     if (this.workTimeHourLS != 0) {
+      this.ContinueToBePause(seconds)
+    }
+
+
   }
 
   BeforePauseWork() {
@@ -57,22 +74,36 @@ export class PauseWorkComponent implements OnInit {
   PauseWork(workTime: any) {
     this.systemGuid = localStorage.getItem("systemGuid")
     this.taskGuid = localStorage.getItem("TaskGuid")
-    this.userServiceService.PauseWork(this.systemGuid, workTime).subscribe(
+    this.userServiceService.PauseWork(this.systemGuid, workTime).then(
       (res: any) => {
         this.pauseAlert = res;
         console.log(this.pauseAlert)
         swal(this.pauseAlert);
+        this.endButton = false  
+         
+         this.seconds = 0;
+        this.workTime = ["00", "00", "00"];
+        this.workTime[0] = "00"
+        this.workTime[1] = "00"
+        this.workTime[3] = "00"
+        clearInterval( this.interval)
+        localStorage.setItem("WorkTimePause", this.workTime)
+        // localStorage.removeItem("WorkTimePause")
+        localStorage.setItem("endButton", String(this.endButton))
+  
+        
+        // localStorage.clear()
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
         if (this.taskGuid) {
           // if (this.ifInMiddleTask == true) {
-            this.openSpecificTask = true
-            setTimeout(() => {
-              this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-              let myCompMenu = new MenuComponent(this.popUpService, this.userServiceService, this.appService, this.buttonWorkingTaskService)
-              myCompMenu.SelectedTask(this.taskListDataDetails)
-            }, 500)
-          }
+          this.openSpecificTask = true
+          setTimeout(() => {
+            this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
+            let myCompMenu = new MenuComponent(this.popUpService, this.userServiceService, this.appService, this.buttonWorkingTaskService, this.datePipe)
+            myCompMenu.SelectedTask(this.taskListDataDetails)
+          }, 500)
+        }
         // }
       },
       (err: any) =>
@@ -82,12 +113,7 @@ export class PauseWorkComponent implements OnInit {
 
 
   SelectedStartPause() {
-   this.workTimeLS = localStorage.getItem('workTime');
 
-    if(this.workTimeLS)
-    {
-      this.workTimeHour = this.workTimeLS
-    }
     this.interval = setInterval(() => {
       if (this.seconds === 0) {
         this.seconds++;
@@ -105,7 +131,7 @@ export class PauseWorkComponent implements OnInit {
       if (this.workTimeHour[2] < 10) {
         this.workTimeHour[2] = "0" + this.workTimeHour[2]
       }
-      // localStorage.setItem('workTime', this.workTimeHour)
+      localStorage.setItem("WorkTimePause", JSON.stringify(this.workTimeHour))
     }, 1000)
   }
 
@@ -120,7 +146,7 @@ export class PauseWorkComponent implements OnInit {
   startPause() {
     this.ifX = false;
     this.endButton = true;
-    localStorage.setItem("endButtonPause",String(this.endButton))
+    localStorage.setItem("endButton", String(this.endButton))
     this.CreatePauseWork();
     this.SelectedStartPause();
   }
@@ -138,6 +164,7 @@ export class PauseWorkComponent implements OnInit {
       }
       this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
+
       this.PauseWork(this.parseTime)
 
     }
@@ -160,5 +187,29 @@ export class PauseWorkComponent implements OnInit {
       (err: any) =>
         alert(err.error)
     )
+  }
+  ContinueToBePause(timeToContinue: any) {
+    this.interval = setInterval(() => {
+      if (timeToContinue === 0) {
+        timeToContinue++;
+      }
+      else {
+        timeToContinue++;
+      }
+      this.workTimeHour = this.transformNumber(timeToContinue)
+      if (this.workTimeHour[0] < 10) {
+        this.workTimeHour[0] = "0" + this.workTimeHour[0]
+      }
+      if (this.workTimeHour[1] < 10) {
+        this.workTimeHour[1] = "0" + this.workTimeHour[1]
+      }
+      if (this.workTimeHour[2] < 10) {
+        this.workTimeHour[2] = "0" + this.workTimeHour[2]
+      }
+      console.log(this.workTimeHour);
+      localStorage.setItem('WorkTimePause', JSON.stringify(this.workTimeHour))
+
+    }, 1000)
+
   }
 }
