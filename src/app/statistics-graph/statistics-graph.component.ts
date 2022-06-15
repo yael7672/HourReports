@@ -90,7 +90,6 @@ export class StatisticsGraphComponent implements OnInit {
           backgroundColor: [
             'green',
             'red',
-
           ],
           borderColor: [
             'green',
@@ -165,7 +164,8 @@ export class StatisticsGraphComponent implements OnInit {
     this.BarChart.data.datasets[0].data = this.culculte;
     this.CreatColorArr();
     this.BarChart.data.labels = this.dateArrForLineChart;
-    // this.BarChart.data.datasets.borderColor = ['red','red'];
+     this.BarChart.data.datasets[0].backgroundColor= this.colorArr;
+     this.BarChart.data.datasets[0].borderColor= this.colorArr;
 
     this.BarChart.update();
   }
@@ -209,18 +209,18 @@ export class StatisticsGraphComponent implements OnInit {
     let a = 0;
     this.culculteCopy.forEach(i => {
       if (i < 51) {
-        this.colorArr[a] = "red";
+        this.colorArr[a] = "rgba(255, 0, 0, 0.947)";
       } else
         if (i > 51 && i < 101) {
-          this.colorArr[a] = "orange";
+          this.colorArr[a] = "rgba(6, 186, 6, 0.932)";
         }
         else
         if (i >101 && i < 150) {
-          this.colorArr[a] = "blue";
+          this.colorArr[a] = "rgb(10, 179, 10)";
         }
         else
         if (i >151 && i < 201) {
-          this.colorArr[a] = "green";
+          this.colorArr[a] = "rgb(6, 142, 6)";
         }
       a++;
     }); console.log(this.colorArr);
