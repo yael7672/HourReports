@@ -1,16 +1,17 @@
-<app-smart-card [title]="'השוואה בן שעות עבודה לשעות בפועל'" class="task-card-timer">
-  <div header>
-   <br>
-    <div class="form-outline d-flex justify-content-center">
+
+     <div class="form-outline d-flex justify-content-center">
       <select id="inputState" class="form-control"  ngModel (ngModelChange)="GetMyProjectContentItemByTimeLineChart($event)" >
         <option value="">--בחר אחת מהאופציות הבאות--</option>
         <option value="0" >מיון לפי טווח תאריכים </option>
         <option value="1" > היום </option>
-        <option value="2"> ימים אחרונים 7</option>
+        <option value="2"> 7 ימים אחרונים </option>
         <option value="3"> החודש האחרון</option>
       </select>
     </div>
-    <br>
+    <div class="all-canvas-page" >
+  <app-smart-card [title]="'השוואה בן שעות עבודה לשעות בפועל'" class="task-card-timer">
+  <div header>
+  <br>
     <ng-container *ngIf="showInputsDates">
 
       <div class="form-group ">
@@ -42,26 +43,14 @@
   <div class="card-footer">
     <hr />
     <div class="card-stats">
-      <i class="fa fa-check"></i> {{LineChartText}}
+      <i class="fa fa-check"></i> 
     </div>
 
   </div>
 </app-smart-card>
 
 <app-smart-card [title]="' השוואה בן שעות עבודה לשעות בפועל באחוזים'" class="task-card-timer">
-  <div header>
-    <div class="form-group ">
-      <br>
-      <div class="input-group input-daterange">
-        <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForBarChart"
-          [ngModelOptions]="{standalone: true}">
-        <div class="input-group-addon">ל - </div>
-        <input type="date" class="form-control" [(ngModel)]="dateOfSearchBeforeForBarChart"
-          [ngModelOptions]="{standalone: true}">
-      </div>
-      <button (click)="GetMyProjectContentItemByTimeBarChart()" class="btn btn-color">השווה</button>
-    </div>
-  </div>
+
   <div body>
     <div class="canvas ">
       <canvas id="BarChart">
@@ -75,3 +64,4 @@
     </div>
   </div>
 </app-smart-card>
+</div>
