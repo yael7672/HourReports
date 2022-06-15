@@ -5,7 +5,7 @@
             <button *ngIf="endButton" type="submit" class="btn ">סיים הפסקה</button>
         </form>
         <div class="form-outline d-flex justify-content-center">
-            <button class="btn" *ngIf="!endButton" (click)="startPause()">התחל הפסקה</button>
+            <button class="btn" *ngIf="!endButton"  (click)="startPause()">התחל הפסקה</button>
             <p *ngIf="workTimeHour" class="Time">
                 {{workTimeHour[0]+ ":"+ workTimeHour[1]+":"+workTimeHour[2]}}
             </p>

@@ -93,6 +93,7 @@ export class MenuComponent implements OnInit {
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "האם ברצונך לצאת להפסקה?"
   taskNameFromLocalStorage2: any;
   a!: any;
+  b!: any;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
@@ -171,9 +172,7 @@ export class MenuComponent implements OnInit {
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
-
     localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
-
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid).subscribe(res => {
       if (res) {
@@ -421,6 +420,12 @@ export class MenuComponent implements OnInit {
       this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
       this.SelectedStop(this.workTime)
       this.openPopUp('pause', true)
+      this.b = localStorage.getItem('workTime');
+      this.workTime = JSON.parse(this.b);
+      let hours   =Number(this.workTime[0] )/ 3600; // get hours
+      let minutes =Number(this.workTime[1]) - (hours * 3600) / 60; // get minutes
+      let seconds = Number(this.workTime[2])+ (hours * 3600) + (minutes * 60); 
+      this.ContinueToWorkOnATask(seconds)
       
     }
 
