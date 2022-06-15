@@ -15,8 +15,7 @@ export class StatisticsGraphComponent implements OnInit {
   LineChartText!: string;
   systemGuid!: any;
   LineChart1: any;
-  //workingHourArrForLineChart!:any
-  //actualHoursArrForLineChart!:any[]
+  showInputsDates = false;
   WorkingHoursAndActualHoursForLineChart!: any;
   workingHourArrForLineChart!: any
   actualHoursArrForLineChart!: any[]
@@ -31,14 +30,24 @@ export class StatisticsGraphComponent implements OnInit {
   dateOfSearchAfterForBarChart!: any;
   BarChart: any;
   culculte!: any[];
+  culculteCopy !: any[];
+  colorArr!: any[];
   x!: any;
   AverageBreaksByTimeLineChart!: averageBreaks;
   AverageBreaksByTimeBarChart!: averageBreaks;
   AverageBreaks: any;
+  selectedItem: any;
+  todayDate!: any;
+  myDate = new Date();
+  todayDateCopy = new Date();
+  showThisWeek!: any;
   constructor(private userService: UserServiceService, public datepipe: DatePipe) {
     Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
   }
   ngOnInit(): void {
+    this.showThisWeek = "2";
+    this.GetMyProjectContentItemByTimeLineChart(this.showThisWeek)
+    this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
     this.LineChart1 = new Chart('lineChart', {
       type: 'line',
       data: {
@@ -79,12 +88,13 @@ export class StatisticsGraphComponent implements OnInit {
           label: 'רמת פרודקטביות ',
           data: [12, 19, 3, 5, 2, 3],
           backgroundColor: [
-            '#f1b93cd4',
+            'green',
+            'red',
 
           ],
           borderColor: [
-            '#f1b93cd4',
-
+            'green',
+            'red',
           ],
           borderWidth: 1
         },
@@ -103,12 +113,25 @@ export class StatisticsGraphComponent implements OnInit {
     });
   }
 
-  GetMyProjectContentItemByTimeLineChart(val=null) {
-    this.LineChart1.render();
+  GetMyProjectContentItemByTimeLineChart(val = null, showThisWeek = null) {
+    if (val == 0) {
+      this.SortByDateRange(val);
+      return
+    }
+    if (showThisWeek != null) {
+      val = showThisWeek;
+    }
+    //this.LineChart1.render();
     this.systemGuid = localStorage.getItem('systemGuid');
     this.dateOfSearchBeforeForLineChart = this.datepipe.transform(this.dateOfSearchBeforeForLineChart, 'dd/MM/yyyy')
     this.dateOfSearchAfterForLineChart = this.datepipe.transform(this.dateOfSearchAfterForLineChart, 'dd/MM/yyyy')
-    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart,val).subscribe(res => {
+    if (!this.dateOfSearchBeforeForLineChart) {
+      this.dateOfSearchBeforeForLineChart = "";
+    }
+    if (!this.dateOfSearchAfterForLineChart) {
+      this.dateOfSearchAfterForLineChart = "";
+    }
+    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart, Number(val)).then(res => {
       if (res) {
         this.WorkingHoursAndActualHoursForLineChart = res;
         console.log(this.WorkingHoursAndActualHoursForLineChart);
@@ -118,57 +141,40 @@ export class StatisticsGraphComponent implements OnInit {
         console.log(this.actualHoursArrForLineChart);
         this.dateArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((Date: { Date: any; }) => this.datepipe.transform(Date.Date, 'dd/MM/yyyy'))
         console.log("dateArr", this.dateArrForLineChart);
-      }
-    },
-      err => {
-        console.log(err.error);
-      })
-    if (this.workingHourArrForLineChart != null) {
-      this.LineChart1.data.datasets[0].data = this.workingHourArrForLineChart;
-      this.LineChart1.data.datasets[1].data = this.actualHoursArrForLineChart;
-      this.LineChart1.data.labels = this.dateArrForLineChart;
-      this.LineChart1.update();
-    }
-
-  }
-  GetMyProjectContentItemByTimeBarChart(val=null) {
-    this.LineChart1.render();
-    this.systemGuid = localStorage.getItem('systemGuid');
-    this.dateOfSearchBeforeForBarChart = this.datepipe.transform(this.dateOfSearchBeforeForBarChart, 'dd/MM/yyyy')
-    this.dateOfSearchAfterForBarChart = this.datepipe.transform(this.dateOfSearchAfterForBarChart, 'dd/MM/yyyy')
-    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchAfterForBarChart, this.dateOfSearchBeforeForBarChart,val).subscribe(res => {
-      if (res) {
-        this.WorkingHoursAndActualHoursForBarChart = res;
-        console.log(this.WorkingHoursAndActualHoursForBarChart);
-        this.workingHourArrForBarChart = this.WorkingHoursAndActualHoursForBarChart.map((workingHour: { workHours: any; }) => workingHour.workHours)
-        console.log(this.workingHourArrForBarChart);
-        this.actualHoursArrForBarChart = this.WorkingHoursAndActualHoursForBarChart.map((actualHours: { actualHours: any; }) => actualHours.actualHours)
-        console.log(this.actualHoursArrForBarChart);
-        this.dateArrForBarChart = this.WorkingHoursAndActualHoursForBarChart.map((Date: { Date: any; }) => this.datepipe.transform(Date.Date, 'dd/MM/yyyy'))
-        console.log("dateArr", this.dateArrForBarChart);
-
-        this.culculte = this.WorkingHoursAndActualHoursForBarChart.map(i => (i.workHours * 100)
+        this.updateLineChart();
+        this.dateOfSearchBeforeForLineChart = "";
+        this.dateOfSearchAfterForLineChart = "";
+        this.showInputsDates = false;
+        this.culculte = this.WorkingHoursAndActualHoursForLineChart.map((i: { workHours: number; actualHours: number; }) => (i.workHours * 100)
           / i.actualHours)
         console.log(this.culculte);
+        this.updateBarChart();
       }
     },
       err => {
         console.log(err.error);
       })
-
+  }
+  updateLineChart() {
+    this.LineChart1.data.datasets[0].data = this.workingHourArrForLineChart;
+    this.LineChart1.data.datasets[1].data = this.actualHoursArrForLineChart;
+    this.LineChart1.data.labels = this.dateArrForLineChart;
+    this.LineChart1.update();
+  }
+  updateBarChart() {
     this.BarChart.data.datasets[0].data = this.culculte;
-    this.BarChart.data.labels = this.dateArrForBarChart;
+    this.CreatColorArr();
+    this.BarChart.data.labels = this.dateArrForLineChart;
+    // this.BarChart.data.datasets.borderColor = ['red','red'];
 
     this.BarChart.update();
-
   }
-
   GetAverageBreaksByTimeLineChart(systemGuid: any, dateOfSearchBeforeForLineChart: any, dateOfSearchAfterForLineChart: any) {
     this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForLineChart, dateOfSearchAfterForLineChart).subscribe(
       res => {
         if (res) {
           this.AverageBreaksByTimeLineChart = res
-          this.AverageBreaks = (this.AverageBreaksByTimeLineChart.TotalBreakHours)/(this.AverageBreaksByTimeLineChart.DiffrenceDay) 
+          this.AverageBreaks = (this.AverageBreaksByTimeLineChart.TotalBreakHours) / (this.AverageBreaksByTimeLineChart.DiffrenceDay)
           // swal(res + "GetAverageBreaksByTimeLineChart")
         }
       },
@@ -190,5 +196,33 @@ export class StatisticsGraphComponent implements OnInit {
         console.log(err.error);
       })
   }
-
+  SortByDateRange(val = null) {
+    this.showInputsDates = true;
+    if (val == null) //זה אומר שלחץ על כפתור ההשואה
+    {
+      this.GetMyProjectContentItemByTimeLineChart();
+    }
+  }
+  CreatColorArr() {
+    this.culculteCopy = [...this.culculte]
+    this.colorArr = [];
+    let a = 0;
+    this.culculteCopy.forEach(i => {
+      if (i < 51) {
+        this.colorArr[a] = "red";
+      } else
+        if (i > 51 && i < 101) {
+          this.colorArr[a] = "orange";
+        }
+        else
+        if (i >101 && i < 150) {
+          this.colorArr[a] = "blue";
+        }
+        else
+        if (i >151 && i < 201) {
+          this.colorArr[a] = "green";
+        }
+      a++;
+    }); console.log(this.colorArr);
+  }
 }
