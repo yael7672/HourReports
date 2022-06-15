@@ -34,6 +34,11 @@ export class MassgeToUserComponent implements OnInit {
           if (this.kindOfMassage == 'popUpPause') {
             this.clickYes.emit('popUpPause')
           }
+          else {
+            if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
+              this.clickYes.emit('kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite')
+            }
+          }
         }
       }
     }
@@ -49,11 +54,14 @@ export class MassgeToUserComponent implements OnInit {
         if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
           this.clickNo.emit('kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause')
         }
-        else
-        {
-          if(this.kindOfMassage == 'popUpPause')
-          {
+        else {
+          if (this.kindOfMassage == 'popUpPause') {
             this.clickNo.emit('popUpPause')
+          }
+          else {
+            if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
+              this.clickNo.emit('kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite')
+            }
           }
         }
       }

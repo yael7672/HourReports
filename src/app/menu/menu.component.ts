@@ -13,6 +13,8 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { TaskByGuid } from '../interfacees/TaskByGuid';
 import { Chart } from 'chart.js';
 import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
+import { PauseWorkComponent } from '../pause-work/pause-work.component';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -76,6 +78,9 @@ export class MenuComponent implements OnInit {
   massgeUserCloseTaskHeader = "?האם אתה בטוח שברצונך לצאת";
   massgeUseIfInTheMiddleOfWorkOnATaskHeader = "!יש לך משימה פתוחה";
   massgeUserIfInTheMiddleOfWorkOnATaskBody = "?האם ברצונך לחזור אליה";
+  massgeUserRefreshWebsiteInMiddlePauseBody = "!שים לב";
+  massgeUserRefreshWebsiteInMiddlePauseHeader = "היית באמצע הפסקה";
+  massgeUserRefreshWebsiteInMiddlePauseFooter = "האם ברצונך לשוב לעבוד?";
   massgeUserCloseTaskBody = "!שים לב";
   massgeUserCloseTaskFooter = "פעולה זו סוגרת  את הטיימר של המשימה";
   textButtonBack = "חזרה למשימות שלי"
@@ -86,17 +91,24 @@ export class MenuComponent implements OnInit {
   kindOfMassageIsifCloseTask = 'kindOfMassageIsifCloseTask';
   kindOfMassageifInTheMiddleOfWorkOnATask = 'kindOfMassageifInTheMiddleOfWorkOnATask';
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause'
+  kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite = 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite'
   showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
   workTimeFromLocalStorage!: any;
   showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false;
+  showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false;
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "את/ה באמצע עבודה על משימה"
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "האם ברצונך לצאת להפסקה?"
   taskNameFromLocalStorage2: any;
   a!: any;
   b!: any;
+  endButton!: boolean;
+  workTimeHour: any
+  workTimeHourLS: any;
+  workTimeHourLSJ: any;
+  ab: any;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
-    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
+    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
@@ -131,12 +143,20 @@ export class MenuComponent implements OnInit {
       }
       console.log(this.isButtobChoose);
     })
+    if (localStorage.getItem("endButton") == "true") { this.endButton = true }
+    if (localStorage.getItem("endButton") == "false") { this.endButton = false }
   }
   ngOnInit(): void {
     console.log(this.arrFunc);
     this.GetMyTask();
     this.GetProject();
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
+    this.workTimeHourLS = localStorage.getItem("WorkTimePause")
+    if (this.workTimeHourLS != ["00,00,00,00"]) {
+      this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true
+    }
+
+
   }
 
 
@@ -159,10 +179,13 @@ export class MenuComponent implements OnInit {
   openPopUp(data: string, type: boolean) {
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(type, data)
+    if (data == 'pause') {
+
+    }
   }
   SelectedTask(val: any) {
     this.taskListDataDetails = val;
-    localStorage.setItem('taskListDataDetails',JSON.stringify(val))
+    localStorage.setItem('taskListDataDetails', JSON.stringify(val))
     console.log(this.taskListDataDetails);
     clearInterval(this.interval);
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
@@ -246,7 +269,7 @@ export class MenuComponent implements OnInit {
       if (time.descriptionTask == undefined) {
         time.descriptionTask = "";
       }
-      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid?this.taskListDataDetails.TaskGuid:localStorage.getItem('TaskGuidToSend'), this.isTaskAccomplished, time.descriptionTask).subscribe(
+      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid ? this.taskListDataDetails.TaskGuid : localStorage.getItem('TaskGuidToSend'), this.isTaskAccomplished, time.descriptionTask).subscribe(
         res => {
           if (res) {
             this.massageFromServer = res;
@@ -276,7 +299,7 @@ export class MenuComponent implements OnInit {
       if (this.timetoSend[2] > 30) {
         this.timetoSend[1] += 1;
       }
-      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.workTimeHour[1] = (this.timetoSend[1] / 60)
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
     }
     this.isTaskAccomplished = true;
@@ -335,6 +358,7 @@ export class MenuComponent implements OnInit {
     }
     else {
       this.openPopUp('pause', true)
+
     }
   }
 
@@ -405,28 +429,36 @@ export class MenuComponent implements OnInit {
       this.tableSpecificTaskOpen = true;
       this.tableMyTaskOpen = false;
       this.taskListDataDetails = this.taskNameFromLocalStorage;
-      this.isDisabledStart=true;
-      this.isDisabledPouse=false;
+      this.isDisabledStart = true;
+      this.isDisabledPouse = false;
 
       this.a = localStorage.getItem('workTime');
       this.workTime = JSON.parse(this.a);
-      let hours   =Number(this.workTime[0] )/ 3600; // get hours
-      let minutes =Number(this.workTime[1]) - (hours * 3600) / 60; // get minutes
-      let seconds = Number(this.workTime[2])+ (hours * 3600) + (minutes * 60); 
+      let hours = Number(this.workTime[0]) / 3600; // get hours
+      let minutes = Number(this.workTime[1]) - (hours * 3600) / 60; // get minutes
+      let seconds = Number(this.workTime[2]) + (hours * 3600) + (minutes * 60);
       this.ContinueToWorkOnATask(seconds)
 
     }
-    if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {     
+    if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
       this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
       this.SelectedStop(this.workTime)
       this.openPopUp('pause', true)
-      this.b = localStorage.getItem('workTime');
-      this.workTime = JSON.parse(this.b);
-      let hours   =Number(this.workTime[0] )/ 3600; // get hours
-      let minutes =Number(this.workTime[1]) - (hours * 3600) / 60; // get minutes
-      let seconds = Number(this.workTime[2])+ (hours * 3600) + (minutes * 60); 
-      this.ContinueToWorkOnATask(seconds)
-      
+      if (localStorage.getItem("endButton") == "false") {
+        this.endButton = false
+        localStorage.setItem("endButton", String(this.endButton))
+      }
+      if (localStorage.getItem("endButton") == "true") {
+        this.endButton = true
+        localStorage.setItem("endButton", String(this.endButton))
+      }
+    }
+    if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
+       this.ab= localStorage.getItem(("WorkTimePause"))
+       this.workTimeHourLSJ =JSON.parse(this.ab)
+      let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.appService, this.popUpService, this.buttonWorkingTaskService,)
+      myCompPause.clickYes(this.workTimeHourLSJ)
+      this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
     }
 
 
@@ -446,6 +478,14 @@ export class MenuComponent implements OnInit {
       else {
         if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
           this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
+
+        }
+        else {
+          if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
+
+            this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
+            this.openPopUp('pause', true)
+          }
         }
       }
     }
@@ -479,7 +519,7 @@ export class MenuComponent implements OnInit {
     }
 
   }
-  ContinueToWorkOnATask(timeToContinue:any) {
+  ContinueToWorkOnATask(timeToContinue: any) {
     this.interval = setInterval(() => {
       if (timeToContinue === 0) {
         timeToContinue++;
@@ -501,7 +541,7 @@ export class MenuComponent implements OnInit {
       localStorage.setItem('workTime', JSON.stringify(this.workTime))
 
     }, 1000)
-   
+
   }
 
 }

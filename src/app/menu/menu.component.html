@@ -113,6 +113,15 @@
   </app-pop-up>
 </div>
 
+<div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
+  <app-pop-up>
+    <div body>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite" [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody" [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader" [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter"
+       (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+    </div>
+  </app-pop-up>
+</div>
+
 <div *ngIf="isPopUpOpen?.pause">
-  <app-pause-work (ClickStartPause)="SelectedStartPause()" [workTime]="workTime"></app-pause-work>
+  <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime"></app-pause-work>
 </div>

@@ -55,8 +55,8 @@ export class UserServiceService {
   CreateNewProjectItem(projectContentItem: any) {
     return this.http.post<string>(environment.url + 'CreateProjectContentItem', projectContentItem);
   }
-  PauseWork(SystemGuid: any, ActualTime: any) {
-    return this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime);
+   async PauseWork(SystemGuid: any, ActualTime: any) {
+    return await this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime).toPromise();
 
   }
   GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string,SelectedTime:any) {
