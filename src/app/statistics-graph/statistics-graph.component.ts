@@ -15,8 +15,7 @@ export class StatisticsGraphComponent implements OnInit {
   LineChartText!: string;
   systemGuid!: any;
   LineChart1: any;
-  //workingHourArrForLineChart!:any
-  //actualHoursArrForLineChart!:any[]
+  showInputsDates = false;
   WorkingHoursAndActualHoursForLineChart!: any;
   workingHourArrForLineChart!: any
   actualHoursArrForLineChart!: any[]
@@ -35,10 +34,16 @@ export class StatisticsGraphComponent implements OnInit {
   AverageBreaksByTimeLineChart!: averageBreaks;
   AverageBreaksByTimeBarChart!: averageBreaks;
   AverageBreaks: any;
+  selectedItem: any;
+  todayDate!: any;
+  myDate = new Date()
+  todayDateCopy = new Date()
   constructor(private userService: UserServiceService, public datepipe: DatePipe) {
     Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
   }
   ngOnInit(): void {
+
+    this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
     this.LineChart1 = new Chart('lineChart', {
       type: 'line',
       data: {
@@ -103,12 +108,23 @@ export class StatisticsGraphComponent implements OnInit {
     });
   }
 
-  GetMyProjectContentItemByTimeLineChart(val=null) {
+  async GetMyProjectContentItemByTimeLineChart(val = null) {
+    if (val == 0) {
+      this.SortByDateRange(val);
+      return
+    }
+
     this.LineChart1.render();
     this.systemGuid = localStorage.getItem('systemGuid');
     this.dateOfSearchBeforeForLineChart = this.datepipe.transform(this.dateOfSearchBeforeForLineChart, 'dd/MM/yyyy')
     this.dateOfSearchAfterForLineChart = this.datepipe.transform(this.dateOfSearchAfterForLineChart, 'dd/MM/yyyy')
-    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart,val).subscribe(res => {
+    if (!this.dateOfSearchBeforeForLineChart) {
+      this.dateOfSearchBeforeForLineChart = "";
+    }
+    if (!this.dateOfSearchAfterForLineChart) {
+      this.dateOfSearchAfterForLineChart = "";
+    }
+    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart, Number(val)).then(res => {
       if (res) {
         this.WorkingHoursAndActualHoursForLineChart = res;
         console.log(this.WorkingHoursAndActualHoursForLineChart);
@@ -118,25 +134,29 @@ export class StatisticsGraphComponent implements OnInit {
         console.log(this.actualHoursArrForLineChart);
         this.dateArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((Date: { Date: any; }) => this.datepipe.transform(Date.Date, 'dd/MM/yyyy'))
         console.log("dateArr", this.dateArrForLineChart);
+        this.updateLineChart();
+        this.dateOfSearchBeforeForLineChart="";
+        this.dateOfSearchAfterForLineChart="";
+this.showInputsDates=false;
       }
     },
       err => {
         console.log(err.error);
       })
-    if (this.workingHourArrForLineChart != null) {
-      this.LineChart1.data.datasets[0].data = this.workingHourArrForLineChart;
-      this.LineChart1.data.datasets[1].data = this.actualHoursArrForLineChart;
-      this.LineChart1.data.labels = this.dateArrForLineChart;
-      this.LineChart1.update();
-    }
-
   }
-  GetMyProjectContentItemByTimeBarChart(val=null) {
+  updateLineChart() {
+    this.LineChart1.data.datasets[0].data = this.workingHourArrForLineChart;
+    this.LineChart1.data.datasets[1].data = this.actualHoursArrForLineChart;
+    this.LineChart1.data.labels = this.dateArrForLineChart;
+    this.LineChart1.update();
+  }
+
+  GetMyProjectContentItemByTimeBarChart(val = null) {
     this.LineChart1.render();
     this.systemGuid = localStorage.getItem('systemGuid');
     this.dateOfSearchBeforeForBarChart = this.datepipe.transform(this.dateOfSearchBeforeForBarChart, 'dd/MM/yyyy')
     this.dateOfSearchAfterForBarChart = this.datepipe.transform(this.dateOfSearchAfterForBarChart, 'dd/MM/yyyy')
-    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchAfterForBarChart, this.dateOfSearchBeforeForBarChart,val).subscribe(res => {
+    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchAfterForBarChart, this.dateOfSearchBeforeForBarChart, Number(val)).then(res => {
       if (res) {
         this.WorkingHoursAndActualHoursForBarChart = res;
         console.log(this.WorkingHoursAndActualHoursForBarChart);
@@ -168,7 +188,7 @@ export class StatisticsGraphComponent implements OnInit {
       res => {
         if (res) {
           this.AverageBreaksByTimeLineChart = res
-          this.AverageBreaks = (this.AverageBreaksByTimeLineChart.TotalBreakHours)/(this.AverageBreaksByTimeLineChart.DiffrenceDay) 
+          this.AverageBreaks = (this.AverageBreaksByTimeLineChart.TotalBreakHours) / (this.AverageBreaksByTimeLineChart.DiffrenceDay)
           // swal(res + "GetAverageBreaksByTimeLineChart")
         }
       },
@@ -190,5 +210,11 @@ export class StatisticsGraphComponent implements OnInit {
         console.log(err.error);
       })
   }
-
+  SortByDateRange(val = null) {
+    this.showInputsDates = true;
+    if (val == null) //זה אומר שלחץ על כפתור ההשואה
+    {
+      this.GetMyProjectContentItemByTimeLineChart();
+    }
+  }
 }

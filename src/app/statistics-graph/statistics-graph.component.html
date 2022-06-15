@@ -1,31 +1,30 @@
 <app-smart-card [title]="'השוואה בן שעות עבודה לשעות בפועל'" class="task-card-timer">
   <div header>
-    <div class="form-group ">
-      <br>
-      <div class="input-group input-daterange">
-        <input type="date" class="form-control" [(ngModel)]="dateOfSearchBeforeForLineChart"
-          [ngModelOptions]="{standalone: true}">
-        <div class="input-group-addon">ל - </div>
-        <input type="date" class="form-control" [(ngModel)]="dateOfSearchAfterForLineChart"
-          [ngModelOptions]="{standalone: true}">
-      </div>
-<<<<<<< HEAD
-
-      <button (click)="GetMyProjectContentItemByTimeLineChart()" class="btn btn-color">השווה</button>
-    </div>
+   <br>
     <div class="form-outline d-flex justify-content-center">
-      <select id="inputState" class="form-control " ngModel (ngModelChange)="GetMyProjectContentItemByTimeLineChart($event)" >
-        <option value="">--בחר--</option>
-        <option value="1"> היום </option>
+      <select id="inputState" class="form-control"  ngModel (ngModelChange)="GetMyProjectContentItemByTimeLineChart($event)" >
+        <option value="">--בחר אחת מהאופציות הבאות--</option>
+        <option value="0" >מיון לפי טווח תאריכים </option>
+        <option value="1" > היום </option>
         <option value="2"> ימים אחרונים 7</option>
         <option value="3"> החודש האחרון</option>
       </select>
-
-=======
-      <button (click)="GetMyProjectContentItemByTimeLineChart()" class="btn btn-color">השווה</button>
-   
->>>>>>> 7a8946dcac3303674d1e7c7805f5d08aa14e3f7b
     </div>
+    <br>
+    <ng-container *ngIf="showInputsDates">
+
+      <div class="form-group ">
+      <div class="input-group input-daterange">
+        <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+        (ngModelChange)="dateOfSearchBeforeForLineChart = $event">
+        <div class="input-group-addon">ל - </div>
+        <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+        (ngModelChange)="dateOfSearchAfterForLineChart = $event">
+      </div>
+    <button (click)="SortByDateRange()" class="btn btn-color">השווה</button>
+
+    </div>
+</ng-container>
   </div>
   <div body>
     <div class="canvas ">
@@ -33,12 +32,12 @@
       </canvas>
     </div>
     <br>
-    <div class="row">
+    <!-- <div class="row">
       <h6 class="col-md-4"> <span class="label label-default">ממוצע הפסקות:</span></h6>
       <h6  class="col-md-3">{{this.AverageBreaks | number }}</h6>
       <h6  class="col-md-3">= {{AverageBreaksByTimeLineChart.DiffrenceDay}}/ {{AverageBreaksByTimeLineChart.TotalBreakHours}}</h6>
    
-    </div>
+    </div> -->
   </div>
   <div class="card-footer">
     <hr />
