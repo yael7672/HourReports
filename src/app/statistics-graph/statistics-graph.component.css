@@ -22,3 +22,19 @@ padding: 0.5rem
     display:flex;
     direction: rtl;
 }
+
+.select-input{
+    display:flex;
+    flex-direction: column;
+    direction: rtl;
+    justify-content: center;
+}
+.form-group{
+    justify-content: center;
+    width: 100%;
+}
+
+.input-group {
+    width: 30rem;
+
+}

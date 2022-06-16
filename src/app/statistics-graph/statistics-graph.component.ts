@@ -12,7 +12,7 @@ import { averageBreaks } from '../interfacees/averageBreaks';
   styleUrls: ['./statistics-graph.component.css']
 })
 export class StatisticsGraphComponent implements OnInit {
-  LineChartText!: string;
+  LineChartText = "בתאריך"
   systemGuid!: any;
   LineChart1: any;
   showInputsDates = false;
@@ -41,6 +41,8 @@ export class StatisticsGraphComponent implements OnInit {
   myDate = new Date();
   todayDateCopy = new Date();
   showThisWeek!: any;
+  dateAndCulculte: any;
+  dateAndCulculteArr:any;
   constructor(private userService: UserServiceService, public datepipe: DatePipe) {
     Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
   }
@@ -93,7 +95,6 @@ export class StatisticsGraphComponent implements OnInit {
           backgroundColor: [
             'green',
             'red',
-
           ],
           borderColor: [
             'green',
@@ -151,6 +152,7 @@ export class StatisticsGraphComponent implements OnInit {
         this.culculte = this.WorkingHoursAndActualHoursForLineChart.map((i: { workHours: number; actualHours: number; }) => (i.workHours * 100)
           / i.actualHours)
         console.log(this.culculte);
+        this.CreateObjectWithDateAndCulculte(this.dateArrForLineChart, this.culculte)
         this.updateBarChart();
       }
     },
@@ -159,6 +161,12 @@ export class StatisticsGraphComponent implements OnInit {
       })
     this.GetAverageBreaksByTimeLineChart(this.systemGuid,this.dateOfSearchBeforeForLineChart,this.dateOfSearchAfterForLineChart,Number(val))
 
+  }
+  CreateObjectWithDateAndCulculte(dateArrForLineChart: any, culculte: any) {
+    this.dateAndCulculte = {}
+    dateArrForLineChart.forEach((element: any, index: any) => {
+      this.dateAndCulculte[index] = { "date": dateArrForLineChart[index], "culculte": culculte[index] };
+    });
   }
   updateLineChart() {
     this.LineChart1.data.datasets[0].data = this.workingHourArrForLineChart;
@@ -170,7 +178,8 @@ export class StatisticsGraphComponent implements OnInit {
     this.BarChart.data.datasets[0].data = this.culculte;
     this.CreatColorArr();
     this.BarChart.data.labels = this.dateArrForLineChart;
-    // this.BarChart.data.datasets.borderColor = ['red','red'];
+    this.BarChart.data.datasets[0].backgroundColor = this.colorArr;
+    this.BarChart.data.datasets[0].borderColor = this.colorArr;
 
     this.BarChart.update();
   }
@@ -214,18 +223,18 @@ export class StatisticsGraphComponent implements OnInit {
     let a = 0;
     this.culculteCopy.forEach(i => {
       if (i < 51) {
-        this.colorArr[a] = "red";
+        this.colorArr[a] = "rgba(255, 0, 0, 0.947)";
       } else
         if (i > 51 && i < 101) {
-          this.colorArr[a] = "orange";
+          this.colorArr[a] = "rgba(6, 186, 6, 0.932)";
         }
         else
           if (i > 101 && i < 150) {
-            this.colorArr[a] = "blue";
+            this.colorArr[a] = "rgb(10, 179, 10)";
           }
           else
             if (i > 151 && i < 201) {
-              this.colorArr[a] = "green";
+              this.colorArr[a] = "rgb(6, 142, 6)";
             }
       a++;
     }); console.log(this.colorArr);
