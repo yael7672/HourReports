@@ -1,48 +1,51 @@
 <div class="aImg">
   <div>
-  <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" style="font-size:30px"></i></a>
-  <a (click)="CheckIfProjectContentItemOpen()"><i class="fa fa-coffee" style="font-size:30px"></i></a>
-  <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o" style="font-size:30px"></i>
-  </a>
-</div>
+    <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" style="font-size:30px"></i></a>
+    <a (click)="CheckIfProjectContentItemOpen()"><i class="fa fa-coffee" style="font-size:30px"></i></a>
+    <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o"
+        style="font-size:30px"></i>
+    </a>
+  </div>
   <p class="p-of-title ">דיווחי שעות </p>
   <a (mouseover)="mouseOvePersonalDetails()" (mouseleave)="mouseLeavePersonalDetails()">
     <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
       class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
   </a>
 </div>
-
 <div class="menu">
   <div *ngIf="ifThereAreTasks">
-    <div *ngIf="tableMyTaskOpen" class="input-group">
+    <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen" class="input-group">
       <div class="form-outline">
-
         <div>
-          <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model" [ngbTypeahead]="search"
-            (change)="onSearchProject(model)"  />
+          <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט"
+            [(ngModel)]="model" [ngbTypeahead]="search" (change)="onSearchProject(model)" />
         </div>
-
-  <div class="select-input">
-    <div class="form-outline d-flex justify-content-center">
-     <select id="inputState" class="form-control"  ngModel (ngModelChange)="($event)" >
-       <option value="">--בחר אחת מהאופציות הבאות--</option>
-       <option value="0" >המשימות שלי </option>
-       <option value="1" > המשימות לצוותים אליהם אני שייך </option>
-     </select>
-</div>
+        <select id="inputState" class="form-control"  ngModel (ngModelChange)="WhichTableOpen($event)" >
+          <option value="">--בחר אחת מהאופציות הבאות--</option>
+          <option value="0" >המשימות שלי </option>
+          <option value="1" > המשימות של הצוותים אליהם אני שייך </option>
+        </select>
       </div>
       <i class="fa fa-search"></i>
     </div>
-
+<!-- המשימות שלי -->
     <app-smart-card *ngIf="tableMyTaskOpen" [title]="titleTableTask">
       <div body>
         <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
-          [kindOfCard]="'tableCard'" [title]="'המשימות שלי'" [thArr]="thArrTask"
+          [kindOfCard]="'tableCard'"  [thArr]="thArrTask"
           (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskArr" [tableDataKeys]="taskListKeys">
         </app-show-my-task>
       </div>
     </app-smart-card>
-  </div>
+<!-- המשימות של הצוותים שלי -->
+    <app-smart-card *ngIf="tableMyTaskTeamsOpen" [title]="titleTableTeamsTask">
+      <div body>
+        <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
+          [kindOfCard]="'tableCard'"  [thArr]="thArrTaskTeams"
+          (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskTeamsArr" [tableDataKeys]="taskTeamsListKeys">
+        </app-show-my-task>
+      </div>
+    </app-smart-card>
   <div *ngIf="!ifThereAreTasks">
     <br>
     <h2>אין משימות פעילות!</h2>
@@ -50,9 +53,10 @@
   <div>
 
     <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true"
-      *ngIf="tableSpecificTaskOpen" [title]="titleCard" [arrFunc]="arrFunc" [isDisabledStart]="isDisabledStart" [textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()" >
+      *ngIf="tableSpecificTaskOpen" [title]="titleCard" [arrFunc]="arrFunc" [isDisabledStart]="isDisabledStart"
+      [textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()">
       <div body>
-        <app-specific-task [listData]="taskListDataDetails" [listDataKeys]="taskListKeys" 
+        <app-specific-task [listData]="taskListDataDetails" [listDataKeys]="taskListKeys"
           [isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart"
           [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
           (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)"
@@ -97,8 +101,9 @@
 <div *ngIf="showMassgeToUser">
   <app-pop-up>
     <div body>
-      <app-massge-to-user [kindOfMassage]="kindOfMassageIsifCloseTask" [massgeUserHeader]="massgeUserCloseTaskHeader" [massgeUserBody1]="massgeUserCloseTaskBody"
-        [massgeUserBody2]="massgeUserCloseTaskFooter" (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageIsifCloseTask" [massgeUserHeader]="massgeUserCloseTaskHeader"
+        [massgeUserBody1]="massgeUserCloseTaskBody" [massgeUserBody2]="massgeUserCloseTaskFooter"
+        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
@@ -106,8 +111,11 @@
 <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATask">
   <app-pop-up>
     <div body>
-      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATask" [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody" [massgeUserHeader]="massgeUseIfInTheMiddleOfWorkOnATaskHeader" [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody"
-        [massgeUserBody2]="taskNameFromLocalStorage" (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATask"
+        [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody"
+        [massgeUserHeader]="massgeUseIfInTheMiddleOfWorkOnATaskHeader"
+        [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody" [massgeUserBody2]="taskNameFromLocalStorage"
+        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
@@ -115,8 +123,11 @@
 <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
   <app-pop-up>
     <div body>
-      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause" [inputValue]="taskNameFromLocalStorage2" [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody" [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [massgeUserBody1]=""
-       (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
+        [inputValue]="taskNameFromLocalStorage2"
+        [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody"
+        [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [massgeUserBody1]=""
+        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
@@ -124,12 +135,16 @@
 <div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
   <app-pop-up>
     <div body>
-      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite" [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody" [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader" [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter"
-       (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite"
+        [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody"
+        [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader"
+        [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" (clickYes)="clickYes($event)"
+        (clickNo)="clickNo($event)"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
 
 <div *ngIf="isPopUpOpen?.pause">
-  <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime"></app-pause-work>
+  <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime">
+  </app-pause-work>
 </div>

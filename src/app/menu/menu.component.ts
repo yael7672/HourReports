@@ -37,11 +37,15 @@ export class MenuComponent implements OnInit {
   hours: number = 0;
   workTime: any;
   titleTableTask = 'המשימות שלי';
+  titleTableTeamsTask='המשימות של הצוותים אליהם אני שייך'
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט'];
+  thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט','צוות'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name']];
+  taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'],['OwnerId','Name']];
+
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
@@ -57,11 +61,14 @@ export class MenuComponent implements OnInit {
   isTaskAccomplished!: boolean;
   parseTime!: any;
   timetoSend: any;
+  tableMyTaskTeamsOpen!: boolean;
   query = "";
   selectedOption = "";
   projectContentItemArr!: ProjectContentItem[]
   taskArrCopy!: Task[]
   taskArr!: Task[];
+  taskTeamsArr!: Task[];
+  taskTeamsArrCopy!: Task[]
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
   systemGuid: any;
@@ -139,7 +146,6 @@ export class MenuComponent implements OnInit {
         this.isDisabledPouse = true;
         this.workTime = "";
         this.seconds = 0;
-
       }
       console.log(this.isButtobChoose);
     })
@@ -150,16 +156,30 @@ export class MenuComponent implements OnInit {
     console.log(this.arrFunc);
     this.GetMyTask();
     this.GetProject();
+    this.GetTaskForMyTeams();
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
     this.workTimeHourLS = localStorage.getItem("WorkTimePause")
     if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true
     }
-
-
   }
 
-
+  GetTaskForMyTeams() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetTaskForMyTeams(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+          this.taskTeamsArr= res;
+          this.taskTeamsArrCopy = res;
+          this.ifThereAreTasks = true;
+          console.log(this.taskTeamsArr);
+        }
+      }, err => {
+        console.log(err.error)
+        this.ifThereAreTasks = false;
+      }
+    )
+  }
   GetMyTask() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetMyTask(this.systemGuid).subscribe(
@@ -191,6 +211,7 @@ export class MenuComponent implements OnInit {
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
     this.tableSpecificTaskOpen = true;
     this.tableMyTaskOpen = false;
+    this.tableMyTaskTeamsOpen=false;
   }
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
@@ -361,12 +382,9 @@ export class MenuComponent implements OnInit {
 
     }
   }
-
-
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
-
   GetProjectContentItemByTaskGuid(taskGuid: string) {
     this.userService.GetProjectContentItemByTaskGuid(taskGuid).subscribe(
       res => {
@@ -454,8 +472,8 @@ export class MenuComponent implements OnInit {
       }
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
-       this.ab= localStorage.getItem(("WorkTimePause"))
-       this.workTimeHourLSJ =JSON.parse(this.ab)
+      this.ab = localStorage.getItem(("WorkTimePause"))
+      this.workTimeHourLSJ = JSON.parse(this.ab)
       let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.appService, this.popUpService, this.buttonWorkingTaskService,)
       myCompPause.clickYes(this.workTimeHourLSJ)
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
@@ -542,6 +560,16 @@ export class MenuComponent implements OnInit {
 
     }, 1000)
 
+  }
+  WhichTableOpen(val: any) {
+    if (val == 0) {
+      this.tableMyTaskOpen = true;
+      this.tableMyTaskTeamsOpen = false;
+    }
+    if (val == 1) {
+      this.tableMyTaskTeamsOpen = true;
+      this.tableMyTaskOpen = false;
+    }
   }
 
 }

@@ -73,4 +73,8 @@ export class UserServiceService {
   async GetAverageBreaks(SystemGuid: any, FromDate: string, UntilDate: string, SelectedTime: any) {
     return await this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
   }
+  GetTaskForMyTeams(SystemGuid:any)
+  {
+    return this.http.get<any>(environment.url + '/GetTaskForMyTeams/?SystemGuid=' + SystemGuid)
+  }
 }
