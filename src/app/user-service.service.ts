@@ -55,7 +55,7 @@ export class UserServiceService {
   CreateNewProjectItem(projectContentItem: any) {
     return this.http.post<string>(environment.url + 'CreateProjectContentItem', projectContentItem);
   }
-   async PauseWork(SystemGuid: any, ActualTime: any) {
+  async PauseWork(SystemGuid: any, ActualTime: any) {
     return await this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime).toPromise();
 
   }
@@ -70,7 +70,7 @@ export class UserServiceService {
   GetActualTaskHours(SystemGuid: any, TaskGuid: any) {
     return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
   }
-  GetAverageBreaks(SystemGuid: any, FromDate: string, UntilDate: string) {
-    return this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate);
+  async GetAverageBreaks(SystemGuid: any, FromDate: string, UntilDate: string, SelectedTime: any) {
+    return await this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
   }
 }

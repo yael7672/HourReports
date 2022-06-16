@@ -46,7 +46,10 @@ export class StatisticsGraphComponent implements OnInit {
   }
   ngOnInit(): void {
     this.showThisWeek = "2";
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.GetAverageBreaksByTimeLineChart(this.systemGuid, "", "", this.showThisWeek)
     this.GetMyProjectContentItemByTimeLineChart(this.showThisWeek)
+
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
     this.LineChart1 = new Chart('lineChart', {
       type: 'line',
@@ -154,6 +157,8 @@ export class StatisticsGraphComponent implements OnInit {
       err => {
         console.log(err.error);
       })
+    this.GetAverageBreaksByTimeLineChart(this.systemGuid,this.dateOfSearchBeforeForLineChart,this.dateOfSearchAfterForLineChart,Number(val))
+
   }
   updateLineChart() {
     this.LineChart1.data.datasets[0].data = this.workingHourArrForLineChart;
@@ -169,8 +174,8 @@ export class StatisticsGraphComponent implements OnInit {
 
     this.BarChart.update();
   }
-  GetAverageBreaksByTimeLineChart(systemGuid: any, dateOfSearchBeforeForLineChart: any, dateOfSearchAfterForLineChart: any) {
-    this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForLineChart, dateOfSearchAfterForLineChart).subscribe(
+  GetAverageBreaksByTimeLineChart(systemGuid: any, dateOfSearchBeforeForLineChart: any, dateOfSearchAfterForLineChart: any, selectedDay: any) {
+    this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForLineChart, dateOfSearchAfterForLineChart, selectedDay).then(
       res => {
         if (res) {
           this.AverageBreaksByTimeLineChart = res
@@ -183,26 +188,26 @@ export class StatisticsGraphComponent implements OnInit {
       })
   }
 
-  GetAverageBreaksByTimeBarChart(systemGuid: any, dateOfSearchBeforeForBarChart: any, dateOfSearchAfterForBarChart: any) {
-    this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForBarChart, dateOfSearchAfterForBarChart).subscribe(
-      res => {
-        if (res) {
-          this.AverageBreaksByTimeBarChart = res
-
-          // swal(res + "GetAverageBreaksByTimeBarChart")
-        }
-      },
-      err => {
-        console.log(err.error);
-      })
-  }
+  // GetAverageBreaksByTimeBarChart(systemGuid: any, dateOfSearchBeforeForBarChart: any, dateOfSearchAfterForBarChart: any) {
+  //   this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForBarChart, dateOfSearchAfterForBarChart,"3").subscribe(
+  //     res => {
+  //       if (res) {
+  //         this.AverageBreaksByTimeBarChart = res
+  //       }
+  //     },
+  //     err => {
+  //       console.log(err.error);
+  //     })
+  // }
   SortByDateRange(val = null) {
     this.showInputsDates = true;
     if (val == null) //זה אומר שלחץ על כפתור ההשואה
     {
       this.GetMyProjectContentItemByTimeLineChart();
+       this.GetAverageBreaksByTimeLineChart(this.systemGuid,this.dateOfSearchBeforeForBarChart, this.dateOfSearchAfterForBarChart,"")
     }
   }
+
   CreatColorArr() {
     this.culculteCopy = [...this.culculte]
     this.colorArr = [];
@@ -215,13 +220,13 @@ export class StatisticsGraphComponent implements OnInit {
           this.colorArr[a] = "orange";
         }
         else
-        if (i >101 && i < 150) {
-          this.colorArr[a] = "blue";
-        }
-        else
-        if (i >151 && i < 201) {
-          this.colorArr[a] = "green";
-        }
+          if (i > 101 && i < 150) {
+            this.colorArr[a] = "blue";
+          }
+          else
+            if (i > 151 && i < 201) {
+              this.colorArr[a] = "green";
+            }
       a++;
     }); console.log(this.colorArr);
   }

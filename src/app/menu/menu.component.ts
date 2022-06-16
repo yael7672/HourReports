@@ -152,7 +152,7 @@ export class MenuComponent implements OnInit {
     this.GetProject();
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
     this.workTimeHourLS = localStorage.getItem("WorkTimePause")
-    if (this.workTimeHourLS != ["00,00,00,00"]) {
+    if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true
     }
 
