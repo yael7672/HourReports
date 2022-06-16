@@ -1,4 +1,4 @@
-
+<div class="select-input">
      <div class="form-outline d-flex justify-content-center">
       <select id="inputState" class="form-control"  ngModel (ngModelChange)="GetMyProjectContentItemByTimeLineChart($event)" >
         <option value="">--בחר אחת מהאופציות הבאות--</option>
@@ -8,23 +8,25 @@
         <option value="3"> החודש האחרון</option>
       </select>
     </div>
+
+      <ng-container *ngIf="showInputsDates">
+        <div class="form-group ">
+        <div class="input-group input-daterange">
+          <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+          (ngModelChange)="dateOfSearchBeforeForLineChart = $event">
+          <div class="input-group-addon">ל - </div>
+          <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+          (ngModelChange)="dateOfSearchAfterForLineChart = $event">
+        </div>
+      <button (click)="SortByDateRange()" class="btn btn-color">השווה</button>
+      </div>
+  </ng-container>
+</div>
     <div class="all-canvas-page" >
   <app-smart-card [title]="'השוואה בן שעות עבודה לשעות בפועל'" class="task-card-timer">
   <div header>
   <br>
-    <ng-container *ngIf="showInputsDates">
-      <div class="form-group ">
-      <div class="input-group input-daterange">
-        <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-        (ngModelChange)="dateOfSearchBeforeForLineChart = $event">
-        <div class="input-group-addon">ל - </div>
-        <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-        (ngModelChange)="dateOfSearchAfterForLineChart = $event">
-      </div>
-    <button (click)="SortByDateRange()" class="btn btn-color">השווה</button>
 
-    </div>
-</ng-container>
   </div>
   <div body>
     <div class="canvas ">
@@ -56,11 +58,27 @@
       </canvas>
     </div>
   </div>
-  <div class="card-footer">
-    <hr />
-    <div class="card-stats">
-      <i class="fa fa-check"></i> {{LineChartText}}
+  <div footer class="card-footer">
+    <hr />   
+     <!-- <i class="fa fa-check"></i>-->
+    <div class="card-stats"> 
+      <ng-container *ngFor="let dateAndCulculte of dateAndCulculteArr index as i " >
+   <span>{{dateAndCulculte[i].date}}בתאריך</span>
+   <span>{{dateAndCulculte.culculte}}בתאריך</span>
+      </ng-container>
+  
     </div>
   </div>
 </app-smart-card>
 </div>
+<!-- <table>
+  <th>תאריך</th>
+  <th>רמת פרודקטביות</th>
+  <tr *ngFor="let date of dateArrForLineChart" >
+    <!-- <ng-container *ngFor="let culculte of  culculte> -->
+    <!-- <td >{{date}}</td> 
+    <td>{{date}}</td> -->
+    <!-- </tr> -->
+  <!-- </ng-container> -->
+
+<!-- </table> --> -->

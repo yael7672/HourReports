@@ -22,6 +22,19 @@ padding: 0.5rem
     display:flex;
     direction: rtl;
 }
-h2{
-    background-color:rgb(6, 142, 6),
+
+.select-input{
+    display:flex;
+    flex-direction: column;
+    direction: rtl;
+    justify-content: center;
+}
+.form-group{
+    justify-content: center;
+    width: 100%;
+}
+
+.input-group {
+    width: 30rem;
+
 }
