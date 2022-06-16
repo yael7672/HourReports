@@ -59,18 +59,18 @@ export class UserServiceService {
     return await this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime).toPromise();
 
   }
-  GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string,SelectedTime:any) {
-    return this.http.get<any>(environment.url + 'GetMyProjectContentItemByTime?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate);
+  async GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string, SelectedTime: number) {
+    return await this.http.get<any>(environment.url + 'GetMyProjectContentItemByTime?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
 
   }
-  GetTaskByGuid(SystemGuid:any,TaskGuid:any){
-    return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?SystemGuid='+ SystemGuid +'&TaskGuid=' + TaskGuid);
+  GetTaskByGuid(SystemGuid: any, TaskGuid: any) {
+    return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
 
   }
-  GetActualTaskHours(SystemGuid:any,TaskGuid:any){
-    return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?SystemGuid='+ SystemGuid +'&TaskGuid=' + TaskGuid);
+  GetActualTaskHours(SystemGuid: any, TaskGuid: any) {
+    return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
   }
-  GetAverageBreaks(SystemGuid:any, FromDate: string, UntilDate: string){
-    return this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?SystemGuid='+ SystemGuid +'&FromDate=' + FromDate +'&UntilDate=' + UntilDate);
+  GetAverageBreaks(SystemGuid: any, FromDate: string, UntilDate: string) {
+    return this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate);
   }
 }
