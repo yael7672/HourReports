@@ -13,7 +13,7 @@
   </a>
 </div>
 <div class="menu">
-  <div *ngIf="ifThereAreTasks">
+ 
     <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen" class="input-group">
       <div class="form-outline">
         <div>
@@ -29,7 +29,7 @@
       <i class="fa fa-search"></i>
     </div>
 <!-- המשימות שלי -->
-    <app-smart-card *ngIf="tableMyTaskOpen" [title]="titleTableTask">
+    <app-smart-card *ngIf="tableMyTaskOpen&&tableMyTaskOpen1" [title]="titleTableTask">
       <div body>
         <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
           [kindOfCard]="'tableCard'"  [thArr]="thArrTask"
@@ -38,7 +38,7 @@
       </div>
     </app-smart-card>
 <!-- המשימות של הצוותים שלי -->
-    <app-smart-card *ngIf="tableMyTaskTeamsOpen" [title]="titleTableTeamsTask">
+    <app-smart-card *ngIf="tableMyTaskTeamsOpen&&tableMyTaskTeamsOpen1" [title]="titleTableTeamsTask">
       <div body>
         <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
           [kindOfCard]="'tableCard'"  [thArr]="thArrTaskTeams"
@@ -46,12 +46,11 @@
         </app-show-my-task>
       </div>
     </app-smart-card>
-  <div *ngIf="!ifThereAreTasks">
+
+  <div *ngIf="ifThereAreTasks">
     <br>
     <h2>אין משימות פעילות!</h2>
   </div>
-  <div>
-
     <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true"
       *ngIf="tableSpecificTaskOpen" [title]="titleCard" [arrFunc]="arrFunc" [isDisabledStart]="isDisabledStart"
       [textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()">
@@ -74,7 +73,6 @@
       </app-smart-card>
     </div>
   </div>
-</div>
 
 <div *ngIf="isPopUpOpen?.creatTask">
   <app-create-new-task></app-create-new-task>

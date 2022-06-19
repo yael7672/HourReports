@@ -37,14 +37,14 @@ export class MenuComponent implements OnInit {
   hours: number = 0;
   workTime: any;
   titleTableTask = 'המשימות שלי';
-  titleTableTeamsTask='המשימות של הצוותים אליהם אני שייך'
+  titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך'
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט'];
-  thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט','צוות'];
+  thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name']];
-  taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'],['OwnerId','Name']];
+  taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
 
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
@@ -72,7 +72,7 @@ export class MenuComponent implements OnInit {
   tableSpecificTaskOpen = false;
   tableMyTaskOpen = true;
   systemGuid: any;
-  ifThereAreTasks = true;
+  ifThereAreTasks = false;
   ifThereAreprojectContentItem = false;
   isSelected = false;
   hideButtonCancel = false
@@ -113,6 +113,9 @@ export class MenuComponent implements OnInit {
   workTimeHourLS: any;
   workTimeHourLSJ: any;
   ab: any;
+  IftaskForTeam!: boolean;
+  tableMyTaskTeamsOpen1 = true;
+  tableMyTaskOpen1 = true;
   constructor(private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
@@ -160,8 +163,9 @@ export class MenuComponent implements OnInit {
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
     this.workTimeHourLS = localStorage.getItem("WorkTimePause")
     if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
-      this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true
+      this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
     }
+ 
   }
 
   GetTaskForMyTeams() {
@@ -169,14 +173,14 @@ export class MenuComponent implements OnInit {
     this.userService.GetTaskForMyTeams(this.systemGuid).subscribe(
       res => {
         if (res) {
-          this.taskTeamsArr= res;
+          this.taskTeamsArr = res;
           this.taskTeamsArrCopy = res;
-          this.ifThereAreTasks = true;
           console.log(this.taskTeamsArr);
         }
       }, err => {
         console.log(err.error)
-        this.ifThereAreTasks = false;
+       // this.tableMyTaskTeamsOpen1 = false;
+        // this.tableMyTaskTeamsOpen=false;
       }
     )
   }
@@ -187,12 +191,12 @@ export class MenuComponent implements OnInit {
         if (res) {
           this.taskArr = res;
           this.taskArrCopy = res;
-          this.ifThereAreTasks = true;
           console.log(this.taskArr);
         }
       }, err => {
         console.log(err.error)
-        this.ifThereAreTasks = false;
+   //     this.tableMyTaskOpen1 = false;
+
       }
     )
   }
@@ -211,14 +215,20 @@ export class MenuComponent implements OnInit {
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
     this.tableSpecificTaskOpen = true;
     this.tableMyTaskOpen = false;
-    this.tableMyTaskTeamsOpen=false;
+    this.tableMyTaskTeamsOpen = false;
   }
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid).subscribe(res => {
+    if (this.taskListDataDetails.OwnerId.Guid == this.systemGuid.toLowerCase()) {
+      this.IftaskForTeam = false;
+    }
+    else {
+      this.IftaskForTeam = true;
+    }
+    this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid, this.IftaskForTeam).subscribe(res => {
       if (res) {
         this.massageFromServer = res;
         console.log(this.massageFromServer);
@@ -289,6 +299,8 @@ export class MenuComponent implements OnInit {
       this.isTaskAccomplished = false;
       if (time.descriptionTask == undefined) {
         time.descriptionTask = "";
+      } if (this.parseTime == undefined) {
+        this.parseTime = "";
       }
       this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid ? this.taskListDataDetails.TaskGuid : localStorage.getItem('TaskGuidToSend'), this.isTaskAccomplished, time.descriptionTask).subscribe(
         res => {
@@ -326,6 +338,9 @@ export class MenuComponent implements OnInit {
     this.isTaskAccomplished = true;
     if (time.descriptionTask == undefined) {
       time.descriptionTask = "";
+    }
+    if (this.parseTime == undefined) {
+      this.parseTime = "";
     }
     this.workTime = ["00", "00", "00"];
 
@@ -562,13 +577,24 @@ export class MenuComponent implements OnInit {
 
   }
   WhichTableOpen(val: any) {
+    this.ifThereAreTasks=false;
     if (val == 0) {
       this.tableMyTaskOpen = true;
       this.tableMyTaskTeamsOpen = false;
+      if(this.taskArr==null||this.taskArr==undefined)
+      {
+        this.ifThereAreTasks=true;
+        this.tableMyTaskOpen1=false;
+      }
     }
     if (val == 1) {
       this.tableMyTaskTeamsOpen = true;
       this.tableMyTaskOpen = false;
+      if(this.taskTeamsArr==null||this.taskTeamsArr==undefined)
+      {
+        this.ifThereAreTasks=true;
+        this.tableMyTaskTeamsOpen1=false;
+      }
     }
   }
 

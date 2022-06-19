@@ -37,8 +37,8 @@ export class UserServiceService {
   GetProject() {
     return this.http.get<any>(environment.url + 'GetProject/');
   }
-  CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string) {
-    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
+  CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string, IftaskForTeam:boolean) {
+    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid +'&IftaskForTeam='+IftaskForTeam);
   }
   logIn(email: any) {
     return this.http.get<User[]>(environment.url + 'Login/?email=' + email);
