@@ -334,7 +334,7 @@ export class MenuComponent implements OnInit {
       if (this.timetoSend[2] > 30) {
         this.timetoSend[1] += 1;
       }
-      this.workTimeHour[1] = (this.timetoSend[1] / 60)
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = this.timetoSend[0] + this.timetoSend[1];
     }
     this.isTaskAccomplished = true;
