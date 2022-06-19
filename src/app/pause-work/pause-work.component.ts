@@ -7,6 +7,7 @@ import { UserServiceService } from '../user-service.service';
 import swal from 'sweetalert';
 import { MenuComponent } from '../menu/menu.component';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class PauseWorkComponent implements OnInit {
   workTimeLS!: any;
   workTimeHourLS!: any;
   workTime1: any;
-  constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
+  constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,public router:Router,
     private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
@@ -100,7 +101,7 @@ export class PauseWorkComponent implements OnInit {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-            let myCompMenu = new MenuComponent(this.popUpService, this.userServiceService, this.appService, this.buttonWorkingTaskService, this.datePipe)
+            let myCompMenu = new MenuComponent(this.router,this.popUpService, this.userServiceService, this.appService, this.buttonWorkingTaskService, this.datePipe)
             myCompMenu.SelectedTask(this.taskListDataDetails)
           }, 500)
         }

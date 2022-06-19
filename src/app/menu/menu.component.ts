@@ -15,6 +15,7 @@ import { Chart } from 'chart.js';
 import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
 import { PauseWorkComponent } from '../pause-work/pause-work.component';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -116,7 +117,8 @@ export class MenuComponent implements OnInit {
   IftaskForTeam!: boolean;
   tableMyTaskTeamsOpen1 = true;
   tableMyTaskOpen1 = true;
-  constructor(private popUpService: PopUpServiceService,
+  constructor(  public router:Router,
+    private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -489,7 +491,7 @@ export class MenuComponent implements OnInit {
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
       this.ab = localStorage.getItem(("WorkTimePause"))
       this.workTimeHourLSJ = JSON.parse(this.ab)
-      let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.appService, this.popUpService, this.buttonWorkingTaskService,)
+      let myCompPause = new PauseWorkComponent(this.datePipe, this.userService,this.router, this.appService, this.popUpService, this.buttonWorkingTaskService)
       myCompPause.clickYes(this.workTimeHourLSJ)
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
     }
@@ -596,6 +598,10 @@ export class MenuComponent implements OnInit {
         this.tableMyTaskTeamsOpen1=false;
       }
     }
+  }
+  GoToStatisticsGraph()
+  {
+    this.router.navigate(['/StatisticsGraph'])
   }
 
 }
