@@ -375,7 +375,7 @@ export class MenuComponent implements OnInit {
           }
           else
             if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
-              swal("כל הכבוד!", "", "success");
+              swal("כל הכבוד!", "שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה", "success");
             }
             else {
               swal(massageFromServerUpdate)
