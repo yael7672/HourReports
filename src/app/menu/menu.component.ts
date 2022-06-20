@@ -117,7 +117,7 @@ export class MenuComponent implements OnInit {
   IftaskForTeam!: boolean;
   tableMyTaskTeamsOpen1 = true;
   tableMyTaskOpen1 = true;
-  constructor(  public router:Router,
+  constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
@@ -167,7 +167,7 @@ export class MenuComponent implements OnInit {
     if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
     }
- 
+
   }
 
   GetTaskForMyTeams() {
@@ -181,7 +181,7 @@ export class MenuComponent implements OnInit {
         }
       }, err => {
         console.log(err.error)
-       // this.tableMyTaskTeamsOpen1 = false;
+        // this.tableMyTaskTeamsOpen1 = false;
         // this.tableMyTaskTeamsOpen=false;
       }
     )
@@ -197,17 +197,31 @@ export class MenuComponent implements OnInit {
         }
       }, err => {
         console.log(err.error)
-   //     this.tableMyTaskOpen1 = false;
+        //     this.tableMyTaskOpen1 = false;
 
       }
     )
   }
-  openPopUp(data: string, type: boolean) {
-    this.appService.setIsPopUpOpen(true);
-    this.popUpService.setSpecificPopUp(type, data)
-    if (data == 'pause') {
 
+
+  openPopUp(data: string, type: boolean) {
+    if (data == 'pause') {
+      if (localStorage.getItem('TaskGuid')) {
+        this.taskNameFromLocalStorage2 = "שם המשימה:" + localStorage.getItem('TaskName')
+        this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true
+      }
+      else {
+        this.appService.setIsPopUpOpen(true);
+        this.popUpService.setSpecificPopUp(type, data)
+      }
     }
+    else {
+      this.appService.setIsPopUpOpen(true);
+      this.popUpService.setSpecificPopUp(type, data)
+    }
+
+
+
   }
   SelectedTask(val: any) {
     this.taskListDataDetails = val;
@@ -375,12 +389,11 @@ export class MenuComponent implements OnInit {
           }
           else
             if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
-              swal("כל הכבוד!", "", "success");
+              swal("כל הכבוד!", "שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה", "success");
             }
             else {
               swal(massageFromServerUpdate)
             }
-
         }
       },
       err => {
@@ -389,16 +402,7 @@ export class MenuComponent implements OnInit {
     )
   }
 
-  CheckIfProjectContentItemOpen() {
-    if (localStorage.getItem('TaskGuid')) {
-      this.taskNameFromLocalStorage2 = "שם המשימה:" + localStorage.getItem('TaskName')
-      this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true
-    }
-    else {
-      this.openPopUp('pause', true)
 
-    }
-  }
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
@@ -491,7 +495,7 @@ export class MenuComponent implements OnInit {
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
       this.ab = localStorage.getItem(("WorkTimePause"))
       this.workTimeHourLSJ = JSON.parse(this.ab)
-      let myCompPause = new PauseWorkComponent(this.datePipe, this.userService,this.router, this.appService, this.popUpService, this.buttonWorkingTaskService)
+      let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.router, this.appService, this.popUpService, this.buttonWorkingTaskService)
       myCompPause.clickYes(this.workTimeHourLSJ)
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
     }
@@ -579,28 +583,25 @@ export class MenuComponent implements OnInit {
 
   }
   WhichTableOpen(val: any) {
-    this.ifThereAreTasks=false;
+    this.ifThereAreTasks = false;
     if (val == 0) {
       this.tableMyTaskOpen = true;
       this.tableMyTaskTeamsOpen = false;
-      if(this.taskArr==null||this.taskArr==undefined)
-      {
-        this.ifThereAreTasks=true;
-        this.tableMyTaskOpen1=false;
+      if (this.taskArr == null || this.taskArr == undefined) {
+        this.ifThereAreTasks = true;
+        this.tableMyTaskOpen1 = false;
       }
     }
     if (val == 1) {
       this.tableMyTaskTeamsOpen = true;
       this.tableMyTaskOpen = false;
-      if(this.taskTeamsArr==null||this.taskTeamsArr==undefined)
-      {
-        this.ifThereAreTasks=true;
-        this.tableMyTaskTeamsOpen1=false;
+      if (this.taskTeamsArr == null || this.taskTeamsArr == undefined) {
+        this.ifThereAreTasks = true;
+        this.tableMyTaskTeamsOpen1 = false;
       }
     }
   }
-  GoToStatisticsGraph()
-  {
+  GoToStatisticsGraph() {
     this.router.navigate(['/StatisticsGraph'])
   }
   GoToHome()
