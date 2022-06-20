@@ -603,7 +603,10 @@ export class MenuComponent implements OnInit {
   {
     this.router.navigate(['/StatisticsGraph'])
   }
-
+  GoToHome()
+  {
+    this.router.navigate(['/menu'])
+  }
 }
 
 

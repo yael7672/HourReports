@@ -1,5 +1,7 @@
 <div class="aImg">
   <div>
+    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true" style="font-size:30px"></i>
+    </a>
     <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" style="font-size:30px"></i></a>
     <a (click)="CheckIfProjectContentItemOpen()"><i class="fa fa-coffee" style="font-size:30px"></i></a>
     <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o"
@@ -7,6 +9,7 @@
     </a>
     <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true" style="font-size:30px"></i>
     </a>
+
   </div>
   <p class="p-of-title ">דיווחי שעות </p>
   <a (mouseover)="mouseOvePersonalDetails()" (mouseleave)="mouseLeavePersonalDetails()">

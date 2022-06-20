@@ -64,14 +64,14 @@ export class StatisticsGraphComponent implements OnInit {
           data: 0,
           borderWidth: 1,
           fill: false,
-          borderColor: '#ffb000',
+          borderColor: 'red',
         },
         {
           label: 'שעות בפועל',
           data: 0,
           borderWidth: 1,
           fill: false,
-          borderColor: 'black'
+          borderColor: 'green'
         },
         ]
       },
