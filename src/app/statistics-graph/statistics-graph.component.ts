@@ -225,16 +225,20 @@ export class StatisticsGraphComponent implements OnInit {
       if (i < 51) {
         this.colorArr[a] = "rgba(255, 0, 0, 0.947)";
       } else
-        if (i > 51 && i < 101) {
-          this.colorArr[a] = "rgba(6, 186, 6, 0.932)";
+        if (i > 51 && i < 80) {
+          this.colorArr[a] = "rgb(240, 63, 63)";
         }
         else
-          if (i > 101 && i < 150) {
-            this.colorArr[a] = "rgb(10, 179, 10)";
+          if (i > 81 && i < 110) {
+            this.colorArr[a] = "blue";
           }
           else
-            if (i > 151 && i < 201) {
+            if (i > 111 && i < 150) {
               this.colorArr[a] = "rgb(6, 142, 6)";
+            }
+            else
+            if (i > 151) {
+              this.colorArr[a] = "rgb(10, 179, 10)";
             }
       a++;
     }); console.log(this.colorArr);
