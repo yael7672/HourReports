@@ -31,8 +31,8 @@ export class UserServiceService {
   UpdateProjectContentItem(duration: string, taskId: string, isTaskAccomplished: boolean, descriptionTask: string) {
     return this.http.get<any>(environment.url + 'UpdateProjectContentItem/?taskId=' + taskId + '&duration=' + duration + '&IsTaskAccomplished=' + isTaskAccomplished + '&DescriptionTask=' + descriptionTask);
   }
-  GetProjectContentItemByTaskGuid(taskId: string) {
-    return this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?TaskId=' + taskId);
+  async GetProjectContentItemByTaskGuid(taskId: string) {
+    return await this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?TaskId=' + taskId).toPromise();
   }
   GetProject() {
     return this.http.get<any>(environment.url + 'GetProject/');
