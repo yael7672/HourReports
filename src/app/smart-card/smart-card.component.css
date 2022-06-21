@@ -2,11 +2,11 @@ a {
     text-decoration: none;
 }
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     .card-content {
-        width: 90vw;
+        width:100vw;
     }
-}
+} */
 h3{
   font-size: x-large;
 }
