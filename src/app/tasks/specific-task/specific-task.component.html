@@ -1,6 +1,13 @@
-
 <h5 *ngIf="listData?.Subject">{{listData.Subject}}</h5>
 <p *ngIf="listData?.Description" class="card-text">{{listData.Description}}</p>
+<p *ngIf="listData?.WorkingHours" class="card-text"> משך זמן שהוקצה למשימה :{{listData.WorkingHours}}
+  {{this.timeSetting}} </p>
+<p *ngIf="listData?.ScheduledEndDate" class="card-text"> תאריך יעד :{{listData.ScheduledEndDate | date: 'dd/MM/yyyy' }}
+</p>
+<p *ngIf="listData?.ScheduledEndDate" class="card-text">שעות בפועל :{{listData.ScheduledEndDate | date: 'dd/MM/yyyy' }}
+</p>
+<!-- <p *ngIf="listData?." class="card-text">שעות בפועל :{{listData.ScheduledEndDate | date: 'dd/MM/yyyy' }} -->
+<!-- </p> -->
 <br>
 <div class="form-outline d-flex justify-content-center ">
   <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
@@ -19,4 +26,3 @@
 <br>
 <p *ngIf="workTime" class="Time">{{workTime[0]+ ":"+ workTime[1]+":"
   +workTime[2]}}</p>
-  
