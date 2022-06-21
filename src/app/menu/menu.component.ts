@@ -41,10 +41,10 @@ export class MenuComponent implements OnInit {
   titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך'
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
-  thArrTask = ['שם המשימה', 'נוצר ב:','פרוייקט' ,'שעות מוקצות למשימה','תאריך יעד'];
+  thArrTask = ['שם המשימה', 'נוצר ב:','פרוייקט' ,'שעות מוקצות למשימה','תאריך יעד','עדיפות'];
   thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
-  taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'],'WorkingHours','ScheduledEndDate'];
+  taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'],'WorkingHours','ScheduledEndDate','PriorityCode'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
 
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
