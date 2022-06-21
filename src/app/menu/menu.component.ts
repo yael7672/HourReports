@@ -611,9 +611,14 @@ export class MenuComponent implements OnInit {
     }
   }
   GoToStatisticsGraph() {
-    this.showstatiSticsGraph = true;
+    if (!this.tableSpecificTaskOpen)
+    {
+ this.showstatiSticsGraph = true;
     this.tableMyTaskOpen = false;
     this.tableMyTaskTeamsOpen = false;
+    this.ifThereAreTasks=false;
+    }
+   
   }
   GoToHome() {
     if (!this.tableSpecificTaskOpen) {
