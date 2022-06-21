@@ -11,6 +11,7 @@ export class MassgeToUserComponent implements OnInit {
   @Input() massgeUserBody1: any
   @Input() kindOfMassage: any;
   @Input() inputValue: any;
+  @Input() ifButton !: boolean
   @Output() clickYes = new EventEmitter<any>();
   @Output() clickNo = new EventEmitter<any>();
 
