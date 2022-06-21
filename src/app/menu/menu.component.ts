@@ -116,6 +116,7 @@ export class MenuComponent implements OnInit {
   ab: any;
   IftaskForTeam!: boolean;
   tableMyTaskTeamsOpen1 = true;
+  showstatiSticsGraph = false;
   tableMyTaskOpen1 = true;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
@@ -602,11 +603,17 @@ export class MenuComponent implements OnInit {
     }
   }
   GoToStatisticsGraph() {
-    this.router.navigate(['/StatisticsGraph'])
+    this.showstatiSticsGraph = true;
+    this.tableMyTaskOpen = false;
+    this.tableMyTaskTeamsOpen = false;
   }
-  GoToHome()
-  {
-    this.router.navigate(['/menu'])
+  GoToHome() {
+    if (!this.tableSpecificTaskOpen) {
+      this.showstatiSticsGraph = false;
+      this.tableMyTaskOpen = true;
+    }
+
+
   }
 }
 

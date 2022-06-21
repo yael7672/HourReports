@@ -1,5 +1,5 @@
 .canvas {
-    display: block;
+    /* display: block; */
     width: 450px;
 }
 .btn{
@@ -21,6 +21,7 @@ padding: 0.5rem
 .all-canvas-page{
     display:flex;
     direction: rtl;
+    flex-wrap: wrap;
 }
 
 .select-input{
@@ -37,4 +38,7 @@ padding: 0.5rem
 .input-group {
     width: 30rem;
 
+}
+#lineChart{
+    width: 100%;
 }

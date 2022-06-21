@@ -21,6 +21,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
 }
 
 .fa-plus {
@@ -47,8 +48,11 @@
 
 .fa-coffee,
 .fa-calendar-check-o,
-.fa-edit,.fa-bar-chart,.fa-home {
+.fa-edit,
+.fa-bar-chart,
+.fa-home {
     padding: 1rem;
+    font-size: 30px
 }
 
 h2 {
@@ -57,11 +61,13 @@ h2 {
     font-size: 30pt;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 }
+
 .fa-search {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-right: 1rem;
 }
+
 .p-of-title {
     padding: 1rem;
     margin-right: 5rem;
@@ -71,28 +77,65 @@ h2 {
     margin-top: 0rem !important;
 }
 
-@media (max-width: 650px) {
+
+@media (min-width:600px)and (max-width: 770px) {
     .p-of-title {
         font-size: 1.8rem;
+        margin-bottom: 20px;
     }
 }
 
-@media (min-width: 651px) {
+@media (min-width: 771px) {
     .p-of-title {
         font-size: 3rem;
     }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 670px) {
     .p-of-title {
-        font-size: 1.4rem;
+        font-size: 2rem;
+        margin-top: 6rem;
     }
-    .fa-edit{
-        font-size:30px
+
+    .fa-coffee,
+    .fa-calendar-check-o,
+    .fa-edit,
+    .fa-bar-chart,
+    .fa-home {
+        font-size: 20px;
+        padding: 0.3rem;
+
     }
+    
+.profile-image-pic {
+    height: 40px;
+    width: 40px;
+}
 }
 
+
+@media (max-width: 500px) {
+    .p-of-title {
+        font-size: 1.2rem;
+        margin-top: 6rem;
+    }
+
+    .fa-coffee,
+    .fa-calendar-check-o,
+    .fa-edit,
+    .fa-bar-chart,
+    .fa-home {
+        font-size: 15px;
+        padding: 0.3rem;
+
+    }
+    
+.profile-image-pic {
+    height: 40px;
+    width: 40px;
+}
+}
 .form-control {
     width: 18rem;
 
-    }
+}

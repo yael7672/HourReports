@@ -1,13 +1,14 @@
+
 <div class="aImg">
   <div>
-    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true" style="font-size:30px"></i>
+    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true" ></i>
     </a>
-    <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" style="font-size:30px"></i></a>
-    <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee" style="font-size:30px"></i></a>
+    <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" ></i></a>
+    <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee" ></i></a>
     <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o"
-        style="font-size:30px"></i>
+        ></i>
     </a>
-    <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true" style="font-size:30px"></i>
+    <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true" ></i>
     </a>
 
   </div>
@@ -17,8 +18,8 @@
       class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
   </a>
 </div>
-<div class="menu">
 
+<div class="menu">
   <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen" class="input-group">
     <div class="form-outline">
       <div>
@@ -151,4 +152,7 @@
 <div *ngIf="isPopUpOpen?.pause">
   <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime">
   </app-pause-work>
+</div>
+<div *ngIf="showstatiSticsGraph">
+<app-statistics-graph></app-statistics-graph>
 </div>
