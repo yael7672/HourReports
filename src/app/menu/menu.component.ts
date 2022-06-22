@@ -41,10 +41,10 @@ export class MenuComponent implements OnInit {
   titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך'
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
-  thArrTask = ['שם המשימה', 'נוצר ב:','פרוייקט' ,'שעות מוקצות למשימה','תאריך יעד'];
+  thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
-  taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'],'WorkingHours','ScheduledEndDate'];
+  taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
 
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
@@ -91,12 +91,17 @@ export class MenuComponent implements OnInit {
   massgeUserRefreshWebsiteInMiddlePauseFooter = "האם ברצונך לשוב לעבוד?";
   massgeUserCloseTaskBody = "!שים לב";
   massgeUserCloseTaskFooter = "פעולה זו סוגרת  את הטיימר של המשימה";
+  massgeUserFinishtasklesstimeBody = "שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה!";
+  massgeUserFinishtasklesstimeBody2 = " שעות עבודה לעומת שעות בפועל "
+
+  massgeUserFinishtasklesstimeHeader = "כל הכבוד"
   textButtonBack = "חזרה למשימות שלי"
   TaskByGuidObject!: TaskByGuid;
   openPersonalDetails = false;
   taskGuidFromLocalStorage: any;
   taskNameFromLocalStorage: any;
   kindOfMassageIsifCloseTask = 'kindOfMassageIsifCloseTask';
+  kindOfMassageUserFinishtasklesstime = 'kindOfMassageUserFinishtasklesstime'
   kindOfMassageifInTheMiddleOfWorkOnATask = 'kindOfMassageifInTheMiddleOfWorkOnATask';
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause'
   kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite = 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite'
@@ -104,6 +109,7 @@ export class MenuComponent implements OnInit {
   workTimeFromLocalStorage!: any;
   showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false;
   showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false;
+  showMassgeToUseMIfFinishtasklesstime = false;
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "את/ה באמצע עבודה על משימה"
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "האם ברצונך לצאת להפסקה?"
   taskNameFromLocalStorage2: any;
@@ -120,6 +126,9 @@ export class MenuComponent implements OnInit {
   tableMyTaskOpen1 = true;
   taskListDataDetailsFromLocalStoeage:any;
   taskListDataDetailsFromLocalStoeageParse:any;
+  bdikatoDeleteActual: any = "2"
+  bdikatoDelete1: any = "2"
+  ifButton2 !: boolean;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -367,9 +376,7 @@ export class MenuComponent implements OnInit {
           this.massageFromServer = res;
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
-
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
-
         }
       },
       err => {
@@ -390,13 +397,12 @@ export class MenuComponent implements OnInit {
           }
           else
             if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
-              // swal("כל הכבוד!", "שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה", "success");
-              swal({
-                title: "כל הכבוד!",
-                text: "שעות עבודה:'this.TaskByGuidObject.WorkingHours' שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה!",
-             
-                icon: "success",
-              });
+              this.ifButton2 = false
+              this.showMassgeToUseMIfFinishtasklesstime = true
+              setTimeout(() => {
+                this.ifButton2 = false
+                this.showMassgeToUseMIfFinishtasklesstime = true
+              }, 2000)
             }
             else {
               swal(massageFromServerUpdate)
@@ -613,14 +619,13 @@ export class MenuComponent implements OnInit {
     }
   }
   GoToStatisticsGraph() {
-    if (!this.tableSpecificTaskOpen)
-    {
- this.showstatiSticsGraph = true;
-    this.tableMyTaskOpen = false;
-    this.tableMyTaskTeamsOpen = false;
-    this.ifThereAreTasks=false;
+    if (!this.tableSpecificTaskOpen) {
+      this.showstatiSticsGraph = true;
+      this.tableMyTaskOpen = false;
+      this.tableMyTaskTeamsOpen = false;
+      this.ifThereAreTasks = false;
     }
-   
+
   }
   GoToHome() {
     if (!this.tableSpecificTaskOpen) {

@@ -149,6 +149,16 @@
     </div>
   </app-pop-up>
 </div>
+<div *ngIf="showMassgeToUseMIfFinishtasklesstime">
+  <app-pop-up>
+    <div body>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageUserFinishtasklesstime"
+        [massgeUserHeader]="massgeUserFinishtasklesstimeHeader"
+        [massgeUserBody1]="massgeUserFinishtasklesstimeBody"
+        [massgeUserBody2]="massgeUserFinishtasklesstimeBody2" [ifButton]="ifButton2"></app-massge-to-user>
+    </div>
+  </app-pop-up>
+</div>
 
 <div *ngIf="isPopUpOpen?.pause">
   <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime">

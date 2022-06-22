@@ -23,6 +23,7 @@ export class PauseWorkComponent implements OnInit {
   systemGuid: any
   @Input() workTime!: any;
   @Input() buttonEnd!: any;
+
   @Output() ClickStartPause = new EventEmitter<any>();
   workTimeHour!: any
   descriptionPanel: any;
@@ -58,11 +59,11 @@ export class PauseWorkComponent implements OnInit {
     this.workTimeHour = JSON.parse(this.workTimeHourLS);
 
     console.log(this.workTimeHour);
-
     let hours = Number(this.workTimeHour[0]) / 3600; // get hours
     let minutes = Number(this.workTimeHour[1]) - (hours * 3600) / 60; // get minutes
     let seconds = Number(this.workTimeHour[2]) + (hours * 3600) + (minutes * 60);
      if (this.workTimeHourLS != 0) {
+      this.ifX=false
       this.ContinueToBePause(seconds)
     }
 
