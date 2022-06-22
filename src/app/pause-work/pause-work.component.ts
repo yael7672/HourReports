@@ -58,7 +58,6 @@ export class PauseWorkComponent implements OnInit {
     this.workTimeHourLS = localStorage.getItem('WorkTimePause')
     this.workTimeHour = JSON.parse(this.workTimeHourLS);
     console.log(this.workTimeHour);
-
     let hours = Number(this.workTimeHour[0]) / 3600; // get hours
     let minutes = Number(this.workTimeHour[1]) - (hours * 3600) / 60; // get minutes
     let seconds = Number(this.workTimeHour[2]) + (hours * 3600) + (minutes * 60);
