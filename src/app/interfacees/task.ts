@@ -14,4 +14,7 @@ export interface Task {
     WorkType: WorkType;
     BillableHours: boolean;
     OwnerId: string;
+    WorkingHours:string;
+    ScheduledEndDate:string;
+    TotalActualTime:string;
 }

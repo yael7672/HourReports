@@ -23,15 +23,15 @@ export class SpecificTaskComponent implements OnInit {
   @Input() isDisabledEnd!: boolean;
   @Input() isDisabledPouse!: boolean;
   @Input() isDisabledStart!: boolean;
-  @Input() textButtonBack:any;
+  @Input() textButtonBack: any;
   @Output() clickCloseCard = new EventEmitter<any>();
   @Output() clickStartTimer = new EventEmitter<any>();
   @Output() clickPauseTimer = new EventEmitter<any>();
   @Output() clickdeleteTimer = new EventEmitter<any>();
   @Output() objectEmitter = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
-  @Output() clickBackToMyTask= new EventEmitter<any>();
-  descriptionTask!:string
+  @Output() clickBackToMyTask = new EventEmitter<any>();
+  descriptionTask!: string
   heberwDateRecords: any;
   ifDescriptionPanel = false;
   descriptionPanel: any;
@@ -40,11 +40,26 @@ export class SpecificTaskComponent implements OnInit {
   seconds: number = 0;
   hours: number = 0;
   workTime1!: any[];
+  timeSetting: any;
   constructor(private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
   }
 
   ngOnInit(): void {
+    this.checkIfSecondOrHours()
   }
+
+  checkIfSecondOrHours() {
+    if (this.listData.WorkingHours == 1) {
+      this.timeSetting = "שעה"
+    }
+    if (this.listData.WorkingHours > 1) {
+      this.timeSetting = "שעות"
+    }
+    if (this.listData.WorkingHours < 1) {
+      this.timeSetting = "דקות"
+    }
+  }
+
   closeDescriptionPanel() {
     this.appService.setIsDescriptionPanelOpen(false);
     this.appService.getIsDescriptionPanelOpen().subscribe(res => {
@@ -56,11 +71,11 @@ export class SpecificTaskComponent implements OnInit {
     this.clickStartTimer.emit()
   }
   pauseTimer(worktime: any) {
-    this.clickPauseTimer.emit({worktime:worktime,descriptionTask:this.descriptionTask})
+    this.clickPauseTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask })
 
   }
   deleteTimer(worktime: any) {
-    this.clickdeleteTimer.emit({worktime:worktime,descriptionTask:this.descriptionTask})
+    this.clickdeleteTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask })
   }
   SelectedData(val: any) {
     this.objectEmitter.emit(val)
@@ -71,8 +86,7 @@ export class SpecificTaskComponent implements OnInit {
   CloseCard() {
     this.clickCloseCard.emit()
   }
-  backToMyTask()
-  {
+  backToMyTask() {
     this.clickBackToMyTask.emit();
   }
 

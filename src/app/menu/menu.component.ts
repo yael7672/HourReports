@@ -41,10 +41,10 @@ export class MenuComponent implements OnInit {
   titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך'
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
-  thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט'];
+  thArrTask = ['שם המשימה', 'נוצר ב:','פרוייקט' ,'שעות מוקצות למשימה','תאריך יעד'];
   thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
-  taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name']];
+  taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'],'WorkingHours','ScheduledEndDate'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
 
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
@@ -390,7 +390,13 @@ export class MenuComponent implements OnInit {
           }
           else
             if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
-              swal("כל הכבוד!", "שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה", "success");
+              // swal("כל הכבוד!", "שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה", "success");
+              swal({
+                title: "כל הכבוד!",
+                text: "שעות עבודה:'this.TaskByGuidObject.WorkingHours' שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה!",
+             
+                icon: "success",
+              });
             }
             else {
               swal(massageFromServerUpdate)

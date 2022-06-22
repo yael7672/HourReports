@@ -1,20 +1,25 @@
 <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
   <thead>
     <tr>
-      <th *ngFor="let th of thArr" scope="col">
+      <th   *ngFor="let th of thArr" scope="col" >
+        <button (click)="SortTable(th)">
         <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
-          {{th}}
+          {{th}} 
         </ng-container>
         <ng-template #projectTh>
           <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
         </ng-template>
-      </th>
+      </button> 
+    </th>
+   
     </tr>
   </thead>
   <tbody *ngIf="tableData">
     <tr *ngFor="let colData of tableData" (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
-        <td >{{returnColDataByType(colData, tableDataKey)}}</td>
+        <td *ngIf="tableDataKey=='ScheduledEndDate' || tableDataKey=='CreatedOn'">{{returnColDataByType(colData,
+          tableDataKey) | date: 'dd/MM/yyyy HH:mm'}}</td>
+        <td  *ngIf="tableDataKey!='ScheduledEndDate' && tableDataKey!='CreatedOn'" >{{returnColDataByType(colData,tableDataKey)}} </td>
       </ng-container>
     </tr>
   </tbody>
