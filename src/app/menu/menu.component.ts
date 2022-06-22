@@ -376,9 +376,7 @@ export class MenuComponent implements OnInit {
           this.massageFromServer = res;
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
-
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
-
         }
       },
       err => {
