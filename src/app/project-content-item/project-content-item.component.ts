@@ -28,4 +28,8 @@ export class ProjectContentItemComponent implements OnInit {
       else return null;
     }
   }
+  EditProjectContentItem(val:any)
+  {
+console.log(val);
+  }
 }

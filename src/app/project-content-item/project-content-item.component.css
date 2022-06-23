@@ -95,3 +95,16 @@ body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.25;
 }
+
+button{
+  border-color: white;
+  background-color: white;
+  border: none;
+}
+
+input{
+  border-color: white;
+  background-color: white;
+  border: none;
+  width: 3rem;;
+}

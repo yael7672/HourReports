@@ -43,4 +43,38 @@ export class ShowMyTaskComponent implements OnInit {
       else return null;
     }
   }
+  SortTable(thName:any){
+    let keyToSort:any;
+    switch (thName) {
+        case 'נוצר ב:':
+          keyToSort='CreatedOn';
+          break;
+          case    'שעות מוקצות למשימה':
+            keyToSort= 'WorkingHours';
+            break;
+            case 'תאריך יעד':
+              keyToSort='ScheduledEndDate';
+              break;
+              case 'פרוייקט':
+                keyToSort= ['Project', 'Name'];
+                break;
+                case 'שם המשימה':
+                  keyToSort=  'Subject';
+                  break;
+                  case 'עדיפות':
+                    keyToSort=  'PriorityCode';
+                    break;
+      default:
+        break;
+    }
+    if(keyToSort[0]!='Project')   
+      {
+    this.tableData.sort((a:any,b:any)=>
+         (a[keyToSort]>( b[keyToSort]))?1:-1)
+      }
+    else{
+        this.tableData.sort((a:any,b:any)=>
+        (a[keyToSort[0]][keyToSort[1]]>( b[keyToSort[0]][keyToSort[1]]))?1:-1)
+      }
+  }  
 }

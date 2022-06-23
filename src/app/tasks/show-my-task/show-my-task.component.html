@@ -1,14 +1,17 @@
 <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
   <thead>
     <tr>
-      <th *ngFor="let th of thArr" scope="col">
+      <th   *ngFor="let th of thArr" scope="col" >
+        <button (click)="SortTable(th)">
         <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
-          {{th}}
+          {{th}} 
         </ng-container>
         <ng-template #projectTh>
           <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
         </ng-template>
-      </th>
+      </button> 
+    </th>
+   
     </tr>
   </thead>
   <tbody *ngIf="tableData">

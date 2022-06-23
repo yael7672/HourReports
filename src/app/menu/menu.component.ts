@@ -124,6 +124,8 @@ export class MenuComponent implements OnInit {
   tableMyTaskTeamsOpen1 = true;
   showstatiSticsGraph = false;
   tableMyTaskOpen1 = true;
+  taskListDataDetailsFromLocalStoeage:any;
+  taskListDataDetailsFromLocalStoeageParse:any;
   bdikatoDeleteActual: any = "2"
   bdikatoDelete1: any = "2"
   ifButtonFalse !: boolean;
@@ -177,6 +179,7 @@ export class MenuComponent implements OnInit {
     this.workTimeHourLS = localStorage.getItem("WorkTimePause")
     if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
+      
     }
 
   }
@@ -230,13 +233,10 @@ export class MenuComponent implements OnInit {
       this.appService.setIsPopUpOpen(true);
       this.popUpService.setSpecificPopUp(type, data)
     }
-
-
-
   }
   SelectedTask(val: any) {
     this.taskListDataDetails = val;
-    localStorage.setItem('taskListDataDetails', JSON.stringify(val))
+    localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
     console.log(this.taskListDataDetails);
     clearInterval(this.interval);
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
@@ -420,8 +420,8 @@ export class MenuComponent implements OnInit {
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
-  GetProjectContentItemByTaskGuid(taskGuid: string) {
-    this.userService.GetProjectContentItemByTaskGuid(taskGuid).subscribe(
+ async GetProjectContentItemByTaskGuid(taskGuid: string) {
+    this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
       res => {
         if (res.length > 0) {
           this.projectContentItemArr = res;
@@ -477,13 +477,15 @@ export class MenuComponent implements OnInit {
       this.SelectedStop(this.workTime)
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
-      this.GetProjectContentItemByTaskGuid(this.taskGuidFromLocalStorage);
+   
+         this.GetProjectContentItemByTaskGuid(this.taskGuidFromLocalStorage)
       this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
-      this.tableSpecificTaskOpen = true;
       this.tableMyTaskOpen = false;
-      this.taskListDataDetails = this.taskNameFromLocalStorage;
       this.isDisabledStart = true;
       this.isDisabledPouse = false;
+      this.taskListDataDetailsFromLocalStoeage= localStorage.getItem('taskListDataDetails')
+      this.taskListDataDetailsFromLocalStoeageParse=JSON.parse(this.taskListDataDetailsFromLocalStoeage)
+      this.taskListDataDetails = this.taskListDataDetailsFromLocalStoeageParse;
 
       this.a = localStorage.getItem('workTime');
       this.workTime = JSON.parse(this.a);
@@ -491,6 +493,7 @@ export class MenuComponent implements OnInit {
       let minutes = Number(this.workTime[1]) - (hours * 3600) / 60; // get minutes
       let seconds = Number(this.workTime[2]) + (hours * 3600) + (minutes * 60);
       this.ContinueToWorkOnATask(seconds)
+      this.tableSpecificTaskOpen = true;
 
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
@@ -568,7 +571,8 @@ export class MenuComponent implements OnInit {
     if (localStorage.getItem('TaskGuid')) {
       this.taskGuidFromLocalStorage = localStorage.getItem('TaskGuid')
       this.taskNameFromLocalStorage = localStorage.getItem('TaskName')
-      this.showMassgeToUserIfInTheMiddleOfWorkOnATask = true;
+    //  this.showMassgeToUserIfInTheMiddleOfWorkOnATask = true;
+    this.clickYes("kindOfMassageifInTheMiddleOfWorkOnATask")
     }
 
   }
@@ -629,7 +633,10 @@ export class MenuComponent implements OnInit {
       this.showstatiSticsGraph = false;
       this.tableMyTaskOpen = true;
     }
-
+  }
+  ClickPersonalDetails()
+  {
+  //  this.openPersonalDetails = true;
 
   }
 }

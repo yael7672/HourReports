@@ -21,6 +21,10 @@ export class LoginComponent implements OnInit {
     private appService: AppService,private popUpService:PopUpServiceService) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('systemGuid'))
+    {
+      this.router.navigate(['/menu'])
+    }
   }
   Login(form: NgForm) {
     this.userServiceService.logIn(form.value.SystemUserName).subscribe(
