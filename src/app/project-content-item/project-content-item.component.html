@@ -1,30 +1,26 @@
-
-
-
-    <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
-        <thead>
-          <tr> 
-            <th *ngFor="let th of thArr" scope="col">{{th}}</th>
-          </tr>
-        </thead>
-        <tbody *ngIf="tableData">
-          <tr *ngFor="let colData of tableData" >
-            <ng-container *ngFor="let tableDataKey of tableDataKeys">
-            <ng-container *ngIf="tableDataKey!=='WorkingHours'; else WorkingHours;">
-              <!-- <td>{{tableData[tableDataKey]}}</td> -->
-             <td>{{returnColDataByType(colData, tableDataKey)}}</td>               
-            </ng-container>
-            <ng-template #WorkingHours>                
-              <td>{{colData[tableDataKey]|number}}</td>
-            </ng-template>
-            </ng-container>
-          </tr>
-        </tbody>
-      </table>
-<<<<<<< HEAD
-    
-=======
-      <!-- <div class="card" style="width: 18rem;">
+<table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
+  <thead>
+    <tr>
+      <th *ngFor="let th of thArr" scope="col">{{th}}</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="tableData">
+    <tr *ngFor="let colData of tableData">
+      <ng-container *ngFor="let tableDataKey of tableDataKeys">
+        <ng-container *ngIf="tableDataKey!=='WorkingHours'; else WorkingHours;">
+          <!-- <td>{{tableData[tableDataKey]}}</td> -->
+          <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+        </ng-container>
+        <ng-template #WorkingHours>
+          <td> <input value="{{colData[tableDataKey]|number}}"></td>
+        </ng-template>
+      </ng-container>
+      <td><button (click)="EditProjectContentItem($event)"> <i class="fa fa-pencil" aria-hidden="true"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">דיווח שעות</h5>
           <ng-container *ngFor="let colData of tableData">
@@ -39,7 +35,3 @@
         </div>
       </div>
      -->
-
-
-
->>>>>>> master

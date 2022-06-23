@@ -632,7 +632,10 @@ export class MenuComponent implements OnInit {
       this.showstatiSticsGraph = false;
       this.tableMyTaskOpen = true;
     }
-
+  }
+  ClickPersonalDetails()
+  {
+  //  this.openPersonalDetails = true;
 
   }
 }

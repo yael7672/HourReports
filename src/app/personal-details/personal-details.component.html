@@ -6,6 +6,7 @@
           class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
         <h5 class="card-title">{{systemName}}</h5>
         <p class="card-text">{{systemMail}}</p>
+        <a (click)="LogOut()">התנתק</a>
       </div>
     </div>
     <div *ngIf="!systemGuid">

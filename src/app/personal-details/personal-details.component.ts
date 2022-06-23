@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-personal-details',
@@ -10,7 +11,7 @@ export class PersonalDetailsComponent implements OnInit {
   systemMail!: any;
   systemGuid!: any;
 
-  constructor() { }
+  constructor(public route:Router) { }
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -18,5 +19,9 @@ export class PersonalDetailsComponent implements OnInit {
     this.systemMail = localStorage.getItem('systemMail');
 
   }
-
+  LogOut()
+  {
+    localStorage.clear();
+this.route.navigate(['/login'])
+  }
 }
