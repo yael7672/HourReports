@@ -128,7 +128,8 @@ export class MenuComponent implements OnInit {
   taskListDataDetailsFromLocalStoeageParse:any;
   bdikatoDeleteActual: any = "2"
   bdikatoDelete1: any = "2"
-  ifButton2 !: boolean;
+  ifButtonFalse !: boolean;
+  ifButtonTrue : boolean =true;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -397,11 +398,11 @@ export class MenuComponent implements OnInit {
           }
           else
             if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
-              this.ifButton2 = false
+              this.ifButtonFalse = false
               this.showMassgeToUseMIfFinishtasklesstime = true
               setTimeout(() => {
-                this.ifButton2 = false
-                this.showMassgeToUseMIfFinishtasklesstime = true
+                this.ifButtonFalse = false
+                this.showMassgeToUseMIfFinishtasklesstime = false
               }, 2000)
             }
             else {

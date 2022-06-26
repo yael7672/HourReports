@@ -109,7 +109,7 @@
     <div body>
       <app-massge-to-user [kindOfMassage]="kindOfMassageIsifCloseTask" [massgeUserHeader]="massgeUserCloseTaskHeader"
         [massgeUserBody1]="massgeUserCloseTaskBody" [massgeUserBody2]="massgeUserCloseTaskFooter"
-        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
@@ -121,7 +121,7 @@
         [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody"
         [massgeUserHeader]="massgeUseIfInTheMiddleOfWorkOnATaskHeader"
         [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody" [massgeUserBody2]="taskNameFromLocalStorage"
-        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
@@ -132,7 +132,7 @@
       <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
         [inputValue]="taskNameFromLocalStorage2"
         [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody"
-        [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [massgeUserBody1]=""
+        [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true" [massgeUserBody1]=""
         (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
     </div>
   </app-pop-up>
@@ -144,7 +144,7 @@
       <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite"
         [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody"
         [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader"
-        [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" (clickYes)="clickYes($event)"
+        [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" [ifButton]="true" (clickYes)="clickYes($event)"
         (clickNo)="clickNo($event)"></app-massge-to-user>
     </div>
   </app-pop-up>
@@ -155,7 +155,7 @@
       <app-massge-to-user [kindOfMassage]="kindOfMassageUserFinishtasklesstime"
         [massgeUserHeader]="massgeUserFinishtasklesstimeHeader"
         [massgeUserBody1]="massgeUserFinishtasklesstimeBody"
-        [massgeUserBody2]="massgeUserFinishtasklesstimeBody2" [ifButton]="ifButton2"></app-massge-to-user>
+        [massgeUserBody2]="massgeUserFinishtasklesstimeBody2" ></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
