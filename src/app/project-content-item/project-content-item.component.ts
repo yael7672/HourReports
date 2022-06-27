@@ -11,6 +11,7 @@ export class ProjectContentItemComponent implements OnInit {
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
+  workingHours:any
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output()getDataClickOfButton = new EventEmitter<any>();
   constructor() { }
