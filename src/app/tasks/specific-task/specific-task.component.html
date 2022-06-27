@@ -1,10 +1,11 @@
+<button (click)="openChartCompare()">השוואה בין שעות עבדוה לשעות בפועל</button>
 <h5 *ngIf="listData?.Subject">{{listData.Subject}}</h5>
 <p *ngIf="listData?.Description" class="card-text">{{listData.Description}}</p>
 <p *ngIf="listData?.ScheduledEndDate" class="card-text"> תאריך יעד :{{listData.ScheduledEndDate | date: 'dd/MM/yyyy' }}
 </p>
-<p *ngIf="listData?.WorkingHours" class="card-text"> משך זמן שהוקצה למשימה :{{listData.WorkingHours}}
+<p  class="card-text"> משך זמן שהוקצה למשימה :{{listData.WorkingHours}}
   {{this.timeSetting}} </p>
-<p *ngIf="listData?.TotalActualTime" class="card-text"> שעות בפועל עד כה :{{listData.TotalActualTime }}
+<p  class="card-text"> שעות בפועל עד כה :{{listData.TotalActualTime }}
 </p>
 
 <br>
@@ -25,3 +26,13 @@
 <br>
 <p *ngIf="workTime" class="Time">{{workTime[0]+ ":"+ workTime[1]+":"
   +workTime[2]}}</p>
+
+  <div *ngIf="openChartComparePopUp">
+    <div class="actionArea">
+      <form class="popContainer">
+           <app-charts-my-task [dataProp]="listData" >
+           </app-charts-my-task>
+      </form>
+      </div>
+
+</div>

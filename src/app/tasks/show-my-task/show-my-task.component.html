@@ -3,13 +3,17 @@
     <tr>
       <th   *ngFor="let th of thArr" scope="col" >
         <button (click)="SortTable(th)">
+  
+   
         <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
           {{th}} 
         </ng-container>
+                 <!-- <i class="fa fa-caret-up"></i> -->
+            <i class="fa fa-caret-down" ></i>
         <ng-template #projectTh>
           <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
         </ng-template>
-      </button> 
+      </button>   
     </th>
    
     </tr>

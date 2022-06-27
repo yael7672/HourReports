@@ -41,6 +41,7 @@ export class SpecificTaskComponent implements OnInit {
   hours: number = 0;
   workTime1!: any[];
   timeSetting: any;
+  openChartComparePopUp!: boolean
   constructor(private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
   }
 
@@ -89,5 +90,7 @@ export class SpecificTaskComponent implements OnInit {
   backToMyTask() {
     this.clickBackToMyTask.emit();
   }
-
+  openChartCompare(){
+    this.openChartComparePopUp=true
+  }
 }

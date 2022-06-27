@@ -13,6 +13,7 @@ import { SmartCardComponent } from './smart-card/smart-card.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { ChartsComponent } from './charts/charts.component';
 import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
+import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'personalDetails', component: PersonalDetailsComponent },
   { path: 'charts9', component: ChartsComponent },
   { path: 'StatisticsGraph', component: StatisticsGraphComponent },
+  { path: 'ChartsMyTask', component: ChartsMyTaskComponent },
 
 
 ];
