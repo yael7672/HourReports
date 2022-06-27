@@ -77,4 +77,9 @@ export class UserServiceService {
   {
     return this.http.get<any>(environment.url + '/GetTaskForMyTeams/?SystemGuid=' + SystemGuid)
   }
+  UpdateProjectContentItemDetails(ProjectItemToUpdate:any)
+  {
+    return this.http.post<string>(environment.url + '/UpdateProjectContentItemDetails', ProjectItemToUpdate);
+
+  }
 }

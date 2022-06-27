@@ -1,4 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import  swal from 'sweetalert';
+import { AppService } from '../app-service.service';
+import { ProjectContentItem } from '../interfacees/project-content-item';
+import { PopUpServiceService } from '../pop-up-service.service';
+import { UserServiceService } from '../user-service.service';
 
 @Component({
   selector: 'app-project-content-item',
@@ -11,12 +17,17 @@ export class ProjectContentItemComponent implements OnInit {
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
-  workingHours:any
+  workingHours: any
   @Output() clickSelectedTask = new EventEmitter<any>();
-  @Output()getDataClickOfButton = new EventEmitter<any>();
-  constructor() { }
+  @Output() getDataClickOfButton = new EventEmitter<any>();
+  updateDetails = false;
+  ProjectContentItemGuid = "";
+  massageToUser="";
+  ProjectItemToUpdate!: any;
+  constructor(private userServiceService: UserServiceService,private  appService :AppService,private popUpService:PopUpServiceService) { }
 
   ngOnInit(): void {
+
   }
   returnColDataByType(colData: any, tableDataKey: any) {
     if (tableDataKey && typeof tableDataKey === 'string') {
@@ -29,8 +40,29 @@ export class ProjectContentItemComponent implements OnInit {
       else return null;
     }
   }
-  EditProjectContentItem(val:any)
-  {
-console.log(val);
+  EditProjectContentItemIcon(val: any) {
+   
+    this.updateDetails = true;
+    this.ProjectContentItemGuid = val.Guid;
+    console.log(val);
+  }
+  UpdateProjectItemButton(form: NgForm) {
+    this.ProjectItemToUpdate = {
+      Guid: this.ProjectContentItemGuid,
+      Description: form.value.Description,
+      ActualTime: form.value.HoursActually,
+      //BillableHours:form.value.BillingHours
+    }
+    this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate ).subscribe(
+      (res) => {
+        this.massageToUser = res;
+        swal(this.massageToUser)
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
+      },
+      (err) =>
+        alert("error")
+    )
   }
 }
+

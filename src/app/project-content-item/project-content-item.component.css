@@ -96,15 +96,15 @@ body {
   line-height: 1.25;
 }
 
-button{
+.edit-button{
   border-color: white;
   background-color: white;
   border: none;
 }
 
-input{
+/* input{
   border-color: white;
   background-color: white;
   border: none;
   width: 4rem;;
-}
+} */

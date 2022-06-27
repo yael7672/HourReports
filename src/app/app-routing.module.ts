@@ -17,7 +17,6 @@ import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.co
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'menu', component: MenuComponent },
-
  // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'login', component: LoginComponent },
   { path: 'createTask', component: CreateNewTaskComponent },
@@ -31,8 +30,6 @@ const routes: Routes = [
   { path: 'personalDetails', component: PersonalDetailsComponent },
   { path: 'charts9', component: ChartsComponent },
   { path: 'StatisticsGraph', component: StatisticsGraphComponent },
-
-
 ];
 
 @NgModule({
