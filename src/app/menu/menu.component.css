@@ -23,10 +23,20 @@
     justify-content: space-between;
 
 }
+.aImg2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
 
 .fa-plus {
     padding-left: 2rem;
     margin-top: 2rem;
+}
+.fa-sign-out {
+    padding-right: 4rem;
+    /* margin-top: 2rem; */
 }
 
 .input-group {
@@ -50,9 +60,16 @@
 .fa-calendar-check-o,
 .fa-edit,
 .fa-bar-chart,
-.fa-home {
+.fa-home
+
+{
     padding: 1rem;
     font-size: 30px
+}
+.fa-sign-out{
+
+    padding: 1rem;
+    font-size: 40px 
 }
 
 h2 {
@@ -67,6 +84,7 @@ h2 {
     padding-bottom: 0.5rem;
     padding-right: 1rem;
 }
+
 
 .p-of-title {
     padding: 1rem;
@@ -101,7 +119,8 @@ h2 {
     .fa-calendar-check-o,
     .fa-edit,
     .fa-bar-chart,
-    .fa-home {
+    .fa-home,
+    .fa-sign-out {
         font-size: 20px;
         padding: 0.3rem;
 
@@ -124,7 +143,8 @@ h2 {
     .fa-calendar-check-o,
     .fa-edit,
     .fa-bar-chart,
-    .fa-home {
+    .fa-home,
+    .fa-sign-out {
         font-size: 15px;
         padding: 0.3rem;
 
@@ -138,4 +158,9 @@ h2 {
 .form-control {
     width: 18rem;
 
+}
+
+.logout{
+   width:10px ;
+   height:10px ; 
 }
