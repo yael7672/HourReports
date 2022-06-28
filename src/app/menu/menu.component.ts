@@ -680,7 +680,17 @@ export class MenuComponent implements OnInit {
       this.router.navigate(['/'])
     }, 1000)
   }
-<<<<<<< HEAD
+
+  SortLastTaskIWorkedOn() {
+    
+    this.sorttaskArr.forEach(task => {
+      task.ProjctContentItem.sort((a: any, b: any) =>
+        ((a.CreatedOn ) > (b.CreatedOn)) ? 1 : -1
+      )
+    }
+    )
+  }
+
   GetMyProjectContectItem(selectedTime:any){
     this.systemGuid =localStorage.getItem('systemGuid')
     this.userService.GetMyProjectContectItem(this.systemGuid,selectedTime).subscribe(res => {
@@ -692,17 +702,7 @@ export class MenuComponent implements OnInit {
       err => {
         console.log(err.error);
       })
-=======
-  SortLastTaskIWorkedOn() {
-    
-    this.sorttaskArr.forEach(task => {
-      task.ProjctContentItem.sort((a: any, b: any) =>
-        ((a.CreatedOn ) > (b.CreatedOn)) ? 1 : -1
-      )
     }
-    )
->>>>>>> 65fad3a0275bf003999ca2111c665c2aa5e6014b
-  }
 }
 
 
