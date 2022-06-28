@@ -1,0 +1,36 @@
+ 
+ <app-pop-up #upPopUP [ifX]="true"  >
+    <h4 header class="mb-4">יצירת משימה</h4>
+    <div body>
+        <div class="form-outline d-flex justify-content-center">
+            <select id="inputState" class="form-control" ngModel
+              (ngModelChange)="GetMyProjectContectItem($event)">
+              <option value="">--בחר אחת מהאופציות הבאות--</option>
+              <option value="1"> היום </option>
+              <option value="2"> 7 ימים אחרונים </option>
+              <option value="3"> החודש האחרון</option>
+            </select>
+          </div>
+        <table>
+            <thead>
+              <tr>
+                <th   *ngFor="let th of thArr" scope="col" >               
+                  <ng-container *ngIf="th">
+                    {{th}} 
+                  </ng-container>               
+              </th>
+              </tr>
+                <tr *ngFor="let objectOrArr of tableData">
+                 <ng-container *ngFor="let objectKey of tableDataKeys ">
+                    <td>{{objectOrArr[objectKey]}} </td>
+                  </ng-container>  
+                  </tr>  
+            </thead>
+          </table>
+  </div>
+  </app-pop-up>
+  
+  
+  
+  
+  

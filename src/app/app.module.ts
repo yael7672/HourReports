@@ -26,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartsComponent } from './charts/charts.component';
 import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
 import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component';
+import { MyProjectContectItemsComponent } from './my-project-contect-items/my-project-contect-items.component';
  
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -50,7 +51,8 @@ import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component
     PersonalDetailsComponent,
     ChartsComponent,
     StatisticsGraphComponent,
-    ChartsMyTaskComponent
+    ChartsMyTaskComponent,
+    MyProjectContectItemsComponent
 
 
   ],

@@ -130,6 +130,7 @@ export class MenuComponent implements OnInit {
   bdikatoDelete1: any = "2"
   ifButtonFalse !: boolean;
   ifButtonTrue: boolean = true;
+  MyProjectContectItemArr!: ProjectContentItem[]
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -175,6 +176,8 @@ export class MenuComponent implements OnInit {
     this.GetMyTask();
     this.GetProject();
     this.GetTaskForMyTeams();
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.GetMyProjectContectItem("2")
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
     this.workTimeHourLS = localStorage.getItem("WorkTimePause")
     if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
@@ -659,6 +662,18 @@ export class MenuComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/'])
     }, 1000)
+  }
+  GetMyProjectContectItem(selectedTime:any){
+    this.systemGuid =localStorage.getItem('systemGuid')
+    this.userService.GetMyProjectContectItem(this.systemGuid,selectedTime).subscribe(res => {
+      if (res) {
+        this.MyProjectContectItemArr = res;
+        console.log("MyProjectContectItemArr" +this.MyProjectContectItemArr);
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
   }
 }
 
