@@ -37,8 +37,9 @@ export class MenuComponent implements OnInit {
   seconds: number = 0;
   hours: number = 0;
   workTime: any;
+  titleLastTaskIWorkedOn = "המשימות האחרונות שעבדתי עליהן";
   titleTableTask = 'המשימות שלי';
-  titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך'
+  titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך';
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
@@ -46,7 +47,6 @@ export class MenuComponent implements OnInit {
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
-
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
@@ -68,9 +68,11 @@ export class MenuComponent implements OnInit {
   projectContentItemArr!: ProjectContentItem[]
   taskArrCopy!: Task[]
   taskArr!: Task[];
+  sorttaskArr!: Task[];
   taskTeamsArr!: Task[];
   taskTeamsArrCopy!: Task[]
   tableSpecificTaskOpen = false;
+  tableLastTaskIWorkedOn = false;
   tableMyTaskOpen = true;
   systemGuid: any;
   ifThereAreTasks = false;
@@ -93,7 +95,6 @@ export class MenuComponent implements OnInit {
   massgeUserCloseTaskFooter = "פעולה זו סוגרת  את הטיימר של המשימה";
   massgeUserFinishtasklesstimeBody = "שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה!";
   massgeUserFinishtasklesstimeBody2 = " שעות עבודה לעומת שעות בפועל "
-
   massgeUserFinishtasklesstimeHeader = "כל הכבוד"
   textButtonBack = "חזרה למשימות שלי"
   TaskByGuidObject!: TaskByGuid;
@@ -210,6 +211,7 @@ export class MenuComponent implements OnInit {
         if (res) {
           this.taskArr = res;
           this.taskArrCopy = res;
+          this.sorttaskArr=res
           console.log(this.taskArr);
         }
       }, err => {
@@ -232,7 +234,7 @@ export class MenuComponent implements OnInit {
         this.popUpService.setSpecificPopUp(type, data)
       }
     }
-  
+
     else {
       this.appService.setIsPopUpOpen(true);
       this.popUpService.setSpecificPopUp(type, data)
@@ -464,17 +466,25 @@ export class MenuComponent implements OnInit {
   //     this.taskArr = [...this.taskArrCopy];
   //   }
   // }
-  onSearchProject(filterKey:any) {
-      console.log(filterKey);
+  onSearchProject(filterKey: any) {
+    console.log(filterKey);
+    if (this.tableMyTaskOpen == true) {
       this.taskArr = [...this.taskArrCopy];
-      this.projectArrName = this.projectArr.map(project => project.Name);
       if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
         this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+      }
+    }
+    else
+      if (this.tableMyTaskTeamsOpen == true) {
+        this.taskTeamsArr = [...this.taskTeamsArrCopy]
+        if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
+          this.taskTeamsArr = this.taskTeamsArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+        }
       }
       else {
         this.taskArr = [...this.taskArrCopy];
       }
-    }
+  }
   clickCloseCard() {
     if (this.workTime[0] === "00" && this.workTime[1] === "00" && this.workTime[2] === "00" || this.workTime === "") {
       this.tableMyTaskOpen = true;
@@ -575,11 +585,6 @@ export class MenuComponent implements OnInit {
   //     distinctUntilChanged(),
   //     map(term => term === '' ? []
   //       : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
-  SearchTaslByProject(val:any) {
-
-
-  }
-
   BackToMyTask() {
     this.tableMyTaskOpen = true;
     this.tableSpecificTaskOpen = false;
@@ -592,7 +597,6 @@ export class MenuComponent implements OnInit {
       //  this.showMassgeToUserIfInTheMiddleOfWorkOnATask = true;
       this.clickYes("kindOfMassageifInTheMiddleOfWorkOnATask")
     }
-
   }
   ContinueToWorkOnATask(timeToContinue: any) {
     this.interval = setInterval(() => {
@@ -623,6 +627,7 @@ export class MenuComponent implements OnInit {
     if (val == 0) {
       this.tableMyTaskOpen = true;
       this.tableMyTaskTeamsOpen = false;
+      this.tableLastTaskIWorkedOn = false;
       if (this.taskArr == null || this.taskArr == undefined) {
         this.ifThereAreTasks = true;
         this.tableMyTaskOpen1 = false;
@@ -630,6 +635,18 @@ export class MenuComponent implements OnInit {
     }
     if (val == 1) {
       this.tableMyTaskTeamsOpen = true;
+      this.tableLastTaskIWorkedOn = false;
+      this.tableMyTaskOpen = false;
+      if (this.taskTeamsArr == null || this.taskTeamsArr == undefined || this.taskTeamsArr.length == 0) {
+        this.ifThereAreTasks = true;
+        this.tableMyTaskTeamsOpen1 = false;
+      }
+    }
+    if (val == 2) {
+     this.SortLastTaskIWorkedOn();
+
+      this.tableLastTaskIWorkedOn = true;
+      this.tableMyTaskTeamsOpen = false;
       this.tableMyTaskOpen = false;
       if (this.taskTeamsArr == null || this.taskTeamsArr == undefined || this.taskTeamsArr.length == 0) {
         this.ifThereAreTasks = true;
@@ -656,13 +673,14 @@ export class MenuComponent implements OnInit {
     //  this.openPersonalDetails = true;
 
   }
-  Logout(){
+  Logout() {
     localStorage.clear();
     swal("!התנתקת בהצלחה")
     setTimeout(() => {
       this.router.navigate(['/'])
     }, 1000)
   }
+<<<<<<< HEAD
   GetMyProjectContectItem(selectedTime:any){
     this.systemGuid =localStorage.getItem('systemGuid')
     this.userService.GetMyProjectContectItem(this.systemGuid,selectedTime).subscribe(res => {
@@ -674,6 +692,16 @@ export class MenuComponent implements OnInit {
       err => {
         console.log(err.error);
       })
+=======
+  SortLastTaskIWorkedOn() {
+    
+    this.sorttaskArr.forEach(task => {
+      task.ProjctContentItem.sort((a: any, b: any) =>
+        ((a.CreatedOn ) > (b.CreatedOn)) ? 1 : -1
+      )
+    }
+    )
+>>>>>>> 65fad3a0275bf003999ca2111c665c2aa5e6014b
   }
 }
 

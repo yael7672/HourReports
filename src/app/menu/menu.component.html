@@ -24,9 +24,8 @@
 </div>
 
 <div class="menu">
-  <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen" class="input-group">
+  <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
     <div class="form-outline">
-      <div>
         <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
           [ngbTypeahead]="search" (change)="onSearchProject(model)" /> -->
         <div class="form-outline d-flex justify-content-center">
@@ -38,11 +37,13 @@
             </option>
           </select>
         </div>
-      </div>
+     
       <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
         <option value="">--בחר אחת מהאופציות הבאות--</option>
         <option value="0">המשימות שלי </option>
         <option value="1"> המשימות של הצוותים אליהם אני שייך </option>
+        <option value="2">המשימות האחרונות שעבדתי עליהן </option>
+
       </select>
     </div>
     <i class="fa fa-search"></i>
@@ -67,7 +68,15 @@
       </app-show-my-task>
     </div>
   </app-smart-card>
-
+  <!-- המשימות שעבדתי עליהן לאחרונה -->
+  <app-smart-card *ngIf="tableLastTaskIWorkedOn&&tableMyTaskTeamsOpen1" [title]="titleLastTaskIWorkedOn">
+    <div body>
+      <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
+        [kindOfCard]="'tableCard'" [thArr]="thArrTaskTeams" (getDataClickOfButton)="whichButtonChoose($event)"
+        [tableData]="sorttaskArr" [tableDataKeys]="taskTeamsListKeys">
+      </app-show-my-task>
+    </div>
+  </app-smart-card>
   <div *ngIf="ifThereAreTasks">
     <br>
     <h2>אין משימות פעילות!</h2>

@@ -1,4 +1,5 @@
 import { Project } from "./project";
+import { ProjectContentItem } from "./project-content-item";
 import { Regardingobjectid } from "./regardingobjectid";
 import { WorkType } from "./work-type";
 
@@ -17,4 +18,6 @@ export interface Task {
     WorkingHours:string;
     ScheduledEndDate:string;
     TotalActualTime:string;
+    ProjctContentItem: ProjectContentItem[];
+    
 }
