@@ -21,7 +21,8 @@ export class ShowMyTaskComponent implements OnInit {
   @Input() kindOfCard!: any;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
-  IftableDataKeyIdProject!:boolean;
+  IftableDataKeyIdProject!: boolean;
+  ifSortDown=true;
   ngOnInit(): void {
   }
   SelectedData(val: object) {
@@ -38,43 +39,79 @@ export class ShowMyTaskComponent implements OnInit {
     else {
       if (colData[tableDataKey[0]]) {
         return colData[tableDataKey[0]][tableDataKey[1]];
-        
+
       }
       else return null;
     }
   }
-  SortTable(thName:any){
-    let keyToSort:any;
+  SortTableDown(thName: any) {
+     this.ifSortDown=false;
+    let keyToSort: any;
     switch (thName) {
-        case 'נוצר ב:':
-          keyToSort='CreatedOn';
-          break;
-          case    'שעות מוקצות למשימה':
-            keyToSort= 'WorkingHours';
-            break;
-            case 'תאריך יעד':
-              keyToSort='ScheduledEndDate';
-              break;
-              case 'פרוייקט':
-                keyToSort= ['Project', 'Name'];
-                break;
-                case 'שם המשימה':
-                  keyToSort=  'Subject';
-                  break;
-                  case 'עדיפות':
-                    keyToSort=  'PriorityCode';
-                    break;
+      case 'נוצר ב:':
+        keyToSort = 'CreatedOn';
+        break;
+      case 'שעות מוקצות למשימה':
+        keyToSort = 'WorkingHours';
+        break;
+      case 'תאריך יעד':
+        keyToSort = 'ScheduledEndDate';
+        break;
+      case 'פרוייקט':
+        keyToSort = ['Project', 'Name'];
+        break;
+      case 'שם המשימה':
+        keyToSort = 'Subject';
+        break;
+      case 'עדיפות':
+        keyToSort = 'PriorityCode';
+        break;
       default:
         break;
     }
-    if(keyToSort[0]!='Project')   
-      {
-    this.tableData.sort((a:any,b:any)=>
-         (a[keyToSort]>( b[keyToSort]))?1:-1)
-      }
-    else{
-        this.tableData.sort((a:any,b:any)=>
-        (a[keyToSort[0]][keyToSort[1]]>( b[keyToSort[0]][keyToSort[1]]))?1:-1)
-      }
-  }  
+    if (keyToSort[0] != 'Project') {
+      this.tableData.sort((a: any, b: any) =>
+        (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
+    }
+    else {
+      this.tableData.sort((a: any, b: any) =>
+        (a[keyToSort[0]][keyToSort[1]] > (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
+    }
+  }
+  SortTableUp(thName:any)
+  {
+    this.ifSortDown=true;
+
+    let keyToSort: any;
+    switch (thName) {
+      case 'נוצר ב:':
+        keyToSort = 'CreatedOn';
+        break;
+      case 'שעות מוקצות למשימה':
+        keyToSort = 'WorkingHours';
+        break;
+      case 'תאריך יעד':
+        keyToSort = 'ScheduledEndDate';
+        break;
+      case 'פרוייקט':
+        keyToSort = ['Project', 'Name'];
+        break;
+      case 'שם המשימה':
+        keyToSort = 'Subject';
+        break;
+      case 'עדיפות':
+        keyToSort = 'PriorityCode';
+        break;
+      default:
+        break;
+    }
+    if (keyToSort[0] != 'Project') {
+      this.tableData.sort((a: any, b: any) =>
+        (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
+    }
+    else {
+      this.tableData.sort((a: any, b: any) =>
+        (a[keyToSort[0]][keyToSort[1]] < (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
+    }
+  }
 }

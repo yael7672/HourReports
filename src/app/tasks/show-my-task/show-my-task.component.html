@@ -2,9 +2,8 @@
   <thead>
     <tr>
       <th   *ngFor="let th of thArr" scope="col" >
-        <button (click)="SortTable(th)">
-  
-   
+        <ng-container *ngIf="ifSortDown; else sortTableUp;">
+          <button  (click)="SortTableDown(th)">
         <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
           {{th}} 
         </ng-container>
@@ -13,7 +12,21 @@
         <ng-template #projectTh>
           <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
         </ng-template>
-      </button>   
+      </button> 
+    </ng-container>
+    <ng-template #sortTableUp >
+      <button (click)="SortTableUp(th)">
+
+        <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
+          {{th}} 
+        </ng-container>
+        <ng-template #projectTh>
+          <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
+        </ng-template>
+        <i class="fa fa-caret-up" ></i>
+
+      </button> 
+    </ng-template>
     </th>
    
     </tr>

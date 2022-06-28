@@ -1,4 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import  swal from 'sweetalert';
+import { AppService } from '../app-service.service';
+import { ProjectContentItem } from '../interfacees/project-content-item';
+import { PopUpServiceService } from '../pop-up-service.service';
+import { UserServiceService } from '../user-service.service';
 
 @Component({
   selector: 'app-project-content-item',
@@ -11,12 +17,22 @@ export class ProjectContentItemComponent implements OnInit {
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
-  workingHours:any
+  workingHours!: Number;
   @Output() clickSelectedTask = new EventEmitter<any>();
-  @Output()getDataClickOfButton = new EventEmitter<any>();
-  constructor() { }
-
+  @Output() getDataClickOfButton = new EventEmitter<any>();
+  updateDetails = false;
+  ProjectContentItem:any;
+  // ProjectContentItem
+  massageToUser="";
+  ProjectItemToUpdate!: any;
+  isPopUpOpen!: any;
+  constructor(private userServiceService: UserServiceService,private  appService :AppService,private popUpService:PopUpServiceService) {
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+      console.log(this.isPopUpOpen);
+    })}
   ngOnInit(): void {
+
   }
   returnColDataByType(colData: any, tableDataKey: any) {
     if (tableDataKey && typeof tableDataKey === 'string') {
@@ -29,8 +45,35 @@ export class ProjectContentItemComponent implements OnInit {
       else return null;
     }
   }
-  EditProjectContentItem(val:any)
-  {
-console.log(val);
+  EditProjectContentItemIcon(val: any) {
+   
+    this.updateDetails = true;
+    this.ProjectContentItem=val;
+    this.workingHours=Number(this.ProjectContentItem.WorkingHours)
+    console.log(val);
   }
-}
+  UpdateProjectItemButton() {
+    this.ProjectItemToUpdate = {
+      Guid: this.ProjectContentItem.Guid,
+      Description:this.ProjectContentItem.Description,
+      ActualTime: this.ProjectContentItem.WorkingHours,
+      //BillableHours:form.value.BillingHours
+    }
+    this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate ).subscribe(
+      (res) => {
+        this.massageToUser = res;
+        swal(this.massageToUser)
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
+      },
+      (err) =>
+        alert("error")
+    )
+  }
+  openPopUp(data: string, type: boolean) {
+      this.appService.setIsPopUpOpen(true);
+      this.popUpService.setSpecificPopUp(type, data)
+    }
+  }
+
+

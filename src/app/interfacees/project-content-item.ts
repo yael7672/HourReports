@@ -4,6 +4,7 @@ import { Regardingobjectid } from "./regardingobjectid";
 import { WorkType } from "./work-type";
 
 export interface ProjectContentItem {
+    Guid:string;
     OwnerId:ownerid;
     Name:string;
     Project:Project
