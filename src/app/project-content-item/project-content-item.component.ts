@@ -17,15 +17,20 @@ export class ProjectContentItemComponent implements OnInit {
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
-  workingHours: any
+  workingHours!: Number;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
   updateDetails = false;
-  ProjectContentItemGuid = "";
+  ProjectContentItem:any;
+  // ProjectContentItem
   massageToUser="";
   ProjectItemToUpdate!: any;
-  constructor(private userServiceService: UserServiceService,private  appService :AppService,private popUpService:PopUpServiceService) { }
-
+  isPopUpOpen!: any;
+  constructor(private userServiceService: UserServiceService,private  appService :AppService,private popUpService:PopUpServiceService) {
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+      console.log(this.isPopUpOpen);
+    })}
   ngOnInit(): void {
 
   }
@@ -43,14 +48,15 @@ export class ProjectContentItemComponent implements OnInit {
   EditProjectContentItemIcon(val: any) {
    
     this.updateDetails = true;
-    this.ProjectContentItemGuid = val.Guid;
+    this.ProjectContentItem=val;
+    this.workingHours=Number(this.ProjectContentItem.WorkingHours)
     console.log(val);
   }
-  UpdateProjectItemButton(form: NgForm) {
+  UpdateProjectItemButton() {
     this.ProjectItemToUpdate = {
-      Guid: this.ProjectContentItemGuid,
-      Description: form.value.Description,
-      ActualTime: form.value.HoursActually,
+      Guid: this.ProjectContentItem.Guid,
+      Description:this.ProjectContentItem.Description,
+      ActualTime: this.ProjectContentItem.WorkingHours,
       //BillableHours:form.value.BillingHours
     }
     this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate ).subscribe(
@@ -64,5 +70,10 @@ export class ProjectContentItemComponent implements OnInit {
         alert("error")
     )
   }
-}
+  openPopUp(data: string, type: boolean) {
+      this.appService.setIsPopUpOpen(true);
+      this.popUpService.setSpecificPopUp(type, data)
+    }
+  }
+
 

@@ -7,6 +7,8 @@
         <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
           {{th}} 
         </ng-container>
+                 <!-- <i class="fa fa-caret-up"></i> -->
+            <i class="fa fa-caret-down" ></i>
         <ng-template #projectTh>
           <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
         </ng-template>
@@ -14,12 +16,15 @@
     </ng-container>
     <ng-template #sortTableUp >
       <button (click)="SortTableUp(th)">
+
         <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
           {{th}} 
         </ng-container>
         <ng-template #projectTh>
           <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
         </ng-template>
+        <i class="fa fa-caret-up" ></i>
+
       </button> 
     </ng-template>
     </th>

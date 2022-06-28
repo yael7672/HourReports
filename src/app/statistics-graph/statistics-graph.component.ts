@@ -57,7 +57,7 @@ export class StatisticsGraphComponent implements OnInit {
       type: 'line',
       data: {
         labels: [
-          "יום חמישי", "יום רבעי", "יום שלישי", "יום שני", "יום ראשון"
+          "יום חמישי", "יום רביעי", "יום שלישי", "יום שני", "יום ראשון"
         ],
         datasets: [{
           label: 'שעות עבודה',

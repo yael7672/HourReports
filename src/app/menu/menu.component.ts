@@ -124,12 +124,12 @@ export class MenuComponent implements OnInit {
   tableMyTaskTeamsOpen1 = true;
   showstatiSticsGraph = false;
   tableMyTaskOpen1 = true;
-  taskListDataDetailsFromLocalStoeage:any;
-  taskListDataDetailsFromLocalStoeageParse:any;
+  taskListDataDetailsFromLocalStoeage: any;
+  taskListDataDetailsFromLocalStoeageParse: any;
   bdikatoDeleteActual: any = "2"
   bdikatoDelete1: any = "2"
   ifButtonFalse !: boolean;
-  ifButtonTrue : boolean =true;
+  ifButtonTrue: boolean = true;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -179,7 +179,7 @@ export class MenuComponent implements OnInit {
     this.workTimeHourLS = localStorage.getItem("WorkTimePause")
     if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
-      
+
     }
 
   }
@@ -420,7 +420,7 @@ export class MenuComponent implements OnInit {
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
- async GetProjectContentItemByTaskGuid(taskGuid: string) {
+  async GetProjectContentItemByTaskGuid(taskGuid: string) {
     this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
       res => {
         if (res.length > 0) {
@@ -449,17 +449,28 @@ export class MenuComponent implements OnInit {
         console.log(err.error);
       })
   }
-  onSearchProject(filterKey = "") {
-    console.log(filterKey);
-    this.taskArr = [...this.taskArrCopy];
-    this.projectArrName = this.projectArr.map(project => project.Name);
-    if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
-      this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
-    }
-    else {
+  // onSearchProject(filterKey = "") {
+  //   console.log(filterKey);
+  //   this.taskArr = [...this.taskArrCopy];
+  //   this.projectArrName = this.projectArr.map(project => project.Name);
+  //   if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
+  //     this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+  //   }
+  //   else {
+  //     this.taskArr = [...this.taskArrCopy];
+  //   }
+  // }
+  onSearchProject(filterKey:any) {
+      console.log(filterKey);
       this.taskArr = [...this.taskArrCopy];
+      this.projectArrName = this.projectArr.map(project => project.Name);
+      if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
+        this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+      }
+      else {
+        this.taskArr = [...this.taskArrCopy];
+      }
     }
-  }
   clickCloseCard() {
     if (this.workTime[0] === "00" && this.workTime[1] === "00" && this.workTime[2] === "00" || this.workTime === "") {
       this.tableMyTaskOpen = true;
@@ -477,14 +488,14 @@ export class MenuComponent implements OnInit {
       this.SelectedStop(this.workTime)
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
-   
-         this.GetProjectContentItemByTaskGuid(this.taskGuidFromLocalStorage)
+
+      this.GetProjectContentItemByTaskGuid(this.taskGuidFromLocalStorage)
       this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
       this.tableMyTaskOpen = false;
       this.isDisabledStart = true;
       this.isDisabledPouse = false;
-      this.taskListDataDetailsFromLocalStoeage= localStorage.getItem('taskListDataDetails')
-      this.taskListDataDetailsFromLocalStoeageParse=JSON.parse(this.taskListDataDetailsFromLocalStoeage)
+      this.taskListDataDetailsFromLocalStoeage = localStorage.getItem('taskListDataDetails')
+      this.taskListDataDetailsFromLocalStoeageParse = JSON.parse(this.taskListDataDetailsFromLocalStoeage)
       this.taskListDataDetails = this.taskListDataDetailsFromLocalStoeageParse;
 
       this.a = localStorage.getItem('workTime');
@@ -554,13 +565,16 @@ export class MenuComponent implements OnInit {
 
   }
   // formatter = (result: any) => result.Name;
-  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term === '' ? []
-        : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
+  // search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
+  //   text$.pipe(
+  //     debounceTime(200),
+  //     distinctUntilChanged(),
+  //     map(term => term === '' ? []
+  //       : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
+  SearchTaslByProject(val:any) {
 
+
+  }
 
   BackToMyTask() {
     this.tableMyTaskOpen = true;
@@ -571,8 +585,8 @@ export class MenuComponent implements OnInit {
     if (localStorage.getItem('TaskGuid')) {
       this.taskGuidFromLocalStorage = localStorage.getItem('TaskGuid')
       this.taskNameFromLocalStorage = localStorage.getItem('TaskName')
-    //  this.showMassgeToUserIfInTheMiddleOfWorkOnATask = true;
-    this.clickYes("kindOfMassageifInTheMiddleOfWorkOnATask")
+      //  this.showMassgeToUserIfInTheMiddleOfWorkOnATask = true;
+      this.clickYes("kindOfMassageifInTheMiddleOfWorkOnATask")
     }
 
   }
@@ -613,7 +627,7 @@ export class MenuComponent implements OnInit {
     if (val == 1) {
       this.tableMyTaskTeamsOpen = true;
       this.tableMyTaskOpen = false;
-      if (this.taskTeamsArr == null || this.taskTeamsArr == undefined) {
+      if (this.taskTeamsArr == null || this.taskTeamsArr == undefined || this.taskTeamsArr.length == 0) {
         this.ifThereAreTasks = true;
         this.tableMyTaskTeamsOpen1 = false;
       }
@@ -634,9 +648,8 @@ export class MenuComponent implements OnInit {
       this.tableMyTaskOpen = true;
     }
   }
-  ClickPersonalDetails()
-  {
-  //  this.openPersonalDetails = true;
+  ClickPersonalDetails() {
+    //  this.openPersonalDetails = true;
 
   }
 }

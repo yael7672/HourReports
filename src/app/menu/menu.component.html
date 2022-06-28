@@ -23,8 +23,17 @@
   <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen" class="input-group">
     <div class="form-outline">
       <div>
-        <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
-          [ngbTypeahead]="search" (change)="onSearchProject(model)" />
+        <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
+          [ngbTypeahead]="search" (change)="onSearchProject(model)" /> -->
+          <div class="form-outline d-flex justify-content-center">
+            <select id="inputState" class="form-control" ngModel name="SourceTask"   #SourceTask="ngModel"
+            (ngModelChange)="onSearchProject($event)" >
+                <option value="">חפש לפי פרוייקט</option>
+                <option *ngFor="let project of projectArr" value="{{project.Name}}">
+                    {{project.Name}}
+                </option>
+            </select>
+        </div>
       </div>
       <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
         <option value="">--בחר אחת מהאופציות הבאות--</option>
