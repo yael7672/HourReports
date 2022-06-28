@@ -462,10 +462,20 @@ export class MenuComponent implements OnInit {
   // }
   onSearchProject(filterKey:any) {
       console.log(filterKey);
-      this.taskArr = [...this.taskArrCopy];
-      this.projectArrName = this.projectArr.map(project => project.Name);
-      if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
-        this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+      if(this.tableMyTaskOpen==true)
+      {
+        this.taskArr = [...this.taskArrCopy];
+        if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
+          this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+        }
+      }
+      else
+      if(this.tableMyTaskTeamsOpen==true)
+      {
+        this.taskTeamsArr= [...this.taskTeamsArrCopy]   
+        if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
+          this.taskTeamsArr = this.taskTeamsArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+        }
       }
       else {
         this.taskArr = [...this.taskArrCopy];
