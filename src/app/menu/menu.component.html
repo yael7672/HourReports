@@ -1,22 +1,24 @@
-
 <div class="aImg">
   <div>
-    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true" ></i>
+    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true"></i>
     </a>
-    <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit" ></i></a>
-    <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee" ></i></a>
-    <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o"
-        ></i>
+    <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit"></i></a>
+    <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
+    <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
     </a>
-    <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true" ></i>
+    <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true"></i>
     </a>
-
   </div>
+
   <p class="p-of-title ">דיווחי שעות </p>
-  <a (click)="ClickPersonalDetails()" (mouseover)="mouseOvePersonalDetails()" (mouseleave)="mouseLeavePersonalDetails()">
-    <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
-      class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
-  </a>
+  <div class="aImg2">
+    <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
+    <a (click)="ClickPersonalDetails()" (mouseover)="mouseOvePersonalDetails()"
+      (mouseleave)="mouseLeavePersonalDetails()">
+      <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+        class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
+    </a>
+  </div>
 </div>
 
 <div class="menu">
@@ -59,7 +61,7 @@
     <br>
     <h2>אין משימות פעילות!</h2>
   </div>
-  
+
   <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true" *ngIf="tableSpecificTaskOpen"
     [title]="titleCard" [arrFunc]="arrFunc" [isDisabledStart]="isDisabledStart" [textButtonBack]="textButtonBack"
     (clickBackToMyTask)="BackToMyTask()">
@@ -132,8 +134,8 @@
       <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
         [inputValue]="taskNameFromLocalStorage2"
         [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody"
-        [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true" [massgeUserBody1]=""
-        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+        [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true"
+        [massgeUserBody1]="" (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
@@ -153,9 +155,8 @@
   <app-pop-up>
     <div body>
       <app-massge-to-user [kindOfMassage]="kindOfMassageUserFinishtasklesstime"
-        [massgeUserHeader]="massgeUserFinishtasklesstimeHeader"
-        [massgeUserBody1]="massgeUserFinishtasklesstimeBody"
-        [massgeUserBody2]="massgeUserFinishtasklesstimeBody2" ></app-massge-to-user>
+        [massgeUserHeader]="massgeUserFinishtasklesstimeHeader" [massgeUserBody1]="massgeUserFinishtasklesstimeBody"
+        [massgeUserBody2]="massgeUserFinishtasklesstimeBody2"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>
@@ -164,6 +165,7 @@
   <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime">
   </app-pause-work>
 </div>
+
 <div *ngIf="showstatiSticsGraph">
-<app-statistics-graph></app-statistics-graph>
+  <app-statistics-graph></app-statistics-graph>
 </div>
