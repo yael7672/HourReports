@@ -229,6 +229,7 @@ export class MenuComponent implements OnInit {
         this.popUpService.setSpecificPopUp(type, data)
       }
     }
+  
     else {
       this.appService.setIsPopUpOpen(true);
       this.popUpService.setSpecificPopUp(type, data)
@@ -661,6 +662,13 @@ export class MenuComponent implements OnInit {
   ClickPersonalDetails() {
     //  this.openPersonalDetails = true;
 
+  }
+  Logout(){
+    localStorage.clear();
+    swal("!התנתקת בהצלחה")
+    setTimeout(() => {
+      this.router.navigate(['/'])
+    }, 1000)
   }
 }
 
