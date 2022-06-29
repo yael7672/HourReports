@@ -8,6 +8,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SmartCardComponent implements OnInit {
 
   constructor() { }
+  @Input() thArr!: any;
+  @Input() tableData!: any;
+  @Input() tableDataKeys!: any;
+  @Input() kindOfCard!: any;
+  @Output() clickSelectedTask = new EventEmitter<any>();
+  @Output() getDataClickOfButton = new EventEmitter<any>();
   @Input()title!:string;
   @Input()arrFunc:any;
   @Input()nameOfFunc:any;

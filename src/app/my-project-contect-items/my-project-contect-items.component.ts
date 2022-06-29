@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import  swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ProjectContentItem } from '../interfacees/project-content-item';
 import { PopUpServiceService } from '../pop-up-service.service';
@@ -16,42 +17,67 @@ export class MyProjectContectItemsComponent implements OnInit {
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
+
   workingHours!: Number;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
   myCompProjectItem = new ProjectContentItemComponent(this.userServiceService, this.appService, this.popUpService)
   systemGuid: any;
-
-  constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) { }
+  updateDetails = false;
+  ProjectContentItem:any;
+  // ProjectContentItem
+  massageToUser="";
+  ProjectItemToUpdate!: any;
+  isPopUpOpen!: any;
+  constructor(private userServiceService: UserServiceService,private  appService :AppService,private popUpService:PopUpServiceService) {
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+      console.log(this.isPopUpOpen);
+    })}
   MyProjectContectItemArr!: ProjectContentItem[]
+
   ngOnInit(): void {
   }
-
   returnColDataByType(colData: any, tableDataKey: any) {
-    this.myCompProjectItem.returnColDataByType(colData, tableDataKey)
+    if (tableDataKey && typeof tableDataKey === 'string') {
+      return colData[tableDataKey]
+    }
+    else {
+      if (colData[tableDataKey[0]]) {
+        return colData[tableDataKey[0]][tableDataKey[1]];
+      }
+      else return null;
+    }
   }
-
-  EditProjectContentItemIcon(colData:any){
-    this.myCompProjectItem.EditProjectContentItemIcon(colData)
-
+  EditProjectContentItemIcon(val: any) {
+   
+    this.updateDetails = true;
+    this.ProjectContentItem=val;
+    this.workingHours=Number(this.ProjectContentItem.WorkingHours)
+    console.log(val);
   }
-
-    openPopUp(data: string, type: boolean) {
+  UpdateProjectItemButton() {
+    this.ProjectItemToUpdate = {
+      Guid: this.ProjectContentItem.Guid,
+      Description:this.ProjectContentItem.Description,
+      ActualTime: this.ProjectContentItem.WorkingHours,
+      //BillableHours:form.value.BillingHours
+    }
+    this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate ).subscribe(
+      (res) => {
+        this.massageToUser = res;
+        swal(this.massageToUser)
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
+      },
+      (err) =>
+        alert("error")
+    )
+  }
+  openPopUp(data: string, type: boolean) {
       this.appService.setIsPopUpOpen(true);
       this.popUpService.setSpecificPopUp(type, data)
- 
+    }
   }
-  GetMyProjectContectItem(selectedTime:any){
-    this.getDataClickOfButton.emit(selectedTime);
-    // this.userServiceService.GetMyProjectContectItem(this.systemGuid,selectedTime).subscribe(res => {
-    //   if (res) {
-    //     this.MyProjectContectItemArr = res;
-    //     this.tableData = this.MyProjectContectItemArr
-    //     console.log("MyProjectContectItemArr" +this.MyProjectContectItemArr);
-    //   }
-    // },
-    //   err => {
-    //     console.log(err.error);
-    //   })
-  }
-}
+
+

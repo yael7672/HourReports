@@ -125,10 +125,10 @@
         <h2>אין פריט תכולת פרויקט!</h2>
       </div>
       <div *ngIf="!showMassegeNoProjectContectItem" >
-      <app-show-my-task (clickSelectedTask)="SelectedTask($event)" 
+      <app-my-project-contect-items (clickSelectedTask)="SelectedTask($event)" 
         [kindOfCard]="'tableCard'" [thArr]="thArrTableProjectContentItem" (getDataClickOfButton)="GetMyProjectContectItem($event)"
         [tableData]="MyProjectContectItemArr" [tableDataKeys]="projectContentItemListKeys">
-      </app-show-my-task>
+      </app-my-project-contect-items>
     </div>
     </div>
   </app-smart-card>
