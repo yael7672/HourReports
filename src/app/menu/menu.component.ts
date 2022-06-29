@@ -45,6 +45,7 @@ export class MenuComponent implements OnInit {
   thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
+
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
@@ -132,6 +133,8 @@ export class MenuComponent implements OnInit {
   ifButtonFalse !: boolean;
   ifButtonTrue: boolean = true;
   MyProjectContectItemArr!: ProjectContentItem[]
+  openMyProjectContectItem = false
+  showMassegeNoProjectContectItem = false;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -211,7 +214,7 @@ export class MenuComponent implements OnInit {
         if (res) {
           this.taskArr = res;
           this.taskArrCopy = res;
-          this.sorttaskArr=res
+          this.sorttaskArr = res
           console.log(this.taskArr);
         }
       }, err => {
@@ -236,8 +239,15 @@ export class MenuComponent implements OnInit {
     }
 
     else {
-      this.appService.setIsPopUpOpen(true);
-      this.popUpService.setSpecificPopUp(type, data)
+      if (data == 'MyprojectContentItem') {
+        this.openMyProjectContectItem = true
+        // this.appService.setIsPopUpOpen(true);
+        // this.popUpService.setSpecificPopUp(type, data)
+      }
+      else {
+        this.appService.setIsPopUpOpen(true);
+        this.popUpService.setSpecificPopUp(type, data)
+      }
     }
   }
   SelectedTask(val: any) {
@@ -643,7 +653,7 @@ export class MenuComponent implements OnInit {
       }
     }
     if (val == 2) {
-     this.SortLastTaskIWorkedOn();
+      this.SortLastTaskIWorkedOn();
 
       this.tableLastTaskIWorkedOn = true;
       this.tableMyTaskTeamsOpen = false;
@@ -682,27 +692,31 @@ export class MenuComponent implements OnInit {
   }
 
   SortLastTaskIWorkedOn() {
-    
+
     this.sorttaskArr.forEach(task => {
       task.ProjctContentItem.sort((a: any, b: any) =>
-        ((a.CreatedOn ) > (b.CreatedOn)) ? 1 : -1
+        ((a.CreatedOn) > (b.CreatedOn)) ? 1 : -1
       )
     }
     )
   }
 
-  GetMyProjectContectItem(selectedTime:any){
-    this.systemGuid =localStorage.getItem('systemGuid')
-    this.userService.GetMyProjectContectItem(this.systemGuid,selectedTime).subscribe(res => {
+  GetMyProjectContectItem(selectedTime: any) {
+    this.systemGuid = localStorage.getItem('systemGuid')
+    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime).subscribe(res => {
       if (res) {
         this.MyProjectContectItemArr = res;
-        console.log("MyProjectContectItemArr" +this.MyProjectContectItemArr);
+        this.showMassegeNoProjectContectItem = false
+        if (this.MyProjectContectItemArr.length == 0   ) {
+          this.showMassegeNoProjectContectItem = true
+        }
+        console.log("MyProjectContectItemArr" + this.MyProjectContectItemArr);
       }
     },
       err => {
         console.log(err.error);
       })
-    }
+  }
 }
 
 

@@ -5,7 +5,7 @@
 
     <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
     </a>
-    <a (click)="openPopUp('MyprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
+    <a (click)="openPopUp('MyprojectContentItem',true)"><i class="fa fa-pencil" aria-hidden="true" ></i>
     </a>
     <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
     <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true"></i>
@@ -23,21 +23,21 @@
   </div>
 </div>
 
-<div class="menu">
+<div class="menu" *ngIf="!openMyProjectContectItem">
   <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
     <div class="form-outline">
-        <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
+      <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
           [ngbTypeahead]="search" (change)="onSearchProject(model)" /> -->
-        <div class="form-outline d-flex justify-content-center">
-          <select id="inputState" class="form-control" ngModel name="SourceTask" #SourceTask="ngModel"
-            (ngModelChange)="onSearchProject($event)">
-            <option value="">חפש לפי פרוייקט</option>
-            <option *ngFor="let project of projectArr" value="{{project.Name}}">
-              {{project.Name}}
-            </option>
-          </select>
-        </div>
-     
+      <div class="form-outline d-flex justify-content-center">
+        <select id="inputState" class="form-control" ngModel name="SourceTask" #SourceTask="ngModel"
+          (ngModelChange)="onSearchProject($event)">
+          <option value="">חפש לפי פרוייקט</option>
+          <option *ngFor="let project of projectArr" value="{{project.Name}}">
+            {{project.Name}}
+          </option>
+        </select>
+      </div>
+
       <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
         <option value="">--בחר אחת מהאופציות הבאות--</option>
         <option value="0">המשימות שלי </option>
@@ -82,11 +82,8 @@
     <h2>אין משימות פעילות!</h2>
   </div>
 
-  <div *ngIf="isPopUpOpen?.MyprojectContentItem">
-    <app-my-project-contect-items [kindOfCard]="'tableCard'" [title]="'פריט תכולת פרויקט שלי'"
-      [thArr]="thArrTableProjectContentItem" [tableData]="MyProjectContectItemArr"
-      [tableDataKeys]="projectContentItemListKeys" (getDataClickOfButton)="GetMyProjectContectItem($event)"></app-my-project-contect-items>
-  </div>
+ 
+
 
   <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true" *ngIf="tableSpecificTaskOpen"
     [title]="titleCard" [arrFunc]="arrFunc" [isDisabledStart]="isDisabledStart" [textButtonBack]="textButtonBack"
@@ -109,6 +106,33 @@
     </app-smart-card>
   </div>
 </div>
+
+
+  <app-smart-card *ngIf="openMyProjectContectItem" [title]="'פריט תכולת פרויקט שלי'">
+    <div body>
+      <div class="form-outline d-flex justify-content-center">
+        <select id="inputState" class="form-control" ngModel
+          (ngModelChange)="GetMyProjectContectItem($event)">
+          <option value="">--בחר אחת מהאופציות הבאות--</option>
+          <option value="1"> היום </option>
+          <option value="2"> 7 ימים אחרונים </option>
+          <option value="3"> שבוע שעבר </option>
+          <option value="4"> החודש האחרון</option>
+        </select>
+      </div>
+      <div *ngIf="showMassegeNoProjectContectItem">
+        <br>
+        <h2>אין פריט תכולת פרויקט!</h2>
+      </div>
+      <div *ngIf="!showMassegeNoProjectContectItem" >
+      <app-show-my-task (clickSelectedTask)="SelectedTask($event)" 
+        [kindOfCard]="'tableCard'" [thArr]="thArrTableProjectContentItem" (getDataClickOfButton)="GetMyProjectContectItem($event)"
+        [tableData]="MyProjectContectItemArr" [tableDataKeys]="projectContentItemListKeys">
+      </app-show-my-task>
+    </div>
+    </div>
+  </app-smart-card>
+
 
 <div *ngIf="isPopUpOpen?.creatTask">
   <app-create-new-task></app-create-new-task>

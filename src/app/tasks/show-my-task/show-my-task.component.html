@@ -1,34 +1,31 @@
 <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
   <thead>
     <tr>
-      <th   *ngFor="let th of thArr" scope="col" >
+      <th *ngFor="let th of thArr" scope="col">
         <ng-container *ngIf="ifSortDown; else sortTableUp;">
-          <button  (click)="SortTableDown(th)">
-        <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
-          {{th}} 
+          <button (click)="SortTableDown(th)">
+            <ng-container *ngIf="th!=='משך'; else WorkingHours">
+              {{th}}
+            </ng-container>
+            <!-- <i class="fa fa-caret-up"></i> -->
+            <i class="fa fa-caret-down"></i>
+            <ng-template #WorkingHours>
+              <ng-container > {{th |number}}</ng-container>
+            </ng-template>
+          </button>
         </ng-container>
-                 <!-- <i class="fa fa-caret-up"></i> -->
-            <i class="fa fa-caret-down" ></i>
-        <ng-template #projectTh>
-          <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
+        <ng-template #sortTableUp>
+          <button (click)="SortTableUp(th)">
+            <ng-container *ngIf="th!=='משך'; else WorkingHours">
+              {{th}}
+            </ng-container>
+            <ng-template #WorkingHours>
+              <ng-container *ngIf="!hideProjectTh"> {{th |number}}</ng-container>
+            </ng-template>
+            <i class="fa fa-caret-up"></i>
+          </button>
         </ng-template>
-      </button> 
-    </ng-container>
-    <ng-template #sortTableUp >
-      <button (click)="SortTableUp(th)">
-
-        <ng-container *ngIf="th!=='פרוייקט'; else projectTh">
-          {{th}} 
-        </ng-container>
-        <ng-template #projectTh>
-          <ng-container *ngIf="!hideProjectTh"> {{th}}</ng-container>
-        </ng-template>
-        <i class="fa fa-caret-up" ></i>
-
-      </button> 
-    </ng-template>
-    </th>
-   
+      </th>
     </tr>
   </thead>
   <tbody *ngIf="tableData">
@@ -36,7 +33,10 @@
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
         <td *ngIf="tableDataKey=='ScheduledEndDate' || tableDataKey=='CreatedOn'">{{returnColDataByType(colData,
           tableDataKey) | date: 'dd/MM/yyyy HH:mm'}}</td>
-        <td  *ngIf="tableDataKey!='ScheduledEndDate' && tableDataKey!='CreatedOn'" >{{returnColDataByType(colData,tableDataKey)}} </td>
+          <td *ngIf="tableDataKey=='WorkingHours'">{{returnColDataByType(colData,
+            tableDataKey) |number}}</td>
+        <td *ngIf="tableDataKey!='ScheduledEndDate' && tableDataKey!='CreatedOn' && tableDataKey!='WorkingHours'">
+          {{returnColDataByType(colData,tableDataKey)}} </td>
       </ng-container>
     </tr>
   </tbody>
