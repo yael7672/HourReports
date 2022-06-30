@@ -9,12 +9,18 @@
     <tr *ngFor="let colData of tableData">
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
         <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
+          <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
+            <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+          </ng-container>
           <!-- <td>{{tableData[tableDataKey]}}</td> -->
-          <td>{{returnColDataByType(colData, tableDataKey)}}</td>
         </ng-container>
         <ng-template #WorkingHours >
           
           <td> {{colData[tableDataKey] |number}}</td>
+        </ng-template>
+        <ng-template #CreatedOn >
+          
+          <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}</td>
         </ng-template>
       </ng-container>
       <td><button (click)="EditProjectContentItemIcon(colData)" (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button"> <i class="fa fa-pencil"
