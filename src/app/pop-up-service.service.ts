@@ -17,7 +17,7 @@ export class PopUpServiceService {
       creatTask: type === 'creatTask' ? data : false,
       updateTask: type === 'updateTask' ? data : false,
       endTask: type === 'endTask' ? data : false,
-
+      MyprojectContentItem:type === 'MyprojectContentItem' ? data : false,
       Logout: type === 'Logout' ? data : false,
 
       UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,

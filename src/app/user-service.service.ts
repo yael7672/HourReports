@@ -82,4 +82,9 @@ export class UserServiceService {
     return this.http.post<string>(environment.url + '/UpdateProjectContentItemDetails', ProjectItemToUpdate);
 
   }
+  GetMyProjectContectItem(SystemGuid:any, SelectedTime: number){
+
+    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems/?SystemGuid=' + SystemGuid+ '&SelectedTime=' + SelectedTime)
+
+  }
 }

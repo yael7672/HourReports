@@ -1,11 +1,13 @@
 <div class="aImg">
   <div>
-    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true"></i>
-    </a>
+    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true"></i></a>
     <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit"></i></a>
-    <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
+
     <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
     </a>
+    <a (click)="openPopUp('MyprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
+    </a>
+    <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
     <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true"></i>
     </a>
   </div>
@@ -26,14 +28,14 @@
     <div class="form-outline">
         <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
           [ngbTypeahead]="search" (change)="onSearchProject(model)" /> -->
-          <div class="form-outline d-flex justify-content-center">
-            <select id="inputState" class="form-control" ngModel name="SourceTask"   #SourceTask="ngModel"
-            (ngModelChange)="onSearchProject($event)" >
-                <option value="">חפש לפי פרוייקט</option>
-                <option *ngFor="let project of projectArr" value="{{project.Name}}">
-                    {{project.Name}}
-                </option>
-            </select>
+        <div class="form-outline d-flex justify-content-center">
+          <select id="inputState" class="form-control" ngModel name="SourceTask" #SourceTask="ngModel"
+            (ngModelChange)="onSearchProject($event)">
+            <option value="">חפש לפי פרוייקט</option>
+            <option *ngFor="let project of projectArr" value="{{project.Name}}">
+              {{project.Name}}
+            </option>
+          </select>
         </div>
      
       <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
@@ -78,6 +80,12 @@
   <div *ngIf="ifThereAreTasks">
     <br>
     <h2>אין משימות פעילות!</h2>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.MyprojectContentItem">
+    <app-my-project-contect-items [kindOfCard]="'tableCard'" [title]="'פריט תכולת פרויקט שלי'"
+      [thArr]="thArrTableProjectContentItem" [tableData]="MyProjectContectItemArr"
+      [tableDataKeys]="projectContentItemListKeys" (getDataClickOfButton)="GetMyProjectContectItem($event)"></app-my-project-contect-items>
   </div>
 
   <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true" *ngIf="tableSpecificTaskOpen"
