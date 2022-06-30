@@ -68,7 +68,7 @@ export class MenuComponent implements OnInit {
   projectContentItemArr!: ProjectContentItem[]
   taskArrCopy!: Task[]
   taskArr!: Task[];
-  sorttaskArr!: Task[];
+  sortTaskArr!: Task[];
   taskTeamsArr!: Task[];
   taskTeamsArrCopy!: Task[]
   tableSpecificTaskOpen = false;
@@ -85,6 +85,7 @@ export class MenuComponent implements OnInit {
   showMassgeToUser = false;
   timeToSave: any;
   SystemGuid: any;
+  arrSort!: Task[];
   massgeUserCloseTaskHeader = "?האם אתה בטוח שברצונך לצאת";
   massgeUseIfInTheMiddleOfWorkOnATaskHeader = "!יש לך משימה פתוחה";
   massgeUserIfInTheMiddleOfWorkOnATaskBody = "?האם ברצונך לחזור אליה";
@@ -208,7 +209,7 @@ export class MenuComponent implements OnInit {
         if (res) {
           this.taskArr = res;
           this.taskArrCopy = res;
-          this.sorttaskArr=res
+          this.sortTaskArr = res
           console.log(this.taskArr);
         }
       }, err => {
@@ -246,6 +247,7 @@ export class MenuComponent implements OnInit {
     this.tableSpecificTaskOpen = true;
     this.tableMyTaskOpen = false;
     this.tableMyTaskTeamsOpen = false;
+    this.tableLastTaskIWorkedOn=false;
   }
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
@@ -640,7 +642,7 @@ export class MenuComponent implements OnInit {
       }
     }
     if (val == 2) {
-     this.SortLastTaskIWorkedOn();
+      this.SortLastTaskIWorkedOn();
 
       this.tableLastTaskIWorkedOn = true;
       this.tableMyTaskTeamsOpen = false;
@@ -678,14 +680,17 @@ export class MenuComponent implements OnInit {
     }, 1000)
   }
   SortLastTaskIWorkedOn() {
+    this.sortTaskArr.sort((a: any, b: any) => 
+        (a.ProjctContentItem?a.ProjctContentItem['CreatedOn']:0) > (b.ProjctContentItem?b.ProjctContentItem['CreatedOn']:0) ? 1 : -1
+        
     
-    this.sorttaskArr.forEach(task => {
-      task.ProjctContentItem.sort((a: any, b: any) =>
-        ((a.CreatedOn ) > (b.CreatedOn)) ? 1 : -1
-      )
-    }
     )
+
   }
 }
+
+
+
+
 
 
