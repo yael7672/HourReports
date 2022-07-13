@@ -22,6 +22,8 @@ export class ProjectContentItemComponent implements OnInit {
   @Output() getDataClickOfButton = new EventEmitter<any>();
   updateDetails = false;
   ProjectContentItem:any;
+  openCard=false;
+  openTable=true;
   // ProjectContentItem
   massageToUser="";
   ProjectItemToUpdate!: any;

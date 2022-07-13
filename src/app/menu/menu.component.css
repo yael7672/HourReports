@@ -121,6 +121,7 @@ h2 {
     .fa-bar-chart,
     .fa-home,
     .fa-pencil,
+    .iconify,
     .fa-sign-out {
         font-size: 20px;
         padding: 0.3rem;
@@ -165,4 +166,10 @@ h2 {
 .logout{
    width:10px ;
    height:10px ; 
+}
+.iconify{
+font-size: 37px;
+/* padding: 1rem; */
+margin: 0.8rem;
+margin-bottom: 1.5rem;
 }

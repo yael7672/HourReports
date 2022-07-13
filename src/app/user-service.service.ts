@@ -87,4 +87,8 @@ export class UserServiceService {
     return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems/?SystemGuid=' + SystemGuid+ '&SelectedTime=' + SelectedTime)
 
   }
+  GetProjectContentItemByGuid(projectContectItemGuid:string){
+    return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?ProjectContentItemGuid=' + projectContectItemGuid)
+
+  }
 }

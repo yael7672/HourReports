@@ -101,7 +101,10 @@ body {
   background-color: white;
   border: none;
 }
-
+.th-bold
+{
+  font-weight: bold;
+}
 /* input{
   border-color: white;
   background-color: white;

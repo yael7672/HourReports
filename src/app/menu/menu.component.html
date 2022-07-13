@@ -2,19 +2,19 @@
   <div>
     <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true"></i></a>
     <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit"></i></a>
-
-    <a (click)="openPopUp('createAprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
+    <a (click)="openPopUp('createAprojectContentItem',true)"><span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
     </a>
-    <a (click)="openPopUp('MyprojectContentItem',true)"><i class="fa fa-pencil" aria-hidden="true" ></i>
+    <a (click)="openPopUp('MyprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
     </a>
     <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
     <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true"></i>   </a>
  
-
- 
   </div>
 
+
+
   <p class="p-of-title ">דיווחי שעות </p>
+  <p>{{Time |date: 'HH:mm:ss'}}</p>
   <div class="aImg2">
     <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
     <a (click)="ClickPersonalDetails()" (mouseover)="mouseOvePersonalDetails()"
@@ -107,6 +107,8 @@
       </div>
     </app-smart-card>
   </div>
+    <!-- <app-project-content-item ></app-project-content-item> -->
+
 </div>
 
 

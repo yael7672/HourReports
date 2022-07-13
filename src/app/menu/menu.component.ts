@@ -136,6 +136,9 @@ export class MenuComponent implements OnInit {
   MyProjectContectItemArr!: ProjectContentItem[]
   openMyProjectContectItem = false
   showMassegeNoProjectContectItem = false;
+  projectContectItemGuid = "";
+  creatOnProjectContentItem!: any;
+  Time: any;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -261,7 +264,7 @@ export class MenuComponent implements OnInit {
     this.tableSpecificTaskOpen = true;
     this.tableMyTaskOpen = false;
     this.tableMyTaskTeamsOpen = false;
-    this.tableLastTaskIWorkedOn=false;
+    this.tableLastTaskIWorkedOn = false;
   }
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
@@ -276,8 +279,8 @@ export class MenuComponent implements OnInit {
     }
     this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid, this.IftaskForTeam).subscribe(res => {
       if (res) {
-        this.massageFromServer = res;
-        console.log(this.massageFromServer);
+        this.projectContectItemGuid = res;
+        console.log(this.projectContectItemGuid);
       }
     }, err => {
       console.log(err.error);
@@ -300,11 +303,15 @@ export class MenuComponent implements OnInit {
         this.workTime[2] = "0" + this.workTime[2]
       }
 
-      console.log(this.workTime);
+      // console.log(this.workTime);
 
       localStorage.setItem('workTime', JSON.stringify(this.workTime))
 
 
+    }, 1000)
+
+    setInterval(() => {
+      this.GetProjectContentItemByGuid()
     }, 1000)
   }
   transformNumber(value: number) {
@@ -325,6 +332,7 @@ export class MenuComponent implements OnInit {
       this.workTime = this.transformNumber(this.seconds)
       //   localStorage.setItem('workTime', this.workTime)
     }, 1000)
+
   }
 
   SelectedStop(time: any) {
@@ -629,7 +637,7 @@ export class MenuComponent implements OnInit {
       if (this.workTime[2] < 10) {
         this.workTime[2] = "0" + this.workTime[2]
       }
-      console.log(this.workTime);
+      // console.log(this.workTime);
       localStorage.setItem('workTime', JSON.stringify(this.workTime))
 
     }, 1000)
@@ -679,6 +687,8 @@ export class MenuComponent implements OnInit {
   GoToHome() {
     if (!this.tableSpecificTaskOpen) {
       this.showstatiSticsGraph = false;
+      this.openMyProjectContectItem = false;
+
       this.tableMyTaskOpen = true;
     }
   }
@@ -696,10 +706,10 @@ export class MenuComponent implements OnInit {
 
   SortLastTaskIWorkedOn() {
 
-    this.sortTaskArr.sort((a: any, b: any) => 
-        (a.ProjctContentItem?a.ProjctContentItem['CreatedOn']:0) > (b.ProjctContentItem?b.ProjctContentItem['CreatedOn']:0) ? 1 : -1
-        
-    
+    this.sortTaskArr.sort((a: any, b: any) =>
+      (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
+
+
     )
 
   }
@@ -710,7 +720,7 @@ export class MenuComponent implements OnInit {
       if (res) {
         this.MyProjectContectItemArr = res;
         this.showMassegeNoProjectContectItem = false
-        if (this.MyProjectContectItemArr.length == 0   ) {
+        if (this.MyProjectContectItemArr.length == 0) {
           this.showMassegeNoProjectContectItem = true
         }
         console.log("MyProjectContectItemArr" + this.MyProjectContectItemArr);
@@ -719,6 +729,17 @@ export class MenuComponent implements OnInit {
       err => {
         console.log(err.error);
       })
+  }
+  GetProjectContentItemByGuid() {
+    this.userService.GetProjectContentItemByGuid(this.projectContectItemGuid).subscribe(res => {
+      if (res) {
+        this.creatOnProjectContentItem = res.CreatedOn;
+        console.log(this.creatOnProjectContentItem);
+        const timestampCreatOn = new Date(this.creatOnProjectContentItem)
+        const timestampNow = (new Date(Date.now()))
+         this.Time = timestampNow.getTime() - timestampCreatOn.getTime(); 
+      }
+    })
   }
 }
 
