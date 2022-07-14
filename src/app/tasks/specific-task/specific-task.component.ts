@@ -72,11 +72,11 @@ export class SpecificTaskComponent implements OnInit {
     this.clickStartTimer.emit()
   }
   pauseTimer(worktime: any) {
-    this.clickPauseTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask })
+    this.clickPauseTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask?this.descriptionTask:"" })
 
   }
   deleteTimer(worktime: any) {
-    this.clickdeleteTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask })
+    this.clickdeleteTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask?this.descriptionTask:"" })
   }
   SelectedData(val: any) {
     this.objectEmitter.emit(val)

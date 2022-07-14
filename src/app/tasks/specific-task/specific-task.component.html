@@ -24,9 +24,10 @@
     class="btn btn-color">משימה הושלמה</button>
 </div>
 <br>
-<p *ngIf="workTime" class="Time">{{workTime[0]+ ":"+ workTime[1]+":"
-  +workTime[2]}}</p>
-
+<!-- <p *ngIf="workTime" class="Time">{{workTime[0]+ ":"+ workTime[1]+":"
+  +workTime[2]}}</p> -->
+  <p *ngIf="workTime" class="Time">{{workTime}}</p>
+  
   <div *ngIf="openChartComparePopUp">
     <div class="actionArea">
       <form class="popContainer">
