@@ -33,7 +33,9 @@ export class MyProjectContectItemsComponent implements OnInit {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
-    })}
+    })
+
+  }
   MyProjectContectItemArr!: ProjectContentItem[]
 
   ngOnInit(): void {

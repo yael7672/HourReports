@@ -8,6 +8,7 @@ Chart.register(...registerables);
 })
 export class ChartsMyTaskComponent implements OnInit {
   @Input() dataProp: any
+  @Input() ifX : any
   dataPropActualTime!: any
   myChart: any
   constructor() { }
@@ -15,28 +16,29 @@ export class ChartsMyTaskComponent implements OnInit {
   ngOnInit(): void {
     //this.ComparisonHoursAllocatedTaskToActualHours()
     const myChart = new Chart("myChart", {
-      type: 'pie',
+      type: 'bar',
       data: {
-        labels: ["שעות מוקצות למשימה", "שעות בפועל"],
+        labels: [ "שעות בפועל","שעות מוקצות למשימה"],
         datasets: [
           {
-            label: "שעות מוקצות למשימה",
-            backgroundColor: ["#8e0ea2", "#f8f7f3"],
+            // label: "שעות מוקצות למשימה",
+            backgroundColor: ["#8e9ea2", "#j9f0f3"],
             borderColor: ["#3e95cd"],
-            data: [this.dataProp.TotalActualTime, 0]
+            data: [this.dataProp.TotalActualTime,this.dataProp.WorkingHours]
           }
-          , {
-            label: "שעות בפועל",
-            backgroundColor: ["#3e05cd", "#3e95cd", "#f8f7f3"],
-            borderColor: ["#3e95cd"],
-            data: [this.dataProp.WorkingHours, 0]
-          }
-          , {
-            label: "",
-            backgroundColor: ["#f8f7f3"],
-            borderColor: ["#3e95cd"],
-            data: [0]
-          }
+          // , {
+          //   label: "שעות בפועל",
+          //   backgroundColor: ["#3e05cd", "#3e95cd", "#f8f7f3"],
+          //   borderColor: ["#3e95cd"],
+          //   data: [7]
+          //   // data: [this.dataProp.WorkingHours, 0,2]
+          // }
+          // , {
+          //   label: "",
+          //   backgroundColor: ["#f8f7f3"],
+          //   borderColor: ["#3e95cd"],
+          //   data: [0]
+          // }
         ]
       },
 

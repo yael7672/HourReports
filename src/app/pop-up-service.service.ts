@@ -38,5 +38,26 @@ export class PopUpServiceService {
   getClosePopUp() {
     return this.kindOfPopUp$;
   }
+
+  setgetAllmyTask() {
+    this.kindOfPopUp$.next(false)
+  }
+  getgetAllmyTask() {
+    return this.kindOfPopUp$;
+  }
  
+  setgetAllmyProjectContectItem() {
+    this.kindOfPopUp$.next(false)
+  }
+  getgetAllmyProjectContectItem() {
+    return this.kindOfPopUp$;
+  }
+  SetGetProjectContentItemByTaskGuid()
+  {
+    this.kindOfPopUp$.next(false)
+  }
+  GetGetProjectContentItemByTaskGuid()
+  {
+    return this.kindOfPopUp$;
+  }
 }

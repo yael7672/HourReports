@@ -139,13 +139,28 @@ export class MenuComponent implements OnInit {
   creatOnProjectContentItem!: any;
   Time: any;
   projectContectItemGuidForLoclStorage: any;
+  isgetAllTask: any;
+  TaskGuidFromLS: any
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
+
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
+    })
+    this.popUpService.getgetAllmyTask().subscribe(res => {
+      this.isgetAllTask = res
+      this.GetMyTask()
+    })
+    this.popUpService.getgetAllmyProjectContectItem().subscribe(res => {
+      this.GetMyProjectContectItem(1)
+    })
+    this.popUpService.GetGetProjectContentItemByTaskGuid().subscribe(res => {
+      this.TaskGuidFromLS = localStorage.getItem("TaskGuidOfProjectContectItem")
+      this.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
+    //localStorage.removeItem('TaskGuidOfProjectContectItem')
     })
     this.appService.getIsSelectedTask().subscribe(res => {
       this.descriptionPanel = res;
@@ -178,6 +193,7 @@ export class MenuComponent implements OnInit {
     })
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
+
   }
   ngOnInit(): void {
     console.log(this.arrFunc);
@@ -189,12 +205,17 @@ export class MenuComponent implements OnInit {
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
     this.workTimeHourLS = localStorage.getItem("WorkTimePause")
     if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
-      this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
-
+      // this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
+      this.openPopUp('pause', true)
     }
 
   }
-
+  // ngDoCheck(): void{
+  //   if (window.localStorage.getItem("getMyTask") ==JSON.stringify(true))
+  //   {
+  //     this.GetMyTask()
+  //     }
+  //  }
   GetTaskForMyTeams() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetTaskForMyTeams(this.systemGuid).subscribe(
@@ -270,6 +291,8 @@ export class MenuComponent implements OnInit {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
+    localStorage.setItem('TaskGuidOfProjectContectItem', this.taskListDataDetails.TaskGuid);
+   
     this.systemGuid = localStorage.getItem('systemGuid');
     if (this.taskListDataDetails.OwnerId.Guid == this.systemGuid.toLowerCase()) {
       this.IftaskForTeam = false;
@@ -282,6 +305,9 @@ export class MenuComponent implements OnInit {
         this.projectContectItemGuid = res;
         localStorage.setItem("projectContectItemGuid", this.projectContectItemGuid)
         console.log(this.projectContectItemGuid);
+        this.massageFromServer = res;
+        console.log(this.massageFromServer);
+        this.popUpService.SetGetProjectContentItemByTaskGuid()
       }
     }, err => {
       console.log(err.error);
@@ -363,6 +389,7 @@ export class MenuComponent implements OnInit {
             this.massageFromServer = res;
             swal(this.massageFromServer);
             this.workTime = ["00:00:00"];
+            this.popUpService.SetGetProjectContentItemByTaskGuid()
           }
         },
         err => {
@@ -403,11 +430,14 @@ export class MenuComponent implements OnInit {
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
       res => {
         if (res) {
-          this.massageFromServer = res;
+          this.massageFromServer = res; 
+     
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
+    
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
-        }
+            this.popUpService.SetGetProjectContentItemByTaskGuid()
+          }
       },
       err => {
         console.log(err.error);
@@ -455,6 +485,7 @@ export class MenuComponent implements OnInit {
         if (res.length > 0) {
           this.projectContentItemArr = res;
           this.ifThereAreprojectContentItem = true;
+
           console.log(this.projectContentItemArr);
         }
         else {

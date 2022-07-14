@@ -19,8 +19,8 @@ export class UserServiceService {
   GetMyTask(SystemGuid: string) {
     return this.http.get<any>(environment.url + '/GetTask/?SystemGuid=' + SystemGuid)
   }
-  AddNewTask(TaskObj: any) {
-    return this.http.post<string>(environment.url + '/AddNewTask', TaskObj);
+  async AddNewTask(TaskObj: any) {
+    return await  this.http.post<string>(environment.url + '/AddNewTask', TaskObj).toPromise();
   }
   GetWorkType() {
     return this.http.get<WorkType[]>(environment.url + 'GetWorkType');

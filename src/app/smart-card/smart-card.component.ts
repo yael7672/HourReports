@@ -1,4 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppService } from '../app-service.service';
+import { ButtonWorkingTaskService } from '../button-working-task.service';
+import { MenuComponent } from '../menu/menu.component';
+import { PopUpServiceService } from '../pop-up-service.service';
+import { UserServiceService } from '../user-service.service';
 
 @Component({
   selector: 'app-smart-card',
@@ -6,8 +13,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./smart-card.component.css']
 })
 export class SmartCardComponent implements OnInit {
-
-  constructor() { }
+  TaskGuidFromLS:any
+  menuCompo:any
+  constructor(public router: Router,
+    private popUpService: PopUpServiceService,
+    private userService: UserServiceService,
+    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
+    this.popUpService.GetGetProjectContentItemByTaskGuid().subscribe(res => {
+      this.TaskGuidFromLS = localStorage.getItem("TaskGuid")
+      this.menuCompo=new MenuComponent(this.router,this.popUpService,this.userService,this.appService
+        ,this.buttonWorkingTaskService,this.datePipe)
+        this.menuCompo.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
+    })
+   }
   @Input() thArr!: any;
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;

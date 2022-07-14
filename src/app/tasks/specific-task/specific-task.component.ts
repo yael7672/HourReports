@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PopupService } from '@ng-bootstrap/ng-bootstrap/util/popup';
 import { AppService } from 'src/app/app-service.service';
 import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
@@ -42,7 +43,7 @@ export class SpecificTaskComponent implements OnInit {
   workTime1!: any[];
   timeSetting: any;
   openChartComparePopUp!: boolean
-  constructor(private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
+  constructor(private appService: AppService,private popUpService:PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
   }
 
   ngOnInit(): void {
@@ -92,5 +93,10 @@ export class SpecificTaskComponent implements OnInit {
   }
   openChartCompare(){
     this.openChartComparePopUp=true
+  }
+  closePopUp()
+  {   
+    this.appService.setIsPopUpOpen(false);
+    this.popUpService.setClosePopUp();
   }
 }
