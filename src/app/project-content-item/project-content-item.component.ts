@@ -30,7 +30,9 @@ export class ProjectContentItemComponent implements OnInit {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
-    })}
+    })
+
+  }
   ngOnInit(): void {
 
   }

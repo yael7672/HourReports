@@ -1,4 +1,4 @@
-<button (click)="openChartCompare()">השוואה בין שעות עבדוה לשעות בפועל</button>
+<button (click)="openChartCompare()">השוואה בין שעות עבודה לשעות בפועל</button>
 <h5 *ngIf="listData?.Subject">{{listData.Subject}}</h5>
 <p *ngIf="listData?.Description" class="card-text">{{listData.Description}}</p>
 <p *ngIf="listData?.ScheduledEndDate" class="card-text"> תאריך יעד :{{listData.ScheduledEndDate | date: 'dd/MM/yyyy' }}
@@ -29,7 +29,8 @@
 
   <div *ngIf="openChartComparePopUp">
     <div class="actionArea">
-      <form class="popContainer">
+      <form class="popContainer"> 
+              <a  class="close" (click)="closePopUp()">&times;</a>
            <app-charts-my-task [dataProp]="listData" >
            </app-charts-my-task>
       </form>
