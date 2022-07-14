@@ -138,6 +138,7 @@ export class MenuComponent implements OnInit {
   projectContectItemGuid = "";
   creatOnProjectContentItem!: any;
   Time: any;
+  ifInTheMiddleOfABreak:any;
   projectContectItemGuidForLoclStorage: any;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
@@ -187,12 +188,10 @@ export class MenuComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.GetMyProjectContectItem("2")
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
-    this.workTimeHourLS = localStorage.getItem("WorkTimePause")
-    if (this.workTimeHourLS && this.workTimeHourLS != ["00,00,00,00"]) {
+    if(localStorage.getItem("WorkTimePause"))
+    {
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
-
     }
-
   }
 
   GetTaskForMyTeams() {
@@ -557,10 +556,11 @@ export class MenuComponent implements OnInit {
       }
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
-      this.ab = localStorage.getItem(("WorkTimePause"))
-      this.workTimeHourLSJ = JSON.parse(this.ab)
+      // this.ab = localStorage.getItem(("WorkTimePause"))
+      // this.workTimeHourLSJ = JSON.parse(this.ab)
       let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.router, this.appService, this.popUpService, this.buttonWorkingTaskService)
-      myCompPause.clickYes(this.workTimeHourLSJ)
+     
+      myCompPause.clickYes(localStorage.getItem('WorkTimePause'))
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
     }
 
