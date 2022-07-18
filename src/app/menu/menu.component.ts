@@ -142,6 +142,8 @@ export class MenuComponent implements OnInit {
   projectContectItemGuidForLoclStorage: any;
   isgetAllTask: any;
   TaskGuidFromLS: any
+  goToHome=false;
+  goTochart=false;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -197,6 +199,8 @@ export class MenuComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.goToHome=false;
+    this.goTochart=false;
     console.log(this.arrFunc);
     this.GetMyTask();
     this.GetProject();
@@ -285,6 +289,9 @@ export class MenuComponent implements OnInit {
     this.tableMyTaskOpen = false;
     this.tableMyTaskTeamsOpen = false;
     this.tableLastTaskIWorkedOn = false;
+    this.goToHome=true;
+    this.goTochart=true;
+
   }
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
@@ -432,6 +439,8 @@ export class MenuComponent implements OnInit {
           this.massageFromServer = res; 
      
           this.tableMyTaskOpen = true;
+          this.goToHome=false;
+          this.goTochart=false;
           this.tableSpecificTaskOpen = false;
     
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
@@ -541,6 +550,8 @@ export class MenuComponent implements OnInit {
   clickCloseCard() {
     if (this.workTime == "00:00:00" || this.workTime == "") {
       this.tableMyTaskOpen = true;
+      this.goToHome=false;
+      this.goTochart=false;
       this.tableSpecificTaskOpen = false;
     }
     else {
@@ -550,6 +561,8 @@ export class MenuComponent implements OnInit {
   clickYes(kindOfMassage: string) {
     if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
       this.tableMyTaskOpen = true;
+      this.goToHome=false;
+      this.goTochart=false;
       this.tableSpecificTaskOpen = false;
       this.showMassgeToUser = false;
       this.SelectedStop(this.workTime)
@@ -594,8 +607,6 @@ export class MenuComponent implements OnInit {
       myCompPause.clickYes(localStorage.getItem('WorkTimePause'))
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
     }
-
-
   }
   clickNo(kindOfMassage: string) {
     if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
@@ -607,6 +618,8 @@ export class MenuComponent implements OnInit {
       if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
         this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
         this.tableMyTaskOpen = true;
+        this.goToHome=false;
+        this.goTochart=false;
 
       }
       else {
@@ -681,6 +694,8 @@ export class MenuComponent implements OnInit {
     this.ifThereAreTasks = false;
     if (val == 0) {
       this.tableMyTaskOpen = true;
+      this.goToHome=false;
+      this.goTochart=false;
       this.tableMyTaskTeamsOpen = false;
       this.tableLastTaskIWorkedOn = false;
       if (this.taskArr == null || this.taskArr == undefined) {
@@ -722,7 +737,6 @@ export class MenuComponent implements OnInit {
     if (!this.tableSpecificTaskOpen) {
       this.showstatiSticsGraph = false;
       this.openMyProjectContectItem = false;
-
       this.tableMyTaskOpen = true;
     }
   }

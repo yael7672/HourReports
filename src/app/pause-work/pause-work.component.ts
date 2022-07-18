@@ -66,7 +66,7 @@ export class PauseWorkComponent implements OnInit {
     // let hours = Number(this.workTimeHour[0]) / 3600; // get hours
     // let minutes = Number(this.workTimeHour[1]) - (hours * 3600) / 60; // get minutes
     // let seconds = Number(this.workTimeHour[2]) + (hours * 3600) + (minutes * 60);
-      this.ifX = false
+      this.ifX = true
       this.ContinueToBePause()
     
   }

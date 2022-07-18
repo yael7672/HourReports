@@ -173,3 +173,7 @@ font-size: 37px;
 margin: 0.8rem;
 margin-bottom: 1.5rem;
 }
+.goToHome,
+.goTochart{
+    color: rgb(188, 183, 183);
+}
