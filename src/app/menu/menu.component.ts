@@ -216,7 +216,7 @@ export class MenuComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.GetMyProjectContectItem("2")
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
-    if (localStorage.getItem("Pause")) {
+    if (localStorage.getItem("WorkTimePause")) {
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
     }
   }
@@ -578,7 +578,7 @@ export class MenuComponent implements OnInit {
       // this.workTimeHourLSJ = JSON.parse(this.ab)
       let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.router, this.appService, this.popUpService, this.buttonWorkingTaskService)
 
-      myCompPause.clickYes(localStorage.getItem('Pause'))
+      myCompPause.clickYes(localStorage.getItem('WorkTimePause'))
       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
     }
   }

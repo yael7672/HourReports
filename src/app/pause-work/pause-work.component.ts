@@ -55,19 +55,19 @@ export class PauseWorkComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
-    if ((localStorage.getItem("Pause"))) {
+    if ((localStorage.getItem("WorkTimePause"))) {
       this.ifX = false;
-       this.ContinueToBePause()
+      this.ContinueToBePause()
     }
   }
   BeforePauseWork() {
     this.showMassgeToUser = true
   }
   PauseWork(workTime: any) {
-    if (workTime != "") {
+    localStorage.removeItem("WorkTimePause")
     this.systemGuid = localStorage.getItem("systemGuid")
     this.taskGuid = localStorage.getItem("TaskGuid")
-    this.userServiceService.PauseWork(this.systemGuid,workTime ).then(
+    this.userServiceService.PauseWork(this.systemGuid, workTime).then(
       (res: any) => {
         this.pauseGuid = res;
         console.log(this.pauseGuid)
@@ -89,7 +89,6 @@ export class PauseWorkComponent implements OnInit {
         alert("error")
     )
   }
-}
   SelectedStartPause() {
     this.interval = setInterval(() => {
       this.GetProjectContentItemByGuid()
@@ -109,10 +108,9 @@ export class PauseWorkComponent implements OnInit {
         let latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
         console.log(latest_date);
         this.workTimeHour = latest_date;
+        localStorage.setItem('WorkTimePause', this.workTimeHour)
       }
     })
-    localStorage.setItem('Pause', this.workTimeHour)
-
   }
   startPause() {
     this.ifX = false;
@@ -121,20 +119,21 @@ export class PauseWorkComponent implements OnInit {
     this.CreatePauseWork();
     this.SelectedStartPause();
   }
-  // OpenPopUpIfCloseTask() {
-  //   this.showMassgeToUser = true;
-  // }
+  OpenPopUpIfCloseTask() {
+    this.showMassgeToUser = true;
+  }
 
   clickYes(time: any) {
     if (time != "") {
       this.timetoSend = time.split(':')
       clearInterval(this.interval);
+      // this.seconds = 0;
       if (this.timetoSend[2] > 30) {
         this.timetoSend[1]++;
       }
       this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-      localStorage.removeItem("Pause")
+      localStorage.removeItem("WorkTimePause")
       this.PauseWork(this.parseTime)
 
     }
