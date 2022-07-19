@@ -19,12 +19,14 @@ export class SmartCardComponent implements OnInit {
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
-    this.popUpService.GetGetProjectContentItemByTaskGuid().subscribe(res => {
-      this.TaskGuidFromLS = localStorage.getItem("TaskGuid")
-      this.menuCompo=new MenuComponent(this.router,this.popUpService,this.userService,this.appService
-        ,this.buttonWorkingTaskService,this.datePipe)
-        this.menuCompo.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
-    })
+    // this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
+    //   if(res)
+    //   {
+    //   this.TaskGuidFromLS = localStorage.getItem("TaskGuid")
+    //   this.menuCompo=new MenuComponent(this.router,this.popUpService,this.userService,this.appService
+    //     ,this.buttonWorkingTaskService,this.datePipe)
+    //     this.menuCompo.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
+    // }})
    }
   @Input() thArr!: any;
   @Input() tableData!: any;

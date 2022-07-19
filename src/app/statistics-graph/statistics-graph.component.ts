@@ -138,11 +138,8 @@ export class StatisticsGraphComponent implements OnInit {
     this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart, Number(val)).then(res => {
       if (res) {
         this.WorkingHoursAndActualHoursForLineChart = res;
-        console.log(this.WorkingHoursAndActualHoursForLineChart);
         this.workingHourArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((workingHour: { workHours: any; }) => workingHour.workHours)
-        console.log(this.workingHourArrForLineChart);
         this.actualHoursArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((actualHours: { actualHours: any; }) => actualHours.actualHours)
-        console.log(this.actualHoursArrForLineChart);
         this.dateArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((Date: { Date: any; }) => this.datepipe.transform(Date.Date, 'dd/MM/yyyy'))
         console.log("dateArr", this.dateArrForLineChart);
         this.updateLineChart();

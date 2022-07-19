@@ -58,7 +58,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
       (res) => {
         this.ProjectContentItem = res;
         swal(this.ProjectContentItem)
-        this.popUpService.setgetAllmyProjectContectItem()
+        this.popUpService.setAllmyProjectContectItem(true)
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },

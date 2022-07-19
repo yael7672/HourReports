@@ -37,13 +37,11 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('systemName', this.user.Name);
         localStorage.setItem('systemMail', this.user.Mail);
         this.router.navigate(["/menu"]);
-
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
       (err: any) =>
         alert(err.error)
-        
     )
   }
 }

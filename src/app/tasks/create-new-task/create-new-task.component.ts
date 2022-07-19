@@ -104,7 +104,7 @@ this.AddNewTask()
      
       this.appService.setIsPopUpOpen(false);
       this.popUpService.setClosePopUp();
-      this.popUpService.setgetAllmyTask()
+      this.popUpService.setAllmyTask(true)
       this.router.navigate(['/menu'])
 
     }
