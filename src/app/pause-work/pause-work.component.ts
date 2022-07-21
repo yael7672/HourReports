@@ -64,7 +64,10 @@ export class PauseWorkComponent implements OnInit {
     this.showMassgeToUser = true
   }
   PauseWork(workTime: any) {
+    this.workTimeHour = "00,00,00"
+    localStorage.setItem("WorkTimePause", this.workTimeHour)
     localStorage.removeItem("WorkTimePause")
+
     this.systemGuid = localStorage.getItem("systemGuid")
     this.taskGuid = localStorage.getItem("TaskGuid")
     this.userServiceService.PauseWork(this.systemGuid, workTime).then(
@@ -133,9 +136,8 @@ export class PauseWorkComponent implements OnInit {
       }
       this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-      localStorage.removeItem("WorkTimePause")
+      // localStorage.removeItem("WorkTimePause")
       this.PauseWork(this.parseTime)
-
     }
   }
   clickNo() {
@@ -160,8 +162,10 @@ export class PauseWorkComponent implements OnInit {
     )
   }
   ContinueToBePause() {
+    // if (localStorage.getItem("WorkTimePause")){
     this.interval = setInterval(() => {
       this.GetProjectContentItemByGuid()
     }, 1000)
   }
+  // }
 }
