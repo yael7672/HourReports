@@ -59,12 +59,7 @@ export class PauseWorkComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
-
-
     console.log(this.workTimeHour);
-    // let hours = Number(this.workTimeHour[0]) / 3600; // get hours
-    // let minutes = Number(this.workTimeHour[1]) - (hours * 3600) / 60; // get minutes
-    // let seconds = Number(this.workTimeHour[2]) + (hours * 3600) + (minutes * 60);
       this.ifX = false
       this.ContinueToBePause()
     
@@ -155,13 +150,7 @@ export class PauseWorkComponent implements OnInit {
       }
     })
   }
-  // transformNumber(value: number) {
-  //   var sec_num = value;
-  //   var hours = Math.floor(sec_num / 3600);
-  //   var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-  //   var seconds = sec_num - (hours * 3600) - (minutes * 60);
-  //   return [hours, minutes, seconds]
-  // }
+
 
   startPause() {
     this.ifX = false;
@@ -209,27 +198,6 @@ export class PauseWorkComponent implements OnInit {
     )
   }
   ContinueToBePause() {
-    // this.interval = setInterval(() => {
-    //   if (timeToContinue === 0) {
-    //     timeToContinue++;
-    //   }
-    //   else {
-    //     timeToContinue++;
-    //   }
-    //   this.workTimeHour = this.transformNumber(timeToContinue)
-    //   if (this.workTimeHour[0] < 10) {
-    //     this.workTimeHour[0] = "0" + this.workTimeHour[0]
-    //   }
-    //   if (this.workTimeHour[1] < 10) {
-    //     this.workTimeHour[1] = "0" + this.workTimeHour[1]
-    //   }
-    //   if (this.workTimeHour[2] < 10) {
-    //     this.workTimeHour[2] = "0" + this.workTimeHour[2]
-    //   }
-    //   console.log(this.workTimeHour);
-    //   localStorage.setItem('WorkTimePause', JSON.stringify(this.workTimeHour))
-
-    // }, 1000)
     if (localStorage.getItem("WorkTimePause")) {
       this.interval = setInterval(() => {
         this.GetProjectContentItemByGuid()
