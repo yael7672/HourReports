@@ -12,6 +12,8 @@ export class PopUpServiceService {
   private refreshUpdateProjectContentItemDetails$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);;
   private refreshCeateAprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private refreshGetAllMyTask$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private ifStartPouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private ifClosePouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
   
@@ -62,5 +64,21 @@ export class PopUpServiceService {
   GetProjectContentItemByTaskGuid()
   {
     return this.refreshCeateAprojectContentItem$;
+  }
+  SetIfStartPouse(val:boolean)
+  {
+    this.ifStartPouse$.next(val)
+  }
+  GetIfStartPouse()
+  {
+    return this.ifStartPouse$;
+  }
+  SetIfClosePouse(val:boolean)
+  {
+    this.ifClosePouse$.next(val)
+  }
+  GetIfClosePouse()
+  {
+    return this.ifClosePouse$;
   }
 }

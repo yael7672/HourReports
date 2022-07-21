@@ -64,9 +64,9 @@ export class PauseWorkComponent implements OnInit {
     this.showMassgeToUser = true
   }
   PauseWork(workTime: any) {
-    localStorage.removeItem("WorkTimePause")
-    this.systemGuid = localStorage.getItem("systemGuid")
-    this.taskGuid = localStorage.getItem("TaskGuid")
+    this.popUpService.SetIfStartPouse(false);
+    this.systemGuid = localStorage.getItem("systemGuid");
+    this.taskGuid = localStorage.getItem("TaskGuid");
     this.userServiceService.PauseWork(this.systemGuid, workTime).then(
       (res: any) => {
         this.pauseGuid = res;
@@ -90,6 +90,7 @@ export class PauseWorkComponent implements OnInit {
     )
   }
   SelectedStartPause() {
+    this.popUpService.SetIfStartPouse(true)
     this.interval = setInterval(() => {
       this.GetProjectContentItemByGuid()
     }, 1000)
@@ -108,7 +109,7 @@ export class PauseWorkComponent implements OnInit {
         let latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
         console.log(latest_date);
         this.workTimeHour = latest_date;
-        localStorage.setItem('WorkTimePause', this.workTimeHour)
+
       }
     })
   }
@@ -133,7 +134,6 @@ export class PauseWorkComponent implements OnInit {
       }
       this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-      localStorage.removeItem("WorkTimePause")
       this.PauseWork(this.parseTime)
 
     }
