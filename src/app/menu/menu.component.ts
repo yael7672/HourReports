@@ -156,14 +156,14 @@ export class MenuComponent implements OnInit {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
     })
-    this.popUpService.getgetAllmyTask().subscribe(res => {
+    this.popUpService.getAllmyTask().subscribe(res => {
       this.isgetAllTask = res
       this.GetMyTask()
     })
-    this.popUpService.getgetAllmyProjectContectItem().subscribe(res => {
+    this.popUpService.getAllmyProjectContectItem().subscribe(res => {
       this.GetMyProjectContectItem(1)
     })
-    this.popUpService.GetGetProjectContentItemByTaskGuid().subscribe(res => {
+    this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
       this.TaskGuidFromLS = localStorage.getItem("TaskGuidOfProjectContectItem")
       this.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
     //localStorage.removeItem('TaskGuidOfProjectContectItem')
@@ -376,7 +376,7 @@ export class MenuComponent implements OnInit {
             this.massageFromServer = res;
             swal(this.massageFromServer);
             this.workTime = ["00:00:00"];
-            this.popUpService.SetGetProjectContentItemByTaskGuid()
+            this.popUpService.SetProjectContentItemByTaskGuid(true)
           }
         },
         err => {
@@ -425,7 +425,7 @@ export class MenuComponent implements OnInit {
           this.tableSpecificTaskOpen = false;
     
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
-            this.popUpService.SetGetProjectContentItemByTaskGuid()
+            // this.popUpService.SetGetProjectContentItemByTaskGuid(true)
           }
       },
       err => {
