@@ -206,7 +206,8 @@ export class MenuComponent implements OnInit {
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
     if(localStorage.getItem("WorkTimePause"))
     {
-      this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
+      this.openPopUp('pause',true)
+      // this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
     }
   }
   // ngDoCheck(): void{

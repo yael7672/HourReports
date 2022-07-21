@@ -59,8 +59,7 @@ export class PauseWorkComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
-    // this.workTimeHourLS = localStorage.getItem('WorkTimePause')
-    // this.workTimeHour = JSON.parse(this.workTimeHourLS);
+
 
     console.log(this.workTimeHour);
     // let hours = Number(this.workTimeHour[0]) / 3600; // get hours
@@ -86,14 +85,12 @@ export class PauseWorkComponent implements OnInit {
         swal(this.pauseGuid);
         this.endButton = false
         clearInterval(this.interval)
-        // this.seconds = 0;
-        // this.workTime = ["00:00:00"];
-        // this.workTime = ["00", "00", "00"];
-        // this.workTime[0] = "00"
-        // this.workTime[1] = "00"
-        // this.workTime[3] = "00"
-        // localStorage.setItem("WorkTimePause", this.workTime)
-        // localStorage.removeItem("WorkTimePause")
+        this.workTime=["00:00:00"];
+        let latest_date = this.datePipe.transform(workTime, 'HH:mm:ss');
+        console.log(latest_date);
+        this.workTimeHour = latest_date;
+        localStorage.setItem('WorkTimePause', this.workTimeHour)
+        localStorage.removeItem("WorkTimePause")
         localStorage.setItem("endButton", String(this.endButton))
 
 
