@@ -57,6 +57,9 @@ export class PauseWorkComponent implements OnInit {
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
     if ((localStorage.getItem("WorkTimePause"))) {
       this.ifX = false;
+
+    console.log(this.workTimeHour);
+
       this.ContinueToBePause()
     }
   }
@@ -73,6 +76,15 @@ export class PauseWorkComponent implements OnInit {
         console.log(this.pauseGuid)
         swal(this.pauseGuid);
         this.endButton = false
+
+        clearInterval(this.interval)
+        this.workTime=["00:00:00"];
+        let latest_date = this.datePipe.transform(workTime, 'HH:mm:ss');
+        console.log(latest_date);
+        this.workTimeHour = latest_date;
+        localStorage.setItem('WorkTimePause', this.workTimeHour)
+        localStorage.removeItem("WorkTimePause")
+
         localStorage.setItem("endButton", String(this.endButton))
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
@@ -135,7 +147,6 @@ export class PauseWorkComponent implements OnInit {
       this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
       this.PauseWork(this.parseTime)
-
     }
   }
   clickNo() {
@@ -160,8 +171,13 @@ export class PauseWorkComponent implements OnInit {
     )
   }
   ContinueToBePause() {
-    this.interval = setInterval(() => {
-      this.GetProjectContentItemByGuid()
-    }, 1000)
+
+    if (localStorage.getItem("WorkTimePause")) {
+      this.interval = setInterval(() => {
+        this.GetProjectContentItemByGuid()
+      }, 1000)
+    }
+
   }
+  // }
 }

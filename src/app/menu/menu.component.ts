@@ -228,6 +228,7 @@ export class MenuComponent implements OnInit {
       this.ContinueToWorkOnATask();
 
     }
+
   }
 
   GetTaskForMyTeams() {
