@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateAprojectContentItemComponent } from './create-aproject-content-item/create-aproject-content-item.component';
+import { CreateAprojectContentItemComponent } from './project-contect-items/create-aproject-content-item/create-aproject-content-item.component';
 import { CreateNewTaskComponent } from './tasks/create-new-task/create-new-task.component';
 import { LoginComponent } from './login/login.component';
 import { MenuComponent } from './menu/menu.component';

@@ -1,16 +1,16 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit,Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Project } from '../interfacees/project';
-import { Task } from '../interfacees/task';
-import { ProjectContentItem } from '../interfacees/project-content-item';
-import { Regardingobjectid } from '../interfacees/regardingobjectid';
-import { WorkType } from '../interfacees/work-type';
+import { Project } from '../../interfacees/project';
+import { Task } from '../../interfacees/task';
+import { ProjectContentItem } from '../../interfacees/project-content-item';
+import { Regardingobjectid } from '../../interfacees/regardingobjectid';
+import { WorkType } from '../../interfacees/work-type';
 import { ProjectContentItemComponent } from '../project-content-item/project-content-item.component';
-import { UserServiceService } from '../user-service.service';
+import { UserServiceService } from '../../user-service.service';
 import swal from 'sweetalert';
-import { AppService } from '../app-service.service';
-import { PopUpServiceService } from '../pop-up-service.service';
+import { AppService } from '../../app-service.service';
+import { PopUpServiceService } from '../../pop-up-service.service';
 
 @Component({
   selector: 'app-create-aproject-content-item',
