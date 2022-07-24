@@ -38,6 +38,18 @@ export class ProjectContentItemComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  toTimestamp(sortValue: any) {
+    var datum = Date.parse(sortValue);
+    return datum / 1000;
+  }
+  sortTableByDate( ){
+    this.tableData.sort((a: any, b: any) => {
+      const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
+      const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
+      
+      return ((sortValueTimestampA?sortValueTimestampA:new Date()) <  (sortValueTimestampB?sortValueTimestampB:new Date()) ? 1 : -1)
+    })
+  }
   returnColDataByType(colData: any, tableDataKey: any) {
     if (tableDataKey && typeof tableDataKey === 'string') {
       return colData[tableDataKey]

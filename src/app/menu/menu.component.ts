@@ -324,11 +324,6 @@ export class MenuComponent implements OnInit {
       console.log(err.error);
     })
 
-
-    this.interval = setInterval(() => {
-      this.GetProjectContentItemByGuid()
-    }, 1000)
-
   }
   transformNumber(value: number) {
     var sec_num = value;
@@ -425,7 +420,8 @@ export class MenuComponent implements OnInit {
           this.tableSpecificTaskOpen = false;
     
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
-            // this.popUpService.SetGetProjectContentItemByTaskGuid(true)
+
+            this.popUpService.SetProjectContentItemByTaskGuid(true)
           }
       },
       err => {
@@ -649,19 +645,8 @@ export class MenuComponent implements OnInit {
         this.getCreatedProjectContentItemFromLoaclStorage();
       }
       else {
-        //  this.GetProjectContentItemByGuid()
       }
     }, 1000)
-    // if (this.workTime == "00:00:00")
-    // {
-    //   clearInterval(this.interval)
-    // }
-    // if (this.interval)
-
-    // this.intervalWorkTime1 = setInterval(() => {
-    //   this.GetProjectContentItemByGuid()
-    //   console.log("fix second");
-    // }, 5000)
 
   }
   WhichTableOpen(val: any) {
@@ -701,6 +686,7 @@ export class MenuComponent implements OnInit {
       this.tableMyTaskOpen = false;
       this.tableMyTaskTeamsOpen = false;
       this.ifThereAreTasks = false;
+      this.openMyProjectContectItem=false;
     }
   }
   GoToHome() {
@@ -764,13 +750,12 @@ export class MenuComponent implements OnInit {
     console.log(timestampNow);
     console.log(timestampCreatOn);
     this.Time = timestampNow - timestampCreatOn;
-    return this.datePipe.transform(this.Time, 'HH:mm:ss');
+    return this.datePipe.transform(this.Time, 'HH:mm:ss',"+0000");
 
   }
   setWorkTime(res: any) {
     this.workTime = this.convertTimeStempToTime(res)
     console.log(this.workTime);
-
   }
 }
 
