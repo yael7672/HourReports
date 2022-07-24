@@ -27,7 +27,7 @@ export class PopUpServiceService {
       Logout: type === 'Logout' ? data : false,
       // MyprojectContentItem:type === 'MyprojectContentItem' ? data : false,
       // UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
-      // ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,
+      ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,
     }
     this.setKindOfPopUp(obj)
   }
