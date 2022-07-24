@@ -39,6 +39,7 @@ export class MyProjectContectItemsComponent implements OnInit {
   MyProjectContectItemArr!: ProjectContentItem[]
 
   ngOnInit(): void {
+    this.sortTableByDate()
   }
   returnColDataByType(colData: any, tableDataKey: any) {
     if (tableDataKey && typeof tableDataKey === 'string') {
@@ -51,6 +52,20 @@ export class MyProjectContectItemsComponent implements OnInit {
       else return null;
     }
   }
+ 
+    toTimestamp(sortValue: any) {
+      var datum = Date.parse(sortValue);
+      return datum / 1000;
+    }
+    sortTableByDate( ){
+      this.tableData.sort((a: any, b: any) => {
+        const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
+        const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
+        
+        return ((sortValueTimestampA?sortValueTimestampA:new Date()) <  (sortValueTimestampB?sortValueTimestampB:new Date()) ? 1 : -1)
+      })
+    }
+  
   EditProjectContentItemIcon(val: any) {
    
     this.updateDetails = true;

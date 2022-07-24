@@ -156,14 +156,14 @@ export class MenuComponent implements OnInit {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
     })
-    this.popUpService.getgetAllmyTask().subscribe(res => {
+    this.popUpService.getAllmyTask().subscribe(res => {
       this.isgetAllTask = res
       this.GetMyTask()
     })
-    this.popUpService.getgetAllmyProjectContectItem().subscribe(res => {
+    this.popUpService.getAllmyProjectContectItem().subscribe(res => {
       this.GetMyProjectContectItem(1)
     })
-    this.popUpService.GetGetProjectContentItemByTaskGuid().subscribe(res => {
+    this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
       this.TaskGuidFromLS = localStorage.getItem("TaskGuidOfProjectContectItem")
       this.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
     //localStorage.removeItem('TaskGuidOfProjectContectItem')
@@ -324,11 +324,6 @@ export class MenuComponent implements OnInit {
       console.log(err.error);
     })
 
-
-    this.interval = setInterval(() => {
-      this.GetProjectContentItemByGuid()
-    }, 1000)
-
   }
   transformNumber(value: number) {
     var sec_num = value;
@@ -376,7 +371,7 @@ export class MenuComponent implements OnInit {
             this.massageFromServer = res;
             swal(this.massageFromServer);
             this.workTime = ["00:00:00"];
-            this.popUpService.SetGetProjectContentItemByTaskGuid()
+            this.popUpService.SetProjectContentItemByTaskGuid(true)
           }
         },
         err => {
@@ -425,7 +420,7 @@ export class MenuComponent implements OnInit {
           this.tableSpecificTaskOpen = false;
     
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
-            this.popUpService.SetGetProjectContentItemByTaskGuid()
+            this.popUpService.SetProjectContentItemByTaskGuid(true)
           }
       },
       err => {
@@ -649,19 +644,8 @@ export class MenuComponent implements OnInit {
         this.getCreatedProjectContentItemFromLoaclStorage();
       }
       else {
-        //  this.GetProjectContentItemByGuid()
       }
     }, 1000)
-    // if (this.workTime == "00:00:00")
-    // {
-    //   clearInterval(this.interval)
-    // }
-    // if (this.interval)
-
-    // this.intervalWorkTime1 = setInterval(() => {
-    //   this.GetProjectContentItemByGuid()
-    //   console.log("fix second");
-    // }, 5000)
 
   }
   WhichTableOpen(val: any) {
