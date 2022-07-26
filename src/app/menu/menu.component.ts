@@ -147,10 +147,14 @@ export class MenuComponent implements OnInit {
   goTochart = false;
   IfStartPouse!: boolean;
   IfClosePouse!: boolean;
+  workTypeArr: any;
+  todayDate:any;
+  myDate=new Date()
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
+      this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
 
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
@@ -206,6 +210,7 @@ export class MenuComponent implements OnInit {
     })
   }
   ngOnInit(): void {
+    this.GetWorkType()
     console.log(this.arrFunc);
     this.GetMyTask();
     this.GetProject();
@@ -259,6 +264,17 @@ export class MenuComponent implements OnInit {
     )
   }
 
+  GetWorkType()
+  {
+    this.userService.GetWorkType().subscribe(
+      (res: any) => {
+        this.workTypeArr = res;
+        console.log(this.workTypeArr);
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
 
   openPopUp(data: string, type: boolean) {
     if (data == 'pause') {

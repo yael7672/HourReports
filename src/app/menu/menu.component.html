@@ -10,10 +10,10 @@
     </a>
     <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
     <a (click)="GoToStatisticsGraph()"><i [ngClass]="{'goTochart':goTochart}" class="fa fa-bar-chart" aria-hidden="true"></i>   </a>
-    <a (click)="openPopUp('creatTask',true)"><i class="iconify" data-icon="ic:outline-sick"></i>
+    <a (click)="openPopUp('sickLeave',true)"><i class="iconify" data-icon="ic:outline-sick"></i>
     </a>
-
-
+    <a (click)="openPopUp('Freedom',true)"><i class="iconify" data-icon="iconoir:sea-and-sun"></i>
+    </a>
   </div>
 
 
@@ -161,6 +161,12 @@
 
 <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
   <app-create-aproject-content-item [MyTask]="taskArr"></app-create-aproject-content-item>
+</div>
+<div *ngIf="isPopUpOpen?.sickLeave">
+  <app-sick-leave-project-content-item [project]="projectArr" [myTask]="taskArr" [todayDate]="todayDate" [workType]="workTypeArr"></app-sick-leave-project-content-item>
+</div>
+<div *ngIf="isPopUpOpen?.Freedom">
+  <app-freedom-project-content-item [project]="projectArr" [myTask]="taskArr" [todayDate]="todayDate" [workType]="workTypeArr"></app-freedom-project-content-item>
 </div>
 
 

@@ -20,7 +20,7 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + '/GetTask/?SystemGuid=' + SystemGuid)
   }
   async AddNewTask(TaskObj: any) {
-    return await  this.http.post<string>(environment.url + '/AddNewTask', TaskObj).toPromise();
+    return await this.http.post<string>(environment.url + '/AddNewTask', TaskObj).toPromise();
   }
   GetWorkType() {
     return this.http.get<WorkType[]>(environment.url + 'GetWorkType');
@@ -37,8 +37,8 @@ export class UserServiceService {
   GetProject() {
     return this.http.get<any>(environment.url + 'GetProject/');
   }
-  CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string, IftaskForTeam:boolean) {
-    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid +'&IftaskForTeam='+IftaskForTeam);
+  CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string, IftaskForTeam: boolean) {
+    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid + '&IftaskForTeam=' + IftaskForTeam);
   }
   logIn(email: any) {
     return this.http.get<User[]>(environment.url + 'Login/?email=' + email);
@@ -52,14 +52,14 @@ export class UserServiceService {
     return this.http.get<ProjectContentItem[]>(environment.url + 'Login=' + projectContentItem);
 
   }
-  CreateNewProjectItem(projectContentItem: any) {
-    return this.http.post<string>(environment.url + 'CreateProjectContentItem', projectContentItem);
+  CreateNewProjectItem(projectContentItem: any, fromDate: string, untilDate: string) {
+    return this.http.post<string>(environment.url + 'CreateProjectContentItem?FromDate=' + fromDate + '&UntilDate=' + untilDate, projectContentItem);
   }
   async PauseWork(SystemGuid: any, ActualTime: any) {
     return await this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime).toPromise();
 
   }
-  async GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string, SelectedTime: number) {  
+  async GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string, SelectedTime: number) {
     return await this.http.get<any>(environment.url + 'GetMyProjectContentItemByTime?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
 
   }
@@ -73,21 +73,19 @@ export class UserServiceService {
   async GetAverageBreaks(SystemGuid: any, FromDate: string, UntilDate: string, SelectedTime: any) {
     return await this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
   }
-  GetTaskForMyTeams(SystemGuid:any)
-  {
+  GetTaskForMyTeams(SystemGuid: any) {
     return this.http.get<any>(environment.url + '/GetTaskForMyTeams/?SystemGuid=' + SystemGuid)
   }
-  UpdateProjectContentItemDetails(ProjectItemToUpdate:any)
-  {
+  UpdateProjectContentItemDetails(ProjectItemToUpdate: any) {
     return this.http.post<string>(environment.url + '/UpdateProjectContentItemDetails', ProjectItemToUpdate);
 
   }
-  GetMyProjectContectItem(SystemGuid:any, SelectedTime: number){
+  GetMyProjectContectItem(SystemGuid: any, SelectedTime: number) {
 
-    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems/?SystemGuid=' + SystemGuid+ '&SelectedTime=' + SelectedTime)
+    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems/?SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime)
 
   }
-  GetProjectContentItemByGuid(projectContectItemGuid:string){
+  GetProjectContentItemByGuid(projectContectItemGuid: string) {
     return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?ProjectContentItemGuid=' + projectContectItemGuid)
 
   }

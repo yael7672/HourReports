@@ -27,6 +27,8 @@ import { ChartsComponent } from './charts/charts.component';
 import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
 import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component';
 import { MyProjectContectItemsComponent } from './project-contect-items/my-project-contect-items/my-project-contect-items.component';
+import { SickLeaveProjectContentItemComponent } from './project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
+import { FreedomProjectContentItemComponent } from './project-contect-items/freedom-project-content-item/freedom-project-content-item.component';
  
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -52,7 +54,9 @@ import { MyProjectContectItemsComponent } from './project-contect-items/my-proje
     ChartsComponent,
     StatisticsGraphComponent,
     ChartsMyTaskComponent,
-    MyProjectContectItemsComponent
+    MyProjectContectItemsComponent,
+    SickLeaveProjectContentItemComponent,
+    FreedomProjectContentItemComponent
 
 
   ],

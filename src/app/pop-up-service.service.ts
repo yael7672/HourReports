@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class PopUpServiceService {
 
   private kindOfPopUp$: BehaviorSubject<any> = new BehaviorSubject(null);
-  private refreshMyprojectContentItem$ :BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  private refreshMyprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private refreshUpdateProjectContentItemDetails$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);;
   private refreshCeateAprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -16,15 +16,19 @@ export class PopUpServiceService {
   private ifClosePouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
-  
+
   setSpecificPopUp(data: boolean, type: string) {
     var obj = {
       login: type === 'login' ? data : false,
-      pause: type === 'pause'? data : false,
+      pause: type === 'pause' ? data : false,
       creatTask: type === 'creatTask' ? data : false,
       updateTask: type === 'updateTask' ? data : false,
       endTask: type === 'endTask' ? data : false,
       Logout: type === 'Logout' ? data : false,
+      sickLeave: type === 'sickLeave' ? data : false,
+      Freedom: type === 'Freedom' ? data : false,
+
+      
       // MyprojectContentItem:type === 'MyprojectContentItem' ? data : false,
       // UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
       ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,
@@ -44,41 +48,35 @@ export class PopUpServiceService {
     return this.kindOfPopUp$;
   }
 
-  setAllmyTask(val:boolean) {
+  setAllmyTask(val: boolean) {
     this.refreshGetAllMyTask$.next(val)
   }
   getAllmyTask() {
     return this.refreshGetAllMyTask$;
   }
- 
-  setAllmyProjectContectItem(val:boolean) {
+
+  setAllmyProjectContectItem(val: boolean) {
     this.refreshMyprojectContentItem$.next(val)
   }
   getAllmyProjectContectItem() {
     return this.refreshMyprojectContentItem$;
   }
-  SetProjectContentItemByTaskGuid(val:boolean)
-  {
+  SetProjectContentItemByTaskGuid(val: boolean) {
     this.refreshCeateAprojectContentItem$.next(val)
   }
-  GetProjectContentItemByTaskGuid()
-  {
+  GetProjectContentItemByTaskGuid() {
     return this.refreshCeateAprojectContentItem$;
   }
-  SetIfStartPouse(val:boolean)
-  {
+  SetIfStartPouse(val: boolean) {
     this.ifStartPouse$.next(val)
   }
-  GetIfStartPouse()
-  {
+  GetIfStartPouse() {
     return this.ifStartPouse$;
   }
-  SetIfClosePouse(val:boolean)
-  {
+  SetIfClosePouse(val: boolean) {
     this.ifClosePouse$.next(val)
   }
-  GetIfClosePouse()
-  {
+  GetIfClosePouse() {
     return this.ifClosePouse$;
   }
 }

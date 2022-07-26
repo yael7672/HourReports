@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Project } from '../../interfacees/project';
 import { Task } from '../../interfacees/task';
@@ -19,42 +19,41 @@ import { PopUpServiceService } from '../../pop-up-service.service';
 })
 export class CreateAprojectContentItemComponent implements OnInit {
   @Input() MyTask!: any;
-  todayDate!:any;
-  myDate=new Date()
-  Project!:Project[];
-  WorkType!:WorkType[];
-  Regarding!:Regardingobjectid[];
-  ProjectContentItem!:any
+  todayDate!: any;
+  myDate = new Date()
+  Project!: Project[];
+  WorkType!: WorkType[];
+  Regarding!: Regardingobjectid[];
+  ProjectContentItem!: any
   systemGuid: any;
-  ProjectItem!:any
-  taskGuid!:any
-  projectGuid:any
+  ProjectItem!: any
+  taskGuid!: any
+  projectGuid: any
   workTypeGuid: any;
-  constructor(private datePipe: DatePipe ,private userServiceService:UserServiceService ,
-    private appService:AppService ,private popUpService:PopUpServiceService) {
+  oneDate:any;
+  constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
+    private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-   console.log(this.todayDate);
-}
+    console.log(this.todayDate);
+  }
   ngOnInit(): void {
     this.GetRegarding()
     this.GetProject()
     this.GetWorkType()
   }
 
-  CreateNewProjectItem(form:NgForm){
-    this.taskGuid= form.value.SourceTask.toUpperCase()
-    this.projectGuid= form.value.project.toUpperCase()
-    this.workTypeGuid= form.value.workType.toUpperCase()
-    
-    this.ProjectItem =
-    {
-       OwnerId: { "Guid": localStorage.getItem('systemGuid') },
-       Name:form.value.Subject,
-       Project: { "Guid": this.projectGuid },
-       CustomTask:{"TaskGuid":this.taskGuid},
-       WorkType: { "Guid": this.workTypeGuid },
-    }
-    this.userServiceService.CreateNewProjectItem(this.ProjectItem).subscribe(
+  CreateNewProjectItem(form: NgForm) {
+    // this.taskGuid = form.value.SourceTask.toUpperCase()
+    // this.projectGuid = form.value.project.toUpperCase()
+    // this.workTypeGuid = form.value.workType.toUpperCase()
+
+
+    form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
+      form.value.Project = { "Guid": form.value.Project },
+      form.value.WorkType = { "Guid": form.value.WorkType }
+      form.value.fromDate=this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+      form.value.untilDate=this.datePipe.transform( form.value.oneDate, 'dd/MM/yyyy')
+    this.userServiceService.CreateNewProjectItem(form.value,form.value.fromDate,form.value.untilDate).subscribe(
       (res) => {
         this.ProjectContentItem = res;
         swal("!פריט תכולת פרויקט נוצר בהצלחה")
@@ -66,8 +65,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
         alert("error")
     )
   }
-  
-  GetRegarding(){
+
+  GetRegarding() {
     this.userServiceService.GetRegarding().subscribe(
       (res: any) => {
         this.Regarding = res;
@@ -77,8 +76,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
         alert("error")
     )
   }
-  
-  GetWorkType(){
+
+  GetWorkType() {
     this.userServiceService.GetWorkType().subscribe(
       (res: any) => {
         this.WorkType = res;
@@ -89,11 +88,11 @@ export class CreateAprojectContentItemComponent implements OnInit {
     )
   }
 
-  GetProject(){
+  GetProject() {
     this.userServiceService.GetProject().subscribe(
       (res: any) => {
         this.Project = res;
-        console.log( this.Project);
+        console.log(this.Project);
       },
       (err: any) =>
         alert("error")

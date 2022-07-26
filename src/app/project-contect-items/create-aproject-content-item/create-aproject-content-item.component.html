@@ -3,19 +3,19 @@
         <h4 header class="mb-4">יצירת פריט תכולת פרוייקט </h4>
         <div body>
             <form (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm">
+                    <div   class="form-outline d-flex justify-content-center">
+                        <input type="date" class="form-control" id="oneDate" name="oneDate" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+                              (ngModelChange)="oneDate = $event">
+                    </div>
                 <div class="form-outline d-flex justify-content-center">
-                    <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
-                        placeholder=" תאריך " />
-                </div>
-                <div class="form-outline d-flex justify-content-center">
-                    <input type="text" id="Subject" name="Subject" class="form-control" placeholder="נושא המשימה"
+                    <input type="text" id="Subject" name="Name" class="form-control" placeholder="נושא המשימה"
                         ngModel #subject="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required />
                 </div>
                 <div *ngIf="f.submitted && subject.invalid" class="text-danger">
                     <span *ngIf="subject.errors">שדה זה חובה</span>
                 </div>
                 <div class="form-outline d-flex justify-content-center">
-                    <select id="inputState" class="form-control " name="workType"  #workType="ngModel"
+                    <select id="inputState" class="form-control " name="WorkType"  #workType="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && workType.invalid }" required  ngModel>
                         <option value="">סוג עבודה</option>
                         <option *ngFor="let workType of this.WorkType" value="{{workType.Guid}}">
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="form-outline d-flex justify-content-center ">
-                    <input type="number" id="FirstName" name="HoursActually" class="form-control"
+                    <input type="number" id="ActualTime" name="ActualTime" class="form-control"
                         placeholder="שעות בפועל" required ngModel  #HoursActually="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && HoursActually.invalid }" >
                 </div>
@@ -37,7 +37,7 @@
                     <span *ngIf="HoursActually.errors">שדה זה חובה</span>
                 </div>
                 <div class="form-outline d-flex justify-content-center">
-                    <select id="inputState" class="form-control"  name="billingHours"  #billingHours="ngModel" ngModel
+                    <select id="inputState" class="form-control"  name="BillableHours"  #billingHours="ngModel" ngModel
                     [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }" required >
                         <option value="">?האם שעות לחיוב</option>
                         <option value="1">כן </option>
@@ -48,7 +48,7 @@
                 <div *ngIf="f.submitted && billingHours.invalid" class="text-danger">
                     <span *ngIf="billingHours.errors">שדה זה חובה</span>
                 </div>
-                <div class="form-outline d-flex justify-content-center">
+                <!-- <div class="form-outline d-flex justify-content-center">
                     <select id="inputState" class="form-control" ngModel name="SourceTask"   #SourceTask="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && SourceTask.invalid }" required>
                         <option value="">סוג עבודה</option>
@@ -56,15 +56,15 @@
                             {{MyTask.Subject}}
                         </option>
                     </select>
-                </div>
-                <div *ngIf="f.submitted && SourceTask.invalid" class="text-danger">
+                </div> -->
+                <!-- <div *ngIf="f.submitted && SourceTask.invalid" class="text-danger">
                     <span *ngIf="SourceTask.errors">שדה זה חובה</span>
-                </div>
+                </div> -->
                 <div class="form-outline d-flex justify-content-center">
-                    <select id="inputState" class="form-control " ngModel name="project" #project="ngModel"
+                    <select id="inputState" class="form-control " ngModel name="Project" #project="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" required>
                     
-                        <option value=""> לגבי</option>
+                        <option value=""> פרוייקט</option>
                         <option *ngFor="let project of this.Project" value="{{project.Guid}}">
                             {{project.Name}}
                         </option>
