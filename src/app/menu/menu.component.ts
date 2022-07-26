@@ -148,13 +148,10 @@ export class MenuComponent implements OnInit {
   goTochart = false;
   IfStartPouse!: boolean;
   IfClosePouse!: boolean;
-<<<<<<< HEAD
   workTypeArr: any;
   todayDate:any;
   myDate=new Date()
-=======
   DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
->>>>>>> 8be278617c784d568ec6e8a7d70019b7276f9027
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -270,7 +267,6 @@ export class MenuComponent implements OnInit {
     )
   }
 
-<<<<<<< HEAD
   GetWorkType()
   {
     this.userService.GetWorkType().subscribe(
@@ -282,7 +278,6 @@ export class MenuComponent implements OnInit {
         console.log(err.error)
     )
   }
-=======
   GetDailyWorkingHoursAndMonthlyWorkingHours(){
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid).subscribe(
@@ -294,7 +289,6 @@ export class MenuComponent implements OnInit {
       }, err => {
         console.log(err.error)
         //     this.tableMyTaskOpen1 = false;
->>>>>>> 8be278617c784d568ec6e8a7d70019b7276f9027
 
       }
     )
