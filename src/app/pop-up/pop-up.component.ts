@@ -11,7 +11,7 @@ export class PopUpComponent implements OnInit {
   isClose!:boolean
   @Input()text!:string;
   @Input()ifX!:boolean;
-   @Input() hideButton!: any; 
+  @Input() hideButton!: any; 
   @Input() textButtonBack:any;
 
   

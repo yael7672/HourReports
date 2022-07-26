@@ -19,6 +19,10 @@ export class UserServiceService {
   GetMyTask(SystemGuid: string) {
     return this.http.get<any>(environment.url + '/GetTask/?SystemGuid=' + SystemGuid)
   }
+  GetDailyWorkingHoursAndMonthlyWorkingHours(SystemGuid: string){
+    return this.http.get<any>(environment.url + '/GetDailyWorkingHoursAndMonthlyWorkingHours/?SystemGuid=' + SystemGuid)
+
+  }
   async AddNewTask(TaskObj: any) {
     return await this.http.post<string>(environment.url + '/AddNewTask', TaskObj).toPromise();
   }
