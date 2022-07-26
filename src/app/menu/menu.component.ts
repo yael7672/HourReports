@@ -17,6 +17,7 @@ import { PauseWorkComponent } from '../pause-work/pause-work.component';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AttributeMarker } from '@angular/compiler/src/core';
+import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorkingHours';
 
 
 @Component({
@@ -147,6 +148,7 @@ export class MenuComponent implements OnInit {
   goTochart = false;
   IfStartPouse!: boolean;
   IfClosePouse!: boolean;
+  DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -208,6 +210,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.arrFunc);
     this.GetMyTask();
+    this.GetDailyWorkingHoursAndMonthlyWorkingHours()
     this.GetProject();
     this.GetTaskForMyTeams();
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -259,7 +262,21 @@ export class MenuComponent implements OnInit {
     )
   }
 
+  GetDailyWorkingHoursAndMonthlyWorkingHours(){
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+          this.DailyAndMonthlyWorkingHours = res;
+          console.log(this.taskArr);
+        }
+      }, err => {
+        console.log(err.error)
+        //     this.tableMyTaskOpen1 = false;
 
+      }
+    )
+  }
   openPopUp(data: string, type: boolean) {
     if (data == 'pause') {
       if (localStorage.getItem('TaskGuid')) {

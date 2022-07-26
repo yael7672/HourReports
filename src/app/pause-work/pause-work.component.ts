@@ -60,7 +60,7 @@ export class PauseWorkComponent implements OnInit {
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
     console.log(this.workTimeHour);
-      this.ifX = false
+      //this.ifX = false
       this.ContinueToBePause()
     
   }
@@ -199,6 +199,7 @@ export class PauseWorkComponent implements OnInit {
   }
   ContinueToBePause() {
     if (localStorage.getItem("WorkTimePause")) {
+      this.ifX=false
       this.interval = setInterval(() => {
         this.GetProjectContentItemByGuid()
       }, 1000)

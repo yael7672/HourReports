@@ -10,19 +10,25 @@
     </a>
     <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
     <a (click)="GoToStatisticsGraph()"><i [ngClass]="{'goTochart':goTochart}" class="fa fa-bar-chart" aria-hidden="true"></i>   </a>
- 
+    <a (click)="openPopUp('pause',true)"><i class="fa fa-vecation"></i></a>
+
   </div>
 
 
 
   <p class="p-of-title ">דיווחי שעות </p>
-  <div class="aImg2">
+  <div class="aImg2"> 
+    <div class="DailyAndMonthlyWorkingHoursC"> 
+     <h6>סה"כ שעות עבודה להיום:{{DailyAndMonthlyWorkingHours.DailyWorkingHours |number}}</h6>
+    <h6>סה"כ שעות עבודה לחודש זה:{{DailyAndMonthlyWorkingHours.MonthlyWorkingHours |number}}</h6>
+    </div> 
     <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
     <a (click)="ClickPersonalDetails()" (mouseover)="mouseOvePersonalDetails()"
       (mouseleave)="mouseLeavePersonalDetails()">
       <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
         class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
     </a>
+
   </div>
 </div>
 
@@ -217,7 +223,7 @@
 </div>
 
 <div *ngIf="isPopUpOpen?.pause">
-  <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime">
+  <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime" > 
   </app-pause-work>
 </div>
 

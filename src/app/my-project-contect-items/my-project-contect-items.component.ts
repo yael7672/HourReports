@@ -62,7 +62,7 @@ export class MyProjectContectItemsComponent implements OnInit {
         const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
         const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
         
-        return ((sortValueTimestampA?sortValueTimestampA:new Date()) <  (sortValueTimestampB?sortValueTimestampB:new Date()) ? 1 : -1)
+        return ((sortValueTimestampA?sortValueTimestampA:new Date()) >  (sortValueTimestampB?sortValueTimestampB:new Date()) ? 1 : -1)
       })
     }
   

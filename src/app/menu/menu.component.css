@@ -1,7 +1,16 @@
 .card-title {
     text-align: center;
 }
+.DailyAndMonthlyWorkingHoursC{
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  direction: rtl;
 
+}
+.DailyAndMonthlyWorkingHoursC h6{
+    font-size: medium;
+}
 .p-of-title {
     text-align: center;
     color: rgba(6, 6, 19, 0.795);
