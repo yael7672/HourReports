@@ -437,6 +437,7 @@ export class MenuComponent implements OnInit {
           this.tableSpecificTaskOpen = false;
     
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
+
             this.popUpService.SetProjectContentItemByTaskGuid(true)
           }
       },
@@ -702,6 +703,7 @@ export class MenuComponent implements OnInit {
       this.tableMyTaskOpen = false;
       this.tableMyTaskTeamsOpen = false;
       this.ifThereAreTasks = false;
+      this.openMyProjectContectItem=false;
     }
   }
   GoToHome() {
@@ -765,13 +767,12 @@ export class MenuComponent implements OnInit {
     console.log(timestampNow);
     console.log(timestampCreatOn);
     this.Time = timestampNow - timestampCreatOn;
-    return this.datePipe.transform(this.Time, 'HH:mm:ss');
+    return this.datePipe.transform(this.Time, 'HH:mm:ss',"+0000");
 
   }
   setWorkTime(res: any) {
     this.workTime = this.convertTimeStempToTime(res)
     console.log(this.workTime);
-
   }
 }
 
