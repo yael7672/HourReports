@@ -343,10 +343,9 @@ export class MenuComponent implements OnInit {
         localStorage.setItem("DateNow", a.toString());
         this.ContinueToWorkOnATask();
         this.massageFromServer = res;
-
-        // this.popUpService.SetGetProjectContentItemByTaskGuid()
-
         this.popUpService.SetProjectContentItemByTaskGuid(true)
+        this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+
       }
     }, err => {
       console.log(err.error);
@@ -383,6 +382,7 @@ export class MenuComponent implements OnInit {
             swal(this.massageFromServer);
             this.workTime = ["00:00:00"];
             this.popUpService.SetProjectContentItemByTaskGuid(true)
+            this.popUpService.SetWorkTimeAfterProjectContectItem(true)
           }
         },
         err => {
@@ -428,7 +428,9 @@ export class MenuComponent implements OnInit {
           this.popUpService.SetProjectContentItemByTaskGuid(true);
           this.popUpService.setAllmyTask(true);
 
-        }
+            this.popUpService.SetProjectContentItemByTaskGuid(true)
+            this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+          }
       },
       err => {
         console.log(err.error);

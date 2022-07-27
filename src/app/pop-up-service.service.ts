@@ -14,6 +14,7 @@ export class PopUpServiceService {
   private refreshGetAllMyTask$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private ifStartPouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private ifClosePouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private WorkTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 
@@ -78,5 +79,13 @@ export class PopUpServiceService {
   }
   GetIfClosePouse() {
     return this.ifClosePouse$;
+  }
+  SetWorkTimeAfterProjectContectItem(val:boolean)
+  {
+    this.WorkTime$.next(val)
+  }
+  GetWorkTimeAfterProjectContectItem()
+  {
+    return this.WorkTime$;
   }
 }
