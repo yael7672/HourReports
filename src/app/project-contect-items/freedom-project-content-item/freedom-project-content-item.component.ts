@@ -59,6 +59,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
         this.massage = res;
         swal(this.massage)
         this.popUpService.setAllmyProjectContectItem(true)
+        this.popUpService.SetWorkTimeAfterProjectContectItem(true)
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },

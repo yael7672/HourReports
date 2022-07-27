@@ -56,6 +56,7 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
         this.massage = res;
         swal('!פריט תכולת פרוייקט נוצר בהצלחה')
         this.popUpService.setAllmyProjectContectItem(true)
+        this.popUpService.SetWorkTimeAfterProjectContectItem(true)
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },

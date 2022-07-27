@@ -169,6 +169,9 @@ export class MenuComponent implements OnInit {
     this.popUpService.getAllmyProjectContectItem().subscribe(res => {
       this.GetMyProjectContectItem(1)
     })
+    this.popUpService.GetWorkTimeAfterProjectContectItem().subscribe(res => {
+      this.GetDailyWorkingHoursAndMonthlyWorkingHours()
+    })
     this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
       this.TaskGuidFromLS = localStorage.getItem("TaskGuidOfProjectContectItem")
       this.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
@@ -221,7 +224,7 @@ export class MenuComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.GetMyProjectContectItem("2")
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
-    if(localStorage.getItem("WorkTimePause"))
+    if(localStorage.getItem("DateNowPause"))
     {
       this.openPopUp('pause',true)
       // this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
@@ -288,8 +291,6 @@ export class MenuComponent implements OnInit {
         }
       }, err => {
         console.log(err.error)
-        //     this.tableMyTaskOpen1 = false;
-
       }
     )
   }
@@ -453,7 +454,7 @@ export class MenuComponent implements OnInit {
           this.tableSpecificTaskOpen = false;
     
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
-
+          this.popUpService.setAllmyTask(true)
             this.popUpService.SetProjectContentItemByTaskGuid(true)
             this.popUpService.SetWorkTimeAfterProjectContectItem(true)
           }
