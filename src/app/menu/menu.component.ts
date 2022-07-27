@@ -140,24 +140,23 @@ export class MenuComponent implements OnInit {
   projectContectItemGuid = "";
   ProjectContentItemCreatedDate!: any;
   Time: any;
-  ifInTheMiddleOfABreak:any;
+  ifInTheMiddleOfABreak: any;
   projectContectItemGuidForLoclStorage: any;
   isgetAllTask: any;
   TaskGuidFromLS: any
   goToHome = false;
-  goTochart = false;
+  goToChart = false;
   IfStartPouse!: boolean;
   IfClosePouse!: boolean;
   workTypeArr: any;
-  todayDate:any;
-  myDate=new Date()
+  todayDate: any;
+  myDate = new Date()
   DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
-      this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-
+    this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
@@ -172,7 +171,6 @@ export class MenuComponent implements OnInit {
     this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
       this.TaskGuidFromLS = localStorage.getItem("TaskGuidOfProjectContectItem")
       this.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
-    //localStorage.removeItem('TaskGuidOfProjectContectItem')
     })
     this.appService.getIsSelectedTask().subscribe(res => {
       this.descriptionPanel = res;
@@ -221,13 +219,10 @@ export class MenuComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.GetMyProjectContectItem("2")
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
-    if(localStorage.getItem("WorkTimePause"))
-    {
-      this.openPopUp('pause',true)
-      // this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
+    if (localStorage.getItem("WorkTimePause")) {
+      this.openPopUp('pause', true)
     }
-    if(localStorage.getItem('DateNow'))
-    {
+    if (localStorage.getItem('DateNow')) {
       this.ContinueToWorkOnATask();
     }
   }
@@ -243,8 +238,7 @@ export class MenuComponent implements OnInit {
         }
       }, err => {
         console.log(err.error)
-        // this.tableMyTaskTeamsOpen1 = false;
-        // this.tableMyTaskTeamsOpen=false;
+
       }
     )
   }
@@ -261,14 +255,12 @@ export class MenuComponent implements OnInit {
         }
       }, err => {
         console.log(err.error)
-        //     this.tableMyTaskOpen1 = false;
 
       }
     )
   }
 
-  GetWorkType()
-  {
+  GetWorkType() {
     this.userService.GetWorkType().subscribe(
       (res: any) => {
         this.workTypeArr = res;
@@ -278,7 +270,7 @@ export class MenuComponent implements OnInit {
         console.log(err.error)
     )
   }
-  GetDailyWorkingHoursAndMonthlyWorkingHours(){
+  GetDailyWorkingHoursAndMonthlyWorkingHours() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid).subscribe(
       res => {
@@ -323,6 +315,10 @@ export class MenuComponent implements OnInit {
     clearInterval(this.interval);
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
     this.tableSpecificTaskOpen = true;
+    this.goToHome = true;
+    this.goToChart = true;
+
+
     this.tableMyTaskOpen = false;
     this.tableMyTaskTeamsOpen = false;
     this.tableLastTaskIWorkedOn = false;
@@ -332,7 +328,6 @@ export class MenuComponent implements OnInit {
     localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
     localStorage.setItem('TaskGuidOfProjectContectItem', this.taskListDataDetails.TaskGuid);
-   
     this.systemGuid = localStorage.getItem('systemGuid');
     if (this.taskListDataDetails.OwnerId.Guid == this.systemGuid.toLowerCase()) {
       this.IftaskForTeam = false;
@@ -344,7 +339,7 @@ export class MenuComponent implements OnInit {
       if (res) {
         this.projectContectItemGuid = res;
         localStorage.setItem("projectContectItemGuid", this.projectContectItemGuid);
-        let a = Date.now()
+        let a = Date.now();
         localStorage.setItem("DateNow", a.toString());
         this.ContinueToWorkOnATask();
         this.massageFromServer = res;
@@ -358,25 +353,8 @@ export class MenuComponent implements OnInit {
     })
 
   }
-  transformNumber(value: number) {
-    var sec_num = value;
-    var hours = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = sec_num - (hours * 3600) - (minutes * 60);
-    return [hours, minutes, seconds]
-  }
-  SelectedStartPause() {
-    this.interval = setInterval(() => {
-      if (this.seconds === 0) {
-        this.seconds++;
-      }
-      else {
-        this.seconds++;
-      }
-      this.workTime = this.transformNumber(this.seconds)
-      //   localStorage.setItem('workTime', this.workTime)
-    }, 1000)
-  }
+
+  
 
   SelectedStop(time: any) {
     localStorage.removeItem('TaskGuid');
@@ -413,9 +391,6 @@ export class MenuComponent implements OnInit {
       )
     }
   }
-
-
-
   SelectedEnd(time: any) {
     localStorage.removeItem('TaskGuid');
     localStorage.removeItem('TaskGuidTosend');
@@ -423,12 +398,9 @@ export class MenuComponent implements OnInit {
 
     localStorage.removeItem("DateNow")
 
-    if (time.worktime != "00:00:00") {
+    if (time.worktime != "00:00:00" && time.worktime != "") {
       this.timetoSend = time.worktime.split(':');
-
-      // this.seconds = 0;
       clearInterval(this.interval);
-      // this.workTime = time;
       if (this.timetoSend[2] > 30) {
         this.timetoSend[1] += 1;
       }
@@ -447,21 +419,21 @@ export class MenuComponent implements OnInit {
     this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
       res => {
         if (res) {
-          this.massageFromServer = res; 
-     
+          this.massageFromServer = res;
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
-    
+          this.goToHome = false;
+          this.goToChart = false;
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
+          this.popUpService.SetProjectContentItemByTaskGuid(true);
+          this.popUpService.setAllmyTask(true);
 
-            this.popUpService.SetProjectContentItemByTaskGuid(true)
-          }
+        }
       },
       err => {
         console.log(err.error);
       }
     )
-
   }
   AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any, massageFromServerUpdate: any) {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -492,7 +464,6 @@ export class MenuComponent implements OnInit {
       }
     )
   }
-
 
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
@@ -561,6 +532,9 @@ export class MenuComponent implements OnInit {
     if (this.workTime == "00:00:00" || this.workTime == "") {
       this.tableMyTaskOpen = true;
       this.tableSpecificTaskOpen = false;
+      this.goToHome = false;
+      this.goToChart = false;
+
     }
     else {
       this.showMassgeToUser = true;
@@ -570,6 +544,9 @@ export class MenuComponent implements OnInit {
     if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
       this.tableMyTaskOpen = true;
       this.tableSpecificTaskOpen = false;
+      this.goToHome = false;
+      this.goToChart = false;
+
       this.showMassgeToUser = false;
       this.SelectedStop(this.workTime)
     }
@@ -582,14 +559,9 @@ export class MenuComponent implements OnInit {
       this.taskListDataDetailsFromLocalStoeage = localStorage.getItem('taskListDataDetails')
       this.taskListDataDetailsFromLocalStoeageParse = JSON.parse(this.taskListDataDetailsFromLocalStoeage)
       this.taskListDataDetails = this.taskListDataDetailsFromLocalStoeageParse;
-      // this.a = localStorage.getItem('workTime');
-      // this.workTime = JSON.parse(this.a);
-
-      // let hours = Number(this.workTime[0]) / 3600; // get hours
-      // let minutes = Number(this.workTime[1]) - (hours * 3600) / 60; // get minutes
-      // let seconds = Number(this.workTime[2]) + (hours * 3600) + (minutes * 60);
-      // this.ContinueToWorkOnATask()
       this.tableSpecificTaskOpen = true;
+      this.goToHome = true;
+      this.goToChart = true;
 
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
@@ -606,8 +578,6 @@ export class MenuComponent implements OnInit {
       }
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
-      // this.ab = localStorage.getItem(("WorkTimePause"))
-      // this.workTimeHourLSJ = JSON.parse(this.ab)
       let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.router, this.appService, this.popUpService, this.buttonWorkingTaskService)
       myCompPause.clickYes(localStorage.getItem('WorkTimePause'))
 
@@ -621,6 +591,10 @@ export class MenuComponent implements OnInit {
       this.showMassgeToUser = false;
       this.tableMyTaskOpen = false;
       this.tableSpecificTaskOpen = true;
+      this.goToHome = true;
+      this.goToChart = true;
+
+
     }
     else {
       if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
@@ -660,27 +634,25 @@ export class MenuComponent implements OnInit {
   BackToMyTask() {
     this.tableMyTaskOpen = true;
     this.tableSpecificTaskOpen = false;
+    this.goToHome = false;
+    this.goToChart = false;
+
 
   }
   CheckWhetherInTheMiddleOfWorkOnaTask() {
     if (localStorage.getItem('TaskGuid')) {
       this.taskGuidFromLocalStorage = localStorage.getItem('TaskGuid')
       this.taskNameFromLocalStorage = localStorage.getItem('TaskName')
-      //  this.showMassgeToUserIfInTheMiddleOfWorkOnATask = true;
       this.clickYes("kindOfMassageifInTheMiddleOfWorkOnATask")
     }
   }
   ContinueToWorkOnATask() {
-
     this.getCreatedProjectContentItemFromLoaclStorage();
     this.interval = setInterval(() => {
       if (this.workTime) {
         this.getCreatedProjectContentItemFromLoaclStorage();
       }
-      else {
-      }
     }, 1000)
-
   }
   WhichTableOpen(val: any) {
     this.ifThereAreTasks = false;
@@ -719,14 +691,13 @@ export class MenuComponent implements OnInit {
       this.tableMyTaskOpen = false;
       this.tableMyTaskTeamsOpen = false;
       this.ifThereAreTasks = false;
-      this.openMyProjectContectItem=false;
+      this.openMyProjectContectItem = false;
     }
   }
   GoToHome() {
     if (!this.tableSpecificTaskOpen) {
       this.showstatiSticsGraph = false;
       this.openMyProjectContectItem = false;
-
       this.tableMyTaskOpen = true;
     }
   }
@@ -757,7 +728,6 @@ export class MenuComponent implements OnInit {
           this.showMassegeNoProjectContectItem = true
         }
         console.log("MyProjectContectItemArr" + this.MyProjectContectItemArr);
-
       }
     },
       err => {
@@ -772,7 +742,6 @@ export class MenuComponent implements OnInit {
     })
   }
   getCreatedProjectContentItemFromLoaclStorage() {
-    this.projectContectItemGuidForLoclStorage = localStorage.getItem('projectContectItemGuid')
     if (localStorage.getItem('DateNow')) {
       this.setWorkTime(localStorage.getItem('DateNow'))
     }
@@ -783,7 +752,7 @@ export class MenuComponent implements OnInit {
     console.log(timestampNow);
     console.log(timestampCreatOn);
     this.Time = timestampNow - timestampCreatOn;
-    return this.datePipe.transform(this.Time, 'HH:mm:ss',"+0000");
+    return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
 
   }
   setWorkTime(res: any) {

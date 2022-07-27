@@ -34,23 +34,17 @@
       <h4 header class="mb-4"> עדכון פריט תכולת פרוייקט </h4>
       <div body>
         <form (ngSubmit)="UpdateProjectItemButton()" #f="ngForm">
+          <p>תאור המשימה:</p>
           <div class="form-outline d-flex justify-content-center ">
             <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
-              class="form-control textarea" placeholder="תאור המשימה" [(ngModel)]="ProjectContentItem.Description"
+              class="form-control textarea"  [(ngModel)]="ProjectContentItem.Description"
               [ngModelOptions]="{standalone: true}" ngModel required>
             </textarea>
           </div>
+          <p>שעות בפועל:</p>
           <input type="number" id="HoursActually" name="HoursActually" class="form-control" placeholder="שעות בפועל"
             [(ngModel)]="ProjectContentItem.WorkingHours" [ngModelOptions]="{standalone: true}" ngModel
             #HoursActually="ngModel" required>
-          <!-- <div class="form-outline d-flex justify-content-center">
-      <select id="BillingHours" class="form-control" name="BillingHours" #billingHours="ngModel" ngModel>
-        <option value="">?האם שעות לחיוב</option>
-        <option value="1">כן </option>
-        <option value="2">לא </option>
-        <option value="970140002">אחר </option>
-      </select>
-    </div> -->
           <button type="submit" class="btn"> עדכן פריט תכולת פרוייקט </button>
         </form>
       </div>

@@ -25,7 +25,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
   massage = ""
   isChecked!: boolean;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService,
-    private datepipe:DatePipe) { }
+    private datepipe: DatePipe) { }
   ngOnInit(): void {
   }
   checkValue(val: any) {
@@ -43,18 +43,17 @@ export class FreedomProjectContentItemComponent implements OnInit {
     if (form.value.BillableHours == "")
       form.value.BillableHours = "2";
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') }
-    if(this.isChecked)
-    {
-      form.value.fromDate=this.datepipe.transform(form.value.fromDate, 'dd/MM/yyyy')
-      form.value.untilDate=this.datepipe.transform( form.value.untilDate, 'dd/MM/yyyy')
-    }else{
-      form.value.fromDate=this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
-      form.value.untilDate=this.datepipe.transform( form.value.oneDate, 'dd/MM/yyyy')
+    if (this.isChecked) {
+      form.value.fromDate = this.datepipe.transform(form.value.fromDate, 'dd/MM/yyyy')
+      form.value.untilDate = this.datepipe.transform(form.value.untilDate, 'dd/MM/yyyy')
+    } else {
+      form.value.fromDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+      form.value.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     }
-    
 
-      console.log(form.value);
-    this.userService.CreateNewProjectItem(form.value,form.value.fromDate,form.value.untilDate).subscribe(
+
+    console.log(form.value);
+    this.userService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe(
       (res) => {
         this.massage = res;
         swal(this.massage)

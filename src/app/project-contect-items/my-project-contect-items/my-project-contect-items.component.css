@@ -1,5 +1,9 @@
-button{
+.edit-button{
   border-color: white;
   background-color: white;
   border: none;
+}
+p {
+  margin: 0;
+  text-align: right;
 }

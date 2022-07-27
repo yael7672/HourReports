@@ -105,6 +105,10 @@ body {
 {
   font-weight: bold;
 }
+p {
+  margin: 0;
+  text-align: right;
+}
 /* input{
   border-color: white;
   background-color: white;

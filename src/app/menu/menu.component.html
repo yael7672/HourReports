@@ -9,7 +9,7 @@
     <a (click)="openPopUp('MyprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
     </a>
     <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
-    <a (click)="GoToStatisticsGraph()"><i [ngClass]="{'goTochart':goTochart}" class="fa fa-bar-chart" aria-hidden="true"></i>   </a>
+    <a (click)="GoToStatisticsGraph()"><i [ngClass]="{'goTochart':goToChart}" class="fa fa-bar-chart" aria-hidden="true"></i>   </a>
     <a (click)="openPopUp('sickLeave',true)"><i class="iconify" data-icon="ic:outline-sick"></i>
     </a>
     <a (click)="openPopUp('Freedom',true)"><i class="iconify" data-icon="iconoir:sea-and-sun"></i>
@@ -21,8 +21,8 @@
   <p class="p-of-title ">דיווחי שעות </p>
   <div class="aImg2"> 
     <div class="DailyAndMonthlyWorkingHoursC"> 
-     <h6>סה"כ שעות עבודה להיום:{{DailyAndMonthlyWorkingHours.DailyWorkingHours |number}}</h6>
-    <h6>סה"כ שעות עבודה לחודש זה:{{DailyAndMonthlyWorkingHours.MonthlyWorkingHours |number}}</h6>
+     <h6>סה"כ שעות עבודה להיום:{{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</h6>
+    <h6>סה"כ שעות עבודה לחודש זה:{{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</h6>
     </div> 
     <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
     <a (click)="ClickPersonalDetails()" (mouseover)="mouseOvePersonalDetails()"
@@ -231,7 +231,7 @@
 </div>
 
 <div *ngIf="isPopUpOpen?.pause">
-  <app-pause-work [buttonEnd]="endButton" (ClickStartPause)="SelectedStartPause()" [workTime]="workTime" > 
+  <app-pause-work [buttonEnd]="endButton" [workTime]="workTime" > 
   </app-pause-work>
 </div>
 

@@ -18,10 +18,11 @@
                     </div>
                   </ng-container>
                   <ng-container *ngIf="!showInputsDates">
-            <div class="form-outline d-flex justify-content-center">
-                <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
-                    placeholder=" תאריך " />
-            </div></ng-container>
+                    <div   class="form-outline d-flex justify-content-center">
+                        <input type="date" class="form-control" id="oneDate" name="oneDate" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+                              (ngModelChange)="dateTwo = $event">
+                    </div>
+                </ng-container>
             <p>נושא</p>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Name" name="Name" class="form-control" value="חופשת מחלה"
