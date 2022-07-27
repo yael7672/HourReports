@@ -1,0 +1,31 @@
+<app-pop-up #upPopUP [ifX]="ifX">
+    <h4 header class="mb-4">דיווחי שעות 
+        <!-- <img src="..\../assets/images/pathIcon2.jpg" alt="Card image cap"
+        class="image my-3" alt="profile"> -->
+        <!-- <i class="fa fa-coffee "></i> -->
+    </h4>
+    <div body>
+        <form (ngSubmit)="OpenPopUpIfCloseProjectcontectItemWithTimer()" #f=ngForm>
+            <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים </button>
+        </form>
+         <!-- <form >
+            <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים </button>
+        </form> -->
+       <div class="form-outline d-flex justify-content-center">
+            <button class="btn" *ngIf="!endButtonTimerContectProjectContectItem"  (click)="startTimeProjectContectItem()">התחל </button>
+            <p *ngIf="TimeProjectContectItem" class="Time">
+                {{TimeProjectContectItem}}
+            </p>
+        </div> 
+    </div>
+    <div footer>
+    </div>
+</app-pop-up>
+<div *ngIf="showMassgeToUserProjectContectItemWithTimer">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user [kindOfMassage]="projectContectItemByTimer" [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer" (clickYes)="clickYes(this.TimeProjectContectItem)"
+                (clickNo)="clickNo()" [ifButton]="true"></app-massge-to-user>
+        </div>
+    </app-pop-up>
+  </div>

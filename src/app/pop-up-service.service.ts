@@ -28,8 +28,7 @@ export class PopUpServiceService {
       Logout: type === 'Logout' ? data : false,
       sickLeave: type === 'sickLeave' ? data : false,
       Freedom: type === 'Freedom' ? data : false,
-
-      
+      timeOfProjectContectItem:type==='timeOfProjectContectItem'? data : false,
       // MyprojectContentItem:type === 'MyprojectContentItem' ? data : false,
       // UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
       ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,

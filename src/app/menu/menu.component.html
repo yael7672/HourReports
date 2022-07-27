@@ -14,6 +14,8 @@
     </a>
     <a (click)="openPopUp('Freedom',true)"><i class="iconify" data-icon="iconoir:sea-and-sun"></i>
     </a>
+    <a (click)="openPopUp('timeOfProjectContectItem',true)"><i class="iconify" data-icon="iconoir:sea-and-sun"></i>
+    </a>
   </div>
 
 
@@ -21,8 +23,8 @@
   <p class="p-of-title ">דיווחי שעות </p>
   <div class="aImg2"> 
     <div class="DailyAndMonthlyWorkingHoursC"> 
-     <h6>סה"כ ש"ע להיום:{{DailyAndMonthlyWorkingHours.DailyWorkingHours |number}}</h6>
-    <h6>סה"כ ש"ע לחודש זה:{{DailyAndMonthlyWorkingHours.MonthlyWorkingHours |number}}</h6>
+     <h6>סה"כ ש"ע להיום: {{DailyAndMonthlyWorkingHours.DailyWorkingHours |number}}</h6>
+    <h6>סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours.MonthlyWorkingHours |number}}</h6>
     </div> 
     <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
     <a (click)="ClickPersonalDetails()" (mouseover)="mouseOvePersonalDetails()"
@@ -33,7 +35,9 @@
 
   </div>
 </div>
-
+<div *ngIf="isPopUpOpen?.timeOfProjectContectItem">
+  <app-project-contect-item-with-time (OpenPopUpIfCloseTimerProjectContectItem)="OpenPopUpIfCloseTimerProjectContectItem()"[ifX]="ifX" [showMassgeToUserProjectContectItemWithTimer]="showMassgeToUserProjectContectItemWithTimer" [endButtonTimerContectProjectContectItem]="endButtonTimerContectProjectContectItem" [TimeProjectContectItem]="TimeProjectContectItemHour" (getStartTimer)="startTimerProjectContectItem()" ></app-project-contect-item-with-time>
+</div>
 <div class="menu" *ngIf="!openMyProjectContectItem">
   <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
     <div class="form-outline">

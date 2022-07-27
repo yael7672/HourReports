@@ -23,6 +23,11 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + '/GetDailyWorkingHoursAndMonthlyWorkingHours/?SystemGuid=' + SystemGuid)
 
   }
+  
+  CreateProjectContectItemWithTimer(SystemGuid: string){
+    return this.http.get<any>(environment.url + '/CreateProjectContectItemWithTimer/?SystemGuid=' + SystemGuid)
+
+  }
   async AddNewTask(TaskObj: any) {
     return await this.http.post<string>(environment.url + '/AddNewTask', TaskObj).toPromise();
   }

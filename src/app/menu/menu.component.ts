@@ -152,6 +152,11 @@ export class MenuComponent implements OnInit {
   todayDate: any;
   myDate = new Date()
   DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
+  ifX = true
+  TimeProjectContectItemHour: any;
+  projectContectItemByTimerGuid:any
+  endButtonTimerContectProjectContectItem!: boolean;
+  showMassgeToUserProjectContectItemWithTimer= false;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -223,9 +228,8 @@ export class MenuComponent implements OnInit {
     this.GetMyProjectContectItem("2")
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
 
-    if(localStorage.getItem("DateNowPause"))
-    {
-      this.openPopUp('pause',true)
+    if (localStorage.getItem("DateNowPause")) {
+      this.openPopUp('pause', true)
     }
     if (localStorage.getItem('DateNow')) {
       this.ContinueToWorkOnATask();
@@ -356,8 +360,6 @@ export class MenuComponent implements OnInit {
 
   }
 
-  
-
   SelectedStop(time: any) {
     localStorage.removeItem('TaskGuid');
     localStorage.removeItem('TaskName');
@@ -429,9 +431,9 @@ export class MenuComponent implements OnInit {
           this.goToChart = false;
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
           this.popUpService.setAllmyTask(true)
-            this.popUpService.SetProjectContentItemByTaskGuid(true)
-            this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-          }
+          this.popUpService.SetProjectContentItemByTaskGuid(true)
+          this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+        }
       },
       err => {
         console.log(err.error);
@@ -467,7 +469,6 @@ export class MenuComponent implements OnInit {
       }
     )
   }
-
   whichButtonChoose(val: any) {
     this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
   }
@@ -501,17 +502,6 @@ export class MenuComponent implements OnInit {
         console.log(err.error);
       })
   }
-  // onSearchProject(filterKey = "") {
-  //   console.log(filterKey);
-  //   this.taskArr = [...this.taskArrCopy];
-  //   this.projectArrName = this.projectArr.map(project => project.Name);
-  //   if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
-  //     this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
-  //   }
-  //   else {
-  //     this.taskArr = [...this.taskArrCopy];
-  //   }
-  // }
   onSearchProject(filterKey: any) {
     console.log(filterKey);
     if (this.tableMyTaskOpen == true) {
@@ -537,7 +527,6 @@ export class MenuComponent implements OnInit {
       this.tableSpecificTaskOpen = false;
       this.goToHome = false;
       this.goToChart = false;
-
     }
     else {
       this.showMassgeToUser = true;
@@ -549,7 +538,6 @@ export class MenuComponent implements OnInit {
       this.tableSpecificTaskOpen = false;
       this.goToHome = false;
       this.goToChart = false;
-
       this.showMassgeToUser = false;
       this.SelectedStop(this.workTime)
     }
@@ -596,8 +584,6 @@ export class MenuComponent implements OnInit {
       this.tableSpecificTaskOpen = true;
       this.goToHome = true;
       this.goToChart = true;
-
-
     }
     else {
       if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
@@ -625,22 +611,12 @@ export class MenuComponent implements OnInit {
   }
   mouseOvePersonalDetails() {
     this.openPersonalDetails = true;
-
   }
-  // formatter = (result: any) => result.Name;
-  // search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
-  //   text$.pipe(
-  //     debounceTime(200),
-  //     distinctUntilChanged(),
-  //     map(term => term === '' ? []
-  //       : this.projectArrName.filter((project: string) => project.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)))
   BackToMyTask() {
     this.tableMyTaskOpen = true;
     this.tableSpecificTaskOpen = false;
     this.goToHome = false;
     this.goToChart = false;
-
-
   }
   CheckWhetherInTheMiddleOfWorkOnaTask() {
     if (localStorage.getItem('TaskGuid')) {
@@ -762,6 +738,61 @@ export class MenuComponent implements OnInit {
     this.workTime = this.convertTimeStempToTime(res)
     console.log(this.workTime);
   }
+  startTimerProjectContectItem() {
+    this.ifX = false;
+    this.endButtonTimerContectProjectContectItem = true;
+    localStorage.setItem("endButtonTimerContectProjectContectItem", String(this.endButtonTimerContectProjectContectItem))
+    this.CreateProjectContectItemWithTimer();
+    // this.SelectedStartPause()
+  }
+  CreateProjectContectItemWithTimer() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.CreateProjectContectItemWithTimer(this.systemGuid).subscribe(
+      (res: any) => {
+        this.projectContectItemByTimerGuid = res;
+        console.log(this.projectContectItemByTimerGuid);
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+    let a = Date.now()
+    localStorage.setItem("DateNowProjectContectItemTimer", a.toString());
+    this.continueProjectContectItemWithTimer();
+  }
+  continueProjectContectItemWithTimer() {
+    this.getTimeProjectContentItemFromLoaclStorage();
+    this.interval = setInterval(() => {
+      if (this.TimeProjectContectItemHour) {
+        this.getTimeProjectContentItemFromLoaclStorage();
+      }
+      else {
+      }
+    }, 1000)
+  }
+  getTimeProjectContentItemFromLoaclStorage() {
+    if (localStorage.getItem('DateNowProjectContectItemTimer')) {
+      this.setWorkTimeProjectContectItemTimer(localStorage.getItem('DateNowProjectContectItemTimer'))
+    }
+  }
+  // convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
+  //   var timestampCreatOn = ProjectContentItemCreatedDate;
+  //   const timestampNow = Date.now();
+  //   console.log(timestampNow);
+  //   console.log(timestampCreatOn);
+  //   this.Time = timestampNow - timestampCreatOn;
+  //   return this.datePipe.transform(this.Time, 'HH:mm:ss',"+0000");
+
+  // }
+  setWorkTimeProjectContectItemTimer(res: any) {
+    this.TimeProjectContectItemHour = this.convertTimeStempToTime(res)
+    console.log(this.TimeProjectContectItemHour);
+  }
+  PauseTimerProjectContectItem(){
+   
+  } 
+  OpenPopUpIfCloseTimerProjectContectItem() {
+      this.showMassgeToUserProjectContectItemWithTimer = true;
+    }
 }
 
 

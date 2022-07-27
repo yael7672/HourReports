@@ -28,9 +28,6 @@ export class PauseWorkComponent implements OnInit {
   workTimeHour!: any
   descriptionPanel: any;
   interval: any;
-  minutes: number = 0;
-  seconds: number = 0;
-  hours: number = 0;
   endButton!: boolean
   timetoSend: any;
   parseTime: any;
@@ -86,20 +83,10 @@ export class PauseWorkComponent implements OnInit {
         localStorage.removeItem("DateNowPause") 
         this.endButton = false
         localStorage.setItem("endButton", String(this.endButton))
-        // this.workTime=["00:00:00"];
-        // let latest_date = this.datePipe.transform(workTime, 'HH:mm:ss');
-        // console.log(latest_date);
-        // this.workTimeHour = latest_date;
-        // localStorage.setItem('WorkTimePause', this.workTimeHour)
-        // localStorage.removeItem("WorkTimePause")
-        // localStorage.setItem("endButton", String(this.endButton))
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-
-        // localStorage.clear()
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
         if (this.taskGuid) {
-          // if (this.ifInMiddleTask == true) {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
@@ -113,11 +100,7 @@ export class PauseWorkComponent implements OnInit {
         alert("error")
     )
   }
-  SelectedStartPause() {
-    let a = Date.now()
-    localStorage.setItem("DateNowPause", a.toString());
-    this.continuePause();
-  }
+
   GetProjectContentItemByGuid() {
     this.ifInTheMiddleOfABreak = "true";
     localStorage.setItem('ifInTheMiddleOfABreak', this.ifInTheMiddleOfABreak)
@@ -146,7 +129,12 @@ export class PauseWorkComponent implements OnInit {
     this.CreatePauseWork();
     this.SelectedStartPause()
   }
-  OpenPopUpIfCloseTask() {
+    SelectedStartPause() {
+    let a = Date.now()
+    localStorage.setItem("DateNowPause", a.toString());
+    this.continuePause();
+  }
+  OpenPopUpIfClosePause() {
     this.showMassgeToUser = true;
   }
 
@@ -154,24 +142,16 @@ export class PauseWorkComponent implements OnInit {
       if (time.worktime != "" || time != null) {
         this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
         clearInterval(this.interval);
-        // this.seconds = 0;
         if (this.timetoSend[2] > 30) {
           this.timetoSend[1]++;
         }
         this.timetoSend[1] = (this.timetoSend[1] / 60)
         this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-        // this.isDisabledStart = false;
-        // this.isTaskAccomplished = false;
         if (this.parseTime == undefined) {
           this.parseTime = "";
         }
-      clearInterval(this.interval);
-      // this.seconds = 0;
-     
-
     }
-    this.endButton = false
-    
+    this.endButton = false 
     this.PauseWork(this.parseTime)
   }
   clickNo() {
@@ -189,7 +169,6 @@ export class PauseWorkComponent implements OnInit {
       (res: any) => {
         this.pauseGuid = res;
         localStorage.setItem('pauseGuid', this.pauseGuid)
-
       },
       (err: any) =>
         alert(err.error)
@@ -197,6 +176,7 @@ export class PauseWorkComponent implements OnInit {
   }
   ContinueToBePause() {
     // if (localStorage.getItem("WorkTimePause")) {
+      this.ifX=false
       this.getCreatedProjectContentItemFromLoaclStorage();
       this.interval = setInterval(() => {
         if (this.workTimeHour) {
@@ -205,13 +185,7 @@ export class PauseWorkComponent implements OnInit {
         else {
         }
       }, 1000)
-     //   this.ifX=false
-    //   this.interval = setInterval(() => {
-    //     this.GetProjectContentItemByGuid()
-    //   }, 1000)
-    // }
-   
-  // }
+
 }
 continuePause(){
   this.getCreatedProjectContentItemFromLoaclStorage();
