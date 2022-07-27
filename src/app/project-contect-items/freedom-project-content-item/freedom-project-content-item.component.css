@@ -1,0 +1,36 @@
+.text-danger {
+  font-size: 12px;
+  text-align: right;
+  position: relative;
+  top: -10px;
+
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+  text-align: right;
+}
+
+.input-group-addon {
+  padding: 0.5rem
+}
+.input-group{
+  direction: rtl;
+
+}
+.form-group {
+  margin-bottom: 1rem;
+  display: flex;
+  direction: rtl;
+}
+
+  input#fromDate {
+    width: 9rem;
+}
+input#untilDate {
+  width: 9rem;
+}
+label{
+  padding: 0.5rem
+}

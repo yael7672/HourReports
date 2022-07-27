@@ -148,11 +148,15 @@ export class MenuComponent implements OnInit {
   goTochart = false;
   IfStartPouse!: boolean;
   IfClosePouse!: boolean;
+  workTypeArr: any;
+  todayDate:any;
+  myDate=new Date()
   DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
+      this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
 
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
@@ -208,6 +212,7 @@ export class MenuComponent implements OnInit {
     })
   }
   ngOnInit(): void {
+    this.GetWorkType()
     console.log(this.arrFunc);
     this.GetMyTask();
     this.GetDailyWorkingHoursAndMonthlyWorkingHours()
@@ -262,6 +267,17 @@ export class MenuComponent implements OnInit {
     )
   }
 
+  GetWorkType()
+  {
+    this.userService.GetWorkType().subscribe(
+      (res: any) => {
+        this.workTypeArr = res;
+        console.log(this.workTypeArr);
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
   GetDailyWorkingHoursAndMonthlyWorkingHours(){
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid).subscribe(

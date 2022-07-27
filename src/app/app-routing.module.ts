@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateAprojectContentItemComponent } from './create-aproject-content-item/create-aproject-content-item.component';
+import { CreateAprojectContentItemComponent } from './project-contect-items/create-aproject-content-item/create-aproject-content-item.component';
 import { CreateNewTaskComponent } from './tasks/create-new-task/create-new-task.component';
 import { LoginComponent } from './login/login.component';
 import { MenuComponent } from './menu/menu.component';
@@ -14,6 +14,7 @@ import { PersonalDetailsComponent } from './personal-details/personal-details.co
 import { ChartsComponent } from './charts/charts.component';
 import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
 import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component';
+import { SickLeaveProjectContentItemComponent } from './project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'charts9', component: ChartsComponent },
   { path: 'StatisticsGraph', component: StatisticsGraphComponent },
   { path: 'ChartsMyTask', component: ChartsMyTaskComponent },
+  { path: 'sick', component: SickLeaveProjectContentItemComponent },
 
 
 ];

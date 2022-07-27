@@ -1,30 +1,29 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import  swal from 'sweetalert';
-import { AppService } from '../app-service.service';
-import { ProjectContentItem } from '../interfacees/project-content-item';
-import { PopUpServiceService } from '../pop-up-service.service';
-import { ProjectContentItemComponent } from '../project-content-item/project-content-item.component';
-import { UserServiceService } from '../user-service.service';
+import { AppService } from '../../app-service.service';
+import { ProjectContentItem } from '../../interfacees/project-content-item';
+import { PopUpServiceService } from '../../pop-up-service.service';
+import { UserServiceService } from '../../user-service.service';
 
 @Component({
-  selector: 'app-my-project-contect-items',
-  templateUrl: './my-project-contect-items.component.html',
-  styleUrls: ['./my-project-contect-items.component.css']
+  selector: 'app-project-content-item',
+  templateUrl: './project-content-item.component.html',
+  styleUrls: ['./project-content-item.component.css']
 })
-export class MyProjectContectItemsComponent implements OnInit {
+export class ProjectContentItemComponent implements OnInit {
   @Input() title!: string;
   @Input() thArr!: any;
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
-
   workingHours!: Number;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
-  myCompProjectItem = new ProjectContentItemComponent(this.userServiceService, this.appService, this.popUpService)
-  systemGuid: any;
   updateDetails = false;
   ProjectContentItem:any;
+  openCard=false;
+  openTable=true;
   // ProjectContentItem
   massageToUser="";
   ProjectItemToUpdate!: any;
@@ -36,10 +35,20 @@ export class MyProjectContectItemsComponent implements OnInit {
     })
 
   }
-  MyProjectContectItemArr!: ProjectContentItem[]
-
   ngOnInit(): void {
-    this.sortTableByDate()
+   this.sortTableByDate()
+  }
+  toTimestamp(sortValue: any) {
+    var datum = Date.parse(sortValue);
+    return datum / 1000;
+  }
+  sortTableByDate(){
+    this.tableData.sort((a: any, b: any) => {
+      const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
+      const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
+      
+      return ((sortValueTimestampA?sortValueTimestampA:"") <  (sortValueTimestampB?sortValueTimestampB:"") ? 1 : -1)
+    })
   }
   returnColDataByType(colData: any, tableDataKey: any) {
     if (tableDataKey && typeof tableDataKey === 'string') {
@@ -52,20 +61,6 @@ export class MyProjectContectItemsComponent implements OnInit {
       else return null;
     }
   }
- 
-    toTimestamp(sortValue: any) {
-      var datum = Date.parse(sortValue);
-      return datum / 1000;
-    }
-    sortTableByDate( ){
-      this.tableData.sort((a: any, b: any) => {
-        const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
-        const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
-        
-        return ((sortValueTimestampA?sortValueTimestampA:new Date()) >  (sortValueTimestampB?sortValueTimestampB:new Date()) ? 1 : -1)
-      })
-    }
-  
   EditProjectContentItemIcon(val: any) {
    
     this.updateDetails = true;
