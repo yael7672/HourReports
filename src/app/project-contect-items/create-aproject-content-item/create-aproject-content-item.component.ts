@@ -58,6 +58,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         this.ProjectContentItem = res;
         swal("!פריט תכולת פרויקט נוצר בהצלחה")
         this.popUpService.setAllmyProjectContectItem(true)
+        this.popUpService.SetWorkTimeAfterProjectContectItem(true)
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
