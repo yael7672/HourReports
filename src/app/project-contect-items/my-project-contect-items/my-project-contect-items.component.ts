@@ -77,7 +77,7 @@ export class MyProjectContectItemsComponent implements OnInit {
     this.ProjectItemToUpdate = {
       Guid: this.ProjectContentItem.Guid,
       Description:this.ProjectContentItem.Description,
-      ActualTime: this.ProjectContentItem.WorkingHours,
+      ActualTime: this.workingHours,
       //BillableHours:form.value.BillingHours
     }
     this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate ).subscribe(
@@ -86,6 +86,7 @@ export class MyProjectContectItemsComponent implements OnInit {
         swal(this.massageToUser)
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
+        this.popUpService.SetProjectContentItemByTaskGuid(true)
       },
       (err) =>
         alert("error")

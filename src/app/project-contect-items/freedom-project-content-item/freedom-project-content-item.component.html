@@ -63,3 +63,13 @@
     <div footer>
     </div>
 </app-pop-up>
+
+<div *ngIf="showMassgeToUser">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassage" [massgeUserHeader]="massgeUserHeader"
+          [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter"
+          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+      </div>
+    </app-pop-up>
+  </div>

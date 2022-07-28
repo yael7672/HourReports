@@ -11,7 +11,7 @@ export class MassgeToUserComponent implements OnInit {
   @Input() massgeUserBody1: any
   @Input() kindOfMassage: any;
   @Input() inputValue: any;
-  @Input()ifButton:any;
+  @Input() ifButton: any;
   @Output() clickYes = new EventEmitter<any>();
   @Output() clickNo = new EventEmitter<any>();
 
@@ -39,6 +39,11 @@ export class MassgeToUserComponent implements OnInit {
             if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
               this.clickYes.emit('kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite')
             }
+            else {
+              if (this.kindOfMassage == 'checkIfIsReportOnThisDate') {
+                this.clickYes.emit('checkIfIsReportOnThisDate');
+              }
+            }
           }
         }
       }
@@ -63,10 +68,14 @@ export class MassgeToUserComponent implements OnInit {
             if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
               this.clickNo.emit('kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite')
             }
+            else {
+              if (this.kindOfMassage == 'checkIfIsReportOnThisDate') {
+                this.clickNo.emit('checkIfIsReportOnThisDate')
+              }
           }
         }
       }
   }
 
 
-}
+}}

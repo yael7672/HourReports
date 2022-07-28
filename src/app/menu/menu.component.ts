@@ -147,6 +147,7 @@ export class MenuComponent implements OnInit {
   IfClosePouse!: boolean;
   workTypeArr: any;
   todayDate: any;
+  startWorkOfTask=false;
   myDate = new Date()
   DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
   constructor(public router: Router,
@@ -303,6 +304,8 @@ export class MenuComponent implements OnInit {
     else {
       if (data == 'MyprojectContentItem') {
         this.openMyProjectContectItem = true
+        this.showstatiSticsGraph = false;
+
         // this.appService.setIsPopUpOpen(true);
         // this.popUpService.setSpecificPopUp(type, data)
       }
@@ -331,6 +334,7 @@ export class MenuComponent implements OnInit {
     localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
     localStorage.setItem('TaskGuidOfProjectContectItem', this.taskListDataDetails.TaskGuid);
     this.systemGuid = localStorage.getItem('systemGuid');
+    this.startWorkOfTask=true;
     if (this.taskListDataDetails.OwnerId.Guid == this.systemGuid.toLowerCase()) {
       this.IftaskForTeam = false;
     }
@@ -361,7 +365,9 @@ export class MenuComponent implements OnInit {
     localStorage.removeItem('TaskGuid');
     localStorage.removeItem('TaskName');
     localStorage.getItem('TaskGuidToSend');
-    localStorage.removeItem("DateNow")
+    localStorage.removeItem("DateNow");
+    this.startWorkOfTask=false;
+
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
 
@@ -399,6 +405,7 @@ export class MenuComponent implements OnInit {
     localStorage.removeItem('TaskName');
 
     localStorage.removeItem("DateNow")
+    this.startWorkOfTask=false;
 
     if (time.worktime != "00:00:00" && time.worktime != "") {
       this.timetoSend = time.worktime.split(':');
@@ -676,13 +683,12 @@ export class MenuComponent implements OnInit {
     }
   }
   GoToStatisticsGraph() {
-    if (!this.tableSpecificTaskOpen) {
       this.showstatiSticsGraph = true;
       this.tableMyTaskOpen = false;
       this.tableMyTaskTeamsOpen = false;
       this.ifThereAreTasks = false;
       this.openMyProjectContectItem = false;
-    }
+      this.tableSpecificTaskOpen = false;
   }
   GoToHome() {
     this.showstatiSticsGraph = false;
@@ -709,9 +715,9 @@ export class MenuComponent implements OnInit {
     )
   }
 
-  GetMyProjectContectItem(selectedTime: any) {
+  GetMyProjectContectItem(selectedTime: any,fromDate="",untilDate="") {
     this.systemGuid = localStorage.getItem('systemGuid')
-    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime).subscribe(res => {
+    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime,fromDate,untilDate).subscribe(res => {
       if (res) {
         this.MyProjectContectItemArr = res;
         this.showMassegeNoProjectContectItem = false

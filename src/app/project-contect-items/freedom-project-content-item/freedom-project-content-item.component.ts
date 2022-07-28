@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { from } from 'rxjs';
 import { AppService } from 'src/app/app-service.service';
@@ -13,11 +13,12 @@ import swal from 'sweetalert';
   styleUrls: ['./freedom-project-content-item.component.css']
 })
 export class FreedomProjectContentItemComponent implements OnInit {
-
+  @Input() MyProjectContectItemArr!: any[];
   @Input() workType!: any[];
   @Input() myTask: any;
   @Input() project: any;
   @Input() todayDate: any;
+  @Output() GetMyProjectContectItem = new EventEmitter<any>();
   showInputsDates = false;
   dateOne: any;
   dateTwo: any;
@@ -25,41 +26,53 @@ export class FreedomProjectContentItemComponent implements OnInit {
   hoursActually = "9";
   massage = ""
   isChecked!: boolean;
-  ifBetweenDates=false;
+  ifBetweenDates = false;
+  fromDate: any;
+  untilDate: any
+  kindOfMassage = 'checkIfIsReportOnThisDate';
+  systemGuid: any;
+  showMassgeToUser = false;
+  massgeUserHeader = "!שים לב";
+  massgeUserBody = "קיימים דיווחים על התאריכים הנבחרים"
+  massgeUserFooter = "?האם ברצונך להמשיך"
+  projectContentItemToCreate: any;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService,
     private datepipe: DatePipe) { }
+
   ngOnInit(): void {
   }
   checkValue(val: any) {
     if (val == true) {
       this.showInputsDates = true;
-      this.ifBetweenDates=true
-    } else {
+      this.ifBetweenDates = true
+    }
+    else {
       this.showInputsDates = false;
-      this.ifBetweenDates=false;
+      this.ifBetweenDates = false;
 
     }
   }
   CreateNewFreedomProjectItem(form: NgForm) {
-    form.value.Name="יום חופש ";
-    if (form.value.WorkType == "")
+    form.value.Name = "יום חופש";
+    if(!form.value.ActualTime)
+    form.value.ActualTime="9"
       form.value.WorkType = { "Guid": "AA40AB76-520B-ED11-82E4-000D3ABEEDFD" }
-    if (form.value.Project == "")
       form.value.Project = { "Guid": "91510FCF-140B-ED11-82E4-000D3ABEE224" }
-    if (form.value.BillableHours == "")
       form.value.BillableHours = "2";
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') }
     if (this.isChecked) {
-      form.value.fromDate = this.datepipe.transform(form.value.fromDate, 'dd/MM/yyyy')
-      form.value.untilDate = this.datepipe.transform(form.value.untilDate, 'dd/MM/yyyy')
+      this.fromDate = this.datepipe.transform(form.value.fromDate, 'dd/MM/yyyy')
+      this.untilDate = this.datepipe.transform(form.value.untilDate, 'dd/MM/yyyy')
     } else {
-      form.value.fromDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
-      form.value.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+      this.fromDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+      this.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     }
-
-
-    console.log(form.value);
-    this.userService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe(
+    this.projectContentItemToCreate = form.value;
+    console.log(this.projectContentItemToCreate);
+    this.checkIfIsReportOnThisDate()
+  }
+  CreateNewProjectItem() {
+    this.userService.CreateNewProjectItem(this.projectContentItemToCreate, this.fromDate, this.untilDate).subscribe(
       (res) => {
         this.massage = res;
         swal(this.massage)
@@ -72,4 +85,36 @@ export class FreedomProjectContentItemComponent implements OnInit {
         swal(err.error)
     )
   }
+  clickYes(kindOfMassage: string) {
+    if (kindOfMassage = 'checkIfIsReportOnThisDate') {
+      this.CreateNewProjectItem()
+    }
+  }
+  clickNo(kindOfMassage: string) {
+    if (kindOfMassage = 'checkIfIsReportOnThisDate') {
+      this.showMassgeToUser = false;
+    }
+  }
+  checkIfIsReportOnThisDate() {
+    this.systemGuid = localStorage.getItem('systemGuid')
+    this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate).subscribe(res => {
+      if (res) {
+        this.MyProjectContectItemArr = res;
+        console.log(this.MyProjectContectItemArr);
+        if (this.MyProjectContectItemArr.length > 0) {
+          this.showMassgeToUser = true;
+        }
+        else {
+          this.CreateNewProjectItem()
+          this.showMassgeToUser = false;
+        }
+        console.log("MyProjectContectItemArr" + this.MyProjectContectItemArr);
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
+
+  }
+
 }

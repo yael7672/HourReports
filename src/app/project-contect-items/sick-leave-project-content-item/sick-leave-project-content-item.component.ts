@@ -21,10 +21,20 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   dateTwo: any;
   isChecked!: boolean;
   ifBetweenDates=false;
-  showInputsDates = false;
+  showInputsDates = false;  
+  kindOfMassage = 'checkIfIsReportOnThisDate';
   subjectTask = "חופשת מחלה"
   hoursActually = "9";
-  massage = ""
+  massage = "";
+  showMassgeToUser = false;
+  massgeUserHeader = "!שים לב";
+  massgeUserBody = "קיימים דיווחים על התאריכים הנבחרים";
+  massgeUserFooter = "?האם ברצונך להמשיך";
+  fromDate:any;
+  untilDate:any;
+  projectContentItemToCreate: any;
+  systemGuid: any;
+  MyProjectContectItemArr:any;
   constructor(private userService: UserServiceService, private datepipe: DatePipe, private appService: AppService, private popUpService: PopUpServiceService) { }
   ngOnInit(): void {
   }
@@ -40,23 +50,46 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   }
   CreateNewSickLeaveProjectItem(form: NgForm) {
     form.value.Name="חופשת מחלה";
-    if (form.value.WorkType == "")
+    if(!form.value.ActualTime)
+    form.value.ActualTime="9"
+
       form.value.WorkType = { "Guid": "DDB877AB-440B-ED11-82E4-000D3ABEE42C" }
-    if (form.value.Project == "")
       form.value.Project = { "Guid": "27481F75-440B-ED11-82E4-000D3ABEE42C" }
-    if (form.value.BillableHours == "")
       form.value.BillableHours = "2";
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') }
     if (this.isChecked) {
-      form.value.fromDate = this.datepipe.transform(form.value.fromDate, 'dd/MM/yyyy')
-      form.value.untilDate = this.datepipe.transform(form.value.untilDate, 'dd/MM/yyyy')
+      this.fromDate = this.datepipe.transform(form.value.fromDate, 'dd/MM/yyyy')
+     this.untilDate = this.datepipe.transform(form.value.untilDate, 'dd/MM/yyyy')
     }
     else {
-      form.value.fromDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
-      form.value.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+      this.fromDate= this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+      this.untilDate  = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     }
-    console.log(form.value);
-    this.userService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe(
+    this.projectContentItemToCreate = form.value;
+    this.checkIfIsReportOnThisDate()
+  }
+  checkIfIsReportOnThisDate() {
+    this.systemGuid = localStorage.getItem('systemGuid')
+    this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate).subscribe(res => {
+      if (res) {
+        this.MyProjectContectItemArr = res;
+        console.log(this.MyProjectContectItemArr);
+        if (this.MyProjectContectItemArr.length > 0) {
+          this.showMassgeToUser = true;
+        }
+        else {
+          this.CreateNewProjectItem()
+          this.showMassgeToUser = false;
+        }
+        console.log("MyProjectContectItemArr" + this.MyProjectContectItemArr);
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
+  }
+  CreateNewProjectItem() {
+    this.userService.CreateNewProjectItem(this.projectContentItemToCreate, this.fromDate, this.untilDate).subscribe(
       (res) => {
         this.massage = res;
         swal(this.massage)
@@ -69,11 +102,14 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
         swal(err.error)
     )
   }
-
-
+  clickYes(kindOfMassage: string) {
+    if (kindOfMassage = 'checkIfIsReportOnThisDate') {
+      this.CreateNewProjectItem()
+    }
+  }
+  clickNo(kindOfMassage: string) {
+    if (kindOfMassage = 'checkIfIsReportOnThisDate') {
+      this.showMassgeToUser = false;
+    }
+  }
 }
-  //  OwnerId: { "Guid": localStorage.getItem('systemGuid') },
-  //     Name: form.value.Subject,
-  //     Project: { "Guid": this.projectGuid },
-  //     CustomTask: { "TaskGuid": this.taskGuid },
-  //     WorkType: { "Guid": this.workTypeGuid },

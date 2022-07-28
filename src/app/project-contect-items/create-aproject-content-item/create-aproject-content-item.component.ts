@@ -43,11 +43,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   CreateNewProjectItem(form: NgForm) {
-    // this.taskGuid = form.value.SourceTask.toUpperCase()
-    // this.projectGuid = form.value.project.toUpperCase()
-    // this.workTypeGuid = form.value.workType.toUpperCase()
-
-
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
       form.value.Project = { "Guid": form.value.Project },
       form.value.WorkType = { "Guid": form.value.WorkType }

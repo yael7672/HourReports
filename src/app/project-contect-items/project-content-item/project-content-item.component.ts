@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import  swal from 'sweetalert';
+import swal from 'sweetalert';
 import { AppService } from '../../app-service.service';
 import { ProjectContentItem } from '../../interfacees/project-content-item';
 import { PopUpServiceService } from '../../pop-up-service.service';
@@ -21,14 +21,14 @@ export class ProjectContentItemComponent implements OnInit {
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
   updateDetails = false;
-  ProjectContentItem:any;
-  openCard=false;
-  openTable=true;
+  ProjectContentItem: any;
+  openCard = false;
+  openTable = true;
   // ProjectContentItem
-  massageToUser="";
+  massageToUser = "";
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
-  constructor(private userServiceService: UserServiceService,private  appService :AppService,private popUpService:PopUpServiceService) {
+  constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
@@ -36,18 +36,18 @@ export class ProjectContentItemComponent implements OnInit {
 
   }
   ngOnInit(): void {
-   this.sortTableByDate()
+    this.sortTableByDate()
   }
   toTimestamp(sortValue: any) {
     var datum = Date.parse(sortValue);
     return datum / 1000;
   }
-  sortTableByDate(){
+  sortTableByDate() {
     this.tableData.sort((a: any, b: any) => {
       const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
       const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
-      
-      return ((sortValueTimestampA?sortValueTimestampA:"") <  (sortValueTimestampB?sortValueTimestampB:"") ? 1 : -1)
+
+      return ((sortValueTimestampA ? sortValueTimestampA : "") < (sortValueTimestampB ? sortValueTimestampB : "") ? 1 : -1)
     })
   }
   returnColDataByType(colData: any, tableDataKey: any) {
@@ -62,20 +62,19 @@ export class ProjectContentItemComponent implements OnInit {
     }
   }
   EditProjectContentItemIcon(val: any) {
-   
     this.updateDetails = true;
-    this.ProjectContentItem=val;
-    this.workingHours=Number(this.ProjectContentItem.WorkingHours)
+    this.ProjectContentItem = val;
+
+    this.workingHours = Number(this.ProjectContentItem.WorkingHours)
     console.log(val);
   }
   UpdateProjectItemButton() {
     this.ProjectItemToUpdate = {
       Guid: this.ProjectContentItem.Guid,
-      Description:this.ProjectContentItem.Description,
-      ActualTime: this.ProjectContentItem.WorkingHours,
-      //BillableHours:form.value.BillingHours
+      Description: this.ProjectContentItem.Description,
+      ActualTime: this.workingHours,
     }
-    this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate ).subscribe(
+    this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
@@ -87,9 +86,9 @@ export class ProjectContentItemComponent implements OnInit {
     )
   }
   openPopUp(data: string, type: boolean) {
-      this.appService.setIsPopUpOpen(true);
-      this.popUpService.setSpecificPopUp(type, data)
-    }
+    this.appService.setIsPopUpOpen(true);
+    this.popUpService.setSpecificPopUp(type, data)
   }
+}
 
 
