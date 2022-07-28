@@ -27,10 +27,35 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <div class="menu" *ngIf="!openMyProjectContectItem">
     <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
       <div class="form-outline">
         <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
+=======
+
+
+  <p class="p-of-title ">דיווחי שעות </p>
+  <div class="aImg2"> 
+    <div class="DailyAndMonthlyWorkingHoursC"> 
+     <h6>סה"כ ש"ע להיום:{{DailyAndMonthlyWorkingHours.DailyWorkingHours |number}}</h6>
+    <h6>סה"כ ש"ע לחודש זה:{{DailyAndMonthlyWorkingHours.MonthlyWorkingHours |number}}</h6>
+    </div> 
+    <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
+    <a (click)="ClickPersonalDetails()" (mouseover)="mouseOvePersonalDetails()"
+      (mouseleave)="mouseLeavePersonalDetails()">
+      <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+        class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
+    </a>
+
+  </div>
+</div>
+
+<div class="menu" *ngIf="!openMyProjectContectItem">
+  <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
+    <div class="form-outline">
+      <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
+>>>>>>> bd8242aea2ef8a88ddcb2109174fcc81e049c684
           [ngbTypeahead]="search" (change)="onSearchProject(model)" /> -->
         <div class="form-outline d-flex justify-content-center">
           <select id="inputState" class="form-control" ngModel name="SourceTask" #SourceTask="ngModel"
