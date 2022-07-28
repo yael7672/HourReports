@@ -20,6 +20,7 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   dateOne: any;
   dateTwo: any;
   isChecked!: boolean;
+  ifBetweenDates=false;
   showInputsDates = false;
   subjectTask = "חופשת מחלה"
   hoursActually = "9";
@@ -30,11 +31,15 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   checkValue(val: any) {
     if (val == true) {
       this.showInputsDates = true;
+      this.ifBetweenDates=true;
     } else {
       this.showInputsDates = false;
+      this.ifBetweenDates=false;
+
     }
   }
   CreateNewSickLeaveProjectItem(form: NgForm) {
+    form.value.Name="חופשת מחלה";
     if (form.value.WorkType == "")
       form.value.WorkType = { "Guid": "DDB877AB-440B-ED11-82E4-000D3ABEE42C" }
     if (form.value.Project == "")

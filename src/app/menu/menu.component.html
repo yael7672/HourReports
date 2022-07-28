@@ -1,37 +1,22 @@
-<div class="aImg">
-  <!-- {{a|date:"yyyy-MM-ddTHH:mm:ss+02:00"}} -->
-  <div>
-    <a 
-    (click)="GoToHome()"> <i [ngClass]="{'goToHome':goToHome}" class="fa fa-home" aria-hidden="true"></i></a>
+<div class="all-page"  >
+<div class="aImg" >
+   <a (click)="GoToHome()"> <i  class="fa fa-home" aria-hidden="true"></i></a>
     <a (click)="openPopUp('creatTask',true)"><i class="fa fa-edit"></i></a>
     <a (click)="openPopUp('createAprojectContentItem',true)"><span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
     </a>
     <a (click)="openPopUp('MyprojectContentItem',true)"><i class="fa fa-calendar-check-o"></i>
     </a>
     <a (click)="openPopUp('pause',true)"><i class="fa fa-coffee"></i></a>
-    <a (click)="GoToStatisticsGraph()"><i [ngClass]="{'goTochart':goToChart}" class="fa fa-bar-chart" aria-hidden="true"></i>   </a>
-    <a (click)="openPopUp('sickLeave',true)"><i class="iconify" data-icon="ic:outline-sick"></i>
-    </a>
-    <a (click)="openPopUp('Freedom',true)"><i class="iconify" data-icon="iconoir:sea-and-sun"></i>
-    </a>
-  </div>
-
-
-
+    <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true"></i>   </a>
+      <a  (click)="CheckWhetherInTheMiddleOfWorkOnaTask(); ContinueToWorkOnATask()"><i id="clock-history" class="iconify" data-icon="bi:clock-history"></i></a>
   <p class="p-of-title ">דיווחי שעות </p>
   <div class="aImg2"> 
     <div class="DailyAndMonthlyWorkingHoursC"> 
-<<<<<<< HEAD
      <h6>סה"כ שעות עבודה להיום:{{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</h6>
     <h6>סה"כ שעות עבודה לחודש זה:{{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</h6>
-=======
-     <h6>סה"כ ש"ע להיום:{{DailyAndMonthlyWorkingHours.DailyWorkingHours |number}}</h6>
-    <h6>סה"כ ש"ע לחודש זה:{{DailyAndMonthlyWorkingHours.MonthlyWorkingHours |number}}</h6>
->>>>>>> c48c74814495fb8a315b9556760f2d25dd897485
     </div> 
     <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
-    <a (click)="ClickPersonalDetails()" (mouseover)="mouseOvePersonalDetails()"
-      (mouseleave)="mouseLeavePersonalDetails()">
+    <a (click)="ClickPersonalDetails()" (clickOutside)="mouseLeavePersonalDetails()">
       <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
         class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
     </a>
@@ -165,7 +150,7 @@
 </div>
 
 <div *ngIf="openPersonalDetails">
-  <app-personal-details></app-personal-details>
+  <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" (closePersonalDetails)="closePersonalDetails()"></app-personal-details>
 
 </div>
 
@@ -242,4 +227,5 @@
 
 <div *ngIf="showstatiSticsGraph">
   <app-statistics-graph></app-statistics-graph>
+</div>
 </div>

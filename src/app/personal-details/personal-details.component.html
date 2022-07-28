@@ -1,5 +1,6 @@
 <div class="actionArea">
   <div class="card">
+    <a  class="close" (click)="closePersonalDetailss()">&times;</a>
     <div *ngIf="systemGuid">
       <div class="card-body">
         <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
@@ -10,6 +11,12 @@
     </div>
     <div *ngIf="!systemGuid">
       <h3 style="text-align:center">!אף אחד לא מחובר</h3>
+    </div>
+    <div class="icons">
+    <a (click)="openPopUpp('sickLeave',true)"><i class="iconify" data-icon="ic:outline-sick"></i>
+    </a>
+    <a (click)="openPopUpp('Freedom',true)"><i class="iconify" data-icon="iconoir:sea-and-sun"></i>
+    </a>
     </div>
   </div>
 </div>

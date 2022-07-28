@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { from } from 'rxjs';
 import { AppService } from 'src/app/app-service.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
@@ -24,6 +25,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
   hoursActually = "9";
   massage = ""
   isChecked!: boolean;
+  ifBetweenDates=false;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService,
     private datepipe: DatePipe) { }
   ngOnInit(): void {
@@ -31,11 +33,15 @@ export class FreedomProjectContentItemComponent implements OnInit {
   checkValue(val: any) {
     if (val == true) {
       this.showInputsDates = true;
+      this.ifBetweenDates=true
     } else {
       this.showInputsDates = false;
+      this.ifBetweenDates=false;
+
     }
   }
   CreateNewFreedomProjectItem(form: NgForm) {
+    form.value.Name="יום חופש ";
     if (form.value.WorkType == "")
       form.value.WorkType = { "Guid": "AA40AB76-520B-ED11-82E4-000D3ABEEDFD" }
     if (form.value.Project == "")

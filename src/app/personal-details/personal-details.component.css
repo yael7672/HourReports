@@ -18,3 +18,14 @@
   width: 100px;
   object-fit: cover;
 }
+.icons{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+}
+.iconify{
+  font-size: 30px;
+  margin-top: 0.5rem;
+}a {
+  text-decoration: none;
+}
