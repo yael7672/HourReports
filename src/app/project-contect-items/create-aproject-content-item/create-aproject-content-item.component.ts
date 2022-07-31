@@ -19,6 +19,11 @@ import { PopUpServiceService } from '../../pop-up-service.service';
 })
 export class CreateAprojectContentItemComponent implements OnInit {
   @Input() MyTask!: any;
+  @Input() actualTime: any;
+  @Input() KindPopUpUpdateProjectContectItemWithTime: any;
+  @Input() projectContectItemByTimerGuid:any
+  @Input() ifXt:any
+  ifX = true
   todayDate!: any;
   myDate = new Date()
   Project!: Project[];
@@ -31,10 +36,17 @@ export class CreateAprojectContentItemComponent implements OnInit {
   projectGuid: any
   workTypeGuid: any;
   oneDate:any;
+  ProjectContentItemWithTime: any;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
+    this.popUpService.GetIfXProjectContectItemUpdateWithTime().subscribe(res => {
+      if(res){
+         this.ifX = false
+      }
+     
+    })
   }
   ngOnInit(): void {
     this.GetRegarding()
@@ -43,12 +55,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   CreateNewProjectItem(form: NgForm) {
-    // this.taskGuid = form.value.SourceTask.toUpperCase()
-    // this.projectGuid = form.value.project.toUpperCase()
-    // this.workTypeGuid = form.value.workType.toUpperCase()
-
-
-    form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
+      form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
       form.value.Project = { "Guid": form.value.Project },
       form.value.WorkType = { "Guid": form.value.WorkType }
       form.value.fromDate=this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
@@ -100,5 +107,24 @@ export class CreateAprojectContentItemComponent implements OnInit {
     )
   }
 
+  UpdateProjectContectItemWithTime(form:NgForm){
+    form.value.Guid = this.projectContectItemByTimerGuid
+    form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
+    form.value.Project = { "Guid": form.value.Project },
+    form.value.WorkType = { "Guid": form.value.WorkType }
+    form.value.ActualTime = this.actualTime
+  this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
+    (res) => {
+      this.ProjectContentItemWithTime = res;
+      swal( this.ProjectContentItemWithTime)
+      this.popUpService.setAllmyProjectContectItem(true)
+      this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+      this.appService.setIsPopUpOpen(false);
+      this.popUpService.setClosePopUp();
+    },
+    (err) =>
+      alert("error")
+  )
+  }
 
 }

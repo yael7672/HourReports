@@ -8,13 +8,11 @@
         <form (ngSubmit)="OpenPopUpIfCloseProjectcontectItemWithTimer()" #f=ngForm>
             <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים </button>
         </form>
-         <!-- <form >
-            <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים </button>
-        </form> -->
        <div class="form-outline d-flex justify-content-center">
             <button class="btn" *ngIf="!endButtonTimerContectProjectContectItem"  (click)="startTimeProjectContectItem()">התחל </button>
-            <p *ngIf="TimeProjectContectItem" class="Time">
-                {{TimeProjectContectItem}}
+            <p *ngIf="TimeProjectContectItemHour" class="Time">
+                {{TimeProjectContectItemHour}}
+                <!-- workTimeHourProjectContectItemWithTimer -->
             </p>
         </div> 
     </div>
@@ -24,8 +22,15 @@
 <div *ngIf="showMassgeToUserProjectContectItemWithTimer">
     <app-pop-up>
         <div body>
-            <app-massge-to-user [kindOfMassage]="projectContectItemByTimer" [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer" (clickYes)="clickYes(this.TimeProjectContectItem)"
+            <app-massge-to-user [kindOfMassage]="projectContectItemByTimer" [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer" (clickYes)="clickYes(this.TimeProjectContectItemHour)"
                 (clickNo)="clickNo()" [ifButton]="true"></app-massge-to-user>
+        </div>
+    </app-pop-up>
+  </div>
+  <div *ngIf="OpenUpdatePauseTimerProjectContectItem">
+    <app-pop-up>
+        <div body>
+            <app-create-aproject-content-item [projectContectItemByTimerGuid]="projectContectItemByTimerGuid" [ifXt]="false" [KindPopUpUpdateProjectContectItemWithTime]="kindPopUp" [actualTime]="timeToSendCreate" ></app-create-aproject-content-item>
         </div>
     </app-pop-up>
   </div>

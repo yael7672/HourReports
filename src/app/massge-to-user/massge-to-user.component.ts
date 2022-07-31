@@ -39,6 +39,11 @@ export class MassgeToUserComponent implements OnInit {
             if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
               this.clickYes.emit('kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite')
             }
+            else {
+              if (this.kindOfMassage == 'projectContectItemByTimer') {
+                this.clickYes.emit('projectContectItemByTimer')
+              }
+            }
           }
         }
       }
@@ -62,6 +67,11 @@ export class MassgeToUserComponent implements OnInit {
           else {
             if (this.kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
               this.clickNo.emit('kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite')
+            }
+            else {
+              if (this.kindOfMassage == 'projectContectItemByTimer') {
+                this.clickNo.emit('projectContectItemByTimer')
+              }
             }
           }
         }

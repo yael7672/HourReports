@@ -15,7 +15,7 @@ export class PopUpServiceService {
   private ifStartPouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private ifClosePouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private WorkTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+  private IfXProjectContectItemUpdateWithTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor() { }
 
   setSpecificPopUp(data: boolean, type: string) {
@@ -32,6 +32,7 @@ export class PopUpServiceService {
       // MyprojectContentItem:type === 'MyprojectContentItem' ? data : false,
       // UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
       ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,
+    
     }
     this.setKindOfPopUp(obj)
   }
@@ -86,5 +87,13 @@ export class PopUpServiceService {
   GetWorkTimeAfterProjectContectItem()
   {
     return this.WorkTime$;
+  }
+  SetIfXProjectContectItemUpdateWithTime(val:boolean)
+  {
+    this.IfXProjectContectItemUpdateWithTime$.next(val)
+  }
+ GetIfXProjectContectItemUpdateWithTime()
+  {
+    return this.IfXProjectContectItemUpdateWithTime$;
   }
 }

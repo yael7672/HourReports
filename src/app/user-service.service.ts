@@ -28,6 +28,10 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + '/CreateProjectContectItemWithTimer/?SystemGuid=' + SystemGuid)
 
   }
+  UpdateProjectContectItemWithTime(ProjectItemToUpdate: ProjectContentItem) {
+    return this.http.post<string>(environment.url + '/UpdateProjectContectItemWithTimer', ProjectItemToUpdate);
+
+  }
   async AddNewTask(TaskObj: any) {
     return await this.http.post<string>(environment.url + '/AddNewTask', TaskObj).toPromise();
   }

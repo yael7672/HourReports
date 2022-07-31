@@ -154,9 +154,12 @@ export class MenuComponent implements OnInit {
   DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
   ifX = true
   TimeProjectContectItemHour: any;
-  projectContectItemByTimerGuid:any
+  projectContectItemByTimerGuid: any
   endButtonTimerContectProjectContectItem!: boolean;
-  showMassgeToUserProjectContectItemWithTimer= false;
+  showMassgeToUserProjectContectItemWithTimer = false;
+  TimeProjectContectItemWithTimer: any;
+  workTimeHourProjectContectItemWithTimer: any;
+  Timer: any;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -738,12 +741,15 @@ export class MenuComponent implements OnInit {
     this.workTime = this.convertTimeStempToTime(res)
     console.log(this.workTime);
   }
+  // עד לפה זמני משימה
+  // זמני פריט תכולת פרויקט עם טיימר
   startTimerProjectContectItem() {
-    this.ifX = false;
-    this.endButtonTimerContectProjectContectItem = true;
-    localStorage.setItem("endButtonTimerContectProjectContectItem", String(this.endButtonTimerContectProjectContectItem))
     this.CreateProjectContectItemWithTimer();
-    // this.SelectedStartPause()
+    let a = Date.now();
+    localStorage.setItem("DateNowProjectContectItemWithTimer", a.toString());
+    this.ContinueToWorkOnAProjectContectItemWithTimer();
+    this.popUpService.SetProjectContentItemByTaskGuid(true)
+    this.popUpService.SetWorkTimeAfterProjectContectItem(true)
   }
   CreateProjectContectItemWithTimer() {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -755,44 +761,35 @@ export class MenuComponent implements OnInit {
       (err: any) =>
         console.log(err.error)
     )
-    let a = Date.now()
-    localStorage.setItem("DateNowProjectContectItemTimer", a.toString());
-    this.continueProjectContectItemWithTimer();
   }
-  continueProjectContectItemWithTimer() {
-    this.getTimeProjectContentItemFromLoaclStorage();
+  ContinueToWorkOnAProjectContectItemWithTimer(){
+    this.getCreatedProjectContectItemWithTimerFromLoaclStorage();
     this.interval = setInterval(() => {
       if (this.TimeProjectContectItemHour) {
-        this.getTimeProjectContentItemFromLoaclStorage();
+        this.getCreatedProjectContectItemWithTimerFromLoaclStorage();
       }
       else {
       }
     }, 1000)
   }
-  getTimeProjectContentItemFromLoaclStorage() {
-    if (localStorage.getItem('DateNowProjectContectItemTimer')) {
-      this.setWorkTimeProjectContectItemTimer(localStorage.getItem('DateNowProjectContectItemTimer'))
+  getCreatedProjectContectItemWithTimerFromLoaclStorage() {
+    if (localStorage.getItem('DateNowProjectContectItemWithTimer')) {
+      this.setWorkTimeProjectContectItemWithTimer(localStorage.getItem('DateNowProjectContectItemWithTimer'))
     }
   }
-  // convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
-  //   var timestampCreatOn = ProjectContentItemCreatedDate;
-  //   const timestampNow = Date.now();
-  //   console.log(timestampNow);
-  //   console.log(timestampCreatOn);
-  //   this.Time = timestampNow - timestampCreatOn;
-  //   return this.datePipe.transform(this.Time, 'HH:mm:ss',"+0000");
-
-  // }
-  setWorkTimeProjectContectItemTimer(res: any) {
-    this.TimeProjectContectItemHour = this.convertTimeStempToTime(res)
+  convertTimeStempToTimeProjectContectItemWithTimer(ProjectContentItemCreatedDateByTimer: any) {
+    var timestampCreatOn = ProjectContentItemCreatedDateByTimer;
+    const timestampNow = Date.now();
+    console.log(timestampNow);
+    console.log(timestampCreatOn);
+    this.Timer = timestampNow - timestampCreatOn;
+    return this.datePipe.transform(this.Timer, 'HH:mm:ss',"+0000");
+  
+  }
+  setWorkTimeProjectContectItemWithTimer(res: any) {
+    this.TimeProjectContectItemHour = this.convertTimeStempToTimeProjectContectItemWithTimer(res)
     console.log(this.TimeProjectContectItemHour);
   }
-  PauseTimerProjectContectItem(){
-   
-  } 
-  OpenPopUpIfCloseTimerProjectContectItem() {
-      this.showMassgeToUserProjectContectItemWithTimer = true;
-    }
 }
 
 
