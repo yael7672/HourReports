@@ -1,5 +1,5 @@
 import { jsDocComment, outputAst } from '@angular/compiler';
-import { Component, Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, Directive, ElementRef,AfterViewInit, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
@@ -26,6 +26,8 @@ import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorki
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  @ViewChild('personalDetails')
+ personalDetails!: ElementRef ;
   a!: any;
   public model: any;
   isPopUpOpen!: any;
@@ -758,7 +760,22 @@ export class MenuComponent implements OnInit {
   }
 
 
+  ngAfterViewInit() {
+    var ignoreClickOnMeElement = this.personalDetails.nativeElement;
 
+    // var ignoreClickOnMeElement = this.personalDetails.nativeElement.addEventListener('click', this.onClick.bind(this));
+    const navbarToggler =
+    document.addEventListener('click', function(event) {
+      var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
+      if (!isClickInsideElement) {
+      }
+  });                     
+  }
+  onClick(event:any) {
+    this.openPersonalDetails = true;
+
+
+  }
   ClickedOut(event: any) {
     var v = event.target.closesttt
     this.openPersonalDetails = false;
