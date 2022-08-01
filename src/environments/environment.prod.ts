@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url:"https://hourlyreportwebapi.azurewebsites.net/api/"
+  url:"https://timetrackerwebapi.azurewebsites.net/api/"
 };
