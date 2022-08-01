@@ -1,5 +1,5 @@
 import { jsDocComment, outputAst } from '@angular/compiler';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Directive, ElementRef,AfterViewInit, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
@@ -25,8 +25,9 @@ import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorki
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-
 export class MenuComponent implements OnInit {
+  @ViewChild('personalDetails')
+ personalDetails!: ElementRef ;
   a!: any;
   public model: any;
   isPopUpOpen!: any;
@@ -144,12 +145,11 @@ export class MenuComponent implements OnInit {
   projectContectItemGuidForLoclStorage: any;
   isgetAllTask: any;
   TaskGuidFromLS: any
-  goToHome = false;
-  goToChart = false;
   IfStartPouse!: boolean;
   IfClosePouse!: boolean;
   workTypeArr: any;
   todayDate: any;
+  startWorkOfTask=false;
   myDate = new Date()
   DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
   ifX = true
@@ -160,9 +160,12 @@ export class MenuComponent implements OnInit {
   TimeProjectContectItemWithTimer: any;
   workTimeHourProjectContectItemWithTimer: any;
   Timer: any;
+  goToHome!: boolean;
+  goToChart!: boolean;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
+    private elementRef: ElementRef,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -254,7 +257,11 @@ export class MenuComponent implements OnInit {
       }
     )
   }
-  GetMyTask() {
+  closePersonalDetails()
+   {
+    this.openPersonalDetails = false;
+  }
+   GetMyTask() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetMyTask(this.systemGuid).subscribe(
       res => {
@@ -309,6 +316,8 @@ export class MenuComponent implements OnInit {
     else {
       if (data == 'MyprojectContentItem') {
         this.openMyProjectContectItem = true
+        this.showstatiSticsGraph = false;
+
         // this.appService.setIsPopUpOpen(true);
         // this.popUpService.setSpecificPopUp(type, data)
       }
@@ -325,8 +334,6 @@ export class MenuComponent implements OnInit {
     clearInterval(this.interval);
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
     this.tableSpecificTaskOpen = true;
-    this.goToHome = true;
-    this.goToChart = true;
 
 
     this.tableMyTaskOpen = false;
@@ -339,6 +346,7 @@ export class MenuComponent implements OnInit {
     localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
     localStorage.setItem('TaskGuidOfProjectContectItem', this.taskListDataDetails.TaskGuid);
     this.systemGuid = localStorage.getItem('systemGuid');
+    this.startWorkOfTask=true;
     if (this.taskListDataDetails.OwnerId.Guid == this.systemGuid.toLowerCase()) {
       this.IftaskForTeam = false;
     }
@@ -363,11 +371,14 @@ export class MenuComponent implements OnInit {
 
   }
 
+
   SelectedStop(time: any) {
     localStorage.removeItem('TaskGuid');
     localStorage.removeItem('TaskName');
     localStorage.getItem('TaskGuidToSend');
-    localStorage.removeItem("DateNow")
+    localStorage.removeItem("DateNow");
+    this.startWorkOfTask=false;
+
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
 
@@ -405,6 +416,7 @@ export class MenuComponent implements OnInit {
     localStorage.removeItem('TaskName');
 
     localStorage.removeItem("DateNow")
+    this.startWorkOfTask=false;
 
     if (time.worktime != "00:00:00" && time.worktime != "") {
       this.timetoSend = time.worktime.split(':');
@@ -430,8 +442,7 @@ export class MenuComponent implements OnInit {
           this.massageFromServer = res;
           this.tableMyTaskOpen = true;
           this.tableSpecificTaskOpen = false;
-          this.goToHome = false;
-          this.goToChart = false;
+
           this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
           this.popUpService.setAllmyTask(true)
           this.popUpService.SetProjectContentItemByTaskGuid(true)
@@ -530,6 +541,7 @@ export class MenuComponent implements OnInit {
       this.tableSpecificTaskOpen = false;
       this.goToHome = false;
       this.goToChart = false;
+
     }
     else {
       this.showMassgeToUser = true;
@@ -539,8 +551,10 @@ export class MenuComponent implements OnInit {
     if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
       this.tableMyTaskOpen = true;
       this.tableSpecificTaskOpen = false;
+
       this.goToHome = false;
       this.goToChart = false;
+
       this.showMassgeToUser = false;
       this.SelectedStop(this.workTime)
     }
@@ -554,9 +568,6 @@ export class MenuComponent implements OnInit {
       this.taskListDataDetailsFromLocalStoeageParse = JSON.parse(this.taskListDataDetailsFromLocalStoeage)
       this.taskListDataDetails = this.taskListDataDetailsFromLocalStoeageParse;
       this.tableSpecificTaskOpen = true;
-      this.goToHome = true;
-      this.goToChart = true;
-
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
       this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
@@ -571,12 +582,12 @@ export class MenuComponent implements OnInit {
         localStorage.setItem("endButton", String(this.endButton))
       }
     }
-    if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
-      let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.router, this.appService, this.popUpService, this.buttonWorkingTaskService)
-      myCompPause.clickYes(localStorage.getItem('WorkTimePause'))
+    // if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
+    //   let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.elementRef ,this.router,this.appService, this.popUpService, this.buttonWorkingTaskService)
+    //   myCompPause.clickYes(localStorage.getItem('WorkTimePause'))
 
-      this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
-    }
+    //   this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
+    // }
 
 
   }
@@ -585,8 +596,10 @@ export class MenuComponent implements OnInit {
       this.showMassgeToUser = false;
       this.tableMyTaskOpen = false;
       this.tableSpecificTaskOpen = true;
+
       this.goToHome = true;
       this.goToChart = true;
+
     }
     else {
       if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
@@ -610,7 +623,10 @@ export class MenuComponent implements OnInit {
     }
   }
   mouseLeavePersonalDetails() {
-    this.openPersonalDetails = false;
+  } @HostListener("document:click")
+  clickedOut() {
+
+
   }
   mouseOvePersonalDetails() {
     this.openPersonalDetails = true;
@@ -620,6 +636,7 @@ export class MenuComponent implements OnInit {
     this.tableSpecificTaskOpen = false;
     this.goToHome = false;
     this.goToChart = false;
+
   }
   CheckWhetherInTheMiddleOfWorkOnaTask() {
     if (localStorage.getItem('TaskGuid')) {
@@ -668,22 +685,22 @@ export class MenuComponent implements OnInit {
     }
   }
   GoToStatisticsGraph() {
-    if (!this.tableSpecificTaskOpen) {
       this.showstatiSticsGraph = true;
       this.tableMyTaskOpen = false;
       this.tableMyTaskTeamsOpen = false;
       this.ifThereAreTasks = false;
       this.openMyProjectContectItem = false;
-    }
+      this.tableSpecificTaskOpen = false;
   }
   GoToHome() {
-    if (!this.tableSpecificTaskOpen) {
-      this.showstatiSticsGraph = false;
-      this.openMyProjectContectItem = false;
-      this.tableMyTaskOpen = true;
-    }
+    this.showstatiSticsGraph = false;
+    this.openMyProjectContectItem = false;
+    this.tableMyTaskOpen = true;
+    this.tableSpecificTaskOpen = false;
+
   }
   ClickPersonalDetails() {
+    this.openPersonalDetails = true;
 
   }
   Logout() {
@@ -700,9 +717,9 @@ export class MenuComponent implements OnInit {
     )
   }
 
-  GetMyProjectContectItem(selectedTime: any) {
+  GetMyProjectContectItem(selectedTime: any,fromDate="",untilDate="") {
     this.systemGuid = localStorage.getItem('systemGuid')
-    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime).subscribe(res => {
+    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime,fromDate,untilDate).subscribe(res => {
       if (res) {
         this.MyProjectContectItemArr = res;
         this.showMassegeNoProjectContectItem = false
@@ -741,6 +758,7 @@ export class MenuComponent implements OnInit {
     this.workTime = this.convertTimeStempToTime(res)
     console.log(this.workTime);
   }
+
   // עד לפה זמני משימה
   // זמני פריט תכולת פרויקט עם טיימר
   startTimerProjectContectItem() {
@@ -790,10 +808,36 @@ export class MenuComponent implements OnInit {
     this.TimeProjectContectItemHour = this.convertTimeStempToTimeProjectContectItemWithTimer(res)
     console.log(this.TimeProjectContectItemHour);
   }
+
+
+
+
+
+
+
+  ngAfterViewInit() {
+    var ignoreClickOnMeElement = this.personalDetails.nativeElement;
+
+    // var ignoreClickOnMeElement = this.personalDetails.nativeElement.addEventListener('click', this.onClick.bind(this));
+    const navbarToggler =
+    document.addEventListener('click', function(event) {
+      var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
+      if (!isClickInsideElement) {
+      }
+  });                     
+  }
+  onClick(event:any) {
+    this.openPersonalDetails = true;
+
+
+  }
+  ClickedOut(event: any) {
+    var v = event.target.closesttt
+    this.openPersonalDetails = false;
+
+  }
+
+
+
+
 }
-
-
-
-
-
-

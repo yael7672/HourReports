@@ -155,7 +155,8 @@ h2 {
     .fa-bar-chart,
     .fa-home,
     .fa-pencil,
-    .fa-sign-out {
+    .fa-sign-out,
+    .iconify{
         font-size: 15px;
         padding: 0.3rem;
     }
@@ -184,4 +185,8 @@ margin-bottom: 1.5rem;
 .goToHome,
 .goTochart{
     color: rgb(188, 183, 183);
+}
+#clock-history{
+    /* padding: 1rem; */
+    font-size: 30px
 }

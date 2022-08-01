@@ -17,10 +17,10 @@ export class UserServiceService {
   constructor(private http: HttpClient) { }
 
   GetMyTask(SystemGuid: string) {
-    return this.http.get<any>(environment.url + '/GetTask/?SystemGuid=' + SystemGuid)
+    return this.http.get<any>(environment.url + 'GetTask/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
   GetDailyWorkingHoursAndMonthlyWorkingHours(SystemGuid: string){
-    return this.http.get<any>(environment.url + '/GetDailyWorkingHoursAndMonthlyWorkingHours/?SystemGuid=' + SystemGuid)
+    return this.http.get<any>(environment.url + 'GetDailyWorkingHoursAndMonthlyWorkingHours/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
 
   }
   
@@ -33,31 +33,31 @@ export class UserServiceService {
 
   }
   async AddNewTask(TaskObj: any) {
-    return await this.http.post<string>(environment.url + '/AddNewTask', TaskObj).toPromise();
+    return await this.http.post<string>(environment.url + 'AddNewTask?OrganizationName=AuroraProd&OrganizationName=AuroraProd', TaskObj).toPromise();
   }
   GetWorkType() {
-    return this.http.get<WorkType[]>(environment.url + 'GetWorkType');
+    return this.http.get<WorkType[]>(environment.url + 'GetWorkType?OrganizationName=AuroraProd');
   }
   GetRegarding() {
-    return this.http.get<Regardingobjectid[]>(environment.url + 'GetRegarding');
+    return this.http.get<Regardingobjectid[]>(environment.url + 'GetRegarding?OrganizationName=AuroraProd');
   }
   UpdateProjectContentItem(duration: string, taskId: string, isTaskAccomplished: boolean, descriptionTask: string) {
-    return this.http.get<any>(environment.url + 'UpdateProjectContentItem/?taskId=' + taskId + '&duration=' + duration + '&IsTaskAccomplished=' + isTaskAccomplished + '&DescriptionTask=' + descriptionTask);
+    return this.http.get<any>(environment.url + 'UpdateProjectContentItem/?OrganizationName=AuroraProd&taskId=' + taskId + '&duration=' + duration + '&IsTaskAccomplished=' + isTaskAccomplished + '&DescriptionTask=' + descriptionTask);
   }
   async GetProjectContentItemByTaskGuid(taskId: string) {
-    return await this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?TaskId=' + taskId).toPromise();
+    return await this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?OrganizationName=AuroraProd&TaskId=' + taskId).toPromise();
   }
   GetProject() {
-    return this.http.get<any>(environment.url + 'GetProject/');
+    return this.http.get<any>(environment.url + 'GetProject/?OrganizationName=AuroraProd');
   }
   CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string, IftaskForTeam: boolean) {
-    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid + '&IftaskForTeam=' + IftaskForTeam);
+    return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid + '&IftaskForTeam=' + IftaskForTeam);
   }
   logIn(email: any) {
-    return this.http.get<User[]>(environment.url + 'Login/?email=' + email);
+    return this.http.get<User[]>(environment.url + 'Login?OrganizationName=AuroraProd&email=' + email);
   }
   CreatePauseWork(SystemGuid: any) {
-    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?SystemGuid=' + SystemGuid);
+    return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid);
 
   }
   // לשנות- לממשק של יצירת פריט תכולת פרויקט רגיל
@@ -66,36 +66,36 @@ export class UserServiceService {
 
   }
   CreateNewProjectItem(projectContentItem: any, fromDate: string, untilDate: string) {
-    return this.http.post<string>(environment.url + 'CreateProjectContentItem?FromDate=' + fromDate + '&UntilDate=' + untilDate, projectContentItem);
+    return this.http.post<string>(environment.url + 'CreateProjectContentItem?OrganizationName=AuroraProd&FromDate=' + fromDate + '&UntilDate=' + untilDate, projectContentItem);
   }
   async PauseWork(SystemGuid: any, ActualTime: any) {
-    return await this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime).toPromise();
+    return await this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime).toPromise();
 
   }
   async GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string, SelectedTime: number) {
-    return await this.http.get<any>(environment.url + 'GetMyProjectContentItemByTime?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
+    return await this.http.get<any>(environment.url + 'GetMyProjectContentItemByTime?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
 
   }
   GetTaskByGuid(SystemGuid: any, TaskGuid: any) {
-    return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
+    return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
 
   }
   GetActualTaskHours(SystemGuid: any, TaskGuid: any) {
-    return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
+    return this.http.get<TaskByGuid>(environment.url + 'GetActualTaskHours?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
   }
   async GetAverageBreaks(SystemGuid: any, FromDate: string, UntilDate: string, SelectedTime: any) {
-    return await this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
+    return await this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
   }
   GetTaskForMyTeams(SystemGuid: any) {
-    return this.http.get<any>(environment.url + '/GetTaskForMyTeams/?SystemGuid=' + SystemGuid)
+    return this.http.get<any>(environment.url + '/GetTaskForMyTeams/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
   UpdateProjectContentItemDetails(ProjectItemToUpdate: any) {
-    return this.http.post<string>(environment.url + '/UpdateProjectContentItemDetails', ProjectItemToUpdate);
+    return this.http.post<string>(environment.url + '/UpdateProjectContentItemDetails?OrganizationName=AuroraProd', ProjectItemToUpdate);
 
   }
-  GetMyProjectContectItem(SystemGuid: any, SelectedTime: number) {
+  GetMyProjectContectItem(SystemGuid: any, SelectedTime: number,FromDate:string,UntilDate:string) {
 
-    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems/?SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime)
+    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime+'&FromDate='+FromDate+'&UntilDate='+UntilDate)
 
   }
   GetProjectContentItemByGuid(projectContectItemGuid: string) {

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from '../app-service.service';
+import { PopUpServiceService } from '../pop-up-service.service';
 
 @Component({
   selector: 'app-personal-details',
@@ -10,8 +12,11 @@ export class PersonalDetailsComponent implements OnInit {
   systemName!: any;
   systemMail!: any;
   systemGuid!: any;
+  @Input()ifX!:boolean;
+  @Output() openPopUp = new EventEmitter<any>();
+  @Output() closePersonalDetails = new EventEmitter<any>();
 
-  constructor(public route:Router) { }
+  constructor(public route:Router,  private appService: AppService,  private popUpService: PopUpServiceService) { }
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -23,5 +28,13 @@ export class PersonalDetailsComponent implements OnInit {
   {
     localStorage.clear();
 this.route.navigate(['/login'])
+  }
+  openPopUpp(data: string, type: boolean)
+  {
+    this.openPopUp.emit({date:data,type:type})
+  }
+  closePersonalDetailss()
+  {
+    this.closePersonalDetails.emit()
   }
 }

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, NgModule, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, NgModule, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
@@ -47,7 +47,7 @@ export class PauseWorkComponent implements OnInit {
   Time: any;
   ifInTheMiddleOfABreak = "false";
   pauseForLoclStorage:any
-  constructor(private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
+  constructor( private elementRef: ElementRef,private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
     private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
@@ -90,7 +90,7 @@ export class PauseWorkComponent implements OnInit {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-            let myCompMenu = new MenuComponent(this.router, this.popUpService, this.userServiceService, this.appService, this.buttonWorkingTaskService, this.datePipe)
+            let myCompMenu = new MenuComponent(this.router, this.popUpService, this.userServiceService,this.elementRef, this.appService, this.buttonWorkingTaskService, this.datePipe)
             myCompMenu.SelectedTask(this.taskListDataDetails)
           }, 500)
         }
