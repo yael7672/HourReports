@@ -28,7 +28,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   OpenUpdatePauseTimerProjectContectItem = false
   systemGuid: any;
   Timer: any;
-  ifXTimerContectProjectContectItem!: boolean;
+  ifXTimerContectProjectContectItem=true;
   constructor(private popUpService: PopUpServiceService, private appService: AppService ,private userService:UserServiceService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
