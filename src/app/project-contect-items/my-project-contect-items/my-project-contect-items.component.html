@@ -2,14 +2,38 @@
 
   <thead>
     <tr>
-      <th *ngFor="let th of thArr" scope="col">{{th}}</th>
+      <th *ngFor="let th of thArr" scope="col">
+        <ng-container *ngIf="ifSortDown; else sortTableUp;">
+          <button (click)="SortTableDown(th)">
+            <ng-container *ngIf="th!=='משך'; else WorkingHours">
+              {{th}}
+            </ng-container>
+            <!-- <i class="fa fa-caret-up"></i> -->
+            <i class="fa fa-caret-down"></i>
+            <ng-template #WorkingHours>
+              <ng-container > {{th }}</ng-container>
+            </ng-template>
+          </button>
+        </ng-container>
+        <ng-template #sortTableUp>
+          <button (click)="SortTableUp(th)">
+            <ng-container *ngIf="th!=='משך'; else WorkingHours">
+              {{th}}
+            </ng-container>
+            <ng-template #WorkingHours>
+              <ng-container *ngIf="!hideProjectTh"> {{th }}</ng-container>
+            </ng-template>
+            <i class="fa fa-caret-up"></i>
+          </button>
+        </ng-template>
+      </th>
     </tr>
   </thead>
   <tbody *ngIf="tableData">
     <tr *ngFor="let colData of tableData">
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
         <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
-          <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
+          <ng-container *ngIf="tableDataKey!=='Date' else Date;">
 
             <!-- <td>{{tableData[tableDataKey]}}</td> -->
             <td>{{returnColDataByType(colData, tableDataKey)}}</td>
@@ -18,8 +42,8 @@
         <ng-template #WorkingHours>
           <td> {{colData[tableDataKey] |number}}</td>
         </ng-template>
-        <ng-template #CreatedOn>
-          <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}</td>
+        <ng-template #Date>
+          <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy'}}</td>
         </ng-template>
       </ng-container>
       <td><button (click)="EditProjectContentItemIcon(colData)"

@@ -6,4 +6,8 @@
 p {
   margin: 0;
   text-align: right;
+}button{
+  border-color: white;
+  background-color: white;
+  border: none;
 }
