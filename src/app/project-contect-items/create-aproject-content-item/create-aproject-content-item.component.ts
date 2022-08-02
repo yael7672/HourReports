@@ -21,9 +21,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
   @Input() MyTask!: any;
   @Input() actualTime: any;
   @Input() KindPopUpUpdateProjectContectItemWithTime: any;
-  @Input() projectContectItemByTimerGuid:any
-  @Input() ifXt:any
-  @Input() endButtonTimerContectProjectContectItem!:boolean
+  @Input() projectContectItemByTimerGuid: any
+  @Input() ifXt: any
+  @Input() endButtonTimerContectProjectContectItem!: boolean
   ifX = true
   todayDate!: any;
   myDate = new Date()
@@ -36,17 +36,17 @@ export class CreateAprojectContentItemComponent implements OnInit {
   taskGuid!: any
   projectGuid: any
   workTypeGuid: any;
-  oneDate:any;
+  oneDate: any;
   ProjectContentItemWithTime: any;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
     this.popUpService.GetIfXProjectContectItemUpdateWithTime().subscribe(res => {
-      if(res){
-         this.ifX = false
+      if (res) {
+        this.ifX = false
       }
-     
+
     })
   }
   ngOnInit(): void {
@@ -60,9 +60,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
       form.value.Project = { "Guid": form.value.Project },
       form.value.WorkType = { "Guid": form.value.WorkType }
-      form.value.fromDate=this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
-      form.value.untilDate=this.datePipe.transform( form.value.oneDate, 'dd/MM/yyyy')
-    this.userServiceService.CreateNewProjectItem(form.value,form.value.fromDate,form.value.untilDate).subscribe(
+    form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+    form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+    this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe(
       (res) => {
         this.ProjectContentItem = res;
         swal("!דיווח נוצר בהצלחה")
@@ -72,8 +72,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         this.popUpService.setClosePopUp();
       },
       (err) =>
-        alert("error")
-    )
+        swal(err.error))
   }
 
   GetRegarding() {
@@ -83,7 +82,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         console.log(this.Regarding);
       },
       (err: any) =>
-        alert("error")
+      swal(err.error) 
     )
   }
 
@@ -94,8 +93,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         console.log(this.WorkType);
       },
       (err: any) =>
-        alert("error")
-    )
+      swal(err.error)     )
   }
 
   GetProject() {
@@ -105,29 +103,26 @@ export class CreateAprojectContentItemComponent implements OnInit {
         console.log(this.Project);
       },
       (err: any) =>
-        alert("error")
-    )
+      swal(err.error)     )
   }
 
-  UpdateProjectContectItemWithTime(form:NgForm){
+  UpdateProjectContectItemWithTime(form: NgForm) {
     form.value.Guid = this.projectContectItemByTimerGuid
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-    form.value.Project = { "Guid": form.value.Project },
-    form.value.WorkType = { "Guid": form.value.WorkType }
+      form.value.Project = { "Guid": form.value.Project },
+      form.value.WorkType = { "Guid": form.value.WorkType }
     form.value.ActualTime = this.actualTime
-  this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
-    (res) => {
-      this.ProjectContentItemWithTime = res;
-      swal( this.ProjectContentItemWithTime)
-      this.popUpService.setAllmyProjectContectItem(true)
-      this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-      this.appService.setIsPopUpOpen(false);
-      this.popUpService.setClosePopUp();
-      this.endButtonTimerContectProjectContectItem=false
-    },
-    (err) =>
-      alert("error")
-  )
+    this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
+      (res) => {
+        this.ProjectContentItemWithTime = res;
+        swal(this.ProjectContentItemWithTime)
+        this.popUpService.setAllmyProjectContectItem(true)
+        this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
+      },
+      (err) =>
+      swal(err.error)     )
   }
 
 }

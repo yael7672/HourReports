@@ -131,8 +131,8 @@ export class MyProjectContectItemsComponent implements OnInit {
      else {
        this.tableData.sort((a: any, b: any) => 
             
-         (a[keyToSort[0]][keyToSort[1]]?a[keyToSort[0]][keyToSort[1]]:"" > (b[keyToSort[0]][keyToSort[1]]?b[keyToSort[0]][keyToSort[1]]:"")) ? 1 : -1)
-     }
+       (a[keyToSort[0]][keyToSort[1]] > (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
+      }
    }
    SortTableUp(thName:any)
    {
@@ -169,8 +169,8 @@ export class MyProjectContectItemsComponent implements OnInit {
      }
      else {
        this.tableData.sort((a: any, b: any) =>
-         (a[keyToSort[0]][keyToSort[1]?keyToSort[1]:""] < (b[keyToSort[0]][keyToSort[1]?keyToSort[1]:""])) ? 1 : -1)
-     }
+       (a[keyToSort[0]][keyToSort[1]] < (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
+      }
    }
    
   }
