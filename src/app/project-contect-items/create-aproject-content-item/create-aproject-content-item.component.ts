@@ -64,7 +64,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.userServiceService.CreateNewProjectItem(form.value,form.value.fromDate,form.value.untilDate).subscribe(
       (res) => {
         this.ProjectContentItem = res;
-        swal("!פריט תכולת פרויקט נוצר בהצלחה")
+        swal("!דיווח נוצר בהצלחה")
         this.popUpService.setAllmyProjectContectItem(true)
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
         this.appService.setIsPopUpOpen(false);

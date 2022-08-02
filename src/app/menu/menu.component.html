@@ -125,7 +125,7 @@
   </div>
 
 
-  <app-smart-card *ngIf="openMyProjectContectItem" [title]="'פריט תכולת פרויקט שלי'">
+  <app-smart-card *ngIf="openMyProjectContectItem" [title]="' דיווחים  שלי'">
     <div body>
       <div class="form-outline d-flex justify-content-center">
         <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
@@ -138,7 +138,7 @@
       </div>
       <div *ngIf="showMassegeNoProjectContectItem">
         <br>
-        <h2>אין פריט תכולת פרויקט!</h2>
+        <h2>אין דיווחים  !</h2>
       </div>
       <div *ngIf="!showMassegeNoProjectContectItem">
         <app-my-project-contect-items (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'"

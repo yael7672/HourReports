@@ -1,6 +1,6 @@
 
     <app-pop-up #upPopUP [ifX]="ifX">
-        <h4 header class="mb-4">יצירת פריט תכולת פרוייקט </h4>
+        <h4 header class="mb-4">יצירת דיווח</h4>
         <div body>
             <!-- <form  (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm"> -->
                 <form  (ngSubmit)="f.valid &&UpdateProjectContectItemWithTime(f)" #f="ngForm">
@@ -87,7 +87,7 @@
                 <div *ngIf="f.submitted && NoteToProjectManager.invalid" class="text-danger">
                     <span *ngIf="NoteToProjectManager.errors">שדה זה חובה</span>
                 </div>
-                <button type="submit" class="btn ">צור פריט תכולת פרוייקט </button>
+                <button type="submit" class="btn ">צור דיווח </button>
             </form>
        
         </div>
