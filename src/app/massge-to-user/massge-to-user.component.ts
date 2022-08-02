@@ -83,6 +83,7 @@ export class MassgeToUserComponent implements OnInit {
               if (this.kindOfMassage == 'checkIfIsReportOnThisDate') {
                 this.clickNo.emit('checkIfIsReportOnThisDate')
               }
+            
             }
             }
             

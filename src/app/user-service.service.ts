@@ -25,11 +25,11 @@ export class UserServiceService {
   }
   
   CreateProjectContectItemWithTimer(SystemGuid: string){
-    return this.http.get<any>(environment.url + '/CreateProjectContectItemWithTimer/?SystemGuid=' + SystemGuid)
+    return this.http.get<any>(environment.url + '/CreateProjectContectItemWithTimer/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
 
   }
   UpdateProjectContectItemWithTime(ProjectItemToUpdate: ProjectContentItem) {
-    return this.http.post<string>(environment.url + '/UpdateProjectContectItemWithTimer', ProjectItemToUpdate);
+    return this.http.post<string>(environment.url + '/UpdateProjectContectItemWithTimer/?OrganizationName=AuroraProd', ProjectItemToUpdate);
 
   }
   async AddNewTask(TaskObj: any) {
@@ -61,10 +61,10 @@ export class UserServiceService {
 
   }
   // לשנות- לממשק של יצירת פריט תכולת פרויקט רגיל
-  CreateNewProjectItemByGuid(projectContentItem: any) {
-    return this.http.get<ProjectContentItem[]>(environment.url + 'Login=' + projectContentItem);
+  // CreateNewProjectItemByGuid(projectContentItem: any) {
+  //   return this.http.get<ProjectContentItem[]>(environment.url + 'Login=' + projectContentItem);
 
-  }
+  // }
   CreateNewProjectItem(projectContentItem: any, fromDate: string, untilDate: string) {
     return this.http.post<string>(environment.url + 'CreateProjectContentItem?OrganizationName=AuroraProd&FromDate=' + fromDate + '&UntilDate=' + untilDate, projectContentItem);
   }
@@ -99,7 +99,7 @@ export class UserServiceService {
 
   }
   GetProjectContentItemByGuid(projectContectItemGuid: string) {
-    return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?ProjectContentItemGuid=' + projectContectItemGuid)
+    return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?OrganizationName=AuroraProd&ProjectContentItemGuid=' + projectContectItemGuid)
 
   }
 }

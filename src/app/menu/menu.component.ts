@@ -156,12 +156,13 @@ export class MenuComponent implements OnInit {
   TimeProjectContectItemHour: any;
   projectContectItemByTimerGuid: any
   endButtonTimerContectProjectContectItem!: boolean;
-  showMassgeToUserProjectContectItemWithTimer = false;
   TimeProjectContectItemWithTimer: any;
   workTimeHourProjectContectItemWithTimer: any;
   Timer: any;
   goToHome!: boolean;
   goToChart!: boolean;
+  ifXTimerContectProjectContectItem = true;
+  showMassgeToUserProjectContectItemWithTimer = false;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -760,8 +761,13 @@ export class MenuComponent implements OnInit {
   }
 
   // עד לפה זמני משימה
+
+
   // זמני פריט תכולת פרויקט עם טיימר
   startTimerProjectContectItem() {
+    this.endButtonTimerContectProjectContectItem = true
+    this.ifXTimerContectProjectContectItem = false
+    localStorage.setItem("endButtonTimerContectProjectContectItem", JSON.stringify(this.endButtonTimerContectProjectContectItem))
     this.CreateProjectContectItemWithTimer();
     let a = Date.now();
     localStorage.setItem("DateNowProjectContectItemWithTimer", a.toString());
@@ -814,7 +820,6 @@ export class MenuComponent implements OnInit {
 
 
 
-
   ngAfterViewInit() {
     var ignoreClickOnMeElement = this.personalDetails.nativeElement;
 
@@ -836,6 +841,7 @@ export class MenuComponent implements OnInit {
     this.openPersonalDetails = false;
 
   }
+
 
 
 

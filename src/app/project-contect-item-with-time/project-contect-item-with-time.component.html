@@ -23,14 +23,16 @@
     <app-pop-up>
         <div body>
             <app-massge-to-user [kindOfMassage]="projectContectItemByTimer" [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer" (clickYes)="clickYes(this.TimeProjectContectItemHour)"
-                (clickNo)="clickNo()" [ifButton]="true"></app-massge-to-user>
+                (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="projectContectItemByTimer"></app-massge-to-user>
         </div>
     </app-pop-up>
   </div>
   <div *ngIf="OpenUpdatePauseTimerProjectContectItem">
     <app-pop-up>
         <div body>
-            <app-create-aproject-content-item [projectContectItemByTimerGuid]="projectContectItemByTimerGuid" [ifXt]="false" [KindPopUpUpdateProjectContectItemWithTime]="kindPopUp" [actualTime]="timeToSendCreate" ></app-create-aproject-content-item>
+            endButtonTimerContectProjectContectItem = false
+
+            <app-create-aproject-content-item [endButtonTimerContectProjectContectItem]="endButtonTimerContectProjectContectItem"  [projectContectItemByTimerGuid]="projectContectItemByTimerGuid" [ifXt]="false" [KindPopUpUpdateProjectContectItemWithTime]="kindPopUp" [actualTime]="timeToSendCreate" ></app-create-aproject-content-item>
         </div>
     </app-pop-up>
   </div>
