@@ -238,6 +238,9 @@ export class MenuComponent implements OnInit {
     if (localStorage.getItem("DateNowPause")) {
       this.openPopUp('pause', true)
     }
+    if (localStorage.getItem("DateNowProjectContectItemWithTimer")) {
+      this.openPopUp('timeOfProjectContectItem', true)
+    }
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = true;
       this.ContinueToWorkOnATask();

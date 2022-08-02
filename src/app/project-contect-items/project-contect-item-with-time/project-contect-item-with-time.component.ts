@@ -10,7 +10,6 @@ import { PopUpServiceService } from '../../pop-up-service.service';
   styleUrls: ['./project-contect-item-with-time.component.css']
 })
 export class ProjectContectItemWithTimeComponent implements OnInit {
-  @Input() ifX!: boolean
   @Input() TimeProjectContectItemHour: any
   @Input() endButtonTimerContectProjectContectItem!: boolean;
   @Input() showMassgeToUserProjectContectItemWithTimer!: boolean;
@@ -28,15 +27,18 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   OpenUpdatePauseTimerProjectContectItem = false
   systemGuid: any;
   Timer: any;
-  ifXTimerContectProjectContectItem=true;
+  ifX=true;
   constructor(private popUpService: PopUpServiceService, private appService: AppService ,private userService:UserServiceService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("DateNowProjectContectItemWithTimer")) {
+      this.ifX=false;
+      this.endButtonTimerContectProjectContectItem=true;
+      this.ContinueToWorkOnAProjectContectItemWithTimer()
+    }
   }
 
-  startTimeProjectContectItem() {
-    this.getStartTimer.emit()
-  }
+
   OpenPopUpIfCloseProjectcontectItemWithTimer() {
     this.showMassgeToUserProjectContectItemWithTimer = true;
   }
@@ -78,7 +80,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   // זמני פריט תכולת פרויקט עם טיימר
   startTimerProjectContectItem() {
     this.endButtonTimerContectProjectContectItem = true;
-    this.ifXTimerContectProjectContectItem = false
+    this.ifX = false
     localStorage.setItem("endButtonTimerContectProjectContectItem", JSON.stringify(this.endButtonTimerContectProjectContectItem))
     this.CreateProjectContectItemWithTimer();
     let a = Date.now();
