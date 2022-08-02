@@ -4,7 +4,7 @@
     <tr>
       <th *ngFor="let th of thArr" scope="col">
         <ng-container *ngIf="ifSortDown; else sortTableUp;">
-          <button (click)="SortTableDown(th)">
+          <button class="sort-btn" (click)="SortTableDown(th)">
             <ng-container *ngIf="th!=='משך'; else WorkingHours">
               {{th}}
             </ng-container>
@@ -16,7 +16,7 @@
           </button>
         </ng-container>
         <ng-template #sortTableUp>
-          <button (click)="SortTableUp(th)">
+          <button class="sort-btn" (click)="SortTableUp(th)">
             <ng-container *ngIf="th!=='משך'; else WorkingHours">
               {{th}}
             </ng-container>
@@ -69,7 +69,7 @@
         <input type="number" id="HoursActually" name="HoursActually" class="form-control" placeholder="שעות בפועל"
           [(ngModel)]="workingHours" [ngModelOptions]="{standalone: true}" ngModel
           #HoursActually="ngModel" required>
-        <button type="submit" class="btn"> עדכן דיווח   </button>
+        <button type="submit" class="btn"> עדכן דיווח </button>
       </form>
     </div>
   </app-pop-up>
