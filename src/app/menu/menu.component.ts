@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
-  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
+  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
   val = ['', 'worktime', 'worktime'];
@@ -239,6 +239,7 @@ export class MenuComponent implements OnInit {
       this.openPopUp('pause', true)
     }
     if (localStorage.getItem('DateNow')) {
+      this.startWorkOfTask = true;
       this.ContinueToWorkOnATask();
     }
   }
@@ -839,7 +840,39 @@ export class MenuComponent implements OnInit {
     console.log(this.TimeProjectContectItemHour);
   }
 
+<<<<<<< HEAD
  
+=======
+
+
+
+
+
+
+  ngAfterViewInit() {
+    var ignoreClickOnMeElement = this.personalDetails.nativeElement;
+
+    // var ignoreClickOnMeElement = this.personalDetails.nativeElement.addEventListener('click', this.onClick.bind(this));
+    const navbarToggler =
+      document.addEventListener('click', function (event) {
+        var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
+        if (!isClickInsideElement) {
+        }
+      });
+  }
+  onClick(event: any) {
+    this.openPersonalDetails = true;
+
+
+  }
+  ClickedOut(event: any) {
+    var v = event.target.closesttt
+    this.openPersonalDetails = false;
+
+  }
+
+
+>>>>>>> cdbd3ed62b7ed9d1ff9bcd775b3566a066cca305
 
 
 }

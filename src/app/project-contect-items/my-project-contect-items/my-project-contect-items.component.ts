@@ -17,18 +17,19 @@ export class MyProjectContectItemsComponent implements OnInit {
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
-
-  workingHours!: Number;
+  @Input() hideProjectTh!: Boolean;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
   myCompProjectItem = new ProjectContentItemComponent(this.userServiceService, this.appService, this.popUpService)
   systemGuid: any;
   updateDetails = false;
   ProjectContentItem:any;
-  // ProjectContentItem
+   workingHours!: Number;
   massageToUser="";
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
+  ifSortDown=true;
+
   constructor(private userServiceService: UserServiceService,private  appService :AppService,private popUpService:PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
@@ -96,6 +97,82 @@ export class MyProjectContectItemsComponent implements OnInit {
       this.appService.setIsPopUpOpen(true);
       this.popUpService.setSpecificPopUp(type, data)
     }
+    SortTableDown(thName: any) {
+      this.ifSortDown=false;
+     let keyToSort: any;
+     switch (thName) {
+       case 'תאריך':
+         keyToSort = 'Date';
+         break;
+       case 'משך':
+         keyToSort = 'WorkingHours';
+         break;
+       case 'תאור':
+         keyToSort = 'Description';
+         break;
+       case 'סוג עבודה':
+         keyToSort = ['WorkType', 'Name'];
+         break;
+       case 'שם':
+         keyToSort = 'Name';
+         break;
+       case 'שעות לחיוב?':
+         keyToSort = 'BillableHours';
+         break;
+       default:
+         break;
+     }
+    //  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
+
+     if (keyToSort[0] != 'WorkType') {
+       this.tableData.sort((a: any, b: any) =>
+         (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
+     }
+     else {
+       this.tableData.sort((a: any, b: any) => 
+            
+         (a[keyToSort[0]][keyToSort[1]]?a[keyToSort[0]][keyToSort[1]]:"" > (b[keyToSort[0]][keyToSort[1]]?b[keyToSort[0]][keyToSort[1]]:"")) ? 1 : -1)
+     }
+   }
+   SortTableUp(thName:any)
+   {
+     this.ifSortDown=true;
+ 
+     let keyToSort: any;
+     switch (thName) {
+      case 'תאריך':
+        keyToSort = 'Date';
+        break;
+      case 'משך':
+        keyToSort = 'WorkingHours';
+        break;
+      case 'תאור':
+        keyToSort = 'Description';
+        break;
+      case 'סוג עבודה':
+        keyToSort = ['WorkType', 'Name'];
+        break;
+      case 'שם':
+        keyToSort = 'Name';
+        break;
+      case 'שעות לחיוב?':
+        keyToSort = 'BillableHours';
+        break;
+      default:
+        break;
+    }
+    // thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
+
+     if (keyToSort[0] != 'WorkType') {
+       this.tableData.sort((a: any, b: any) =>
+         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
+     }
+     else {
+       this.tableData.sort((a: any, b: any) =>
+         (a[keyToSort[0]][keyToSort[1]?keyToSort[1]:""] < (b[keyToSort[0]][keyToSort[1]?keyToSort[1]:""])) ? 1 : -1)
+     }
+   }
+   
   }
 
 
