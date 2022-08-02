@@ -155,7 +155,7 @@ export class MenuComponent implements OnInit {
   ifX = true
   TimeProjectContectItemHour: any;
   projectContectItemByTimerGuid: any
-  endButtonTimerContectProjectContectItem!: boolean;
+  endButtonTimerContectProjectContectItem=false;
   TimeProjectContectItemWithTimer: any;
   workTimeHourProjectContectItemWithTimer: any;
   Timer: any;
@@ -759,67 +759,6 @@ export class MenuComponent implements OnInit {
     this.workTime = this.convertTimeStempToTime(res)
     console.log(this.workTime);
   }
-
-  // עד לפה זמני משימה
-
-
-  // זמני פריט תכולת פרויקט עם טיימר
-  startTimerProjectContectItem() {
-    this.endButtonTimerContectProjectContectItem = true
-    this.ifXTimerContectProjectContectItem = false
-    localStorage.setItem("endButtonTimerContectProjectContectItem", JSON.stringify(this.endButtonTimerContectProjectContectItem))
-    this.CreateProjectContectItemWithTimer();
-    let a = Date.now();
-    localStorage.setItem("DateNowProjectContectItemWithTimer", a.toString());
-    this.ContinueToWorkOnAProjectContectItemWithTimer();
-    this.popUpService.SetProjectContentItemByTaskGuid(true)
-    this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-  }
-  CreateProjectContectItemWithTimer() {
-    this.systemGuid = localStorage.getItem('systemGuid');
-    this.userService.CreateProjectContectItemWithTimer(this.systemGuid).subscribe(
-      (res: any) => {
-        this.projectContectItemByTimerGuid = res;
-        console.log(this.projectContectItemByTimerGuid);
-      },
-      (err: any) =>
-        console.log(err.error)
-    )
-  }
-  ContinueToWorkOnAProjectContectItemWithTimer() {
-    this.getCreatedProjectContectItemWithTimerFromLoaclStorage();
-    this.interval = setInterval(() => {
-      if (this.TimeProjectContectItemHour) {
-        this.getCreatedProjectContectItemWithTimerFromLoaclStorage();
-      }
-      else {
-      }
-    }, 1000)
-  }
-  getCreatedProjectContectItemWithTimerFromLoaclStorage() {
-    if (localStorage.getItem('DateNowProjectContectItemWithTimer')) {
-      this.setWorkTimeProjectContectItemWithTimer(localStorage.getItem('DateNowProjectContectItemWithTimer'))
-    }
-  }
-  convertTimeStempToTimeProjectContectItemWithTimer(ProjectContentItemCreatedDateByTimer: any) {
-    var timestampCreatOn = ProjectContentItemCreatedDateByTimer;
-    const timestampNow = Date.now();
-    console.log(timestampNow);
-    console.log(timestampCreatOn);
-    this.Timer = timestampNow - timestampCreatOn;
-    return this.datePipe.transform(this.Timer, 'HH:mm:ss', "+0000");
-
-  }
-  setWorkTimeProjectContectItemWithTimer(res: any) {
-    this.TimeProjectContectItemHour = this.convertTimeStempToTimeProjectContectItemWithTimer(res)
-    console.log(this.TimeProjectContectItemHour);
-  }
-
-
-
-
-
-
   ngAfterViewInit() {
     var ignoreClickOnMeElement = this.personalDetails.nativeElement;
 
