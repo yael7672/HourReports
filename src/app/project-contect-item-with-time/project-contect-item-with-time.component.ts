@@ -10,7 +10,7 @@ import { PopUpServiceService } from '../pop-up-service.service';
 export class ProjectContectItemWithTimeComponent implements OnInit {
   @Input() ifX!: boolean
   @Input() TimeProjectContectItemHour: any
-  @Input() endButtonTimerContectProjectContectItem: any
+  @Input() endButtonTimerContectProjectContectItem!: boolean
   @Input() showMassgeToUserProjectContectItemWithTimer: any
   @Input() timeToSendCreate: any
   @Input() projectContectItemByTimerGuid: any
@@ -24,11 +24,13 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   interval: any
   parseTime: any;
   OpenUpdatePauseTimerProjectContectItem = false
-  constructor(private popUpService: PopUpServiceService, private appService: AppService) { }
+  constructor(private popUpService: PopUpServiceService, private appService: AppService) { 
+    // if (localStorage.getItem("endButtonTimerContectProjectContectItem") == "true") { this.endButtonTimerContectProjectContectItem = true }
+    // if (localStorage.getItem("endButtonTimerContectProjectContectItem") == "false") { this.endButtonTimerContectProjectContectItem = false }
+  }
 
   ngOnInit(): void {
-    if (localStorage.getItem("endButtonTimerContectProjectContectItem") == "true") { this.endButtonTimerContectProjectContectItem = true }
-    if (localStorage.getItem("endButtonTimerContectProjectContectItem") == "false") { this.endButtonTimerContectProjectContectItem = false }
+    
   }
 
   startTimeProjectContectItem() {

@@ -123,6 +123,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
       this.popUpService.SetWorkTimeAfterProjectContectItem(true)
       this.appService.setIsPopUpOpen(false);
       this.popUpService.setClosePopUp();
+      this.endButtonTimerContectProjectContectItem=false
     },
     (err) =>
       alert("error")
