@@ -68,8 +68,8 @@ export class UserServiceService {
   CreateNewProjectItem(projectContentItem: any, fromDate: string, untilDate: string) {
     return this.http.post<string>(environment.url + 'CreateProjectContentItem?OrganizationName=AuroraProd&FromDate=' + fromDate + '&UntilDate=' + untilDate, projectContentItem);
   }
-  async PauseWork(SystemGuid: any, ActualTime: any) {
-    return await this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&ActualTime=' + ActualTime).toPromise();
+  async PauseWork(SystemGuid: any,ProjectContectItemPauseGuid:any, ActualTime: any) {
+    return await this.http.get<string>(environment.url + 'UpdateProjectContectItemPauseHours?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&ProjectContectItemPauseGuid=' + ProjectContectItemPauseGuid+'&ActualTime=' + ActualTime).toPromise();
 
   }
   async GetMyProjectContentItemByTime(SystemGuid: string, FromDate: string, UntilDate: string, SelectedTime: number) {

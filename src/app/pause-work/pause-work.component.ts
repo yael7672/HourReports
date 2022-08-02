@@ -73,7 +73,7 @@ export class PauseWorkComponent implements OnInit {
     localStorage.removeItem("WorkTimePause")
     this.systemGuid = localStorage.getItem("systemGuid")
     this.taskGuid = localStorage.getItem("TaskGuid")
-    this.userServiceService.PauseWork(this.systemGuid, workTime).then(
+    this.userServiceService.PauseWork(this.systemGuid,this.pauseGuid , workTime).then(
       (res: any) => {
         this.pauseGuid = res;
         console.log(this.pauseGuid)
