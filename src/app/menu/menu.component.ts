@@ -1,5 +1,5 @@
 import { jsDocComment, outputAst } from '@angular/compiler';
-import { Component, Directive, ElementRef,AfterViewInit, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Directive, ElementRef, AfterViewInit, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
@@ -27,7 +27,7 @@ import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorki
 })
 export class MenuComponent implements OnInit {
   @ViewChild('personalDetails')
- personalDetails!: ElementRef ;
+  personalDetails!: ElementRef;
   a!: any;
   public model: any;
   isPopUpOpen!: any;
@@ -149,19 +149,20 @@ export class MenuComponent implements OnInit {
   IfClosePouse!: boolean;
   workTypeArr: any;
   todayDate: any;
-  startWorkOfTask=false;
+  startWorkOfTask = false;
   myDate = new Date()
   DailyAndMonthlyWorkingHours!: MonthlyAndDailyWorkingHours;
   ifX = true
   TimeProjectContectItemHour: any;
   projectContectItemByTimerGuid: any
   endButtonTimerContectProjectContectItem!: boolean;
-  showMassgeToUserProjectContectItemWithTimer = false;
   TimeProjectContectItemWithTimer: any;
   workTimeHourProjectContectItemWithTimer: any;
   Timer: any;
   goToHome!: boolean;
   goToChart!: boolean;
+  ifXTimerContectProjectContectItem = true;
+  showMassgeToUserProjectContectItemWithTimer = false;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -257,11 +258,10 @@ export class MenuComponent implements OnInit {
       }
     )
   }
-  closePersonalDetails()
-   {
+  closePersonalDetails() {
     this.openPersonalDetails = false;
   }
-   GetMyTask() {
+  GetMyTask() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetMyTask(this.systemGuid).subscribe(
       res => {
@@ -346,7 +346,7 @@ export class MenuComponent implements OnInit {
     localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
     localStorage.setItem('TaskGuidOfProjectContectItem', this.taskListDataDetails.TaskGuid);
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.startWorkOfTask=true;
+    this.startWorkOfTask = true;
     if (this.taskListDataDetails.OwnerId.Guid == this.systemGuid.toLowerCase()) {
       this.IftaskForTeam = false;
     }
@@ -377,7 +377,7 @@ export class MenuComponent implements OnInit {
     localStorage.removeItem('TaskName');
     localStorage.getItem('TaskGuidToSend');
     localStorage.removeItem("DateNow");
-    this.startWorkOfTask=false;
+    this.startWorkOfTask = false;
 
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
@@ -416,7 +416,7 @@ export class MenuComponent implements OnInit {
     localStorage.removeItem('TaskName');
 
     localStorage.removeItem("DateNow")
-    this.startWorkOfTask=false;
+    this.startWorkOfTask = false;
 
     if (time.worktime != "00:00:00" && time.worktime != "") {
       this.timetoSend = time.worktime.split(':');
@@ -685,12 +685,12 @@ export class MenuComponent implements OnInit {
     }
   }
   GoToStatisticsGraph() {
-      this.showstatiSticsGraph = true;
-      this.tableMyTaskOpen = false;
-      this.tableMyTaskTeamsOpen = false;
-      this.ifThereAreTasks = false;
-      this.openMyProjectContectItem = false;
-      this.tableSpecificTaskOpen = false;
+    this.showstatiSticsGraph = true;
+    this.tableMyTaskOpen = false;
+    this.tableMyTaskTeamsOpen = false;
+    this.ifThereAreTasks = false;
+    this.openMyProjectContectItem = false;
+    this.tableSpecificTaskOpen = false;
   }
   GoToHome() {
     this.showstatiSticsGraph = false;
@@ -717,9 +717,9 @@ export class MenuComponent implements OnInit {
     )
   }
 
-  GetMyProjectContectItem(selectedTime: any,fromDate="",untilDate="") {
+  GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
     this.systemGuid = localStorage.getItem('systemGuid')
-    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime,fromDate,untilDate).subscribe(res => {
+    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
       if (res) {
         this.MyProjectContectItemArr = res;
         this.showMassegeNoProjectContectItem = false
@@ -760,8 +760,38 @@ export class MenuComponent implements OnInit {
   }
 
   // עד לפה זמני משימה
+
+
+
+
+
+
+
+  ngAfterViewInit() {
+    var ignoreClickOnMeElement = this.personalDetails.nativeElement;
+
+    // var ignoreClickOnMeElement = this.personalDetails.nativeElement.addEventListener('click', this.onClick.bind(this));
+    const navbarToggler =
+      document.addEventListener('click', function (event) {
+        var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
+        if (!isClickInsideElement) {
+        }
+      });
+  }
+  onClick(event: any) {
+    this.openPersonalDetails = true;
+
+
+  }
+  ClickedOut(event: any) {
+    var v = event.target.closesttt
+    this.openPersonalDetails = false;
+  }
   // זמני פריט תכולת פרויקט עם טיימר
   startTimerProjectContectItem() {
+    this.endButtonTimerContectProjectContectItem = true
+    this.ifXTimerContectProjectContectItem = false
+    localStorage.setItem("endButtonTimerContectProjectContectItem", JSON.stringify(this.endButtonTimerContectProjectContectItem))
     this.CreateProjectContectItemWithTimer();
     let a = Date.now();
     localStorage.setItem("DateNowProjectContectItemWithTimer", a.toString());
@@ -780,7 +810,7 @@ export class MenuComponent implements OnInit {
         console.log(err.error)
     )
   }
-  ContinueToWorkOnAProjectContectItemWithTimer(){
+  ContinueToWorkOnAProjectContectItemWithTimer() {
     this.getCreatedProjectContectItemWithTimerFromLoaclStorage();
     this.interval = setInterval(() => {
       if (this.TimeProjectContectItemHour) {
@@ -801,43 +831,15 @@ export class MenuComponent implements OnInit {
     console.log(timestampNow);
     console.log(timestampCreatOn);
     this.Timer = timestampNow - timestampCreatOn;
-    return this.datePipe.transform(this.Timer, 'HH:mm:ss',"+0000");
-  
+    return this.datePipe.transform(this.Timer, 'HH:mm:ss', "+0000");
+
   }
   setWorkTimeProjectContectItemWithTimer(res: any) {
     this.TimeProjectContectItemHour = this.convertTimeStempToTimeProjectContectItemWithTimer(res)
     console.log(this.TimeProjectContectItemHour);
   }
 
-
-
-
-
-
-
-  ngAfterViewInit() {
-    var ignoreClickOnMeElement = this.personalDetails.nativeElement;
-
-    // var ignoreClickOnMeElement = this.personalDetails.nativeElement.addEventListener('click', this.onClick.bind(this));
-    const navbarToggler =
-    document.addEventListener('click', function(event) {
-      var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
-      if (!isClickInsideElement) {
-      }
-  });                     
-  }
-  onClick(event:any) {
-    this.openPersonalDetails = true;
-
-
-  }
-  ClickedOut(event: any) {
-    var v = event.target.closesttt
-    this.openPersonalDetails = false;
-
-  }
-
-
+ 
 
 
 }

@@ -23,6 +23,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   @Input() KindPopUpUpdateProjectContectItemWithTime: any;
   @Input() projectContectItemByTimerGuid:any
   @Input() ifXt:any
+  @Input() endButtonTimerContectProjectContectItem!:boolean
   ifX = true
   todayDate!: any;
   myDate = new Date()

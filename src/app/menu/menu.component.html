@@ -17,8 +17,8 @@
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
       <div class="DailyAndMonthlyWorkingHoursC">
-        <h6>סה"כ שעות עבודה להיום:{{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</h6>
-        <h6>סה"כ שעות עבודה לחודש זה:{{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</h6>
+        <h6>סה"כ שעות עבודה להיום: {{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</h6>
+        <h6>סה"כ שעות עבודה לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</h6>
       </div>
       <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
       <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()" (clickOutside)="mouseLeavePersonalDetails()">
@@ -59,7 +59,7 @@
     </div>
 
 <div *ngIf="isPopUpOpen?.timeOfProjectContectItem"> 
-  <app-project-contect-item-with-time [ifX]="ifX" [showMassgeToUserProjectContectItemWithTimer]="showMassgeToUserProjectContectItemWithTimer" [endButtonTimerContectProjectContectItem]="endButtonTimerContectProjectContectItem" [TimeProjectContectItemHour]="TimeProjectContectItemHour"  [projectContectItemByTimerGuid]="projectContectItemByTimerGuid" (getStartTimer)="startTimerProjectContectItem()" ></app-project-contect-item-with-time>
+  <app-project-contect-item-with-time [showMassgeToUserProjectContectItemWithTimer]="showMassgeToUserProjectContectItemWithTimer" [ifX]="ifXTimerContectProjectContectItem" [endButtonTimerContectProjectContectItem]="endButtonTimerContectProjectContectItem" [TimeProjectContectItemHour]="TimeProjectContectItemHour"  [projectContectItemByTimerGuid]="projectContectItemByTimerGuid" (getStartTimer)="startTimerProjectContectItem()" ></app-project-contect-item-with-time>
  <!-- <app-project-contect-item-with-time (OpenPopUpIf)="OpenPopUpIfCloseTimerProjectContectItem()"[ifX]="ifX" [showMassgeToUserProjectContectItemWithTimer]="showMassgeToUserProjectContectItemWithTimer" [endButtonTimerContectProjectContectItem]="endButtonTimerContectProjectContectItem" [TimeProjectContectItemHour]="TimeProjectContectItemHour" (getStartTimer)="startTimerProjectContectItem()" [projectContectItemByTimerGuid]="projectContectItemByTimerGuid"></app-project-contect-item-with-time>  -->
   <!-- <app-project-contect-item-with-time [ifX]="ifX" [showMassgeToUserProjectContectItemWithTimer]="showMassgeToUserProjectContectItemWithTimer" [endButtonTimerContectProjectContectItem]="endButtonTimerContectProjectContectItem" [TimeProjectContectItemHour]="TimeProjectContectItemHour" (getStartTimer)="startTimerProjectContectItem()" [projectContectItemByTimerGuid]="projectContectItemByTimerGuid"></app-project-contect-item-with-time> -->
 </div>
