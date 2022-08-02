@@ -763,31 +763,6 @@ export class MenuComponent implements OnInit {
   // עד לפה זמני משימה
 
 
-
-
-
-
-
-  ngAfterViewInit() {
-    var ignoreClickOnMeElement = this.personalDetails.nativeElement;
-
-    // var ignoreClickOnMeElement = this.personalDetails.nativeElement.addEventListener('click', this.onClick.bind(this));
-    const navbarToggler =
-      document.addEventListener('click', function (event) {
-        var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
-        if (!isClickInsideElement) {
-        }
-      });
-  }
-  onClick(event: any) {
-    this.openPersonalDetails = true;
-
-
-  }
-  ClickedOut(event: any) {
-    var v = event.target.closesttt
-    this.openPersonalDetails = false;
-  }
   // זמני פריט תכולת פרויקט עם טיימר
   startTimerProjectContectItem() {
     this.endButtonTimerContectProjectContectItem = true
@@ -840,10 +815,6 @@ export class MenuComponent implements OnInit {
     console.log(this.TimeProjectContectItemHour);
   }
 
-<<<<<<< HEAD
- 
-=======
-
 
 
 
@@ -872,7 +843,7 @@ export class MenuComponent implements OnInit {
   }
 
 
->>>>>>> cdbd3ed62b7ed9d1ff9bcd775b3566a066cca305
+
 
 
 }
