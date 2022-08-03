@@ -28,6 +28,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   todayDate!: any;
   myDate = new Date()
   Project!: Project[];
+  projectfilter:any
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
   ProjectContentItem!: any
@@ -132,5 +133,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
       this.CreateNewProjectItem(form)
     }
   }
+  filter(value:any){
+    this.Project =  this.Project.filter((f: Project) => f?.Name.includes(value));
 
+  }
 }

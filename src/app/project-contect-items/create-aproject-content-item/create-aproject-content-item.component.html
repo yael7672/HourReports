@@ -62,16 +62,17 @@
                     <span *ngIf="billingHours.errors">שדה זה חובה</span>
                 </div>
                 <div class="form-outline d-flex justify-content-center">
-                    <select id="inputState" class="form-control " ngModel name="Project" #project="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" required>
-                    
+                    <select id="inputState" class="form-control " ngModel name="Project"  #project="ngModel" 
+                    [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" required   >
                         <option value=""> פרוייקט</option>
-                        <option *ngFor="let project of this.Project" value="{{project.Guid}}">
+                        <!-- <input (input)="filter($event)" > -->
+
+                        <option *ngFor="let project of this.Project" value="{{project.Guid}}" >
                             {{project.Name}}
                         </option>
                     </select>
                 </div>
-                <div *ngIf="f.submitted && project.invalid" class="text-danger">
+                  <div *ngIf="f.submitted && project.invalid" class="text-danger">
                     <span *ngIf="project.errors">שדה זה חובה</span>
                 </div>
                 <div class="form-outline d-flex justify-content-center ">

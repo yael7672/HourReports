@@ -32,6 +32,7 @@ export class PauseWorkComponent implements OnInit {
   timetoSend: any;
   parseTime: any;
   showMassgeToUser!: boolean
+  showMassgeToUserEdit!:boolean
   formWorkPause!: NgForm
   ifX = true;
   taskGuid: any;
@@ -47,6 +48,7 @@ export class PauseWorkComponent implements OnInit {
   Time: any;
   ifInTheMiddleOfABreak = "false";
   pauseForLoclStorage:any
+  massgeUserEditPauseHour1="עריכת שעות הפסקה"
   constructor( private elementRef: ElementRef,private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
     private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -153,7 +155,8 @@ export class PauseWorkComponent implements OnInit {
         }
     }
     this.endButton = false 
-    this.PauseWork(this.parseTime)
+    this.showMassgeToUserEdit=true
+    // this.PauseWork(this.parseTime)
   }
   clickNo() {
     this.showMassgeToUser = false
@@ -214,6 +217,15 @@ convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
 }
 setWorkTime(res: any) {
   this.workTimeHour = this.convertTimeStempToTime(res)
+  localStorage.setItem('WorkTimePause', this.workTimeHour)
+
   console.log(this.workTimeHour);
+}
+Edit(time:any){
+     this.PauseWork(time)
+
+}
+clickCancel(){
+  this.showMassgeToUserEdit=false
 }
 }

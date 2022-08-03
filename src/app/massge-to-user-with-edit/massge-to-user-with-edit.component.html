@@ -1,0 +1,18 @@
+
+<div header>
+    <h3>{{massgeUserHeader}}</h3>
+</div>
+<div class="body" body>
+    <h3 *ngIf="massgeUserBody1">{{massgeUserBody1}}</h3>
+    <h5 *ngIf="massgeUserBody2" > {{massgeUserBody2}}</h5>
+    <h5 *ngIf="inputValue" > {{inputValue}}</h5>
+    <div class="form-outline d-flex justify-content-center " >
+        <input type="number" id="ActualTime" name="ActualTime" class="form-control"
+     required ngModel  #ActualTime="ngModel" [ngModel]="Time" value="Time">
+    </div> 
+</div>
+<br>
+<div class="footer">
+    <button *ngIf="ifButton" (click)="BtnNo()" type="button" class="btn btn-color">ביטול</button>
+    <button  *ngIf="ifButton" (click)="BtnEdit(ActualTime.value)" type="button" class="btn btn-color">המשך</button> 
+</div>

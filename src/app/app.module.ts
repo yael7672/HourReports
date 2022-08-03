@@ -31,7 +31,7 @@ import { SickLeaveProjectContentItemComponent } from './project-contect-items/si
 import { FreedomProjectContentItemComponent } from './project-contect-items/freedom-project-content-item/freedom-project-content-item.component';
 import { ProjectContectItemWithTimeComponent } from './project-contect-items/project-contect-item-with-time/project-contect-item-with-time.component';
 import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-awaiting-approval.component';
- 
+import { MassgeToUserWithEditComponent } from './massge-to-user-with-edit/massge-to-user-with-edit.component';
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
 
@@ -60,7 +60,8 @@ import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-
     SickLeaveProjectContentItemComponent,
     FreedomProjectContentItemComponent,
     ProjectContectItemWithTimeComponent,
-    HoursAwaitingApprovalComponent
+    HoursAwaitingApprovalComponent,
+    MassgeToUserWithEditComponent
 
 
   ],
@@ -71,6 +72,7 @@ import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-
     FormsModule ,
     CommonModule,
     NgbModule,
+   
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

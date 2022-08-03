@@ -26,4 +26,12 @@
         </div>
     </app-pop-up>
 </div>
+<div *ngIf="showMassgeToUserEdit">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user-with-edit [kindOfMassage]="'EditPauseHour'" [massgeUserHeader]="massgeUserEditPauseHour1" 
+            [Time]="parseTime"  (clickNo)="clickCancel()"  (clickEdit)="Edit($event)" [ifButton]="true"></app-massge-to-user-with-edit>
+        </div>
+    </app-pop-up>
+</div>
 
