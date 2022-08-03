@@ -56,8 +56,8 @@ export class FreedomProjectContentItemComponent implements OnInit {
     form.value.Name = "יום חופש";
     if(!form.value.ActualTime)
     form.value.ActualTime="9"
-      form.value.WorkType = { "Guid": "AA40AB76-520B-ED11-82E4-000D3ABEEDFD" }
-      form.value.Project = { "Guid": "91510FCF-140B-ED11-82E4-000D3ABEE224" }
+      form.value.WorkType = { "Guid": "00EE906B-6ADD-EA11-A813-000D3A21015B" }
+      form.value.Project = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560" }
       form.value.BillableHours = "2";
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') }
     if (this.isChecked) {

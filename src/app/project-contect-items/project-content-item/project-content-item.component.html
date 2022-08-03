@@ -10,15 +10,22 @@
         <ng-container *ngFor="let tableDataKey of tableDataKeys">
           <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
             <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
+              <ng-container *ngIf="tableDataKey!=='Date' else Date;">
+
               <td>{{returnColDataByType(colData, tableDataKey)}}</td>
             </ng-container>
-            <!-- <td>{{tableData[tableDataKey]}}</td> -->
           </ng-container>
+        </ng-container>
+      
+            <!-- <td>{{tableData[tableDataKey]}}</td> -->
           <ng-template #WorkingHours>
             <td> {{colData[tableDataKey] |number}}</td>
           </ng-template>
           <ng-template #CreatedOn>
             <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}</td>
+          </ng-template>
+          <ng-template #Date>
+            <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy '}}</td>
           </ng-template>
         </ng-container>
         <td>
@@ -50,7 +57,7 @@
       </div>
     </app-pop-up>
   </div>
-  <ng-container *ngif="openCard">
+  <!-- <ng-container *ngif="openCard">
     <div class="card" *ngFor="let colData of tableData" style="width: 25rem;">
       <div class="card-body">
         <h5 class="card-title">דיווח שעות</h5>
@@ -65,4 +72,4 @@
         </ng-container>
       </div>
     </div>
-  </ng-container>
+  </ng-container> -->

@@ -13,7 +13,9 @@
     <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
     <div *ngIf="startWorkOfTask" >
     <a (click)="CheckWhetherInTheMiddleOfWorkOnaTask(); ContinueToWorkOnATask()"><i id="clock-history"
-        class="iconify" data-icon="bi:clock-history"></i></a></div>
+        class="iconify" data-icon="bi:clock-history"></i></a>
+
+      </div>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
       <div class="DailyAndMonthlyWorkingHoursC">
@@ -239,6 +241,15 @@
     </app-pause-work>
   </div>
 
+
   <div *ngIf="showstatiSticsGraph">
     <app-statistics-graph></app-statistics-graph>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.HoursAwaitingApproval">
+    <app-pop-up [ifX]="true" [title]='"דיווחי שעות שממתינות לאישור"'>
+      <div body>
+ <app-hours-awaiting-approval></app-hours-awaiting-approval>
+      </div>
+    </app-pop-up>
   </div>

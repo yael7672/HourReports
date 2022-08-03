@@ -11,3 +11,7 @@ p {
   background-color: white;
   border: none;
 }
+td.td {
+  display: flex;
+  flex-direction: row;
+}

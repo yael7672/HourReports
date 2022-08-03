@@ -53,8 +53,8 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
     if(!form.value.ActualTime)
     form.value.ActualTime="9"
 
-      form.value.WorkType = { "Guid": "DDB877AB-440B-ED11-82E4-000D3ABEE42C" }
-      form.value.Project = { "Guid": "27481F75-440B-ED11-82E4-000D3ABEE42C" }
+      form.value.WorkType = { "Guid": "0C03DC7D-6ADD-EA11-A813-000D3A21015B" }
+      form.value.Project = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560" }
       form.value.BillableHours = "2";
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') }
     if (this.isChecked) {

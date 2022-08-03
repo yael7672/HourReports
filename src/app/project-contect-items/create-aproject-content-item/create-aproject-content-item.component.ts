@@ -82,7 +82,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         console.log(this.Regarding);
       },
       (err: any) =>
-      swal(err.error) 
+        swal(err.error)
     )
   }
 
@@ -93,7 +93,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         console.log(this.WorkType);
       },
       (err: any) =>
-      swal(err.error)     )
+        swal(err.error))
   }
 
   GetProject() {
@@ -103,7 +103,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         console.log(this.Project);
       },
       (err: any) =>
-      swal(err.error)     )
+        swal(err.error))
   }
 
   UpdateProjectContectItemWithTime(form: NgForm) {
@@ -122,7 +122,15 @@ export class CreateAprojectContentItemComponent implements OnInit {
         this.popUpService.setClosePopUp();
       },
       (err) =>
-      swal(err.error)     )
+        swal(err.error))
+  }
+  CreateOrUpdateProjectContectItem(form: NgForm) {
+    if (this.KindPopUpUpdateProjectContectItemWithTime) {
+      this.UpdateProjectContectItemWithTime(form)
+    }
+    else {
+      this.CreateNewProjectItem(form)
+    }
   }
 
 }

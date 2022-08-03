@@ -30,6 +30,7 @@ import { MyProjectContectItemsComponent } from './project-contect-items/my-proje
 import { SickLeaveProjectContentItemComponent } from './project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
 import { FreedomProjectContentItemComponent } from './project-contect-items/freedom-project-content-item/freedom-project-content-item.component';
 import { ProjectContectItemWithTimeComponent } from './project-contect-items/project-contect-item-with-time/project-contect-item-with-time.component';
+import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-awaiting-approval.component';
  
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -58,7 +59,8 @@ import { ProjectContectItemWithTimeComponent } from './project-contect-items/pro
     MyProjectContectItemsComponent,
     SickLeaveProjectContentItemComponent,
     FreedomProjectContentItemComponent,
-    ProjectContectItemWithTimeComponent
+    ProjectContectItemWithTimeComponent,
+    HoursAwaitingApprovalComponent
 
 
   ],

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import  swal from 'sweetalert';
+import swal from 'sweetalert';
 import { AppService } from '../../app-service.service';
 import { ProjectContentItem } from '../../interfacees/project-content-item';
 import { PopUpServiceService } from '../../pop-up-service.service';
@@ -23,19 +23,23 @@ export class MyProjectContectItemsComponent implements OnInit {
   myCompProjectItem = new ProjectContentItemComponent(this.userServiceService, this.appService, this.popUpService)
   systemGuid: any;
   updateDetails = false;
-  ProjectContentItem:any;
-   workingHours!: Number;
-  massageToUser="";
+  ProjectContentItem: any;
+  workingHours!: Number;
+  massageToUser = "";
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
-  ifSortDown=true;
-
-  constructor(private userServiceService: UserServiceService,private  appService :AppService,private popUpService:PopUpServiceService) {
+  ifSortDown = true;
+  showMassgeToUser = false;
+  massgeUserHeader = "";
+  massgeUserBody = "האם אתה בטוח שברצונך למחוק דיווח זה?"
+  massgeUserFooter = "";
+  kindOfMassage = 'deleteProjectContentItem';
+  projectContentItemGuid = "";
+  constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
     })
-
   }
   MyProjectContectItemArr!: ProjectContentItem[]
 
@@ -53,35 +57,35 @@ export class MyProjectContectItemsComponent implements OnInit {
       else return null;
     }
   }
- 
-    toTimestamp(sortValue: any) {
-      var datum = Date.parse(sortValue);
-      return datum / 1000;
-    }
-    sortTableByDate( ){
-      this.tableData.sort((a: any, b: any) => {
-        const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
-        const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
-        
-        return ((sortValueTimestampA?sortValueTimestampA:new Date()) >  (sortValueTimestampB?sortValueTimestampB:new Date()) ? 1 : -1)
-      })
-    }
-  
+
+  toTimestamp(sortValue: any) {
+    var datum = Date.parse(sortValue);
+    return datum / 1000;
+  }
+  sortTableByDate() {
+    this.tableData.sort((a: any, b: any) => {
+      const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
+      const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
+
+      return ((sortValueTimestampA ? sortValueTimestampA : new Date()) > (sortValueTimestampB ? sortValueTimestampB : new Date()) ? 1 : -1)
+    })
+  }
+
   EditProjectContentItemIcon(val: any) {
-   
+
     this.updateDetails = true;
-    this.ProjectContentItem=val;
-    this.workingHours=Number(this.ProjectContentItem.WorkingHours)
+    this.ProjectContentItem = val;
+    this.workingHours = Number(this.ProjectContentItem.WorkingHours)
     console.log(val);
   }
   UpdateProjectItemButton() {
     this.ProjectItemToUpdate = {
       Guid: this.ProjectContentItem.Guid,
-      Description:this.ProjectContentItem.Description,
+      Description: this.ProjectContentItem.Description,
       ActualTime: this.workingHours,
       //BillableHours:form.value.BillingHours
     }
-    this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate ).subscribe(
+    this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
@@ -94,52 +98,51 @@ export class MyProjectContectItemsComponent implements OnInit {
     )
   }
   openPopUp(data: string, type: boolean) {
-      this.appService.setIsPopUpOpen(true);
-      this.popUpService.setSpecificPopUp(type, data)
+    this.appService.setIsPopUpOpen(true);
+    this.popUpService.setSpecificPopUp(type, data)
+  }
+  SortTableDown(thName: any) {
+    this.ifSortDown = false;
+    let keyToSort: any;
+    switch (thName) {
+      case 'תאריך':
+        keyToSort = 'Date';
+        break;
+      case 'משך':
+        keyToSort = 'WorkingHours';
+        break;
+      case 'תאור':
+        keyToSort = 'Description';
+        break;
+      case 'סוג עבודה':
+        keyToSort = ['WorkType', 'Name'];
+        break;
+      case 'שם':
+        keyToSort = 'Name';
+        break;
+      case 'שעות לחיוב?':
+        keyToSort = 'BillableHours';
+        break;
+      default:
+        break;
     }
-    SortTableDown(thName: any) {
-      this.ifSortDown=false;
-     let keyToSort: any;
-     switch (thName) {
-       case 'תאריך':
-         keyToSort = 'Date';
-         break;
-       case 'משך':
-         keyToSort = 'WorkingHours';
-         break;
-       case 'תאור':
-         keyToSort = 'Description';
-         break;
-       case 'סוג עבודה':
-         keyToSort = ['WorkType', 'Name'];
-         break;
-       case 'שם':
-         keyToSort = 'Name';
-         break;
-       case 'שעות לחיוב?':
-         keyToSort = 'BillableHours';
-         break;
-       default:
-         break;
-     }
     //  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
 
-     if (keyToSort[0] != 'WorkType') {
-       this.tableData.sort((a: any, b: any) =>
-         (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
-     }
-     else {
-       this.tableData.sort((a: any, b: any) => 
-            
-       (a[keyToSort[0]][keyToSort[1]] > (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
-      }
-   }
-   SortTableUp(thName:any)
-   {
-     this.ifSortDown=true;
- 
-     let keyToSort: any;
-     switch (thName) {
+    if (keyToSort[0] != 'WorkType') {
+      this.tableData.sort((a: any, b: any) =>
+        (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
+    }
+    else {
+      this.tableData.sort((a: any, b: any) =>
+
+        (a[keyToSort[0]][keyToSort[1]] > (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
+    }
+  }
+  SortTableUp(thName: any) {
+    this.ifSortDown = true;
+
+    let keyToSort: any;
+    switch (thName) {
       case 'תאריך':
         keyToSort = 'Date';
         break;
@@ -163,16 +166,41 @@ export class MyProjectContectItemsComponent implements OnInit {
     }
     // thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
 
-     if (keyToSort[0] != 'WorkType') {
-       this.tableData.sort((a: any, b: any) =>
-         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
-     }
-     else {
-       this.tableData.sort((a: any, b: any) =>
-       (a[keyToSort[0]][keyToSort[1]] < (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
-      }
-   }
-   
+    if (keyToSort[0] != 'WorkType') {
+      this.tableData.sort((a: any, b: any) =>
+        (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
+    }
+    else {
+      this.tableData.sort((a: any, b: any) =>
+        (a[keyToSort[0]][keyToSort[1]] < (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
+    }
   }
+  DeleteProjectContentItemIcon(ProjectContentItem: any) {
+    this.showMassgeToUser = true;
+    this.projectContentItemGuid = ProjectContentItem.Guid
+  }
+  clickYes(kindOfMassage: string) {
+    if (kindOfMassage = 'checkIfIsReportOnThisDate') {
+      this.DeleteProjectContentItemByGuid()
+    }
+  }
+  DeleteProjectContentItemByGuid() {
+    this.userServiceService.DeleteProjectContentItemByGuid(this.projectContentItemGuid).subscribe(
+      (res) => {
+        this.massageToUser = res;
+        swal(this.massageToUser)
+        this.showMassgeToUser = false;
+this.popUpService.setAllmyProjectContectItem(true)
+      },
+      (err) =>
+        swal(err.error))
+
+  }
+  clickNo(kindOfMassage: string) {
+    if (kindOfMassage = 'checkIfIsReportOnThisDate') {
+      this.showMassgeToUser = false;
+    }
+  }
+}
 
 

@@ -43,12 +43,17 @@ export class MassgeToUserComponent implements OnInit {
               if (this.kindOfMassage == 'projectContectItemByTimer') {
                 this.clickYes.emit('projectContectItemByTimer')
               }
-            else {
-              if (this.kindOfMassage == 'checkIfIsReportOnThisDate') {
-                this.clickYes.emit('checkIfIsReportOnThisDate')
+              else {
+                if (this.kindOfMassage == 'checkIfIsReportOnThisDate') {
+                  this.clickYes.emit('checkIfIsReportOnThisDate')
 
+                }
+                else {
+                  if (this.kindOfMassage == 'deleteProjectContentItem') {
+                    this.clickYes.emit('deleteProjectContentItem')
+                  }
+                }
               }
-             }
             }
           }
         }
@@ -80,15 +85,19 @@ export class MassgeToUserComponent implements OnInit {
                 this.clickNo.emit('projectContectItemByTimer')
               }
               else {
-              if (this.kindOfMassage == 'checkIfIsReportOnThisDate') {
-                this.clickNo.emit('checkIfIsReportOnThisDate')
+                if (this.kindOfMassage == 'checkIfIsReportOnThisDate') {
+                  this.clickNo.emit('checkIfIsReportOnThisDate')
+                }
+                else {
+                  if (this.kindOfMassage == 'deleteProjectContentItem') {
+                    this.clickNo.emit('deleteProjectContentItem')
+                  }
+                }
               }
-            
             }
-            }
-            
+
           }
         }
       }
   }
-  }
+}

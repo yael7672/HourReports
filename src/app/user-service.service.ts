@@ -102,4 +102,13 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?OrganizationName=AuroraProd&ProjectContentItemGuid=' + projectContectItemGuid)
 
   }
+  DeleteProjectContentItemByGuid(projectContectItemGuid: string)
+  {
+    return this.http.delete<any>(environment.url + 'DeleteProjectContentItemByGuid?OrganizationName=AuroraProd&ProjectContentItemGuid=' + projectContectItemGuid)
+
+  }
+  GetHoursAwaitingApproval(SystemGuid:string)
+  {
+    return this.http.get<any>(environment.url + 'GetHoursAwaitingApproval?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+  }
 }
