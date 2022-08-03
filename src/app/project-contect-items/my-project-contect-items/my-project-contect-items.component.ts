@@ -133,9 +133,9 @@ export class MyProjectContectItemsComponent implements OnInit {
         (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.tableData.sort((a: any, b: any) =>
+      this.tableData?.sort((a: any, b: any) =>
 
-        (a[keyToSort[0]][keyToSort[1]] > (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
+        (keyToSort[1] > (keyToSort[1])) ? 1 : -1)
     }
   }
   SortTableUp(thName: any) {
@@ -171,8 +171,9 @@ export class MyProjectContectItemsComponent implements OnInit {
         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.tableData.sort((a: any, b: any) =>
-        (a[keyToSort[0]][keyToSort[1]] < (b[keyToSort[0]][keyToSort[1]])) ? 1 : -1)
+      this.tableData?.sort((a: any, b: any) =>
+      (keyToSort[1] < keyToSort[1]) ? 1 : -1)
+  
     }
   }
   DeleteProjectContentItemIcon(ProjectContentItem: any) {

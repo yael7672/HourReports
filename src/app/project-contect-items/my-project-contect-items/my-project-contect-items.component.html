@@ -34,8 +34,6 @@
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
         <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
           <ng-container *ngIf="tableDataKey!=='Date' else Date;">
-
-            <!-- <td>{{tableData[tableDataKey]}}</td> -->
             <td>{{returnColDataByType(colData, tableDataKey)}}</td>
           </ng-container>
         </ng-container>
