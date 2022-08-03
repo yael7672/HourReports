@@ -33,7 +33,7 @@ export class UserServiceService {
 
   }
   async AddNewTask(TaskObj: any) {
-    return await this.http.post<string>(environment.url + 'AddNewTask?OrganizationName=AuroraProd&OrganizationName=AuroraProd', TaskObj).toPromise();
+    return await this.http.post<string>(environment.url + 'AddNewTask?OrganizationName=AuroraProd', TaskObj).toPromise();
   }
   GetWorkType() {
     return this.http.get<WorkType[]>(environment.url + 'GetWorkType?OrganizationName=AuroraProd');

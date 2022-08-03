@@ -14,4 +14,15 @@ p {
 td.td {
   display: flex;
   flex-direction: row;
+  border-bottom-width: 0px;
+
+}
+.table>:not(caption)>*>*
+{
+
+  box-shadow: none;
+}
+.table-hover>tbody>td:hover>* {
+  --bs-table-accent-bg: var(--bs-table-hover-bg);
+  color: var(--bs-table-hover-color);
 }
