@@ -59,8 +59,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
   CreateNewProjectItem(form: NgForm) {
 
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project },
-      form.value.WorkType = { "Guid": form.value.WorkType }
+    form.value.Project = { "Guid": form.value.Project },
+    form.value.WorkType = { "Guid": form.value.WorkType }
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe(
@@ -108,22 +108,26 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   UpdateProjectContectItemWithTime(form: NgForm) {
+    this.projectContectItemByTimerGuid=localStorage.getItem("projectContectItemByTimerGuid")
     form.value.Guid = this.projectContectItemByTimerGuid
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project },
-      form.value.WorkType = { "Guid": form.value.WorkType }
+    form.value.Project = { "Guid": form.value.Project },
+    form.value.WorkType = { "Guid": form.value.WorkType }
     form.value.ActualTime = this.actualTime
+
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
       (res) => {
         this.ProjectContentItemWithTime = res;
         swal(this.ProjectContentItemWithTime)
         this.popUpService.setAllmyProjectContectItem(true)
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+        localStorage.removeItem("projectContectItemByTimerGuid")
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
       (err) =>
         swal(err.error))
+     
   }
   CreateOrUpdateProjectContectItem(form: NgForm) {
     if (this.KindPopUpUpdateProjectContectItemWithTime) {

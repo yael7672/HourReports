@@ -1,7 +1,7 @@
 <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
   <thead>
     <tr>
-      <th *ngFor="let th of thArr" scope="col">
+      <th *ngFor="let th of thArr"  scope="col">
         <ng-container *ngIf="ifSortDown; else sortTableUp;">
           <button (click)="SortTableDown(th)">
             <ng-container *ngIf="th!=='משך'; else WorkingHours">
@@ -29,7 +29,7 @@
     </tr>
   </thead>
   <tbody *ngIf="tableData">
-    <tr *ngFor="let colData of tableData" (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
+    <tr *ngFor="let colData of tableData"  (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
         <td *ngIf="tableDataKey=='ScheduledEndDate' || tableDataKey=='CreatedOn'">{{returnColDataByType(colData,
           tableDataKey) | date: 'dd/MM/yyyy HH:mm'}}</td>

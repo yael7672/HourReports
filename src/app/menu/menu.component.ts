@@ -8,7 +8,7 @@ import { ProjectContentItem } from '../interfacees/project-content-item';
 import { Task } from '../interfacees/task';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
-import { Observable, OperatorFunction } from 'rxjs';
+import { Observable, OperatorFunction, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { TaskByGuid } from '../interfacees/TaskByGuid';
 import { Chart } from 'chart.js';
@@ -155,12 +155,13 @@ export class MenuComponent implements OnInit {
   ifX = true
   TimeProjectContectItemHour: any;
   projectContectItemByTimerGuid: any
-  endButtonTimerContectProjectContectItem=false;
+  endButtonTimerContectProjectContectItem = false;
   TimeProjectContectItemWithTimer: any;
   workTimeHourProjectContectItemWithTimer: any;
   Timer: any;
   goToHome!: boolean;
   goToChart!: boolean;
+  nameSearch = "nameSearch"
   ifXTimerContectProjectContectItem = true;
   showMassgeToUserProjectContectItemWithTimer = false;
   constructor(public router: Router,
@@ -519,6 +520,17 @@ export class MenuComponent implements OnInit {
       err => {
         console.log(err.error);
       })
+  }
+  onSearchTask(filterKeyBySubject: any) {
+    this.taskArr = [...this.taskArrCopy];
+    if (filterKeyBySubject !== "" && filterKeyBySubject !== null && filterKeyBySubject !== undefined) {
+      this.taskArr = this.taskArr.filter((f: Task) => f.Subject?.includes(filterKeyBySubject));
+    }
+    else {
+      if (filterKeyBySubject == "" || filterKeyBySubject == null || filterKeyBySubject !== undefined) {
+        this.taskArr = [...this.taskArrCopy];
+      }
+    }
   }
   onSearchProject(filterKey: any) {
     console.log(filterKey);

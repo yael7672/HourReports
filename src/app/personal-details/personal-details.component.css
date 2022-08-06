@@ -13,6 +13,19 @@
     max-width: 20vw;
     min-height: 30vw;
 }
+.DailyAndMonthlyWorkingHoursC{
+  display: flex;
+  font-size: medium;
+  /* justify-content: center; */
+  flex-direction: column;
+  direction: rtl;
+  border: 0.5px solid rgb(181, 178, 178);
+  padding: 2px;
+  height: 10vh;
+  justify-content: space-around !important;
+  border-radius: 10px;
+
+}
 .profile-image-pic{
   height: 100px;
   width: 100px;

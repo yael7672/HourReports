@@ -76,7 +76,7 @@ export class PauseWorkComponent implements OnInit {
     this.systemGuid = localStorage.getItem("systemGuid")
     this.taskGuid = localStorage.getItem("TaskGuid")
     this.pauseGuidForLoclStorage = localStorage.getItem('pauseGuid')
-    this.userServiceService.PauseWork(this.systemGuid,this.pauseGuidForLoclStorage , workTime).then(
+    this.userServiceService.PauseWork(this.systemGuid,this.pauseGuidForLoclStorage ,workTime).then(
       (res: any) => {
         this.pauseGuid = res;
         console.log(this.pauseGuid)

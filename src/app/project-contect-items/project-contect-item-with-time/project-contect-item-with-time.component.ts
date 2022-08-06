@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserServiceService } from 'src/app/user-service.service';
+import  swal from 'sweetalert';
 import { AppService } from '../../app-service.service';
 import { PopUpServiceService } from '../../pop-up-service.service';
 
@@ -40,7 +41,13 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
 
 
   OpenPopUpIfCloseProjectcontectItemWithTimer() {
+    if(this.TimeProjectContectItemHour == 0 ||this.TimeProjectContectItemHour  < "00:01:00")
+    {
+        swal("אין אפשרות לדווח פחות מ-1 דק")
+    }
+    else{
     this.showMassgeToUserProjectContectItemWithTimer = true;
+    }
   }
   clickNo(kindOfMassage: string) {
     if (kindOfMassage = 'projectContectItemByTimer') {
@@ -69,13 +76,15 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   }
 
   pauseTimerProjectContectItem(time: any) {
+
     this.TimeProjectContectItemHour = ["00:00:00"];
     this.TimeProjectContectItemHour = ""
     localStorage.removeItem("DateNowProjectContectItemWithTimer")
     this.timeToSendCreate = time
     this.popUpService.SetIfXProjectContectItemUpdateWithTime(true)
     this.OpenUpdatePauseTimerProjectContectItem = true
-  }
+  
+}
 
   // זמני פריט תכולת פרויקט עם טיימר
   startTimerProjectContectItem() {
@@ -94,6 +103,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
     this.userService.CreateProjectContectItemWithTimer(this.systemGuid).subscribe(
       (res: any) => {
         this.projectContectItemByTimerGuid = res;
+        localStorage.setItem("projectContectItemByTimerGuid",this.projectContectItemByTimerGuid)
         console.log(this.projectContectItemByTimerGuid);
       },
       (err: any) =>

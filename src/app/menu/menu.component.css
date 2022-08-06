@@ -1,13 +1,7 @@
 .card-title {
     text-align: center;
 }
-.DailyAndMonthlyWorkingHoursC{
-  display: flex;
-  /* justify-content: center; */
-  flex-direction: column;
-  direction: rtl;
 
-}
 .DailyAndMonthlyWorkingHoursC h6{
     font-size: medium;
 }

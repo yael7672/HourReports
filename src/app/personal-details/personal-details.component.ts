@@ -13,6 +13,7 @@ export class PersonalDetailsComponent implements OnInit {
   systemMail!: any;
   systemGuid!: any;
   @Input()ifX!:boolean;
+  @Input() DailyAndMonthlyWorkingHours:any
   @Output() openPopUp = new EventEmitter<any>();
   @Output() closePersonalDetails = new EventEmitter<any>();
 

@@ -18,10 +18,6 @@
       </div>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
-      <div class="DailyAndMonthlyWorkingHoursC">
-        <h6>סה"כ שעות עבודה להיום: {{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</h6>
-        <h6>סה"כ שעות עבודה לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</h6>
-      </div>
       <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
       <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()" (clickOutside)="mouseLeavePersonalDetails()">
         <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
@@ -37,7 +33,11 @@
 <div class="menu" *ngIf="!openMyProjectContectItem">
   <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
     <div class="form-outline">
-      <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
+      <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי משימה" 
+      (change)="onSearchTask(model)" /> -->
+      <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי משימה" [(ngModel)]="model"
+      (change)="onSearchTask(model)" />
+          <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
           [ngbTypeahead]="search" (change)="onSearchProject(model)" /> -->
         <div class="form-outline d-flex justify-content-center">
           <select id="inputState" class="form-control" ngModel name="SourceTask" #SourceTask="ngModel"
@@ -48,7 +48,6 @@
             </option>
           </select>
         </div>
-
         <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
           <option value="">--בחר אחת מהאופציות הבאות--</option>
           <option value="0">המשימות שלי </option>
@@ -76,7 +75,7 @@
     <!-- המשימות של הצוותים שלי -->
     <app-smart-card *ngIf="tableMyTaskTeamsOpen&&tableMyTaskTeamsOpen1" [title]="titleTableTeamsTask">
       <div body>
-        <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
+        <app-show-my-task (clickSelectedTask)="SelectedTask($event)" [nameSearch]="nameSearch" [hideProjectTh]="hideProjectTh"
           [kindOfCard]="'tableCard'" [thArr]="thArrTaskTeams" (getDataClickOfButton)="whichButtonChoose($event)"
           [tableData]="taskTeamsArr" [tableDataKeys]="taskTeamsListKeys">
         </app-show-my-task>
@@ -163,7 +162,7 @@
   </div>
 
   <div *ngIf="openPersonalDetails">
-    <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)"
+    <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [DailyAndMonthlyWorkingHours]="DailyAndMonthlyWorkingHours"
       (closePersonalDetails)="closePersonalDetails()"></app-personal-details>
 
   </div>

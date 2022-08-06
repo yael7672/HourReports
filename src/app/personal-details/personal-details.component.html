@@ -12,6 +12,10 @@
     <div *ngIf="!systemGuid">
       <h3 style="text-align:center">!אף אחד לא מחובר</h3>
     </div>
+    <div class="DailyAndMonthlyWorkingHoursC">
+      <h6>סה"כ ש"ע להיום: {{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</h6>
+      <h6>סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</h6>
+    </div>
     <div class="icons">
     <a (click)="openPopUpp('sickLeave',true)"><i class="iconify" data-icon="ic:outline-sick"></i>
     </a>
