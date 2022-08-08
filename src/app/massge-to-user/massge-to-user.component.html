@@ -11,4 +11,6 @@
 <div class="footer">
     <button *ngIf="ifButton" (click)="BtnNo()" type="button" class="btn btn-color">לא</button>
     <button   *ngIf="ifButton" (click)="BtnYes()" type="button" class="btn btn-color">כן</button> 
+    <button   *ngIf="ifButton&&ButtonCancel==true" (click)="BtnCancel()" type="button" class="btn btn-color">בטל דיווח</button> 
+
 </div>

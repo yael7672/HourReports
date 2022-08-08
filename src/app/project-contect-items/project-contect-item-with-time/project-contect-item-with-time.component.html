@@ -23,7 +23,7 @@
     <app-pop-up>
         <div body>
             <app-massge-to-user [kindOfMassage]="projectContectItemByTimer" [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer" (clickYes)="clickYes(this.TimeProjectContectItemHour)"
-                (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="projectContectItemByTimer"></app-massge-to-user>
+            (clickCancel)="clickCancel($event)" [ButtonCancel]="ButtonCancel"  (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="projectContectItemByTimer"></app-massge-to-user>
         </div>
     </app-pop-up>
   </div>

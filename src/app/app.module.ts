@@ -64,7 +64,7 @@ import { searchInputFilterPipe } from './pipes/searchInputFilter.pipe';
     ProjectContectItemWithTimeComponent,
     HoursAwaitingApprovalComponent,
     MassgeToUserWithEditComponent,
-searchInputFilterPipe
+
 
   ],
   imports: [
@@ -77,7 +77,7 @@ searchInputFilterPipe
 
    
   ],
-  providers: [DatePipe,searchInputFilterPipe],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -138,7 +138,14 @@ export class PauseWorkComponent implements OnInit {
     this.continuePause();
   }
   OpenPopUpIfClosePause() {
-    this.showMassgeToUser = true;
+    if(this.workTimeHour == 0 ||this.workTimeHour  < "00:01:00")
+    {
+        swal("אין אפשרות לדווח פחות מ-1 דק")
+    }
+    else{
+        this.showMassgeToUser = true;
+    }
+  
   }
 
   clickYes(time: any) {
@@ -226,6 +233,6 @@ Edit(time:any){
 
 }
 clickCancel(){
-  this.showMassgeToUserEdit=false
+  this.showMassgeToUserEdit = false
 }
 }

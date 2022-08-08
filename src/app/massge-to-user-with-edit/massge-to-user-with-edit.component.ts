@@ -39,13 +39,11 @@ export class MassgeToUserWithEditComponent implements OnInit {
   }
   BtnEdit(ActualTime:any) {
     if (this.kindOfMassage == 'EditPauseHour') {
-      alert(ActualTime)
       this.clickEdit.emit(ActualTime)
     }
   }
   BtnCancel(ActualTime:any) {
     if (this.kindOfMassage == 'EditPauseHour') {
-
       this.clickCancel.emit(ActualTime)
     }
   }

@@ -1,44 +1,53 @@
 .actionArea {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 19;
-    /* background-color: #0e1b34de; */
-    width: 35%;
-    padding-top: 6%;
-    
-  }
-  .card {
-    min-width: 200px;
-    max-width: 20vw;
-    min-height: 30vw;
-}
-.DailyAndMonthlyWorkingHoursC{
-  display: flex;
-  font-size: medium;
-  /* justify-content: center; */
-  flex-direction: column;
-  direction: rtl;
-  border: 0.5px solid rgb(181, 178, 178);
-  padding: 2px;
-  height: 10vh;
-  justify-content: space-around !important;
-  border-radius: 10px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 19;
+  /* background-color: #0e1b34de; */
+  width: 35%;
+  padding-top: 6%;
 
 }
-.profile-image-pic{
+
+.card {
+  min-width: 200px;
+  max-width: 20vw;
+  min-height: 30vw;
+}
+ p.card-title{
+text-align: right !important;
+font-size: small;
+font-weight: bold;
+/* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif */
+}
+/* .DailyAndMonthlyWorkingHoursC {
+  display: flex;
+  flex-direction:column;
+  direction: rtl;
+  height: 10vh !important;
+  border-radius: 10px;
+  font-weight: 100 !important;
+}
+.DailyAndMonthlyWorkingHoursC p{
+  padding: 0;
+} */
+.profile-image-pic {
   height: 100px;
   width: 100px;
   object-fit: cover;
 }
-.icons{
+
+.icons {
   display: flex;
   flex-direction: row;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
 }
-.iconify{
+
+.iconify {
   font-size: 30px;
   margin-top: 0.5rem;
-}a {
+}
+
+a {
   text-decoration: none;
 }

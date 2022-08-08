@@ -29,6 +29,8 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   systemGuid: any;
   Timer: any;
   ifX=true;
+  ButtonCancel:boolean=true
+  massageToUser: any;
   constructor(private popUpService: PopUpServiceService, private appService: AppService ,private userService:UserServiceService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
@@ -74,7 +76,42 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
     this.showMassgeToUserProjectContectItemWithTimer = false
 
   }
+  clickCancel(time:any){
+    if (time.worktime != "" || time != null) {
+      this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
+      clearInterval(this.interval);
+      if (this.timetoSend[2] > 30) {
+        this.timetoSend[1]++;
+      }
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+      if (this.parseTime == undefined) {
+        this.parseTime = "";
+      }
+      this.TimeProjectContectItemHour = ["00:00:00"];
+  }
+  this.TimeProjectContectItemHour = ""
+  localStorage.removeItem("DateNowProjectContectItemWithTimer")
+  this.timeToSendCreate = time
+  this.projectContectItemByTimerGuid = localStorage.getItem("projectContectItemByTimerGuid")
+  this.DeleteProjectContentItemByGuid(this.projectContectItemByTimerGuid)
+  this.popUpService.SetIfXProjectContectItemUpdateWithTime(true)
+  localStorage.removeItem("projectContectItemByTimerGuid")
+   this.showMassgeToUserProjectContectItemWithTimer=false
+   this.appService.setIsPopUpOpen(false);
+   this.popUpService.setSpecificPopUp(false, "timeOfProjectContectItem")
+  }
 
+  DeleteProjectContentItemByGuid(projectContectItemByTimerGuid:any) {
+    this.userService.DeleteProjectContentItemByGuid(projectContectItemByTimerGuid).subscribe(
+      (res) => {
+        this.massageToUser = res;
+    this.popUpService.setAllmyProjectContectItem(true)
+      },
+      (err) =>
+        swal(err.error))
+
+  }
   pauseTimerProjectContectItem(time: any) {
 
     this.TimeProjectContectItemHour = ["00:00:00"];
