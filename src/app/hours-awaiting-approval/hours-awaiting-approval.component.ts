@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserServiceService } from '../user-service.service';
 
 @Component({
@@ -7,10 +7,11 @@ import { UserServiceService } from '../user-service.service';
   styleUrls: ['./hours-awaiting-approval.component.css']
 })
 export class HoursAwaitingApprovalComponent implements OnInit {
+
   systemGuid:any;
   hoursAwaitingApprovalArr:any;
-  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
-  thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
+  projectContentItemListKeys = ['Name', 'Date','ManagerNotes', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
+  thArrTableProjectContentItem = ['שם', 'תאריך','הערות מנהל','תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   constructor(private userService:UserServiceService) { }
   ngOnInit(): void {
     this.GetHoursAwaitingApproval()
@@ -28,4 +29,5 @@ export class HoursAwaitingApprovalComponent implements OnInit {
         console.log(err.error);
       })
   }
+
 }

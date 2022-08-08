@@ -30,7 +30,8 @@
         </ng-container>
         <td>
           <button (click)="EditProjectContentItemIcon(colData)"
-            (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button"> <i class="fa fa-pencil"
+            (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button">
+             <i class="fa fa-pencil"
               aria-hidden="true"></i></button>
         </td>
       </tr>
@@ -52,7 +53,7 @@
           <input type="number" id="HoursActually" name="HoursActually" class="form-control" placeholder="שעות בפועל"
             [(ngModel)]="workingHours" [ngModelOptions]="{standalone: true}" ngModel
             #HoursActually="ngModel" required>
-          <button type="submit" class="btn"> עדכן דייוח   </button>
+          <button type="submit" class="btn"> עדכן דיווח   </button>
         </form>
       </div>
     </app-pop-up>

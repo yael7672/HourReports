@@ -155,7 +155,7 @@ export class MenuComponent implements OnInit {
   ifX = true
   TimeProjectContectItemHour: any;
   projectContectItemByTimerGuid: any
-  endButtonTimerContectProjectContectItem=false;
+  endButtonTimerContectProjectContectItem = false;
   TimeProjectContectItemWithTimer: any;
   workTimeHourProjectContectItemWithTimer: any;
   Timer: any;
@@ -275,9 +275,12 @@ export class MenuComponent implements OnInit {
 
           this.sortTaskArr = res
           console.log(this.taskArr);
+
         }
       }, err => {
         console.log(err.error)
+        this.ifThereAreTasks = true;
+        this.tableMyTaskOpen1 = false;
 
       }
     )
@@ -679,6 +682,7 @@ export class MenuComponent implements OnInit {
     }
     if (val == 2) {
       this.SortLastTaskIWorkedOn();
+      this.tableMyTaskTeamsOpen1 = true;
       this.tableLastTaskIWorkedOn = true;
       this.tableMyTaskTeamsOpen = false;
       this.tableMyTaskOpen = false;
@@ -783,9 +787,12 @@ export class MenuComponent implements OnInit {
     this.openPersonalDetails = false;
 
   }
+  onClickedOutside(val: any) {
+    console.log(val);
+    if (this.openPersonalDetails) {
+      this.openPersonalDetails = false;
 
-
-
-
-
+    }
+    
+  }
 }

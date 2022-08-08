@@ -44,12 +44,12 @@
           <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy'}}</td>
         </ng-template>
       </ng-container>
-      <td class="td"><button (click)="EditProjectContentItemIcon(colData)"
-          (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button"> <i class="fa fa-pencil"
-            aria-hidden="true"></i></button>
-        <button (click)="DeleteProjectContentItemIcon(colData)"
-          class="edit-button"> <i class="iconify"
-            data-icon="akar-icons:trash-can"></i>
+      <td class="td">
+        <button (click)="EditProjectContentItemIcon(colData)"
+          (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button">
+          <i class="fa fa-pencil" aria-hidden="true"></i></button>
+        <button (click)="DeleteProjectContentItemIcon(colData)" class="edit-button">
+          <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
       </td>
     </tr>
@@ -82,8 +82,8 @@
   <app-pop-up>
     <div body>
       <app-massge-to-user [kindOfMassage]="kindOfMassage" [massgeUserHeader]="massgeUserHeader"
-        [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter"
-        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+        [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter" (clickYes)="clickYes($event)"
+        (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>

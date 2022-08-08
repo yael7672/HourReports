@@ -24,7 +24,6 @@ export class ProjectContentItemComponent implements OnInit {
   ProjectContentItem: any;
   openCard = false;
   openTable = true;
-  // ProjectContentItem
   massageToUser = "";
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
@@ -36,7 +35,7 @@ export class ProjectContentItemComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.sortTableByDate()
+   // this.sortTableByDate()
   }
   toTimestamp(sortValue: any) {
     var datum = Date.parse(sortValue);
@@ -64,7 +63,6 @@ export class ProjectContentItemComponent implements OnInit {
   EditProjectContentItemIcon(val: any) {
     this.updateDetails = true;
     this.ProjectContentItem = val;
-
     this.workingHours = Number(this.ProjectContentItem.WorkingHours)
     console.log(val);
   }
@@ -87,7 +85,7 @@ export class ProjectContentItemComponent implements OnInit {
   }
   openPopUp(data: string, type: boolean) {
     this.appService.setIsPopUpOpen(true);
-    this.popUpService.setSpecificPopUp(type, data)
+    // this.popUpService.setSpecificPopUp(type, data);
   }
 }
 

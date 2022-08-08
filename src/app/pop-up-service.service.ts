@@ -31,7 +31,7 @@ export class PopUpServiceService {
       HoursAwaitingApproval: type === 'HoursAwaitingApproval' ? data : false,
       timeOfProjectContectItem:type==='timeOfProjectContectItem'? data : false,
       // MyprojectContentItem:type === 'MyprojectContentItem' ? data : false,
-      // UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
+      UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
       ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,
     
     }

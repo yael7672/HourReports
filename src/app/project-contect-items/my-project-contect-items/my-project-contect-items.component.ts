@@ -72,7 +72,6 @@ export class MyProjectContectItemsComponent implements OnInit {
   }
 
   EditProjectContentItemIcon(val: any) {
-
     this.updateDetails = true;
     this.ProjectContentItem = val;
     this.workingHours = Number(this.ProjectContentItem.WorkingHours)
@@ -191,7 +190,6 @@ export class MyProjectContectItemsComponent implements OnInit {
         this.massageToUser = res;
         swal(this.massageToUser)
         this.showMassgeToUser = false;
-this.popUpService.setAllmyProjectContectItem(true)
       },
       (err) =>
         swal(err.error))
