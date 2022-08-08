@@ -11,14 +11,12 @@
     <a (click)="openPopUp('timeOfProjectContectItem',true)"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
 
     <a (click)="GoToStatisticsGraph()"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
-<<<<<<< HEAD
   
-=======
+
     <div *ngIf="startWorkOfTask" >
     <a (click)="CheckWhetherInTheMiddleOfWorkOnaTask(); ContinueToWorkOnATask()"><i id="clock-history"
         class="iconify" data-icon="bi:clock-history"></i></a>
       </div>
->>>>>>> yaelBanay
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
       <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
@@ -164,15 +162,14 @@
     <app-end-of-task></app-end-of-task>
   </div>
 
-<<<<<<< HEAD
   <div *ngIf="openPersonalDetails" >
     <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [todayDate]="todayDate"
       (closePersonalDetails)="closePersonalDetails()" ></app-personal-details>
-=======
+
   <div *ngIf="openPersonalDetails">
     <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [DailyAndMonthlyWorkingHours]="DailyAndMonthlyWorkingHours"
       (closePersonalDetails)="closePersonalDetails()"></app-personal-details>
->>>>>>> yaelBanay
+ 
 
   </div>
 
