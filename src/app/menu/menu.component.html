@@ -162,7 +162,7 @@
   </div>
 
   <div *ngIf="openPersonalDetails" >
-    <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)"
+    <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [todayDate]="todayDate"
       (closePersonalDetails)="closePersonalDetails()" ></app-personal-details>
 
   </div>
