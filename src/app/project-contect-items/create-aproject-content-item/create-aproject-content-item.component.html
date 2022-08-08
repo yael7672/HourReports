@@ -1,97 +1,120 @@
+<app-pop-up #upPopUP [ifX]="ifX" >
+    <h4 header class="mb-4">יצירת דיווח</h4>
+    <div body>
+        <!-- <form  (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm"> -->
+        <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
 
-    <app-pop-up #upPopUP [ifX]="ifX">
-        <h4 header class="mb-4">יצירת דיווח</h4>
-        <div body>
-            <!-- <form  (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm"> -->
-                <form  (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
+            <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime" class="form-outline d-flex justify-content-center">
+                <input type="date" class="form-control" id="oneDate" name="oneDate"
+                    [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="oneDate = $event">
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="text" id="Subject" name="Name" class="form-control" placeholder="נושא" ngModel
+                    #subject="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && subject.invalid" class="text-danger">
+                <span *ngIf="subject.errors">שדה זה חובה</span>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control " name="WorkType" #workType="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && workType.invalid }" required ngModel>
+                    <option value="">סוג עבודה</option>
+                    <option *ngFor="let workType of this.WorkType" value="{{workType.Guid}}">
+                        {{workType.Name}}
+                    </option>
+                </select>
 
-                    <div   *ngIf="!KindPopUpUpdateProjectContectItemWithTime"class="form-outline d-flex justify-content-center">
-                        <input  type="date" class="form-control" id="oneDate" name="oneDate" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-                              (ngModelChange)="oneDate = $event">
-                    </div>
-                <div class="form-outline d-flex justify-content-center">
-                    <input type="text" id="Subject" name="Name" class="form-control" placeholder="נושא"
-                        ngModel #subject="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && workType.invalid" class="text-danger">
+                <span *ngIf="workType.errors">שדה זה חובה</span>
+            </div>
+            <ng-container *ngIf="!KindPopUpUpdateProjectContectItemWithTime">
+                <div class="form-outline d-flex justify-content-center ">
+                    <input type="number" id="ActualTime" name="ActualTime" class="form-control" placeholder="שעות בפועל"
+                        required ngModel #HoursActually="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && HoursActually.invalid }">
                 </div>
-                <div *ngIf="f.submitted && subject.invalid" class="text-danger">
-                    <span *ngIf="subject.errors">שדה זה חובה</span>
-                </div>
-                <div class="form-outline d-flex justify-content-center">
-                    <select id="inputState" class="form-control " name="WorkType"  #workType="ngModel"
-                      [ngClass]="{ 'is-invalid': f.submitted && workType.invalid }" required  ngModel>
-                        <option value="">סוג עבודה</option>
-                        <option *ngFor="let workType of this.WorkType" value="{{workType.Guid}}">
-                            {{workType.Name}}
-                        </option>
-                    </select>
-
-                </div>
-                <div *ngIf="f.submitted && workType.invalid" class="text-danger">
-                    <span *ngIf="workType.errors">שדה זה חובה</span>
-                </div>
-                <ng-container *ngIf="!KindPopUpUpdateProjectContectItemWithTime">
-                <div class="form-outline d-flex justify-content-center " >
-                    <input type="number" id="ActualTime" name="ActualTime" class="form-control"
-                        placeholder="שעות בפועל" required ngModel  #HoursActually="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && HoursActually.invalid }" >
-                </div> 
-                 <div *ngIf="f.submitted && HoursActually.invalid" class="text-danger" >
+                <div *ngIf="f.submitted && HoursActually.invalid" class="text-danger">
                     <span *ngIf="HoursActually.errors">שדה זה חובה</span>
                 </div>
-                </ng-container>
-                <ng-container *ngIf="KindPopUpUpdateProjectContectItemWithTime">
-                <div class="form-outline d-flex justify-content-center" >
-                    <input type="number" id="ActualTime" name="ActualTime" class="form-control"
-                        placeholder="שעות בפועל" required ngModel  #ActualTime="ngModel" 
-                disabled   [ngClass]="{ 'is-invalid': f.submitted && ActualTime.invalid }" [ngModel]="actualTime">
+            </ng-container>
+            <ng-container *ngIf="KindPopUpUpdateProjectContectItemWithTime">
+                <div class="form-outline d-flex justify-content-center">
+                    <input type="number" id="ActualTime" name="ActualTime" class="form-control" placeholder="שעות בפועל"
+                        required ngModel #ActualTime="ngModel" disabled
+                        [ngClass]="{ 'is-invalid': f.submitted && ActualTime.invalid }" [ngModel]="actualTime">
                 </div>
-                <div *ngIf="f.submitted && ActualTime.invalid" class="text-danger" >
+                <div *ngIf="f.submitted && ActualTime.invalid" class="text-danger">
                     <span *ngIf="ActualTime.errors">שדה זה חובה</span>
                 </div>
             </ng-container>
-                <div class="form-outline d-flex justify-content-center">
-                    <select id="inputState" class="form-control"  name="BillableHours"  #billingHours="ngModel" ngModel
-                    [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }" required >
-                        <option value="">?האם שעות לחיוב</option>
-                        <option value="1">כן </option>
-                        <option value="2">לא </option>
-                        <option value="970140002">אחר </option>
-                    </select>
-                </div>
-                <div *ngIf="f.submitted && billingHours.invalid" class="text-danger">
-                    <span *ngIf="billingHours.errors">שדה זה חובה</span>
-                </div>
-                <div class="form-outline d-flex justify-content-center">
-                    <select id="inputState" class="form-control " ngModel name="Project"  #project="ngModel" 
-                    [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" required   >
-                        <option value=""> פרוייקט</option>
-                        <!-- <input (input)="filter($event)" > -->
+            <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control" name="BillableHours" #billingHours="ngModel" ngModel
+                    [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }" required>
+                    <option value="">?האם שעות לחיוב</option>
+                    <option value="1">כן </option>
+                    <option value="2">לא </option>
+                    <option value="970140002">אחר </option>
+                </select>
+            </div>
+            <div *ngIf="f.submitted && billingHours.invalid" class="text-danger">
+                <span *ngIf="billingHours.errors">שדה זה חובה</span>
+            </div>
+            <!-- <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control " ngModel name="Project" #project="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" required>
+                    <option value=""> פרוייקט</option>
+                    <option *ngFor="let project of this.Project" value="{{project.Guid}}">
+                        {{project.Name}}
+                    </option>
+                </select>
+            </div> -->
+            <!-- <div *ngIf="f.submitted && project.invalid" class="text-danger">
+                <span *ngIf="project.errors">שדה זה חובה</span>
+            </div> -->
+            
+            <div class="form-outline d-flex justify-content-center">
+                <input list="brow" class="form-control" placeholder="פרויקט" ngModel name="Project" #project="ngModel" required 
+                  [ngClass]="{ 'is-invalid': f.submitted && project.invalid }">
+                <datalist 
+                     id="brow">
+                    <option *ngFor="let project of this.Project"  value="{{project.Guid}}" >
+                    {{project.Name}}
+                    </option>
+                </datalist>
+            </div>
+            <div *ngIf="f.submitted && project.invalid" class="text-danger">
+                <span *ngIf="project.errors">שדה זה חובה</span>
+             </div>
 
-                        <option *ngFor="let project of this.Project" value="{{project.Guid}}" >
-                            {{project.Name}}
-                        </option>
-                    </select>
-                </div>
-                  <div *ngIf="f.submitted && project.invalid" class="text-danger">
-                    <span *ngIf="project.errors">שדה זה חובה</span>
-                </div>
-                <div class="form-outline d-flex justify-content-center ">
-                    <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
-                        class="form-control textarea" placeholder=" תאור " ngModel >
+                   <!-- <div class="form-outline d-flex justify-content-center">
+                <input list="brow" class="form-control" placeholder="פרויקט" ngModel [(ngModel)]="ProjectFilter" required 
+                (click)="SearchValue()"  >
+                <datalist 
+                     id="brow">
+                    <option *ngFor="let project of this.Project"  >
+                    {{project.Name}}
+                    </option>
+                </datalist>
+            </div> -->
+        
+            <div class="form-outline d-flex justify-content-center ">
+                <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
+                    class="form-control textarea" placeholder=" תאור " ngModel>
                         </textarea>
-                </div>
-                <div class="form-outline d-flex justify-content-center ">
-                    <input type="text" id="FirstName" name="NoteToProjectManager" class="form-control"  ngModel name="NoteToProjectManager" #NoteToProjectManager="ngModel"
-                        placeholder="הערות למנהל פרוייקט"  >
-                        
-                </div>
-                <div *ngIf="f.submitted && NoteToProjectManager.invalid" class="text-danger">
-                    <span *ngIf="NoteToProjectManager.errors">שדה זה חובה</span>
-                </div>
-                <button type="submit" class="btn ">צור דיווח  </button>
-            </form>
-       
-        </div>
-        <div footer>
-        </div>
-    </app-pop-up>
+            </div>
+            <div class="form-outline d-flex justify-content-center ">
+                <input type="text" id="FirstName" name="NoteToProjectManager" class="form-control" ngModel
+                    name="NoteToProjectManager" #NoteToProjectManager="ngModel" placeholder="הערות למנהל פרוייקט">
+
+            </div>
+            <div *ngIf="f.submitted && NoteToProjectManager.invalid" class="text-danger">
+                <span *ngIf="NoteToProjectManager.errors">שדה זה חובה</span>
+            </div>
+            <button type="submit" class="btn ">צור דיווח </button>
+        </form>
+
+    </div>
+    <div footer>
+    </div>
+</app-pop-up>

@@ -1,3 +1,4 @@
+
 <div class="actionArea">
   <div class="card">
     <a  class="close" (click)="closePersonalDetailss()">&times;</a>
@@ -13,7 +14,11 @@
     <div *ngIf="!systemGuid">
       <h3 style="text-align:center">!אף אחד לא מחובר</h3>
     </div>
-    <div class="icons">
+    <div >
+      <p class="card-title">סה"כ ש"ע להיום: {{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</p>
+      <p class="card-title">סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</p>
+    </div>
+    <div class="icons">  
     <a (click)="openPopUpp('sickLeave',true)"><i class="iconify" data-icon="ic:outline-sick"></i>
     </a>
     <a (click)="openPopUpp('Freedom',true)"><i class="iconify" data-icon="iconoir:sea-and-sun"></i>
@@ -21,5 +26,6 @@
     <a (click)="openPopUpp('HoursAwaitingApproval',true)"><i class="iconify" data-icon="carbon:condition-wait-point" aria-hidden="true"></i></a>
 
     </div>
+  
   </div>
 </div>

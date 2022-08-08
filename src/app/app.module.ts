@@ -33,8 +33,11 @@ import { ProjectContectItemWithTimeComponent } from './project-contect-items/pro
 import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-awaiting-approval.component';
 import { MassgeToUserWithEditComponent } from './massge-to-user-with-edit/massge-to-user-with-edit.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { searchInputFilterPipe } from './pipes/searchInputFilter.pipe';
+
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
+
 
 @NgModule({
   declarations: [
@@ -62,7 +65,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     FreedomProjectContentItemComponent,
     ProjectContectItemWithTimeComponent,
     HoursAwaitingApprovalComponent,
-    MassgeToUserWithEditComponent
+    MassgeToUserWithEditComponent,
 
 
   ],
@@ -74,6 +77,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     CommonModule,
     NgbModule,
     ClickOutsideModule
+
    
   ],
   providers: [DatePipe],

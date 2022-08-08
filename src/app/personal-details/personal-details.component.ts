@@ -14,6 +14,8 @@ export class PersonalDetailsComponent implements OnInit {
   systemGuid!: any;
   @Input()ifX!:boolean;
   @Input()todayDate:any;
+
+  @Input() DailyAndMonthlyWorkingHours:any
   @Output() openPopUp = new EventEmitter<any>();
   @Output() closePersonalDetails = new EventEmitter<any>();
 

@@ -39,10 +39,13 @@ export class CreateAprojectContentItemComponent implements OnInit {
   workTypeGuid: any;
   oneDate: any;
   ProjectContentItemWithTime: any;
+  ProjectFilter: any;
+  // public data!: Array<Project>;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
+    // this.data = this.Project.slice();
     this.popUpService.GetIfXProjectContectItemUpdateWithTime().subscribe(res => {
       if (res) {
         this.ifX = false
@@ -56,11 +59,15 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.GetWorkType()
   }
 
+//   handleFilter(value:any) {
+//     this.data = this.Project.filter((s) => s.Name.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+// }
   CreateNewProjectItem(form: NgForm) {
 
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project },
-      form.value.WorkType = { "Guid": form.value.WorkType }
+    // form.value.Project = { "Guid": form.value.Project },
+    form.value.Project = { "Guid": this.ProjectFilter },
+    form.value.WorkType = { "Guid": form.value.WorkType }
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe(
@@ -108,22 +115,26 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   UpdateProjectContectItemWithTime(form: NgForm) {
+    this.projectContectItemByTimerGuid=localStorage.getItem("projectContectItemByTimerGuid")
     form.value.Guid = this.projectContectItemByTimerGuid
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project },
-      form.value.WorkType = { "Guid": form.value.WorkType }
+    form.value.Project = { "Guid": form.value.Project },
+    form.value.WorkType = { "Guid": form.value.WorkType }
     form.value.ActualTime = this.actualTime
+
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
       (res) => {
         this.ProjectContentItemWithTime = res;
         swal(this.ProjectContentItemWithTime)
         this.popUpService.setAllmyProjectContectItem(true)
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+        localStorage.removeItem("projectContectItemByTimerGuid")
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
       (err) =>
         swal(err.error))
+     
   }
   CreateOrUpdateProjectContectItem(form: NgForm) {
     if (this.KindPopUpUpdateProjectContectItemWithTime) {
@@ -136,5 +147,11 @@ export class CreateAprojectContentItemComponent implements OnInit {
   filter(value:any){
     this.Project =  this.Project.filter((f: Project) => f?.Name.includes(value));
 
+  }
+  SearchValue(){
+    if(this.ProjectFilter != ""){
+         this.Project =  this.Project.filter((f: Project) => f?.Name.includes(this.ProjectFilter));
+    }
+ 
   }
 }

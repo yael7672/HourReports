@@ -21,6 +21,7 @@ export class ShowMyTaskComponent implements OnInit {
   @Input() kindOfCard!: any;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
+  @Input() nameSearch:any
   IftableDataKeyIdProject!: boolean;
   ifSortDown=true;
   ngOnInit(): void {

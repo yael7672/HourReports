@@ -3,6 +3,7 @@ import { PopupService } from '@ng-bootstrap/ng-bootstrap/util/popup';
 import { AppService } from 'src/app/app-service.service';
 import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-specific-task',
@@ -43,7 +44,7 @@ export class SpecificTaskComponent implements OnInit {
   workTime1!: any[];
   timeSetting: any;
   openChartComparePopUp!: boolean
-  constructor(private appService: AppService,private popUpService:PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
+  constructor(private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
   }
 
   ngOnInit(): void {
@@ -73,11 +74,20 @@ export class SpecificTaskComponent implements OnInit {
     this.clickStartTimer.emit()
   }
   pauseTimer(worktime: any) {
-    this.clickPauseTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask?this.descriptionTask:"" })
-
+    if (this.workTime == 0 || this.workTime < "00:01:00") {
+      swal("אין אפשרות לדווח פחות מ-1 דק")
+    }
+    else {
+      this.clickPauseTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask ? this.descriptionTask : "" })
+    }
   }
   deleteTimer(worktime: any) {
-    this.clickdeleteTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask?this.descriptionTask:"" })
+    if (this.workTime == 0 || this.workTime < "00:01:00") {
+      swal("אין אפשרות לדווח פחות מ-1 דק")
+    }
+    else {
+      this.clickdeleteTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask ? this.descriptionTask : "" })
+    }
   }
   SelectedData(val: any) {
     this.objectEmitter.emit(val)
@@ -91,11 +101,10 @@ export class SpecificTaskComponent implements OnInit {
   backToMyTask() {
     this.clickBackToMyTask.emit();
   }
-  openChartCompare(){
-    this.openChartComparePopUp=true
+  openChartCompare() {
+    this.openChartComparePopUp = true
   }
-  closePopUp()
-  {   
+  closePopUp() {
     this.appService.setIsPopUpOpen(false);
     this.popUpService.setClosePopUp();
   }

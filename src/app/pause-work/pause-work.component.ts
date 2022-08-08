@@ -76,7 +76,7 @@ export class PauseWorkComponent implements OnInit {
     this.systemGuid = localStorage.getItem("systemGuid")
     this.taskGuid = localStorage.getItem("TaskGuid")
     this.pauseGuidForLoclStorage = localStorage.getItem('pauseGuid')
-    this.userServiceService.PauseWork(this.systemGuid,this.pauseGuidForLoclStorage , workTime).then(
+    this.userServiceService.PauseWork(this.systemGuid,this.pauseGuidForLoclStorage ,workTime).then(
       (res: any) => {
         this.pauseGuid = res;
         console.log(this.pauseGuid)
@@ -138,7 +138,14 @@ export class PauseWorkComponent implements OnInit {
     this.continuePause();
   }
   OpenPopUpIfClosePause() {
-    this.showMassgeToUser = true;
+    if(this.workTimeHour == 0 ||this.workTimeHour  < "00:01:00")
+    {
+        swal("אין אפשרות לדווח פחות מ-1 דק")
+    }
+    else{
+        this.showMassgeToUser = true;
+    }
+  
   }
 
   clickYes(time: any) {
@@ -226,6 +233,6 @@ Edit(time:any){
 
 }
 clickCancel(){
-  this.showMassgeToUserEdit=false
+  this.showMassgeToUserEdit = false
 }
 }

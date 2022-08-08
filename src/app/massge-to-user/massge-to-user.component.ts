@@ -12,10 +12,14 @@ export class MassgeToUserComponent implements OnInit {
   @Input() kindOfMassage: any;
   @Input() inputValue: any;
   @Input() ifButton: any;
+  @Input() ButtonCancel!:boolean
   @Output() clickYes = new EventEmitter<any>();
   @Output() clickNo = new EventEmitter<any>();
+  @Output() clickCancel = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {
+ 
+   }
 
   ngOnInit(): void {
   }
@@ -99,5 +103,10 @@ export class MassgeToUserComponent implements OnInit {
           }
         }
       }
+  }
+  BtnCancel(){
+    if (this.kindOfMassage == 'projectContectItemByTimer') {
+      this.clickCancel.emit('projectContectItemByTimer')
+    }
   }
 }
