@@ -171,6 +171,7 @@ export class StatisticsGraphComponent implements OnInit {
     this.LineChart1.data.labels = this.dateArrForLineChart;
     this.LineChart1.update();
   }
+
   updateBarChart() {
     this.BarChart.data.datasets[0].data = this.culculte;
     this.CreatColorArr();
