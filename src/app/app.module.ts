@@ -34,6 +34,7 @@ import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-
 import { MassgeToUserWithEditComponent } from './massge-to-user-with-edit/massge-to-user-with-edit.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { searchInputFilterPipe } from './pipes/searchInputFilter.pipe';
+import { UpdateProjectContentItemComponent } from './project-contect-items/update-project-content-item/update-project-content-item.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -66,6 +67,7 @@ import { searchInputFilterPipe } from './pipes/searchInputFilter.pipe';
     ProjectContectItemWithTimeComponent,
     HoursAwaitingApprovalComponent,
     MassgeToUserWithEditComponent,
+    UpdateProjectContentItemComponent,
 
 
   ],

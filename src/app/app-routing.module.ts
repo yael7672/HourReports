@@ -15,6 +15,7 @@ import { ChartsComponent } from './charts/charts.component';
 import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.component';
 import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component';
 import { SickLeaveProjectContentItemComponent } from './project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
+import { UpdateProjectContentItemComponent } from './project-contect-items/update-project-content-item/update-project-content-item.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'StatisticsGraph', component: StatisticsGraphComponent },
   { path: 'ChartsMyTask', component: ChartsMyTaskComponent },
   { path: 'sick', component: SickLeaveProjectContentItemComponent },
+  { path: 'up', component: UpdateProjectContentItemComponent },
 
 
 ];

@@ -61,31 +61,33 @@ export class ProjectContentItemComponent implements OnInit {
     }
   }
   EditProjectContentItemIcon(val: any) {
+    this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
+
     this.updateDetails = true;
     this.ProjectContentItem = val;
     this.workingHours = Number(this.ProjectContentItem.WorkingHours)
     console.log(val);
   }
-  UpdateProjectItemButton() {
-    this.ProjectItemToUpdate = {
-      Guid: this.ProjectContentItem.Guid,
-      Description: this.ProjectContentItem.Description,
-      ActualTime: this.workingHours,
-    }
-    this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
-      (res) => {
-        this.massageToUser = res;
-        swal(this.massageToUser)
-        this.appService.setIsPopUpOpen(false);
-        this.popUpService.setClosePopUp();
-      },
-      (err) =>
-        alert("error")
-    )
-  }
+  // UpdateProjectItemButton() {
+  //   this.ProjectItemToUpdate = {
+  //     Guid: this.ProjectContentItem.Guid,
+  //     Description: this.ProjectContentItem.Description,
+  //     ActualTime: this.workingHours,
+  //   }
+  //   this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
+  //     (res) => {
+  //       this.massageToUser = res;
+  //       swal(this.massageToUser)
+  //       this.appService.setIsPopUpOpen(false);
+  //       this.popUpService.setClosePopUp();
+  //     },
+  //     (err) =>
+  //       alert("error")
+  //   )
+  // }
   openPopUp(data: string, type: boolean) {
     this.appService.setIsPopUpOpen(true);
-    // this.popUpService.setSpecificPopUp(type, data);
+    this.popUpService.setSpecificPopUp(type, data);
   }
 }
 

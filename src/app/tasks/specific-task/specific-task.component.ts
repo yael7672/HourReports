@@ -82,12 +82,9 @@ export class SpecificTaskComponent implements OnInit {
     }
   }
   deleteTimer(worktime: any) {
-    if (this.workTime == 0 || this.workTime < "00:01:00") {
-      swal("אין אפשרות לדווח פחות מ-1 דק")
-    }
-    else {
+   
       this.clickdeleteTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask ? this.descriptionTask : "" })
-    }
+    
   }
   SelectedData(val: any) {
     this.objectEmitter.emit(val)
