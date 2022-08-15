@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild ,ElementRef  } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Project } from '../../interfacees/project';
 import { Task } from '../../interfacees/task';
@@ -24,6 +24,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   @Input() projectContectItemByTimerGuid: any
   @Input() ifXt: any
   @Input() endButtonTimerContectProjectContectItem!: boolean
+  @ViewChild("guidProject") guidProject!: ElementRef;
   ifX = true
   todayDate!: any;
   myDate = new Date()
@@ -40,6 +41,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
   oneDate: any;
   ProjectContentItemWithTime: any;
   ProjectFilter: any;
+  ProjectGuidValue:any;
+  ProjectGuid: any;
+  GuidProject:any
   // public data!: Array<Project>;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
@@ -62,11 +66,25 @@ export class CreateAprojectContentItemComponent implements OnInit {
 //   handleFilter(value:any) {
 //     this.data = this.Project.filter((s) => s.Name.toLowerCase().indexOf(value.toLowerCase()) !== -1);
 // }
-  CreateNewProjectItem(form: NgForm) {
+filterByName(e:any){
+  this.ProjectGuidValue = this.Project.filter((e:any) => e.Name?.includes(e));
+  alert(this.ProjectGuidValue)
 
+}
+saveCode(e:any) {
+  let find = this.Project.find(x => x?.Name === e.target.value);
+  alert("hi"+find?.Guid);
+}
+  CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-    // form.value.Project = { "Guid": form.value.Project },
-    form.value.Project = { "Guid": this.ProjectFilter },
+  //  this.ProjectGuid = this.guidProject.nativeElement.value ;
+  //  this.ProjectGuidValue = this.Project.filter((f: Project) => f.Name.includes(this.ProjectGuid));
+    //  this.Project.find(x => x.Name == this.ProjectGuid) // WARNING NEW LINE
+  //  this.ProjectGuidValue  = this.Project.filter(s => s.Name.includes(this.ProjectGuid));
+  this.ProjectGuidValue = this.Project.find(x => x?.Name ===this.GuidProject);
+    // this.ProjectGuidValue = this.Project.filter((f:any) => f?.includes(f.Name === this.guidProject.nativeElement.value));
+    form.value.Project = { "Guid": this.GuidProject  },
+    // form.value.Project = { "Guid": this.ProjectFilter },
     form.value.WorkType = { "Guid": form.value.WorkType }
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
