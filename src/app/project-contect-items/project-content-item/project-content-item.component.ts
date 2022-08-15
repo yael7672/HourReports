@@ -27,12 +27,13 @@ export class ProjectContentItemComponent implements OnInit {
   massageToUser = "";
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
+  projectContentItemGuid = "";
+  showMassgeToUser=false;
   constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
     })
-
   }
   ngOnInit(): void {
    // this.sortTableByDate()
@@ -61,33 +62,14 @@ export class ProjectContentItemComponent implements OnInit {
     }
   }
   EditProjectContentItemIcon(val: any) {
-    this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
-
-    this.updateDetails = true;
+    this.popUpService.setSpecificPopUp(true,'UpdateProjectContentItemDetails');
     this.ProjectContentItem = val;
-    this.workingHours = Number(this.ProjectContentItem.WorkingHours)
     console.log(val);
   }
-  // UpdateProjectItemButton() {
-  //   this.ProjectItemToUpdate = {
-  //     Guid: this.ProjectContentItem.Guid,
-  //     Description: this.ProjectContentItem.Description,
-  //     ActualTime: this.workingHours,
-  //   }
-  //   this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
-  //     (res) => {
-  //       this.massageToUser = res;
-  //       swal(this.massageToUser)
-  //       this.appService.setIsPopUpOpen(false);
-  //       this.popUpService.setClosePopUp();
-  //     },
-  //     (err) =>
-  //       alert("error")
-  //   )
-  // }
-  openPopUp(data: string, type: boolean) {
-    this.appService.setIsPopUpOpen(true);
-    this.popUpService.setSpecificPopUp(type, data);
+  DeleteProjectContentItemIcon(ProjectContentItem: any) {
+    this.popUpService.setSpecificPopUp(true,'DeleteProjectContentItemIcon');
+    this.showMassgeToUser = true;
+    this.projectContentItemGuid = ProjectContentItem.Guid;
   }
 }
 

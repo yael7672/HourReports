@@ -5,11 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class PopUpServiceService {
-
+  
+  private isDisabled$: BehaviorSubject<any> = new BehaviorSubject(null);
   private kindOfPopUp$: BehaviorSubject<any> = new BehaviorSubject(null);
   private refreshMyprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  private refreshUpdateProjectContentItemDetails$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);;
   private refreshCeateAprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private refreshGetAllMyTask$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private ifStartPouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -33,7 +32,9 @@ export class PopUpServiceService {
       // MyprojectContentItem:type === 'MyprojectContentItem' ? data : false,
       UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
       ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,
-    
+      DeleteProjectContentItemIcon: type === 'DeleteProjectContentItemIcon' ? data : false,
+
+      
     }
     this.setKindOfPopUp(obj)
   }
@@ -46,10 +47,6 @@ export class PopUpServiceService {
   setClosePopUp() {
     this.kindOfPopUp$.next(false)
   }
-  getClosePopUp() {
-    return this.kindOfPopUp$;
-  }
-
   setAllmyTask(val: boolean) {
     this.refreshGetAllMyTask$.next(val)
   }
@@ -96,5 +93,13 @@ export class PopUpServiceService {
  GetIfXProjectContectItemUpdateWithTime()
   {
     return this.IfXProjectContectItemUpdateWithTime$;
+  }
+  setIsDisabledBtn(val:boolean)
+  {
+    this.isDisabled$.next(val);
+  }
+ getIsDisabledBtn()
+  {
+    return this.isDisabled$;
   }
 }

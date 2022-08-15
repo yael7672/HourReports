@@ -22,7 +22,8 @@ export class UpdateProjectContentItemComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.ProjectContentItem);
-    
+    this.workingHours = Number(this.ProjectContentItem.WorkingHours)
+
   }
   UpdateProjectItemButton() {
     this.ProjectItemToUpdate = {
@@ -34,6 +35,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
+        this.popUpService.SetProjectContentItemByTaskGuid(true);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },

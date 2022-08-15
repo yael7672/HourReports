@@ -42,7 +42,6 @@ export class MyProjectContectItemsComponent implements OnInit {
     })
   }
   MyProjectContectItemArr!: ProjectContentItem[]
-
   ngOnInit(): void {
     this.sortTableByDate()
   }
@@ -71,12 +70,6 @@ export class MyProjectContectItemsComponent implements OnInit {
     })
   }
 
-  EditProjectContentItemIcon(val: any) {
-    this.updateDetails = true;
-    this.ProjectContentItem = val;
-    this.workingHours = Number(this.ProjectContentItem.WorkingHours)
-    console.log(val);
-  }
   UpdateProjectItemButton() {
     this.ProjectItemToUpdate = {
       Guid: this.ProjectContentItem.Guid,
@@ -171,34 +164,19 @@ export class MyProjectContectItemsComponent implements OnInit {
     }
     else {
       this.tableData?.sort((a: any, b: any) =>
-      (keyToSort[1] < keyToSort[1]) ? 1 : -1)
-  
+        (keyToSort[1] < keyToSort[1]) ? 1 : -1)
+
     }
+  }
+  EditProjectContentItemIcon(val: any) {
+    this.popUpService.setSpecificPopUp(true,'UpdateProjectContentItemDetails');
+    this.ProjectContentItem = val;
+    console.log(val);
   }
   DeleteProjectContentItemIcon(ProjectContentItem: any) {
+    this.popUpService.setSpecificPopUp(true,'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
-    this.projectContentItemGuid = ProjectContentItem.Guid
-  }
-  clickYes(kindOfMassage: string) {
-    if (kindOfMassage = 'checkIfIsReportOnThisDate') {
-      this.DeleteProjectContentItemByGuid()
-    }
-  }
-  DeleteProjectContentItemByGuid() {
-    this.userServiceService.DeleteProjectContentItemByGuid(this.projectContentItemGuid).subscribe(
-      (res) => {
-        this.massageToUser = res;
-        swal(this.massageToUser)
-        this.showMassgeToUser = false;
-      },
-      (err) =>
-        swal(err.error))
-
-  }
-  clickNo(kindOfMassage: string) {
-    if (kindOfMassage = 'checkIfIsReportOnThisDate') {
-      this.showMassgeToUser = false;
-    }
+    this.projectContentItemGuid = ProjectContentItem.Guid;
   }
 }
 

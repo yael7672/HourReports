@@ -55,52 +55,9 @@
     </tr>
   </tbody>
 </table>
-
-<div *ngIf="isPopUpOpen">
-  <app-pop-up *ngIf="updateDetails" [ifX]="true">
-    <h4 header class="mb-4"> עדכון דיווח </h4>
-    <div body>
-      <form (ngSubmit)="UpdateProjectItemButton()" #f="ngForm">
-        <p>תאור המשימה:</p>
-        <div class="form-outline d-flex justify-content-center ">
-          <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
-            class="form-control textarea" placeholder="תאור המשימה" [(ngModel)]="ProjectContentItem.Description"
-            [ngModelOptions]="{standalone: true}" ngModel required>
-            </textarea>
-        </div>
-        <p>שעות בפועל:</p>
-        <input type="number" id="HoursActually" name="HoursActually" class="form-control" placeholder="שעות בפועל"
-          [(ngModel)]="workingHours" [ngModelOptions]="{standalone: true}" ngModel #HoursActually="ngModel" required>
-        <button type="submit" class="btn"> עדכן דיווח </button>
-      </form>
+<div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
+  <app-update-project-content-item [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
     </div>
-  </app-pop-up>
+<div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
+  <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid"></app-delete-project-content-item>
 </div>
-
-
-<div *ngIf="showMassgeToUser">
-  <app-pop-up>
-    <div body>
-      <app-massge-to-user [kindOfMassage]="kindOfMassage" [massgeUserHeader]="massgeUserHeader"
-        [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter" (clickYes)="clickYes($event)"
-        (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
-    </div>
-  </app-pop-up>
-</div>
-
-
-<!-- <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">דיווח שעות</h5>
-          <ng-container *ngFor="let colData of tableData">
-          <ng-container *ngFor="let tableDataKey of tableDataKeys">
-            <ng-container *ngIf="tableDataKey!=='WorkingHours'; ">
-          <p class="card-text">{{returnColDataByType(colData, tableDataKey)}}</p>
- 
-            </ng-container>
-            </ng-container>
-          </ng-container>
-
-        </div>
-      </div>
-     -->

@@ -336,18 +336,19 @@ export class MenuComponent implements OnInit {
     }
   }
   SelectedTask(val: any) {
+    if(!this.startWorkOfTask)
+    {
     this.taskListDataDetails = val;
     localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
     console.log(this.taskListDataDetails);
     clearInterval(this.interval);
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
     this.tableSpecificTaskOpen = true;
-
-
     this.tableMyTaskOpen = false;
     this.tableMyTaskTeamsOpen = false;
     this.tableLastTaskIWorkedOn = false;
   }
+}
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
@@ -791,7 +792,6 @@ export class MenuComponent implements OnInit {
   }
   onClick(event: any) {
     this.openPersonalDetails = true;
-
 
   }
   ClickedOut(event: any) {

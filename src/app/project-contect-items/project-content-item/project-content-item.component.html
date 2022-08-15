@@ -28,30 +28,22 @@
             <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy '}}</td>
           </ng-template>
         </ng-container>
-        <td>
+        <td class="td">
           <button (click)="EditProjectContentItemIcon(colData)" class="edit-button">
              <i class="fa fa-pencil"
               aria-hidden="true"></i></button>
+              <button (click)="DeleteProjectContentItemIcon(colData)" class="edit-button">
+                <i class="iconify" data-icon="akar-icons:trash-can"></i>
+              </button>
         </td>
+
       </tr>
     </tbody>
   </table>
-  <div *ngIf="updateDetails">
+  <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
 <app-update-project-content-item [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
   </div>
-  <!-- <ng-container *ngif="openCard">
-    <div class="card" *ngFor="let colData of tableData" style="width: 25rem;">
-      <div class="card-body">
-        <h5 class="card-title">דיווח שעות</h5>
-        <ng-container *ngFor="let tableDataKey of tableDataKeys let i = index ;">
-          <ng-container *ngIf="tableDataKey!=='WorkingHours'; ">
-            <span style="font-weight: bold;">{{thArr[i]}}:
-              <span style="font-weight: normal;">
-                <ng-container class="card-text">{{returnColDataByType(colData, tableDataKey)}}</ng-container>
-              </span>
-            </span>
-          </ng-container>
-        </ng-container>
-      </div>
-    </div>
-  </ng-container> -->
+
+  <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
+    <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid"></app-delete-project-content-item>
+  </div>

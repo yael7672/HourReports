@@ -19,7 +19,6 @@ td.td {
 }
 .table>:not(caption)>*>*
 {
-
   box-shadow: none;
 }
 .table-hover>tbody>td:hover>* {
