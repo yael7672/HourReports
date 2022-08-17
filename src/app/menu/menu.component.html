@@ -35,16 +35,17 @@
     <div class="form-outline">
       <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי משימה" [(ngModel)]="model"
       (change)="onSearchTask(model)" />
-          <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי פרוייקט" [(ngModel)]="model"
-          [ngbTypeahead]="search" (change)="onSearchProject(model)" /> -->
-        <div class="form-outline d-flex justify-content-center">
-          <select id="inputState" class="form-control" ngModel name="SourceTask" #SourceTask="ngModel"
-            (ngModelChange)="onSearchProject($event)">
-            <option value="">חפש לפי פרוייקט</option>
-            <option *ngFor="let project of projectArr" value="{{project.Name}}">
-              {{project.Name}}
-            </option>
-          </select>
+        <div class="form-outline d-flex justify-content-center mb-4">
+          <ng-autocomplete style="width: 100%;" [data]="projectArr" [searchKeyword]="'Name'" placeholder="חפש לפי פרויקט" 
+         historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate" (ngModelChange)="onSearchProject($event)"
+          ngModel name="SourceTask" #SourceTask="ngModel" required [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+      <ng-template #itemTemplate let-item >
+          <a [innerHTML]="item.Name"></a>
+      </ng-template>
+      <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+      </ng-template>
         </div>
         <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
           <option value="">--בחר אחת מהאופציות הבאות--</option>

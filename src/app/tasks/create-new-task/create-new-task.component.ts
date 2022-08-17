@@ -73,12 +73,11 @@ export class CreateNewTaskComponent implements OnInit {
       Subject: form.value.Subject,
       // NotesToTheProjectManager: form.value.CommentsToTheProjectManager,הערות למנהל הפרוייקט
       // Regardingobjectid: { "Guid": form.value.Regardingobject },לגבי
-      WorkType: { "Guid": form.value.WorkType },
+      WorkType: { "Guid": form.value.workType.Guid },
       OwnerId: { "Guid": localStorage.getItem('systemGuid') },
-      Project: { "Guid": form.value.Project }
+      Project: { "Guid": form.value.project.Guid  }
     }
     this.AddNewTask()
-
   }
   GetProject() {
     this.userService.GetProject().subscribe(res => {
@@ -107,7 +106,6 @@ export class CreateNewTaskComponent implements OnInit {
         this.popUpService.setClosePopUp();
         this.popUpService.setAllmyTask(true)
         this.router.navigate(['/menu'])
-
       }
     },
       err => {

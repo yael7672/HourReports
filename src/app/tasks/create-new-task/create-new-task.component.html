@@ -5,7 +5,7 @@
         <form (ngSubmit)="f.valid && CreateNewTask(f)" #f="ngForm">
             <div class="form-outline d-flex justify-content-center">
                 <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
-                    placeholder=" תאריך " />
+                    placeholder="תאריך " />
             </div>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Subject" name="Subject" class="form-control" placeholder="נושא המשימה*"
@@ -14,14 +14,17 @@
             <div *ngIf="f.submitted && subject.invalid" class="text-danger">
                 <span *ngIf="subject.errors">שדה זה חובה</span>
               </div>
-            
-              <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control" name="WorkType"
-                [ngClass]="{ 'is-invalid': f.submitted && workType.invalid }" #workType="ngModel" ngModel required>
-                    <option value="">סוג עבודה*</option>
-                    <option *ngFor="let workType of workTypeArr " value="{{workType.Guid}}">
-                        {{workType.Name}}</option>
-                </select>
+              <div class="form-outline d-flex justify-content-center mb-4">
+                <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workTypeArr" [searchKeyword]="'Name'" placeholder="סוג עבודה" 
+                historyIdentifier="workType" [itemTemplate]="itemTemplate" 
+                 ngModel name="workType" #workType="ngModel" required [notFoundTemplate]="notFoundTemplate">
+             </ng-autocomplete>
+             <ng-template #itemTemplate let-item >
+                 <a [innerHTML]="item.Name"></a>
+             </ng-template>
+             <ng-template #notFoundTemplate let-notFound>
+                 <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+             </ng-template>
             </div>
             <div *ngIf="f.submitted && workType.invalid" class="text-danger">
                 <span *ngIf="workType.errors">שדה זה חובה</span>
@@ -31,13 +34,17 @@
                     class="form-control textarea" placeholder=" תאור המשימה  " #Description="ngModel"
                     ngModel></textarea>
             </div>
-            <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control" name="Project" 
-                [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" #project="ngModel"ngModel required>
-                    <option value="">פרוייקט*</option>
-                    <option *ngFor="let projectArr of projectArr" value="{{projectArr.Guid}}">
-                        {{projectArr.Name}}</option>
-                </select>
+            <div class="form-outline d-flex justify-content-center mb-4">
+                <ng-autocomplete style="width: 100%;" [data]="projectArr" [searchKeyword]="'Name'" placeholder="  פרויקט" 
+                historyIdentifier="project" class="autoComplete" [itemTemplate]="itemTemplate" 
+                 ngModel name="project" #project="ngModel" required [notFoundTemplate]="notFoundTemplate">
+             </ng-autocomplete>
+             <ng-template #itemTemplate let-item >
+                 <a [innerHTML]="item.Name"></a>
+             </ng-template>
+             <ng-template #notFoundTemplate let-notFound>
+                 <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+             </ng-template>
             </div>
             <div *ngIf="f.submitted && project.invalid" class="text-danger">
                 <span *ngIf="project.errors">שדה זה חובה</span>

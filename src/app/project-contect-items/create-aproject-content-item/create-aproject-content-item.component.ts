@@ -48,7 +48,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
   ProjectGuidValue: any;
   ProjectGuid: any;
   GuidProject: any
-  // public data!: Array<Project>;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.isDisabled = false;
@@ -70,25 +69,10 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.GetProject()
     this.GetWorkType()
   }
-  filterByName(e: any) {
-    this.ProjectGuidValue = this.Project.filter((e: any) => e.Name?.includes(e));
-    alert(this.ProjectGuidValue)
-
-  }
-  saveCode(e: any) {
-    let find = this.Project.find(x => x?.Name === e.target.value);
-    alert("hi" + find?.Guid);
-  }
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      //  this.ProjectGuid = this.guidProject.nativeElement.value ;
-      //  this.Project.find(x => x.Name == this.ProjectGuid) // WARNING NEW LINE
-      //  this.ProjectGuidValue  = this.Project.filter(s => s.Name.includes(this.ProjectGuid));
-      // this.ProjectGuidValue = this.Project.find(x => x.Name === this.GuidProject);
-    // this.ProjectGuidValue = this.Project.filter((f:any) => f?.includes(f.Name === this.guidProject.nativeElement.value));
-    form.value.Project = { "Guid": this.GuidProject },
-      // form.value.Project = { "Guid": this.ProjectFilter },
-      form.value.WorkType = { "Guid": form.value.WorkType }
+      form.value.Project = { "Guid": form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
@@ -103,14 +87,12 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.appService.setIsPopUpOpen(false);
           this.popUpService.setClosePopUp();
         },
-        (err) =>{
+        (err) => {
           swal(err.error)
-          this.isDisabled=false;
+          this.isDisabled = false;
 
-        }  )
-          
+        })
   }
-
   GetRegarding() {
     this.userServiceService.GetRegarding().subscribe(
       (res: any) => {
@@ -123,7 +105,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
 
     )
   }
-
   GetWorkType() {
     this.userServiceService.GetWorkType().subscribe(
       (res: any) => {
@@ -148,10 +129,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.projectContectItemByTimerGuid = localStorage.getItem("projectContectItemByTimerGuid")
     form.value.Guid = this.projectContectItemByTimerGuid
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project },
-      form.value.WorkType = { "Guid": form.value.WorkType }
+      form.value.Project = { "Guid": form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.ActualTime = this.actualTime
-
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
       (res) => {
         this.ProjectContentItemWithTime = res;
@@ -177,7 +157,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   filter(value: any) {
     this.Project = this.Project.filter((f: Project) => f?.Name.includes(value));
-
   }
   SearchValue() {
     if (this.ProjectFilter != "") {
@@ -186,21 +165,26 @@ export class CreateAprojectContentItemComponent implements OnInit {
 
   }
   onWorkTypeSelected(val: any) {
-    console.log(val.target.value);
-    if (val.target.value == "790556d1-2ada-ea11-a813-000d3a21015b") {
+    console.log(val.Guid);
+    if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
       this.subject1 = "הפסקות";
       this.billingHours1 = "2";
-      this.GuidProject = "216003B0-9D6B-EC11-8943-000D3A38C560";
-    }
-    if (val.target.value == "00ee906b-6add-ea11-a813-000d3a21015b") {
-      this.subject1 = "יום חופש";
-      this.billingHours1 = "2";
-      this.GuidProject = "216003B0-9D6B-EC11-8943-000D3A38C560";
-    }
-    if (val.target.value == "0c03dc7d-6add-ea11-a813-000d3a21015b") {
-      this.subject1 = "יום מחלה";
-      this.billingHours1 = "2";
-      this.GuidProject = {"Guid":"216003B0-9D6B-EC11-8943-000D3A38C560",'Name':"הפסקה"}
-    }
+      this.GuidProject = {  "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560","Name":"פרויקט-  2022 ניהול משרד💼  Aurora" }
+    } else
+      if (val.Guid == "00ee906b-6add-ea11-a813-000d3a21015b") {
+        this.subject1 = "יום חופש";
+        this.billingHours1 = "2";
+        this.GuidProject = {  "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560","Name":"פרויקט-  2022 ניהול משרד💼  Aurora" }
+      } else
+        if (val.Guid == "0c03dc7d-6add-ea11-a813-000d3a21015b") {
+          this.subject1 = "יום מחלה";
+          this.billingHours1 = "2";
+          this.GuidProject = {  "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560","Name":"פרויקט-  2022 ניהול משרד💼  Aurora" }
+        }
+        else {
+          this.subject1 = "";
+          this.billingHours1 = "";
+          this.GuidProject = ""
+        }
   }
 }
