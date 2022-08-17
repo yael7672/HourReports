@@ -1,4 +1,4 @@
-<app-pop-up #upPopUP [ifX]="ifX" >
+<app-pop-up #upPopUP [ifX]="ifX">
     <h4 header class="mb-4">יצירת דיווח</h4>
     <div body>
         <!-- <form  (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm"> -->
@@ -10,21 +10,25 @@
             </div>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Subject" name="Name" class="form-control" placeholder="נושא" ngModel
-                    #subject="ngModel" [(ngModel)]="subject1" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required />
+                    #subject="ngModel" [(ngModel)]="subject1"
+                    [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required />
             </div>
             <div *ngIf="f.submitted && subject.invalid" class="text-danger">
                 <span *ngIf="subject.errors">שדה זה חובה</span>
             </div>
-            <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control " name="WorkType" #workType="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && workType.invalid }" required ngModel  (change)='onWorkTypeSelected($event)'>
-                    <option value="">סוג עבודה</option>
-                    <option *ngFor="let workType of this.WorkType" value="{{workType.Guid}}">
-                        {{workType.Name}}
-                    </option>
-                </select>
-
-            </div>
+                <div class="form-outline d-flex justify-content-center mb-4" >
+                    <ng-autocomplete style="width:100%;" class="autoComplete" [data]=" this.WorkType" [searchKeyword]="'Name'" placeholder="סוג עבודה" 
+                    historyIdentifier="workType" [itemTemplate]="itemTemplate" 
+                     ngModel name="workType" #workType="ngModel" required [notFoundTemplate]="notFoundTemplate">
+                 </ng-autocomplete>
+                 <ng-template #itemTemplate let-item >
+                     <a [innerHTML]="item.Name"></a>
+                 </ng-template>
+                 <ng-template #notFoundTemplate let-notFound>
+                     <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+                 </ng-template>
+                </div>
+         
             <div *ngIf="f.submitted && workType.invalid" class="text-danger">
                 <span *ngIf="workType.errors">שדה זה חובה</span>
             </div>
@@ -49,8 +53,9 @@
                 </div>
             </ng-container>
             <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control" [(ngModel)]="billingHours1" name="BillableHours" #billingHours="ngModel" ngModel
-                    [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }" required>
+                <select id="inputState" class="form-control" [(ngModel)]="billingHours1" name="BillableHours"
+                    #billingHours="ngModel" ngModel [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }"
+                    required>
                     <option value="">?האם שעות לחיוב</option>
                     <option value="1">כן </option>
                     <option value="2">לא </option>
@@ -60,46 +65,23 @@
             <div *ngIf="f.submitted && billingHours.invalid" class="text-danger">
                 <span *ngIf="billingHours.errors">שדה זה חובה</span>
             </div>
-            <!-- <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control " ngModel name="Project" #project="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" required>
-                    <option value=""> פרוייקט</option>
-                    <option *ngFor="let project of this.Project" value="{{project.Guid}}">
-                        {{project.Name}}
-                    </option>
-                </select>
-            </div> -->
-            <!-- <div *ngIf="f.submitted && project.invalid" class="text-danger">
-                <span *ngIf="project.errors">שדה זה חובה</span>
-            </div> -->
-            
-            <div class="form-outline d-flex justify-content-center">
-            
-                <input list="brow" class="form-control" placeholder="פרויקט"  [(ngModel)]="GuidProject"
-                 ngModel name="Project" #project="ngModel" required 
-                [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" >
-                <datalist  id="brow"  >
-                    <option *ngFor="let projectt of this.Project"   ngValue="{{projectt.Guid}}" >
-                  {{projectt.Name}}
-
-                    </option>
-                </datalist>
+            <div class="form-outline d-flex justify-content-center mb-4">
+                <ng-autocomplete style="width: 100%;" class="autoComplete"  [data]="Project" [searchKeyword]="'Name'" placeholder="  פרויקט"
+                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                    (inputFocused)='onFocused($event)' historyIdentifier="Project" [itemTemplate]="itemTemplate"
+                    [(ngModel)]="GuidProject"
+                    ngModel name="Project" #project="ngModel" required [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.Name"></a>
+                </ng-template>
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+                </ng-template>
             </div>
             <div *ngIf="f.submitted && project.invalid" class="text-danger">
                 <span *ngIf="project.errors">שדה זה חובה</span>
              </div>
-
-                   <!-- <div class="form-outline d-flex justify-content-center">
-                <input list="brow" class="form-control" placeholder="פרויקט" ngModel [(ngModel)]="ProjectFilter" required 
-                (click)="SearchValue()"  >
-                <datalist 
-                     id="brow">
-                    <option *ngFor="let project of this.Project"  >
-                    {{project.Name}}
-                    </option>
-                </datalist>
-            </div> -->
-        
             <div class="form-outline d-flex justify-content-center ">
                 <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
                     class="form-control textarea" placeholder=" תאור " ngModel>

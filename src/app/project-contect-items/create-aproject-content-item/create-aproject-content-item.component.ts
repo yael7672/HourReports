@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, Input, ViewChild ,ElementRef  } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Project } from '../../interfacees/project';
 import { Task } from '../../interfacees/task';
@@ -45,9 +45,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
   ProjectContentItemWithTime: any;
   ProjectFilter: any;
   isDisabled = false;
-  ProjectGuidValue:any;
+  ProjectGuidValue: any;
   ProjectGuid: any;
-  GuidProject:any
+  GuidProject: any
   // public data!: Array<Project>;
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
@@ -70,54 +70,42 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.GetProject()
     this.GetWorkType()
   }
-  // CreateNewProjectItem(form: NgForm) {
-  //   this.isDisabled = true;
-  //   this.popUpService.setIsDisabledBtn(true)
-  //   form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-  //     // form.value.Project = { "Guid": form.value.Project },
-  //     form.value.Project = { "Guid": this.ProjectFilter },
-  //     form.value.WorkType = { "Guid": form.value.WorkType }
-  // }
-//   handleFilter(value:any) {
-//     this.data = this.Project.filter((s) => s.Name.toLowerCase().indexOf(value.toLowerCase()) !== -1);
-// }
-filterByName(e:any){
-  this.ProjectGuidValue = this.Project.filter((e:any) => e.Name?.includes(e));
-  alert(this.ProjectGuidValue)
 
-}
-saveCode(e:any) {
-  let find = this.Project.find(x => x?.Name === e.target.value);
-  alert("hi"+find?.Guid);
-}
+  selectEvent(item:any) {
+    // do something with selected item
+    //לא למחוק חלק מPL הפרויקט
+  }
+
+  onChangeSearch(search: any) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e:any) {
+    // do something
+  }
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-  //  this.ProjectGuid = this.guidProject.nativeElement.value ;
-  //  this.ProjectGuidValue = this.Project.filter((f: Project) => f.Name.includes(this.ProjectGuid));
-    //  this.Project.find(x => x.Name == this.ProjectGuid) // WARNING NEW LINE
-  //  this.ProjectGuidValue  = this.Project.filter(s => s.Name.includes(this.ProjectGuid));
-  this.ProjectGuidValue = this.Project.find(x => x?.Name ===this.GuidProject);
-    // this.ProjectGuidValue = this.Project.filter((f:any) => f?.includes(f.Name === this.guidProject.nativeElement.value));
-    form.value.Project = { "Guid": this.GuidProject  },
-    // form.value.Project = { "Guid": this.ProjectFilter },
-    form.value.WorkType = { "Guid": form.value.WorkType }
+    console.log(this.ProjectGuidValue)
+    form.value.Project = { "Guid":  form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
-    (
-      (res) => {
+      (
+        (res) => {
 
-        this.ProjectContentItem = res;
-        swal("!דיווח נוצר בהצלחה")
-        // this.isDisabled = false;
-        this.popUpService.setAllmyProjectContectItem(true)
-        this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-        this.appService.setIsPopUpOpen(false);
-        this.popUpService.setClosePopUp();
-      },
-      (err) =>
-        swal(err.error))
-        this.popUpService.setIsDisabledBtn(false)
+          this.ProjectContentItem = res;
+          swal("!דיווח נוצר בהצלחה")
+          // this.isDisabled = false;
+          this.popUpService.setAllmyProjectContectItem(true)
+          this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+          this.appService.setIsPopUpOpen(false);
+          this.popUpService.setClosePopUp();
+        },
+        (err) =>
+          swal(err.error))
+    this.popUpService.setIsDisabledBtn(false)
   }
 
   GetRegarding() {
@@ -155,8 +143,8 @@ saveCode(e:any) {
     this.projectContectItemByTimerGuid = localStorage.getItem("projectContectItemByTimerGuid")
     form.value.Guid = this.projectContectItemByTimerGuid
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project },
-      form.value.WorkType = { "Guid": form.value.WorkType }
+      form.value.Project =  { "Guid":  form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.ActualTime = this.actualTime
 
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(

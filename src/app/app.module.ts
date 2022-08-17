@@ -36,6 +36,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { searchInputFilterPipe } from './pipes/searchInputFilter.pipe';
 import { UpdateProjectContentItemComponent } from './update-project-content-item/update-project-content-item.component';
 import { DeleteProjectContentItemComponent } from './project-contect-items/delete-project-content-item/delete-project-content-item.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -80,8 +81,8 @@ import { DeleteProjectContentItemComponent } from './project-contect-items/delet
     FormsModule ,
     CommonModule,
     NgbModule,
-    ClickOutsideModule
-
+    ClickOutsideModule,
+    AutocompleteLibModule
    
   ],
   providers: [DatePipe],

@@ -541,7 +541,7 @@ export class MenuComponent implements OnInit {
     if (this.tableMyTaskOpen == true) {
       this.taskArr = [...this.taskArrCopy];
       if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
-        this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey));
+        this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey.Name));
       }
     }
     else
