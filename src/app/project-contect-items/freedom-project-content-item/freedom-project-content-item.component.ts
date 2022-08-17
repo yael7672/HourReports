@@ -34,7 +34,8 @@ export class FreedomProjectContentItemComponent implements OnInit {
   showMassgeToUser = false;
   massgeUserHeader = "!שים לב";
   massgeUserBody = "קיימים דיווחים על התאריכים הנבחרים"
-  massgeUserFooter = "?האם ברצונך להמשיך"
+  massgeUserFooter = "?האם ברצונך להמשיך";
+  isDisabled = false;
   projectContentItemToCreate: any;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService,
     private datepipe: DatePipe) { }
@@ -53,12 +54,13 @@ export class FreedomProjectContentItemComponent implements OnInit {
     }
   }
   CreateNewFreedomProjectItem(form: NgForm) {
+    this.isDisabled = true;
     form.value.Name = "יום חופש";
-    if(!form.value.ActualTime)
-    form.value.ActualTime="9"
-      form.value.WorkType = { "Guid": "00EE906B-6ADD-EA11-A813-000D3A21015B" }
-      form.value.Project = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560" }
-      form.value.BillableHours = "2";
+    if (!form.value.ActualTime)
+      form.value.ActualTime = "9"
+    form.value.WorkType = { "Guid": "00EE906B-6ADD-EA11-A813-000D3A21015B" }
+    form.value.Project = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560" }
+    form.value.BillableHours = "2";
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') }
     if (this.isChecked) {
       this.fromDate = this.datepipe.transform(form.value.fromDate, 'dd/MM/yyyy')
@@ -82,7 +84,11 @@ export class FreedomProjectContentItemComponent implements OnInit {
         this.popUpService.setClosePopUp();
       },
       (err) =>
+      
+      {
         swal(err.error)
+        this.isDisabled = false;
+      }
     )
   }
   clickYes(kindOfMassage: string) {

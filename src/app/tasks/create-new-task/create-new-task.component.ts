@@ -6,14 +6,13 @@ import { Router } from '@angular/router';
 import { AppService } from 'src/app/app-service.service';
 import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
 import { Project } from 'src/app/interfacees/project';
-
 import { Regardingobjectid } from 'src/app/interfacees/regardingobjectid';
 import { Task } from 'src/app/interfacees/task';
 import { WorkType } from 'src/app/interfacees/work-type';
 import { MenuComponent } from 'src/app/menu/menu.component';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
-import  swal from 'sweetalert';
+import swal from 'sweetalert';
 @Component({
   selector: 'app-create-new-task',
   templateUrl: './create-new-task.component.html',
@@ -28,8 +27,9 @@ export class CreateNewTaskComponent implements OnInit {
   workTypecc = "bb";
   massage!: string;
   projectArr!: Project[];
-  getMyTasksProp=false
-  constructor( private buttonWorkingTaskService: ButtonWorkingTaskService, public router: Router,private datePipe: DatePipe, private userService: UserServiceService, private appService: AppService,private popUpService:PopUpServiceService) {
+  getMyTasksProp = false;
+  isDisabled = false;
+  constructor(private buttonWorkingTaskService: ButtonWorkingTaskService, public router: Router, private datePipe: DatePipe, private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     console.log(this.todayDate);
   }
@@ -64,20 +64,21 @@ export class CreateNewTaskComponent implements OnInit {
       }
     )
   }
-async CreateNewTask(form: NgForm) {
+  async CreateNewTask(form: NgForm) {
+    this.isDisabled = true;
     this.tasks =
     {
-      Description:form.value.Description,
-      BillableHours:form.value.BillableHours,
+      Description: form.value.Description,
+      BillableHours: form.value.BillableHours,
       Subject: form.value.Subject,
       // NotesToTheProjectManager: form.value.CommentsToTheProjectManager,הערות למנהל הפרוייקט
       // Regardingobjectid: { "Guid": form.value.Regardingobject },לגבי
       WorkType: { "Guid": form.value.WorkType },
       OwnerId: { "Guid": localStorage.getItem('systemGuid') },
-      Project: { "Guid": form.value.Project  }
+      Project: { "Guid": form.value.Project }
     }
-this.AddNewTask()
-      
+    this.AddNewTask()
+
   }
   GetProject() {
     this.userService.GetProject().subscribe(res => {
@@ -92,27 +93,29 @@ this.AddNewTask()
       })
   }
 
- async AddNewTask(){
+  async AddNewTask() {
     this.userService.AddNewTask(this.tasks).then(res => {
-    if (res) {
-      this.massage = res;
-      this.getMyTasksProp=true
-      //window.localStorage.setItem("getMyTask", JSON.stringify(this.getMyTasksProp))
-      // let myCompMenu = new MenuComponent(this.router,this.popUpService, this.userService, this.appService, this.buttonWorkingTaskService, this.datePipe)
-      // myCompMenu.GetMyTask()
-      swal(this.massage);
-     
-      this.appService.setIsPopUpOpen(false);
-      this.popUpService.setClosePopUp();
-      this.popUpService.setAllmyTask(true)
-      this.router.navigate(['/menu'])
+      if (res) {
+        this.massage = res;
+        this.getMyTasksProp = true
+        //window.localStorage.setItem("getMyTask", JSON.stringify(this.getMyTasksProp))
+        // let myCompMenu = new MenuComponent(this.router,this.popUpService, this.userService, this.appService, this.buttonWorkingTaskService, this.datePipe)
+        // myCompMenu.GetMyTask()
+        swal(this.massage);
 
-    }
-  },
-    err => {
-      console.log(err.error);
-    }
-  )
-  this.getMyTasksProp=false
-  window.localStorage.setItem("getMyTask", JSON.stringify(this.getMyTasksProp))}
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
+        this.popUpService.setAllmyTask(true)
+        this.router.navigate(['/menu'])
+
+      }
+    },
+      err => {
+        console.log(err.error);
+        this.isDisabled = false;
+      }
+    )
+    this.getMyTasksProp = false
+    window.localStorage.setItem("getMyTask", JSON.stringify(this.getMyTasksProp))
+  }
 }

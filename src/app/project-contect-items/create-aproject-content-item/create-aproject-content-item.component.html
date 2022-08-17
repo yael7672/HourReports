@@ -23,7 +23,6 @@
                         {{workType.Name}}
                     </option>
                 </select>
-
             </div>
             <div *ngIf="f.submitted && workType.invalid" class="text-danger">
                 <span *ngIf="workType.errors">שדה זה חובה</span>
@@ -74,21 +73,12 @@
             </div> -->
             
             <div class="form-outline d-flex justify-content-center">
-<<<<<<< HEAD
-                <input list="brow"  class="form-control" placeholder="פרויקט" [(ngModel)]="project1" ngModel name="Project" #project="ngModel" required 
-                  [ngClass]="{ 'is-invalid': f.submitted && project.invalid }">
-                <datalist 
-                     id="brow">
-                    <option *ngFor="let project of this.Project"  value="{{project.Guid}}" >
-                    {{project.Name}}
-=======
                 <input list="brow" class="form-control" placeholder="פרויקט"  [(ngModel)]="GuidProject"
                  ngModel name="Project" #project="ngModel" required 
                 [ngClass]="{ 'is-invalid': f.submitted && project.invalid }" >
                 <datalist  id="brow"  >
                     <option *ngFor="let projectt of this.Project"   ngValue="{{projectt.Guid}}" >
                   {{projectt.Name}}
->>>>>>> 5e4acb6365d341bcad69a72a0eb4ce76b1a528db
                     </option>
                 </datalist>
             </div>
