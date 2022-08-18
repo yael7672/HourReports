@@ -158,8 +158,8 @@
         <h2>אין דיווחים !</h2>
       </div>
       <div *ngIf="!showMassegeNoProjectContectItem">
-        <app-my-project-contect-items (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'"
-          [thArr]="thArrTableProjectContentItem" (getDataClickOfButton)="GetMyProjectContectItem($event)"
+        <app-my-project-contect-items   [project]="projectArr"  [workType]="workTypeArr" (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'"
+       [thArr]="thArrTableProjectContentItem" (getDataClickOfButton)="GetMyProjectContectItem($event)"
           [tableData]="MyProjectContectItemArr" [tableDataKeys]="projectContentItemListKeys">
         </app-my-project-contect-items>
       </div>
@@ -189,8 +189,8 @@
     <app-create-aproject-content-item [MyTask]="taskArr"></app-create-aproject-content-item>
   </div>
   <div *ngIf="isPopUpOpen?.sickLeave">
-    <app-sick-leave-project-content-item [project]="projectArr" [myTask]="taskArr" [todayDate]="todayDate"
-      [workType]="workTypeArr"></app-sick-leave-project-content-item>
+    <app-sick-leave-project-content-item [myTask]="taskArr" [todayDate]="todayDate"
+     [project]="projectArr"  [workType]="workTypeArr"></app-sick-leave-project-content-item>
   </div>
   <div *ngIf="isPopUpOpen?.Freedom">
     <app-freedom-project-content-item [project]="projectArr" [myTask]="taskArr" [todayDate]="todayDate"

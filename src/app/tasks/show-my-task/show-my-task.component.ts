@@ -1,6 +1,7 @@
 import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppService } from 'src/app/app-service.service';
+import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
 
 @Component({
@@ -9,8 +10,17 @@ import { UserServiceService } from 'src/app/user-service.service';
   styleUrls: ['./show-my-task.component.css']
 })
 export class ShowMyTaskComponent implements OnInit {
+  ProjectContentItem: any;
+  showMassgeToUser: boolean = false;
+  projectContentItemGuid: any;
+  isPopUpOpen: any;
 
-  constructor() { }
+  constructor(private popUpService: PopUpServiceService, private appService: AppService) {
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+      console.log(this.isPopUpOpen);
+    })
+  }
 
   taskDateRecords: any;
   @Input() hideProjectTh!: Boolean;
@@ -21,9 +31,9 @@ export class ShowMyTaskComponent implements OnInit {
   @Input() kindOfCard!: any;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
-  @Input() nameSearch:any
+  @Input() nameSearch: any
   IftableDataKeyIdProject!: boolean;
-  ifSortDown=true;
+  ifSortDown = true;
   ngOnInit(): void {
   }
   SelectedData(val: object) {
@@ -46,7 +56,7 @@ export class ShowMyTaskComponent implements OnInit {
     }
   }
   SortTableDown(thName: any) {
-     this.ifSortDown=false;
+    this.ifSortDown = false;
     let keyToSort: any;
     switch (thName) {
       case 'נוצר ב:':
@@ -72,16 +82,15 @@ export class ShowMyTaskComponent implements OnInit {
     }
     if (keyToSort[0] != 'Project') {
       this.tableData.sort((a: any, b: any) =>
-        (a[keyToSort]?a[keyToSort]:"" > (b[keyToSort]?b[keyToSort]:"")) ? 1 : -1)
+        (a[keyToSort] ? a[keyToSort] : "" > (b[keyToSort] ? b[keyToSort] : "")) ? 1 : -1)
     }
     else {
       this.tableData?.sort((a: any, b: any) =>
         (a[keyToSort[1]] > (b[keyToSort[1]])) ? 1 : -1)
     }
   }
-  SortTableUp(thName:any)
-  {
-    this.ifSortDown=true;
+  SortTableUp(thName: any) {
+    this.ifSortDown = true;
 
     let keyToSort: any;
     switch (thName) {
@@ -112,7 +121,21 @@ export class ShowMyTaskComponent implements OnInit {
     }
     else {
       this.tableData?.sort((a: any, b: any) =>
-      (a[keyToSort[1]] < (b[keyToSort[1]])) ? 1 : -1)
+        (a[keyToSort[1]] < (b[keyToSort[1]])) ? 1 : -1)
     }
+  }
+  EditProjectContentItemIcon(val: any) {
+    this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
+    this.ProjectContentItem = val;
+    console.log(val);
+  }
+  DeleteProjectContentItemIcon(ProjectContentItem: any) {
+    this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
+    this.showMassgeToUser = true;
+    this.projectContentItemGuid = this.tableData.Guid;
+  }
+  openPopUp(data: string, type: boolean) {
+    this.appService.setIsPopUpOpen(true);
+    this.popUpService.setSpecificPopUp(type, data)
   }
 }

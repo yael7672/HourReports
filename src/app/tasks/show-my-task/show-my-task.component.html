@@ -29,15 +29,29 @@
     </tr>
   </thead>
   <tbody *ngIf="tableData">
-    <tr *ngFor="let colData of tableData"  (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
-      <ng-container *ngFor="let tableDataKey of tableDataKeys">
+    <tr *ngFor="let colData of tableData"  >
+      <ng-container *ngFor="let tableDataKey of tableDataKeys" (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
         <td *ngIf="tableDataKey=='ScheduledEndDate' || tableDataKey=='CreatedOn'">{{returnColDataByType(colData,
           tableDataKey) | date: 'dd/MM/yyyy HH:mm'}}</td>
           <td *ngIf="tableDataKey=='WorkingHours'">{{returnColDataByType(colData,
             tableDataKey) |number}}</td>
         <td *ngIf="tableDataKey!='ScheduledEndDate' && tableDataKey!='CreatedOn' && tableDataKey!='WorkingHours'">
           {{returnColDataByType(colData,tableDataKey)}} </td>
-      </ng-container>
+    </ng-container>
+        <td class="td">
+      <button (click)="EditProjectContentItemIcon(colData)"
+        (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button">
+        <i class="fa fa-pencil" aria-hidden="true"></i></button>
+      <!-- <button (click)="DeleteProjectContentItemIcon(colData)" class="edit-button">
+        <i class="iconify" data-icon="akar-icons:trash-can"></i>
+      </button> -->
+    </td>
     </tr>
   </tbody>
 </table>
+<div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
+  <app-update-project-content-item  [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
+    </div>
+<!-- <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
+  <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid"></app-delete-project-content-item>
+</div> -->

@@ -17,6 +17,8 @@ export class MyProjectContectItemsComponent implements OnInit {
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
+  @Input() project!: any;
+  @Input() workType!: any;
   @Input() hideProjectTh!: Boolean;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
@@ -168,7 +170,7 @@ export class MyProjectContectItemsComponent implements OnInit {
 
     }
   }
-  EditProjectContentItemIcon(val: any) {
+  EditTaskIcon(val: any) {
     this.popUpService.setSpecificPopUp(true,'UpdateProjectContentItemDetails');
     this.ProjectContentItem = val;
     console.log(val);
