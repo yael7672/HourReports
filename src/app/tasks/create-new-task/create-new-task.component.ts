@@ -97,11 +97,7 @@ export class CreateNewTaskComponent implements OnInit {
       if (res) {
         this.massage = res;
         this.getMyTasksProp = true
-        //window.localStorage.setItem("getMyTask", JSON.stringify(this.getMyTasksProp))
-        // let myCompMenu = new MenuComponent(this.router,this.popUpService, this.userService, this.appService, this.buttonWorkingTaskService, this.datePipe)
-        // myCompMenu.GetMyTask()
         swal(this.massage);
-
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
         this.popUpService.setAllmyTask(true)

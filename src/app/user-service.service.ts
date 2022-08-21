@@ -21,17 +21,18 @@ export class UserServiceService {
   }
   GetDailyWorkingHoursAndMonthlyWorkingHours(SystemGuid: string){
     return this.http.get<any>(environment.url + 'GetDailyWorkingHoursAndMonthlyWorkingHours/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
-
   }
   
   CreateProjectContectItemWithTimer(SystemGuid: string){
     return this.http.get<any>(environment.url + '/CreateProjectContectItemWithTimer/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
-
   }
   UpdateProjectContectItemWithTime(ProjectItemToUpdate: ProjectContentItem) {
     return this.http.post<string>(environment.url + '/UpdateProjectContectItemWithTimer/?OrganizationName=AuroraProd', ProjectItemToUpdate);
 
   }
+  UpdateTaskDetails(taskId:any, ProjectGuid:any, DescriptionTask:any ,TaskSubject:any ,WorkType:any) {
+    return this.http.get<any>(environment.url + '/UpdateTaskDetails/?OrganizationName=AuroraProd&taskId='+taskId+'&ProjectGuid='+ProjectGuid +'&DescriptionTask='+ DescriptionTask+'&TaskSubject='+TaskSubject+ '&WorkType='+WorkType );
+  } 
   async AddNewTask(TaskObj: any) {
     return await this.http.post<string>(environment.url + 'AddNewTask?OrganizationName=AuroraProd', TaskObj).toPromise();
   }
@@ -58,13 +59,8 @@ export class UserServiceService {
   }
   CreatePauseWork(SystemGuid: any) {
     return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid);
-
   }
-  // לשנות- לממשק של יצירת פריט תכולת פרויקט רגיל
-  // CreateNewProjectItemByGuid(projectContentItem: any) {
-  //   return this.http.get<ProjectContentItem[]>(environment.url + 'Login=' + projectContentItem);
 
-  // }
   CreateNewProjectItem(projectContentItem: any, fromDate: string, untilDate: string) {
     return this.http.post<string>(environment.url + 'CreateProjectContentItem?OrganizationName=AuroraProd&FromDate=' + fromDate + '&UntilDate=' + untilDate, projectContentItem);
   }
@@ -91,7 +87,6 @@ export class UserServiceService {
   }
   UpdateProjectContentItemDetails(ProjectItemToUpdate: any) {
     return this.http.post<string>(environment.url + '/UpdateProjectContentItemDetails?OrganizationName=AuroraProd', ProjectItemToUpdate);
-
   }
   GetMyProjectContectItem(SystemGuid: any, SelectedTime: number,FromDate:string,UntilDate:string) {
 
@@ -100,7 +95,6 @@ export class UserServiceService {
   }
   GetProjectContentItemByGuid(projectContectItemGuid: string) {
     return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?OrganizationName=AuroraProd&ProjectContentItemGuid=' + projectContectItemGuid)
-
   }
   DeleteProjectContentItemByGuid(projectContectItemGuid: string)
   {

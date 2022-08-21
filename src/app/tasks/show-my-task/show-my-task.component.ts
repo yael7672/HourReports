@@ -26,6 +26,8 @@ export class ShowMyTaskComponent implements OnInit {
   @Input() hideProjectTh!: Boolean;
   @Input() title!: string;
   @Input() thArr!: any;
+  @Input() project!: any;
+  @Input() workType!: any;
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
