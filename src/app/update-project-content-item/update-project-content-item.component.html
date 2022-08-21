@@ -25,8 +25,7 @@
         </ng-template>
       </div>
 </ng-container>
-      <p>תאריך</p>
-      <div class="form-outline d-flex justify-content-center ">
+      <div *ngIf="ProjectContentItem.Date" class="form-outline d-flex justify-content-center ">
         <!-- <input  style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel" class="form-control"
           [(ngModel)]="ProjectContentItem.Date"  [ngModelOptions]="{standalone: true}" ngModel required>
         -->

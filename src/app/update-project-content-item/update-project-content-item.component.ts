@@ -80,7 +80,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
       ActualTime: this.workingHours,
       WorkType:this.ProjectContentItem.WorkType.Guid,
       // Project: this.ProjectContentItem.Project.Guid,
-      Date:form.value.Date
+      Date:this.ProjectContentItem.Date,
     }
     this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
