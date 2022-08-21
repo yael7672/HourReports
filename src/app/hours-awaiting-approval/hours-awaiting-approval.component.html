@@ -1,4 +1,4 @@
-<app-pop-up>
+  <app-pop-up [ifX]="true" [title]='"דיווחי שעות שממתינות לאישור"'>
   <div body>
   <app-smart-table [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
     [tableData]="hoursAwaitingApprovalArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
