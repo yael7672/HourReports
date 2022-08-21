@@ -1,7 +1,6 @@
-
 <div class="actionArea">
   <div class="card">
-    <a  class="close" (click)="closePersonalDetailss()">&times;</a>
+    <a class="close" (click)="closePersonalDetailss()">&times;</a>
     <div *ngIf="systemGuid">
       <div class="card-body">
         <p>{{todayDate|date:'dd/MM/yyyy'}}</p>
@@ -14,18 +13,21 @@
     <div *ngIf="!systemGuid">
       <h3 style="text-align:center">!אף אחד לא מחובר</h3>
     </div>
-    <div >
+    <div>
       <p class="card-title">סה"כ ש"ע להיום: {{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</p>
       <p class="card-title">סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</p>
     </div>
-    <div class="icons">  
-    <a (click)="openPopUpp('sickLeave',true)"><i class="iconify" data-icon="ic:outline-sick"></i>
-    </a>
-    <a (click)="openPopUpp('Freedom',true)"><i class="iconify" data-icon="iconoir:sea-and-sun"></i>
-    </a>
-    <a (click)="openPopUpp('HoursAwaitingApproval',true)"><i class="iconify" data-icon="carbon:condition-wait-point" aria-hidden="true"></i></a>
+    <div class="icons">
+      <a (click)="openPopUpp('sickLeave',true)" data-toggle="tooltip" data-placement="top"
+        title="דיווח מהיר של חופשת מחלה"><i class="iconify" data-icon="ic:outline-sick"></i>
+      </a>
+      <a (click)="openPopUpp('Freedom',true)" data-toggle="tooltip" data-placement="top" title="דיווח מהיר של חופשה"><i
+          class="iconify" data-icon="iconoir:sea-and-sun"></i>
+      </a>
+      <a (click)="openPopUpp('HoursAwaitingApproval',true)"  data-toggle="tooltip" data-placement="top" title="לצפייה ואישור של דיווחים הממתנים לאישור מנהל"><i class="iconify"
+          data-icon="carbon:condition-wait-point"></i></a>
 
     </div>
-  
+
   </div>
 </div>

@@ -9,7 +9,7 @@
         <option value="4"> החודש האחרון</option>
       </select>
     </div>
-    <div *ngIf="myProjectContectItemArr?.length==0">
+    <div *ngIf="myProjectContectItemArr?.length==0||!myProjectContectItemArr">
       <br>
       <h2>אין דיווחים!</h2>
     </div>
@@ -44,7 +44,7 @@
             </th>
           </tr>
         </thead>
-        <tbody *ngIf="myProjectContectItemArr">
+        <tbody>
           <tr *ngFor="let colData of myProjectContectItemArr">
             <ng-container *ngFor="let tableDataKey of tableDataKeys">
               <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
@@ -56,7 +56,7 @@
                 <td> {{colData[tableDataKey] |number}}</td>
               </ng-template>
               <ng-template #Date>
-                <td> {{colData.tableDataKey | date: 'dd/MM/yyyy'}}</td>
+                <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy'}}</td>
               </ng-template>
             </ng-container>
             <td class="td">

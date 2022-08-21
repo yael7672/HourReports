@@ -27,11 +27,10 @@ export class UpdateProjectContentItemComponent implements OnInit {
   constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
-    console.log(this.ProjectContentItem);
-    this.dateToUpdate = this.datePipe.transform(this.ProjectContentItem.Date, 'yyyy-MM-dd');
-
-    this.workingHours = Number(this.ProjectContentItem.WorkingHours);
-    this.workTypeToUpdate={"Guid":this.ProjectContentItem.WorkType.Guid,"Name":this.ProjectContentItem.WorkType.Name}
+    console.log("UpdateProjectContentItemComponent");
+    this.dateToUpdate = this.datePipe.transform(this.ProjectContentItem?.Date, 'yyyy-MM-dd');
+    this.workingHours = Number(this.ProjectContentItem?.WorkingHours);
+    this.workTypeToUpdate={"Guid":this.ProjectContentItem?.WorkType.Guid,"Name":this.ProjectContentItem.WorkType.Name}
     this.GetProject();
     this.GetWorkType();
   }
@@ -39,7 +38,6 @@ export class UpdateProjectContentItemComponent implements OnInit {
     this.userServiceService.GetWorkType().subscribe(
       (res: any) => {
         this.workTypeArr = res;
-        console.log(this.workTypeArr);
       },
       (err: any) =>
         swal(err.error))
@@ -48,7 +46,6 @@ export class UpdateProjectContentItemComponent implements OnInit {
     this.userServiceService.GetProject().subscribe(
       (res: any) => {
         this.projectsArr = res;
-        console.log(this.projectsArr);
       },
       (err: any) =>
         swal(err.error))

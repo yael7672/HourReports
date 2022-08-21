@@ -242,9 +242,5 @@
   </div>
 
   <div *ngIf="isPopUpOpen?.HoursAwaitingApproval">
-    <app-pop-up [ifX]="true" [title]='"דיווחי שעות שממתינות לאישור"'>
-      <div body>
-        <app-hours-awaiting-approval></app-hours-awaiting-approval>
-      </div>
-    </app-pop-up>
+    <app-hours-awaiting-approval></app-hours-awaiting-approval>
   </div>

@@ -184,7 +184,10 @@ export class MenuComponent implements OnInit {
     })
     this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
       this.TaskGuidFromLS = localStorage.getItem("TaskGuidOfProjectContectItem")
-      this.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
+      if(this.TaskGuidFromLS)
+      {
+        this.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
+      }
     })
     this.appService.getIsSelectedTask().subscribe(res => {
       this.descriptionPanel = res;

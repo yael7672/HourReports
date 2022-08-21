@@ -1,0 +1,22 @@
+.edit-button{
+    border-color: white;
+    background-color: white;
+    border: none;
+  }
+  .th-bold
+  {
+    font-weight: bold;
+  }
+  p {
+    margin: 0;
+    text-align: right;
+  }
+  td.td {
+    display: flex;
+    flex-direction: row;
+    border-bottom-width: 0px;
+  }
+  .table>:not(caption)>*>*
+  {
+    box-shadow: none;
+  }

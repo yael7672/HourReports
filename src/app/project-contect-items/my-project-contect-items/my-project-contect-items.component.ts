@@ -14,8 +14,8 @@ import { UserServiceService } from '../../user-service.service';
 export class MyProjectContectItemsComponent implements OnInit {
   // @Input() title!: string;
   @Input() hideProjectTh!: any;
-    @Input() kindOfCard!: any;
-   @Input() tableDataKeys!: any;
+  @Input() kindOfCard!: any;
+  @Input() tableDataKeys!: any;
   @Input() thArr!: any;
   // @Output() clickSelectedTask = new EventEmitter<any>();
   // @Output() getDataClickOfButton = new EventEmitter<any>();
@@ -28,16 +28,13 @@ export class MyProjectContectItemsComponent implements OnInit {
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
   ifSortDown = true;
-  showMassgeToUser = false;
+  selectedTime: any;
   massgeUserHeader = "";
   massgeUserBody = "האם אתה בטוח שברצונך למחוק דיווח זה?"
   massgeUserFooter = "";
   kindOfMassage = 'deleteProjectContentItem';
   projectContentItemGuid = "";
-  tableData: any;
   myProjectContectItemArr!: any;
-  // tableDataKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
-  // thArr = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   showMassegeNoProjectContectItem = false;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -45,11 +42,14 @@ export class MyProjectContectItemsComponent implements OnInit {
       console.log(this.isPopUpOpen);
     })
     this.popUpService.getAllmyProjectContectItem().subscribe(res => {
-      this.GetMyProjectContectItem(1)
+      this.GetMyProjectContectItem(this.selectedTime)
     })
   }
   ngOnInit(): void {
-    this.sortTableByDate();
+    if(this.myProjectContectItemArr)
+    {
+      this.sortTableByDate();
+    }
     this.GetMyProjectContectItem("2");
 
   }
@@ -65,6 +65,9 @@ export class MyProjectContectItemsComponent implements OnInit {
     }
   }
   GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
+    this.selectedTime = selectedTime;
+    if(selectedTime)
+    {
     this.systemGuid = localStorage.getItem('systemGuid')
     this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
       if (res) {
@@ -76,15 +79,15 @@ export class MyProjectContectItemsComponent implements OnInit {
         console.log(err.error);
       })
   }
+}
   toTimestamp(sortValue: any) {
     var datum = Date.parse(sortValue);
     return datum / 1000;
   }
   sortTableByDate() {
-    this.tableData.sort((a: any, b: any) => {
+    this.myProjectContectItemArr.sort((a: any, b: any) => {
       const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
       const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
-
       return ((sortValueTimestampA ? sortValueTimestampA : new Date()) > (sortValueTimestampB ? sortValueTimestampB : new Date()) ? 1 : -1)
     })
   }
@@ -140,11 +143,11 @@ export class MyProjectContectItemsComponent implements OnInit {
     //  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
 
     if (keyToSort[0] != 'WorkType') {
-      this.tableData.sort((a: any, b: any) =>
+      this.myProjectContectItemArr.sort((a: any, b: any) =>
         (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.tableData?.sort((a: any, b: any) =>
+      this.myProjectContectItemArr?.sort((a: any, b: any) =>
 
         (keyToSort[1] > (keyToSort[1])) ? 1 : -1)
     }
@@ -178,11 +181,11 @@ export class MyProjectContectItemsComponent implements OnInit {
     // thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
 
     if (keyToSort[0] != 'WorkType') {
-      this.tableData.sort((a: any, b: any) =>
+      this.myProjectContectItemArr.sort((a: any, b: any) =>
         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.tableData?.sort((a: any, b: any) =>
+      this.myProjectContectItemArr?.sort((a: any, b: any) =>
         (keyToSort[1] < keyToSort[1]) ? 1 : -1)
 
     }
@@ -194,7 +197,6 @@ export class MyProjectContectItemsComponent implements OnInit {
   }
   DeleteProjectContentItemIcon(ProjectContentItem: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
-    this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
 }
