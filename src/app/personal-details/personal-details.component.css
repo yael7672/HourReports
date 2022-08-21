@@ -62,3 +62,9 @@ font-weight: bold;
 a {
   text-decoration: none;
 }
+
+.visible {
+  height: 3em;
+  width: 10em;
+  background: yellow;
+}

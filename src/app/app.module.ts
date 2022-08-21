@@ -17,7 +17,6 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ProjectContentItemComponent } from './project-contect-items/project-content-item/project-content-item.component';
 import { FilterPipe } from './filter.pipe';
-
 import { MassgeToUserComponent } from './massge-to-user/massge-to-user.component';
 import { CommonModule } from '@angular/common';  
 import { PauseWorkComponent } from './pause-work/pause-work.component';
@@ -37,6 +36,7 @@ import { searchInputFilterPipe } from './pipes/searchInputFilter.pipe';
 import { UpdateProjectContentItemComponent } from './update-project-content-item/update-project-content-item.component';
 import { DeleteProjectContentItemComponent } from './project-contect-items/delete-project-content-item/delete-project-content-item.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { SmartTableComponent } from './smart-table/smart-table.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -71,8 +71,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     MassgeToUserWithEditComponent,
     UpdateProjectContentItemComponent,
     DeleteProjectContentItemComponent,
-
-
+    SmartTableComponent
   ],
   imports: [
     BrowserModule,

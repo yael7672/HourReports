@@ -3,7 +3,6 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
-
 import { AppService } from 'src/app/app-service.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
@@ -11,7 +10,6 @@ import swal from 'sweetalert';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { WorkType } from '../interfacees/work-type';
 import { MenuComponent } from '../menu/menu.component';
-
 
 @Component({
   selector: 'app-update-project-content-item',
@@ -24,7 +22,6 @@ export class UpdateProjectContentItemComponent implements OnInit {
   @Input() workType: any
   @Input() header: any
   @Input() kindUpdate: any
-
   updateDetails = false;
   openCard = false;
   openTable = true;
@@ -32,7 +29,6 @@ export class UpdateProjectContentItemComponent implements OnInit {
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
   workingHours!: Number;
-
   WorkTimeArr!: any
   TaskToUpdate: any;
   constructor(private router: Router, private userServiceService: UserServiceService, private appService: AppService,
@@ -40,17 +36,12 @@ export class UpdateProjectContentItemComponent implements OnInit {
     , private datePipe: DatePipe) {
      }
 
-
-
   ngOnInit(): void {
     console.log(this.ProjectContentItem);
-    // this.dateToUpdate = this.datePipe.transform(this.ProjectContentItem.Date, 'yyyy-MM-dd');
-
-    this.workingHours = Number(this.ProjectContentItem.WorkingHours);
-    // this.workTypeToUpdate={"Guid":this.ProjectContentItem.WorkType.Guid,"Name":this.ProjectContentItem.WorkType.Name}
+    this.workingHours = Number(this.ProjectContentItem.WorkingHours)
+    this.ProjectItemToUpdate.Date = this.datePipe.transform(this.ProjectItemToUpdate.Date, 'yyyy-MM-dd');
 
   }
-
   UpdateTaskOrProjectContectItem(f:NgForm) {
     if (this.kindUpdate == 'updateTaskDetails') {
       this.UpdateTaskDetails(f)
@@ -87,9 +78,9 @@ export class UpdateProjectContentItemComponent implements OnInit {
       Guid: this.ProjectContentItem.Guid,
       Description: this.ProjectContentItem.Description,
       ActualTime: this.workingHours,
-      WorkType:this.ProjectContentItem.WorkType.Guid,
-      // Project: this.ProjectContentItem.Project.Guid,
-      Date:form.value.Date
+      WorkType: this.workType,
+      Project: this.project,
+      Date:form.value.date
     }
     this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
@@ -104,4 +95,4 @@ export class UpdateProjectContentItemComponent implements OnInit {
     )
   }
 
-  }
+}

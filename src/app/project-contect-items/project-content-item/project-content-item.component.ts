@@ -17,9 +17,9 @@ export class ProjectContentItemComponent implements OnInit {
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
-  workingHours!: Number;
   @Output() clickSelectedTask = new EventEmitter<any>();
-  @Output() getDataClickOfButton = new EventEmitter<any>();
+  @Output() getDataClickOfButton = new EventEmitter<any>(); 
+  workingHours!: Number;
   updateDetails = false;
   ProjectContentItem: any;
   openCard = false;
@@ -32,7 +32,7 @@ export class ProjectContentItemComponent implements OnInit {
   constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log(this.isPopUpOpen);
+      console.log("isPopUpOpen - subScriber",this.isPopUpOpen);
     })
   }
   ngOnInit(): void {
@@ -46,7 +46,6 @@ export class ProjectContentItemComponent implements OnInit {
     this.tableData.sort((a: any, b: any) => {
       const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
       const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
-
       return ((sortValueTimestampA ? sortValueTimestampA : "") < (sortValueTimestampB ? sortValueTimestampB : "") ? 1 : -1)
     })
   }
@@ -61,12 +60,11 @@ export class ProjectContentItemComponent implements OnInit {
       else return null;
     }
   }
-  EditProjectContentItemIcon(val: any) {
+  editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true,'UpdateProjectContentItemDetails');
     this.ProjectContentItem = val;
-    console.log(val);
   }
-  DeleteProjectContentItemIcon(ProjectContentItem: any) {
+  deleteProjectContentItemIcon(ProjectContentItem: any) {
     this.popUpService.setSpecificPopUp(true,'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;

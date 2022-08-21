@@ -29,12 +29,9 @@ export class PopUpServiceService {
       Freedom: type === 'Freedom' ? data : false,
       HoursAwaitingApproval: type === 'HoursAwaitingApproval' ? data : false,
       timeOfProjectContectItem:type==='timeOfProjectContectItem'? data : false,
-      // MyprojectContentItem:type === 'MyprojectContentItem' ? data : false,
       UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
       ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,
       DeleteProjectContentItemIcon: type === 'DeleteProjectContentItemIcon' ? data : false,
-
-      
     }
     this.setKindOfPopUp(obj)
   }

@@ -13,16 +13,14 @@ export class PopUpComponent implements OnInit {
   @Input()ifX!:boolean;
   @Input() hideButton!: any; 
   @Input() textButtonBack:any;
-
-  
   constructor(private popUpService:PopUpServiceService,private appService:AppService) { }
-
   ngOnInit(): void {
+    console.log("popUpLoaded");
   }
   closePopUp()
   {   
     this.appService.setIsPopUpOpen(false);
     this.popUpService.setClosePopUp();
+    console.log("ClosePopUp");
   }
-
 }
