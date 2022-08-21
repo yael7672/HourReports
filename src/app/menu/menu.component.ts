@@ -178,9 +178,7 @@ export class MenuComponent implements OnInit {
       this.isgetAllTask = res
       this.GetMyTask()
     })
-    this.popUpService.getAllmyProjectContectItem().subscribe(res => {
-      this.GetMyProjectContectItem(1)
-    })
+   
     this.popUpService.GetWorkTimeAfterProjectContectItem().subscribe(res => {
       this.GetDailyWorkingHoursAndMonthlyWorkingHours()
     })
@@ -233,7 +231,6 @@ export class MenuComponent implements OnInit {
     this.GetProject();
     this.GetTaskForMyTeams();
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.GetMyProjectContectItem("2")
     this.CheckWhetherInTheMiddleOfWorkOnaTask();
 
     if (localStorage.getItem("DateNowPause")) {
@@ -744,22 +741,7 @@ export class MenuComponent implements OnInit {
     )
   }
 
-  GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
-    this.systemGuid = localStorage.getItem('systemGuid')
-    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
-      if (res) {
-        this.MyProjectContectItemArr = res;
-        this.showMassegeNoProjectContectItem = false
-        if (this.MyProjectContectItemArr.length == 0) {
-          this.showMassegeNoProjectContectItem = true
-        }
-        console.log("MyProjectContectItemArr" + this.MyProjectContectItemArr);
-      }
-    },
-      err => {
-        console.log(err.error);
-      })
-  }
+
   GetProjectContentItemByGuid() {
     this.userService.GetProjectContentItemByGuid(this.projectContectItemGuidForLoclStorage).subscribe(res => {
       if (res) {

@@ -64,6 +64,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
         this.massageToUser = res;
         swal(this.massageToUser)
         this.popUpService.SetProjectContentItemByTaskGuid(true);
+        this.popUpService.setAllmyProjectContectItem(true);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
