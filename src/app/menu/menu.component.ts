@@ -348,6 +348,9 @@ export class MenuComponent implements OnInit {
     this.tableMyTaskTeamsOpen = false;
     this.tableLastTaskIWorkedOn = false;
   }
+  else{
+    swal("קיימת משימה פעילה")
+  }
 }
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
@@ -587,7 +590,10 @@ export class MenuComponent implements OnInit {
       this.taskListDataDetailsFromLocalStoeage = localStorage.getItem('taskListDataDetails')
       this.taskListDataDetailsFromLocalStoeageParse = JSON.parse(this.taskListDataDetailsFromLocalStoeage)
       this.taskListDataDetails = this.taskListDataDetailsFromLocalStoeageParse;
+      this.showstatiSticsGraph = false;
+      this.openMyProjectContectItem = false;
       this.tableSpecificTaskOpen = true;
+
     }
     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
       this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false

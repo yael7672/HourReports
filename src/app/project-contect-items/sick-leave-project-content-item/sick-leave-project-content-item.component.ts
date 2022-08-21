@@ -115,6 +115,8 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   clickNo(kindOfMassage: string) {
     if (kindOfMassage = 'checkIfIsReportOnThisDate') {
       this.showMassgeToUser = false;
+      this.isDisabled = false;
+
     }
   }
 }
