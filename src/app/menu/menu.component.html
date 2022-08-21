@@ -134,23 +134,7 @@
   </div>
 
 
-  <app-smart-card *ngIf="openMyProjectContectItem" [title]="' דיווחים  שלי'">
-    <div body>
-      <div class="form-outline d-flex justify-content-center">
-        <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
-          <option value="">--בחר אחת מהאופציות הבאות--</option>
-          <option value="1"> היום </option>
-          <option value="2"> 7 ימים אחרונים </option>
-          <option value="3"> שבוע שעבר </option>
-          <option value="4"> החודש האחרון</option>
-        </select>
-      </div>
-      <div *ngIf="showMassegeNoProjectContectItem">
-        <br>
-        <h2>אין דיווחים !</h2>
-      </div>
-    </div>
-  </app-smart-card>
+  
   <app-my-project-contect-items *ngIf="openMyProjectContectItem" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys">
   </app-my-project-contect-items>
 
