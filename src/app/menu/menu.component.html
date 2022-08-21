@@ -134,7 +134,6 @@
   </div>
 
 
-<<<<<<< HEAD
   <app-smart-card *ngIf="openMyProjectContectItem" [title]="' דיווחים  שלי'">
     <div body>
       <div class="form-outline d-flex justify-content-center">
@@ -150,18 +149,10 @@
         <br>
         <h2>אין דיווחים !</h2>
       </div>
-      <div *ngIf="!showMassegeNoProjectContectItem">
-        <app-my-project-contect-items   [project]="projectArr"  [workType]="workTypeArr" (clickSelectedTask)="SelectedTask($event)" [kindOfCard]="'tableCard'"
-       [thArr]="thArrTableProjectContentItem" (getDataClickOfButton)="GetMyProjectContectItem($event)"
-          [tableData]="MyProjectContectItemArr" [tableDataKeys]="projectContentItemListKeys">
-        </app-my-project-contect-items>
-      </div>
     </div>
   </app-smart-card>
-=======
   <app-my-project-contect-items *ngIf="openMyProjectContectItem" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys">
   </app-my-project-contect-items>
->>>>>>> 38a1e16aaec1b1b9c94bb29ec0f946591c00db59
 
 
   <div *ngIf="isPopUpOpen?.creatTask">
