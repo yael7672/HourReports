@@ -99,6 +99,8 @@ export class FreedomProjectContentItemComponent implements OnInit {
   clickNo(kindOfMassage: string) {
     if (kindOfMassage = 'checkIfIsReportOnThisDate') {
       this.showMassgeToUser = false;
+      this.isDisabled = false;
+
     }
   }
   checkIfIsReportOnThisDate() {
