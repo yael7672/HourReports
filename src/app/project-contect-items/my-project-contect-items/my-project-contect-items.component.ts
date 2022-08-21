@@ -15,20 +15,15 @@ export class MyProjectContectItemsComponent implements OnInit {
   // @Input() title!: string;
   @Input() hideProjectTh!: any;
   @Input() kindOfCard!: any;
-<<<<<<< HEAD
   @Input() project!: any;
   @Input() workType!: any;
-  @Input() hideProjectTh!: Boolean;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
-  myCompProjectItem = new ProjectContentItemComponent(this.userServiceService, this.appService, this.popUpService)
-=======
   @Input() tableDataKeys!: any;
   @Input() thArr!: any;
   // @Output() clickSelectedTask = new EventEmitter<any>();
   // @Output() getDataClickOfButton = new EventEmitter<any>();
   myCompProjectItem = new ProjectContentItemComponent(this.userService, this.appService, this.popUpService)
->>>>>>> 38a1e16aaec1b1b9c94bb29ec0f946591c00db59
   systemGuid: any;
   updateDetails = false;
   ProjectContentItem: any;
@@ -199,13 +194,11 @@ export class MyProjectContectItemsComponent implements OnInit {
 
     }
   }
-<<<<<<< HEAD
   EditTaskIcon(val: any) {
     this.popUpService.setSpecificPopUp(true,'UpdateProjectContentItemDetails');
-=======
+  }
   EditProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
->>>>>>> 38a1e16aaec1b1b9c94bb29ec0f946591c00db59
     this.ProjectContentItem = val;
     console.log(val);
   }
