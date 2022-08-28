@@ -111,4 +111,7 @@ export class UserServiceService {
   {
     return this.http.get<any>(environment.url + 'GetHoursAwaitingApproval?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
+  UpdateTaskDetails(taskId:any, ProjectGuid:any, DescriptionTask:any ,TaskSubject:any ,WorkType:any) {
+    return this.http.get<any>(environment.url + '/UpdateTaskDetails/?OrganizationName=AuroraProd&taskId='+taskId+'&ProjectGuid='+ProjectGuid +'&DescriptionTask='+ DescriptionTask+'&TaskSubject='+TaskSubject+ '&WorkType='+WorkType );
+  }
 }

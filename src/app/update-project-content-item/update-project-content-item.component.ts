@@ -1,9 +1,15 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { from } from 'rxjs';
 import { AppService } from 'src/app/app-service.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
 import swal from 'sweetalert';
+import { ButtonWorkingTaskService } from '../button-working-task.service';
+import { WorkType } from '../interfacees/work-type';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-update-project-content-item',
@@ -12,6 +18,10 @@ import swal from 'sweetalert';
 })
 export class UpdateProjectContentItemComponent implements OnInit {
   @Input() ProjectContentItem: any
+  @Input() project: any
+  @Input() workType: any
+  @Input() header: any
+  @Input() kindUpdate: any
   updateDetails = false;
   openCard = false;
   openTable = true;
@@ -19,49 +29,64 @@ export class UpdateProjectContentItemComponent implements OnInit {
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
   workingHours!: Number;
-  dateToUpdate: any;
-  oneDate: any;
-  projectsArr: any;
-  workTypeArr: any;
-  workTypeToUpdate:any;
-  constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService,private datePipe:DatePipe) { }
+  WorkTimeArr!: any
+  TaskToUpdate: any;
+  constructor(private router: Router, private userServiceService: UserServiceService, private appService: AppService,
+    private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
+    , private datePipe: DatePipe) {
+     }
 
   ngOnInit(): void {
-    console.log("UpdateProjectContentItemComponent");
-    this.dateToUpdate = this.datePipe.transform(this.ProjectContentItem?.Date, 'yyyy-MM-dd');
-    this.workingHours = Number(this.ProjectContentItem?.WorkingHours);
-    this.workTypeToUpdate={"Guid":this.ProjectContentItem?.WorkType.Guid,"Name":this.ProjectContentItem.WorkType.Name}
-    this.GetProject();
-    this.GetWorkType();
+    console.log(this.ProjectContentItem);
+    this.workingHours = Number(this.ProjectContentItem.WorkingHours)
+    this.ProjectItemToUpdate.Date = this.datePipe.transform(this.ProjectItemToUpdate.Date, 'yyyy-MM-dd');
+
   }
-  GetWorkType() {
-    this.userServiceService.GetWorkType().subscribe(
-      (res: any) => {
-        this.workTypeArr = res;
+  UpdateTaskOrProjectContectItem(f:NgForm) {
+    if (this.kindUpdate == 'updateTaskDetails') {
+      this.UpdateTaskDetails(f)
+    }
+    else {
+      if (this.kindUpdate == 'updateProjectContectItem') {
+        this.UpdateProjectItemButton(f)
+      }
+    }
+  }
+
+  UpdateTaskDetails(form:NgForm) {
+    this.TaskToUpdate = { 
+    Project:  form.value.Project.Guid ,
+    TaskGuid : this.ProjectContentItem.TaskGuid ,
+    WorkType : form.value.WorkType.Guid,
+    Description :this.ProjectContentItem.Description,
+    Subject:this.ProjectContentItem.Subject,
+    }
+    this.userServiceService.UpdateTaskDetails(this.TaskToUpdate.TaskGuid,this.TaskToUpdate.Project, this.TaskToUpdate.Description,this.TaskToUpdate.Subject,this.TaskToUpdate.WorkType).subscribe(
+      (res) => {
+        this.massageToUser = res;
+        swal(this.massageToUser)
+        this.popUpService.SetProjectContentItemByTaskGuid(true);
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
       },
-      (err: any) =>
-        swal(err.error))
+      (err) =>
+        alert("error")
+    )
   }
-  GetProject() {
-    this.userServiceService.GetProject().subscribe(
-      (res: any) => {
-        this.projectsArr = res;
-      },
-      (err: any) =>
-        swal(err.error))
-  }
-  UpdateProjectItemButton() {
+  UpdateProjectItemButton(form:NgForm) {
     this.ProjectItemToUpdate = {
       Guid: this.ProjectContentItem.Guid,
       Description: this.ProjectContentItem.Description,
       ActualTime: this.workingHours,
+      WorkType:this.ProjectContentItem.WorkType.Guid,
+      // Project: this.ProjectContentItem.Project.Guid,
+      Date:form.value.Date
     }
     this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
         this.popUpService.SetProjectContentItemByTaskGuid(true);
-        this.popUpService.setAllmyProjectContectItem(true);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
