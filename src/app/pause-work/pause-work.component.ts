@@ -52,16 +52,11 @@ export class PauseWorkComponent implements OnInit {
   constructor( private elementRef: ElementRef,private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
     private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-    console.log(this.todayDate);
-
   }
 
   ngOnInit(): void {
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
-    console.log(this.workTimeHour);
-      //this.ifX = false
-      // this.ContinueToBePause()
       if (localStorage.getItem('DateNowPause')) {
         this.ContinueToBePause();
       }
@@ -79,9 +74,7 @@ export class PauseWorkComponent implements OnInit {
     this.userServiceService.PauseWork(this.systemGuid,this.pauseGuidForLoclStorage ,workTime).then(
       (res: any) => {
         this.pauseGuid = res;
-        console.log(this.pauseGuid)
         swal(this.pauseGuid);
-        
         clearInterval(this.interval)
         localStorage.removeItem("DateNowPause") 
         this.endButton = false
@@ -111,15 +104,12 @@ export class PauseWorkComponent implements OnInit {
     this.userServiceService.GetProjectContentItemByGuid(this.pauseGuidForLoclStorage).subscribe(res => {
       if (res) {
         this.creatOnProjectContentItem = res.CreatedOn;
-        console.log(this.creatOnProjectContentItem);
         const timestampCreatOn = new Date(this.creatOnProjectContentItem)
         const timestampNow = (new Date(Date.now()))
         this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
         let latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
-        console.log(latest_date);
         this.workTimeHour = latest_date;
         localStorage.setItem('WorkTimePause', this.workTimeHour)
-        //  alert(latest_date)
       }
     })
   }
@@ -216,8 +206,6 @@ getCreatedProjectContentItemFromLoaclStorage() {
 convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
   var timestampCreatOn = ProjectContentItemCreatedDate;
   const timestampNow = Date.now();
-  console.log(timestampNow);
-  console.log(timestampCreatOn);
   this.Time = timestampNow - timestampCreatOn;
   return this.datePipe.transform(this.Time, 'HH:mm:ss',"+0000");
 
@@ -225,12 +213,9 @@ convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
 setWorkTime(res: any) {
   this.workTimeHour = this.convertTimeStempToTime(res)
   localStorage.setItem('WorkTimePause', this.workTimeHour)
-
-  console.log(this.workTimeHour);
 }
 Edit(time:any){
      this.PauseWork(time)
-
 }
 clickCancel(){
   this.showMassgeToUserEdit = false

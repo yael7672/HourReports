@@ -31,7 +31,6 @@ export class CreateNewTaskComponent implements OnInit {
   isDisabled = false;
   constructor(private buttonWorkingTaskService: ButtonWorkingTaskService, public router: Router, private datePipe: DatePipe, private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-    console.log(this.todayDate);
   }
   ngOnInit(): void {
     this.GetRegarding();
@@ -44,7 +43,6 @@ export class CreateNewTaskComponent implements OnInit {
     this.userService.GetWorkType().subscribe(res => {
       if (res) {
         this.workTypeArr = res;
-        console.log(this.workTypeArr);
       }
     },
       err => {
@@ -56,7 +54,6 @@ export class CreateNewTaskComponent implements OnInit {
     this.userService.GetRegarding().subscribe(res => {
       if (res) {
         this.RegardingobjectArr = res;
-        console.log(this.RegardingobjectArr);
       }
     },
       err => {
@@ -83,8 +80,6 @@ export class CreateNewTaskComponent implements OnInit {
     this.userService.GetProject().subscribe(res => {
       if (res) {
         this.projectArr = res;
-        console.log(this.projectArr);
-
       }
     },
       err => {

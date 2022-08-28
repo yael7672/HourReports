@@ -3,7 +3,6 @@
   <h4 header class="mb-4" *ngIf="header"> {{header}}</h4>
   <div body>
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
-    
       <ng-container *ngIf="ProjectContentItem.Project">
         <p> פרוייקט:</p>
         <div class="form-outline d-flex justify-content-center ">
@@ -42,7 +41,8 @@
       <p> הקצה משימה:</p>
       <div class="form-outline d-flex justify-content-center mb-4 ">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="allUserAndTeams" [searchKeyword]="'Name'"
-          placeholder="הקצה משימה למשתמש או לצוות" historyIdentifier="AssignTask" [itemTemplate]="itemTemplate"
+          placeholder="הקצה משימה למשתמש או לצוות" 
+          [(ngModel)]="ProjectContentItem.OwnerId" historyIdentifier="AssignTask" [itemTemplate]="itemTemplate"
           ngModel name="AssignTask"
           [notFoundTemplate]="notFoundTemplate">
         </ng-autocomplete>
@@ -65,7 +65,9 @@
           [ngModelOptions]="{standalone: true}" ngModel required>
             </textarea>
       </div>
-        <button type="submit" class="btn"> עדכן דיווח </button>
+        <button *ngIf="!header" type="submit" class="btn"> עדכן דיווח </button>
+        <button *ngIf="header" type="submit" class="btn"> עדכן משימה </button>
+
     </form>
   </div>
 </app-pop-up>

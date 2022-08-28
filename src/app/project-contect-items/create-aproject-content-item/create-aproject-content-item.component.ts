@@ -52,7 +52,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.isDisabled = false;
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-    console.log(this.todayDate);
     this.popUpService.GetIfXProjectContectItemUpdateWithTime().subscribe(res => {
       if (res) {
         this.ifX = false
@@ -97,7 +96,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.userServiceService.GetRegarding().subscribe(
       (res: any) => {
         this.Regarding = res;
-        console.log(this.Regarding);
       },
       (err: any) =>
 
@@ -109,7 +107,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.userServiceService.GetWorkType().subscribe(
       (res: any) => {
         this.WorkType = res;
-        console.log(this.WorkType);
       },
       (err: any) =>
         swal(err.error))
@@ -119,7 +116,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.userServiceService.GetProject().subscribe(
       (res: any) => {
         this.Project = res;
-        console.log(this.Project);
       },
       (err: any) =>
         swal(err.error))
@@ -165,7 +161,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
 
   }
   onWorkTypeSelected(val: any) {
-    console.log(val.Guid);
     if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
       this.subject1 = "הפסקות";
       this.billingHours1 = "2";

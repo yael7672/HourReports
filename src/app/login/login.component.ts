@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     this.userServiceService.logIn(form.value.SystemUserName).subscribe(
       (res: any) => {
         this.user = res;
-        console.log(this.user);
         swal(this.user.Name + "ברוך הבא");
         localStorage.clear();
         localStorage.setItem('systemGuid', this.user.SystemGuid);

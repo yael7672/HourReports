@@ -39,7 +39,6 @@ export class UpdateProjectContentItemComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    console.log(this.ProjectContentItem);
     this.workingHours = Number(this.ProjectContentItem.WorkingHours)
     // this.ProjectItemToUpdate.Date = this.datePipe.transform(this.ProjectItemToUpdate.Date, 'yyyy-MM-dd');
     this.GetAllUserAndTeams();
@@ -102,7 +101,6 @@ export class UpdateProjectContentItemComponent implements OnInit {
     this.userService.GetAllUserAndTeams().subscribe(res => {
       if (res) {
         this.allUserAndTeams = res;
-        console.log(this.allUserAndTeams);
       }
     },
       err => {

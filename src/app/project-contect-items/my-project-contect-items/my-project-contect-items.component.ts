@@ -46,7 +46,6 @@ export class MyProjectContectItemsComponent implements OnInit {
   constructor(private userService: UserServiceService,private datePipe:DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log(this.isPopUpOpen);
     })
     this.popUpService.getAllmyProjectContectItem().subscribe(res => {
       this.GetMyProjectContectItem(this.selectedTime)
@@ -79,7 +78,6 @@ export class MyProjectContectItemsComponent implements OnInit {
     this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
       if (res) {
         this.myProjectContectItemArr = res;
-        console.log("MyProjectContectItemArr" + this.myProjectContectItemArr);
       }
     },
       err => {
@@ -204,10 +202,7 @@ export class MyProjectContectItemsComponent implements OnInit {
   EditProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.ProjectContentItem = val;
-    console.log( this.ProjectContentItem.Date);
     this.ProjectContentItem.Date = this.datePipe.transform(this.ProjectContentItem.Date, 'yyyy-MM-dd');
-
-    console.log(val);
   }
   DeleteProjectContentItemIcon(ProjectContentItem: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');

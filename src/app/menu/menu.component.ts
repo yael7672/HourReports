@@ -172,20 +172,18 @@ export class MenuComponent implements OnInit {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log(this.isPopUpOpen);
     })
     this.popUpService.getAllmyTask().subscribe(res => {
       this.isgetAllTask = res
       this.GetMyTask()
     })
-   
+
     this.popUpService.GetWorkTimeAfterProjectContectItem().subscribe(res => {
       this.GetDailyWorkingHoursAndMonthlyWorkingHours()
     })
     this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
       this.TaskGuidFromLS = localStorage.getItem("TaskGuidOfProjectContectItem")
-      if(this.TaskGuidFromLS)
-      {
+      if (this.TaskGuidFromLS) {
         this.GetProjectContentItemByTaskGuid(this.TaskGuidFromLS)
       }
     })
@@ -197,8 +195,10 @@ export class MenuComponent implements OnInit {
     })
     this.buttonWorkingTaskService.getKindOfButton().subscribe(res => {
       this.isButtobChoose = res;
+      if(!this.startWorkOfTask)
+      {
       this.isDisabledPouse = true;
-
+      }
       if (this.isButtobChoose?.start) {
         this.isDisabledStart = true;
         this.isDisabledPouse = false;
@@ -216,7 +216,6 @@ export class MenuComponent implements OnInit {
         this.workTime = "";
         this.seconds = 0;
       }
-      console.log(this.isButtobChoose);
     })
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
@@ -228,7 +227,6 @@ export class MenuComponent implements OnInit {
   }
   ngOnInit(): void {
     this.GetWorkType()
-    console.log(this.arrFunc);
     this.GetMyTask();
     this.GetDailyWorkingHoursAndMonthlyWorkingHours()
     this.GetProject();
@@ -255,7 +253,6 @@ export class MenuComponent implements OnInit {
         if (res) {
           this.taskTeamsArr = res;
           this.taskTeamsArrCopy = res;
-          console.log(this.taskTeamsArr);
         }
       }, err => {
         console.log(err.error)
@@ -275,8 +272,6 @@ export class MenuComponent implements OnInit {
           this.taskArrCopy = res;
 
           this.sortTaskArr = res
-          console.log(this.taskArr);
-
         }
       }, err => {
         console.log(err.error)
@@ -291,7 +286,6 @@ export class MenuComponent implements OnInit {
     this.userService.GetWorkType().subscribe(
       (res: any) => {
         this.workTypeArr = res;
-        console.log(this.workTypeArr);
       },
       (err: any) =>
         console.log(err.error)
@@ -303,7 +297,6 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.DailyAndMonthlyWorkingHours = res;
-          console.log(this.taskArr);
         }
       }, err => {
         console.log(err.error)
@@ -336,22 +329,20 @@ export class MenuComponent implements OnInit {
     }
   }
   SelectedTask(val: any) {
-    if(!this.startWorkOfTask)
-    {
-    this.taskListDataDetails = val;
-    localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
-    console.log(this.taskListDataDetails);
-    clearInterval(this.interval);
-    this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
-    this.tableSpecificTaskOpen = true;
-    this.tableMyTaskOpen = false;
-    this.tableMyTaskTeamsOpen = false;
-    this.tableLastTaskIWorkedOn = false;
+    if (!this.startWorkOfTask) {
+      this.taskListDataDetails = val;
+      localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
+      clearInterval(this.interval);
+      this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
+      this.tableSpecificTaskOpen = true;
+      this.tableMyTaskOpen = false;
+      this.tableMyTaskTeamsOpen = false;
+      this.tableLastTaskIWorkedOn = false;
+    }
+    else {
+      swal("קיימת משימה פעילה")
+    }
   }
-  else{
-    swal("קיימת משימה פעילה")
-  }
-}
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
@@ -385,41 +376,43 @@ export class MenuComponent implements OnInit {
 
 
   SelectedStop(time: any) {
-    localStorage.removeItem('TaskGuid');
-    localStorage.removeItem('TaskName');
-    localStorage.getItem('TaskGuidToSend');
-    localStorage.removeItem("DateNow");
-    this.startWorkOfTask = false;
-
-    if (time.worktime != "" || time != null) {
-      this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
-
-      clearInterval(this.interval);
-      // this.seconds = 0;
-      if (this.timetoSend[2] > 30) {
-        this.timetoSend[1]++;
-      }
-      this.timetoSend[1] = (this.timetoSend[1] / 60)
-      this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-      this.isDisabledStart = false;
-      this.isTaskAccomplished = false;
-      if (this.parseTime == undefined) {
-        this.parseTime = "";
-      }
-      this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid ? this.taskListDataDetails.TaskGuid : localStorage.getItem('TaskGuidToSend'), this.isTaskAccomplished, time.descriptionTask ? time.descriptionTask : "").subscribe(
-        res => {
-          if (res) {
-            this.massageFromServer = res;
-            swal(this.massageFromServer);
-            this.workTime = ["00:00:00"];
-            this.popUpService.SetProjectContentItemByTaskGuid(true)
-            this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-          }
-        },
-        err => {
-          console.log(err.error);
+    if (this.workTime == 0 || this.workTime < "00:01:00") {
+      swal("אין אפשרות לדווח פחות מ-1 דק")
+    }
+    else {
+      localStorage.removeItem('TaskGuid');
+      localStorage.removeItem('TaskName');
+      localStorage.getItem('TaskGuidToSend');
+      localStorage.removeItem("DateNow");
+      this.startWorkOfTask = false;
+      if (time.worktime != "" || time != null) {
+        this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
+        clearInterval(this.interval);
+        if (this.timetoSend[2] > 30) {
+          this.timetoSend[1]++;
         }
-      )
+        this.timetoSend[1] = (this.timetoSend[1] / 60)
+        this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+        this.isDisabledStart = false;
+        this.isTaskAccomplished = false;
+        if (this.parseTime == undefined) {
+          this.parseTime = "";
+        }
+        this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid ? this.taskListDataDetails.TaskGuid : localStorage.getItem('TaskGuidToSend'), this.isTaskAccomplished, time.descriptionTask ? time.descriptionTask : "").subscribe(
+          res => {
+            if (res) {
+              this.massageFromServer = res;
+              swal(this.massageFromServer);
+              this.workTime = ["00:00:00"];
+              this.popUpService.SetProjectContentItemByTaskGuid(true)
+              this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+            }
+          },
+          err => {
+            console.log(err.error);
+          }
+        )
+      }
     }
   }
   SelectedEnd(time: any) {
@@ -472,7 +465,6 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.TaskByGuidObject = res;
-          console.log("this.TaskByGuidObject", this.TaskByGuidObject);
           if (this.TaskByGuidObject.WorkingHours == "0") {
             swal(massageFromServerUpdate)
           }
@@ -504,8 +496,6 @@ export class MenuComponent implements OnInit {
         if (res.length > 0) {
           this.projectContentItemArr = res;
           this.ifThereAreprojectContentItem = true;
-
-          console.log(this.projectContentItemArr);
         }
         else {
           this.ifThereAreprojectContentItem = false;
@@ -521,7 +511,6 @@ export class MenuComponent implements OnInit {
       if (res) {
         this.projectArr = res;
         this.projectArrName = this.projectArr.map(project => project.Name);
-        console.log(this.projectArr);
       }
     },
       err => {
@@ -540,7 +529,6 @@ export class MenuComponent implements OnInit {
     }
   }
   onSearchProject(filterKey: any) {
-    console.log(filterKey);
     if (this.tableMyTaskOpen == true) {
       this.taskArr = [...this.taskArrCopy];
       if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
@@ -648,12 +636,6 @@ export class MenuComponent implements OnInit {
       }
     }
   }
-  mouseLeavePersonalDetails() {
-  } @HostListener("document:click")
-  clickedOut() {
-
-
-  }
   mouseOvePersonalDetails() {
     this.openPersonalDetails = true;
   }
@@ -743,8 +725,6 @@ export class MenuComponent implements OnInit {
       (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
     )
   }
-
-
   GetProjectContentItemByGuid() {
     this.userService.GetProjectContentItemByGuid(this.projectContectItemGuidForLoclStorage).subscribe(res => {
       if (res) {
@@ -760,15 +740,11 @@ export class MenuComponent implements OnInit {
   convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
     var timestampCreatOn = ProjectContentItemCreatedDate;
     const timestampNow = Date.now();
-    console.log(timestampNow);
-    console.log(timestampCreatOn);
     this.Time = timestampNow - timestampCreatOn;
     return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
-
   }
   setWorkTime(res: any) {
     this.workTime = this.convertTimeStempToTime(res)
-    console.log(this.workTime);
   }
   ngAfterViewInit() {
     var ignoreClickOnMeElement = this.personalDetails.nativeElement;
@@ -788,14 +764,10 @@ export class MenuComponent implements OnInit {
   ClickedOut(event: any) {
     var v = event.target.closesttt
     this.openPersonalDetails = false;
-
   }
   onClickedOutside(val: any) {
-    console.log(val);
     if (this.openPersonalDetails) {
       this.openPersonalDetails = false;
-
     }
-    
   }
 }
