@@ -3,15 +3,9 @@
   <h4 header class="mb-4" *ngIf="header"> {{header}}</h4>
   <div body>
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
-      <p *ngIf="header">תאור המשימה:</p>
-      <p *ngIf="!header">תאור דיווח:</p>
-      <div class="form-outline d-flex justify-content-center ">
-        <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
-          class="form-control textarea" [(ngModel)]="ProjectContentItem.Description"
-          [ngModelOptions]="{standalone: true}" ngModel required>
-            </textarea>
-      </div>
+    
       <ng-container *ngIf="ProjectContentItem.Project">
+        <p> פרוייקט:</p>
         <div class="form-outline d-flex justify-content-center ">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
             placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
@@ -31,7 +25,21 @@
           class="form-control" [(ngModel)]="ProjectContentItem.Date" [ngModelOptions]="{standalone: true}" ngModel
           required>
       </div>
-      <p> סוג עבודה</p>
+      <p> סוג עבודה:</p>
+      <div class="form-outline d-flex justify-content-center mb-4 ">
+        <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"
+          placeholder="סוג עבודה" historyIdentifier="WorkType" [itemTemplate]="itemTemplate"
+          [(ngModel)]="ProjectContentItem.WorkType" ngModel name="WorkType" #WorkType="ngModel" required
+          [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.Name"></a>
+        </ng-template>
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+        </ng-template>
+      </div>
+      <p> הקצה משימה:</p>
       <div class="form-outline d-flex justify-content-center mb-4 ">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"
           placeholder="סוג עבודה" historyIdentifier="WorkType" [itemTemplate]="itemTemplate"
@@ -49,7 +57,15 @@
       <p>שעות בפועל:</p>
       <input type="number" id="HoursActually" name="HoursActually" class="form-control" placeholder="שעות בפועל"
         [(ngModel)]="workingHours" [ngModelOptions]="{standalone: true}" ngModel #HoursActually="ngModel" required>
-      <button type="submit" class="btn"> עדכן דיווח </button>
+        <p *ngIf="header">תאור המשימה:</p>
+      <p *ngIf="!header">תאור דיווח:</p>
+      <div class="form-outline d-flex justify-content-center ">
+        <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
+          class="form-control textarea" [(ngModel)]="ProjectContentItem.Description"
+          [ngModelOptions]="{standalone: true}" ngModel required>
+            </textarea>
+      </div>
+        <button type="submit" class="btn"> עדכן דיווח </button>
     </form>
   </div>
 </app-pop-up>

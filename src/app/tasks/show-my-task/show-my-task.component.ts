@@ -10,19 +10,6 @@ import { UserServiceService } from 'src/app/user-service.service';
   styleUrls: ['./show-my-task.component.css']
 })
 export class ShowMyTaskComponent implements OnInit {
-  ProjectContentItem: any;
-  showMassgeToUser: boolean = false;
-  projectContentItemGuid: any;
-  isPopUpOpen: any;
-
-  constructor(private popUpService: PopUpServiceService, private appService: AppService) {
-    this.popUpService.getKindOfPopUp().subscribe(res => {
-      this.isPopUpOpen = res;
-      console.log(this.isPopUpOpen);
-    })
-  }
-
-  taskDateRecords: any;
   @Input() hideProjectTh!: Boolean;
   @Input() title!: string;
   @Input() thArr!: any;
@@ -36,11 +23,29 @@ export class ShowMyTaskComponent implements OnInit {
   @Input() nameSearch: any
   IftableDataKeyIdProject!: boolean;
   ifSortDown = true;
+  ProjectContentItem: any;
+  showMassgeToUser: boolean = false;
+  projectContentItemGuid: any;
+  isPopUpOpen: any;
+  taskDateRecords: any;
+  constructor(private popUpService: PopUpServiceService, private appService: AppService) {
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+      console.log(this.isPopUpOpen);
+    })
+  }
   ngOnInit(): void {
   }
+  
   SelectedData(val: object) {
-    this.taskDateRecords = val;
-    this.clickSelectedTask.emit(this.taskDateRecords)
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+      console.log(this.isPopUpOpen);
+    })
+    if (!this.isPopUpOpen?.UpdateProjectContentItemDetails) {
+      this.taskDateRecords = val;
+      this.clickSelectedTask.emit(this.taskDateRecords)
+    }
   }
   clickOfButton(kindOfButton: string, type: boolean) {
     this.getDataClickOfButton.emit({ "kind": kindOfButton, "type": type })
@@ -93,7 +98,6 @@ export class ShowMyTaskComponent implements OnInit {
   }
   SortTableUp(thName: any) {
     this.ifSortDown = true;
-
     let keyToSort: any;
     switch (thName) {
       case 'נוצר ב:':
