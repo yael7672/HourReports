@@ -38,8 +38,8 @@
           <div [innerHTML]="'לא נמצאו תוצאות'"></div>
         </ng-template>
       </div>
-      <p> הקצה משימה:</p>
-      <div class="form-outline d-flex justify-content-center mb-4 ">
+      <p *ngIf="ifUpdateTask"> הקצה משימה:</p>
+      <div *ngIf="ifUpdateTask" class="form-outline d-flex justify-content-center mb-4 ">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="allUserAndTeams" [searchKeyword]="'Name'"
           placeholder="הקצה משימה למשתמש או לצוות" 
           [(ngModel)]="ProjectContentItem.OwnerId" historyIdentifier="AssignTask" [itemTemplate]="itemTemplate"
@@ -57,16 +57,16 @@
       <p>שעות בפועל:</p>
       <input type="number" id="HoursActually" name="HoursActually" class="form-control" placeholder="שעות בפועל"
         [(ngModel)]="workingHours" [ngModelOptions]="{standalone: true}" ngModel #HoursActually="ngModel" required>
-        <p *ngIf="header">תאור המשימה:</p>
-      <p *ngIf="!header">תאור דיווח:</p>
+        <p *ngIf="ifUpdateTask">תאור המשימה:</p>
+      <p *ngIf="!ifUpdateTask">תאור דיווח:</p>
       <div class="form-outline d-flex justify-content-center ">
         <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
           class="form-control textarea" [(ngModel)]="ProjectContentItem.Description"
           [ngModelOptions]="{standalone: true}" ngModel required>
             </textarea>
       </div>
-        <button *ngIf="!header" type="submit" class="btn"> עדכן דיווח </button>
-        <button *ngIf="header" type="submit" class="btn"> עדכן משימה </button>
+        <button *ngIf="!ifUpdateTask" type="submit" class="btn"> עדכן דיווח </button>
+        <button *ngIf="ifUpdateTask" type="submit" class="btn"> עדכן משימה </button>
 
     </form>
   </div>
