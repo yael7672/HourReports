@@ -17,12 +17,13 @@ import { MenuComponent } from '../menu/menu.component';
   styleUrls: ['./update-project-content-item.component.css']
 })
 export class UpdateProjectContentItemComponent implements OnInit {
-  @Input() ProjectContentItem: any
-  @Input() project: any
-  @Input() workType: any
-  @Input() header: any
-  @Input() kindUpdate: any
-  @Input() myProjectContectItemArr: any
+  @Input() ProjectContentItem: any;
+  @Input() project: any;
+  @Input() workType: any;
+  @Input() ifUpdateTask: any;
+  @Input() header: any;
+  @Input() kindUpdate: any;
+  @Input() myProjectContectItemArr: any;
   updateDetails = false;
   openCard = false;
   openTable = true;

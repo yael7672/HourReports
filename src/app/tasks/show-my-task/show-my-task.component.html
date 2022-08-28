@@ -50,7 +50,11 @@
   </tbody>
 </table>
 <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
+<<<<<<< HEAD
   <app-update-project-content-item [kindUpdate]="'updateTaskDetails'" [project]="project"  [workType]="workType" [header]="'עדכון משימה'"  [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
+=======
+  <app-update-project-content-item [kindUpdate]="'updateTaskDetails'" [project]="project"  [workType]="workType" [ifUpdateTask]="true" [header]="'עדכון משימה'" [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
+>>>>>>> 04603ba7672047b193741a5ce6f065346847f994
     </div>
 <!-- <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
   <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid"></app-delete-project-content-item>
