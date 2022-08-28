@@ -41,9 +41,9 @@
       </div>
       <p> הקצה משימה:</p>
       <div class="form-outline d-flex justify-content-center mb-4 ">
-        <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"
-          placeholder="סוג עבודה" historyIdentifier="WorkType" [itemTemplate]="itemTemplate"
-          [(ngModel)]="ProjectContentItem.WorkType" ngModel name="WorkType" #WorkType="ngModel" required
+        <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="allUserAndTeams" [searchKeyword]="'Name'"
+          placeholder="הקצה משימה למשתמש או לצוות" historyIdentifier="AssignTask" [itemTemplate]="itemTemplate"
+          ngModel name="AssignTask"
           [notFoundTemplate]="notFoundTemplate">
         </ng-autocomplete>
         <ng-template #itemTemplate let-item>
