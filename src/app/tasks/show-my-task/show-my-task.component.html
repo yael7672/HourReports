@@ -29,20 +29,23 @@
     </tr>
   </thead>
   <tbody *ngIf="tableData">
-    <tr *ngFor="let colData of tableData"  >
-      <ng-container *ngFor="let tableDataKey of tableDataKeys" (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
+    <tr *ngFor="let colData of tableData"  (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
+      <ng-container *ngFor="let tableDataKey of tableDataKeys">
         <td *ngIf="tableDataKey=='ScheduledEndDate' || tableDataKey=='CreatedOn'">{{returnColDataByType(colData,
           tableDataKey) | date: 'dd/MM/yyyy HH:mm'}}</td>
           <td *ngIf="tableDataKey=='WorkingHours'">{{returnColDataByType(colData,
             tableDataKey) |number}}</td>
         <td *ngIf="tableDataKey!='ScheduledEndDate' && tableDataKey!='CreatedOn' && tableDataKey!='WorkingHours'">
           {{returnColDataByType(colData,tableDataKey)}} </td>
-    </ng-container>
-        <td class="td">
-      <button (click)="EditProjectContentItemIcon(colData)"
-        (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button">
-        <i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="עריכת משימה "></i></button>
-    </td>
+      </ng-container>
+      <td class="td">
+        <button (click)="EditProjectContentItemIcon(colData)"
+          (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button">
+          <i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="עריכת משימה "></i></button>
+        <!-- <button (click)="DeleteProjectContentItemIcon(colData)" class="edit-button">
+          <i class="iconify" data-icon="akar-icons:trash-can"></i>
+        </button> -->
+      </td>
     </tr>
   </tbody>
 </table>

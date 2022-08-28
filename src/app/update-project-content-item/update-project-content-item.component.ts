@@ -22,6 +22,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
   @Input() workType: any
   @Input() header: any
   @Input() kindUpdate: any
+  @Input() myProjectContectItemArr: any
   updateDetails = false;
   openCard = false;
   openTable = true;
@@ -39,7 +40,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.ProjectContentItem);
     this.workingHours = Number(this.ProjectContentItem.WorkingHours)
-    this.ProjectItemToUpdate.Date = this.datePipe.transform(this.ProjectItemToUpdate.Date, 'yyyy-MM-dd');
+    // this.ProjectItemToUpdate.Date = this.datePipe.transform(this.ProjectItemToUpdate.Date, 'yyyy-MM-dd');
 
   }
   UpdateTaskOrProjectContectItem(f:NgForm) {
@@ -78,7 +79,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
       Guid: this.ProjectContentItem.Guid,
       Description: this.ProjectContentItem.Description,
       ActualTime: this.workingHours,
-      WorkType:this.ProjectContentItem.WorkType.Guid,
+      WorkType:{"Guid":this.ProjectContentItem.WorkType.Guid},
       // Project: this.ProjectContentItem.Project.Guid,
       Date:this.ProjectContentItem.Date,
     }
@@ -94,5 +95,4 @@ export class UpdateProjectContentItemComponent implements OnInit {
         alert("error")
     )
   }
-
 }
