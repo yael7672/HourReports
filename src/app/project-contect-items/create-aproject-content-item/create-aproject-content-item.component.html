@@ -16,7 +16,6 @@
             <div *ngIf="f.submitted && subject.invalid" class="text-danger">
                 <span *ngIf="subject.errors">שדה זה חובה</span>
             </div>
-
                 <div class="form-outline d-flex justify-content-center mb-4" >
                     <ng-autocomplete  style="width:100%;" class="autoComplete" [data]=" this.WorkType" [searchKeyword]="'Name'" placeholder="סוג עבודה" 
                     historyIdentifier="workType" [itemTemplate]="itemTemplate" 

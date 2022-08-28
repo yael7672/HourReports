@@ -3,35 +3,34 @@
   <h4 header class="mb-4" *ngIf="header"> {{header}}</h4>
   <div body>
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
-      <p>תאור המשימה:</p>
+      <p *ngIf="header">תאור המשימה:</p>
+      <p *ngIf="!header">תאור דיווח:</p>
       <div class="form-outline d-flex justify-content-center ">
         <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
           class="form-control textarea" [(ngModel)]="ProjectContentItem.Description"
           [ngModelOptions]="{standalone: true}" ngModel required>
             </textarea>
       </div>
-<ng-container *ngIf="ProjectContentItem.Project">
-      <div class="form-outline d-flex justify-content-center ">
-        <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
-          placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
-          [(ngModel)]="ProjectContentItem.Project" ngModel name="Project" #Project="ngModel" required
-          [notFoundTemplate]="notFoundTemplate">
-        </ng-autocomplete>
-        <ng-template #itemTemplate let-item>
-          <a [innerHTML]="item.Name"></a>
-        </ng-template>
-        <ng-template #notFoundTemplate let-notFound>
-          <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-        </ng-template>
-      </div>
-</ng-container>
+      <ng-container *ngIf="ProjectContentItem.Project">
+        <div class="form-outline d-flex justify-content-center ">
+          <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
+            placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
+            [(ngModel)]="ProjectContentItem.Project" ngModel name="Project" #Project="ngModel" required
+            [notFoundTemplate]="notFoundTemplate">
+          </ng-autocomplete>
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.Name"></a>
+          </ng-template>
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+          </ng-template>
+        </div>
+      </ng-container>
       <div *ngIf="ProjectContentItem.Date" class="form-outline d-flex justify-content-center ">
-        <!-- <input  style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel" class="form-control"
-          [(ngModel)]="ProjectContentItem.Date"  [ngModelOptions]="{standalone: true}" ngModel required>
-        -->
-      <input type="date" id="Date" name="Date" #Date="ngModel" ngModel  [ngModel]=" ProjectContentItem.Date| date: 'yyyy-MM-dd'" class="form-control"
-      placeholder="תאריך " />   
-     </div>
+        <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
+          class="form-control" [(ngModel)]="ProjectContentItem.Date" [ngModelOptions]="{standalone: true}" ngModel
+          required>
+      </div>
       <p> סוג עבודה</p>
       <div class="form-outline d-flex justify-content-center mb-4 ">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"

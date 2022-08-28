@@ -5,6 +5,7 @@ import { ProjectContentItem } from '../../interfacees/project-content-item';
 import { PopUpServiceService } from '../../pop-up-service.service';
 import { ProjectContentItemComponent } from '../project-content-item/project-content-item.component';
 import { UserServiceService } from '../../user-service.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-my-project-contect-items',
@@ -38,7 +39,8 @@ export class MyProjectContectItemsComponent implements OnInit {
   projectContentItemGuid = "";
   myProjectContectItemArr!: any;
   showMassegeNoProjectContectItem = false;
-  constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
+  
+  constructor(private userService: UserServiceService,private datePipe:DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log(this.isPopUpOpen);
@@ -195,6 +197,9 @@ export class MyProjectContectItemsComponent implements OnInit {
   EditProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.ProjectContentItem = val;
+    console.log( this.ProjectContentItem.Date);
+    this.ProjectContentItem.Date = this.datePipe.transform(this.ProjectContentItem.Date, 'yyyy-MM-dd');
+
     console.log(val);
   }
   DeleteProjectContentItemIcon(ProjectContentItem: any) {

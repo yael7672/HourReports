@@ -71,8 +71,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project.Guid },
-      form.value.WorkType = { "Guid": form.value.workType.Guid }
+    form.value.Project = { "Guid": form.value.Project.Guid },
+    form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
