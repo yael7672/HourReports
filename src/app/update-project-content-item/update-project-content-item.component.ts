@@ -95,4 +95,5 @@ export class UpdateProjectContentItemComponent implements OnInit {
         alert("error")
     )
   }
+
 }
