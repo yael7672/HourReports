@@ -141,7 +141,6 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
       (res: any) => {
         this.projectContectItemByTimerGuid = res;
         localStorage.setItem("projectContectItemByTimerGuid",this.projectContectItemByTimerGuid)
-        console.log(this.projectContectItemByTimerGuid);
       },
       (err: any) =>
         console.log(err.error)
@@ -165,15 +164,12 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   convertTimeStempToTimeProjectContectItemWithTimer(ProjectContentItemCreatedDateByTimer: any) {
     var timestampCreatOn = ProjectContentItemCreatedDateByTimer;
     const timestampNow = Date.now();
-    console.log(timestampNow);
-    console.log(timestampCreatOn);
     this.Timer = timestampNow - timestampCreatOn;
     return this.datePipe.transform(this.Timer, 'HH:mm:ss', "+0000");
 
   }
   setWorkTimeProjectContectItemWithTimer(res: any) {
     this.TimeProjectContectItemHour = this.convertTimeStempToTimeProjectContectItemWithTimer(res)
-    console.log(this.TimeProjectContectItemHour);
   }
 }
 

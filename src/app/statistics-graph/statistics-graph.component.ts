@@ -141,14 +141,12 @@ export class StatisticsGraphComponent implements OnInit {
         this.workingHourArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((workingHour: { workHours: any; }) => workingHour.workHours)
         this.actualHoursArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((actualHours: { actualHours: any; }) => actualHours.actualHours)
         this.dateArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((Date: { Date: any; }) => this.datepipe.transform(Date.Date, 'dd/MM/yyyy'))
-        console.log("dateArr", this.dateArrForLineChart);
         this.updateLineChart();
         this.dateOfSearchBeforeForLineChart = "";
         this.dateOfSearchAfterForLineChart = "";
         this.showInputsDates = false;
         this.culculte = this.WorkingHoursAndActualHoursForLineChart.map((i: { workHours: number; actualHours: number; }) => (i.workHours * 100)
           / i.actualHours)
-        console.log(this.culculte);
         this.CreateObjectWithDateAndCulculte(this.dateArrForLineChart, this.culculte)
         this.updateBarChart();
       }
@@ -239,6 +237,6 @@ export class StatisticsGraphComponent implements OnInit {
               this.colorArr[a] = "rgb(10, 179, 10)";
             }
       a++;
-    }); console.log(this.colorArr);
+    })
   }
 }

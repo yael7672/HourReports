@@ -32,7 +32,6 @@ export class HoursAwaitingApprovalComponent implements OnInit {
     this.userService.GetHoursAwaitingApproval(this.systemGuid).subscribe(res => {
       if (res) {
         this.hoursAwaitingApprovalArr = res;
-        console.log(this.hoursAwaitingApprovalArr);
       }
     },
       err => {

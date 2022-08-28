@@ -12,6 +12,7 @@
       </div>
       <p> פרויקט:</p>
       <ng-container *ngIf="ProjectContentItem.Project!=null">
+
         <div class="form-outline d-flex justify-content-center ">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
             placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
@@ -42,9 +43,10 @@
       </div>
       <p> הקצה משימה:</p>
       <div class="form-outline d-flex justify-content-center mb-4 ">
-        <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"
-          placeholder="סוג עבודה" historyIdentifier="WorkType" [itemTemplate]="itemTemplate"
-          [(ngModel)]="ProjectContentItem.WorkType" ngModel name="WorkType" #WorkType="ngModel" required
+        <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="allUserAndTeams" [searchKeyword]="'Name'"
+          placeholder="הקצה משימה למשתמש או לצוות" 
+          [(ngModel)]="ProjectContentItem.OwnerId" historyIdentifier="AssignTask" [itemTemplate]="itemTemplate"
+          ngModel name="AssignTask"
           [notFoundTemplate]="notFoundTemplate">
         </ng-autocomplete>
         <ng-template #itemTemplate let-item>
@@ -66,7 +68,9 @@
           [ngModelOptions]="{standalone: true}" ngModel required>
             </textarea>
       </div>
-        <button type="submit" class="btn"> עדכן דיווח </button>
+        <button *ngIf="!header" type="submit" class="btn"> עדכן דיווח </button>
+        <button *ngIf="header" type="submit" class="btn"> עדכן משימה </button>
+
     </form>
   </div>
 </app-pop-up>

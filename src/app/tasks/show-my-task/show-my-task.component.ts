@@ -31,7 +31,6 @@ export class ShowMyTaskComponent implements OnInit {
   constructor(private popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log(this.isPopUpOpen);
     })
   }
   ngOnInit(): void {
@@ -40,7 +39,6 @@ export class ShowMyTaskComponent implements OnInit {
   SelectedData(val: object) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log(this.isPopUpOpen);
     })
     if (!this.isPopUpOpen?.UpdateProjectContentItemDetails) {
       this.taskDateRecords = val;
@@ -133,7 +131,6 @@ export class ShowMyTaskComponent implements OnInit {
   EditProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.ProjectContentItem = val;
-    console.log(val);
   }
   DeleteProjectContentItemIcon(ProjectContentItem: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');

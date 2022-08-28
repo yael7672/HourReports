@@ -74,13 +74,8 @@ export class SpecificTaskComponent implements OnInit {
     this.clickStartTimer.emit()
   }
   pauseTimer(worktime: any) {
-    if (this.workTime == 0 || this.workTime < "00:01:00") {
-      swal("אין אפשרות לדווח פחות מ-1 דק")
-    }
-    else {
       this.clickPauseTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask ? this.descriptionTask : "" })
     }
-  }
   deleteTimer(worktime: any) {
    
       this.clickdeleteTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask ? this.descriptionTask : "" })

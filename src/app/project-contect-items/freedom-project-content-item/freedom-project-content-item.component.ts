@@ -70,7 +70,6 @@ export class FreedomProjectContentItemComponent implements OnInit {
       this.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     }
     this.projectContentItemToCreate = form.value;
-    console.log(this.projectContentItemToCreate);
     this.checkIfIsReportOnThisDate()
   }
   CreateNewProjectItem() {
@@ -108,7 +107,6 @@ export class FreedomProjectContentItemComponent implements OnInit {
     this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate).subscribe(res => {
       if (res) {
         this.MyProjectContectItemArr = res;
-        console.log(this.MyProjectContectItemArr);
         if (this.MyProjectContectItemArr.length > 0) {
           this.showMassgeToUser = true;
         }
@@ -116,7 +114,6 @@ export class FreedomProjectContentItemComponent implements OnInit {
           this.CreateNewProjectItem()
           this.showMassgeToUser = false;
         }
-        console.log("MyProjectContectItemArr" + this.MyProjectContectItemArr);
       }
     },
       err => {

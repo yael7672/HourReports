@@ -12,7 +12,6 @@ export class UpdateAnExistingTaskComponent implements OnInit {
   myDate = new Date()
   constructor(private datePipe: DatePipe) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-    console.log(this.todayDate);
   }
   ngOnInit(): void {
   }
