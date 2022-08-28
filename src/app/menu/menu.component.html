@@ -3,14 +3,13 @@
     <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true" data-toggle="tooltip" data-placement="top" title=""></i></a>
     <a (click)="openPopUp('creatTask',true)" data-toggle="tooltip" data-placement="top" title="יצירת משימה" ><i class="fa fa-edit"></i>
 </a>
-
     <a (click)="openPopUp('createAprojectContentItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת פריט תכול פרויקט"><span class="iconify"
         data-icon="fluent:task-list-add-20-filled"></span>
     </a>
     <a (click)="openPopUp('MyprojectContentItem',true)" data-toggle="tooltip" data-placement="top" title="פריטי תכולת פרויקט"><i class="fa fa-calendar-check-o"></i>
     </a>
     <a (click)="openPopUp('pause',true)" data-toggle="tooltip" data-placement="top" title="צא להפסקה"><i class="fa fa-coffee"></i></a>
-
+        <a (click)="openPopUp('timeOfProjectContectItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת מהירה של פריט תכולת פרויקט"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
     <a (click)="GoToStatisticsGraph()" data-toggle="tooltip" data-placement="top" title="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
     <div *ngIf="startWorkOfTask">
     </div>
@@ -28,8 +27,6 @@
     <a (click)="CheckWhetherInTheMiddleOfWorkOnaTask(); ContinueToWorkOnATask()"><i id="clock-history" class="iconify"
         data-icon="bi:clock-history"></i></a>
   </div>
-
-
 
   <div class="menu" *ngIf="!openMyProjectContectItem">
     <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
@@ -134,7 +131,10 @@
   </div>
 
 
+<!-- <<<<<<< HEAD
   
+=======
+>>>>>>> 286c2672b4fafc6369d643b7ebd0a1bd51bc8710 -->
   <app-my-project-contect-items *ngIf="openMyProjectContectItem" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys">
   </app-my-project-contect-items>
 

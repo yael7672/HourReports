@@ -71,7 +71,7 @@
         </tbody>
       </table>
       <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
-        <app-update-project-content-item [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
+        <app-update-project-content-item [project]="project"  [workType]="workType" [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
       </div>
       <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
         <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid">
