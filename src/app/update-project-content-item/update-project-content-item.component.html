@@ -4,8 +4,14 @@
   <div body>
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
     
-      <ng-container *ngIf="ProjectContentItem.Project">
-        <p> פרוייקט:</p>
+ 
+      <div *ngIf="ProjectContentItem.Date" class="form-outline d-flex justify-content-center ">
+        <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
+          class="form-control" [(ngModel)]="ProjectContentItem.Date" [ngModelOptions]="{standalone: true}" ngModel
+          required>
+      </div>
+      <p> פרויקט:</p>
+      <ng-container *ngIf="ProjectContentItem.Project!=null">
         <div class="form-outline d-flex justify-content-center ">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
             placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
@@ -20,11 +26,6 @@
           </ng-template>
         </div>
       </ng-container>
-      <div *ngIf="ProjectContentItem.Date" class="form-outline d-flex justify-content-center ">
-        <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
-          class="form-control" [(ngModel)]="ProjectContentItem.Date" [ngModelOptions]="{standalone: true}" ngModel
-          required>
-      </div>
       <p> סוג עבודה:</p>
       <div class="form-outline d-flex justify-content-center mb-4 ">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"

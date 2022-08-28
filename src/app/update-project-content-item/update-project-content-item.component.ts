@@ -79,8 +79,8 @@ export class UpdateProjectContentItemComponent implements OnInit {
       Guid: this.ProjectContentItem.Guid,
       Description: this.ProjectContentItem.Description,
       ActualTime: this.workingHours,
-      WorkType:{"Guid":this.ProjectContentItem.WorkType.Guid},
-      // Project: this.ProjectContentItem.Project.Guid,
+      WorkType:{"Guid" :this.ProjectContentItem.WorkType.Guid},
+      Project:{"Guid" :this.ProjectContentItem.Project.Guid},
       Date:this.ProjectContentItem.Date,
     }
     this.userServiceService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
