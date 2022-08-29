@@ -5,13 +5,13 @@
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
     
  
-      <div *ngIf="ProjectContentItem.Date" class="form-outline d-flex justify-content-center ">
+      <div *ngIf="ProjectContentItem?.Date" class="form-outline d-flex justify-content-center ">
         <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
           class="form-control" [(ngModel)]="ProjectContentItem.Date" [ngModelOptions]="{standalone: true}" ngModel
           required>
       </div>
       <p> פרויקט:</p>
-      <ng-container *ngIf="ProjectContentItem.Project!=null">
+      <ng-container *ngIf="ProjectContentItem?.Project!=null">
 
         <div class="form-outline d-flex justify-content-center ">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"

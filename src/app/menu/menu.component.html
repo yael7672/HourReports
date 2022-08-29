@@ -1,19 +1,19 @@
 <div class="all-page">
   <div class="aImg">
-    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true" data-toggle="tooltip" data-placement="top" title=""></i></a>
-    <a (click)="openPopUp('creatTask',true)" data-toggle="tooltip" data-placement="top" title="יצירת משימה" ><i class="fa fa-edit"></i>
+    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true" placement="bottom" ngbTooltip=""></i></a>
+    <a (click)="openPopUp('creatTask',true)" placement="bottom" ngbTooltip="יצירת משימה"  ><i class="fa fa-edit"></i>
 </a>
-    <a (click)="openPopUp('createAprojectContentItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת פריט תכול פרויקט"><span class="iconify"
+    <a (click)="openPopUp('createAprojectContentItem',true)" placement="bottom" ngbTooltip="יצירת פריט תכול פרויקט"><span class="iconify"
         data-icon="fluent:task-list-add-20-filled"></span>
     </a>
-    <a (click)="openPopUp('MyprojectContentItem',true)" data-toggle="tooltip" data-placement="top" title="פריטי תכולת פרויקט"><i class="fa fa-calendar-check-o"></i>
+    <a (click)="openPopUp('MyprojectContentItem',true)" placement="bottom" ngbTooltip="פריטי תכולת פרויקט"><i class="fa fa-calendar-check-o"></i>
     </a>
-    <a (click)="openPopUp('pause',true)" data-toggle="tooltip" data-placement="top" title="צא להפסקה"><i class="fa fa-coffee"></i></a>
-   <a (click)="openPopUp('timeOfProjectContectItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת מהירה של פריט תכולת פרויקט"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
-    <a (click)="GoToStatisticsGraph()" data-toggle="tooltip" data-placement="top" title="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
+    <a (click)="openPopUp('pause',true)" placement="bottom" ngbTooltip="צא להפסקה"><i class="fa fa-coffee"></i></a>
+   <a (click)="openPopUp('timeOfProjectContectItem',true)" placement="bottom" ngbTooltip="יצירת מהירה של פריט תכולת פרויקט"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
+    <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
     <div *ngIf="startWorkOfTask">
     </div>
-    <p class="p-of-title ">דיווחי שעות </p>
+    <p class="p-of-title">דיווחי שעות </p>
     <div class="aImg2">
       <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
       <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
@@ -227,8 +227,6 @@
     <app-pause-work [buttonEnd]="endButton" [workTime]="workTime">
     </app-pause-work>
   </div>
-
-
   <div *ngIf="showstatiSticsGraph">
     <app-statistics-graph></app-statistics-graph>
   </div>

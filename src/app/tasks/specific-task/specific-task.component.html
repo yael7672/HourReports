@@ -17,14 +17,11 @@
 <br>
 <div class="button-of-task">
   <button [disabled]="isDisabledStart" (click)="startTimer(); clickOfButton('start',true)" class="btn btn-color"
-    data-toggle="tooltip" data-placement="top"
-    title="בלחיצה על כפתור זה, נוצר במערכת  פריט תכולת פרוייקט, והטיימר מתחיל לפעול.">התחל</button>
+  placement="bottom" ngbTooltip="בלחיצה על כפתור זה, נוצר במערכת  פריט תכולת פרוייקט, והטיימר מתחיל לפעול.">התחל</button>
   <button [disabled]="isDisabledPouse" (click)="pauseTimer(workTime); clickOfButton('pouse',true)" class="btn btn-color"
-    data-toggle="tooltip" data-placement="top"
-    title="בלחיצה על כפתור זה, מתעדכן משך זמן העבודה בפריט תכולת פרוייקט שנוצר קודם, והטיימר מפסיק את פעולתו.">הפסק</button>
+  placement="bottom" ngbTooltip="בלחיצה על כפתור זה, מתעדכן משך זמן העבודה בפריט תכולת פרוייקט שנוצר קודם, והטיימר מפסיק את פעולתו.">הפסק</button>
   <button [disabled]="isDisabledEnd" (click)="deleteTimer(workTime); clickOfButton('end',true)" class="btn btn-color"
-    data-toggle="tooltip" data-placement="top"
-    title="בלחיצה על כפתור זה, המשימה הושלמה והיא עוברת למצב של קריאה בלבד.">משימה הושלמה</button>
+  placement="bottom" ngbTooltip="בלחיצה על כפתור זה, המשימה הושלמה והיא עוברת למצב של קריאה בלבד.">משימה הושלמה</button>
 </div>
 <br>
 <p *ngIf="workTime" class="Time">{{workTime}}</p>

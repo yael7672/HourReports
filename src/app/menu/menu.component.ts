@@ -694,6 +694,7 @@ export class MenuComponent implements OnInit {
     }
   }
   GoToStatisticsGraph() {
+    // this.router.navigate(['/statisticsGraph'])
     this.showstatiSticsGraph = true;
     this.tableMyTaskOpen = false;
     this.tableMyTaskTeamsOpen = false;

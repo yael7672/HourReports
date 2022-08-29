@@ -16,6 +16,7 @@ import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.co
 import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component';
 import { SickLeaveProjectContentItemComponent } from './project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
 import { UpdateProjectContentItemComponent } from './update-project-content-item/update-project-content-item.component';
+import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-awaiting-approval.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -32,10 +33,11 @@ const routes: Routes = [
   { path: 'smartCard', component: SmartCardComponent },
   { path: 'personalDetails', component: PersonalDetailsComponent },
   { path: 'charts9', component: ChartsComponent },
-  { path: 'StatisticsGraph', component: StatisticsGraphComponent },
+  { path: 'statisticsGraph', component: StatisticsGraphComponent },
   { path: 'ChartsMyTask', component: ChartsMyTaskComponent },
   { path: 'sick', component: SickLeaveProjectContentItemComponent },
   { path: 'up', component: UpdateProjectContentItemComponent },
+  { path: 'HoursAwaitingApprovalComponent', component: HoursAwaitingApprovalComponent },
 
 
 ];

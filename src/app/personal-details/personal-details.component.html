@@ -18,15 +18,13 @@
       <p class="card-title">סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</p>
     </div>
     <div class="icons">
-      <a (click)="openPopUpp('sickLeave',true)" data-toggle="tooltip" data-placement="top"
-        title="דיווח מהיר של חופשת מחלה"><i class="iconify" data-icon="ic:outline-sick"></i>
+      <a (click)="openPopUpp('sickLeave',true)"placement="top" ngbTooltip="דיווח מהיר של חופשת מחלה"><i class="iconify" data-icon="ic:outline-sick"></i>
       </a>
-      <a (click)="openPopUpp('Freedom',true)" data-toggle="tooltip" data-placement="top" title="דיווח מהיר של חופשה"><i
+      <a (click)="openPopUpp('Freedom',true)" placement="top" ngbTooltip="דיווח מהיר של חופשה"><i
           class="iconify" data-icon="iconoir:sea-and-sun"></i>
       </a>
-      <a (click)="openPopUpp('HoursAwaitingApproval',true)"  data-toggle="tooltip" data-placement="top" title="לצפייה ואישור של דיווחים הממתנים לאישור מנהל"><i class="iconify"
+      <a (click)="openPopUpp('HoursAwaitingApproval',true)"   placement="top" ngbTooltip="לצפייה ואישור של דיווחים הממתנים לאישור מנהל"><i class="iconify"
           data-icon="carbon:condition-wait-point"></i></a>
-
     </div>
 
   </div>

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.userServiceService.logIn(form.value.SystemUserName).subscribe(
       (res: any) => {
         this.user = res;
-        swal(this.user.Name + "ברוך הבא");
+        swal( this.user.Name + " ברוך הבא  ");
         localStorage.clear();
         localStorage.setItem('systemGuid', this.user.SystemGuid);
         localStorage.setItem('systemName', this.user.Name);

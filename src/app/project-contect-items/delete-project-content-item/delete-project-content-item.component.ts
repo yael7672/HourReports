@@ -45,5 +45,4 @@ export class DeleteProjectContentItemComponent implements OnInit {
       this.popUpService.setClosePopUp();
     }
   }
-  
 }
