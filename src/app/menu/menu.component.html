@@ -28,11 +28,9 @@
         data-icon="bi:clock-history"></i></a>
   </div>
 
-  <div class="menu" *ngIf="!openMyProjectContectItem">
+  <!-- <div class="menu" *ngIf="!openMyProjectContectItem">
     <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
       <div class="form-outline">
-        <!-- <input id="typeahead-format" type="text" class="form-control" placeholder="חפש לפי משימה" [(ngModel)]="model"
-      (change)="onSearchTask(model)" /> -->
         <div class="form-outline d-flex justify-content-center mb-4">
           <ng-autocomplete style="width: 100%;" [data]="taskArr" [searchKeyword]="'Subject'" placeholder="חפש לפי משימה"
             historyIdentifier="Subject" class="autoComplete" [itemTemplate]="itemTemplate"
@@ -79,16 +77,16 @@
     </div>
 
     <!-- המשימות שלי -->
-    <app-smart-card *ngIf="tableMyTaskOpen&&tableMyTaskOpen1" [title]="titleTableTask">
+    <!-- <app-smart-card *ngIf="tableMyTaskOpen&&tableMyTaskOpen1" [title]="titleTableTask">
       <div body>
         <app-show-my-task  [project]="projectArr"  [workType]="workTypeArr" (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
           [kindOfCard]="'tableCard'" [thArr]="thArrTask" (getDataClickOfButton)="whichButtonChoose($event)"
           [tableData]="taskArr" [tableDataKeys]="taskListKeys">
         </app-show-my-task>
       </div>
-    </app-smart-card>
+    </app-smart-card> -->
     <!-- המשימות של הצוותים שלי -->
-    <app-smart-card *ngIf="tableMyTaskTeamsOpen&&tableMyTaskTeamsOpen1" [title]="titleTableTeamsTask">
+    <!-- <app-smart-card *ngIf="tableMyTaskTeamsOpen&&tableMyTaskTeamsOpen1" [title]="titleTableTeamsTask">
       <div body>
         <app-show-my-task   [project]="projectArr"  [workType]="workTypeArr"(clickSelectedTask)="SelectedTask($event)" [nameSearch]="nameSearch"
           [hideProjectTh]="hideProjectTh" [kindOfCard]="'tableCard'" [thArr]="thArrTaskTeams"
@@ -96,18 +94,18 @@
           [tableDataKeys]="taskTeamsListKeys">
         </app-show-my-task>
       </div>
-    </app-smart-card>
+    </app-smart-card> -->
     <!-- המשימות שעבדתי עליהן לאחרונה -->
-    <app-smart-card *ngIf="tableLastTaskIWorkedOn&&tableMyTaskTeamsOpen1" [title]="titleLastTaskIWorkedOn">
+    <!-- <app-smart-card *ngIf="tableLastTaskIWorkedOn&&tableMyTaskTeamsOpen1" [title]="titleLastTaskIWorkedOn">
       <div body>
         <app-show-my-task  [project]="projectArr"  [workType]="workTypeArr" (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
           [kindOfCard]="'tableCard'" [thArr]="thArrTaskTeams" (getDataClickOfButton)="whichButtonChoose($event)"
           [tableData]="sortTaskArr" [tableDataKeys]="taskTeamsListKeys">
         </app-show-my-task>
       </div>
-    </app-smart-card>
+    </app-smart-card> -->
 
-    <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true"
+    <!-- <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true"
       *ngIf="tableSpecificTaskOpen" [title]="titleCard" [arrFunc]="arrFunc" [isDisabledStart]="isDisabledStart"
       [textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()">
       <div body>
@@ -117,9 +115,9 @@
           (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)"
           (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
         </app-specific-task>
-      </div>
-    </app-smart-card>
-    <div *ngIf="ifThereAreprojectContentItem">
+      </div> -->
+    <!-- </app-smart-card> -->
+    <!-- <div *ngIf="ifThereAreprojectContentItem">
       <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
         <div body>
           <app-project-content-item [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'"
@@ -128,13 +126,10 @@
         </div>
       </app-smart-card>
     </div>
-  </div>
+  </div>  -->
 
 
-<!-- <<<<<<< HEAD
-  
-=======
->>>>>>> 286c2672b4fafc6369d643b7ebd0a1bd51bc8710 -->
+
   <app-my-project-contect-items *ngIf="openMyProjectContectItem" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys">
   </app-my-project-contect-items>
 

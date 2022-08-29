@@ -87,7 +87,7 @@ export class PauseWorkComponent implements OnInit {
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
             let myCompMenu = new MenuComponent(this.router, this.popUpService, this.userServiceService,this.elementRef, this.appService, this.buttonWorkingTaskService, this.datePipe)
-            myCompMenu.SelectedTask(this.taskListDataDetails)
+            // myCompMenu.SelectedTask(this.taskListDataDetails)
           }, 500)
         }
         // }

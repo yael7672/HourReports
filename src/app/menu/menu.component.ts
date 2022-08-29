@@ -328,21 +328,21 @@ export class MenuComponent implements OnInit {
       }
     }
   }
-  SelectedTask(val: any) {
-    if (!this.startWorkOfTask) {
-      this.taskListDataDetails = val;
-      localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
-      clearInterval(this.interval);
-      this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
-      this.tableSpecificTaskOpen = true;
-      this.tableMyTaskOpen = false;
-      this.tableMyTaskTeamsOpen = false;
-      this.tableLastTaskIWorkedOn = false;
-    }
-    else {
-      swal("קיימת משימה פעילה")
-    }
-  }
+  // SelectedTask(val: any) {
+  //   if (!this.startWorkOfTask) {
+  //     this.taskListDataDetails = val;
+  //     localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
+  //     clearInterval(this.interval);
+  //     this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
+  //     this.tableSpecificTaskOpen = true;
+  //     this.tableMyTaskOpen = false;
+  //     this.tableMyTaskTeamsOpen = false;
+  //     this.tableLastTaskIWorkedOn = false;
+  //   }
+  //   else {
+  //     swal("קיימת משימה פעילה")
+  //   }
+  // }
   SelectedStart() {
     localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
     localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
@@ -487,9 +487,9 @@ export class MenuComponent implements OnInit {
       }
     )
   }
-  whichButtonChoose(val: any) {
-    this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
-  }
+  // whichButtonChoose(val: any) {
+  //   this.buttonWorkingTaskService.setSpecificButton(val.kind, val.type);
+  // }
   async GetProjectContentItemByTaskGuid(taskGuid: string) {
     this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
       res => {
@@ -661,52 +661,43 @@ export class MenuComponent implements OnInit {
       }
     }, 1000)
   }
-  WhichTableOpen(val: any) {
-    this.ifThereAreTasks = false;
-    if (val == 0) {
-      this.tableMyTaskOpen = true;
-      this.tableMyTaskTeamsOpen = false;
-      this.tableLastTaskIWorkedOn = false;
-      if (this.taskArr == null || this.taskArr == undefined) {
-        this.ifThereAreTasks = true;
-        this.tableMyTaskOpen1 = false;
-      }
-    }
-    if (val == 1) {
-      this.tableMyTaskTeamsOpen = true;
-      this.tableLastTaskIWorkedOn = false;
-      this.tableMyTaskOpen = false;
-      if (this.taskTeamsArr == null || this.taskTeamsArr == undefined || this.taskTeamsArr.length == 0) {
-        this.ifThereAreTasks = true;
-        this.tableMyTaskTeamsOpen1 = false;
-      }
-    }
-    if (val == 2) {
-      this.SortLastTaskIWorkedOn();
-      this.tableMyTaskTeamsOpen1 = true;
-      this.tableLastTaskIWorkedOn = true;
-      this.tableMyTaskTeamsOpen = false;
-      this.tableMyTaskOpen = false;
-      if (this.taskTeamsArr == null || this.taskTeamsArr == undefined || this.taskTeamsArr.length == 0) {
-        this.ifThereAreTasks = true;
-        this.tableMyTaskTeamsOpen1 = false;
-      }
-    }
-  }
+  // WhichTableOpen(val: any) {
+  //   this.ifThereAreTasks = false;
+  //   if (val == 0) {
+  //     this.tableMyTaskOpen = true;
+  //     this.tableMyTaskTeamsOpen = false;
+  //     this.tableLastTaskIWorkedOn = false;
+  //     if (this.taskArr == null || this.taskArr == undefined) {
+  //       this.ifThereAreTasks = true;
+  //       this.tableMyTaskOpen1 = false;
+  //     }
+  //   }
+  //   if (val == 1) {
+  //     this.tableMyTaskTeamsOpen = true;
+  //     this.tableLastTaskIWorkedOn = false;
+  //     this.tableMyTaskOpen = false;
+  //     if (this.taskTeamsArr == null || this.taskTeamsArr == undefined || this.taskTeamsArr.length == 0) {
+  //       this.ifThereAreTasks = true;
+  //       this.tableMyTaskTeamsOpen1 = false;
+  //     }
+  //   }
+  //   if (val == 2) {
+  //     this.SortLastTaskIWorkedOn();
+  //     this.tableMyTaskTeamsOpen1 = true;
+  //     this.tableLastTaskIWorkedOn = true;
+  //     this.tableMyTaskTeamsOpen = false;
+  //     this.tableMyTaskOpen = false;
+  //     if (this.taskTeamsArr == null || this.taskTeamsArr == undefined || this.taskTeamsArr.length == 0) {
+  //       this.ifThereAreTasks = true;
+  //       this.tableMyTaskTeamsOpen1 = false;
+  //     }
+  //   }
+  // }
   GoToStatisticsGraph() {
-    this.showstatiSticsGraph = true;
-    this.tableMyTaskOpen = false;
-    this.tableMyTaskTeamsOpen = false;
-    this.ifThereAreTasks = false;
-    this.openMyProjectContectItem = false;
-    this.tableSpecificTaskOpen = false;
+  this.router.navigate(['StatisticsGraph'])
   }
   GoToHome() {
-    this.showstatiSticsGraph = false;
-    this.openMyProjectContectItem = false;
-    this.tableMyTaskOpen = true;
-    this.tableSpecificTaskOpen = false;
-
+    this.router.navigate(['show-my-task'])
   }
   ClickPersonalDetails() {
     this.openPersonalDetails = true;

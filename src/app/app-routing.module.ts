@@ -19,7 +19,7 @@ import { UpdateProjectContentItemComponent } from './update-project-content-item
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'menu', component: MenuComponent },
+  // { path: 'menu', component: MenuComponent },
  // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'login', component: LoginComponent },
   { path: 'createTask', component: CreateNewTaskComponent },
@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'endOfTask', component: EndOfTaskComponent },
   { path: 'pop', component: PopUpComponent },
   { path: 'createAprojectContentItem', component: CreateAprojectContentItemComponent },
-  { path: 'showMyTask', component: ShowMyTaskComponent },
+  { path: 'show-my-task', component: ShowMyTaskComponent },
   { path: 'specificTask', component: SpecificTaskComponent },
   { path: 'smartCard', component: SmartCardComponent },
   { path: 'personalDetails', component: PersonalDetailsComponent },

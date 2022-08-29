@@ -3,3 +3,12 @@ button{
     background-color: white;
     border: none;
 }
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.input-container {
+    margin: 1rem;
+}
