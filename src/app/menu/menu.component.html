@@ -11,8 +11,6 @@
     <a (click)="openPopUp('pause',true)" data-toggle="tooltip" data-placement="top" title="צא להפסקה"><i class="fa fa-coffee"></i></a>
    <a (click)="openPopUp('timeOfProjectContectItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת מהירה של פריט תכולת פרויקט"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
     <a (click)="GoToStatisticsGraph()" data-toggle="tooltip" data-placement="top" title="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
-    <div *ngIf="startWorkOfTask">
-    </div>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
       <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
@@ -24,7 +22,7 @@
     </div>
   </div>
   <div *ngIf="startWorkOfTask">
-    <a (click)="CheckWhetherInTheMiddleOfWorkOnaTask(); ContinueToWorkOnATask()"><i id="clock-history" class="iconify"
+    <a (click)="returnToTheOpenTask()"><i id="clock-history" class="iconify"
         data-icon="bi:clock-history"></i></a>
   </div>
 
@@ -166,7 +164,7 @@
       [workType]="workTypeArr"></app-freedom-project-content-item>
   </div>
 
-  <div *ngIf="showMassgeToUser">
+  <!-- <div *ngIf="showMassgeToUser">
     <app-pop-up>
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageIsifCloseTask" [massgeUserHeader]="massgeUserCloseTaskHeader"
@@ -174,9 +172,9 @@
           (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
       </div>
     </app-pop-up>
-  </div>
+  </div> -->
 
-  <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATask">
+  <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATask">
     <app-pop-up>
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATask"
@@ -186,9 +184,9 @@
           (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
       </div>
     </app-pop-up>
-  </div>
+  </div> -->
 
-  <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
+  <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
     <app-pop-up>
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
@@ -198,9 +196,9 @@
           [massgeUserBody1]="" (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
       </div>
     </app-pop-up>
-  </div>
+  </div> -->
 
-  <div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
+  <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
     <app-pop-up>
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite"
@@ -210,8 +208,8 @@
           (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
       </div>
     </app-pop-up>
-  </div>
-  <div *ngIf="showMassgeToUseMIfFinishtasklesstime">
+  </div> -->
+  <!-- <div *ngIf="showMassgeToUseMIfFinishtasklesstime">
     <app-pop-up>
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageUserFinishtasklesstime"
@@ -219,7 +217,7 @@
           [massgeUserBody2]="massgeUserFinishtasklesstimeBody2"></app-massge-to-user>
       </div>
     </app-pop-up>
-  </div>
+  </div> -->
 
   <div *ngIf="isPopUpOpen?.pause">
     <app-pause-work [buttonEnd]="endButton" [workTime]="workTime">

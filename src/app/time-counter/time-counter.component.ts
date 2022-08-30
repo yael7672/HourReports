@@ -13,21 +13,6 @@ import { UserServiceService } from '../user-service.service';
 })
 export class TimeCounterComponent implements OnInit {
 
-
-
-  @Input() taskListDataDetails!: any;
-
-  @Input() options!: any;
-
-  @Input() startTimeInMillisec?: number;
-
-  @Output() buttonClicked = new EventEmitter();
-
-  @Output() TimerEvent = new EventEmitter();
-
-  @Input() descriptionTask!: string;
-
-
   timerDisplay!: number;
 
   startTime!: number;
@@ -39,6 +24,7 @@ export class TimeCounterComponent implements OnInit {
   systemGuid: any;
 
   startWorkOfTask = false;
+  @Input() descriptionTask!: string;
 
   projectContectItemGuid: any;
   workTime: any;
@@ -52,7 +38,8 @@ export class TimeCounterComponent implements OnInit {
   timetoSend: any;
   parseTime: any;
   isDisabledStart = false;
-  isTaskAccomplished = false;;
+  isTaskAccomplished = false;
+  taskListDataDetails: any;
   massageFromServer: any;
   constructor(private userService: UserServiceService, private datePipe: DatePipe
     , private popUpService: PopUpServiceService, public route: Router) { }
@@ -79,6 +66,7 @@ export class TimeCounterComponent implements OnInit {
       this.IftaskForTeam = true;
     this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetailsParseToJson.TaskGuid, this.IftaskForTeam).subscribe(res => {
       if (res) {
+        this.popUpService.setStartTimer(true);
         this.projectContectItemGuid = res;
         localStorage.setItem("projectContectItemGuid", this.projectContectItemGuid);
         let a = Date.now();
@@ -96,7 +84,8 @@ export class TimeCounterComponent implements OnInit {
     if (this.workTime == 0 || this.workTime < "00:01:00") {
       swal("אין אפשרות לדווח פחות מ-1 דק")
     }
-    else {
+    else {  
+      this.popUpService.setStartTimer(false);
       this.disabledPauseButton = true;
       this.disabledStartButton = false;
       localStorage.removeItem('TaskGuid');
@@ -133,6 +122,7 @@ export class TimeCounterComponent implements OnInit {
     }
   }
   endTimer(time: any) {
+    this.popUpService.setStartTimer(false);
     this.disabledPauseButton = true;
     this.disabledStartButton = true;
     this.disabledEndButton = true;

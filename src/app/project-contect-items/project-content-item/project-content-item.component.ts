@@ -23,7 +23,7 @@ export class ProjectContentItemComponent implements OnInit {
   projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   workingHours!: Number;
   updateDetails = false;
-  ProjectContentItem: any;
+  projectContentItem: any;
   openCard = false;
   openTable = true;
   massageToUser = "";
@@ -87,12 +87,12 @@ export class ProjectContentItemComponent implements OnInit {
   }
   editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
-    this.ProjectContentItem = val;
+    this.projectContentItem = val;
   }
-  deleteProjectContentItemIcon(ProjectContentItem: any) {
+  deleteProjectContentItemIcon(projectContentItem: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
-    this.projectContentItemGuid = ProjectContentItem.Guid;
+    this.projectContentItemGuid = projectContentItem.Guid;
   }
   SortTableDown(thNameAndData: any) {
     this.ifSortDown = false;

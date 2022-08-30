@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class PopUpServiceService {
   
-  private isDisabled$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private isStartTimer$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private isPouseTimer$: BehaviorSubject<any> = new BehaviorSubject(null);
   private kindOfPopUp$: BehaviorSubject<any> = new BehaviorSubject(null);
   private refreshMyprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private refreshCeateAprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -91,12 +92,20 @@ export class PopUpServiceService {
   {
     return this.IfXProjectContectItemUpdateWithTime$;
   }
-  setIsDisabledBtn(val:boolean)
+  setStartTimer(val:boolean)
   {
-    this.isDisabled$.next(val);
+    this.isStartTimer$.next(val);
   }
- getIsDisabledBtn()
+ getStartTimer()
   {
-    return this.isDisabled$;
+    return this.isStartTimer$;
+  }
+  setPouseTimer(val:boolean)
+  {
+    this.isPouseTimer$.next(val);
+  }
+ getPouseTimer()
+  {
+    return this.isPouseTimer$;
   }
 }

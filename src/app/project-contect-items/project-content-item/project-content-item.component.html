@@ -9,7 +9,7 @@
 </div>
 </app-smart-card>
 <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
-  <app-update-project-content-item [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
+  <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [ProjectContentItem]="projectContentItem"></app-update-project-content-item>
 </div>
 
 <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">

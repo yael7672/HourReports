@@ -162,6 +162,7 @@ export class MenuComponent implements OnInit {
   nameSearch = "nameSearch"
   ifXTimerContectProjectContectItem = true;
   showMassgeToUserProjectContectItemWithTimer = false;
+  taskListDataDetailsParseToJson: any;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -193,9 +194,8 @@ export class MenuComponent implements OnInit {
     })
     this.buttonWorkingTaskService.getKindOfButton().subscribe(res => {
       this.isButtobChoose = res;
-      if(!this.startWorkOfTask)
-      {
-      this.isDisabledPouse = true;
+      if (!this.startWorkOfTask) {
+        this.isDisabledPouse = true;
       }
       if (this.isButtobChoose?.start) {
         this.isDisabledStart = true;
@@ -214,7 +214,16 @@ export class MenuComponent implements OnInit {
         this.workTime = "";
         this.seconds = 0;
       }
-    })
+      this.popUpService.getStartTimer().subscribe(res => {
+        if (res) {
+          this.startWorkOfTask = true;
+        }
+        else {
+          this.startWorkOfTask = false;
+        }
+      })
+    }
+    )
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
     this.popUpService.GetIfStartPouse().subscribe(res => {
@@ -230,7 +239,9 @@ export class MenuComponent implements OnInit {
     this.GetProject();
     this.GetTaskForMyTeams();
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.CheckWhetherInTheMiddleOfWorkOnaTask();
+    // this.CheckWhetherInTheMiddleOfWorkOnaTask();
+    this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
 
     if (localStorage.getItem("DateNowPause")) {
       this.openPopUp('pause', true)
@@ -240,8 +251,13 @@ export class MenuComponent implements OnInit {
     }
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = true;
-      this.ContinueToWorkOnATask();
     }
+    else {
+      this.startWorkOfTask = false;
+    }
+  }
+  returnToTheOpenTask() {
+    this.router.navigate(['/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
   }
 
   GetTaskForMyTeams() {
@@ -325,8 +341,7 @@ export class MenuComponent implements OnInit {
       }
     }
   }
-  goToMyprojectContentItem()
-  {
+  goToMyprojectContentItem() {
     this.router.navigate(['/my-project-contect-items-component'])
   }
   // SelectedTask(val: any) {
@@ -344,122 +359,122 @@ export class MenuComponent implements OnInit {
   //     swal("קיימת משימה פעילה")
   //   }
   // }
-  SelectedStart() {
-    localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
-    localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
-    localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
-    localStorage.setItem('TaskGuidOfProjectContectItem', this.taskListDataDetails.TaskGuid);
-    this.systemGuid = localStorage.getItem('systemGuid');
-    this.startWorkOfTask = true;
-    if (this.taskListDataDetails.OwnerId.Guid == this.systemGuid.toLowerCase()) {
-      this.IftaskForTeam = false;
-    }
-    else {
-      this.IftaskForTeam = true;
-    }
-    this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid, this.IftaskForTeam).subscribe(res => {
-      if (res) {
-        this.projectContectItemGuid = res;
-        localStorage.setItem("projectContectItemGuid", this.projectContectItemGuid);
-        let a = Date.now();
-        localStorage.setItem("DateNow", a.toString());
-        this.ContinueToWorkOnATask();
-        this.massageFromServer = res;
-        this.popUpService.SetProjectContentItemByTaskGuid(true)
-        this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+  // SelectedStart() {
+  //   localStorage.setItem('TaskGuid', this.taskListDataDetails.TaskGuid);
+  //   localStorage.setItem('TaskGuidToSend', this.taskListDataDetails.TaskGuid);
+  //   localStorage.setItem('TaskName', this.taskListDataDetails.Subject);
+  //   localStorage.setItem('TaskGuidOfProjectContectItem', this.taskListDataDetails.TaskGuid);
+  //   this.systemGuid = localStorage.getItem('systemGuid');
+  //   this.startWorkOfTask = true;
+  //   if (this.taskListDataDetails.OwnerId.Guid == this.systemGuid.toLowerCase()) {
+  //     this.IftaskForTeam = false;
+  //   }
+  //   else {
+  //     this.IftaskForTeam = true;
+  //   }
+  //   this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetails.TaskGuid, this.IftaskForTeam).subscribe(res => {
+  //     if (res) {
+  //       this.projectContectItemGuid = res;
+  //       localStorage.setItem("projectContectItemGuid", this.projectContectItemGuid);
+  //       let a = Date.now();
+  //       localStorage.setItem("DateNow", a.toString());
+  //       this.ContinueToWorkOnATask();
+  //       this.massageFromServer = res;
+  //       this.popUpService.SetProjectContentItemByTaskGuid(true)
+  //       this.popUpService.SetWorkTimeAfterProjectContectItem(true)
 
-      }
-    }, err => {
-      console.log(err.error);
-    })
+  //     }
+  //   }, err => {
+  //     console.log(err.error);
+  //   })
 
-  }
+  // }
 
 
-  SelectedStop(time: any) {
-    if (this.workTime == 0 || this.workTime < "00:01:00") {
-      swal("אין אפשרות לדווח פחות מ-1 דק")
-    }
-    else {
-      localStorage.removeItem('TaskGuid');
-      localStorage.removeItem('TaskName');
-      localStorage.getItem('TaskGuidToSend');
-      localStorage.removeItem("DateNow");
-      this.startWorkOfTask = false;
-      if (time.worktime != "" || time != null) {
-        this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
-        clearInterval(this.interval);
-        if (this.timetoSend[2] > 30) {
-          this.timetoSend[1]++;
-        }
-        this.timetoSend[1] = (this.timetoSend[1] / 60)
-        this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-        this.isDisabledStart = false;
-        this.isTaskAccomplished = false;
-        if (this.parseTime == undefined) {
-          this.parseTime = "";
-        }
-        this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid ? this.taskListDataDetails.TaskGuid : localStorage.getItem('TaskGuidToSend'), this.isTaskAccomplished, time.descriptionTask ? time.descriptionTask : "").subscribe(
-          res => {
-            if (res) {
-              this.massageFromServer = res;
-              swal(this.massageFromServer);
-              this.workTime = ["00:00:00"];
-              this.popUpService.SetProjectContentItemByTaskGuid(true)
-              this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-            }
-          },
-          err => {
-            console.log(err.error);
-          }
-        )
-      }
-    }
-  }
-  SelectedEnd(time: any) {
-    localStorage.removeItem('TaskGuid');
-    localStorage.removeItem('TaskGuidTosend');
-    localStorage.removeItem('TaskName');
+  // SelectedStop(time: any) {
+  //   if (this.workTime == 0 || this.workTime < "00:01:00") {
+  //     swal("אין אפשרות לדווח פחות מ-1 דק")
+  //   }
+  //   else {
+  //     localStorage.removeItem('TaskGuid');
+  //     localStorage.removeItem('TaskName');
+  //     localStorage.getItem('TaskGuidToSend');
+  //     localStorage.removeItem("DateNow");
+  //     this.startWorkOfTask = false;
+  //     if (time.worktime != "" || time != null) {
+  //       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
+  //       clearInterval(this.interval);
+  //       if (this.timetoSend[2] > 30) {
+  //         this.timetoSend[1]++;
+  //       }
+  //       this.timetoSend[1] = (this.timetoSend[1] / 60)
+  //       this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+  //       this.isDisabledStart = false;
+  //       this.isTaskAccomplished = false;
+  //       if (this.parseTime == undefined) {
+  //         this.parseTime = "";
+  //       }
+  //       this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid ? this.taskListDataDetails.TaskGuid : localStorage.getItem('TaskGuidToSend'), this.isTaskAccomplished, time.descriptionTask ? time.descriptionTask : "").subscribe(
+  //         res => {
+  //           if (res) {
+  //             this.massageFromServer = res;
+  //             swal(this.massageFromServer);
+  //             this.workTime = ["00:00:00"];
+  //             this.popUpService.SetProjectContentItemByTaskGuid(true)
+  //             this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+  //           }
+  //         },
+  //         err => {
+  //           console.log(err.error);
+  //         }
+  //       )
+  //     }
+  //   }
+  // }
+  // SelectedEnd(time: any) {
+  //   localStorage.removeItem('TaskGuid');
+  //   localStorage.removeItem('TaskGuidTosend');
+  //   localStorage.removeItem('TaskName');
 
-    localStorage.removeItem("DateNow")
-    this.startWorkOfTask = false;
+  //   localStorage.removeItem("DateNow")
+  //   this.startWorkOfTask = false;
 
-    if (time.worktime != "00:00:00" && time.worktime != "") {
-      this.timetoSend = time.worktime.split(':');
-      clearInterval(this.interval);
-      if (this.timetoSend[2] > 30) {
-        this.timetoSend[1] += 1;
-      }
-      this.timetoSend[1] = (this.timetoSend[1] / 60)
-      this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-    }
-    this.isTaskAccomplished = true;
-    if (time.descriptionTask == undefined) {
-      time.descriptionTask = "";
-    }
-    if (this.parseTime == undefined) {
-      this.parseTime = "";
-    }
-    this.workTime = ["00:00:00"];
+  //   if (time.worktime != "00:00:00" && time.worktime != "") {
+  //     this.timetoSend = time.worktime.split(':');
+  //     clearInterval(this.interval);
+  //     if (this.timetoSend[2] > 30) {
+  //       this.timetoSend[1] += 1;
+  //     }
+  //     this.timetoSend[1] = (this.timetoSend[1] / 60)
+  //     this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+  //   }
+  //   this.isTaskAccomplished = true;
+  //   if (time.descriptionTask == undefined) {
+  //     time.descriptionTask = "";
+  //   }
+  //   if (this.parseTime == undefined) {
+  //     this.parseTime = "";
+  //   }
+  //   this.workTime = ["00:00:00"];
 
-    this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
-      res => {
-        if (res) {
-          this.massageFromServer = res;
-          this.tableMyTaskOpen = true;
-          this.tableSpecificTaskOpen = false;
+  //   this.userService.UpdateProjectContentItem(this.parseTime, this.taskListDataDetails.TaskGuid, this.isTaskAccomplished, time.descriptionTask).subscribe(
+  //     res => {
+  //       if (res) {
+  //         this.massageFromServer = res;
+  //         this.tableMyTaskOpen = true;
+  //         this.tableSpecificTaskOpen = false;
 
-          this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
-          this.popUpService.setAllmyTask(true)
-          this.popUpService.SetProjectContentItemByTaskGuid(true)
-          this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-        }
-      },
-      err => {
-        console.log(err.error);
-      }
-    )
-  }
+  //         this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
+  //         this.popUpService.setAllmyTask(true)
+  //         this.popUpService.SetProjectContentItemByTaskGuid(true)
+  //         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+  //       }
+  //     },
+  //     err => {
+  //       console.log(err.error);
+  //     }
+  //   )
+  // }
   AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any, massageFromServerUpdate: any) {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetActualTaskHours(this.systemGuid, TaskGuid).subscribe(
@@ -559,84 +574,84 @@ export class MenuComponent implements OnInit {
       this.showMassgeToUser = true;
     }
   }
-  clickYes(kindOfMassage: string) {
-    if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
-      this.tableMyTaskOpen = true;
-      this.tableSpecificTaskOpen = false;
+  // clickYes(kindOfMassage: string) {
+  //   if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
+  //     this.tableMyTaskOpen = true;
+  //     this.tableSpecificTaskOpen = false;
 
-      this.goToHome = false;
-      this.goToChart = false;
+  //     this.goToHome = false;
+  //     this.goToChart = false;
 
-      this.showMassgeToUser = false;
-      this.SelectedStop(this.workTime)
-    }
-    if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
-      this.GetProjectContentItemByTaskGuid(this.taskGuidFromLocalStorage)
-      this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
-      this.tableMyTaskOpen = false;
-      this.isDisabledStart = true;
-      this.isDisabledPouse = false;
-      this.taskListDataDetailsFromLocalStoeage = localStorage.getItem('taskListDataDetails')
-      this.taskListDataDetailsFromLocalStoeageParse = JSON.parse(this.taskListDataDetailsFromLocalStoeage)
-      this.taskListDataDetails = this.taskListDataDetailsFromLocalStoeageParse;
-      this.showstatiSticsGraph = false;
-      this.openMyProjectContectItem = false;
-      this.tableSpecificTaskOpen = true;
+  //     this.showMassgeToUser = false;
+  //     this.SelectedStop(this.workTime)
+  //   }
+  //   if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
+  //     this.GetProjectContentItemByTaskGuid(this.taskGuidFromLocalStorage)
+  //     this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
+  //     this.tableMyTaskOpen = false;
+  //     this.isDisabledStart = true;
+  //     this.isDisabledPouse = false;
+  //     this.taskListDataDetailsFromLocalStoeage = localStorage.getItem('taskListDataDetails')
+  //     this.taskListDataDetailsFromLocalStoeageParse = JSON.parse(this.taskListDataDetailsFromLocalStoeage)
+  //     this.taskListDataDetails = this.taskListDataDetailsFromLocalStoeageParse;
+  //     this.showstatiSticsGraph = false;
+  //     this.openMyProjectContectItem = false;
+  //     this.tableSpecificTaskOpen = true;
 
-    }
-    if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
-      this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
-      this.SelectedStop(this.workTime)
-      this.openPopUp('pause', true)
-      if (localStorage.getItem("endButton") == "false") {
-        this.endButton = false
-        localStorage.setItem("endButton", String(this.endButton))
-      }
-      if (localStorage.getItem("endButton") == "true") {
-        this.endButton = true
-        localStorage.setItem("endButton", String(this.endButton))
-      }
-    }
-    // if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
-    //   let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.elementRef ,this.router,this.appService, this.popUpService, this.buttonWorkingTaskService)
-    //   myCompPause.clickYes(localStorage.getItem('WorkTimePause'))
+  //   }
+  //   if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
+  //     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
+  //     this.SelectedStop(this.workTime)
+  //     this.openPopUp('pause', true)
+  //     if (localStorage.getItem("endButton") == "false") {
+  //       this.endButton = false
+  //       localStorage.setItem("endButton", String(this.endButton))
+  //     }
+  //     if (localStorage.getItem("endButton") == "true") {
+  //       this.endButton = true
+  //       localStorage.setItem("endButton", String(this.endButton))
+  //     }
+  //   }
+  //   // if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
+  //   //   let myCompPause = new PauseWorkComponent(this.datePipe, this.userService, this.elementRef ,this.router,this.appService, this.popUpService, this.buttonWorkingTaskService)
+  //   //   myCompPause.clickYes(localStorage.getItem('WorkTimePause'))
 
-    //   this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
-    // }
+  //   //   this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
+  //   // }
 
 
-  }
-  clickNo(kindOfMassage: string) {
-    if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
-      this.showMassgeToUser = false;
-      this.tableMyTaskOpen = false;
-      this.tableSpecificTaskOpen = true;
+  // }
+  // clickNo(kindOfMassage: string) {
+  //   if (kindOfMassage == 'kindOfMassageIsifCloseTask') {
+  //     this.showMassgeToUser = false;
+  //     this.tableMyTaskOpen = false;
+  //     this.tableSpecificTaskOpen = true;
 
-      this.goToHome = true;
-      this.goToChart = true;
+  //     this.goToHome = true;
+  //     this.goToChart = true;
 
-    }
-    else {
-      if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
-        this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
-        this.tableMyTaskOpen = true;
+  //   }
+  //   else {
+  //     if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATask') {
+  //       this.showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
+  //       this.tableMyTaskOpen = true;
 
-      }
-      else {
-        if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
-          this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
+  //     }
+  //     else {
+  //       if (kindOfMassage == 'kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause') {
+  //         this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
 
-        }
-        else {
-          if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
+  //       }
+  //       else {
+  //         if (kindOfMassage == 'kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite') {
 
-            this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
-            this.openPopUp('pause', true)
-          }
-        }
-      }
-    }
-  }
+  //           this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false
+  //           this.openPopUp('pause', true)
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
   mouseOvePersonalDetails() {
     this.openPersonalDetails = true;
   }
@@ -647,13 +662,13 @@ export class MenuComponent implements OnInit {
     this.goToChart = false;
 
   }
-  CheckWhetherInTheMiddleOfWorkOnaTask() {
-    if (localStorage.getItem('TaskGuid')) {
-      this.taskGuidFromLocalStorage = localStorage.getItem('TaskGuid')
-      this.taskNameFromLocalStorage = localStorage.getItem('TaskName')
-      this.clickYes("kindOfMassageifInTheMiddleOfWorkOnATask")
-    }
-  }
+  // CheckWhetherInTheMiddleOfWorkOnaTask() {
+  //   if (localStorage.getItem('TaskGuid')) {
+  //     this.taskGuidFromLocalStorage = localStorage.getItem('TaskGuid')
+  //     this.taskNameFromLocalStorage = localStorage.getItem('TaskName')
+  //     this.clickYes("kindOfMassageifInTheMiddleOfWorkOnATask")
+  //   }
+  // }
   ContinueToWorkOnATask() {
     this.getCreatedProjectContentItemFromLoaclStorage();
     this.interval = setInterval(() => {
@@ -695,7 +710,7 @@ export class MenuComponent implements OnInit {
   //   }
   // }
   GoToStatisticsGraph() {
-  this.router.navigate(['StatisticsGraph'])
+    this.router.navigate(['StatisticsGraph'])
   }
   GoToHome() {
     this.router.navigate(['show-my-task'])
