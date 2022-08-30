@@ -1,0 +1,21 @@
+<!-- חיפוש ומיון -->
+
+<app-search-and-sort-tasks [taskArr]="taskTeamsArr" [taskArrCopy]="taskTeamsArrCopy"></app-search-and-sort-tasks>
+
+<!-- המשימות האחרונות שעבדתי עליהן -->
+<app-smart-card [title]="titleTableTeamsTask">
+  <div body>
+    <app-smart-table [thArr]="thArrTaskTeams" [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys"
+      [tableData]="taskTeamsArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
+      (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+      (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedData($event)"
+      [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+    </app-smart-table>
+  </div>
+</app-smart-card>
+
+<div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
+  <app-update-project-content-item [kindUpdate]="'updateTaskDetails'" [project]="project" [workType]="workType"
+    [ifUpdateTask]="true" [header]="'עדכון משימה'" [ProjectContentItem]="projectContentItem">
+  </app-update-project-content-item>
+</div>

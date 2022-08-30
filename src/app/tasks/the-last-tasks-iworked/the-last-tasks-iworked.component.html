@@ -1,0 +1,14 @@
+<!-- חיפוש ומיון -->
+
+<app-search-and-sort-tasks [taskArr]="sortTaskArr" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks>
+
+<!-- המשימות האחרונות שעבדתי עליהן -->
+<app-smart-card [title]="titleLastTaskIWorkedOn">
+    <div body>
+        <app-smart-table [thArr]="thArrTaskTeams"  [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys" [tableData]="sortTaskArr"
+            (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
+            (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+            (SortTableUp)="SortTableUp($event)">
+        </app-smart-table>
+    </div>
+</app-smart-card>

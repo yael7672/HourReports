@@ -40,8 +40,9 @@ export class UpdateProjectContentItemComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    this.workingHours = Number(this.ProjectContentItem.WorkingHours)
-    // this.ProjectItemToUpdate.Date = this.datePipe.transform(this.ProjectItemToUpdate.Date, 'yyyy-MM-dd');
+    console.log("ProjectContentItem",this.ProjectContentItem);
+    
+    this.workingHours = Number(this.ProjectContentItem?.WorkingHours)
     this.GetAllUserAndTeams();
   }
   UpdateTaskOrProjectContectItem(f:NgForm) {

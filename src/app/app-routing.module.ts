@@ -16,19 +16,21 @@ import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.co
 import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component';
 import { SickLeaveProjectContentItemComponent } from './project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
 import { UpdateProjectContentItemComponent } from './update-project-content-item/update-project-content-item.component';
+import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the-last-tasks-iworked.component';
+import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
+import { MyProjectContectItemsComponent } from './project-contect-items/my-project-contect-items/my-project-contect-items.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   // { path: 'menu', component: MenuComponent },
  // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'createTask', component: CreateNewTaskComponent },
   { path: 'updateTask', component: UpdateAnExistingTaskComponent },
   { path: 'endOfTask', component: EndOfTaskComponent },
   { path: 'pop', component: PopUpComponent },
   { path: 'createAprojectContentItem', component: CreateAprojectContentItemComponent },
-  { path: 'show-my-task', component: ShowMyTaskComponent },
-  { path: 'specificTask', component: SpecificTaskComponent },
+  { path: 'specific-task/:id', component: SpecificTaskComponent },
   { path: 'smartCard', component: SmartCardComponent },
   { path: 'personalDetails', component: PersonalDetailsComponent },
   { path: 'charts9', component: ChartsComponent },
@@ -36,7 +38,10 @@ const routes: Routes = [
   { path: 'ChartsMyTask', component: ChartsMyTaskComponent },
   { path: 'sick', component: SickLeaveProjectContentItemComponent },
   { path: 'up', component: UpdateProjectContentItemComponent },
-
+  { path: 'show-my-task', component: ShowMyTaskComponent },
+  { path: 'show-team-my-task', component: ShowMyTeamTaskComponent },
+  { path: 'the-last-tasks-i-worked', component: TheLastTasksIWorkedComponent },
+  { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent }
 
 ];
 

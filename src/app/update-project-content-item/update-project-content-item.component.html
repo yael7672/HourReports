@@ -3,7 +3,7 @@
   <h4 header class="mb-4" *ngIf="header"> {{header}}</h4>
   <div body>
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
-      <ng-container *ngIf="ProjectContentItem.Project">
+      <ng-container *ngIf="ProjectContentItem?.Project">
         <p> פרוייקט:</p>
         <div class="form-outline d-flex justify-content-center ">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
@@ -19,7 +19,7 @@
           </ng-template>
         </div>
       </ng-container>
-      <div *ngIf="ProjectContentItem.Date" class="form-outline d-flex justify-content-center ">
+      <div *ngIf="ProjectContentItem?.Date" class="form-outline d-flex justify-content-center ">
         <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
           class="form-control" [(ngModel)]="ProjectContentItem.Date" [ngModelOptions]="{standalone: true}" ngModel
           required>

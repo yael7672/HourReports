@@ -13,12 +13,14 @@ import { UserServiceService } from '../../user-service.service';
 })
 export class ProjectContentItemComponent implements OnInit {
   @Input() title!: string;
-  @Input() thArr!: any;
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;
   @Input() kindOfCard!: any;
   @Output() clickSelectedTask = new EventEmitter<any>();
-  @Output() getDataClickOfButton = new EventEmitter<any>(); 
+  @Output() getDataClickOfButton = new EventEmitter<any>();
+  titleTableProjectContentItemComponent = 'דיווחי שעות';
+  thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
+  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   workingHours!: Number;
   updateDetails = false;
   ProjectContentItem: any;
@@ -28,15 +30,33 @@ export class ProjectContentItemComponent implements OnInit {
   ProjectItemToUpdate!: any;
   isPopUpOpen!: any;
   projectContentItemGuid = "";
-  showMassgeToUser=false;
-  constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
+  showMassgeToUser = false;
+  projectContentItemArr: any;
+  ifThereAreprojectContentItem = false;
+  constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log("isPopUpOpen - subScriber",this.isPopUpOpen);
+      console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
     })
   }
   ngOnInit(): void {
-   // this.sortTableByDate()
+    // this.sortTableByDate()
+  }
+  async GetProjectContentItemByTaskGuid(taskGuid: string) {
+    this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
+      res => {
+        if (res.length > 0) {
+          this.projectContentItemArr = res;
+          this.ifThereAreprojectContentItem = true;
+        }
+        else {
+          this.ifThereAreprojectContentItem = false;
+        }
+      },
+      err => {
+        console.log(err.error);
+        this.ifThereAreprojectContentItem = false;
+      })
   }
   toTimestamp(sortValue: any) {
     var datum = Date.parse(sortValue);
@@ -61,11 +81,11 @@ export class ProjectContentItemComponent implements OnInit {
     }
   }
   editProjectContentItemIcon(val: any) {
-    this.popUpService.setSpecificPopUp(true,'UpdateProjectContentItemDetails');
+    this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.ProjectContentItem = val;
   }
   deleteProjectContentItemIcon(ProjectContentItem: any) {
-    this.popUpService.setSpecificPopUp(true,'DeleteProjectContentItemIcon');
+    this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }

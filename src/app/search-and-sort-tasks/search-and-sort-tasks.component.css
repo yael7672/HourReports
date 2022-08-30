@@ -1,0 +1,9 @@
+
+.input-container {
+    margin: 1rem;
+}
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}

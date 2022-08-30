@@ -37,6 +37,10 @@ import { UpdateProjectContentItemComponent } from './update-project-content-item
 import { DeleteProjectContentItemComponent } from './project-contect-items/delete-project-content-item/delete-project-content-item.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SmartTableComponent } from './smart-table/smart-table.component';
+import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
+import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the-last-tasks-iworked.component';
+import { SearchAndSortTasksComponent } from './search-and-sort-tasks/search-and-sort-tasks.component';
+import { TimeCounterComponent } from './time-counter/time-counter.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -71,7 +75,11 @@ import { SmartTableComponent } from './smart-table/smart-table.component';
     MassgeToUserWithEditComponent,
     UpdateProjectContentItemComponent,
     DeleteProjectContentItemComponent,
-    SmartTableComponent
+    SmartTableComponent,
+    ShowMyTeamTaskComponent,
+    TheLastTasksIWorkedComponent,
+    SearchAndSortTasksComponent,
+    TimeCounterComponent
   ],
   imports: [
     BrowserModule,

@@ -97,22 +97,22 @@ export class PauseWorkComponent implements OnInit {
     )
   }
 
-  GetProjectContentItemByGuid() {
-    this.ifInTheMiddleOfABreak = "true";
-    localStorage.setItem('ifInTheMiddleOfABreak', this.ifInTheMiddleOfABreak)
-    this.pauseGuidForLoclStorage = localStorage.getItem('pauseGuid')
-    this.userServiceService.GetProjectContentItemByGuid(this.pauseGuidForLoclStorage).subscribe(res => {
-      if (res) {
-        this.creatOnProjectContentItem = res.CreatedOn;
-        const timestampCreatOn = new Date(this.creatOnProjectContentItem)
-        const timestampNow = (new Date(Date.now()))
-        this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
-        let latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
-        this.workTimeHour = latest_date;
-        localStorage.setItem('WorkTimePause', this.workTimeHour)
-      }
-    })
-  }
+  // GetProjectContentItemByGuid() {
+  //   this.ifInTheMiddleOfABreak = "true";
+  //   localStorage.setItem('ifInTheMiddleOfABreak', this.ifInTheMiddleOfABreak)
+  //   this.pauseGuidForLoclStorage = localStorage.getItem('pauseGuid')
+  //   this.userServiceService.GetProjectContentItemByGuid(this.pauseGuidForLoclStorage).subscribe(res => {
+  //     if (res) {
+  //       this.creatOnProjectContentItem = res.CreatedOn;
+  //       const timestampCreatOn = new Date(this.creatOnProjectContentItem)
+  //       const timestampNow = (new Date(Date.now()))
+  //       this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
+  //       let latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
+  //       this.workTimeHour = latest_date;
+  //       localStorage.setItem('WorkTimePause', this.workTimeHour)
+  //     }
+  //   })
+  // }
 
 
   startPause() {

@@ -6,7 +6,7 @@
     <a (click)="openPopUp('createAprojectContentItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת פריט תכול פרויקט"><span class="iconify"
         data-icon="fluent:task-list-add-20-filled"></span>
     </a>
-    <a (click)="openPopUp('MyprojectContentItem',true)" data-toggle="tooltip" data-placement="top" title="פריטי תכולת פרויקט"><i class="fa fa-calendar-check-o"></i>
+    <a (click)="goToMyprojectContentItem()" data-toggle="tooltip" data-placement="top" title="פריטי תכולת פרויקט"><i class="fa fa-calendar-check-o"></i>
     </a>
     <a (click)="openPopUp('pause',true)" data-toggle="tooltip" data-placement="top" title="צא להפסקה"><i class="fa fa-coffee"></i></a>
    <a (click)="openPopUp('timeOfProjectContectItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת מהירה של פריט תכולת פרויקט"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
@@ -129,9 +129,9 @@
   </div>  -->
 
 
-
+<!-- 
   <app-my-project-contect-items *ngIf="openMyProjectContectItem" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys">
-  </app-my-project-contect-items>
+  </app-my-project-contect-items> -->
 
 
   <div *ngIf="isPopUpOpen?.creatTask">

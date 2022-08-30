@@ -20,11 +20,9 @@ export class MyProjectContectItemsComponent implements OnInit {
   @Input() workType!: any;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
-  @Input() tableDataKeys!: any;
-  @Input() thArr!: any;
+  thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
+  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
 
-  // @Output() clickSelectedTask = new EventEmitter<any>();
-  // @Output() getDataClickOfButton = new EventEmitter<any>();
   myCompProjectItem = new ProjectContentItemComponent(this.userService, this.appService, this.popUpService)
   systemGuid: any;
   updateDetails = false;
@@ -42,8 +40,11 @@ export class MyProjectContectItemsComponent implements OnInit {
   projectContentItemGuid = "";
   myProjectContectItemArr!: any;
   showMassegeNoProjectContectItem = false;
-  
-  constructor(private userService: UserServiceService,private datePipe:DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
+  projectContentItem: any;
+  showMassgeToUser = false;
+  startWorkOfTask: any;
+
+  constructor(private userService: UserServiceService, private datePipe: DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -52,8 +53,7 @@ export class MyProjectContectItemsComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    if(this.myProjectContectItemArr)
-    {
+    if (this.myProjectContectItemArr) {
       this.sortTableByDate();
     }
     this.GetMyProjectContectItem("2");
@@ -72,19 +72,18 @@ export class MyProjectContectItemsComponent implements OnInit {
   }
   GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
     this.selectedTime = selectedTime;
-    if(selectedTime)
-    {
-    this.systemGuid = localStorage.getItem('systemGuid')
-    this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
-      if (res) {
-        this.myProjectContectItemArr = res;
-      }
-    },
-      err => {
-        console.log(err.error);
-      })
+    if (selectedTime) {
+      this.systemGuid = localStorage.getItem('systemGuid')
+      this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
+        if (res) {
+          this.myProjectContectItemArr = res;
+        }
+      },
+        err => {
+          console.log(err.error);
+        })
+    }
   }
-}
   toTimestamp(sortValue: any) {
     var datum = Date.parse(sortValue);
     return datum / 1000;
@@ -196,18 +195,28 @@ export class MyProjectContectItemsComponent implements OnInit {
     }
   }
   EditTaskIcon(val: any) {
-    this.popUpService.setSpecificPopUp(true,'UpdateProjectContentItemDetails');
+    this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
   }
 
-  EditProjectContentItemIcon(val: any) {
+  // EditProjectContentItemIcon(val: any) {
+  //   this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
+  //   this.ProjectContentItem = val;
+  //   this.ProjectContentItem.Date = this.datePipe.transform(this.ProjectContentItem.Date, 'yyyy-MM-dd');
+  // }
+  // DeleteProjectContentItemIcon(ProjectContentItem: any) {
+  //   this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
+  //   this.projectContentItemGuid = ProjectContentItem.Guid;
+  // }
+  editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
-    this.ProjectContentItem = val;
-    this.ProjectContentItem.Date = this.datePipe.transform(this.ProjectContentItem.Date, 'yyyy-MM-dd');
+    this.projectContentItem = val;
   }
-  DeleteProjectContentItemIcon(ProjectContentItem: any) {
+  deleteProjectContentItemIcon(ProjectContentItem: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
+    this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
+
 }
 
 

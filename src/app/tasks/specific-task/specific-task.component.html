@@ -1,11 +1,15 @@
 <!-- <button (click)="openChartCompare()">השוואה בין שעות עבודה לשעות בפועל</button> -->
-<h5 *ngIf="listData?.Subject">{{listData.Subject}}</h5>
-<p *ngIf="listData?.Description" class="card-text">{{listData.Description}}</p>
-<p *ngIf="listData?.ScheduledEndDate" class="card-text"> תאריך יעד :{{listData.ScheduledEndDate | date: 'dd/MM/yyyy' }}
+<app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="false"
+ [title]="titleCard" [isDisabledStart]="isDisabledStart"
+[textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()">
+<div body>
+<h5 *ngIf="taskListDataDetailsParseToJson?.Subject">{{taskListDataDetailsParseToJson.Subject}}</h5>
+<p *ngIf="taskListDataDetailsParseToJson?.Description" class="card-text">{{taskListDataDetailsParseToJson.Description}}</p>
+<p *ngIf="taskListDataDetailsParseToJson?.ScheduledEndDate" class="card-text"> תאריך יעד :{{taskListDataDetailsParseToJson.ScheduledEndDate | date: 'dd/MM/yyyy' }}
 </p>
-<p class="card-text"> משך זמן שהוקצה למשימה :{{listData.WorkingHours}}
+<p class="card-text"> משך זמן שהוקצה למשימה :{{taskListDataDetailsParseToJson.WorkingHours}}
   {{this.timeSetting}} </p>
-<p class="card-text"> שעות בפועל עד כה :{{listData.TotalActualTime }}
+<p class="card-text"> שעות בפועל עד כה :{{taskListDataDetailsParseToJson.TotalActualTime }}
 </p>
 
 <br>
@@ -15,7 +19,9 @@
       </textarea>
 </div>
 <br>
-<div class="button-of-task">
+<app-time-counter [descriptionTask]="descriptionTask"></app-time-counter>
+
+<!-- <div class="button-of-task">
   <button [disabled]="isDisabledStart" (click)="startTimer(); clickOfButton('start',true)" class="btn btn-color"
     data-toggle="tooltip" data-placement="top"
     title="בלחיצה על כפתור זה, נוצר במערכת  פריט תכולת פרוייקט, והטיימר מתחיל לפעול.">התחל</button>
@@ -25,15 +31,19 @@
   <button [disabled]="isDisabledEnd" (click)="deleteTimer(workTime); clickOfButton('end',true)" class="btn btn-color"
     data-toggle="tooltip" data-placement="top"
     title="בלחיצה על כפתור זה, המשימה הושלמה והיא עוברת למצב של קריאה בלבד.">משימה הושלמה</button>
-</div>
+</div> -->
 <br>
-<p *ngIf="workTime" class="Time">{{workTime}}</p>
+<p *ngIf="workTime" class="Time" >{{workTime}}</p>
 <div *ngIf="openChartComparePopUp">
   <div class="actionArea">
     <form class="popContainer">
       <a class="close" (click)="closePopUp()">&times;</a>
-      <app-charts-my-task [dataProp]="listData">
+      <app-charts-my-task [dataProp]="taskListDataDetailsParseToJson">
       </app-charts-my-task>
     </form>
   </div>
 </div>
+</div>
+</app-smart-card> 
+
+<app-project-content-item></app-project-content-item>

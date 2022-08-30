@@ -9,12 +9,17 @@
         <option value="4"> החודש האחרון</option>
       </select>
     </div>
-    <div *ngIf="myProjectContectItemArr?.length==0||!myProjectContectItemArr">
+    <div *ngIf="myProjectContectItemArr?.length == 0||!myProjectContectItemArr">
       <br>
       <h2>אין דיווחים!</h2>
     </div>
-    <div *ngIf="myProjectContectItemArr?.length>0">
-      <table class="table table-hover">
+    <div *ngIf="myProjectContectItemArr?.length > 0">
+      <app-smart-table [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [tableDataKeys]="projectContentItemListKeys" [tableData]="myProjectContectItemArr"
+      (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
+      (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+      (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+    </app-smart-table>
+      <!-- <table class="table table-hover">
         <thead>
           <tr>
             <th *ngFor="let th of thArr" scope="col">
@@ -24,13 +29,13 @@
                     {{th}}
                   </ng-container>
                   <!-- <i class="fa fa-caret-up"></i> -->
-                  <i class="fa fa-caret-down"></i>
+                  <!-- <i class="fa fa-caret-down"></i>
                   <ng-template #WorkingHours>
                     <ng-container> {{th }}</ng-container>
                   </ng-template>
                 </button>
-              </ng-container>
-              <ng-template #sortTableUp>
+              </ng-container> -->
+              <!-- <ng-template #sortTableUp>
                 <button class="sort-btn" (click)="SortTableUp(th)">
                   <ng-container *ngIf="th!=='משך'; else WorkingHours">
                     {{th}}
@@ -44,8 +49,8 @@
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let colData of myProjectContectItemArr">
+        <tbody> -->
+          <!-- <tr *ngFor="let colData of myProjectContectItemArr">
             <ng-container *ngFor="let tableDataKey of tableDataKeys">
               <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
                 <ng-container *ngIf="tableDataKey!=='Date' else Date;">
@@ -69,9 +74,11 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> --> 
       <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
-        <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [project]="project"  [myProjectContectItemArr]="myProjectContectItemArr" [workType]="workType" [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
+        <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [project]="project"
+          [myProjectContectItemArr]="myProjectContectItemArr" [workType]="workType"
+          [ProjectContentItem]="projectContentItem"></app-update-project-content-item>
       </div>
       <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
         <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid">

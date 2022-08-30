@@ -48,10 +48,8 @@ export class MenuComponent implements OnInit {
   titleCard = 'פרטי המשימה';
   thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
-  thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
-  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   nameOfFunc = ['startTimer', 'pauseTimer', 'deleteTimer'];
   nameOfFunc1 = [];
   val = ['', 'worktime', 'worktime'];
@@ -270,7 +268,6 @@ export class MenuComponent implements OnInit {
         if (res) {
           this.taskArr = res;
           this.taskArrCopy = res;
-
           this.sortTaskArr = res
         }
       }, err => {
@@ -327,6 +324,10 @@ export class MenuComponent implements OnInit {
         this.popUpService.setSpecificPopUp(type, data)
       }
     }
+  }
+  goToMyprojectContentItem()
+  {
+    this.router.navigate(['/my-project-contect-items-component'])
   }
   // SelectedTask(val: any) {
   //   if (!this.startWorkOfTask) {
