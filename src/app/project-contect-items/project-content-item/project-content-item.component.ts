@@ -20,7 +20,7 @@ export class ProjectContentItemComponent implements OnInit {
   @Output() getDataClickOfButton = new EventEmitter<any>();
   titleTableProjectContentItemComponent = 'דיווחי שעות';
   thArrTableProjectContentItem = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
-  projectContentItemListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
+  projectContentItemListKeys = ['Name', 'CreatedOn', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   workingHours!: Number;
   updateDetails = false;
   ProjectContentItem: any;
@@ -31,8 +31,11 @@ export class ProjectContentItemComponent implements OnInit {
   isPopUpOpen!: any;
   projectContentItemGuid = "";
   showMassgeToUser = false;
-  projectContentItemArr: any;
+  projectContentItemArr!: ProjectContentItem[];
   ifThereAreprojectContentItem = false;
+  taskListDataDetails: any;
+  taskListDataDetailsParseToJson: any;
+  ifSortDown = false;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
@@ -40,7 +43,9 @@ export class ProjectContentItemComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    // this.sortTableByDate()
+    this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
+    this.GetProjectContentItemByTaskGuid(this.taskListDataDetailsParseToJson.TaskGuid);
   }
   async GetProjectContentItemByTaskGuid(taskGuid: string) {
     this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
@@ -88,6 +93,74 @@ export class ProjectContentItemComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
+  }
+  SortTableDown(thNameAndData: any) {
+    this.ifSortDown = false;
+    let keyToSort: any;
+    switch (thNameAndData.th) {
+      case 'נוצר ב:':
+        keyToSort = 'CreatedOn';
+        break;
+      case 'שעות מוקצות למשימה':
+        keyToSort = 'WorkingHours';
+        break;
+      case 'תאריך יעד':
+        keyToSort = 'ScheduledEndDate';
+        break;
+      case 'פרוייקט':
+        keyToSort = ['Project', 'Name'];
+        break;
+      case 'שם המשימה':
+        keyToSort = 'Subject';
+        break;
+      case 'עדיפות':
+        keyToSort = 'PriorityCode';
+        break;
+      default:
+        break;
+    }
+    if (keyToSort != 'Project') {
+      this.projectContentItemArr?.sort((a: any, b: any) =>
+        (a[keyToSort] ? a[keyToSort] : "" > (b[keyToSort] ? b[keyToSort] : "")) ? 1 : -1)
+    }
+    else {
+      this.projectContentItemArr?.sort((a: any, b: any) =>
+        (a[keyToSort[1]] > (b[keyToSort[1]])) ? 1 : -1)
+    }
+  }
+  SortTableUp(thName: any) {
+    this.ifSortDown = true;
+    let keyToSort: any;
+    switch (thName) {
+      case 'נוצר ב:':
+        keyToSort = 'CreatedOn';
+        break;
+      case 'שעות מוקצות למשימה':
+        keyToSort = 'WorkingHours';
+        break;
+      case 'תאריך יעד':
+        keyToSort = 'ScheduledEndDate';
+        break;
+      case 'פרוייקט':
+        keyToSort = ['Project', 'Name'];
+        break;
+      case 'שם המשימה':
+        keyToSort = 'Subject';
+        break;
+      case 'עדיפות':
+        keyToSort = 'PriorityCode';
+        break;
+      default:
+        break;
+    }
+    if (keyToSort != 'Project') {
+      this.projectContentItemArr?.sort((a: any, b: any) =>
+        (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
+    }
+    else {
+      this.projectContentItemArr?.sort((a: any, b: any) =>
+        (a[keyToSort[1]] < (b[keyToSort[1]])) ? 1 : -1)
+    }
   }
 }
 

@@ -7,7 +7,8 @@
 
 <app-smart-card  *ngIf="tableMyTaskOpen&&!ifThereAreTasks" [title]="titleTableTask">
   <div body>
-    <app-smart-table [thArr]="thArrTask" [ifSortDown]="ifSortDown" [tableDataKeys]="taskListKeys" [tableData]="taskArr"
+    <app-smart-table [thArr]="thArrTask" [ifSortDown]="ifSortDown" 
+    [tableDataKeys]="taskListKeys" [tableData]="taskArr"
       (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
       (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
       (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedTask($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">

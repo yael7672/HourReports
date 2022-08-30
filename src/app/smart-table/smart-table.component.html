@@ -1,55 +1,3 @@
-<!-- <table *ngIf="kindOfCard=='tableCard'" class="table table-hover">
-  <thead>
-    <tr>
-      <th *ngFor="let th of thArr" scope="col">
-        <ng-container *ngIf="ifSortDown; else sortTableUp;">
-          <button (click)="SortTableDown(th)">
-            <ng-container *ngIf="th!=='משך'; else WorkingHours">
-              {{th}}
-            </ng-container>
-            <i class="fa fa-caret-up"></i>
-            <i class="fa fa-caret-down"></i>
-            <ng-template #WorkingHours>
-              <ng-container> {{th |number}}</ng-container>
-            </ng-template>
-          </button>
-        </ng-container>
-        <ng-template #sortTableUp>
-          <button (click)="SortTableUp(th)">
-            <ng-container *ngIf="th!=='משך'; else WorkingHours">
-              {{th}}
-            </ng-container>
-            <ng-template #WorkingHours>
-              <ng-container *ngIf="!hideProjectTh"> {{th |number}}</ng-container>
-            </ng-template>
-            <i class="fa fa-caret-up"></i>
-          </button>
-        </ng-template>
-      </th>
-    </tr>
-  </thead>
-  <tbody *ngIf="tableData">
-    <tr *ngFor="let colData of tableData" (click)="SelectedData(colData); clickOfButton('chooseAnotherTask',true)">
-      <ng-container *ngFor="let tableDataKey of tableDataKeys">
-        <td *ngIf="tableDataKey=='ScheduledEndDate' || tableDataKey=='CreatedOn'">{{returnColDataByType(colData,
-          tableDataKey) | date: 'dd/MM/yyyy HH:mm'}}</td>
-        <td *ngIf="tableDataKey=='WorkingHours'">{{returnColDataByType(colData,
-          tableDataKey) |number}}</td>
-        <td *ngIf="tableDataKey!='ScheduledEndDate' && tableDataKey!='CreatedOn' && tableDataKey!='WorkingHours'">
-          {{returnColDataByType(colData,tableDataKey)}} </td>
-      </ng-container>
-      <td class="td">
-        <button (click)="EditProjectContentItemIcon(colData)"
-          (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button">
-          <i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top"
-            title="עריכת משימה "></i></button>
-        <!-- <button (click)="DeleteProjectContentItemIcon(colData)" class="edit-button">
-              <i class="iconify" data-icon="akar-icons:trash-can"></i>
-            </button> -->
-<!-- </td>
-    </tr>
-  </tbody>
-</table> -->
 
 
 <table class="table table-hover">
@@ -58,23 +6,20 @@
       <th *ngFor="let th of thArr" scope="col">
         <ng-container *ngIf="ifSortDown; else sortTableUpp;">
           <button (click)="sortTableDown(th)">
-            <ng-container *ngIf="th!=='משך'; else WorkingHours">
+            <ng-container >
               {{th}}
             </ng-container>
             <i class="fa fa-caret-down"></i>
             <ng-template #WorkingHours>
-              <ng-container> {{th |number}}</ng-container>
+              <ng-container> {{th}}</ng-container>
             </ng-template>
           </button>
         </ng-container>
         <ng-template #sortTableUpp>
           <button (click)="sortTableUp(th)">
-            <ng-container *ngIf="th!=='משך'; else WorkingHours">
+            <ng-container >
               {{th}}
-            </ng-container>
-            <ng-template #WorkingHours>
-              <ng-container> {{th |number}}</ng-container>
-            </ng-template>
+            </ng-container>           
             <i class="fa fa-caret-up"></i>
           </button>
         </ng-template>
