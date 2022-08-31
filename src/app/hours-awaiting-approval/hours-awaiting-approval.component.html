@@ -1,4 +1,4 @@
-  <app-smart-card  [title]='"דיווחי שעות שממתינות לאישור"'>
+<app-smart-card  [title]='"דיווחי שעות שממתינות לאישור"'>
   <div body>
   <app-smart-table [ifUpdate]="true" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
     [tableData]="hoursAwaitingApprovalArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
@@ -9,17 +9,10 @@
   </app-smart-card>
 
 <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
-<<<<<<< HEAD
-  <app-update-project-content-item [ProjectContentItem]="projectContentItem"></app-update-project-content-item>
-</div>
-
-<div *ngIf="deleteProjectContentItem">
-=======
   <app-update-project-content-item [ProjectContentItem]="projectContentItem" [kindUpdate]="'updateProjectContectItem'" [project]="projectArr"
    [workType]="workTypeArr"></app-update-project-content-item>
 </div>
 <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
->>>>>>> new
   <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid">
   </app-delete-project-content-item>
 </div>
