@@ -122,10 +122,11 @@ export class MenuComponent implements OnInit {
         this.taskNameFromLocalStorage2 = "שם המשימה:" + localStorage.getItem('TaskName')
         this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true
       }
+    }
       else {
         this.appService.setIsPopUpOpen(true);
         this.popUpService.setSpecificPopUp(type, data)
-      }
+      
     }
   }
   goToMyprojectContentItem() {

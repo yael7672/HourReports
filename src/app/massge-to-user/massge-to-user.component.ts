@@ -56,6 +56,11 @@ export class MassgeToUserComponent implements OnInit {
                   if (this.kindOfMassage == 'deleteProjectContentItem') {
                     this.clickYes.emit('deleteProjectContentItem')
                   }
+                  else{
+                    if (this.kindOfMassage == 'cancelPause') {
+                      this.clickYes.emit('cancelPause')
+                    }
+                  }
                 }
               }
             }
@@ -95,6 +100,11 @@ export class MassgeToUserComponent implements OnInit {
                 else {
                   if (this.kindOfMassage == 'deleteProjectContentItem') {
                     this.clickNo.emit('deleteProjectContentItem')
+                  }
+                  else{
+                    if (this.kindOfMassage == 'cancelPause') {
+                      this.clickNo.emit('cancelPause')
+                    }
                   }
                 }
               }
