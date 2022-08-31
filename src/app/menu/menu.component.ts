@@ -171,4 +171,10 @@ export class MenuComponent implements OnInit {
       this.openPersonalDetails = false;
     }
   }
+
+    onClickedOutsideMyNewTask(val: any) {
+      // if (this.openPersonalDetails) {
+      //   this.openPersonalDetails = false;
+      // }
+  }
 }

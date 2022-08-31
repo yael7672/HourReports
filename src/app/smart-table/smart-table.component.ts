@@ -15,6 +15,7 @@ export class SmartTableComponent implements OnInit {
   @Input() ifSortDown!: boolean
   @Input() tableData: any
   @Input() tableDataKeys: any
+  @Input() hideSort:any
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
   @Output() SortTableDown = new EventEmitter<any>();

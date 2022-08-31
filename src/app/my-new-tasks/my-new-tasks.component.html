@@ -1,0 +1,8 @@
+
+    <div class="actionArea">
+        <app-smart-card>
+            <div body>
+                <app-smart-table [tableData]="MyNewTaskArr" (SelectedData)="showDetailsTask($event)" [tableDataKeys]="MyNewTaskKey" [hideSort]="'true'" [thArr]="thArrMyNewTask"></app-smart-table>
+            </div>
+        </app-smart-card>
+    </div>
