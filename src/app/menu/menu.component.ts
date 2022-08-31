@@ -118,17 +118,23 @@ export class MenuComponent implements OnInit {
 
   openPopUp(data: string, type: boolean) {
     if (data == 'pause') {
-      if (localStorage.getItem('TaskGuid')) {
-        this.taskNameFromLocalStorage2 = "שם המשימה:" + localStorage.getItem('TaskName')
-        this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true
-      }
+      this.popUpService.getStartTimer().subscribe(res => {
+        if (res) {
+          this.startWorkOfTask = true;
+          this.taskListDataDetailsParseToJson.Subject = "שם המשימה:" + this.taskListDataDetailsParseToJson.TaskByGuid;
+          this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
+        } else {
+          this.appService.setIsPopUpOpen(true);
+          this.popUpService.setSpecificPopUp(type, data)
+        }
+      })
     }
-      else {
-        this.appService.setIsPopUpOpen(true);
-        this.popUpService.setSpecificPopUp(type, data)
-      
+    else {
+      this.appService.setIsPopUpOpen(true);
+      this.popUpService.setSpecificPopUp(type, data)
     }
   }
+  
   goToMyprojectContentItem() {
     this.router.navigate(['/my-project-contect-items-component'])
   }
