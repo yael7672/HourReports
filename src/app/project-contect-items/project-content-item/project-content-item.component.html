@@ -1,7 +1,15 @@
-<app-smart-table [thArr]="thArr" [tableDataKeys]="tableDataKeys" [tableData]="tableData" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)" (EditProjectContentItemIcon)="editProjectContentItemIcon($event)">
+
+  <app-smart-card  [title]="titleTableProjectContentItemComponent">
+    <div body>
+<app-smart-table  [ifUpdate]="true" [ifDelete]="true" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
+ [tableData]="projectContentItemArr"
+ (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)" 
+ (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" [ifSortDown]="ifSortDown"  (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" >
 </app-smart-table>
+</div>
+</app-smart-card>
 <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
-  <app-update-project-content-item [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
+  <app-update-project-content-item [project]="projectArr" [workType]="workTypeArr" [kindUpdate]="'updateProjectContectItem'" [ProjectContentItem]="projectContentItem"></app-update-project-content-item>
 </div>
 
 <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">

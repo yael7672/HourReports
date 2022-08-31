@@ -57,12 +57,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         this.ifX = false
       }
     })
-    this.popUpService.getIsDisabledBtn().subscribe(res => {
-      if (res) {
-        this.isDisabled = res
-      }
-    })
-  }
+ }
   ngOnInit(): void {
     this.GetRegarding()
     this.GetProject()

@@ -9,69 +9,25 @@
         <option value="4"> החודש האחרון</option>
       </select>
     </div>
-    <div *ngIf="myProjectContectItemArr?.length==0||!myProjectContectItemArr">
+    <div *ngIf="myProjectContectItemArr?.length == 0||!myProjectContectItemArr">
       <br>
       <h2>אין דיווחים!</h2>
     </div>
-    <div *ngIf="myProjectContectItemArr?.length>0">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th *ngFor="let th of thArr" scope="col">
-              <ng-container *ngIf="ifSortDown; else sortTableUp;">
-                <button class="sort-btn" (click)="SortTableDown(th)">
-                  <ng-container *ngIf="th!=='משך'; else WorkingHours">
-                    {{th}}
-                  </ng-container>
-                  <!-- <i class="fa fa-caret-up"></i> -->
-                  <i class="fa fa-caret-down"></i>
-                  <ng-template #WorkingHours>
-                    <ng-container> {{th }}</ng-container>
-                  </ng-template>
-                </button>
-              </ng-container>
-              <ng-template #sortTableUp>
-                <button class="sort-btn" (click)="SortTableUp(th)">
-                  <ng-container *ngIf="th!=='משך'; else WorkingHours">
-                    {{th}}
-                  </ng-container>
-                  <ng-template #WorkingHours>
-                    <ng-container *ngIf="!hideProjectTh"> {{th }}</ng-container>
-                  </ng-template>
-                  <i class="fa fa-caret-up"></i>
-                </button>
-              </ng-template>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let colData of myProjectContectItemArr">
-            <ng-container *ngFor="let tableDataKey of tableDataKeys">
-              <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
-                <ng-container *ngIf="tableDataKey!=='Date' else Date;">
-                  <td>{{returnColDataByType(colData, tableDataKey)}}</td>
-                </ng-container>
-              </ng-container>
-              <ng-template #WorkingHours>
-                <td> {{colData[tableDataKey] |number}}</td>
-              </ng-template>
-              <ng-template #Date>
-                <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy'}}</td>
-              </ng-template>
-            </ng-container>
-            <td class="td">
-              <button (click)="EditProjectContentItemIcon(colData)"
-                (click)="openPopUp('UpdateProjectContentItemDetails',true)" class="edit-button">
-                <i class="fa fa-pencil" aria-hidden="true"></i></button>
-              <button (click)="DeleteProjectContentItemIcon(colData)" class="edit-button">
-                <i class="iconify" data-icon="akar-icons:trash-can"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div *ngIf="myProjectContectItemArr?.length > 0">
+      <app-smart-table [ifUpdate]="true" [ifDelete]="true" [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [tableDataKeys]="projectContentItemListKeys" [tableData]="myProjectContectItemArr"
+      (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
+      (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+      (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+    </app-smart-table>
+     
       <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
+<<<<<<< HEAD
         <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [project]="project"  [ProjectContentItem]="ProjectContentItem" [workType]="workType" [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
+=======
+        <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [project]="projectArr"
+          [myProjectContectItemArr]="myProjectContectItemArr" [workType]="workTypeArr" 
+          [ProjectContentItem]="projectContentItem"></app-update-project-content-item>
+>>>>>>> new
       </div>
       <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
         <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid">

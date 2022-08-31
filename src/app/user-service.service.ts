@@ -84,10 +84,14 @@ export class UserServiceService {
     return await this.http.get<averageBreaks>(environment.url + 'GetAverageBreaks?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
   }
   GetTaskForMyTeams(SystemGuid: any) {
-    return this.http.get<any>(environment.url + '/GetTaskForMyTeams/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+    return this.http.get<any>(environment.url + 'GetTaskForMyTeams/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
   UpdateProjectContentItemDetails(ProjectItemToUpdate: any) {
+<<<<<<< HEAD
     return this.http.post<string>(environment.url + '/UpdateProjectContentItemDetails/?OrganizationName=AuroraProd', ProjectItemToUpdate);
+=======
+    return this.http.post<string>(environment.url + 'UpdateProjectContentItemDetails?OrganizationName=AuroraProd', ProjectItemToUpdate);
+>>>>>>> new
   }
   GetMyProjectContectItem(SystemGuid: any, SelectedTime: number, FromDate: string, UntilDate: string) {
 

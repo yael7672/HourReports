@@ -10,5 +10,6 @@ class="all-page"
 [class.rtl]="(appProperties.isRtl$ | async) === true"
 [class.ltr]="(appProperties.isRtl$ | async) !== true"
 [class.pop-up-open]="(appProperties.isPopUpOpen$ | async) === true">
+<app-menu></app-menu>
 <router-outlet></router-outlet>
 </div>

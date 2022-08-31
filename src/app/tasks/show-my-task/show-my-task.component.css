@@ -3,3 +3,18 @@ button{
     background-color: white;
     border: none;
 }
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.input-container {
+    margin: 1rem;
+}
+h2 {
+    text-align: center;
+    color: rgba(6, 6, 19, 0.795);
+    font-size: 30pt;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+}

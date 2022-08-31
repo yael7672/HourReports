@@ -118,3 +118,8 @@ text-align: center;
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.input-container {
+  margin: 0.9rem;
+} 
+

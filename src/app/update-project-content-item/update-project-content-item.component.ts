@@ -38,8 +38,13 @@ export class UpdateProjectContentItemComponent implements OnInit {
     private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
   }
+<<<<<<< HEAD
   ngOnInit(): void {
     console.log("ProjectContentItem", this.ProjectContentItem);
+=======
+
+  ngOnInit(): void {
+>>>>>>> new
     this.workingHours = Number(this.ProjectContentItem?.WorkingHours)
     this.GetAllUserAndTeams();
   }
@@ -62,7 +67,10 @@ export class UpdateProjectContentItemComponent implements OnInit {
       AssignTask: form.value.AssignTask.Guid,
       Description: this.ProjectContentItem.Description,
       Subject: this.ProjectContentItem.Subject,
+<<<<<<< HEAD
 
+=======
+>>>>>>> new
     }
     this.userService.UpdateTaskDetails(this.TaskToUpdate.TaskGuid, this.TaskToUpdate.Project, this.TaskToUpdate.Description, this.TaskToUpdate.Subject, this.TaskToUpdate.WorkType, this.TaskToUpdate.AssignTask).subscribe(
       (res) => {
@@ -89,7 +97,12 @@ export class UpdateProjectContentItemComponent implements OnInit {
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
-        this.popUpService.SetProjectContentItemByTaskGuid(true);
+        if (window.location.pathname == '/my-project-contect-items-component') {
+          this.popUpService.setAllmyProjectContectItem(true);
+          this.appService.setIsPopUpOpen(false);
+          this.popUpService.setClosePopUp()
+        } else
+          this.popUpService.SetProjectContentItemByTaskGuid(true);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },

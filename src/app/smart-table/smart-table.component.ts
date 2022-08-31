@@ -8,19 +8,26 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SmartTableComponent implements OnInit {
 
   constructor() { }
-  @Input() thArr: any
+  @Input() ifUpdate!:boolean;
+   @Input() ifDelete!:boolean;
+  @Input() thArr: any;
+  @Input() ifUpdateOpen: any
+  @Input() ifSortDown!: boolean
   @Input() tableData: any
   @Input() tableDataKeys: any
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
+  @Output() SortTableDown = new EventEmitter<any>();
+  @Output() SortTableUp = new EventEmitter<any>();
+  @Output() SelectedData = new EventEmitter<any>();
+  ifDelete1=true;
+  ifUpdate1=true
   ngOnInit(): void {
   }
-  editProjectContentItemIcon(colData:any)
-  {
+  editProjectContentItemIcon(colData: any) {
     this.EditProjectContentItemIcon.emit(colData);
   }
-  deleteProjectContentItemIcon(colData:any)
-  {
+  deleteProjectContentItemIcon(colData: any) {
     this.DeleteProjectContentItemIcon.emit(colData);
   }
   returnColDataByType(colData: any, tableDataKey: any) {
@@ -33,4 +40,17 @@ export class SmartTableComponent implements OnInit {
       }
       else return null;
     }
-  }}
+  }
+  sortTableDown(th: any) {
+    this.SortTableDown.emit(th);
+  }
+  sortTableUp(th: any) {
+    this.SortTableUp.emit(th);
+  }
+  selectedData(val: any) {
+    if(!this.ifUpdateOpen)
+    {
+      this.SelectedData.emit(val);
+    }
+  }
+}

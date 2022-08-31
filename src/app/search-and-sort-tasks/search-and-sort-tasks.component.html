@@ -1,0 +1,33 @@
+<div class="search">
+    <div class="form-outline">
+      <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
+        <option value="">--בחר אחת מהאופציות הבאות--</option>
+        <option value="0">המשימות שלי </option>
+        <option value="1"> המשימות של הצוותים אליהם אני שייך</option>
+        <option value="2">המשימות האחרונות שעבדתי עליהן </option>
+      </select>
+      <ng-autocomplete style="width: 100%;" [data]="taskArr" [searchKeyword]="'Subject'" placeholder="חפש לפי משימה"
+        historyIdentifier="Subject" class="autoComplete" [itemTemplate]="itemTemplate"
+        (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject" #Subject="ngModel" required
+        [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+      <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.Subject"></a>
+      </ng-template>
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+      </ng-template>
+  
+      <ng-autocomplete style="width: 100%;" [data]="projectArr" [searchKeyword]="'Name'" placeholder="חפש לפי פרויקט"
+        historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
+        (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
+        [notFoundTemplate]="notFoundTemplate2">
+      </ng-autocomplete>
+      <ng-template #itemTemplate2 let-item>
+        <a [innerHTML]="item.Name"></a>
+      </ng-template>
+      <ng-template #notFoundTemplate2 let-notFound>
+        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+      </ng-template>
+    </div>
+  </div>
