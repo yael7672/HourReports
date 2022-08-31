@@ -16,30 +16,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./pause-work.component.css']
 })
 export class PauseWorkComponent implements OnInit {
-  massgeUserCloseWorkPause1 = "?האם אתה בטוח שברצונך לסיים הפסקה"
-  todayDate!: any;
-  myDate = new Date()
-  pauseGuid: any
-  systemGuid: any
+
   @Input() workTime!: any;
   @Input() buttonEnd!: any;
-
-  @Output() ClickStartPause = new EventEmitter<any>();
+  @Output() ClickStartPause = new EventEmitter<any>()
+  massgeUserCloseWorkPause1 = "?האם אתה בטוח שברצונך לסיים הפסקה"
+  todayDate!: any;
+  myDate = new Date();
+  pauseGuid: any;
+  systemGuid: any;
   workTimeHour!: any
   descriptionPanel: any;
   interval: any;
-  endButton!: boolean
+  endButton!: boolean;
   timetoSend: any;
   parseTime: any;
-  showMassgeToUser!: boolean
-  showMassgeToUserEdit!:boolean
-  formWorkPause!: NgForm
+  showMassgeToUser!: boolean;
+  showMassgeToUserEdit!:boolean;
+  formWorkPause!: NgForm;
   ifX = true;
   taskGuid: any;
-  ifInMiddleTask = false
-  openSpecificTask = false
-  taskListDataDetails: any
-  popUpPause = "popUpPause"
+  ifInMiddleTask = false;
+  openSpecificTask = false;
+  taskListDataDetails: any;
+  popUpPause = "popUpPause";
   workTimeLS!: any;
   workTimeHourLS!: any;
   workTime1: any;
@@ -47,9 +47,10 @@ export class PauseWorkComponent implements OnInit {
   creatOnProjectContentItem!: string;
   Time: any;
   ifInTheMiddleOfABreak = "false";
-  pauseForLoclStorage:any
-  massgeUserEditPauseHour1="עריכת שעות הפסקה"
-  constructor( private elementRef: ElementRef,private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
+  pauseForLoclStorage:any;
+  massgeUserEditPauseHour1="עריכת שעות הפסקה";
+
+  constructor(private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
     private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
   }
@@ -86,35 +87,15 @@ export class PauseWorkComponent implements OnInit {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-            let myCompMenu = new MenuComponent(this.router, this.popUpService, this.userServiceService,this.elementRef, this.appService, this.buttonWorkingTaskService, this.datePipe)
+            let myCompMenu = new MenuComponent(this.router, this.popUpService, this.userServiceService, this.appService, this.buttonWorkingTaskService, this.datePipe)
             // myCompMenu.SelectedTask(this.taskListDataDetails)
           }, 500)
         }
-        // }
       },
       (err: any) =>
         alert("error")
     )
   }
-
-  // GetProjectContentItemByGuid() {
-  //   this.ifInTheMiddleOfABreak = "true";
-  //   localStorage.setItem('ifInTheMiddleOfABreak', this.ifInTheMiddleOfABreak)
-  //   this.pauseGuidForLoclStorage = localStorage.getItem('pauseGuid')
-  //   this.userServiceService.GetProjectContentItemByGuid(this.pauseGuidForLoclStorage).subscribe(res => {
-  //     if (res) {
-  //       this.creatOnProjectContentItem = res.CreatedOn;
-  //       const timestampCreatOn = new Date(this.creatOnProjectContentItem)
-  //       const timestampNow = (new Date(Date.now()))
-  //       this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
-  //       let latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
-  //       this.workTimeHour = latest_date;
-  //       localStorage.setItem('WorkTimePause', this.workTimeHour)
-  //     }
-  //   })
-  // }
-
-
   startPause() {
     this.ifX = false;
     this.endButton = true;
@@ -135,7 +116,6 @@ export class PauseWorkComponent implements OnInit {
     else{
         this.showMassgeToUser = true;
     }
-  
   }
 
   clickYes(time: any) {

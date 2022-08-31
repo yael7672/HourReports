@@ -48,10 +48,10 @@
       </ng-container>
       
       <td class="td">
-        <button (click)="editProjectContentItemIcon(colData)" class="edit-button" data-toggle="tooltip"
+        <button  *ngIf="ifUpdate" (click)="editProjectContentItemIcon(colData)" class="edit-button" data-toggle="tooltip"
           data-placement="top" title="באפשרותך לערוך את הדיווח.">
           <i class="fa fa-pencil" aria-hidden = "true"></i></button>
-        <button (click)="deleteProjectContentItemIcon(colData)" class="edit-button" class="edit-button"
+        <button *ngIf="ifDelete" (click)="deleteProjectContentItemIcon(colData)" class="edit-button" class="edit-button"
           data-toggle="tooltip" data-placement="top" title="באפשרותך למחוק את הדיווח.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>

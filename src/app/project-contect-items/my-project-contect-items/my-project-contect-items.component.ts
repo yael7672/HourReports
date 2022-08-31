@@ -16,7 +16,6 @@ export class MyProjectContectItemsComponent implements OnInit {
   // @Input() title!: string;
   @Input() hideProjectTh!: any;
   @Input() kindOfCard!: any;
-  @Input() project!: any;
   @Input() workType!: any;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
@@ -43,6 +42,8 @@ export class MyProjectContectItemsComponent implements OnInit {
   projectContentItem: any;
   showMassgeToUser = false;
   startWorkOfTask: any;
+  projectArr: any;
+  workTypeArr: any;
 
   constructor(private userService: UserServiceService, private datePipe: DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -53,23 +54,34 @@ export class MyProjectContectItemsComponent implements OnInit {
     })
   }
   ngOnInit(): void {
+    this.GetProject();
+    this.GetWorkType();
     if (this.myProjectContectItemArr) {
       this.sortTableByDate();
     }
     this.GetMyProjectContectItem("2");
 
   }
-  returnColDataByType(colData: any, tableDataKey: any) {
-    if (tableDataKey && typeof tableDataKey === 'string') {
-      return colData[tableDataKey]
-    }
-    else {
-      if (colData[tableDataKey[0]]) {
-        return colData[tableDataKey[0]][tableDataKey[1]];
-      }
-      else return null;
-    }
+  GetWorkType() {
+    this.userService.GetWorkType().subscribe(
+      (res: any) => {
+        this.workTypeArr = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
   }
+  GetProject() {
+    this.userService.GetProject().subscribe(res => {
+      if (res) {
+        this.projectArr = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
+  }
+  
   GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
     this.selectedTime = selectedTime;
     if (selectedTime) {
@@ -95,7 +107,6 @@ export class MyProjectContectItemsComponent implements OnInit {
       return ((sortValueTimestampA ? sortValueTimestampA : new Date()) > (sortValueTimestampB ? sortValueTimestampB : new Date()) ? 1 : -1)
     })
   }
-
   UpdateProjectItemButton() {
     this.ProjectItemToUpdate = {
       Guid: this.ProjectContentItem.Guid,
@@ -194,19 +205,6 @@ export class MyProjectContectItemsComponent implements OnInit {
 
     }
   }
-  EditTaskIcon(val: any) {
-    this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
-  }
-
-  // EditProjectContentItemIcon(val: any) {
-  //   this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
-  //   this.ProjectContentItem = val;
-  //   this.ProjectContentItem.Date = this.datePipe.transform(this.ProjectContentItem.Date, 'yyyy-MM-dd');
-  // }
-  // DeleteProjectContentItemIcon(ProjectContentItem: any) {
-  //   this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
-  //   this.projectContentItemGuid = ProjectContentItem.Guid;
-  // }
   editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.projectContentItem = val;

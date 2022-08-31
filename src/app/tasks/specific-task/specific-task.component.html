@@ -47,3 +47,35 @@
 </app-smart-card> 
 
 <app-project-content-item></app-project-content-item>
+ <!-- באמצע משימה רוצה לצאת -קופצת ההודעה האם אתה בטוח? -->
+  <!-- <div *ngIf="showMassgeToUser">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassageIsifCloseTask" [massgeUserHeader]="massgeUserCloseTaskHeader"
+          [massgeUserBody1]="massgeUserCloseTaskBody" [massgeUserBody2]="massgeUserCloseTaskFooter"
+          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+      </div>
+    </app-pop-up>
+  </div> -->
+<!-- אם יש לו משימה פתוחה- קופצת לו ההודעה- יש לך משימה פתוחה, האם אתה רוצה לחזור אליה? -->
+  <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATask">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATask"
+          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody"
+          [massgeUserHeader]="massgeUseIfInTheMiddleOfWorkOnATaskHeader"
+          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody" [massgeUserBody2]="taskNameFromLocalStorage"
+          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+      </div>
+    </app-pop-up>
+  </div>
+   -->
+  <div *ngIf="showMassgeToUseMIfFinishtasklesstime">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassageUserFinishtasklesstime"
+          [massgeUserHeader]="massgeUserFinishtasklesstimeHeader" [massgeUserBody1]="massgeUserFinishtasklesstimeBody"
+          [massgeUserBody2]="massgeUserFinishtasklesstimeBody2"></app-massge-to-user>
+      </div>
+    </app-pop-up>
+  </div>

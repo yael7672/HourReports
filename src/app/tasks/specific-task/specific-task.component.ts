@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PopupService } from '@ng-bootstrap/ng-bootstrap/util/popup';
 import { AppService } from 'src/app/app-service.service';
 import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
+import { TaskByGuid } from 'src/app/interfacees/TaskByGuid';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
 import swal from 'sweetalert';
@@ -13,45 +14,38 @@ import swal from 'sweetalert';
   styleUrls: ['./specific-task.component.css']
 })
 export class SpecificTaskComponent implements OnInit {
-  @Input() title!: string;
-  @Input() thArr!: any;
-  @Input() listData!: any;
-  @Input() listDataKeys!: any;
-  @Input() kindOfCard!: any;
-  @Input() nameOfFunc!: any;
-  @Input() val!: any;
-  @Input() text!: any;
   @Input() workTime!: any;
-  @Input() taskListData!: any;
-  @Input() tableDataKeys!: any;
-  @Input() isDisabledEnd!: boolean;
-  @Input() isDisabledPouse!: boolean;
   @Input() isDisabledStart!: boolean;
   @Input() textButtonBack: any;
-  @Output() ClickCloseCard = new EventEmitter<any>();
-  @Output() clickStartTimer = new EventEmitter<any>();
-  @Output() clickPauseTimer = new EventEmitter<any>();
-  @Output() clickdeleteTimer = new EventEmitter<any>();
   @Output() objectEmitter = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
   @Output() clickBackToMyTask = new EventEmitter<any>();
   descriptionTask!: string
-  heberwDateRecords: any;
-  ifDescriptionPanel = false;
-  descriptionPanel: any;
-  interval: any;
-  minutes: number = 0;
-  seconds: number = 0;
-  hours: number = 0;
-  workTime1!: any[];
+
   timeSetting: any;
   taskGuid: any;
   systemGuid: any;
-  taskDetails: any;
+  TaskByGuidObject!: TaskByGuid;
+  kindOfMassageUserFinishtasklesstime = 'kindOfMassageUserFinishtasklesstime'
+  massgeUserFinishtasklesstimeBody2 = " שעות עבודה לעומת שעות בפועל "
+  massgeUserFinishtasklesstimeHeader = "כל הכבוד"
+  massgeUserFinishtasklesstimeBody = "שעות העבודה על המשימה היו פחות ממשך הזמן שהוקצה לה!";
+  showMassgeToUser = false;
+  kindOfMassageifInTheMiddleOfWorkOnATask = 'kindOfMassageifInTheMiddleOfWorkOnATask';
+  showMassgeToUserIfInTheMiddleOfWorkOnATask = false;
+  taskNameFromLocalStorage: any;
+  massgeUseIfInTheMiddleOfWorkOnATaskHeader = "!יש לך משימה פתוחה";
+  massgeUserIfInTheMiddleOfWorkOnATaskBody = "?האם ברצונך לחזור אליה";
   titleCard = 'פרטי המשימה';
+  kindOfMassageIsifCloseTask = 'kindOfMassageIsifCloseTask';
+  massgeUserCloseTaskBody = "!שים לב";
+  massgeUserCloseTaskFooter = "פעולה זו סוגרת  את הטיימר של המשימה";
+  massgeUserCloseTaskHeader = "?האם אתה בטוח שברצונך לצאת";
+  showMassgeToUseMIfFinishtasklesstime = false;
   taskListDataDetails: any;
   taskListDataDetailsParseToJson: any;
   openChartComparePopUp!: boolean
+  
   constructor(private appService: AppService, private popUpService: PopUpServiceService,
     private userService: UserServiceService, private activatedRoute: ActivatedRoute) {
   }
@@ -62,37 +56,6 @@ export class SpecificTaskComponent implements OnInit {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
     console.log(this.taskListDataDetailsParseToJson);
-    // this.checkIfSecondOrHours()
-  }
-  // checkIfSecondOrHours() {
-  //   if (this.listData.WorkingHours == 1) {
-  //     this.timeSetting = "שעה"
-  //   }
-  //   if (this.listData.WorkingHours > 1) {
-  //     this.timeSetting = "שעות"
-  //   }
-  //   if (this.listData.WorkingHours < 1) {
-  //     this.timeSetting = "דקות"
-  //   }
-  // }
-
-  closeDescriptionPanel() {
-    this.appService.setIsDescriptionPanelOpen(false);
-    this.appService.getIsDescriptionPanelOpen().subscribe(res => {
-      this.ifDescriptionPanel = res;
-    })
-  }
-
-  startTimer() {
-    this.clickStartTimer.emit()
-  }
-  pauseTimer(worktime: any) {
-    this.clickPauseTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask ? this.descriptionTask : "" })
-  }
-  deleteTimer(worktime: any) {
-
-    this.clickdeleteTimer.emit({ worktime: worktime, descriptionTask: this.descriptionTask ? this.descriptionTask : "" })
-
   }
   SelectedData(val: any) {
     this.objectEmitter.emit(val)
@@ -100,9 +63,7 @@ export class SpecificTaskComponent implements OnInit {
   clickOfButton(kindOfButton: string, type: boolean) {
     this.getDataClickOfButton.emit({ "kind": kindOfButton, "type": type })
   }
-  // CloseCard() {
-  //   this.clickCloseCard.emit()
-  // }
+ 
   backToMyTask() {
     this.clickBackToMyTask.emit();
   }
@@ -119,6 +80,37 @@ export class SpecificTaskComponent implements OnInit {
   BackToMyTask() {
 
   }
-  
+  clickYes(val: any) {
+
+  }
+  clickNo(val: any) {
+
+  }
+  AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any, massageFromServerUpdate: any) {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetActualTaskHours(this.systemGuid, TaskGuid).subscribe(
+      res => {
+        if (res) {
+          this.TaskByGuidObject = res;
+          if (this.TaskByGuidObject.WorkingHours == "0") {
+            swal(massageFromServerUpdate)
+          }
+          else
+            if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
+              this.showMassgeToUseMIfFinishtasklesstime = true
+              setTimeout(() => {
+                this.showMassgeToUseMIfFinishtasklesstime = false
+              }, 2000)
+            }
+            else {
+              swal(massageFromServerUpdate)
+            }
+        }
+      },
+      err => {
+        console.log(err.error);
+      }
+    )
+  }
 
 }

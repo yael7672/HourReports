@@ -13,19 +13,9 @@ import { UserServiceService } from '../user-service.service';
 })
 export class TimeCounterComponent implements OnInit {
 
-  timerDisplay!: number;
-
-  startTime!: number;
-
-  timerInterval: any;
-
-  isPaused = false;
-
-  systemGuid: any;
-
-  startWorkOfTask = false;
   @Input() descriptionTask!: string;
-
+  systemGuid: any;
+  startWorkOfTask = false;
   projectContectItemGuid: any;
   workTime: any;
   Time: any;
@@ -41,8 +31,8 @@ export class TimeCounterComponent implements OnInit {
   isTaskAccomplished = false;
   taskListDataDetails: any;
   massageFromServer: any;
-  constructor(private userService: UserServiceService, private datePipe: DatePipe
-    , private popUpService: PopUpServiceService, public route: Router) { }
+  constructor(private userService: UserServiceService, private datePipe: DatePipe,
+    private popUpService: PopUpServiceService, public route: Router) { }
 
   ngOnInit(): void {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
@@ -53,7 +43,6 @@ export class TimeCounterComponent implements OnInit {
       this.disabledStartButton = true;
     }
   }
-
   startTimer() {
     this.disabledStartButton = true;
     this.disabledPauseButton = false;
@@ -72,7 +61,7 @@ export class TimeCounterComponent implements OnInit {
         let a = Date.now();
         localStorage.setItem("DateNow", a.toString());
         this.ContinueToWorkOnATask();
-        // this.massageFromServer = res;
+         this.massageFromServer = res;
         this.popUpService.SetProjectContentItemByTaskGuid(true)
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
       }
@@ -81,10 +70,9 @@ export class TimeCounterComponent implements OnInit {
     })
   }
   pauseTimer(time: any) {
-    if (this.workTime == 0 || this.workTime < "00:01:00") {
+    if (this.workTime == 0 || this.workTime < "00:01:00")
       swal("אין אפשרות לדווח פחות מ-1 דק")
-    }
-    else {  
+    else {
       this.popUpService.setStartTimer(false);
       this.disabledPauseButton = true;
       this.disabledStartButton = false;
@@ -104,7 +92,7 @@ export class TimeCounterComponent implements OnInit {
         this.isDisabledStart = false;
         this.isTaskAccomplished = false;
         this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.taskListDataDetailsParseToJson.TaskGuid,
-          this.isTaskAccomplished, this.descriptionTask).subscribe(
+          this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
             res => {
               if (res) {
                 this.massageFromServer = res;
@@ -126,10 +114,6 @@ export class TimeCounterComponent implements OnInit {
     this.disabledPauseButton = true;
     this.disabledStartButton = true;
     this.disabledEndButton = true;
-    localStorage.removeItem('TaskGuid');
-    localStorage.removeItem('TaskGuidTosend');
-    localStorage.removeItem('TaskName');
-    localStorage.removeItem("DateNow")
     this.startWorkOfTask = false;
     if (time != "00:00:00" && time !== undefined && time != "") {
       this.timetoSend = time?.split(':');
@@ -147,7 +131,6 @@ export class TimeCounterComponent implements OnInit {
         if (res) {
           this.massageFromServer = res;
           this.route.navigate(['/show-my-task'])
-          // this.AlertIfActualHoursLessThanAllottedHours(this.taskListDataDetails.TaskGuid, this.parseTime, this.massageFromServer)
           this.popUpService.setAllmyTask(true)
           this.popUpService.SetProjectContentItemByTaskGuid(true)
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)
@@ -180,32 +163,4 @@ export class TimeCounterComponent implements OnInit {
     this.Time = timestampNow - timestampCreatOn;
     return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
   }
-  //  AlertIfActualHoursLessThanAllottedHours(TaskGuid: any, parseTime: any, massageFromServerUpdate: any) {
-  //   this.systemGuid = localStorage.getItem('systemGuid');
-  //   this.userService.GetActualTaskHours(this.systemGuid, TaskGuid).subscribe(
-  //     res => {
-  //       if (res) {
-  //         this.TaskByGuidObject = res;
-  //         if (this.TaskByGuidObject.WorkingHours == "0") {
-  //           swal(massageFromServerUpdate)
-  //         }
-  //         else
-  //           if (this.TaskByGuidObject.WorkingHours > this.TaskByGuidObject.ActualTime) {
-  //             this.ifButtonFalse = false
-  //             this.showMassgeToUseMIfFinishtasklesstime = true
-  //             setTimeout(() => {
-  //               this.ifButtonFalse = false
-  //               this.showMassgeToUseMIfFinishtasklesstime = false
-  //             }, 2000)
-  //           }
-  //           else {
-  //             swal(massageFromServerUpdate)
-  //           }
-  //       }
-  //     },
-  //     err => {
-  //       console.log(err.error);
-  //     }
-  //   )
-  // }
 }

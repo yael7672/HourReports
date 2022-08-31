@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../app-service.service';
+import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorkingHours';
 import { PopUpServiceService } from '../pop-up-service.service';
+import { UserServiceService } from '../user-service.service';
 
 @Component({
   selector: 'app-personal-details',
@@ -12,32 +14,45 @@ export class PersonalDetailsComponent implements OnInit {
   systemName!: any;
   systemMail!: any;
   systemGuid!: any;
-  @Input()ifX!:boolean;
-  @Input()todayDate:any;
-
-  @Input() DailyAndMonthlyWorkingHours:any
+  @Input() ifX!: boolean;
+  @Input() todayDate: any;
   @Output() openPopUp = new EventEmitter<any>();
   @Output() closePersonalDetails = new EventEmitter<any>();
+  DailyAndMonthlyWorkingHours:any;
 
-  constructor(public route:Router,  private appService: AppService,  private popUpService: PopUpServiceService) { }
+  constructor(public route: Router, private appService: AppService, private popUpService: PopUpServiceService,private userService:UserServiceService) { }
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.systemName = localStorage.getItem('systemName');
     this.systemMail = localStorage.getItem('systemMail');
-
+    this.GetDailyWorkingHoursAndMonthlyWorkingHours();
   }
-  LogOut()
-  {
+  LogOut() {
     localStorage.clear();
-this.route.navigate(['/login'])
+    this.route.navigate(['/login'])
   }
-  openPopUpp(data: string, type: boolean)
-  {
-    this.openPopUp.emit({date:data,type:type})
+  openPopUpp(data: string, type: boolean) {
+    this.openPopUp.emit({ date: data, type: type })
   }
-  closePersonalDetailss()
-  {
+  closePersonalDetailss() {
     this.closePersonalDetails.emit()
+  }
+  goTpHoursAwaitingApproval() {
+    this.route.navigate(['/hours-awaiting-approval-component'])
+  }
+  GetDailyWorkingHoursAndMonthlyWorkingHours() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+          this.DailyAndMonthlyWorkingHours = res;
+          console.log( this.DailyAndMonthlyWorkingHours);
+          
+        }
+      }, err => {
+        console.log(err.error)
+      }
+    )
   }
 }

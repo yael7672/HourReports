@@ -36,16 +36,43 @@ export class ProjectContentItemComponent implements OnInit {
   taskListDataDetails: any;
   taskListDataDetailsParseToJson: any;
   ifSortDown = false;
+  workTypeArr: any;
+  projectArr: any;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
       console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
     })
+    this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
+      if (res) 
+        this.GetProjectContentItemByTaskGuid(this.taskListDataDetailsParseToJson?.TaskGuid);
+    })
   }
   ngOnInit(): void {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
+    this.GetProject();
+    this.GetWorkType();
     this.GetProjectContentItemByTaskGuid(this.taskListDataDetailsParseToJson.TaskGuid);
+  }
+  GetWorkType() {
+    this.userService.GetWorkType().subscribe(
+      (res: any) => {
+        this.workTypeArr = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
+  GetProject() {
+    this.userService.GetProject().subscribe(res => {
+      if (res) {
+        this.projectArr = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
   }
   async GetProjectContentItemByTaskGuid(taskGuid: string) {
     this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
@@ -54,9 +81,8 @@ export class ProjectContentItemComponent implements OnInit {
           this.projectContentItemArr = res;
           this.ifThereAreprojectContentItem = true;
         }
-        else {
+        else
           this.ifThereAreprojectContentItem = false;
-        }
       },
       err => {
         console.log(err.error);

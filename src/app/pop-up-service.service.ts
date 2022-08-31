@@ -100,12 +100,4 @@ export class PopUpServiceService {
   {
     return this.isStartTimer$;
   }
-  setPouseTimer(val:boolean)
-  {
-    this.isPouseTimer$.next(val);
-  }
- getPouseTimer()
-  {
-    return this.isPouseTimer$;
-  }
 }

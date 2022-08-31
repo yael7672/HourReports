@@ -8,6 +8,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SmartTableComponent implements OnInit {
 
   constructor() { }
+  @Input() ifUpdate!:boolean;
+   @Input() ifDelete!:boolean;
   @Input() thArr: any;
   @Input() ifUpdateOpen: any
   @Input() ifSortDown!: boolean
@@ -18,7 +20,8 @@ export class SmartTableComponent implements OnInit {
   @Output() SortTableDown = new EventEmitter<any>();
   @Output() SortTableUp = new EventEmitter<any>();
   @Output() SelectedData = new EventEmitter<any>();
-  
+  ifDelete1=true;
+  ifUpdate1=true
   ngOnInit(): void {
   }
   editProjectContentItemIcon(colData: any) {

@@ -5,7 +5,7 @@
 <!-- המשימות האחרונות שעבדתי עליהן -->
 <app-smart-card [title]="titleTableTeamsTask">
   <div body>
-    <app-smart-table [thArr]="thArrTaskTeams" [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys"
+    <app-smart-table [ifUpdate]="true"  [thArr]="thArrTaskTeams" [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys"
       [tableData]="taskTeamsArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
       (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
       (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedData($event)"

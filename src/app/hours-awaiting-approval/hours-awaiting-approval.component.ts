@@ -15,9 +15,13 @@ export class HoursAwaitingApprovalComponent implements OnInit {
   projectContentItem: any;
   showMassgeToUser: any;
   hoursAwaitingApprovalArr: any;
-  updateProjectContentItemDetails=false
+  updateProjectContentItemDetails = false
   projectContentItemListKeys = ['Name', 'Date', 'ManagerNotes', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'הערות מנהל', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
+  projectArr: any;
+  workTypeArr: any;
+  ifSortDown = false;;
+
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
@@ -25,7 +29,29 @@ export class HoursAwaitingApprovalComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.GetHoursAwaitingApproval()
+    this.GetHoursAwaitingApproval();
+    this.GetWorkType();
+    this.GetProject();
+
+  }
+  GetWorkType() {
+    this.userService.GetWorkType().subscribe(
+      (res: any) => {
+        this.workTypeArr = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
+  GetProject() {
+    this.userService.GetProject().subscribe(res => {
+      if (res) {
+        this.projectArr = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
   }
   GetHoursAwaitingApproval() {
     this.systemGuid = localStorage.getItem('systemGuid')
@@ -40,12 +66,80 @@ export class HoursAwaitingApprovalComponent implements OnInit {
   }
   editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
-   this.updateProjectContentItemDetails=true;
+    this.updateProjectContentItemDetails = true;
     this.projectContentItem = val;
   }
   deleteProjectContentItemIcon(ProjectContentItem: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
+  }
+  SortTableDown(thNameAndData: any) {
+    this.ifSortDown = false;
+    let keyToSort: any;
+    switch (thNameAndData.th) {
+      case 'נוצר ב:':
+        keyToSort = 'CreatedOn';
+        break;
+      case 'שעות מוקצות למשימה':
+        keyToSort = 'WorkingHours';
+        break;
+      case 'תאריך יעד':
+        keyToSort = 'ScheduledEndDate';
+        break;
+      case 'פרוייקט':
+        keyToSort = ['Project', 'Name'];
+        break;
+      case 'שם המשימה':
+        keyToSort = 'Subject';
+        break;
+      case 'עדיפות':
+        keyToSort = 'PriorityCode';
+        break;
+      default:
+        break;
+    }
+    if (keyToSort != 'Project') {
+      this.hoursAwaitingApprovalArr?.sort((a: any, b: any) =>
+        (a[keyToSort] ? a[keyToSort] : "" > (b[keyToSort] ? b[keyToSort] : "")) ? 1 : -1)
+    }
+    else {
+      this.hoursAwaitingApprovalArr?.sort((a: any, b: any) =>
+        (a[keyToSort[1]] > (b[keyToSort[1]])) ? 1 : -1)
+    }
+  }
+  SortTableUp(thName: any) {
+    this.ifSortDown = true;
+    let keyToSort: any;
+    switch (thName) {
+      case 'נוצר ב:':
+        keyToSort = 'CreatedOn';
+        break;
+      case 'שעות מוקצות למשימה':
+        keyToSort = 'WorkingHours';
+        break;
+      case 'תאריך יעד':
+        keyToSort = 'ScheduledEndDate';
+        break;
+      case 'פרוייקט':
+        keyToSort = ['Project', 'Name'];
+        break;
+      case 'שם המשימה':
+        keyToSort = 'Subject';
+        break;
+      case 'עדיפות':
+        keyToSort = 'PriorityCode';
+        break;
+      default:
+        break;
+    }
+    if (keyToSort!= 'Project') {
+      this.hoursAwaitingApprovalArr?.sort((a: any, b: any) =>
+        (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
+    }
+    else {
+      this.hoursAwaitingApprovalArr?.sort((a: any, b: any) =>
+        (a[keyToSort[1]] < (b[keyToSort[1]])) ? 1 : -1)
+    }
   }
 }

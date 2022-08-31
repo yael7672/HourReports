@@ -19,6 +19,7 @@ import { UpdateProjectContentItemComponent } from './update-project-content-item
 import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the-last-tasks-iworked.component';
 import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
 import { MyProjectContectItemsComponent } from './project-contect-items/my-project-contect-items/my-project-contect-items.component';
+import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-awaiting-approval.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -41,7 +42,8 @@ const routes: Routes = [
   { path: 'show-my-task', component: ShowMyTaskComponent },
   { path: 'show-team-my-task', component: ShowMyTeamTaskComponent },
   { path: 'the-last-tasks-i-worked', component: TheLastTasksIWorkedComponent },
-  { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent }
+  { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent },
+  { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent }
 
 ];
 

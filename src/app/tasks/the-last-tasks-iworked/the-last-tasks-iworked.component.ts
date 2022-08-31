@@ -103,7 +103,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
   }
   SortLastTaskIWorkedOn() {
     this.sortTaskArr.sort((a: any, b: any) =>
-      (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
-    )
+    (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
+  )
   }
 }

@@ -35,6 +35,8 @@ export class DeleteProjectContentItemComponent implements OnInit {
         this.showMassgeToUser = false;
         this.popUpService.setAllmyProjectContectItem(true)
         this.popUpService.setClosePopUp();
+        this.popUpService.SetProjectContentItemByTaskGuid(true);
+
       },
       (err) =>
         swal(err.error))

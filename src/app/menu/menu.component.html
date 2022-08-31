@@ -1,16 +1,23 @@
 <div class="all-page">
   <div class="aImg">
-    <a (click)="GoToHome()"> <i class="fa fa-home" aria-hidden="true" data-toggle="tooltip" data-placement="top" title=""></i></a>
-    <a (click)="openPopUp('creatTask',true)" data-toggle="tooltip" data-placement="top" title="יצירת משימה" ><i class="fa fa-edit"></i>
-</a>
-    <a (click)="openPopUp('createAprojectContentItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת פריט תכול פרויקט"><span class="iconify"
-        data-icon="fluent:task-list-add-20-filled"></span>
+    <a (click)="GoToHome()">
+      <i class="fa fa-home" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="">
+      </i></a>
+    <a (click)="openPopUp('creatTask',true)" data-toggle="tooltip" data-placement="top" title="יצירת משימה"><i
+        class="fa fa-edit"></i>
     </a>
-    <a (click)="goToMyprojectContentItem()" data-toggle="tooltip" data-placement="top" title="פריטי תכולת פרויקט"><i class="fa fa-calendar-check-o"></i>
+    <a (click)="openPopUp('createAprojectContentItem',true)" data-toggle="tooltip" data-placement="top"
+      title="יצירת פריט תכול פרויקט"><span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
     </a>
-    <a (click)="openPopUp('pause',true)" data-toggle="tooltip" data-placement="top" title="צא להפסקה"><i class="fa fa-coffee"></i></a>
-   <a (click)="openPopUp('timeOfProjectContectItem',true)" data-toggle="tooltip" data-placement="top" title="יצירת מהירה של פריט תכולת פרויקט"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
-    <a (click)="GoToStatisticsGraph()" data-toggle="tooltip" data-placement="top" title="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
+    <a (click)="goToMyprojectContentItem()" data-toggle="tooltip" data-placement="top" title="פריטי תכולת פרויקט"><i
+        class="fa fa-calendar-check-o"></i>
+    </a>
+    <a (click)="openPopUp('pause',true)" data-toggle="tooltip" data-placement="top" title="צא להפסקה"><i
+        class="fa fa-coffee"></i></a>
+    <a (click)="openPopUp('timeOfProjectContectItem',true)" data-toggle="tooltip" data-placement="top"
+      title="יצירת מהירה של פריט תכולת פרויקט"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
+    <a (click)="GoToStatisticsGraph()" data-toggle="tooltip" data-placement="top" title="צפיה בסטטיסטיקות"><i
+        class="fa fa-bar-chart" aria-hidden="true"></i> </a>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
       <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
@@ -21,116 +28,10 @@
       </a>
     </div>
   </div>
+
   <div *ngIf="startWorkOfTask">
-    <a (click)="returnToTheOpenTask()"><i id="clock-history" class="iconify"
-        data-icon="bi:clock-history"></i></a>
+    <a (click)="returnToTheOpenTask()"><i id="clock-history" class="iconify" data-icon="bi:clock-history"></i></a>
   </div>
-
-  <!-- <div class="menu" *ngIf="!openMyProjectContectItem">
-    <div *ngIf="tableMyTaskOpen||tableMyTaskTeamsOpen||tableLastTaskIWorkedOn" class="input-group">
-      <div class="form-outline">
-        <div class="form-outline d-flex justify-content-center mb-4">
-          <ng-autocomplete style="width: 100%;" [data]="taskArr" [searchKeyword]="'Subject'" placeholder="חפש לפי משימה"
-            historyIdentifier="Subject" class="autoComplete" [itemTemplate]="itemTemplate"
-            (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject" #Subject="ngModel" required
-            [notFoundTemplate]="notFoundTemplate">
-          </ng-autocomplete>
-          <ng-template #itemTemplate let-item>
-            <a [innerHTML]="item.Subject"></a>
-          </ng-template>
-          <ng-template #notFoundTemplate let-notFound>
-            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-          </ng-template>
-        </div>
-
-        <div class="form-outline d-flex justify-content-center mb-4">
-          <ng-autocomplete style="width: 100%;" [data]="projectArr" [searchKeyword]="'Name'"
-            placeholder="חפש לפי פרויקט" historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
-            (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
-            [notFoundTemplate]="notFoundTemplate2">
-          </ng-autocomplete>
-          <ng-template #itemTemplate2 let-item>
-            <a [innerHTML]="item.Name"></a>
-          </ng-template>
-          <ng-template #notFoundTemplate2 let-notFound>
-            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-          </ng-template>
-        </div>
-
-        <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
-          <option value="">--בחר אחת מהאופציות הבאות--</option>
-          <option value="0">המשימות שלי </option>
-          <option value="1"> המשימות של הצוותים אליהם אני שייך</option>
-          <option value="2">המשימות האחרונות שעבדתי עליהן </option>
-        </select>
-      </div>
-      <div class="row">
-        <i class="fa fa-search"></i>
-        <i class="fa fa-search mb-4"></i>
-      </div>
-    </div>
-    <div *ngIf="ifThereAreTasks">
-      <br>
-      <h2>אין משימות פעילות!</h2>
-    </div>
-
-    <!-- המשימות שלי -->
-    <!-- <app-smart-card *ngIf="tableMyTaskOpen&&tableMyTaskOpen1" [title]="titleTableTask">
-      <div body>
-        <app-show-my-task  [project]="projectArr"  [workType]="workTypeArr" (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
-          [kindOfCard]="'tableCard'" [thArr]="thArrTask" (getDataClickOfButton)="whichButtonChoose($event)"
-          [tableData]="taskArr" [tableDataKeys]="taskListKeys">
-        </app-show-my-task>
-      </div>
-    </app-smart-card> -->
-    <!-- המשימות של הצוותים שלי -->
-    <!-- <app-smart-card *ngIf="tableMyTaskTeamsOpen&&tableMyTaskTeamsOpen1" [title]="titleTableTeamsTask">
-      <div body>
-        <app-show-my-task   [project]="projectArr"  [workType]="workTypeArr"(clickSelectedTask)="SelectedTask($event)" [nameSearch]="nameSearch"
-          [hideProjectTh]="hideProjectTh" [kindOfCard]="'tableCard'" [thArr]="thArrTaskTeams"
-          (getDataClickOfButton)="whichButtonChoose($event)" [tableData]="taskTeamsArr"
-          [tableDataKeys]="taskTeamsListKeys">
-        </app-show-my-task>
-      </div>
-    </app-smart-card> -->
-    <!-- המשימות שעבדתי עליהן לאחרונה -->
-    <!-- <app-smart-card *ngIf="tableLastTaskIWorkedOn&&tableMyTaskTeamsOpen1" [title]="titleLastTaskIWorkedOn">
-      <div body>
-        <app-show-my-task  [project]="projectArr"  [workType]="workTypeArr" (clickSelectedTask)="SelectedTask($event)" [hideProjectTh]="hideProjectTh"
-          [kindOfCard]="'tableCard'" [thArr]="thArrTaskTeams" (getDataClickOfButton)="whichButtonChoose($event)"
-          [tableData]="sortTaskArr" [tableDataKeys]="taskTeamsListKeys">
-        </app-show-my-task>
-      </div>
-    </app-smart-card> -->
-
-    <!-- <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true"
-      *ngIf="tableSpecificTaskOpen" [title]="titleCard" [arrFunc]="arrFunc" [isDisabledStart]="isDisabledStart"
-      [textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()">
-      <div body>
-        <app-specific-task [listData]="taskListDataDetails" [listDataKeys]="taskListKeys"
-          [isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart"
-          [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
-          (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)"
-          (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
-        </app-specific-task>
-      </div> -->
-    <!-- </app-smart-card> -->
-    <!-- <div *ngIf="ifThereAreprojectContentItem">
-      <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
-        <div body>
-          <app-project-content-item [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'"
-            [thArr]="thArrTableProjectContentItem" [tableData]="projectContentItemArr"
-            [tableDataKeys]="projectContentItemListKeys"></app-project-content-item>
-        </div>
-      </app-smart-card>
-    </div>
-  </div>  -->
-
-
-<!-- 
-  <app-my-project-contect-items *ngIf="openMyProjectContectItem" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys">
-  </app-my-project-contect-items> -->
-
 
   <div *ngIf="isPopUpOpen?.creatTask">
     <app-create-new-task></app-create-new-task>
@@ -140,23 +41,19 @@
     <app-update-an-existing-task></app-update-an-existing-task>
   </div>
 
-  <div *ngIf="isPopUpOpen?.endTask">
-    <app-end-of-task></app-end-of-task>
-  </div>
-
   <div *ngIf="openPersonalDetails">
     <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [todayDate]="todayDate"
-      (closePersonalDetails)="closePersonalDetails()" [DailyAndMonthlyWorkingHours]="DailyAndMonthlyWorkingHours">
+      (closePersonalDetails)="closePersonalDetails()" >
     </app-personal-details>
   </div>
 
   <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
-    <app-create-aproject-content-item [MyTask]="taskArr"></app-create-aproject-content-item>
+    <app-create-aproject-content-item ></app-create-aproject-content-item>
   </div>
 
   <div *ngIf="isPopUpOpen?.sickLeave">
-    <app-sick-leave-project-content-item [myTask]="taskArr" [todayDate]="todayDate"
-     [project]="projectArr"  [workType]="workTypeArr"></app-sick-leave-project-content-item>
+    <app-sick-leave-project-content-item [myTask]="taskArr" [todayDate]="todayDate" [project]="projectArr"
+      [workType]="workTypeArr"></app-sick-leave-project-content-item>
   </div>
 
   <div *ngIf="isPopUpOpen?.Freedom">
@@ -164,27 +61,7 @@
       [workType]="workTypeArr"></app-freedom-project-content-item>
   </div>
 
-  <!-- <div *ngIf="showMassgeToUser">
-    <app-pop-up>
-      <div body>
-        <app-massge-to-user [kindOfMassage]="kindOfMassageIsifCloseTask" [massgeUserHeader]="massgeUserCloseTaskHeader"
-          [massgeUserBody1]="massgeUserCloseTaskBody" [massgeUserBody2]="massgeUserCloseTaskFooter"
-          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
-      </div>
-    </app-pop-up>
-  </div> -->
 
-  <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATask">
-    <app-pop-up>
-      <div body>
-        <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATask"
-          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody"
-          [massgeUserHeader]="massgeUseIfInTheMiddleOfWorkOnATaskHeader"
-          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody" [massgeUserBody2]="taskNameFromLocalStorage"
-          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
-      </div>
-    </app-pop-up>
-  </div> -->
 
   <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
     <app-pop-up>
@@ -198,26 +75,19 @@
     </app-pop-up>
   </div> -->
 
-  <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
+  <div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
     <app-pop-up>
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite"
           [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody"
           [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader"
           [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" [ifButton]="true"
-          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+          ></app-massge-to-user>
+          <!-- (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" -->
       </div>
     </app-pop-up>
-  </div> -->
-  <!-- <div *ngIf="showMassgeToUseMIfFinishtasklesstime">
-    <app-pop-up>
-      <div body>
-        <app-massge-to-user [kindOfMassage]="kindOfMassageUserFinishtasklesstime"
-          [massgeUserHeader]="massgeUserFinishtasklesstimeHeader" [massgeUserBody1]="massgeUserFinishtasklesstimeBody"
-          [massgeUserBody2]="massgeUserFinishtasklesstimeBody2"></app-massge-to-user>
-      </div>
-    </app-pop-up>
-  </div> -->
+  </div> 
+
 
   <div *ngIf="isPopUpOpen?.pause">
     <app-pause-work [buttonEnd]="endButton" [workTime]="workTime">
@@ -225,9 +95,6 @@
   </div>
 
 
-  <div *ngIf="showstatiSticsGraph">
-    <app-statistics-graph></app-statistics-graph>
-  </div>
 
   <div *ngIf="isPopUpOpen?.timeOfProjectContectItem">
     <app-project-contect-item-with-time></app-project-contect-item-with-time>

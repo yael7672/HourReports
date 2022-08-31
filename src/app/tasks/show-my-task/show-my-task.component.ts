@@ -49,6 +49,10 @@ export class ShowMyTaskComponent implements OnInit {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
+    this.popUpService.getAllmyTask().subscribe(res => {
+      if(res)
+      this.GetMyTask()
+    })
   }
   ngOnInit(): void {
     this.GetProject();

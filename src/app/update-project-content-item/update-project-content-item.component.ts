@@ -33,19 +33,17 @@ export class UpdateProjectContentItemComponent implements OnInit {
   workingHours!: Number;
   WorkTimeArr!: any
   TaskToUpdate: any;
-  allUserAndTeams:any;
+  allUserAndTeams: any;
   constructor(private router: Router, private userService: UserServiceService, private appService: AppService,
     private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
-     }
+  }
 
   ngOnInit(): void {
-    console.log("ProjectContentItem",this.ProjectContentItem);
-    
     this.workingHours = Number(this.ProjectContentItem?.WorkingHours)
     this.GetAllUserAndTeams();
   }
-  UpdateTaskOrProjectContectItem(f:NgForm) {
+  UpdateTaskOrProjectContectItem(f: NgForm) {
     if (this.kindUpdate == 'updateTaskDetails') {
       this.UpdateTaskDetails(f)
     }
@@ -56,17 +54,16 @@ export class UpdateProjectContentItemComponent implements OnInit {
     }
   }
 
-  UpdateTaskDetails(form:NgForm) {
-    this.TaskToUpdate = { 
-    Project:  form.value.Project.Guid ,
-    TaskGuid : this.ProjectContentItem.TaskGuid ,
-    WorkType : form.value.WorkType.Guid,
-    AssignTask : form.value.AssignTask.Guid,
-    Description :this.ProjectContentItem.Description,
-    Subject:this.ProjectContentItem.Subject,
-    
+  UpdateTaskDetails(form: NgForm) {
+    this.TaskToUpdate = {
+      Project: form.value.Project.Guid,
+      TaskGuid: this.ProjectContentItem.TaskGuid,
+      WorkType: form.value.WorkType.Guid,
+      AssignTask: form.value.AssignTask.Guid,
+      Description: this.ProjectContentItem.Description,
+      Subject: this.ProjectContentItem.Subject,
     }
-    this.userService.UpdateTaskDetails(this.TaskToUpdate.TaskGuid,this.TaskToUpdate.Project, this.TaskToUpdate.Description,this.TaskToUpdate.Subject,this.TaskToUpdate.WorkType,this.TaskToUpdate.AssignTask).subscribe(
+    this.userService.UpdateTaskDetails(this.TaskToUpdate.TaskGuid, this.TaskToUpdate.Project, this.TaskToUpdate.Description, this.TaskToUpdate.Subject, this.TaskToUpdate.WorkType, this.TaskToUpdate.AssignTask).subscribe(
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
@@ -78,25 +75,30 @@ export class UpdateProjectContentItemComponent implements OnInit {
         console.log(err.error)
     )
   }
-  UpdateProjectItemButton(form:NgForm) {
+  UpdateProjectItemButton(form: NgForm) {
     this.ProjectItemToUpdate = {
       Guid: this.ProjectContentItem.Guid,
       Description: this.ProjectContentItem.Description,
       ActualTime: this.workingHours,
-      WorkType:{"Guid":this.ProjectContentItem.WorkType.Guid},
-      // Project: this.ProjectContentItem.Project.Guid,
-      Date:this.ProjectContentItem.Date,
+      WorkType: { "Guid": this.ProjectContentItem.WorkType.Guid },
+      Project: { "Guid": this.ProjectContentItem.Project.Guid },
+      Date: this.ProjectContentItem.Date,
     }
     this.userService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
-        this.popUpService.SetProjectContentItemByTaskGuid(true);
+        if (window.location.pathname == '/my-project-contect-items-component') {
+          this.popUpService.setAllmyProjectContectItem(true);
+          this.appService.setIsPopUpOpen(false);
+          this.popUpService.setClosePopUp()
+        } else
+          this.popUpService.SetProjectContentItemByTaskGuid(true);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
       (err) =>
-      console.log(err.error)
+        console.log(err.error)
     )
   }
   GetAllUserAndTeams() {
