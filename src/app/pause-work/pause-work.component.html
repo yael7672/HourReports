@@ -1,18 +1,24 @@
-<app-pop-up #upPopUP [ifX]="ifX">
-    <h4 header class="mb-4">הפסקה 
-        <img src="..\../assets/images/pathIcon2.jpg" alt="Card image cap"
-        class="image my-3" alt="profile">
+<app-pop-up #upPopUP [ifX]="ifX"  >
+    <h4 header class="mb-4">הפסקה
+        <img src="..\../assets/images/pathIcon2.jpg" alt="Card image cap" class="image my-3" alt="profile">
         <!-- <i class="fa fa-coffee "></i> -->
     </h4>
     <div body>
-        <form (ngSubmit)="OpenPopUpIfClosePause()" #f=ngForm>
-            <button *ngIf="endButton" type="submit" class="btn ">סיים הפסקה</button>
-        </form>
         <div class="form-outline d-flex justify-content-center">
-            <button class="btn" *ngIf="!endButton"  (click)="startPause()">התחל הפסקה</button>
             <p *ngIf="workTimeHour" class="Time">
                 {{workTimeHour}}
             </p>
+            <button class="btn" *ngIf="!endButton" (click)="startPause()">התחל הפסקה</button>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <form (ngSubmit)="OpenPopUpIfClosePause()" #f=ngForm>
+                    <button *ngIf="endButton" type="submit" class="btn ">סיים הפסקה</button>
+                </form>
+            </div>
+            <div class="col-6">
+                    <button *ngIf="endButton" type="submit" class="btn " (click)="CancelPause()" >בטל הפסקה</button>
+            </div>
         </div>
     </div>
     <div footer>
@@ -21,17 +27,25 @@
 <div *ngIf="showMassgeToUser">
     <app-pop-up>
         <div body>
-            <app-massge-to-user [kindOfMassage]="popUpPause" [massgeUserHeader]="massgeUserCloseWorkPause1" (clickYes)="clickYes(workTimeHour)"
-                (clickNo)="clickNo()" [ifButton]="true"></app-massge-to-user>
+            <app-massge-to-user [kindOfMassage]="popUpPause" [massgeUserHeader]="massgeUserCloseWorkPause1"
+                (clickYes)="clickYes(workTimeHour)" (clickNo)="clickNo()" [ifButton]="true"></app-massge-to-user>
         </div>
     </app-pop-up>
 </div>
 <div *ngIf="showMassgeToUserEdit">
     <app-pop-up>
         <div body>
-            <app-massge-to-user-with-edit [kindOfMassage]="'EditPauseHour'" [massgeUserHeader]="massgeUserEditPauseHour1" 
-            [Time]="parseTime"  (clickNo)="clickCancel()"  (clickEdit)="Edit($event)" [ifButton]="true"></app-massge-to-user-with-edit>
+            <app-massge-to-user-with-edit [kindOfMassage]="'EditPauseHour'"
+                [massgeUserHeader]="massgeUserEditPauseHour1" [Time]="parseTime" (clickNo)="clickCancelEdit()"
+                (clickEdit)="Edit($event)" [ifButton]="true"></app-massge-to-user-with-edit>
         </div>
     </app-pop-up>
 </div>
-
+<div *ngIf="showMassgeToUserCancelPause">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user [kindOfMassage]="cancelPause" [massgeUserHeader]="'שים לב אתה באמצע הפסקה'" [massgeUserBody2]="' האם ברצונך לבטל אותה?'" (clickYes)="clickYesCancel(workTimeHour)"
+         (clickNo)="clickNoCancel()" [ifButton]="true"></app-massge-to-user>
+        </div>
+    </app-pop-up>
+  </div>

@@ -8,6 +8,7 @@ import swal from 'sweetalert';
 import { MenuComponent } from '../menu/menu.component';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Router } from '@angular/router';
+import { ShowMyTaskComponent } from '../tasks/show-my-task/show-my-task.component';
 
 
 @Component({
@@ -16,30 +17,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./pause-work.component.css']
 })
 export class PauseWorkComponent implements OnInit {
-
-  @Input() workTime!: any;
-  @Input() buttonEnd!: any;
-  @Output() ClickStartPause = new EventEmitter<any>()
   massgeUserCloseWorkPause1 = "?האם אתה בטוח שברצונך לסיים הפסקה"
   todayDate!: any;
-  myDate = new Date();
-  pauseGuid: any;
-  systemGuid: any;
+  myDate = new Date()
+  pauseGuid: any
+  systemGuid: any
+  showMassgeToUserCancelPause = false
+  cancelPause = "cancelPause"
+  ButtonCancel = true
+  @Input() workTime!: any;
+  @Input() buttonEnd!: any;
+
+  @Output() ClickStartPause = new EventEmitter<any>();
   workTimeHour!: any
   descriptionPanel: any;
   interval: any;
-  endButton!: boolean;
+  endButton!: boolean
   timetoSend: any;
   parseTime: any;
-  showMassgeToUser!: boolean;
-  showMassgeToUserEdit!:boolean;
-  formWorkPause!: NgForm;
+  showMassgeToUser!: boolean
+  showMassgeToUserEdit!: boolean
+  formWorkPause!: NgForm
   ifX = true;
   taskGuid: any;
-  ifInMiddleTask = false;
-  openSpecificTask = false;
-  taskListDataDetails: any;
-  popUpPause = "popUpPause";
+  ifInMiddleTask = false
+  openSpecificTask = false
+  taskListDataDetails: any
+  popUpPause = "popUpPause"
   workTimeLS!: any;
   workTimeHourLS!: any;
   workTime1: any;
@@ -47,10 +51,11 @@ export class PauseWorkComponent implements OnInit {
   creatOnProjectContentItem!: string;
   Time: any;
   ifInTheMiddleOfABreak = "false";
-  pauseForLoclStorage:any;
-  massgeUserEditPauseHour1="עריכת שעות הפסקה";
-
-  constructor(private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
+  pauseForLoclStorage: any
+  ifCancel = true
+  massgeUserEditPauseHour1 = "עריכת שעות הפסקה"
+  massageToUser: any;
+  constructor(private userService: UserServiceService, private elementRef: ElementRef, private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
     private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
   }
@@ -58,9 +63,9 @@ export class PauseWorkComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem("endButton") == "true") { this.endButton = true }
     if (localStorage.getItem("endButton") == "false") { this.endButton = false }
-      if (localStorage.getItem('DateNowPause')) {
-        this.ContinueToBePause();
-      }
+    if (localStorage.getItem('DateNowPause')) {
+      this.ContinueToBePause();
+    }
   }
 
   BeforePauseWork() {
@@ -72,12 +77,12 @@ export class PauseWorkComponent implements OnInit {
     this.systemGuid = localStorage.getItem("systemGuid")
     this.taskGuid = localStorage.getItem("TaskGuid")
     this.pauseGuidForLoclStorage = localStorage.getItem('pauseGuid')
-    this.userServiceService.PauseWork(this.systemGuid,this.pauseGuidForLoclStorage ,workTime).then(
+    this.userServiceService.PauseWork(this.systemGuid, this.pauseGuidForLoclStorage, workTime).then(
       (res: any) => {
         this.pauseGuid = res;
         swal(this.pauseGuid);
         clearInterval(this.interval)
-        localStorage.removeItem("DateNowPause") 
+        localStorage.removeItem("DateNowPause")
         this.endButton = false
         localStorage.setItem("endButton", String(this.endButton))
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
@@ -87,52 +92,73 @@ export class PauseWorkComponent implements OnInit {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-            let myCompMenu = new MenuComponent(this.router, this.popUpService, this.userServiceService, this.appService, this.buttonWorkingTaskService, this.datePipe)
-            // myCompMenu.SelectedTask(this.taskListDataDetails)
+            let showMyTaskComp = new ShowMyTaskComponent( this.popUpService,this.buttonWorkingTaskService,this.appService, this.userServiceService,this.router)
+            showMyTaskComp.SelectedTask(this.taskListDataDetails)
           }, 500)
         }
+        // }
       },
       (err: any) =>
         alert("error")
     )
   }
+
+  GetProjectContentItemByGuid() {
+    this.ifInTheMiddleOfABreak = "true";
+    localStorage.setItem('ifInTheMiddleOfABreak', this.ifInTheMiddleOfABreak)
+    this.pauseGuidForLoclStorage = localStorage.getItem('pauseGuid')
+    this.userServiceService.GetProjectContentItemByGuid(this.pauseGuidForLoclStorage).subscribe(res => {
+      if (res) {
+        this.creatOnProjectContentItem = res.CreatedOn;
+        const timestampCreatOn = new Date(this.creatOnProjectContentItem)
+        const timestampNow = (new Date(Date.now()))
+        this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
+        let latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
+        this.workTimeHour = latest_date;
+        localStorage.setItem('WorkTimePause', this.workTimeHour)
+      }
+    })
+  }
+
+
   startPause() {
+
     this.ifX = false;
     this.endButton = true;
     localStorage.setItem("endButton", String(this.endButton))
     this.CreatePauseWork();
     this.SelectedStartPause()
   }
-    SelectedStartPause() {
+  SelectedStartPause() {
     let a = Date.now()
     localStorage.setItem("DateNowPause", a.toString());
     this.continuePause();
   }
   OpenPopUpIfClosePause() {
-    if(this.workTimeHour == 0 ||this.workTimeHour  < "00:01:00")
-    {
-        swal("אין אפשרות לדווח פחות מ-1 דק")
+    if (this.workTimeHour == 0 || this.workTimeHour < "00:01:00") {
+      swal("אין אפשרות לדווח פחות מ-1 דק")
     }
-    else{
-        this.showMassgeToUser = true;
+    else {
+      this.showMassgeToUser = true;
     }
+
   }
 
   clickYes(time: any) {
-      if (time.worktime != "" || time != null) {
-        this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
-        clearInterval(this.interval);
-        if (this.timetoSend[2] > 30) {
-          this.timetoSend[1]++;
-        }
-        this.timetoSend[1] = (this.timetoSend[1] / 60)
-        this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-        if (this.parseTime == undefined) {
-          this.parseTime = "";
-        }
+    if (time.worktime != "" || time != null) {
+      this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
+      clearInterval(this.interval);
+      if (this.timetoSend[2] > 30) {
+        this.timetoSend[1]++;
+      }
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+      if (this.parseTime == undefined) {
+        this.parseTime = "";
+      }
     }
-    this.endButton = false 
-    this.showMassgeToUserEdit=true
+    this.endButton = false
+    this.showMassgeToUserEdit = true
     // this.PauseWork(this.parseTime)
   }
   clickNo() {
@@ -157,47 +183,91 @@ export class PauseWorkComponent implements OnInit {
   }
   ContinueToBePause() {
     // if (localStorage.getItem("WorkTimePause")) {
-      this.ifX=false
-      this.getCreatedProjectContentItemFromLoaclStorage();
-      this.interval = setInterval(() => {
-        if (this.workTimeHour) {
-          this.getCreatedProjectContentItemFromLoaclStorage();
-        }
-        else {
-        }
-      }, 1000)
+    this.ifX = false
+    this.getCreatedProjectContentItemFromLoaclStorage();
+    this.interval = setInterval(() => {
+      if (this.workTimeHour) {
+        this.getCreatedProjectContentItemFromLoaclStorage();
+      }
+      else {
+      }
+    }, 1000)
 
-}
-continuePause(){
-  this.getCreatedProjectContentItemFromLoaclStorage();
-  this.interval = setInterval(() => {
-    if (this.workTimeHour) {
-      this.getCreatedProjectContentItemFromLoaclStorage();
-    }
-    else {
-    }
-  }, 1000)
-}
-getCreatedProjectContentItemFromLoaclStorage() {
-  if (localStorage.getItem('DateNowPause')) {
-    this.setWorkTime(localStorage.getItem('DateNowPause'))
   }
-}
-convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
-  var timestampCreatOn = ProjectContentItemCreatedDate;
-  const timestampNow = Date.now();
-  this.Time = timestampNow - timestampCreatOn;
-  return this.datePipe.transform(this.Time, 'HH:mm:ss',"+0000");
+  continuePause() {
+    this.getCreatedProjectContentItemFromLoaclStorage();
+    this.interval = setInterval(() => {
+      if (this.workTimeHour) {
+        this.getCreatedProjectContentItemFromLoaclStorage();
+      }
+      else {
+      }
+    }, 1000)
+  }
+  getCreatedProjectContentItemFromLoaclStorage() {
+    if (localStorage.getItem('DateNowPause')) {
+      this.setWorkTime(localStorage.getItem('DateNowPause'))
+    }
+  }
+  convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
+    var timestampCreatOn = ProjectContentItemCreatedDate;
+    const timestampNow = Date.now();
+    this.Time = timestampNow - timestampCreatOn;
+    return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
 
-}
-setWorkTime(res: any) {
-  this.workTimeHour = this.convertTimeStempToTime(res)
-  localStorage.setItem('WorkTimePause', this.workTimeHour)
-}
-Edit(time:any){
-     this.PauseWork(time)
-}
-clickCancel(){
-  this.showMassgeToUserEdit = false
-}
+  }
+  setWorkTime(res: any) {
+    this.workTimeHour = this.convertTimeStempToTime(res)
+    localStorage.setItem('WorkTimePause', this.workTimeHour)
+  }
+  Edit(time: any) {
+    this.PauseWork(time)
+  }
+  clickCancelEdit() {
+    this.showMassgeToUserEdit = false
+  }
+
+  CancelPause() {
+    this.showMassgeToUserCancelPause = true
+
+  }
+
+  DeletePauseProjectContentItem(PauseGuid: any) {
+    this.userService.DeleteProjectContentItemByGuid(PauseGuid).subscribe(
+      (res) => {
+        this.massageToUser = res;
+        swal("הפסקה בוטלה ")
+      },
+      (err) =>
+        swal(err.error))
+  }
+  clickNoCancel() {
+    this.showMassgeToUserCancelPause = false
+  }
+  clickYesCancel(time:any){
+    if (time.worktime != "" || time != null) {
+      this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
+      clearInterval(this.interval);
+      if (this.timetoSend[2] > 30) {
+        this.timetoSend[1]++;
+      }
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+      if (this.parseTime == undefined) {
+        this.parseTime = "";
+      }
+      this.workTimeHour = ["00:00:00"];
+    }
+    this.workTimeHour = ""
+    localStorage.removeItem("DateNowPause")
+    this.pauseGuidForLoclStorage = localStorage.getItem('pauseGuid')
+    this.DeletePauseProjectContentItem(this.pauseGuidForLoclStorage)
+    this.popUpService.SetIfXProjectContectItemUpdateWithTime(true)
+    localStorage.removeItem("projectContectItemByTimerGuid")
+    this.endButton = false
+    localStorage.setItem("endButton", String(this.endButton))
+    this.appService.setIsPopUpOpen(false);
+    this.popUpService.setSpecificPopUp(false, "pause")
+  }
+
 }

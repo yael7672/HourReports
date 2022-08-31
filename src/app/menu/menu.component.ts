@@ -47,10 +47,7 @@ export class MenuComponent implements OnInit {
   showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false;
   showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = false;
   showMassgeToUseMIfFinishtasklesstime = false;
-  taskNameFromLocalStorage2: any;
   endButton!: boolean;
-
-
   ifButtonFalse !: boolean;
   openMyProjectContectItem = false
   workTypeArr: any;
@@ -68,10 +65,10 @@ export class MenuComponent implements OnInit {
       this.isPopUpOpen = res;
     })
     this.popUpService.getStartTimer().subscribe(res => {
-      if (res) 
+      if (res)
         this.startWorkOfTask = true;
       else
-      this.startWorkOfTask = false;
+        this.startWorkOfTask = false;
     })
 
     //   this.popUpService.GetIfStartPouse().subscribe(res => {
@@ -118,15 +115,21 @@ export class MenuComponent implements OnInit {
 
   openPopUp(data: string, type: boolean) {
     if (data == 'pause') {
-      if (localStorage.getItem('TaskGuid')) {
-        this.taskNameFromLocalStorage2 = "שם המשימה:" + localStorage.getItem('TaskName')
-        this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true
-      } 
+      this.popUpService.getStartTimer().subscribe(res => {
+        if (res) {
+          this.startWorkOfTask = true;
+          this.taskListDataDetailsParseToJson.Subject = "שם המשימה:" + this.taskListDataDetailsParseToJson.TaskByGuid;
+          this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
+        } else {
+          this.appService.setIsPopUpOpen(true);
+          this.popUpService.setSpecificPopUp(type, data)
+        }
+      })
     }
-      else {
-        this.appService.setIsPopUpOpen(true);
-        this.popUpService.setSpecificPopUp(type, data)
-      }
+    else {
+      this.appService.setIsPopUpOpen(true);
+      this.popUpService.setSpecificPopUp(type, data)
+    }
   }
   goToMyprojectContentItem() {
     this.router.navigate(['/my-project-contect-items-component'])
@@ -146,7 +149,7 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['StatisticsGraph'])
   }
   GoToHome() {
-    this.router.navigate(['show-my-task'])
+    this.router.navigate(['show-my-task']);
   }
   ClickPersonalDetails() {
     this.openPersonalDetails = true;
