@@ -1,0 +1,105 @@
+<div class="all-page">
+  <div class="aImg">
+    <a (click)="GoToHome()">
+      <i class="fa fa-home" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="">
+      </i></a>
+    <a (click)="openPopUp('creatTask',true)" data-toggle="tooltip" data-placement="top" title="יצירת משימה"><i
+        class="fa fa-edit"></i>
+    </a>
+    <a (click)="openPopUp('createAprojectContentItem',true)" data-toggle="tooltip" data-placement="top"
+      title="יצירת פריט תכול פרויקט"><span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+    </a>
+    <a (click)="goToMyprojectContentItem()" data-toggle="tooltip" data-placement="top" title="פריטי תכולת פרויקט"><i
+        class="fa fa-calendar-check-o"></i>
+    </a>
+    <a (click)="openPopUp('pause',true)" data-toggle="tooltip" data-placement="top" title="צא להפסקה"><i
+        class="fa fa-coffee"></i></a>
+    <a (click)="openPopUp('timeOfProjectContectItem',true)" data-toggle="tooltip" data-placement="top"
+      title="יצירת מהירה של פריט תכולת פרויקט"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
+    <a (click)="GoToStatisticsGraph()" data-toggle="tooltip" data-placement="top" title="צפיה בסטטיסטיקות"><i
+        class="fa fa-bar-chart" aria-hidden="true"></i> </a>
+    <p class="p-of-title ">דיווחי שעות </p>
+    <div class="aImg2">
+      <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
+      <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
+        (clickOutside)="onClickedOutside($event)">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+          class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="startWorkOfTask">
+    <a (click)="returnToTheOpenTask()"><i id="clock-history" class="iconify" data-icon="bi:clock-history"></i></a>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.creatTask">
+    <app-create-new-task></app-create-new-task>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.updateTask">
+    <app-update-an-existing-task></app-update-an-existing-task>
+  </div>
+
+  <div *ngIf="openPersonalDetails">
+    <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [todayDate]="todayDate"
+      (closePersonalDetails)="closePersonalDetails()" >
+    </app-personal-details>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
+    <app-create-aproject-content-item ></app-create-aproject-content-item>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.sickLeave">
+    <app-sick-leave-project-content-item [myTask]="taskArr" [todayDate]="todayDate" [project]="projectArr"
+      [workType]="workTypeArr"></app-sick-leave-project-content-item>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.Freedom">
+    <app-freedom-project-content-item [project]="projectArr" [myTask]="taskArr" [todayDate]="todayDate"
+      [workType]="workTypeArr"></app-freedom-project-content-item>
+  </div>
+
+
+
+  <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
+          [inputValue]="taskNameFromLocalStorage2"
+          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody"
+          [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true"
+          [massgeUserBody1]="" (clickYes)="clickYes($event)" (clickNo)="clickNo($event)"></app-massge-to-user>
+      </div>
+    </app-pop-up>
+  </div> -->
+
+  <div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite"
+          [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody"
+          [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader"
+          [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" [ifButton]="true"
+          ></app-massge-to-user>
+          <!-- (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" -->
+      </div>
+    </app-pop-up>
+  </div> 
+
+
+  <div *ngIf="isPopUpOpen?.pause">
+    <app-pause-work [buttonEnd]="endButton" [workTime]="workTime">
+    </app-pause-work>
+  </div>
+
+
+
+  <div *ngIf="isPopUpOpen?.timeOfProjectContectItem">
+    <app-project-contect-item-with-time></app-project-contect-item-with-time>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.HoursAwaitingApproval">
+    <app-hours-awaiting-approval></app-hours-awaiting-approval>
+  </div>

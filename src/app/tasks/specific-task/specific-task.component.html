@@ -1,0 +1,81 @@
+<!-- <button (click)="openChartCompare()">השוואה בין שעות עבודה לשעות בפועל</button> -->
+<app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="false"
+ [title]="titleCard" [isDisabledStart]="isDisabledStart"
+[textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()">
+<div body>
+<h5 *ngIf="taskListDataDetailsParseToJson?.Subject">{{taskListDataDetailsParseToJson.Subject}}</h5>
+<p *ngIf="taskListDataDetailsParseToJson?.Description" class="card-text">{{taskListDataDetailsParseToJson.Description}}</p>
+<p *ngIf="taskListDataDetailsParseToJson?.ScheduledEndDate" class="card-text"> תאריך יעד :{{taskListDataDetailsParseToJson.ScheduledEndDate | date: 'dd/MM/yyyy' }}
+</p>
+<p class="card-text"> משך זמן שהוקצה למשימה :{{taskListDataDetailsParseToJson.WorkingHours}}
+  {{this.timeSetting}} </p>
+<p class="card-text"> שעות בפועל עד כה :{{taskListDataDetailsParseToJson.TotalActualTime }}
+</p>
+<p>vvj</p>
+<br>
+<div class="form-outline d-flex justify-content-center ">
+  <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
+    class="form-control textarea" placeholder="תאור המשימה" [(ngModel)]="descriptionTask" ngModel>
+      </textarea>
+</div>
+<br>
+<app-time-counter [descriptionTask]="descriptionTask"></app-time-counter>
+
+<!-- <div class="button-of-task">
+  <button [disabled]="isDisabledStart" (click)="startTimer(); clickOfButton('start',true)" class="btn btn-color"
+    data-toggle="tooltip" data-placement="top"
+    title="בלחיצה על כפתור זה, נוצר במערכת  פריט תכולת פרוייקט, והטיימר מתחיל לפעול.">התחל</button>
+  <button [disabled]="isDisabledPouse" (click)="pauseTimer(workTime); clickOfButton('pouse',true)" class="btn btn-color"
+    data-toggle="tooltip" data-placement="top"
+    title="בלחיצה על כפתור זה, מתעדכן משך זמן העבודה בפריט תכולת פרוייקט שנוצר קודם, והטיימר מפסיק את פעולתו.">הפסק</button>
+  <button [disabled]="isDisabledEnd" (click)="deleteTimer(workTime); clickOfButton('end',true)" class="btn btn-color"
+    data-toggle="tooltip" data-placement="top"
+    title="בלחיצה על כפתור זה, המשימה הושלמה והיא עוברת למצב של קריאה בלבד.">משימה הושלמה</button>
+</div> -->
+<br>
+<p *ngIf="workTime" class="Time" >{{workTime}}</p>
+<div *ngIf="openChartComparePopUp">
+  <div class="actionArea">
+    <form class="popContainer">
+      <a class="close" (click)="closePopUp()">&times;</a>
+      <app-charts-my-task [dataProp]="taskListDataDetailsParseToJson">
+      </app-charts-my-task>
+    </form>
+  </div>
+</div>
+</div>
+</app-smart-card> 
+
+<app-project-content-item></app-project-content-item>
+ <!-- באמצע משימה רוצה לצאת -קופצת ההודעה האם אתה בטוח? -->
+  <!-- <div *ngIf="showMassgeToUser">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassageIsifCloseTask" [massgeUserHeader]="massgeUserCloseTaskHeader"
+          [massgeUserBody1]="massgeUserCloseTaskBody" [massgeUserBody2]="massgeUserCloseTaskFooter"
+          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+      </div>
+    </app-pop-up>
+  </div> -->
+<!-- אם יש לו משימה פתוחה- קופצת לו ההודעה- יש לך משימה פתוחה, האם אתה רוצה לחזור אליה? -->
+  <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATask">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATask"
+          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody"
+          [massgeUserHeader]="massgeUseIfInTheMiddleOfWorkOnATaskHeader"
+          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskBody" [massgeUserBody2]="taskNameFromLocalStorage"
+          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+      </div>
+    </app-pop-up>
+  </div>
+   -->
+  <div *ngIf="showMassgeToUseMIfFinishtasklesstime">
+    <app-pop-up>
+      <div body>
+        <app-massge-to-user [kindOfMassage]="kindOfMassageUserFinishtasklesstime"
+          [massgeUserHeader]="massgeUserFinishtasklesstimeHeader" [massgeUserBody1]="massgeUserFinishtasklesstimeBody"
+          [massgeUserBody2]="massgeUserFinishtasklesstimeBody2"></app-massge-to-user>
+      </div>
+    </app-pop-up>
+  </div>

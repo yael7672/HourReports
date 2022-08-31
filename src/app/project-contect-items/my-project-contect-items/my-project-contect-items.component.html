@@ -21,13 +21,9 @@
     </app-smart-table>
      
       <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
-<<<<<<< HEAD
-        <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [project]="project"  [ProjectContentItem]="ProjectContentItem" [workType]="workType" [ProjectContentItem]="ProjectContentItem"></app-update-project-content-item>
-=======
         <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [project]="projectArr"
           [myProjectContectItemArr]="myProjectContectItemArr" [workType]="workTypeArr" 
           [ProjectContentItem]="projectContentItem"></app-update-project-content-item>
->>>>>>> new
       </div>
       <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
         <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid">

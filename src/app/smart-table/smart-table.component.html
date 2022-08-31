@@ -1,0 +1,60 @@
+
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th *ngFor="let th of thArr" scope="col">
+          <ng-container *ngIf="ifSortDown; else sortTableUpp;">
+            <button (click)="sortTableDown(th)">
+              <ng-container >
+                {{th}}
+              </ng-container>
+              <i class="fa fa-caret-down"></i>
+              <ng-template #WorkingHours>
+                <ng-container> {{th}}</ng-container>
+              </ng-template>
+            </button>
+          </ng-container>
+          <ng-template #sortTableUpp>
+            <button (click)="sortTableUp(th)">
+              <ng-container >
+                {{th}}
+              </ng-container>           
+              <i class="fa fa-caret-up"></i>
+            </button>
+          </ng-template>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let colData of tableData" (click)="selectedData(colData)">
+        <ng-container *ngFor="let tableDataKey of tableDataKeys">
+          <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
+            <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
+              <ng-container *ngIf="tableDataKey!=='Date' else Date;">
+                <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-template #WorkingHours>
+            <td> {{colData[tableDataKey] | number}}</td>
+          </ng-template>
+          <ng-template #CreatedOn>
+            <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}</td>
+          </ng-template>
+          <ng-template #Date>
+            <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy '}}</td>
+          </ng-template>
+        </ng-container>
+        
+        <td class="td">
+          <button  *ngIf="ifUpdate" (click)="editProjectContentItemIcon(colData)" class="edit-button" data-toggle="tooltip"
+            data-placement="top" title="באפשרותך לערוך את הדיווח.">
+            <i class="fa fa-pencil" aria-hidden = "true"></i></button>
+          <button *ngIf="ifDelete" (click)="deleteProjectContentItemIcon(colData)" class="edit-button" class="edit-button"
+            data-toggle="tooltip" data-placement="top" title="באפשרותך למחוק את הדיווח.">
+            <i class="iconify" data-icon="akar-icons:trash-can"></i>
+          </button>
+        </td>
+    </tbody>
+  </table>

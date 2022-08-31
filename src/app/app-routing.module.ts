@@ -16,12 +16,9 @@ import { StatisticsGraphComponent } from './statistics-graph/statistics-graph.co
 import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component';
 import { SickLeaveProjectContentItemComponent } from './project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
 import { UpdateProjectContentItemComponent } from './update-project-content-item/update-project-content-item.component';
-<<<<<<< HEAD
-=======
 import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the-last-tasks-iworked.component';
 import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
 import { MyProjectContectItemsComponent } from './project-contect-items/my-project-contect-items/my-project-contect-items.component';
->>>>>>> new
 import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-awaiting-approval.component';
 
 const routes: Routes = [
@@ -38,20 +35,15 @@ const routes: Routes = [
   { path: 'smartCard', component: SmartCardComponent },
   { path: 'personalDetails', component: PersonalDetailsComponent },
   { path: 'charts9', component: ChartsComponent },
-  { path: 'statisticsGraph', component: StatisticsGraphComponent },
+  { path: 'StatisticsGraph', component: StatisticsGraphComponent },
   { path: 'ChartsMyTask', component: ChartsMyTaskComponent },
   { path: 'sick', component: SickLeaveProjectContentItemComponent },
   { path: 'up', component: UpdateProjectContentItemComponent },
-<<<<<<< HEAD
-  { path: 'HoursAwaitingApprovalComponent', component: HoursAwaitingApprovalComponent },
-
-=======
   { path: 'show-my-task', component: ShowMyTaskComponent },
   { path: 'show-team-my-task', component: ShowMyTeamTaskComponent },
   { path: 'the-last-tasks-i-worked', component: TheLastTasksIWorkedComponent },
   { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent },
   { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent }
->>>>>>> new
 
 ];
 
