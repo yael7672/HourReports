@@ -36,25 +36,26 @@
               </ng-container>
             </ng-container>
           </ng-container>
-          <ng-template #WorkingHours>
-            <td> {{colData[tableDataKey] | number}}</td>
-          </ng-template>
-          <ng-template #CreatedOn>
-            <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}</td>
-          </ng-template>
-          <ng-template #Date>
-            <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy '}}</td>
-          </ng-template>
-        </ng-container>
-        
-        <td class="td">
-          <button  *ngIf="ifUpdate" (click)="editProjectContentItemIcon(colData)" class="edit-button" data-toggle="tooltip"
-            data-placement="top" title="באפשרותך לערוך את הדיווח.">
-            <i class="fa fa-pencil" aria-hidden = "true"></i></button>
-          <button *ngIf="ifDelete" (click)="deleteProjectContentItemIcon(colData)" class="edit-button" class="edit-button"
-            data-toggle="tooltip" data-placement="top" title="באפשרותך למחוק את הדיווח.">
-            <i class="iconify" data-icon="akar-icons:trash-can"></i>
-          </button>
-        </td>
-    </tbody>
-  </table>
+          
+        <ng-template #WorkingHours>
+          <td> {{colData[tableDataKey] | number}}</td>
+        </ng-template>
+        <ng-template #CreatedOn>
+          <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}</td>
+        </ng-template>
+        <ng-template #Date>
+          <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy '}}</td>
+        </ng-template>
+      </ng-container>
+      
+      <td class="td">
+        <button  *ngIf="ifUpdate" (click)="editProjectContentItemIcon(colData)" 
+        placement="bottom" ngbTooltip="באפשרותך לערוך את הדיווח.">
+          <i class="fa fa-pencil" aria-hidden = "true"></i></button>
+        <button *ngIf="ifDelete" (click)="deleteProjectContentItemIcon(colData)" class="edit-button" class="edit-button"
+          placement="bottom" ngbTooltip="באפשרותך למחוק את הדיווח.">
+          <i class="iconify" data-icon="akar-icons:trash-can"></i>
+        </button>
+      </td>
+  </tbody>
+</table>
