@@ -15,10 +15,6 @@ export class HoursAwaitingApprovalComponent implements OnInit {
   projectContentItem: any;
   showMassgeToUser: any;
   hoursAwaitingApprovalArr: any;
-<<<<<<< HEAD
-  deleteProjectContentItem: any;
-=======
->>>>>>> new
   updateProjectContentItemDetails = false
   projectContentItemListKeys = ['Name', 'Date', 'ManagerNotes', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
   thArrTableProjectContentItem = ['שם', 'תאריך', 'הערות מנהל', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
@@ -77,7 +73,6 @@ export class HoursAwaitingApprovalComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
-    this.deleteProjectContentItem = true;
   }
   SortTableDown(thNameAndData: any) {
     this.ifSortDown = false;
