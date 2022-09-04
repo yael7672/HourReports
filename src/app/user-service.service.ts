@@ -106,4 +106,7 @@ export class UserServiceService {
   GetAllUserAndTeams() {
     return this.http.get<any>(environment.url + 'GetAllUserAndTeams?OrganizationName=AuroraProd')
   }
+  GetEmployeeDetails(SystemGuid: string) {
+    return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+  }
 }

@@ -10,11 +10,23 @@ import { AppService } from './app-service.service';
 
 export class AppComponent implements OnInit {
   title = 'HourlyReports';
-  appProperties!:AppProperties;
+  appProperties!: AppProperties;
+  systemGuid: any;
+  showMenu = false;
+  constructor(private appService: AppService) {
+    this.appService.getIsLogin().subscribe(res => {
+      if (res)
+        this.showMenu = true;
+      else
+        this.showMenu = false;
+    })
+  }
 
-constructor(private  appService: AppService) {  }
+  ngOnInit(): void {
+    this.systemGuid = localStorage.getItem('systemGuid')
+    if (this.systemGuid)
+      this.showMenu = true;
 
-ngOnInit(): void {
-  this.appProperties = this.appService.getAppProperties();
-}
+    this.appProperties = this.appService.getAppProperties();
+  }
 }

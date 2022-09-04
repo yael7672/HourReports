@@ -26,14 +26,16 @@
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let colData of tableData" (click)="selectedData(colData)">
-        <ng-container *ngFor="let tableDataKey of tableDataKeys">
-          <ng-container *ngIf="tableDataKey!=='WorkingHours' else WorkingHours;">
-            <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
-              <ng-container *ngIf="tableDataKey!=='Date' else Date;">
-                <td>{{returnColDataByType(colData, tableDataKey)}}</td>
-              </ng-container>
+
+ 
+  <tbody>
+    <tr *ngFor="let colData of tableData" (click)="selectedData(colData)">
+      <ng-container *ngFor="let tableDataKey of tableDataKeys">
+        <ng-container *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' && tableDataKey!=='EmployeeMonthlyWorkingHours' else WorkingHours;">
+          <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
+            <ng-container *ngIf="tableDataKey!=='Date' else Date;">
+              <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+>>>>>>> new
             </ng-container>
           </ng-container>
           
@@ -56,6 +58,19 @@
           placement="bottom" ngbTooltip="באפשרותך למחוק את הדיווח.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
+        <button *ngIf="ifShowOpenTask" (click)="showOpenTask(colData)" class="edit-button" class="edit-button"
+          placement="bottom" ngbTooltip="צפיה במשימות הפתוחות של העובד">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button *ngIf="ifShowProjectContentItem" (click)="showProjectContentItem(colData)" class="edit-button" class="edit-button"
+        placement="bottom" ngbTooltip="צפיה  בדיווחי שעות של העובד">
+        <i  class="fa fa-calendar-check-o"></i>
+      </button>
+      <button *ngIf="ifAdmin=='true'&& !ifShowOpenTask" (click)="showProjectContentItem(colData)" class="edit-button" class="edit-button"
+        placement="bottom" ngbTooltip="אישור הדיווח">
+        <i class="fa fa-check" aria-hidden="true"></i>
+
+      </button>
       </td>
   </tbody>
 </table>

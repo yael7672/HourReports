@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Task } from 'src/app/interfacees/task';
 import { UserServiceService } from 'src/app/user-service.service';
 
@@ -9,19 +9,22 @@ import { UserServiceService } from 'src/app/user-service.service';
   styleUrls: ['./search-and-sort-tasks.component.css']
 })
 export class SearchAndSortTasksComponent implements OnInit {
+  systemGuid: any;
 
-  constructor(public route: Router, private userService: UserServiceService) { }
+  constructor(public route: Router, private userService: UserServiceService,private activatedRoute:ActivatedRoute) { }
   @Input() taskArr!: Task[]
   @Input() taskArrCopy: any
   projectArr: any;
   ngOnInit(): void {
+
   }
   WhichTableOpen(val: any) {
     if (val == 0) {
-      this.route.navigate(['/show-my-task']);
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/show-my-task',this.systemGuid]);
     }
     if (val == 1) {
-      this.route.navigate(['/show-team-my-task']);
+      this.route.navigate(['/show-team-my-task/',this.systemGuid]);
     }
     if (val == 2) {
       this.route.navigate(['/the-last-tasks-i-worked']);

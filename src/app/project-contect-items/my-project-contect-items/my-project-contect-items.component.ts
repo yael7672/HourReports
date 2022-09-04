@@ -6,6 +6,7 @@ import { PopUpServiceService } from '../../pop-up-service.service';
 import { ProjectContentItemComponent } from '../project-content-item/project-content-item.component';
 import { UserServiceService } from '../../user-service.service';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-my-project-contect-items',
@@ -45,7 +46,7 @@ export class MyProjectContectItemsComponent implements OnInit {
   projectArr: any;
   workTypeArr: any;
 
-  constructor(private userService: UserServiceService, private datePipe: DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
+  constructor(private activatedRoute: ActivatedRoute,private userService: UserServiceService, private datePipe: DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -85,7 +86,7 @@ export class MyProjectContectItemsComponent implements OnInit {
   GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
     this.selectedTime = selectedTime;
     if (selectedTime) {
-      this.systemGuid = localStorage.getItem('systemGuid')
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
         if (res) {
           this.myProjectContectItemArr = res;

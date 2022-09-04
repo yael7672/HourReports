@@ -33,7 +33,7 @@ export class StatisticsGraphComponent implements OnInit {
   culculteCopy !: any[];
   colorArr!: any[];
   x!: any;
-  AverageBreaksByTimeLineChart!: averageBreaks;
+  AverageBreaksByTimeLineChart!: any;
   AverageBreaksByTimeBarChart!: averageBreaks;
   AverageBreaks: any;
   selectedItem: any;

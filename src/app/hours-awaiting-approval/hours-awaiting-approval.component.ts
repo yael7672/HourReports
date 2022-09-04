@@ -74,10 +74,10 @@ export class HoursAwaitingApprovalComponent implements OnInit {
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
-  SortTableDown(thNameAndData: any) {
+  SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;
-    switch (thNameAndData.th) {
+    switch (thName) {
       case 'נוצר ב:':
         keyToSort = 'CreatedOn';
         break;

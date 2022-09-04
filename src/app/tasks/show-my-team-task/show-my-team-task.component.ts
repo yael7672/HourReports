@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
 
@@ -25,7 +25,7 @@ export class ShowMyTeamTaskComponent implements OnInit {
   ifSortDown = true;
   constructor(private userService: UserServiceService,
     private popUpService: PopUpServiceService,
-    public route: Router) {
+    public route: Router,private activatedRoute:ActivatedRoute) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -34,7 +34,7 @@ export class ShowMyTeamTaskComponent implements OnInit {
     this.getTaskForMyTeams()
   }
   getTaskForMyTeams() {
-    this.systemGuid = localStorage.getItem('systemGuid');
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
     this.userService.GetTaskForMyTeams(this.systemGuid).subscribe(
       res => {
         if (res) {
@@ -55,10 +55,10 @@ export class ShowMyTeamTaskComponent implements OnInit {
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
-  SortTableDown(thNameAndData: any) {
+  SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;
-    switch (thNameAndData.th) {
+    switch (thName) {
       case 'נוצר ב:':
         keyToSort = 'CreatedOn';
         break;
