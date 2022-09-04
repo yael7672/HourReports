@@ -1,48 +1,54 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PopUpServiceService } from 'src/app/pop-up-service.service';
-import { UserServiceService } from 'src/app/user-service.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PopUpServiceService } from '../../pop-up-service.service';
+import { UserServiceService } from '../../user-service.service';
 
 @Component({
-  selector: 'app-show-my-team-task',
-  templateUrl: './show-my-team-task.component.html',
-  styleUrls: ['./show-my-team-task.component.css']
+  selector: 'app-tasks-by-employee',
+  templateUrl: './tasks-by-employee.component.html',
+  styleUrls: ['./tasks-by-employee.component.css']
 })
-export class ShowMyTeamTaskComponent implements OnInit {
-  @Input() project!: any;
-  @Input() workType!: any;
-  isPopUpOpen: any;
-  tableMyTaskTeamsOpen = false;
-  titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך';
-  thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
-  taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
-  taskTeamsArr: any;
+export class TasksByEmployeeComponent implements OnInit {
+
+
+  titleTableTask: any;
+  employeeDetails: any;
+  employeeDetailsParseJson: any;
   systemGuid: any;
-  taskTeamsArrCopy: any;
+  taskArr: any;
+  taskArrCopy: any;
+  sortTaskArr: any;
+  ifThereAreTasks = false;
+  ifSortDown = false;
+  thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
+  taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   projectContentItem: any;
-  showMassgeToUser = false;
-  projectContentItemGuid!: string;
-  ifSortDown = true;
-  constructor(private userService: UserServiceService,
-    private popUpService: PopUpServiceService,
-    public route: Router,private activatedRoute:ActivatedRoute) {
+  projectContentItemGuid: any;
+  isPopUpOpen: any;
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService,
+    private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
   }
   ngOnInit(): void {
-    this.getTaskForMyTeams()
+    this.GetMyTask();
+
+    this.employeeDetails = localStorage.getItem('employeeDetails');
+    this.employeeDetailsParseJson = JSON.parse(this.employeeDetails);
+    this.titleTableTask = this.titleTableTask = ' המשימות של ' + this.employeeDetailsParseJson?.EmployeeName;
   }
-  getTaskForMyTeams() {
+  GetMyTask() {
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    this.userService.GetTaskForMyTeams(this.systemGuid).subscribe(
+    this.userService.GetMyTask(this.systemGuid).subscribe(
       res => {
         if (res) {
-          this.taskTeamsArr = res;
-          this.taskTeamsArrCopy = res;
+          this.taskArr = res;
+          this.taskArrCopy = res;
         }
       }, err => {
         console.log(err.error)
+        this.ifThereAreTasks = true;
       }
     )
   }
@@ -52,7 +58,6 @@ export class ShowMyTeamTaskComponent implements OnInit {
   }
   deleteProjectContentItemIcon(ProjectContentItem: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
-    this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
   SortTableDown(thName: any) {
@@ -84,11 +89,11 @@ export class ShowMyTeamTaskComponent implements OnInit {
         break;
     }
     if (keyToSort != 'Project') {
-      this.taskTeamsArr?.sort((a: any, b: any) =>
+      this.taskArr?.sort((a: any, b: any) =>
         (a[keyToSort] ? a[keyToSort] : "" > (b[keyToSort] ? b[keyToSort] : "")) ? 1 : -1)
     }
     else {
-      this.taskTeamsArr?.sort((a: any, b: any) =>
+      this.taskArr?.sort((a: any, b: any) =>
         (a[keyToSort[1]] > (b[keyToSort[1]])) ? 1 : -1)
     }
   }
@@ -121,16 +126,12 @@ export class ShowMyTeamTaskComponent implements OnInit {
         break;
     }
     if (keyToSort[0] != 'Project' && keyToSort[0] != 'OwnerId') {
-      this.taskTeamsArr?.sort((a: any, b: any) =>
+      this.taskArr?.sort((a: any, b: any) =>
         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.taskTeamsArr?.sort((a: any, b: any) =>
+      this.taskArr?.sort((a: any, b: any) =>
         (a[keyToSort[1]] < (b[keyToSort[1]])) ? 1 : -1)
     }
   }
-  SelectedData(val: any) {
-    this.route.navigate(['/specific-task', val.TaskGuid])
-  }
 }
-

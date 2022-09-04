@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AppService } from '../app-service.service';
 import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorkingHours';
@@ -54,5 +55,9 @@ export class PersonalDetailsComponent implements OnInit {
         console.log(err.error)
       }
     )
+  }
+  goToEmployeeReport()
+  {
+    this.route.navigate(['/employee-report'])
   }
 }

@@ -7,7 +7,7 @@ import { UserServiceService } from '../user-service.service';
 import swal from 'sweetalert';
 import { MenuComponent } from '../menu/menu.component';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShowMyTaskComponent } from '../tasks/show-my-task/show-my-task.component';
 
 
@@ -55,8 +55,12 @@ export class PauseWorkComponent implements OnInit {
   ifCancel = true
   massgeUserEditPauseHour1 = "עריכת שעות הפסקה"
   massageToUser: any;
-  constructor(private userService: UserServiceService, private elementRef: ElementRef, private datePipe: DatePipe, private userServiceService: UserServiceService, public router: Router,
-    private appService: AppService, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService) {
+  constructor(private userService: UserServiceService, private elementRef: ElementRef,
+     private datePipe: DatePipe, private userServiceService: UserServiceService,
+     public router: Router,private appService: AppService,
+      private popUpService: PopUpServiceService, 
+      private buttonWorkingTaskService: ButtonWorkingTaskService,
+      private activatedRoute: ActivatedRoute) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
   }
 
@@ -92,7 +96,7 @@ export class PauseWorkComponent implements OnInit {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-            let showMyTaskComp = new ShowMyTaskComponent( this.popUpService,this.buttonWorkingTaskService,this.appService, this.userServiceService,this.router)
+            let showMyTaskComp = new ShowMyTaskComponent( this.activatedRoute,this.popUpService,this.appService, this.userServiceService,this.router)
             showMyTaskComp.SelectedTask(this.taskListDataDetails)
           }, 500)
         }

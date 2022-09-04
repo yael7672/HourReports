@@ -28,6 +28,7 @@ export class AppService {
 
   private isIE!: boolean;
 
+  private isLogin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(@Inject(DOCUMENT) private document: Document, public deviceService: DeviceDetectorService) {
     this.startListeners();
@@ -104,19 +105,13 @@ export class AppService {
   getIsPopUpOpen() {
     return this.isPopUpOpen$;
   }
-  setIsDescriptionPanelOpen(event: boolean)
-  {
-    this.isDescriptionPanelOpen$.next(event);
+ 
+  setIsLogin(event: boolean) {
+    this.isLogin$.next(event);
   }
-  getIsDescriptionPanelOpen() {
-    return this.isDescriptionPanelOpen$;
+
+  getIsLogin() {
+    return this.isLogin$;
   }
-  setIsSelectedTask(event:any)
-  {
-    this.isSelectedTask$.next(event);
-  }
-  getIsSelectedTask()
-  {
-    return this.isSelectedTask$;
-  }
+
 }

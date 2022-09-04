@@ -120,10 +120,10 @@ export class ProjectContentItemComponent implements OnInit {
     this.showMassgeToUser = true;
     this.projectContentItemGuid = projectContentItem.Guid;
   }
-  SortTableDown(thNameAndData: any) {
+  SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;
-    switch (thNameAndData.th) {
+    switch (thName) {
       case 'נוצר ב:':
         keyToSort = 'CreatedOn';
         break;

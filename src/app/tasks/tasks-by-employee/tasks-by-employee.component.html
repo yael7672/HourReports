@@ -1,0 +1,18 @@
+
+<app-smart-card   [title]="titleTableTask">
+    <div body>
+      <app-smart-table  [thArr]="thArrTask" [ifSortDown]="ifSortDown" 
+      [tableDataKeys]="taskListKeys" [tableData]="taskArr"
+        (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
+        (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+        (SortTableUp)="SortTableUp($event)"  [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+      </app-smart-table>
+    </div>
+  </app-smart-card>
+  
+  
+  <div *ngIf="ifThereAreTasks">
+    <br>
+    <h2>אין משימות פעילות!</h2>
+  </div>
+  

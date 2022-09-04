@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-smart-table',
@@ -6,10 +7,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./smart-table.component.css']
 })
 export class SmartTableComponent implements OnInit {
-
-  constructor() { }
-  @Input() ifUpdate!:boolean;
-   @Input() ifDelete!:boolean;
+  systemGuid: any;
+  @Input() ifShowEmployeeProjectContentItem!:boolean;
+  @Input() ifShowOpenEmployeeTask!:boolean;
+   @Input() ifApproveReport!:boolean;
+  @Input() ifUpdate!: boolean;
+  @Input() ifUpdateTask!: boolean;
+  @Input() ifShowOpenTask!: boolean;
+  @Input() ifShowProjectContentItem!: boolean;
+  @Input() ifDelete!: boolean;
   @Input() thArr: any;
   @Input() ifUpdateOpen: any
   @Input() ifSortDown!: boolean
@@ -20,9 +26,17 @@ export class SmartTableComponent implements OnInit {
   @Output() SortTableDown = new EventEmitter<any>();
   @Output() SortTableUp = new EventEmitter<any>();
   @Output() SelectedData = new EventEmitter<any>();
-  ifDelete1=true;
-  ifUpdate1=true
+  @Output() ShowOpenTask = new EventEmitter<any>();
+  @Output() ShowProjectContentItem = new EventEmitter<any>();
+  ifDelete1 = true;
+  ifUpdate1 = true
+  ifAdmin: any;
+  showaApproveReportIcon: any;
+
+  constructor(private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
+    this.ifAdmin = localStorage.getItem('ifAdmin');
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
   }
   editProjectContentItemIcon(colData: any) {
     this.EditProjectContentItemIcon.emit(colData);
@@ -48,9 +62,18 @@ export class SmartTableComponent implements OnInit {
     this.SortTableUp.emit(th);
   }
   selectedData(val: any) {
-    if(!this.ifUpdateOpen)
-    {
+    if (!this.ifUpdateOpen) {
       this.SelectedData.emit(val);
     }
+  }
+  showOpenTask(val: any) {
+    this.ShowOpenTask.emit(val);
+  }
+  showProjectContentItem(val: any) {
+    this.ShowProjectContentItem.emit(val);
+  }
+  approveReport(val:any)
+  {
+
   }
 }

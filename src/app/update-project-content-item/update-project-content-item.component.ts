@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { from } from 'rxjs';
 import { AppService } from 'src/app/app-service.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
@@ -34,7 +34,8 @@ export class UpdateProjectContentItemComponent implements OnInit {
   WorkTimeArr!: any
   TaskToUpdate: any;
   allUserAndTeams: any;
-  constructor(private router: Router, private userService: UserServiceService, private appService: AppService,
+  systemGuid: any;
+  constructor(private activatedRoute:ActivatedRoute, private router: Router, private userService: UserServiceService, private appService: AppService,
     private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
   }
@@ -88,14 +89,17 @@ export class UpdateProjectContentItemComponent implements OnInit {
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
-        if (window.location.pathname == '/my-project-contect-items-component') {
+        this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+
+        if (window.location.pathname == '/my-project-contect-items-component/',this.systemGuid) {
           this.popUpService.setAllmyProjectContectItem(true);
           this.appService.setIsPopUpOpen(false);
           this.popUpService.setClosePopUp()
-        } else
+        } else {
           this.popUpService.SetProjectContentItemByTaskGuid(true);
-        this.appService.setIsPopUpOpen(false);
-        this.popUpService.setClosePopUp();
+          this.appService.setIsPopUpOpen(false);
+          this.popUpService.setClosePopUp();
+        }
       },
       (err) =>
         console.log(err.error)

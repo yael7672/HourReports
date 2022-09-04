@@ -1,6 +1,5 @@
-import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app-service.service';
 import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
 import { Project } from 'src/app/interfacees/project';
@@ -45,19 +44,30 @@ export class ShowMyTaskComponent implements OnInit {
   UpdateProjectContentItemDetails = false;
   ifThereAreprojectContentItem = false;
   ifUpdateOpen = false;
-  constructor(private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService, private appService: AppService, private userService: UserServiceService, public route: Router) {
+  ifAdmin: any;
+  employeeDetails: any;
+  systemGuidFromLocalStorage: any;
+  employeeDetailsParseJson: any;
+  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
+     private appService: AppService, private userService: UserServiceService,private route : Router ) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
     this.popUpService.getAllmyTask().subscribe(res => {
-      if(res)
-      this.GetMyTask()
+      if (res)
+        this.GetMyTask()
     })
   }
   ngOnInit(): void {
     this.GetProject();
     this.GetWorkType();
     this.GetMyTask();
+    this.employeeDetails = localStorage.getItem('employeeDetails');
+    this.employeeDetailsParseJson = JSON.parse(this.employeeDetails);
+    this.ifAdmin = localStorage.getItem('ifAdmin');
+    this.systemGuidFromLocalStorage = localStorage.getItem('systemGuid');
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+  
   }
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
@@ -107,7 +117,7 @@ export class ShowMyTaskComponent implements OnInit {
       })
   }
   GetMyTask() {
-    this.systemGuid = localStorage.getItem('systemGuid');
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
     this.userService.GetMyTask(this.systemGuid).subscribe(
       res => {
         if (res) {
@@ -136,10 +146,10 @@ export class ShowMyTaskComponent implements OnInit {
       else return null;
     }
   }
-  SortTableDown(thNameAndData: any) {
+  SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;
-    switch (thNameAndData.th) {
+    switch (thName) {
       case 'נוצר ב:':
         keyToSort = 'CreatedOn';
         break;
@@ -161,9 +171,9 @@ export class ShowMyTaskComponent implements OnInit {
       default:
         break;
     }
-    if (keyToSort != 'Project') {
+    if (keyToSort[0] != 'Project') {
       this.taskArr?.sort((a: any, b: any) =>
-        (a[keyToSort] ? a[keyToSort] : "" > (b[keyToSort] ? b[keyToSort] : "")) ? 1 : -1)
+        (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
     }
     else {
       this.taskArr?.sort((a: any, b: any) =>

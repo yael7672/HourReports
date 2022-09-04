@@ -13,20 +13,23 @@
     <div *ngIf="!systemGuid">
       <h3 style="text-align:center">!אף אחד לא מחובר</h3>
     </div>
-    <div>
+    <div *ngIf="systemGuid">
       <p class="card-title">סה"כ ש"ע להיום: {{DailyAndMonthlyWorkingHours?.DailyWorkingHours |number}}</p>
       <p class="card-title">סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</p>
     </div>
-    <div class="icons">
-      <a (click)="openPopUpp('sickLeave',true)" data-toggle="tooltip" data-placement="top"
-        title="דיווח מהיר של חופשת מחלה"><i class="iconify" data-icon="ic:outline-sick"></i>
+    <div class="icons" *ngIf="systemGuid">
+      <a (click)="openPopUpp('sickLeave',true)" placement="top" ngbTooltip="דיווח מהיר של חופשת מחלה"><i class="iconify"
+          data-icon="ic:outline-sick"></i>
       </a>
-      <a (click)="openPopUpp('Freedom',true)" data-toggle="tooltip" data-placement="top" title="דיווח מהיר של חופשה"><i
-          class="iconify" data-icon="iconoir:sea-and-sun"></i>
+      <a (click)="openPopUpp('Freedom',true)" placement="top" ngbTooltip="דיווח מהיר של חופשה"><i class="iconify"
+          data-icon="iconoir:sea-and-sun"></i>
       </a>
-      <a (click)="goTpHoursAwaitingApproval()"  data-toggle="tooltip" data-placement="top" title="לצפייה ואישור של דיווחים הממתנים לאישור מנהל"><i class="iconify"
+      <a (click)="goTpHoursAwaitingApproval()" placement="top"
+        ngbTooltip="לצפייה ואישור של דיווחים הממתנים לאישור מנהל"><i class="iconify"
           data-icon="carbon:condition-wait-point"></i></a>
-
+      <a (click)="goToEmployeeReport()" placement="top"
+        ngbTooltip="דו'ח עובדים"><i class="iconify" data-icon="carbon:report"></i></a>
+        
     </div>
 
   </div>
