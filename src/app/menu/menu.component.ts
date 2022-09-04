@@ -49,8 +49,6 @@ export class MenuComponent implements OnInit {
   showMassgeToUseMIfFinishtasklesstime = false;
   taskNameFromLocalStorage2: any;
   endButton!: boolean;
-
-
   ifButtonFalse !: boolean;
   openMyProjectContectItem = false
   workTypeArr: any;
@@ -129,7 +127,7 @@ export class MenuComponent implements OnInit {
       }
   }
   goToMyprojectContentItem() {
-    this.router.navigate(['/my-project-contect-items-component'])
+    this.router.navigate(['/my-project-contect-items-component',this.systemGuid])
   }
   GetProject() {
     this.userService.GetProject().subscribe(res => {
@@ -146,7 +144,7 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['StatisticsGraph'])
   }
   GoToHome() {
-    this.router.navigate(['show-my-task'])
+    this.router.navigate(['show-my-task',this.systemGuid])
   }
   ClickPersonalDetails() {
     this.openPersonalDetails = true;
@@ -155,7 +153,9 @@ export class MenuComponent implements OnInit {
     localStorage.clear();
     swal("!התנתקת בהצלחה")
     setTimeout(() => {
-      this.router.navigate(['/'])
+      this.router.navigate(['/']);
+      this.appService.setIsLogin(false);
+
     }, 1000)
   }
 

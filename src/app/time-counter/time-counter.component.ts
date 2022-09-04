@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopupService } from '@progress/kendo-angular-popup';
 import swal from 'sweetalert';
 import { PopUpServiceService } from '../pop-up-service.service';
@@ -31,7 +31,7 @@ export class TimeCounterComponent implements OnInit {
   isTaskAccomplished = false;
   taskListDataDetails: any;
   massageFromServer: any;
-  constructor(private userService: UserServiceService, private datePipe: DatePipe,
+  constructor(private activatedRoute:ActivatedRoute ,private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router) { }
 
   ngOnInit(): void {
@@ -130,7 +130,8 @@ export class TimeCounterComponent implements OnInit {
       res => {
         if (res) {
           this.massageFromServer = res;
-          this.route.navigate(['/show-my-task'])
+          this.systemGuid = localStorage.getItem('systemGuid');
+          this.route.navigate(['/show-my-task', this.systemGuid])
           this.popUpService.setAllmyTask(true)
           this.popUpService.SetProjectContentItemByTaskGuid(true)
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)

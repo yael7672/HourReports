@@ -8,8 +8,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SmartTableComponent implements OnInit {
 
   constructor() { }
-  @Input() ifUpdate!:boolean;
-   @Input() ifDelete!:boolean;
+  @Input() ifUpdate!: boolean;
+  @Input() ifShowOpenTask!: boolean;
+  @Input() ifShowProjectContentItem!: boolean;
+  @Input() ifDelete!: boolean;
   @Input() thArr: any;
   @Input() ifUpdateOpen: any
   @Input() ifSortDown!: boolean
@@ -20,9 +22,13 @@ export class SmartTableComponent implements OnInit {
   @Output() SortTableDown = new EventEmitter<any>();
   @Output() SortTableUp = new EventEmitter<any>();
   @Output() SelectedData = new EventEmitter<any>();
-  ifDelete1=true;
-  ifUpdate1=true
+  @Output() ShowOpenTask = new EventEmitter<any>();
+  @Output() ShowProjectContentItem = new EventEmitter<any>();
+  ifDelete1 = true;
+  ifUpdate1 = true
+  ifAdmin: any;
   ngOnInit(): void {
+    this.ifAdmin = localStorage.getItem('ifAdmin')
   }
   editProjectContentItemIcon(colData: any) {
     this.EditProjectContentItemIcon.emit(colData);
@@ -48,9 +54,15 @@ export class SmartTableComponent implements OnInit {
     this.SortTableUp.emit(th);
   }
   selectedData(val: any) {
-    if(!this.ifUpdateOpen)
-    {
+    if (!this.ifUpdateOpen) {
       this.SelectedData.emit(val);
     }
   }
+  showOpenTask(val: any) {
+    this.ShowOpenTask.emit(val);
+  }
+  showProjectContentItem(val: any) {
+    this.ShowProjectContentItem.emit(val);
+  }
+
 }

@@ -14,12 +14,12 @@ import swal from 'sweetalert';
 })
 export class LoginComponent implements OnInit {
   user!: User
+  ifAdmin = true;
   constructor(private router: Router, private userServiceService: UserServiceService,
-    private appService: AppService,private popUpService:PopUpServiceService) { }
+    private appService: AppService, private popUpService: PopUpServiceService) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('systemGuid'))
-    {
+    if (localStorage.getItem('systemGuid')) {
       this.router.navigate(['/menu'])
     }
   }
@@ -32,9 +32,11 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('systemGuid', this.user.SystemGuid);
         localStorage.setItem('systemName', this.user.Name);
         localStorage.setItem('systemMail', this.user.Mail);
-        this.router.navigate(['show-my-task'])
+        localStorage.setItem('ifAdmin', 'true');
+        this.router.navigate(['show-my-task', this.user.SystemGuid])
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
+        this.appService.setIsLogin(true);
       },
       (err: any) =>
         alert(err.error)

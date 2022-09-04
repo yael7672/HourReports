@@ -41,6 +41,7 @@ import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-
 import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the-last-tasks-iworked.component';
 import { SearchAndSortTasksComponent } from './search-and-sort-tasks/search-and-sort-tasks.component';
 import { TimeCounterComponent } from './time-counter/time-counter.component';
+import { EmployeeReportComponent } from './employee-report/employee-report.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -79,7 +80,8 @@ import { TimeCounterComponent } from './time-counter/time-counter.component';
     ShowMyTeamTaskComponent,
     TheLastTasksIWorkedComponent,
     SearchAndSortTasksComponent,
-    TimeCounterComponent
+    TimeCounterComponent,
+    EmployeeReportComponent
   ],
   imports: [
     BrowserModule,
