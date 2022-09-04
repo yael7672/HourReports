@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-smart-table',
@@ -6,9 +7,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./smart-table.component.css']
 })
 export class SmartTableComponent implements OnInit {
-
-  constructor() { }
+  systemGuid: any;
+  @Input() ifShowEmployeeProjectContentItem!:boolean;
+  @Input() ifShowOpenEmployeeTask!:boolean;
+   @Input() ifApproveReport!:boolean;
   @Input() ifUpdate!: boolean;
+  @Input() ifUpdateTask!: boolean;
   @Input() ifShowOpenTask!: boolean;
   @Input() ifShowProjectContentItem!: boolean;
   @Input() ifDelete!: boolean;
@@ -27,8 +31,12 @@ export class SmartTableComponent implements OnInit {
   ifDelete1 = true;
   ifUpdate1 = true
   ifAdmin: any;
+  showaApproveReportIcon: any;
+
+  constructor(private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
-    this.ifAdmin = localStorage.getItem('ifAdmin')
+    this.ifAdmin = localStorage.getItem('ifAdmin');
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
   }
   editProjectContentItemIcon(colData: any) {
     this.EditProjectContentItemIcon.emit(colData);
@@ -64,5 +72,8 @@ export class SmartTableComponent implements OnInit {
   showProjectContentItem(val: any) {
     this.ShowProjectContentItem.emit(val);
   }
+  approveReport(val:any)
+  {
 
+  }
 }

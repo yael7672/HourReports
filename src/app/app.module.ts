@@ -42,6 +42,8 @@ import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the
 import { SearchAndSortTasksComponent } from './search-and-sort-tasks/search-and-sort-tasks.component';
 import { TimeCounterComponent } from './time-counter/time-counter.component';
 import { EmployeeReportComponent } from './employee-report/employee-report.component';
+import { TasksByEmployeeComponent } from './tasks/tasks-by-employee/tasks-by-employee.component';
+import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/project-contect-items-by-employee/project-contect-items-by-employee.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -81,7 +83,9 @@ import { EmployeeReportComponent } from './employee-report/employee-report.compo
     TheLastTasksIWorkedComponent,
     SearchAndSortTasksComponent,
     TimeCounterComponent,
-    EmployeeReportComponent
+    EmployeeReportComponent,
+    TasksByEmployeeComponent,
+    ProjectContectItemsByEmployeeComponent
   ],
   imports: [
     BrowserModule,

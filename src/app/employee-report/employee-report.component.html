@@ -1,8 +1,8 @@
 <app-smart-card  [title]='"דוח עובדים"'>
     <div body>
-    <app-smart-table [ifShowOpenTask]="true" [ifShowProjectContentItem]="true" [thArr]="thArrEmployee" [tableDataKeys]="employeeListKeys"
-      [tableData]="employeeDetails" (ShowProjectContentItem)="showProjectContentItem($event)"
-      (ShowOpenTask)="showOpenTask($event)" (SortTableDown)="SortTableDown($event)"
+    <app-smart-table [ifShowOpenEmployeeTask]="true" [ifShowEmployeeProjectContentItem]="true" [ifShowProjectContentItem]="true" [thArr]="thArrEmployee" [tableDataKeys]="employeeListKeys"
+      [tableData]="employeeDetails" (ShowProjectContentItem)="openProjectContentItemByEmployeeGuid($event)"
+      (ShowOpenTask)="openTasksByEmployeeGuid($event)" (SortTableDown)="SortTableDown($event)"
       (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown">
     </app-smart-table>
   </div>

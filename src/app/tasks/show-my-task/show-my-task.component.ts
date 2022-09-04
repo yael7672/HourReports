@@ -1,4 +1,3 @@
-import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app-service.service';
@@ -37,7 +36,6 @@ export class ShowMyTaskComponent implements OnInit {
   projectContentItemArr: any;
   projectContentItem: any;
   titleTableTask = 'המשימות שלי';
-  titleTableTaskForEmployee = 'המשימות שלי';
   thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   tableSpecificTaskOpen = false;
@@ -50,7 +48,8 @@ export class ShowMyTaskComponent implements OnInit {
   employeeDetails: any;
   systemGuidFromLocalStorage: any;
   employeeDetailsParseJson: any;
-  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService, private appService: AppService, private userService: UserServiceService, public route: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
+     private appService: AppService, private userService: UserServiceService,private route : Router ) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -68,9 +67,7 @@ export class ShowMyTaskComponent implements OnInit {
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuidFromLocalStorage = localStorage.getItem('systemGuid');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    if (this.ifAdmin === 'true' && this.systemGuid !== this.systemGuidFromLocalStorage) {
-      { this.titleTableTask = ' המשימות של ' + this.employeeDetailsParseJson?.EmployeeName }
-    }
+  
   }
   GetWorkType() {
     this.userService.GetWorkType().subscribe(

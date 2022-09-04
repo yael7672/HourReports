@@ -149,11 +149,8 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['StatisticsGraph'])
   }
   GoToHome() {
-<<<<<<< HEAD
-    this.router.navigate(['show-my-task']);
-=======
+
     this.router.navigate(['show-my-task',this.systemGuid])
->>>>>>> new
   }
   ClickPersonalDetails() {
     this.openPersonalDetails = true;

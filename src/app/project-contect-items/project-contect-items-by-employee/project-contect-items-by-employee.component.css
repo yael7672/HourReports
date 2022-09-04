@@ -1,0 +1,33 @@
+.edit-button{
+    border-color: white;
+    background-color: white;
+    border: none;
+  }
+  p {
+    margin: 0;
+    text-align: right;
+  }.sort-btn{
+    border-color: white;
+    background-color: white;
+    border: none;
+  }
+  td.td {
+    display: flex;
+    flex-direction: row;
+    border-bottom-width: 0px;
+  
+  }
+  .table>:not(caption)>*>*
+  {
+    box-shadow: none;
+  }
+  .table-hover>tbody>td:hover>* {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: var(--bs-table-hover-color);
+  }
+  h2 {
+    text-align: center;
+    color: rgba(6, 6, 19, 0.795);
+    font-size: 30pt;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+  }
