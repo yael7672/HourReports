@@ -20,6 +20,8 @@ import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the
 import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
 import { MyProjectContectItemsComponent } from './project-contect-items/my-project-contect-items/my-project-contect-items.component';
 import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-awaiting-approval.component';
+import { StatisticsGraphEmployeeDetailsToManagerComponent } from './statistics-graph-employee-details-to-manager/statistics-graph-employee-details-to-manager.component';
+import { StatisticsGraphAllEmployeesDetailsToManagerComponent } from './statistics-graph-all-employees-details-to-manager/statistics-graph-all-employees-details-to-manager.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -43,7 +45,9 @@ const routes: Routes = [
   { path: 'show-team-my-task', component: ShowMyTeamTaskComponent },
   { path: 'the-last-tasks-i-worked', component: TheLastTasksIWorkedComponent },
   { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent },
-  { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent }
+  { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
+  { path: 'Statistics-Graph-Employee-Details-ToManager-component', component: StatisticsGraphEmployeeDetailsToManagerComponent },
+  { path: 'Statistics-Graph-All-Employees-Details-ToManager-component', component: StatisticsGraphAllEmployeesDetailsToManagerComponent }
 
 ];
 

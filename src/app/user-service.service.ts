@@ -113,4 +113,9 @@ export class UserServiceService {
   UpdateTaskHasRead(SystemGuid: string,TaskGuid:string) {
     return this.http.get<any>(environment.url + 'UpdateTaskHasRead/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+ '&TaskGuid=' + TaskGuid)
   }
+  async  GetActualTimeAndWorkTime(SystemGuid: string){
+    return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
+  }
+
+
 }

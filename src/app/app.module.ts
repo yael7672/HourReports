@@ -42,6 +42,8 @@ import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the
 import { SearchAndSortTasksComponent } from './search-and-sort-tasks/search-and-sort-tasks.component';
 import { TimeCounterComponent } from './time-counter/time-counter.component';
 import { MyNewTasksComponent } from './my-new-tasks/my-new-tasks.component';
+import { StatisticsGraphEmployeeDetailsToManagerComponent } from './statistics-graph-employee-details-to-manager/statistics-graph-employee-details-to-manager.component';
+import { StatisticsGraphAllEmployeesDetailsToManagerComponent } from './statistics-graph-all-employees-details-to-manager/statistics-graph-all-employees-details-to-manager.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -81,7 +83,9 @@ import { MyNewTasksComponent } from './my-new-tasks/my-new-tasks.component';
     TheLastTasksIWorkedComponent,
     SearchAndSortTasksComponent,
     TimeCounterComponent,
-    MyNewTasksComponent
+    MyNewTasksComponent,
+    StatisticsGraphEmployeeDetailsToManagerComponent,
+    StatisticsGraphAllEmployeesDetailsToManagerComponent
   ],
   imports: [
     BrowserModule,

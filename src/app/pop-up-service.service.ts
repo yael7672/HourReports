@@ -16,6 +16,8 @@ export class PopUpServiceService {
   private ifClosePouse$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private WorkTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private IfXProjectContectItemUpdateWithTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private refreshGetAllMyNewTask$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor() { }
 
   setSpecificPopUp(data: boolean, type: string) {
@@ -52,7 +54,12 @@ export class PopUpServiceService {
   getAllmyTask() {
     return this.refreshGetAllMyTask$;
   }
-
+  setAllMyNewTask(val: boolean) {
+    this.refreshGetAllMyNewTask$.next(val)
+  }
+  getAllMyNewTask() {
+    return this.refreshGetAllMyNewTask$;
+  }
   setAllmyProjectContectItem(val: boolean) {
     this.refreshMyprojectContentItem$.next(val)
   }
