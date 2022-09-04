@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
@@ -26,7 +26,7 @@ export class MyNewTasksComponent implements OnInit {
   systemUser: any
   thArrMyNewTask = ['שם המשימה', 'תיאור המשימה']
   MyNewTaskKey = ['Subject', 'Description']
-  constructor(private userService: UserServiceService, private router: Router, private popUpService: PopUpServiceService,
+  constructor(private activatedRoute: ActivatedRoute,private userService: UserServiceService, private router: Router, private popUpService: PopUpServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
     this.popUpService.getAllmyTask().subscribe(res => {
@@ -62,7 +62,7 @@ export class MyNewTasksComponent implements OnInit {
     this.closePopUp()
     this.popUpService.setAllmyTask(true)
     this.detailsTask = val
-    let showMyTaskComp = new ShowMyTaskComponent(this.popUpService, this.buttonWorkingTaskService, this.appService, this.userService, this.router)
+    let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute,this.popUpService, this.appService, this.userService, this.router)
     showMyTaskComp.SelectedTask(this.detailsTask)
     this.UpdateTaskHasRead(this.detailsTask.TaskGuid)
   }
