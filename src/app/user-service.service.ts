@@ -106,7 +106,21 @@ export class UserServiceService {
   GetAllUserAndTeams() {
     return this.http.get<any>(environment.url + 'GetAllUserAndTeams?OrganizationName=AuroraProd')
   }
+
   GetEmployeeDetails(SystemGuid: string) {
     return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
+
+  
+  GetMyNewTasks(SystemGuid: string) {
+    return this.http.get<any>(environment.url + 'GetMyNewTasks/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+  }
+  UpdateTaskHasRead(SystemGuid: string,TaskGuid:string) {
+    return this.http.get<any>(environment.url + 'UpdateTaskHasRead/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+ '&TaskGuid=' + TaskGuid)
+  }
+  async  GetActualTimeAndWorkTime(SystemGuid: string){
+    return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
+  }
+
+
 }

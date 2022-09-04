@@ -27,6 +27,10 @@
           class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
       </a>
     </div>
+    <a (click)="openPopUp('MyNewTask',true)" class="col-1"   (clickOutside)="onClickedOutsideMyNewTask($event)">
+      <img src="/src/assets/images/pause1image.png"
+        class="img-fluid profile-image-pic img-thumbnail rounded-circle " alt="profile">
+    </a>
   </div>
 
   <div *ngIf="startWorkOfTask">
@@ -61,7 +65,9 @@
       [workType]="workTypeArr"></app-freedom-project-content-item>
   </div>
 
-
+  <div *ngIf="isPopUpOpen?.MyNewTask">
+    <app-my-new-tasks></app-my-new-tasks>
+  </div>
 
   <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
     <app-pop-up>
