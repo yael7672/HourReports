@@ -121,6 +121,7 @@ export class UserServiceService {
   async  GetActualTimeAndWorkTime(SystemGuid: string){
     return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
   }
-
-
+  async GetWorkTimeByWorkType(SystemGuid: string){
+    return await this.http.get<any>(environment.url + 'GetWorkTimeByWorkType/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
+  }
 }

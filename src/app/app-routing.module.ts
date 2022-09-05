@@ -54,7 +54,7 @@ const routes: Routes = [
   { path: 'tasks-by-employee/:id', component: TasksByEmployeeComponent },
   { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent },
   { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
-  { path: 'Statistics-Graph-Employee-Details-ToManager-component', component: StatisticsGraphEmployeeDetailsToManagerComponent },
+  { path: 'Statistics-Graph-Employee-Details-ToManager-component/:id', component: StatisticsGraphEmployeeDetailsToManagerComponent },
   { path: 'Statistics-Graph-All-Employees-Details-ToManager-component', component: StatisticsGraphAllEmployeesDetailsToManagerComponent }
 
 ];

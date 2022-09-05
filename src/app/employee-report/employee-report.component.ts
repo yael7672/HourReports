@@ -13,6 +13,7 @@ export class EmployeeReportComponent implements OnInit {
   employeeDetails: any;
   ifSortDown = false;
   systemGuid: any;
+  showGraph=true
 
   constructor(private userService: UserServiceService, public route: Router) { }
 

@@ -66,6 +66,11 @@
           class="edit-button" placement="bottom" ngbTooltip="צפיה  בדיווחי שעות של העובד">
           <i class="fa fa-calendar-check-o"></i>
         </button>
+
+        <button *ngIf="ifShowEmployeeProjectContentItem&&showGraph" (click)="showStatisticsGraphEmployeeDetailsToManager(colData)" class="edit-button"
+        class="edit-button" placement="bottom" ngbTooltip="צפיה  בנתונים של העובד">
+        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+      </button>
         <button *ngIf="ifApproveReport" (click)="approveReport(colData)"
           class="edit-button" class="edit-button" placement="bottom" ngbTooltip="אישור הדיווח">
           <i class="fa fa-check" aria-hidden="true"></i>
