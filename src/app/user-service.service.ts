@@ -124,4 +124,8 @@ export class UserServiceService {
   async GetWorkTimeByWorkType(SystemGuid: string){
     return await this.http.get<any>(environment.url + 'GetWorkTimeByWorkType/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
   }
+  UpdateEmployeeDetails(EmployeeDetails: any) {
+    return this.http.post<any>(environment.url + 'UpdateEmployeeDetails?OrganizationName=AuroraProd', EmployeeDetails);
+  }
+  
 }

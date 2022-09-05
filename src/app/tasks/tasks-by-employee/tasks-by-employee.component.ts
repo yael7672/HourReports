@@ -60,6 +60,10 @@ export class TasksByEmployeeComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
+  EditEmployeeDetailsByAdmin(ProjectContentItem: any) {
+    this.popUpService.setSpecificPopUp(true, 'EditEmployeeDetailsByAdmin');
+    this.projectContentItemGuid = ProjectContentItem.Guid;
+  }
   SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;

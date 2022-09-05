@@ -40,9 +40,9 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     this.EmployeeBarChart = new Chart('BarChart', {
       type: 'bar',
       data: {
-        labels: ["שעות בפועל"],
+        labels: ["שעות בפועל - שעות עבודה"],
         datasets: [{
-          label: 'שעות בפועל',
+          label: 'שעות עבודה',
           data: [],
           backgroundColor: [
             'green',
@@ -55,7 +55,7 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
           borderWidth: 1
         },
         {
-          label: 'שעות עבודה',
+          label: 'שעות בפועל',
           data: [],
           backgroundColor: [
             'green',
@@ -83,7 +83,7 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
       data: {
         labels: [],
         datasets: [{
-          label: 'שעות בפועל',
+          label: 'שעות עבודה',
           data: [],
           backgroundColor: [
             'green',
