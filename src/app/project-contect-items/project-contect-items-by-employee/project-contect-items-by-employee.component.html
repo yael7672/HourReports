@@ -3,6 +3,7 @@
       <div class="form-outline d-flex justify-content-center">
         <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
           <option value="">--בחר אחת מהאופציות הבאות--</option>
+          <option value="6"> דיווחי שעות שעדיין לא אושרו  </option>
           <option value="1"> היום </option>
           <option value="2"> 7 ימים אחרונים </option>
           <option value="3"> שבוע שעבר </option>
@@ -14,14 +15,14 @@
         <h2>אין דיווחים!</h2>
       </div>
       <div *ngIf="myProjectContectItemArr?.length > 0">
-        <app-smart-table [ifUpdate]="true" [ifApproveReport]="true" [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [tableDataKeys]="projectContentItemListKeys" [tableData]="myProjectContectItemArr"
+        <app-smart-table [ifUpdate]="true" [ifShowCheckBox]="true" [ifApproveReport]="true" [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [tableDataKeys]="projectContentItemListKeys" [tableData]="myProjectContectItemArr"
         (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
         (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
-        (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+        (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails" (ApproveReport)="approveReport($event)">
       </app-smart-table>
        
         <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
-          <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [project]="projectArr"
+          <app-update-project-content-item [ifAdmin]="true" [kindUpdate]="'updateProjectContectItem'" [project]="projectArr"
             [myProjectContectItemArr]="myProjectContectItemArr" [workType]="workTypeArr" 
             [ProjectContentItem]="projectContentItem"></app-update-project-content-item>
         </div>

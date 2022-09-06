@@ -3,9 +3,9 @@
   <h4 header class="mb-4" *ngIf="header"> {{header}}</h4>
   <div body>
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
-      <div *ngIf="ProjectContentItem.Date" class="form-outline d-flex justify-content-center ">
+      <div  class="form-outline d-flex justify-content-center ">
         <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
-          class="form-control" [(ngModel)]="ProjectContentItem.Date" [ngModelOptions]="{standalone: true}" ngModel
+          class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" ngModel
           required>
       </div>
         <p> פרוייקט:</p>
@@ -55,7 +55,11 @@
       <!--  -->
       <p>שעות בפועל:</p>
       <input type="number" id="HoursActually" name="HoursActually" class="form-control" placeholder="שעות בפועל"
-        [(ngModel)]="workingHours" [ngModelOptions]="{standalone: true}" ngModel #HoursActually="ngModel" required>
+        [(ngModel)]="actualHours" [ngModelOptions]="{standalone: true}" ngModel #HoursActually="ngModel" >
+
+        <p *ngIf="ifAdmin">שעות לחיוב:</p>
+        <input *ngIf="ifAdmin" type="number" id="HoursWorking" name="HoursWorking" class="form-control" placeholder="שעות לחיוב"
+        [(ngModel)]="workingHours" [ngModelOptions]="{standalone: true}" ngModel #HoursWorking="ngModel" >
         <p *ngIf="ifUpdateTask">תאור המשימה:</p>
       <p *ngIf="!ifUpdateTask">תאור דיווח:</p>
       <div class="form-outline d-flex justify-content-center ">

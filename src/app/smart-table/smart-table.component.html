@@ -1,6 +1,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th *ngIf="ifShowCheckBox">בחר</th>
       <th *ngFor="let th of thArr" scope="col">
         <ng-container *ngIf="ifSortDown; else sortTableUpp;">
           <button (click)="sortTableDown(th)">
@@ -22,10 +23,13 @@
           </button>
         </ng-template>
       </th>
+
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let colData of tableData" (click)="selectedData(colData)">
+    <tr *ngFor="let colData of tableData; let i = index" (click)="selectedData(colData)">
+      <input *ngIf="ifShowCheckBox" class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+        [(ngModel)]="isChecked[i]" (change)="checkValue(isChecked[i],colData)">
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
         <ng-container
           *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' && tableDataKey!=='EmployeeMonthlyWorkingHours' else WorkingHours;">
@@ -47,12 +51,12 @@
       </ng-container>
 
       <td class="td">
-        <button *ngIf="ifUpdate" (click)="editProjectContentItemIcon(colData)" placement="top"
-         ngbTooltip="באפשרותך לערוך את הדיווח.">
+        <button *ngIf="ifUpdate&&this.arrayOfReports.length < 1" (click)="editProjectContentItemIcon(colData)"
+          placement="top" ngbTooltip="באפשרותך לערוך את הדיווח.">
           <i class="fa fa-pencil" aria-hidden="true"></i></button>
-          <button *ngIf="ifUpdateTask" (click)="editProjectContentItemIcon(colData)" placement="right"
+        <button *ngIf="ifUpdateTask" (click)="editProjectContentItemIcon(colData)" placement="right"
           ngbTooltip="באפשרותך לערוך את המשימה.">
-           <i class="fa fa-pencil" aria-hidden="true"></i></button>
+          <i class="fa fa-pencil" aria-hidden="true"></i></button>
         <button *ngIf="ifDelete" (click)="deleteProjectContentItemIcon(colData)" class="edit-button" class="edit-button"
           placement="bottom" ngbTooltip="באפשרותך למחוק את הדיווח.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
@@ -65,8 +69,8 @@
           class="edit-button" placement="bottom" ngbTooltip="צפיה  בדיווחי שעות של העובד">
           <i class="fa fa-calendar-check-o"></i>
         </button>
-        <button *ngIf="ifApproveReport" (click)="approveReport(colData)"
-          class="edit-button" class="edit-button" placement="bottom" ngbTooltip="אישור הדיווח">
+        <button *ngIf="ifApproveReport" (click)="approveReport(colData)" class="edit-button" class="edit-button"
+          placement="bottom" ngbTooltip="אישור הדיווח">
           <i class="fa fa-check" aria-hidden="true"></i>
 
         </button>

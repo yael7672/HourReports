@@ -8,9 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SmartTableComponent implements OnInit {
   systemGuid: any;
-  @Input() ifShowEmployeeProjectContentItem!:boolean;
-  @Input() ifShowOpenEmployeeTask!:boolean;
-   @Input() ifApproveReport!:boolean;
+  @Input() ifShowCheckBox!: boolean;
+  @Input() ifShowEmployeeProjectContentItem!: boolean;
+  @Input() ifShowOpenEmployeeTask!: boolean;
+  @Input() ifApproveReport!: boolean;
   @Input() ifUpdate!: boolean;
   @Input() ifUpdateTask!: boolean;
   @Input() ifShowOpenTask!: boolean;
@@ -28,10 +29,14 @@ export class SmartTableComponent implements OnInit {
   @Output() SelectedData = new EventEmitter<any>();
   @Output() ShowOpenTask = new EventEmitter<any>();
   @Output() ShowProjectContentItem = new EventEmitter<any>();
+  @Output() ApproveReport = new EventEmitter<any>();
+
   ifDelete1 = true;
   ifUpdate1 = true
   ifAdmin: any;
+  isChecked: boolean[] = [];
   showaApproveReportIcon: any;
+  arrayOfReports: any[] = [];
 
   constructor(private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
@@ -72,8 +77,25 @@ export class SmartTableComponent implements OnInit {
   showProjectContentItem(val: any) {
     this.ShowProjectContentItem.emit(val);
   }
-  approveReport(val:any)
-  {
-
+  approveReport(val: any) {
+    if (this.arrayOfReports.length > 0) {
+      this.ApproveReport.emit(this.arrayOfReports)
+    } else {
+      this.ApproveReport.emit(val)
+    }
+  }
+  checkValue(isChecked: any, data: any) {
+    console.log(isChecked, data);
+    if (isChecked) {
+      this.arrayOfReports.push(data)
+      console.log(this.arrayOfReports);
+    }
+    else {
+      const index = this.arrayOfReports.indexOf(data);
+      if (index > -1) {
+        this.arrayOfReports.splice(index, 1);
+        console.log(this.arrayOfReports);
+      }
+    }
   }
 }

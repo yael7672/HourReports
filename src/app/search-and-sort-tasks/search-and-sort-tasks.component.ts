@@ -24,9 +24,11 @@ export class SearchAndSortTasksComponent implements OnInit {
       this.route.navigate(['/show-my-task',this.systemGuid]);
     }
     if (val == 1) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/show-team-my-task/',this.systemGuid]);
     }
     if (val == 2) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/the-last-tasks-i-worked']);
     }
   }

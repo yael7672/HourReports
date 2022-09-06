@@ -23,6 +23,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
   @Input() ifUpdateTask: any;
   @Input() header: any;
   @Input() kindUpdate: any;
+  @Input() ifAdmin: any;
   @Input() myProjectContectItemArr: any;
   updateDetails = false;
   openCard = false;
@@ -35,13 +36,22 @@ export class UpdateProjectContentItemComponent implements OnInit {
   TaskToUpdate: any;
   allUserAndTeams: any;
   systemGuid: any;
-  constructor(private activatedRoute:ActivatedRoute, private router: Router, private userService: UserServiceService, private appService: AppService,
+  actualHours: any;
+  date:any;
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserServiceService, private appService: AppService,
     private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
+
   }
 
   ngOnInit(): void {
-    this.workingHours = Number(this.ProjectContentItem?.WorkingHours)
+    this.date = this.datePipe.transform(this.ProjectContentItem?.Date, 'yyyy-MM-dd');
+    this.actualHours = Number(this.ProjectContentItem?.WorkingHours)
+    if (this.ProjectContentItem?.ActualTime != "")
+      this.workingHours = Number(this.ProjectContentItem?.ActualTime ? this.ProjectContentItem?.ActualTime : "")
+    else {
+      this.workingHours = this.ProjectContentItem?.ActualTime
+    }
     this.GetAllUserAndTeams();
   }
   UpdateTaskOrProjectContectItem(f: NgForm) {
@@ -57,6 +67,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
 
   UpdateTaskDetails(form: NgForm) {
     this.TaskToUpdate = {
+      Date:this.date,
       Project: form.value.Project.Guid,
       TaskGuid: this.ProjectContentItem.TaskGuid,
       WorkType: form.value.WorkType.Guid,
@@ -77,13 +88,15 @@ export class UpdateProjectContentItemComponent implements OnInit {
     )
   }
   UpdateProjectItemButton(form: NgForm) {
+    
     this.ProjectItemToUpdate = {
+      Date:this.date,
       Guid: this.ProjectContentItem.Guid,
       Description: this.ProjectContentItem.Description,
-      ActualTime: this.workingHours,
+      ActualTime: this.actualHours,
+      WorkingHours: this.workingHours,
       WorkType: { "Guid": this.ProjectContentItem.WorkType.Guid },
       Project: { "Guid": this.ProjectContentItem.Project.Guid },
-      Date: this.ProjectContentItem.Date,
     }
     this.userService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
@@ -91,7 +104,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
         swal(this.massageToUser)
         this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
 
-        if (window.location.pathname == '/my-project-contect-items-component/',this.systemGuid) {
+        if (window.location.pathname == '/my-project-contect-items-component/', this.systemGuid) {
           this.popUpService.setAllmyProjectContectItem(true);
           this.appService.setIsPopUpOpen(false);
           this.popUpService.setClosePopUp()

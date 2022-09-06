@@ -109,4 +109,7 @@ export class UserServiceService {
   GetEmployeeDetails(SystemGuid: string) {
     return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
+  ApprovalPojectContentItem(obj:any) {
+    return this.http.post<any>(environment.url + 'ApprovalPojectContentItem',obj)
+  }
 }
