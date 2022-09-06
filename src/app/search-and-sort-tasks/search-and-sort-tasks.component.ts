@@ -29,7 +29,7 @@ export class SearchAndSortTasksComponent implements OnInit {
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/the-last-tasks-i-worked']);
+      this.route.navigate(['/the-last-tasks-i-worked',this.systemGuid]);
     }
   }
   GetProject() {

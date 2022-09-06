@@ -17,15 +17,15 @@ import { ChartsMyTaskComponent } from './charts-my-task/charts-my-task.component
 import { SickLeaveProjectContentItemComponent } from './project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
 import { UpdateProjectContentItemComponent } from './update-project-content-item/update-project-content-item.component';
 import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the-last-tasks-iworked.component';
-import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
 import { MyProjectContectItemsComponent } from './project-contect-items/my-project-contect-items/my-project-contect-items.component';
 import { HoursAwaitingApprovalComponent } from './hours-awaiting-approval/hours-awaiting-approval.component';
-import { EmployeeReportComponent } from './employee-report/employee-report.component';
-import { TasksByEmployeeComponent } from './tasks/tasks-by-employee/tasks-by-employee.component';
-import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/project-contect-items-by-employee/project-contect-items-by-employee.component';
 import { StatisticsGraphEmployeeDetailsToManagerComponent } from './statistics-graph-employee-details-to-manager/statistics-graph-employee-details-to-manager.component';
 import { StatisticsGraphAllEmployeesDetailsToManagerComponent } from './statistics-graph-all-employees-details-to-manager/statistics-graph-all-employees-details-to-manager.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { EmployeeReportComponent } from './employee-report/employee-report.component';
+import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/project-contect-items-by-employee/project-contect-items-by-employee.component';
+import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
+import { TasksByEmployeeComponent } from './tasks/tasks-by-employee/tasks-by-employee.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -47,7 +47,7 @@ const routes: Routes = [
   { path: 'up', component: UpdateProjectContentItemComponent },
   { path: 'show-my-task/:id', component: ShowMyTaskComponent },
   { path: 'show-team-my-task/:id', component: ShowMyTeamTaskComponent },
-  { path: 'the-last-tasks-i-worked', component: TheLastTasksIWorkedComponent },
+  { path: 'the-last-tasks-i-worked/:id', component: TheLastTasksIWorkedComponent },
   { path: 'project-contect-items-by-employee/:id', component: ProjectContectItemsByEmployeeComponent },
   { path: 'my-project-contect-items-component/:id', component: MyProjectContectItemsComponent },
   { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },

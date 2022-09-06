@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app-service.service';
 import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
@@ -11,19 +11,40 @@ import { UserServiceService } from 'src/app/user-service.service';
   styleUrls: ['./the-last-tasks-iworked.component.css']
 })
 export class TheLastTasksIWorkedComponent implements OnInit {
+  systemGuid: any;
+  taskTeamsArr: any;
+  taskArr: any;
 
-  constructor(private popUpService: PopUpServiceService, private buttonWorkingTaskService: ButtonWorkingTaskService, private appService: AppService, private userService: UserServiceService, public route: Router) { }
+  constructor(private popUpService: PopUpServiceService, private activatedRoute: ActivatedRoute, private appService: AppService, private userService: UserServiceService, public route: Router) { }
 
   titleLastTaskIWorkedOn = "המשימות האחרונות שעבדתי עליהן";
   thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
-  sortTaskArr!: any;
+  sortTaskArr: any[] = [];
   projectContentItem: any;
   showMassgeToUser = false;
   projectContentItemGuid: any;
   ifSortDown = true;
   ngOnInit(): void {
+    this.GetMyTask();
   }
+  GetMyTask() {
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+    this.userService.GetMyTask(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+          this.taskArr = res;
+          this.sortTaskArr = res;
+          this.SortLastTaskIWorkedOn()
+          console.log(this.sortTaskArr);
+
+        }
+      }, err => {
+        console.log(err.error)
+      }
+    )
+  }
+
   editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.projectContentItem = val;
@@ -60,7 +81,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
     }
     if (keyToSort != 'Project') {
       this.sortTaskArr?.sort((a: any, b: any) =>
-        (a[keyToSort]  > (b[keyToSort] )) ? 1 : -1)
+        (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
     }
     else {
       this.sortTaskArr?.sort((a: any, b: any) =>
@@ -103,7 +124,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
   }
   SortLastTaskIWorkedOn() {
     this.sortTaskArr.sort((a: any, b: any) =>
-    (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
-  )
+      (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
+    )
   }
 }
