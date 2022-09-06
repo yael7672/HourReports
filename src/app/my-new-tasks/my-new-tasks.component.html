@@ -1,9 +1,12 @@
 <div class="actionArea">
     <app-smart-card>
-        <div body> 
+        <div body>
             <a class="close" (click)="closePopUp()">&times;</a>
             <app-smart-table [tableData]="MyNewTaskArr" (SelectedData)="showDetailsTask($event)"
                 [tableDataKeys]="MyNewTaskKey" [hideSort]="'true'" [thArr]="thArrMyNewTask"></app-smart-table>
+            <div *ngIf="ifThereNewTasks" class="checkIfNewTask">
+                <h5>אין משימות חדשות</h5>
+            </div>
         </div>
     </app-smart-card>
 </div>

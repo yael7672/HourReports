@@ -1,19 +1,18 @@
-<app-smart-card  [title]='"דוח עובדים"'>
-    <div body>
-    <app-smart-table [ifShowOpenEmployeeTask]="true" [ifShowEmployeeProjectContentItem]="true" [ifShowProjectContentItem]="true" [thArr]="thArrEmployee" [tableDataKeys]="employeeListKeys"
-      [tableData]="employeeDetails" (ShowProjectContentItem)="openProjectContentItemByEmployeeGuid($event)" (EditEmployeeDetailsByAdmin)="editEmployeeDetailsByAdmin($event)"
-     [ifShowAndEditEmployeeSetting]="ifShowAndEditEmployeeSetting" (ShowOpenTask)="openTasksByEmployeeGuid($event)" (SortTableDown)="SortTableDown($event)"
-      (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown" [showGraph]="showGraph">
+<app-smart-card [title]='"דוח עובדים"' [showChrtEmployee]="'true'">
+  <div body>
+    <app-smart-table [ifShowOpenEmployeeTask]="true" [ifShowEmployeeProjectContentItem]="true"
+      [ifShowProjectContentItem]="true" [thArr]="thArrEmployee" [tableDataKeys]="employeeListKeys"
+      [tableData]="employeeDetails" (ShowProjectContentItem)="openProjectContentItemByEmployeeGuid($event)"
+      (EditEmployeeDetailsByAdmin)="editEmployeeDetailsByAdmin($event)"
+      [ifShowAndEditEmployeeSetting]="ifShowAndEditEmployeeSetting" (ShowOpenTask)="openTasksByEmployeeGuid($event)"
+      (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown"
+      [showGraph]="showGraph">
     </app-smart-table>
   </div>
-    </app-smart-card>
-
-    
-
-    <div *ngIf="isPopUpOpen?.EditEmployeeDetailsByAdmin">
-      <app-admin-settings [employeeDetails]="employeeDetailsVal" [header]="'עריכת נתונים'"></app-admin-settings>
-    </div>
+</app-smart-card>
 
 
 
- 
+<div *ngIf="isPopUpOpen?.EditEmployeeDetailsByAdmin">
+  <app-admin-settings [employeeDetails]="employeeDetailsVal" [header]="'עריכת נתונים'"></app-admin-settings>
+</div>

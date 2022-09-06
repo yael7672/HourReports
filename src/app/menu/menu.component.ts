@@ -56,6 +56,8 @@ export class MenuComponent implements OnInit {
   myDate = new Date()
   ifX = true
   taskListDataDetailsParseToJson: any;
+  MyNewTaskArr: any;
+  ifThereNewTasks=false;
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -176,5 +178,20 @@ export class MenuComponent implements OnInit {
       // if (this.openPersonalDetails) {
       //   this.openPersonalDetails = false;
       // }
+  }
+  GetMyNewTasks() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetMyNewTasks(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+          this.MyNewTaskArr = res;
+        }
+      }, err => {
+        console.log(err.error)
+        if (err.error = "'tasks' is null!") {
+          this.ifThereNewTasks = true
+        }
+      }
+    )
   }
 }

@@ -34,6 +34,7 @@ export class SmartCardComponent implements OnInit {
   @Input()textButtonBackToMyTask:any;
   @Input() isDisabledStart!: any;
   @Input() textButtonBack!: any;
+  @Input() showChrtEmployee!: any;
   @Output() clickBackToMyTask= new EventEmitter<any>();
   @Output()clickCloseCard = new EventEmitter<any>();
   @Output()clickStartTimer = new EventEmitter<any>();
@@ -51,4 +52,10 @@ export class SmartCardComponent implements OnInit {
   {
     this.clickBackToMyTask.emit();
   }
+  showStatisticsGraphAllEmployeeDetailsToManager()
+  {
+    this.router.navigate(['/Statistics-Graph-All-Employees-Details-ToManager'])
+
+  }
+
 }

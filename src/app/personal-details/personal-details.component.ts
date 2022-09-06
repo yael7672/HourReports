@@ -19,9 +19,11 @@ export class PersonalDetailsComponent implements OnInit {
   @Input() todayDate: any;
   @Output() openPopUp = new EventEmitter<any>();
   @Output() closePersonalDetails = new EventEmitter<any>();
-  DailyAndMonthlyWorkingHours:any;
+  DailyAndMonthlyWorkingHours: any;
+  MessageToTheManagerRes: any;
+  IfMessageToTheManager = false
 
-  constructor(public route: Router, private appService: AppService, private popUpService: PopUpServiceService,private userService:UserServiceService) { }
+  constructor(public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { }
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -42,21 +44,37 @@ export class PersonalDetailsComponent implements OnInit {
   goTpHoursAwaitingApproval() {
     this.route.navigate(['/hours-awaiting-approval-component'])
   }
-  GetDailyWorkingHoursAndMonthlyWorkingHours(systemGuid:any) {
-  
+  GetDailyWorkingHoursAndMonthlyWorkingHours(systemGuid: any) {
+
     this.userService.GetDailyWorkingHoursAndMonthlyWorkingHours(systemGuid).subscribe(
       res => {
         if (res) {
           this.DailyAndMonthlyWorkingHours = res;
-          console.log( this.DailyAndMonthlyWorkingHours);
+          console.log(this.DailyAndMonthlyWorkingHours);
         }
       }, err => {
         console.log(err.error)
       }
     )
   }
-  goToEmployeeReport()
-  {
+  goToEmployeeReport() {
     this.route.navigate(['/employee-report'])
   }
+  MessageToTheManager() {
+    this.userService.MessageToTheManager().subscribe(
+      res => {
+        if (res) {
+          this.MessageToTheManagerRes = res
+         
+        }
+      }, err => {
+        console.log(err.error)
+      }
+    )
+    if (this.MessageToTheManagerRes) {
+       this.IfMessageToTheManager = true
+      // this.route.navigate(['/employee-report'])
+    }
+  }
+
 }

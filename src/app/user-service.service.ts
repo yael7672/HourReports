@@ -127,5 +127,8 @@ export class UserServiceService {
   UpdateEmployeeDetails(EmployeeDetails: any) {
     return this.http.post<any>(environment.url + 'UpdateEmployeeDetails?OrganizationName=AuroraProd', EmployeeDetails);
   }
-  
+  MessageToTheManager(){
+    return  this.http.get<any>(environment.url + 'MessageToTheManager');
+
+  }
 }

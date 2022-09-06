@@ -61,3 +61,7 @@ a {
   width: 10em;
   background: yellow;
 }
+.checkIfNewTask {
+  display: flex;
+  justify-content: center
+}
