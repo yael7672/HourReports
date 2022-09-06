@@ -244,5 +244,8 @@ svg#clock-history {
 }
 
 .ThereNoNewTask {
+    color: rgb(0, 0, 0);
+}
+.ThereNewTask{
     color: red;
 }
