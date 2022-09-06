@@ -7,10 +7,21 @@ a {
         width:100vw;
     }
 } */
-h3{
-  font-size: x-large;
+h3 {
+    font-size: x-large;
 }
-.card-title
-{
+
+.card-title {
     text-align: center;
+}
+
+.chart-button {
+    border-color: white;
+    background-color: white;
+    border: none;
+    direction: ltr;
+}
+
+.back2 {
+   display: flex;
 }

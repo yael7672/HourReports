@@ -8,7 +8,7 @@
             <ng-container>
               {{th}}
             </ng-container>
-            <i class="fa fa-caret-down"></i>
+            <i class="fa fa-caret-down" *ngIf="!hideSort" ></i>
             <ng-template #WorkingHours>
               <ng-container> {{th}}</ng-container>
             </ng-template>
@@ -19,7 +19,7 @@
             <ng-container>
               {{th}}
             </ng-container>
-            <i class="fa fa-caret-up"></i>
+            <i class="fa fa-caret-up" *ngIf="!hideSort"></i>
           </button>
         </ng-template>
       </th>

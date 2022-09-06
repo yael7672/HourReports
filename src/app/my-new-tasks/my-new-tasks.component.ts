@@ -26,13 +26,15 @@ export class MyNewTasksComponent implements OnInit {
   systemUser: any
   thArrMyNewTask = ['שם המשימה', 'תיאור המשימה']
   MyNewTaskKey = ['Subject', 'Description']
-  constructor(private activatedRoute: ActivatedRoute,private userService: UserServiceService, private router: Router, private popUpService: PopUpServiceService,
+  ifThereNewTasks = false
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private router: Router, private popUpService: PopUpServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
         this.GetMyNewTasks()
     })
+
   }
 
   ngOnInit(): void {
@@ -48,6 +50,9 @@ export class MyNewTasksComponent implements OnInit {
         }
       }, err => {
         console.log(err.error)
+        if (err.error = "'tasks' is null!") {
+          this.ifThereNewTasks = true
+        }
       }
     )
   }
@@ -62,7 +67,7 @@ export class MyNewTasksComponent implements OnInit {
     this.closePopUp()
     this.popUpService.setAllmyTask(true)
     this.detailsTask = val
-    let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute,this.popUpService, this.appService, this.userService, this.router)
+    let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute, this.popUpService, this.appService, this.userService, this.router)
     showMyTaskComp.SelectedTask(this.detailsTask)
     this.UpdateTaskHasRead(this.detailsTask.TaskGuid)
   }

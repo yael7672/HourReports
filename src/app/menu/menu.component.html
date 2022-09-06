@@ -3,34 +3,34 @@
     <a (click)="GoToHome()">
       <i class="fa fa-home" aria-hidden="true" placement="bottom" ngbTooltip="">
       </i></a>
-    <a (click)="openPopUp('creatTask',true)" placement="bottom" ngbTooltip="יצירת משימה"><i
-        class="fa fa-edit"></i>
+    <a (click)="openPopUp('creatTask',true)" placement="bottom" ngbTooltip="יצירת משימה"><i class="fa fa-edit"></i>
     </a>
-    <a (click)="openPopUp('createAprojectContentItem',true)" placement="bottom" ngbTooltip="יצירת פריט תכול פרויקט"><span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+    <a (click)="openPopUp('createAprojectContentItem',true)" placement="bottom"
+      ngbTooltip="יצירת פריט תכול פרויקט"><span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
     </a>
     <a (click)="goToMyprojectContentItem()" placement="bottom" ngbTooltip="פריטי תכולת פרויקט"><i
         class="fa fa-calendar-check-o"></i>
     </a>
-    <a (click)="openPopUp('pause',true)" placement="bottom" ngbTooltip="צא להפסקה"><i
-        class="fa fa-coffee"></i></a>
-    <a (click)="openPopUp('timeOfProjectContectItem',true)" placement="bottom" ngbTooltip="יצירת מהירה של פריט תכולת פרויקט">
+    <a (click)="openPopUp('pause',true)" placement="bottom" ngbTooltip="צא להפסקה"><i class="fa fa-coffee"></i></a>
+    <a (click)="openPopUp('timeOfProjectContectItem',true)" placement="bottom"
+      ngbTooltip="יצירת מהירה של פריט תכולת פרויקט">
       <i class="fa fa-clock-o" aria-hidden="true"></i></a>
-      
-    <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i
-        class="fa fa-bar-chart" aria-hidden="true"></i> </a>
+    <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart"
+        aria-hidden="true"></i> </a>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
+      <a (click)="openPopUp('MyNewTask',true)"   (clickOutside)="onClickedOutsideMyNewTask($event)">
+        <i class="fa fa-bell mt-3" style="font-size:38px" [ngClass]="{ 'ThereNoNewTask': ifThereNewTasks}"></i>
+      </a>
       <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
       <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
         (clickOutside)="onClickedOutside($event)">
         <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
           class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
       </a>
+
     </div>
-    <a (click)="openPopUp('MyNewTask',true)" class="col-1"   (clickOutside)="onClickedOutsideMyNewTask($event)">
-      <img src="/src/assets/images/pause1image.png"
-        class="img-fluid profile-image-pic img-thumbnail rounded-circle " alt="profile">
-    </a>
+
   </div>
 
   <div *ngIf="startWorkOfTask">
@@ -47,12 +47,12 @@
 
   <div *ngIf="openPersonalDetails">
     <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [todayDate]="todayDate"
-      (closePersonalDetails)="closePersonalDetails()" >
+      (closePersonalDetails)="closePersonalDetails()">
     </app-personal-details>
   </div>
 
   <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
-    <app-create-aproject-content-item ></app-create-aproject-content-item>
+    <app-create-aproject-content-item></app-create-aproject-content-item>
   </div>
 
   <div *ngIf="isPopUpOpen?.sickLeave">
@@ -87,12 +87,11 @@
         <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite"
           [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody"
           [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader"
-          [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" [ifButton]="true"
-          ></app-massge-to-user>
-          <!-- (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" -->
+          [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" [ifButton]="true"></app-massge-to-user>
+        <!-- (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" -->
       </div>
     </app-pop-up>
-  </div> 
+  </div>
 
 
   <div *ngIf="isPopUpOpen?.pause">

@@ -56,7 +56,7 @@ const routes: Routes = [
   { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent },
   { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
   { path: 'Statistics-Graph-Employee-Details-ToManager/:id', component: StatisticsGraphEmployeeDetailsToManagerComponent },
-  { path: 'Statistics-Graph-All-Employees-Details-ToManager-component', component: StatisticsGraphAllEmployeesDetailsToManagerComponent },
+  { path: 'Statistics-Graph-All-Employees-Details-ToManager', component: StatisticsGraphAllEmployeesDetailsToManagerComponent },
   { path: 'AdminSettings', component: AdminSettingsComponent }
 
 ];

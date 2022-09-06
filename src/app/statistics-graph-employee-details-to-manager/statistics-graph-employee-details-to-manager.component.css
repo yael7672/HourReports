@@ -75,5 +75,11 @@
 .body{
     display: flex;
     justify-content: center;
-    margin-top: 70px;
+    margin-top: 20px;
+}
+#BarChart{
+    margin:10px;
+}
+#BarChart2{
+    margin:10px;
 }

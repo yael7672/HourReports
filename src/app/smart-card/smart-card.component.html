@@ -6,6 +6,12 @@
                 (click)="backToMyTask()">{{textButtonBack}}
             </button>
         </div>
+        <div class="back2">
+            <button (click)="showStatisticsGraphAllEmployeeDetailsToManager()" class="edit-button"
+            class="chart-button" placement="bottom" ngbTooltip="צפיה בנתונים של העובדים" *ngIf="showChrtEmployee">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+          </button>
+        </div>
         <div class="card-body">
             <h3 class="card-title"> {{title}}</h3>
             <div class="header">

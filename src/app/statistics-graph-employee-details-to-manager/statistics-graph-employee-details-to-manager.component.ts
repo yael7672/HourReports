@@ -18,22 +18,20 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
   systemGuid: any
   ActualTimeAndWorkTime!: any
   culculte!: any[];
-  workingHourArr!:any
-  systemName:any;
+  workingHourArr!: any
+  systemName: any;
   employeeDetailsWorkTimeByWorkType: any;
   employeeDetailsWorkType: any;
-  employeeDetailsWorkTime:any;
+  employeeDetailsWorkTime: any;
   EmployeeBarWorkTimeByWorkTypeChart: any;
   employeeDetailsActualTime!: any;
   employeeDetailsWorkTime2!: any;
+  showEmployeeBarChart = false;
 
-  constructor(public activatedRoute:ActivatedRoute, public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { }
+  constructor(public activatedRoute: ActivatedRoute, public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { }
 
   ngOnInit(): void {
-    // this.systemGuid = localStorage.getItem('systemGuid');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    // let personalDetailsCompo = new PersonalDetailsComponent(this.route,this.appService,this.popUpService,this.userService  )
-    // this.DailyAndMonthlyWorkingHours = personalDetailsCompo.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid)
     this.GetActualTimeAndWorkTime(this.systemGuid)
     this.GetWorkTimeByWorkType(this.systemGuid)
     this.systemName = localStorage.getItem('systemName');
@@ -126,8 +124,8 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
       res => {
         if (res) {
           this.ActualTimeAndWorkTime = res;
-          this.employeeDetailsWorkTime2=this.ActualTimeAndWorkTime.workinHourTotal
-          this.employeeDetailsActualTime=this.ActualTimeAndWorkTime.actualTimeTotal
+          this.employeeDetailsWorkTime2 = this.ActualTimeAndWorkTime.workinHourTotal
+          this.employeeDetailsActualTime = this.ActualTimeAndWorkTime.actualTimeTotal
           this.Comparison()
           console.log(this.ActualTimeAndWorkTime);
         }
@@ -164,5 +162,6 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     });
     this.EmployeeBarWorkTimeByWorkTypeChart.update();
   }
+
 
 }
