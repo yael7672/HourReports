@@ -40,6 +40,9 @@ export class MyNewTasksComponent implements OnInit {
           this.ifThereNewTasks = true 
         this.GetMyNewTasks()
       }
+      else{
+        this.ifThereNewTasks = false 
+      }
     
     })
 
@@ -55,6 +58,8 @@ export class MyNewTasksComponent implements OnInit {
       res => {
         if (res) {
           this.MyNewTaskArr = res;
+          this.popUpService.setAllMyNewTask(false)
+
         }
       }, err => {
         console.log(err.error)
@@ -96,6 +101,7 @@ export class MyNewTasksComponent implements OnInit {
   checkIfThereTask() {
    if(this.ifThereNewTasks=true)
    {
+    
      this.popUpService.setAllMyNewTask(true)
    }
   }
