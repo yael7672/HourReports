@@ -1,5 +1,6 @@
 <div class="all-page">
   <div class="aImg">
+    <div class="icons">
     <a (click)="GoToHome()">
       <i class="fa fa-home" aria-hidden="true" placement="bottom" ngbTooltip="">
       </i></a>
@@ -17,6 +18,7 @@
       <i class="fa fa-clock-o" aria-hidden="true"></i></a>
     <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart"
         aria-hidden="true"></i> </a>
+      </div>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
       <a (click)="openPopUp('MyNewTask',true)"   (clickOutside)="onClickedOutsideMyNewTask($event)">

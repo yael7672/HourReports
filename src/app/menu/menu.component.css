@@ -7,7 +7,7 @@
 }
 
 .p-of-title {
-    text-align: center;
+    text-align: right;
     color: rgba(6, 6, 19, 0.795);
     font-size: 40pt;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
@@ -93,7 +93,7 @@ h2 {
 
 
 .p-of-title {
-    margin-right: 5rem;
+    margin-right: 11rem;
 }
 
 .my-3 {
@@ -248,4 +248,10 @@ svg#clock-history {
 }
 .ThereNewTask{
     color: red;
+}
+.icons{
+ display: flex;
+flex-direction: row;
+justify-content: space-between;   
+margin-right:1rem;
 }
