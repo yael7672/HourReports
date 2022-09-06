@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/app-service.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
-import  swal from 'sweetalert';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-project-contect-items-by-employee',
@@ -28,8 +28,11 @@ export class ProjectContectItemsByEmployeeComponent implements OnInit {
   titleTable = "";
   massage: any;
   objectToSend: any;
-
-
+  showMassgeToUserIfApprovalTheReports = false;
+  massgeUserHeader = ''
+  massgeUserBody1 = "האם אתה בטוח שברצונך לאשר את כל הדיווחים הנבחרים?";
+  massgeUserBody2: any;
+  approveReportData: any[]=[];
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -167,29 +170,51 @@ export class ProjectContectItemsByEmployeeComponent implements OnInit {
 
     }
   }
-  approveReport(val: any) {
 
-    if (val.length >= 1) {
+  approveReport(val: any) {
+    this.approveReportData = val;
+    if(this.approveReportData.length>1)
+    {
+      this.massgeUserBody1="האם אתה בטוח שברצונך לאשר את כל הדיווחים הנבחרים?";
+      this.massgeUserBody2= "סה'כ נבחרו "+ this.approveReportData.length + " דיווחים";
+    }
+    else {
+      this.massgeUserBody1="האם אתה בטוח שברצונך לאשר את הדיווח  הנבחר?";
+      this.massgeUserBody2= "סה'כ נבחר דיווח אחד לאישור";
+
+    }
+    this.showMassgeToUserIfApprovalTheReports = true;
+  } 
+   approvalPojectContentItem() {
+    if (this.approveReportData.length >= 1) {
       this.objectToSend = {
         "OrganizationName": "AuroraProd",
-        "ProjectItems": val
+        "ProjectItems": this.approveReportData
       }
     }
     else {
       this.objectToSend = {
         "OrganizationName": "AuroraProd",
-        "ProjectItems": [val]
+        "ProjectItems": [this.approveReportData]
       }
     }
     console.log(this.objectToSend);
+    this.userService.ApprovalPojectContentItem(this.objectToSend).subscribe(
+      (res: any) => {
+        this.massage = res;
+        swal(this.massage)
+        this.showMassgeToUserIfApprovalTheReports = false;
 
-      this.userService.ApprovalPojectContentItem(this.objectToSend).subscribe(
-        (res: any) => {
-          this.massage = res;
-          swal(this.massage)
-        },
-        (err: any) =>
-          console.log(err.error)
-      )
+      },
+      (err: any) =>
+        console.log(err.error)
+
+    )
+  }
+  clickYes(kindOfMassage: string) {
+    this.approvalPojectContentItem();
+  }
+  clickNo(kindOfMassage: string) {
+    this.showMassgeToUserIfApprovalTheReports = false;
   }
 }

@@ -94,7 +94,7 @@ export class TasksByEmployeeComponent implements OnInit {
     }
     if (keyToSort != 'Project') {
       this.taskArr?.sort((a: any, b: any) =>
-        (a[keyToSort] ? a[keyToSort] : "" > (b[keyToSort] ? b[keyToSort] : "")) ? 1 : -1)
+        (a[keyToSort]  > (b[keyToSort])) ? 1 : -1)
     }
     else {
       this.taskArr?.sort((a: any, b: any) =>

@@ -1,14 +1,14 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th *ngIf="ifShowCheckBox">בחר</th>
+      <th *ngIf="ifShowCheckBox" > בחר </th>
       <th *ngFor="let th of thArr" scope="col">
         <ng-container *ngIf="ifSortDown; else sortTableUpp;">
           <button (click)="sortTableDown(th)">
             <ng-container>
               {{th}}
             </ng-container>
-            <i class="fa fa-caret-down" *ngIf="!hideSort" ></i>
+            <i class="fa fa-caret-down" *ngIf="!hideSort"></i>
             <ng-template #WorkingHours>
               <ng-container> {{th}}</ng-container>
             </ng-template>
@@ -23,7 +23,8 @@
           </button>
         </ng-template>
       </th>
-
+      <th *ngIf="this.arrayOfReports.length > 0" (click)="approveReport()" class="edit-button" class="edit-button"
+        placement="bottom" ngbTooltip="אישור הדיווח"><i class="fa fa-check" aria-hidden="true"></i></th>
     </tr>
   </thead>
   <tbody>
@@ -52,7 +53,7 @@
       </ng-container>
 
       <td class="td">
-        <button *ngIf="ifUpdate&&this.arrayOfReports.length < 1" (click)="editProjectContentItemIcon(colData)"
+        <button *ngIf="ifUpdate && this.arrayOfReports.length < 1" (click)="editProjectContentItemIcon(colData)"
           placement="top" ngbTooltip="באפשרותך לערוך את הדיווח.">
           <i class="fa fa-pencil" aria-hidden="true"></i></button>
         <button *ngIf="ifUpdateTask" (click)="editProjectContentItemIcon(colData)" placement="right"
@@ -63,9 +64,9 @@
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
         <button *ngIf="ifShowAndEditEmployeeSetting" (click)="editEmployeeDetailsByAdmin(colData)" class="edit-button"
-        class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני העובד">
-        <i class="fa fa-cog" ></i>
-      </button>
+          class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני העובד">
+          <i class="fa fa-cog"></i>
+        </button>
         <button *ngIf="ifShowOpenEmployeeTask" (click)="showOpenTask(colData)" class="edit-button" class="edit-button"
           placement="bottom" ngbTooltip="צפיה במשימות הפתוחות של העובד">
           <i class="fa fa-edit"></i>
@@ -75,11 +76,12 @@
           <i class="fa fa-calendar-check-o"></i>
         </button>
 
-        <button *ngIf="ifShowEmployeeProjectContentItem&&showGraph" (click)="showStatisticsGraphEmployeeDetailsToManager(colData)" class="edit-button"
-        class="edit-button" placement="bottom" ngbTooltip="צפיה  בנתונים של העובד">
-        <i class="fa fa-bar-chart" aria-hidden="true"></i>
-      </button>
-        <button *ngIf="ifApproveReport" (click)="approveReport(colData)"
+        <button *ngIf="ifShowEmployeeProjectContentItem&&showGraph"
+          (click)="showStatisticsGraphEmployeeDetailsToManager(colData)" class="edit-button" class="edit-button"
+          placement="bottom" ngbTooltip="צפיה  בנתונים של העובד">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="ifApproveReport&&this.arrayOfReports.length < 1" (click)="approveReport(colData)"
           class="edit-button" class="edit-button" placement="bottom" ngbTooltip="אישור הדיווח">
           <i class="fa fa-check" aria-hidden="true"></i>
         </button>
