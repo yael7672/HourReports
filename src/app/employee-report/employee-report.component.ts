@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from '../app-service.service';
+import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 
 @Component({
@@ -8,13 +10,22 @@ import { UserServiceService } from '../user-service.service';
   styleUrls: ['./employee-report.component.css']
 })
 export class EmployeeReportComponent implements OnInit {
-  employeeListKeys = ['EmployeeName', 'EmployeeJob', 'EmployeeJobPercentage', 'EmployeeDailyWorkingHours', 'EmployeeMonthlyWorkingHours'];
-  thArrEmployee = ['שם העובד', 'תפקיד העובד', 'אחוז משרה', 'שעות עבודה שביצע היום', 'שעות עבודה שביצע החודש'];
+  employeeListKeys = ['EmployeeName', 'EmployeeJob', 'EmployeeJobPercentage', 'EmployeeDailyWorkingHours', 'EmployeeMonthlyWorkingHours', 'TotalMonthlyWorkingHours', 'MonthlyTargetByJobScope'];
+  thArrEmployee = ['שם העובד', 'תפקיד העובד', 'אחוז משרה', 'ש"ע יומי', 'ש"ע חודשי', 'סה"כ שעות בחודש', 'יעד חודשי לפי משרה'];
   employeeDetails: any;
   ifSortDown = false;
   systemGuid: any;
-
-  constructor(private userService: UserServiceService, public route: Router) { }
+  showGraph = true
+  ifShowAndEditEmployeeSetting = true
+  isPopUpOpen: any;
+  employeeDetailsVal: any;
+  constructor(private userService: UserServiceService, public route: Router
+    ,public popUpService:PopUpServiceService,private appService:AppService) {
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+      console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
+    })
+   }
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem('systemGuid')
@@ -103,4 +114,14 @@ export class EmployeeReportComponent implements OnInit {
     this.route.navigate(['/tasks-by-employee', val.EmployeeGuid])
     localStorage.setItem('employeeDetails', JSON.stringify(val))
   }
+
+  editEmployeeDetailsByAdmin(val: any){ 
+    this.employeeDetailsVal = val
+    this.appService.setIsPopUpOpen(true);
+    this.popUpService.setSpecificPopUp(true,"EditEmployeeDetailsByAdmin") 
+
+    localStorage.setItem('employeeDetails', JSON.stringify(val))
+
+  }
+
 }

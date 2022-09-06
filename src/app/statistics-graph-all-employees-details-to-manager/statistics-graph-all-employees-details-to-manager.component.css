@@ -1,0 +1,66 @@
+.canvas {
+    /* display: block; */
+    width: 450px;
+}
+.btn{
+    margin-right: 1rem;
+}
+.form-group{
+    display: flex;
+}
+.input-group-addon
+{
+padding: 0.5rem
+}
+.label{
+    border-color: orange;
+}
+.form-control{
+    width: 16rem;
+}
+.all-canvas-page{
+    display:flex;
+    direction: rtl;
+    flex-wrap: wrap;
+}
+
+.select-input{
+    display:flex;
+    flex-direction: column;
+    direction: rtl;
+    justify-content: center;
+}
+.form-group{
+    justify-content: center;
+    width: 100%;
+}
+
+.input-group {
+    width: 30rem;
+
+}
+#lineChart{
+    width: 100%;
+}
+/*  */
+.frac { display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center;
+}
+.frac > span {
+    display: block;
+    padding: 0.1em;
+}
+.frac span.bottom {
+    border-top: thin solid black;
+}
+.frac span.symbol {
+    display: none;}
+
+    .body{
+        display: flex;
+        justify-content: center;
+        margin-top: 70px;
+    }

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '../app-service.service';
+import { PopUpServiceService } from '../pop-up-service.service';
 
 @Component({
   selector: 'app-smart-table',
@@ -22,6 +24,9 @@ export class SmartTableComponent implements OnInit {
   @Input() ifSortDown!: boolean
   @Input() tableData: any
   @Input() tableDataKeys: any
+  @Input() hideSort:any
+  @Input() showGraph:any
+  @Input() ifShowAndEditEmployeeSetting:any
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
   @Output() SortTableDown = new EventEmitter<any>();
@@ -31,14 +36,20 @@ export class SmartTableComponent implements OnInit {
   @Output() ShowProjectContentItem = new EventEmitter<any>();
   @Output() ApproveReport = new EventEmitter<any>();
 
+  @Output() EditEmployeeDetailsByAdmin= new EventEmitter<any>();
   ifDelete1 = true;
   ifUpdate1 = true
   ifAdmin: any;
   isChecked: boolean[] = [];
   showaApproveReportIcon: any;
   arrayOfReports: any[] = [];
+  isPopUpOpen: any;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute,private router:Router,private popUpService:PopUpServiceService,private appService:AppService) { 
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+    })
+  }
   ngOnInit(): void {
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
@@ -46,6 +57,7 @@ export class SmartTableComponent implements OnInit {
   editProjectContentItemIcon(colData: any) {
     this.EditProjectContentItemIcon.emit(colData);
   }
+  
   deleteProjectContentItemIcon(colData: any) {
     this.DeleteProjectContentItemIcon.emit(colData);
   }
@@ -97,5 +109,12 @@ export class SmartTableComponent implements OnInit {
         console.log(this.arrayOfReports);
       }
     }
+  }
+  showStatisticsGraphEmployeeDetailsToManager(val: any){
+    this.router.navigate(['/Statistics-Graph-Employee-Details-ToManager', val.EmployeeGuid])
+  }
+
+  editEmployeeDetailsByAdmin(val: any){
+    this.EditEmployeeDetailsByAdmin.emit(val);
   }
 }

@@ -41,9 +41,13 @@ import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-
 import { TheLastTasksIWorkedComponent } from './tasks/the-last-tasks-iworked/the-last-tasks-iworked.component';
 import { SearchAndSortTasksComponent } from './search-and-sort-tasks/search-and-sort-tasks.component';
 import { TimeCounterComponent } from './time-counter/time-counter.component';
+import { MyNewTasksComponent } from './my-new-tasks/my-new-tasks.component';
+import { StatisticsGraphEmployeeDetailsToManagerComponent } from './statistics-graph-employee-details-to-manager/statistics-graph-employee-details-to-manager.component';
+import { StatisticsGraphAllEmployeesDetailsToManagerComponent } from './statistics-graph-all-employees-details-to-manager/statistics-graph-all-employees-details-to-manager.component';
 import { EmployeeReportComponent } from './employee-report/employee-report.component';
 import { TasksByEmployeeComponent } from './tasks/tasks-by-employee/tasks-by-employee.component';
 import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/project-contect-items-by-employee/project-contect-items-by-employee.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -85,7 +89,11 @@ import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/
     TimeCounterComponent,
     EmployeeReportComponent,
     TasksByEmployeeComponent,
-    ProjectContectItemsByEmployeeComponent
+    ProjectContectItemsByEmployeeComponent,
+    MyNewTasksComponent,
+    StatisticsGraphEmployeeDetailsToManagerComponent,
+    StatisticsGraphAllEmployeesDetailsToManagerComponent,
+    AdminSettingsComponent
   ],
   imports: [
     BrowserModule,

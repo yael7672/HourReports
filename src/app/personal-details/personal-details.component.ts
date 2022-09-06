@@ -27,7 +27,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.systemName = localStorage.getItem('systemName');
     this.systemMail = localStorage.getItem('systemMail');
-    this.GetDailyWorkingHoursAndMonthlyWorkingHours();
+    this.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid);
   }
   LogOut() {
     localStorage.clear();
@@ -42,14 +42,13 @@ export class PersonalDetailsComponent implements OnInit {
   goTpHoursAwaitingApproval() {
     this.route.navigate(['/hours-awaiting-approval-component'])
   }
-  GetDailyWorkingHoursAndMonthlyWorkingHours() {
-    this.systemGuid = localStorage.getItem('systemGuid');
-    this.userService.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid).subscribe(
+  GetDailyWorkingHoursAndMonthlyWorkingHours(systemGuid:any) {
+  
+    this.userService.GetDailyWorkingHoursAndMonthlyWorkingHours(systemGuid).subscribe(
       res => {
         if (res) {
           this.DailyAndMonthlyWorkingHours = res;
           console.log( this.DailyAndMonthlyWorkingHours);
-          
         }
       }, err => {
         console.log(err.error)

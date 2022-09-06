@@ -131,6 +131,7 @@ export class MenuComponent implements OnInit {
       this.popUpService.setSpecificPopUp(type, data)
     }
   }
+  
   goToMyprojectContentItem() {
     this.router.navigate(['/my-project-contect-items-component',this.systemGuid])
   }
@@ -169,5 +170,11 @@ export class MenuComponent implements OnInit {
     if (this.openPersonalDetails) {
       this.openPersonalDetails = false;
     }
+  }
+
+    onClickedOutsideMyNewTask(val: any) {
+      // if (this.openPersonalDetails) {
+      //   this.openPersonalDetails = false;
+      // }
   }
 }
