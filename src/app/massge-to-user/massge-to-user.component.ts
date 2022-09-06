@@ -12,14 +12,14 @@ export class MassgeToUserComponent implements OnInit {
   @Input() kindOfMassage: any;
   @Input() inputValue: any;
   @Input() ifButton: any;
-  @Input() ButtonCancel!:boolean
+  @Input() ButtonCancel!: boolean
   @Output() clickYes = new EventEmitter<any>();
   @Output() clickNo = new EventEmitter<any>();
   @Output() clickCancel = new EventEmitter<any>();
 
   constructor() {
- 
-   }
+
+  }
 
   ngOnInit(): void {
   }
@@ -56,9 +56,15 @@ export class MassgeToUserComponent implements OnInit {
                   if (this.kindOfMassage == 'deleteProjectContentItem') {
                     this.clickYes.emit('deleteProjectContentItem')
                   }
-                  else{
+                  else {
                     if (this.kindOfMassage == 'cancelPause') {
                       this.clickYes.emit('cancelPause')
+                    }
+
+                    else {
+                      if (this.kindOfMassage == 'kindOfMassageIfApprovalTheReports') {
+                        this.clickYes.emit('kindOfMassageIfApprovalTheReports')
+                      }
                     }
                   }
                 }
@@ -101,9 +107,15 @@ export class MassgeToUserComponent implements OnInit {
                   if (this.kindOfMassage == 'deleteProjectContentItem') {
                     this.clickNo.emit('deleteProjectContentItem')
                   }
-                  else{
+                  else {
                     if (this.kindOfMassage == 'cancelPause') {
                       this.clickNo.emit('cancelPause')
+                    }
+
+                    else {
+                      if (this.kindOfMassage == 'kindOfMassageIfApprovalTheReports') {
+                        this.clickNo.emit('kindOfMassageIfApprovalTheReports')
+                      }
                     }
                   }
                 }
@@ -114,7 +126,7 @@ export class MassgeToUserComponent implements OnInit {
         }
       }
   }
-  BtnCancel(){
+  BtnCancel() {
     if (this.kindOfMassage == 'projectContectItemByTimer') {
       this.clickCancel.emit('projectContectItemByTimer')
     }

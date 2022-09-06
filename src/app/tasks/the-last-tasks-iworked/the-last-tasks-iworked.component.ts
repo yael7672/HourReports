@@ -60,7 +60,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
     }
     if (keyToSort != 'Project') {
       this.sortTaskArr?.sort((a: any, b: any) =>
-        (a[keyToSort] ? a[keyToSort] : "" > (b[keyToSort] ? b[keyToSort] : "")) ? 1 : -1)
+        (a[keyToSort]  > (b[keyToSort] )) ? 1 : -1)
     }
     else {
       this.sortTaskArr?.sort((a: any, b: any) =>

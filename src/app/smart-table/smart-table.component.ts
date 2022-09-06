@@ -24,9 +24,9 @@ export class SmartTableComponent implements OnInit {
   @Input() ifSortDown!: boolean
   @Input() tableData: any
   @Input() tableDataKeys: any
-  @Input() hideSort:any
-  @Input() showGraph:any
-  @Input() ifShowAndEditEmployeeSetting:any
+  @Input() hideSort: any
+  @Input() showGraph: any
+  @Input() ifShowAndEditEmployeeSetting: any
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
   @Output() SortTableDown = new EventEmitter<any>();
@@ -36,7 +36,7 @@ export class SmartTableComponent implements OnInit {
   @Output() ShowProjectContentItem = new EventEmitter<any>();
   @Output() ApproveReport = new EventEmitter<any>();
 
-  @Output() EditEmployeeDetailsByAdmin= new EventEmitter<any>();
+  @Output() EditEmployeeDetailsByAdmin = new EventEmitter<any>();
   ifDelete1 = true;
   ifUpdate1 = true
   ifAdmin: any;
@@ -45,7 +45,7 @@ export class SmartTableComponent implements OnInit {
   arrayOfReports: any[] = [];
   isPopUpOpen: any;
 
-  constructor(private activatedRoute: ActivatedRoute,private router:Router,private popUpService:PopUpServiceService,private appService:AppService) { 
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -57,7 +57,7 @@ export class SmartTableComponent implements OnInit {
   editProjectContentItemIcon(colData: any) {
     this.EditProjectContentItemIcon.emit(colData);
   }
-  
+
   deleteProjectContentItemIcon(colData: any) {
     this.DeleteProjectContentItemIcon.emit(colData);
   }
@@ -89,10 +89,11 @@ export class SmartTableComponent implements OnInit {
   showProjectContentItem(val: any) {
     this.ShowProjectContentItem.emit(val);
   }
-  approveReport(val: any) {
+  approveReport(val = null) {
     if (this.arrayOfReports.length > 0) {
       this.ApproveReport.emit(this.arrayOfReports)
-    } else {
+    } 
+    else {
       this.ApproveReport.emit(val)
     }
   }
@@ -110,11 +111,15 @@ export class SmartTableComponent implements OnInit {
       }
     }
   }
-  showStatisticsGraphEmployeeDetailsToManager(val: any){
+  showStatisticsGraphEmployeeDetailsToManager(val: any) {
     this.router.navigate(['/Statistics-Graph-Employee-Details-ToManager', val.EmployeeGuid])
   }
 
-  editEmployeeDetailsByAdmin(val: any){
+  editEmployeeDetailsByAdmin(val: any) {
     this.EditEmployeeDetailsByAdmin.emit(val);
+  }
+  chooseAll(isChecked:any)
+  {
+
   }
 }

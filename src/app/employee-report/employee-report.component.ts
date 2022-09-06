@@ -66,7 +66,7 @@ export class EmployeeReportComponent implements OnInit {
     }
     if (keyToSort != 'Project') {
       this.employeeDetails?.sort((a: any, b: any) =>
-        (a[keyToSort] ? a[keyToSort] : "" > (b[keyToSort] ? b[keyToSort] : "")) ? 1 : -1)
+        (a[keyToSort] > (b[keyToSort] )) ? 1 : -1)
     }
     else {
       this.employeeDetails?.sort((a: any, b: any) =>
@@ -121,7 +121,5 @@ export class EmployeeReportComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true,"EditEmployeeDetailsByAdmin") 
 
     localStorage.setItem('employeeDetails', JSON.stringify(val))
-
   }
-
 }

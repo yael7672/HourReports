@@ -207,7 +207,7 @@ export class ShowMyTaskComponent implements OnInit {
     }
     if (keyToSort[0] != 'Project') {
       this.taskArr?.sort((a: any, b: any) =>
-        (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
+        (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
     }
     else {
       this.taskArr?.sort((a: any, b: any) =>
