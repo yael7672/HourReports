@@ -14,6 +14,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   @Input() TimeProjectContectItemHour: any
   @Input() endButtonTimerContectProjectContectItem!: boolean;
   @Input() showMassgeToUserProjectContectItemWithTimer!: boolean;
+  @Input() showMassgeToUserCancelProjectContectItemWithTimer!: boolean;
   @Input() timeToSendCreate: any
   @Input() projectContectItemByTimerGuid: any
   @Output() getStartTimer = new EventEmitter<any>();
@@ -96,7 +97,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
     this.DeleteProjectContentItemByGuid(this.projectContectItemByTimerGuid)
     this.popUpService.SetIfXProjectContectItemUpdateWithTime(true)
     localStorage.removeItem("projectContectItemByTimerGuid")
-    this.showMassgeToUserProjectContectItemWithTimer = false
+    this.showMassgeToUserCancelProjectContectItemWithTimer = false
     this.appService.setIsPopUpOpen(false);
     this.popUpService.setSpecificPopUp(false, "timeOfProjectContectItem")
   }
@@ -173,12 +174,12 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   }
 
   CancelProjectContectItemWithTimer() {
-    this.showMassgeToUserProjectContectItemWithTimer = true
+    this.showMassgeToUserCancelProjectContectItemWithTimer = true
   }
 
 
   clickNoCancelProjectContectItemWithTimer() {
-    this.showMassgeToUserProjectContectItemWithTimer = false
+    this.showMassgeToUserCancelProjectContectItemWithTimer = false
 
   }
 }

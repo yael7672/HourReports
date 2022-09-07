@@ -54,8 +54,8 @@ export class UserServiceService {
   CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string, IftaskForTeam: boolean) {
     return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid + '&IftaskForTeam=' + IftaskForTeam);
   }
-  logIn(email: any) {
-    return this.http.get<User[]>(environment.url + 'Login?OrganizationName=AuroraProd&email=' + email);
+  logIn(email: any,password:any) {
+    return this.http.get<User[]>(environment.url + 'Login?OrganizationName=AuroraProd&email=' + email  + '&password=' + password);
   }
   CreatePauseWork(SystemGuid: any) {
     return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid);
@@ -107,8 +107,8 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + 'GetAllUserAndTeams?OrganizationName=AuroraProd')
   }
 
-  GetEmployeeDetails(SystemGuid: string) {
-    return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+  GetEmployeeDetails(SystemGuid: string, fromDate:any, untilDate:any) {
+    return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&FromDate=' + fromDate + '&UntilDate=' + untilDate)
   }
   ApprovalPojectContentItem(obj:any) {
     return this.http.post<any>(environment.url + 'ApprovalPojectContentItem',obj)

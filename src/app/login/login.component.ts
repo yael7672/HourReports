@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     }
   }
   Login(form: NgForm) {
-    this.userServiceService.logIn(form.value.SystemUserName).subscribe(
+    this.userServiceService.logIn(form.value.SystemUserName,form.value.password).subscribe(
       (res: any) => {
         this.user = res;
         swal( this.user.Name + " ברוך הבא  ");
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         this.appService.setIsLogin(true);
       },
       (err: any) =>
-        alert(err.error)
+        swal(err.error)
     )
   }
 }

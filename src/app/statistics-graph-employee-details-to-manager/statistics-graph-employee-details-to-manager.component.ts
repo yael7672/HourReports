@@ -28,7 +28,10 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
   employeeDetailsWorkTime2!: any;
   showEmployeeBarChart = false;
 
-  constructor(public activatedRoute: ActivatedRoute, public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { }
+  constructor(public activatedRoute: ActivatedRoute, public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { 
+    Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
+
+  }
 
   ngOnInit(): void {
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
