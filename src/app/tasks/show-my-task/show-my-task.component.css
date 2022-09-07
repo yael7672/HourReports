@@ -21,3 +21,12 @@ h2 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 }
 
+
+.input-container {
+    margin: 1rem;
+}
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
