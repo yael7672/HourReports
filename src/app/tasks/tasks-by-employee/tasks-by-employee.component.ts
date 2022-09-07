@@ -25,6 +25,8 @@ export class TasksByEmployeeComponent implements OnInit {
   projectContentItem: any;
   projectContentItemGuid: any;
   isPopUpOpen: any;
+  workTypeArr: any;
+  projectArr: any;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService,
     private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -33,10 +35,30 @@ export class TasksByEmployeeComponent implements OnInit {
   }
   ngOnInit(): void {
     this.GetMyTask();
-
+    this.GetProject();
+    this.GetWorkType();
     this.employeeDetails = localStorage.getItem('employeeDetails');
     this.employeeDetailsParseJson = JSON.parse(this.employeeDetails);
     this.titleTableTask = this.titleTableTask = ' המשימות של ' + this.employeeDetailsParseJson?.EmployeeName;
+  }
+  GetProject() {
+    this.userService.GetProject().subscribe(res => {
+      if (res) {
+        this.projectArr = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
+  }
+  GetWorkType() {
+    this.userService.GetWorkType().subscribe(
+      (res: any) => {
+        this.workTypeArr = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
   }
   GetMyTask() {
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
@@ -52,6 +74,7 @@ export class TasksByEmployeeComponent implements OnInit {
       }
     )
   }
+
   editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.projectContentItem = val;
@@ -60,7 +83,7 @@ export class TasksByEmployeeComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
-  EditEmployeeDetailsByAdmin(ProjectContentItem: any) {
+  editEmployeeDetailsByAdmin(ProjectContentItem: any) {
     this.popUpService.setSpecificPopUp(true, 'EditEmployeeDetailsByAdmin');
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
@@ -94,7 +117,7 @@ export class TasksByEmployeeComponent implements OnInit {
     }
     if (keyToSort != 'Project') {
       this.taskArr?.sort((a: any, b: any) =>
-        (a[keyToSort]  > (b[keyToSort])) ? 1 : -1)
+        (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
     }
     else {
       this.taskArr?.sort((a: any, b: any) =>

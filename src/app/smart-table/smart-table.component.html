@@ -36,9 +36,10 @@
           *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' && tableDataKey!=='EmployeeMonthlyWorkingHours' else WorkingHours;">
           <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
             <ng-container *ngIf="tableDataKey!=='Date' else Date;">
+              <ng-container *ngIf="tableDataKey!=='ScheduledEndDate' else CreatedOn;">
               <td>{{returnColDataByType(colData, tableDataKey)}}</td>
-
             </ng-container>
+          </ng-container>
           </ng-container>
         </ng-container>
         <ng-template #WorkingHours>

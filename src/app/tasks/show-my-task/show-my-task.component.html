@@ -58,31 +58,6 @@
   <h2>אין משימות פעילות!</h2>
 </div>
 
-
-
-
-<!-- <app-smart-card class="task-card-timer" (clickCloseCard)="clickCloseCard()" [ifX]="true"
-    *ngIf="tableSpecificTaskOpen" [title]="titleCard" [arrFunc]="arrFunc" [isDisabledStart]="isDisabledStart"
-    [textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()">
-    <div body>
-      <app-specific-task [listData]="taskListDataDetails" [listDataKeys]="taskListKeys"
-        [isDisabledEnd]="isDisabledEnd" [isDisabledPouse]="isDisabledPouse" [isDisabledStart]="isDisabledStart"
-        [nameOfFunc]="nameOfFunc" [val]="val" (clickStartTimer)="SelectedStart()"
-        (getDataClickOfButton)="whichButtonChoose($event)" (clickPauseTimer)="SelectedStop($event)"
-        (clickdeleteTimer)="SelectedEnd($event)" [workTime]="workTime">
-      </app-specific-task>
-    </div>
-  </app-smart-card> -->
-
-<!-- <div *ngIf="ifThereAreprojectContentItem">
-    <app-smart-card *ngIf="tableSpecificTaskOpen" [title]="titleTableProjectContentItemComponent">
-      <div body>
-        <app-project-content-item [kindOfCard]="'tableCard'" [title]="'דיווחי שעות'"
-          [thArr]="thArrTableProjectContentItem" [tableData]="projectContentItemArr"
-          [tableDataKeys]="projectContentItemListKeys"></app-project-content-item>
-      </div>
-    </app-smart-card>
-  </div> -->
 <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
   <app-update-project-content-item [kindUpdate]="'updateTaskDetails'" [project]="project" [workType]="workType"
     [ifUpdateTask]="true" [header]="'עדכון משימה'" [ProjectContentItem]="projectContentItem">
