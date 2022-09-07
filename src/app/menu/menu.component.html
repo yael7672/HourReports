@@ -1,5 +1,6 @@
 <div class="all-page">
   <div class="aImg">
+    <div class="icons">
     <a (click)="GoToHome()">
       <i class="fa fa-home" aria-hidden="true" placement="bottom" ngbTooltip="">
       </i></a>
@@ -17,10 +18,11 @@
       <i class="fa fa-clock-o" aria-hidden="true"></i></a>
     <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart"
         aria-hidden="true"></i> </a>
+      </div>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
       <a (click)="openPopUp('MyNewTask',true)"   (clickOutside)="onClickedOutsideMyNewTask($event)">
-        <i class="fa fa-bell mt-3" style="font-size:38px" [ngClass]="{ 'ThereNoNewTask': ifThereNewTasks}"></i>
+        <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px" [ngClass]="{ 'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
       </a>
       <a (click)="Logout()"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
       <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"

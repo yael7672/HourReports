@@ -72,7 +72,16 @@ export class MenuComponent implements OnInit {
       else
         this.startWorkOfTask = false;
     })
-
+    this.popUpService.getAllMyNewTask().subscribe(res => {
+      if (res==true){
+          this.ifThereNewTasks = true 
+        this.GetMyNewTasks()
+      }
+      if (res==false){
+        this.ifThereNewTasks = false 
+      this.GetMyNewTasks()
+    }
+    })
     //   this.popUpService.GetIfStartPouse().subscribe(res => {
     //     if (res) {
     //       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
@@ -185,6 +194,7 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.MyNewTaskArr = res;
+          this.ifThereNewTasks = false
         }
       }, err => {
         console.log(err.error)

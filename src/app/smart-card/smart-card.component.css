@@ -24,4 +24,6 @@ h3 {
 
 .back2 {
    display: flex;
+   margin-left: auto;
+    direction: ltr
 }

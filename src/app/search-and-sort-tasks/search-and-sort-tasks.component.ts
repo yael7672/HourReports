@@ -16,7 +16,7 @@ export class SearchAndSortTasksComponent implements OnInit {
   @Input() taskArrCopy: any
   projectArr: any;
   ngOnInit(): void {
-
+this.GetProject()
   }
   WhichTableOpen(val: any) {
     if (val == 0) {

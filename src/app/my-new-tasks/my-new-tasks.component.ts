@@ -27,12 +27,23 @@ export class MyNewTasksComponent implements OnInit {
   thArrMyNewTask = ['שם המשימה', 'תיאור המשימה']
   MyNewTaskKey = ['Subject', 'Description']
   ifThereNewTasks = false
+  IfThereTask: any;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private router: Router, private popUpService: PopUpServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
         this.GetMyNewTasks()
+    })
+    this.popUpService.getAllMyNewTask().subscribe(res => {
+      if (res==true){
+          this.ifThereNewTasks = true 
+        this.GetMyNewTasks()
+      }
+      else{
+        this.ifThereNewTasks = false 
+      }
+    
     })
 
   }
@@ -47,11 +58,13 @@ export class MyNewTasksComponent implements OnInit {
       res => {
         if (res) {
           this.MyNewTaskArr = res;
+          this.popUpService.setAllMyNewTask(false)
+
         }
       }, err => {
         console.log(err.error)
         if (err.error = "'tasks' is null!") {
-          this.ifThereNewTasks = true
+          this.popUpService.setAllMyNewTask(true)
         }
       }
     )
@@ -78,11 +91,19 @@ export class MyNewTasksComponent implements OnInit {
       (res: any) => {
         this.MarkTaskRes = res;
         // swal(this.MarkTaskRes)
+        this.checkIfThereTask()
+       
       },
       (err: any) =>
         swal(err.error)
     )
   }
-
+  checkIfThereTask() {
+   if(this.ifThereNewTasks=true)
+   {
+    
+     this.popUpService.setAllMyNewTask(true)
+   }
+  }
 
 }

@@ -69,6 +69,7 @@ export class ShowMyTaskComponent implements OnInit {
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
   
   }
+
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
       (res: any) => {
@@ -228,4 +229,37 @@ export class ShowMyTaskComponent implements OnInit {
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
+// מפה חיפוש ומיון
+  WhichTableOpen(val: any) {
+    if (val == 0) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/show-my-task',this.systemGuid]);
+    }
+    if (val == 1) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/show-team-my-task/',this.systemGuid]);
+    }
+    if (val == 2) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/the-last-tasks-i-worked']);
+    }
+  }
+  onSearchTask(filterKeyBySubject: any) {
+    this.taskArr = [...this.taskArrCopy];
+    if (filterKeyBySubject !== "" && filterKeyBySubject !== null && filterKeyBySubject !== undefined) {
+      this.taskArr = this.taskArr.filter((f: Task) => f.Subject?.includes(filterKeyBySubject));
+    }
+    else {
+      if (filterKeyBySubject == "" || filterKeyBySubject == null || filterKeyBySubject !== undefined) {
+        this.taskArr = [...this.taskArrCopy];
+      }
+    }
+  }
+  onSearchProject(filterKey: any) {
+    this.taskArr = [...this.taskArrCopy];
+    if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
+      this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey.Name));
+    }
+  }
+  // עד לפה חיפוש ומיון
 }
