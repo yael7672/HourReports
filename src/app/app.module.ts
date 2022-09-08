@@ -105,7 +105,9 @@ import { DeleteTaskComponent } from './delete-task/delete-task.component';
     CommonModule,
     NgbModule,
     ClickOutsideModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    // NgMultiSelectDropDownModule.forRoot(),
+
    
   ],
   providers: [DatePipe],

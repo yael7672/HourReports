@@ -33,7 +33,7 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
   todayDate!: any;
   myDate = new Date()
   showCompareDatesEmployeeDetails = false
-  EmployeeName:any
+  EmployeeName: any
   constructor(public datePipe: DatePipe, public activatedRoute: ActivatedRoute, public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) {
     Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -66,11 +66,11 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
           data: [],
           backgroundColor: [
             'Blue',
-           
+
           ],
           borderColor: [
             'Blue',
-            
+
           ],
           borderWidth: 1
         },
@@ -94,25 +94,25 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
           data: [],
           backgroundColor: [
             'green',
-  
+
           ],
           borderColor: [
             'green',
-       
+
           ],
           borderWidth: 1
         },
-        // {
+          // {
           // label: ' ',
           // data: [],
           // backgroundColor: [
-          
+
           // ],
           // borderColor: [
-       
+
           // ],
           // borderWidth: 1
-        // },
+          // },
         ]
       },
       options: {
@@ -161,20 +161,12 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
   }
 
   ComparisonWorkTimeByWorkType() {
-    if (this.employeeDetailsWorkTime == 0) {
-      this.EmployeeBarWorkTimeByWorkTypeChart.data.datasets[0].data[0] = 0;
-      this.EmployeeBarWorkTimeByWorkTypeChart.data.datasets[1].data[0] = 0;
-      this.EmployeeBarChart.update();
-    }
-    else {
-      this.employeeDetailsWorkTime.forEach((element: any, index: any) => {
-        this.EmployeeBarWorkTimeByWorkTypeChart.data.datasets[0].data[index] = this.employeeDetailsWorkTime[index];
-      });
-      this.employeeDetailsWorkType.forEach((element: any, index: any) => {
-        this.EmployeeBarWorkTimeByWorkTypeChart.data.labels[index] = this.employeeDetailsWorkType[index];
-      });
-      this.EmployeeBarWorkTimeByWorkTypeChart.update();
-    }
+    this.employeeDetailsWorkTime.forEach((element: any, index: any) => {
+      this.EmployeeBarWorkTimeByWorkTypeChart.data.datasets[0].data[index] = this.employeeDetailsWorkTime[index];
+    });
+    this.employeeDetailsWorkType.forEach((element: any, index: any) => {
+      this.EmployeeBarWorkTimeByWorkTypeChart.data.labels[index] = this.employeeDetailsWorkType[index];
+    });
   }
 
   GetWorkTimeByWorkTypeAndWorkTimeCompareActualTimeChart(val: any) {
@@ -182,8 +174,9 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
       this.showCompareDatesEmployeeDetails = true
     }
     else {
-      this.GetActualTimeAndWorkTime(this.EmployeeGuid, val, "", "")
       this.GetWorkTimeByWorkType(this.EmployeeGuid, val, "", "")
+      this.GetActualTimeAndWorkTime(this.EmployeeGuid, val, "", "")
+
     }
   }
 
