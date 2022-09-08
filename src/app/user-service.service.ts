@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { averageBreaks } from './interfacees/averageBreaks';
+import { ownerid } from './interfacees/ownerid';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
@@ -54,8 +55,8 @@ export class UserServiceService {
   CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string, IftaskForTeam: boolean) {
     return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid + '&IftaskForTeam=' + IftaskForTeam);
   }
-  logIn(email: any) {
-    return this.http.get<User[]>(environment.url + 'Login?OrganizationName=AuroraProd&email=' + email);
+  logIn(email: any,password:any) {
+    return this.http.get<User[]>(environment.url + 'Login?OrganizationName=AuroraProd&email=' + email  + '&password=' + password);
   }
   CreatePauseWork(SystemGuid: any) {
     return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid);
@@ -107,8 +108,8 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + 'GetAllUserAndTeams?OrganizationName=AuroraProd')
   }
 
-  GetEmployeeDetails(SystemGuid: string) {
-    return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+  GetEmployeeDetails(SystemGuid: string, fromDate:any, untilDate:any) {
+    return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&FromDate=' + fromDate + '&UntilDate=' + untilDate)
   }
   ApprovalPojectContentItem(obj:any) {
     return this.http.post<any>(environment.url + 'ApprovalPojectContentItem',obj)
@@ -123,17 +124,23 @@ export class UserServiceService {
   UpdateTaskHasRead(SystemGuid: string,TaskGuid:string) {
     return this.http.get<any>(environment.url + 'UpdateTaskHasRead/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+ '&TaskGuid=' + TaskGuid)
   }
-  async  GetActualTimeAndWorkTime(SystemGuid: string){
-    return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
+  async  GetActualTimeAndWorkTime(SystemGuid: string ,SelectedTime:any,fromDate:any,untilDate:any){
+    return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&SelectedTime=' + SelectedTime + '&FromDate=' + fromDate + '&UntilDate=' + untilDate).toPromise();
   }
-  async GetWorkTimeByWorkType(SystemGuid: string){
-    return await this.http.get<any>(environment.url + 'GetWorkTimeByWorkType/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
+  async GetWorkTimeByWorkType(SystemGuid: string,SelectedTime:any,fromDate:any,untilDate:any){
+    return await this.http.get<any>(environment.url + 'GetWorkTimeByWorkType/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&SelectedTime=' + SelectedTime + '&FromDate=' + fromDate + '&UntilDate=' + untilDate).toPromise();
   }
   UpdateEmployeeDetails(EmployeeDetails: any) {
     return this.http.post<any>(environment.url + 'UpdateEmployeeDetails?OrganizationName=AuroraProd', EmployeeDetails);
   }
   MessageToTheManager(){
     return  this.http.get<any>(environment.url + 'MessageToTheManager');
+  }
+  DeleteTaskByGuid(TaskId:any){
+    return this.http.delete<any>(environment.url + 'DeleteTaskByGuid?OrganizationName=AuroraProd&TaskId=' + TaskId)
+  }
+  GetAllEmployee(adminGuid:any) {
+    return this.http.get<ownerid[]>(environment.url + 'GetEmployees?OrganizationName=AuroraProd'+'&adminGuid=' + adminGuid );
   }
   GetTaskByTeamGuid(TeamGuid:string) {
     return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)

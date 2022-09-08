@@ -64,6 +64,10 @@
           placement="bottom" ngbTooltip="באפשרותך למחוק את הדיווח.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
+            <button *ngIf="ifDeleteTask" (click)="deleteTaskIcon(colData)" class="edit-button" class="edit-button"
+          placement="bottom" ngbTooltip="באפשרותך למחוק את המשימה.">
+          <i class="iconify" data-icon="akar-icons:trash-can"></i>
+        </button>
         <button *ngIf="ifShowAndEditEmployeeSetting" (click)="editEmployeeDetailsByAdmin(colData)" class="edit-button"
           class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני העובד">
           <i class="fa fa-cog"></i>

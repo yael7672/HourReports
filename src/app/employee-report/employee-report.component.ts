@@ -35,7 +35,7 @@ export class EmployeeReportComponent implements OnInit {
 
   }
   GetEmployeeDetails() {
-    this.userService.GetEmployeeDetails(this.systemGuid).subscribe(
+    this.userService.GetEmployeeDetails(this.systemGuid,"", "").subscribe(
       (res: any) => {
         this.employeeDetails = res;
       },

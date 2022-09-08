@@ -23,12 +23,13 @@
         <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
           (ngModelChange)="dateOfSearchAfterForLineChart = $event">
       </div>
-      <button (click)="SortByDateRange()" class="btn btn-color">השווה</button>
+      <button (click)="SortByDateRange()" placement="bottom"
+      ngbTooltip="השווה מידע בין 2 התאריכים" class="btn btn-color">השווה</button>
     </div>
   </ng-container>
 </div>
 <div class="all-canvas-page">
-  <app-smart-card [title]="'השוואה בן שעות עבודה לשעות בפועל'" class="task-card-timer">
+  <app-smart-card [title]="'השוואה בין שעות עבודה לשעות בפועל'" class="task-card-timer">
     <div header>
       <br>
 
@@ -63,7 +64,7 @@
     </div>
   </app-smart-card>
 
-  <app-smart-card [title]="' השוואה בן שעות עבודה לשעות בפועל באחוזים'" class="task-card-timer">
+  <app-smart-card [title]="' השוואה בין שעות עבודה לשעות בפועל באחוזים'" class="task-card-timer">
 
     <div body>
       <div class="canvas ">

@@ -7,6 +7,7 @@ import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 import { ActualTimeAndWorkTime } from '../interfacees/ActualTimeAndWorkTime';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-statistics-graph-employee-details-to-manager',
   templateUrl: './statistics-graph-employee-details-to-manager.component.html',
@@ -15,7 +16,7 @@ import { ActualTimeAndWorkTime } from '../interfacees/ActualTimeAndWorkTime';
 export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit {
   EmployeeBarChart: any
   DailyAndMonthlyWorkingHours: any;
-  systemGuid: any
+  EmployeeGuid: any
   ActualTimeAndWorkTime!: any
   culculte!: any[];
   workingHourArr!: any
@@ -27,14 +28,24 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
   employeeDetailsActualTime!: any;
   employeeDetailsWorkTime2!: any;
   showEmployeeBarChart = false;
+  dateOfSearchBeforeFor2BarChart: any;
+  dateOfSearchAfterFor2BarChart: any;
+  todayDate!: any;
+  myDate = new Date()
+  showCompareDatesEmployeeDetails = false
+  EmployeeName: any
+  constructor(public datePipe: DatePipe, public activatedRoute: ActivatedRoute, public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) {
+    Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
+    this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
 
-  constructor(public activatedRoute: ActivatedRoute, public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { }
+  }
 
   ngOnInit(): void {
-    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    this.GetActualTimeAndWorkTime(this.systemGuid)
-    this.GetWorkTimeByWorkType(this.systemGuid)
-    this.systemName = localStorage.getItem('systemName');
+    this.EmployeeGuid = this.activatedRoute.snapshot.paramMap.get('id');
+    this.GetActualTimeAndWorkTime(this.EmployeeGuid, 4, "", "")
+    this.GetWorkTimeByWorkType(this.EmployeeGuid, 4, "", "")
+    this.EmployeeName = localStorage.getItem('EmployeeName');
+
     this.EmployeeBarChart = new Chart('BarChart', {
       type: 'bar',
       data: {
@@ -43,12 +54,10 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
           label: 'שעות עבודה',
           data: [],
           backgroundColor: [
-            'green',
-            'red',
+            'Green',
           ],
           borderColor: [
-            'green',
-            'red',
+            'Green',
           ],
           borderWidth: 1
         },
@@ -56,12 +65,12 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
           label: 'שעות בפועל',
           data: [],
           backgroundColor: [
-            'green',
-            'red',
+            'Blue',
+
           ],
           borderColor: [
-            'green',
-            'red',
+            'Blue',
+
           ],
           borderWidth: 1
         },
@@ -85,27 +94,25 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
           data: [],
           backgroundColor: [
             'green',
-            'red',
+
           ],
           borderColor: [
             'green',
-            'red',
+
           ],
           borderWidth: 1
         },
-        {
-          label: ' ',
-          data: [],
-          backgroundColor: [
-            'green',
-            'red',
-          ],
-          borderColor: [
-            'green',
-            'red',
-          ],
-          borderWidth: 1
-        },
+          // {
+          // label: ' ',
+          // data: [],
+          // backgroundColor: [
+
+          // ],
+          // borderColor: [
+
+          // ],
+          // borderWidth: 1
+          // },
         ]
       },
       options: {
@@ -119,8 +126,8 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     });
   }
 
-  GetActualTimeAndWorkTime(systemGuid: any) {
-    this.userService.GetActualTimeAndWorkTime(systemGuid).then(
+  GetActualTimeAndWorkTime(EmployeeGuid: any, selectedTime: any, FromDate: any, UntilDate: any) {
+    this.userService.GetActualTimeAndWorkTime(EmployeeGuid, selectedTime, FromDate, UntilDate).then(
       res => {
         if (res) {
           this.ActualTimeAndWorkTime = res;
@@ -140,8 +147,8 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     this.EmployeeBarChart.update();
   }
 
-  GetWorkTimeByWorkType(systemGuid: any) {
-    this.userService.GetWorkTimeByWorkType(systemGuid).then(
+  GetWorkTimeByWorkType(EmployeeGuid: any, selectedTime: any, FromDate: any, UntilDate: any) {
+    this.userService.GetWorkTimeByWorkType(EmployeeGuid, selectedTime, FromDate, UntilDate).then(
       (res: any) => {
         this.employeeDetailsWorkTimeByWorkType = res;
         this.employeeDetailsWorkType = this.employeeDetailsWorkTimeByWorkType.map((Employee: any) => Employee.WorkType.Name)
@@ -160,8 +167,31 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     this.employeeDetailsWorkType.forEach((element: any, index: any) => {
       this.EmployeeBarWorkTimeByWorkTypeChart.data.labels[index] = this.employeeDetailsWorkType[index];
     });
-    this.EmployeeBarWorkTimeByWorkTypeChart.update();
   }
 
+  GetWorkTimeByWorkTypeAndWorkTimeCompareActualTimeChart(val: any) {
+    if (val == 1) {
+      this.showCompareDatesEmployeeDetails = true
+    }
+    else {
+      this.GetWorkTimeByWorkType(this.EmployeeGuid, val, "", "")
+      this.GetActualTimeAndWorkTime(this.EmployeeGuid, val, "", "")
 
+    }
+  }
+
+  SortWorkTimeByWorkTypeAndWorkTimeCompareActualTimeByDateRange(FromDate: any, UntilDate: any) {
+    UntilDate = this.datePipe.transform(UntilDate, 'dd/MM/yyyy')
+    FromDate = this.datePipe.transform(FromDate, 'dd/MM/yyyy')
+    if (UntilDate == undefined || null) {
+      UntilDate = this.todayDate
+      UntilDate = this.datePipe.transform(UntilDate, 'dd/MM/yyyy')
+    }
+    if (FromDate == undefined || null) {
+      FromDate = this.todayDate
+      FromDate = this.datePipe.transform(FromDate, 'dd/MM/yyyy')
+    }
+    this.GetActualTimeAndWorkTime(this.EmployeeGuid, 1, UntilDate, FromDate)
+    this.GetWorkTimeByWorkType(this.EmployeeGuid, 1, UntilDate, FromDate)
+  }
 }

@@ -33,18 +33,9 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem('systemGuid')
-    this.GetEmployeeDetails();
 
   }
-  GetEmployeeDetails() {
-    this.userService.GetEmployeeDetails(this.systemGuid).subscribe(
-      (res: any) => {
-        this.employeeDetails = res;
-      },
-      (err: any) =>
-        console.log(err.error)
-    )
-  }
+  
   SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;

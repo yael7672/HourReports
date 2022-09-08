@@ -1,13 +1,28 @@
-<!-- <div class="form-outline d-flex justify-content-center">
-  <select id="inputState" class="form-control" ngModel >
+<div class="form-outline d-flex justify-content-center">
+  <select id="inputState" class="form-control" ngModel  (ngModelChange)="GetWorkTimeChartByWorkTime($event)">
     <option value="">--בחר אחת מהאופציות הבאות--</option>
-    <option value="1">שעות עבודה בחודש</option>
-    <option value="2">כמות משימות פתוחות</option>
+    <option value="1"> מיון לפי טווח תאריכים</option>
+    <option value="2">שעות עבודה היום</option>
+    <option value="3">שעות עבודה בשבוע האחרון</option>
+    <option value="4">שעות עבודה החודש</option>
   </select>
-</div> -->
+</div>
+<ng-container *ngIf="showCompareDatesAllEmployeeDetails">
+  <div class="form-group ">
+    <button (click)="SortWorkTimeByDateRange(dateOfSearchBeforeForBarChart,dateOfSearchAfterForBarChart)" class="btn btn-color">השווה</button>
+    <div class="input-group input-daterange">
+      <input type="date" class="form-control" id="date" name="date" max="{{todayDate | date: 'yyyy-MM-dd'}}" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+        (ngModelChange)="dateOfSearchBeforeForBarChart = $event">
+      <div class="input-group-addon">ל - </div>
+      <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"
+        (ngModelChange)="dateOfSearchAfterForBarChart = $event">
+    </div>
+  </div>
+</ng-container>
 
 <div class="all-canvas-page">
-  <app-smart-card [title]="' שעות עבודה חודשיות לעובדים'" class="task-card-timer" >
+  
+  <app-smart-card [title]="' שעות עבודה חודשיות לעובדים'" class="task-card-timer">
     <div body class="body">
       <div class="canvas ">
         <canvas id="BarChart">
@@ -15,12 +30,12 @@
       </div>
     </div>
   </app-smart-card>
-  <app-smart-card [title]="'משימות פתוחות לעובדים'" class="task-card-timer" >
+  <app-smart-card [title]="'משימות פתוחות לעובדים'" class="task-card-timer">
     <div body class="body">
       <div class="canvas ">
         <canvas id="BarChart2">
         </canvas>
       </div>
-      </div>
-    </app-smart-card> 
- </div>
+    </div>
+  </app-smart-card>
+</div>

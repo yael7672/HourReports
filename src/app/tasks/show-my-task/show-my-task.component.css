@@ -30,3 +30,13 @@ h2 {
     justify-content: center;
     margin-top: 3rem;
 }
+/* .autocomplete  ul li a{
+    display: flex !important;
+    justify-content: center !important;
+} */
+
+.autocomplete a{
+  text-align: center ; 
+  display: flex !important;
+  justify-content: center !important;
+}

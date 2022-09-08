@@ -65,6 +65,11 @@ export class MassgeToUserComponent implements OnInit {
                       if (this.kindOfMassage == 'kindOfMassageIfApprovalTheReports') {
                         this.clickYes.emit('kindOfMassageIfApprovalTheReports')
                       }
+                      else{
+                        if (this.kindOfMassage == 'deleteTask') {
+                          this.clickYes.emit('deleteTask')
+                        }
+                      }
                     }
                   }
                 }
@@ -115,6 +120,11 @@ export class MassgeToUserComponent implements OnInit {
                     else {
                       if (this.kindOfMassage == 'kindOfMassageIfApprovalTheReports') {
                         this.clickNo.emit('kindOfMassageIfApprovalTheReports')
+                      }
+                      else {
+                        if (this.kindOfMassage == 'deleteTask') {
+                          this.clickNo.emit('deleteTask')
+                        }
                       }
                     }
                   }

@@ -3,7 +3,37 @@
     <div body>
         <!-- <form  (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm"> -->
         <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
+            <div class="checkbox">
+                <label for="vehicle1">לדיווח על מספר עובדים</label>
+                <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked"
+                    (change)="checkIfReportMoreEmployees(isChecked)">
+            </div>
+            <div *ngIf="openInputReportMoreEmployee">
+                <div class="form-outline d-flex justify-content-center mb-4">
+                    <ng-autocomplete style="width:100%;" class="autoComplete" [data]=" this.EmployeeeArr"
+                        [searchKeyword]="'Name'" placeholder="עובדים נוספים" historyIdentifier="ReportMoreEmployee"
+                        [itemTemplate]="itemTemplate" ngModel name="ReportMoreEmployee" #ReportMoreEmployee="ngModel"
+                        required [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.Name"></a>
+                    </ng-template>
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+                    </ng-template>
+                </div>
+                <!-- <multiselect-autocomplet></multiselect-autocomplet> -->
 
+                <!--             
+                <div class="form-outline d-flex justify-content-center ">
+                    <input type="text" id="ReportMoreEmployee" name="ReportMoreEmployee" class="form-control" ngModel
+                        name="ReportMoreEmployee" #ReportMoreEmployee="ngModel" placeholder="עובדים נוספים"
+                        [ngClass]="{ 'is-invalid': f.submitted && ReportMoreEmployee.invalid }" required>
+                </div> -->
+                <!-- <div *ngIf="f.submitted && ReportMoreEmployee.invalid" class="text-danger">
+                    <span *ngIf="ReportMoreEmployee.errors">שדה זה חובה</span>
+                </div> -->
+            </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime" class="form-outline d-flex justify-content-center">
                 <input type="date" class="form-control" id="oneDate" name="oneDate"
                     [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="oneDate = $event">
@@ -16,19 +46,20 @@
             <div *ngIf="f.submitted && subject.invalid" class="text-danger">
                 <span *ngIf="subject.errors">שדה זה חובה</span>
             </div>
-                <div class="form-outline d-flex justify-content-center mb-4" >
-                    <ng-autocomplete  style="width:100%;" class="autoComplete" [data]=" this.WorkType" [searchKeyword]="'Name'" placeholder="סוג עבודה" 
-                    historyIdentifier="workType" [itemTemplate]="itemTemplate" 
-                     ngModel name="workType" #workType="ngModel" required [notFoundTemplate]="notFoundTemplate" (ngModelChange)="onWorkTypeSelected($event)">
-                 </ng-autocomplete>
-                 <ng-template #itemTemplate let-item >
-                     <a [innerHTML]="item.Name"></a>
-                 </ng-template>
-                 <ng-template #notFoundTemplate let-notFound>
-                     <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-                 </ng-template>
-                </div>
-         
+            <div class="form-outline d-flex justify-content-center mb-4">
+                <ng-autocomplete style="width:100%;" class="autoComplete" [data]=" this.WorkType"
+                    [searchKeyword]="'Name'" placeholder="סוג עבודה" historyIdentifier="workType"
+                    [itemTemplate]="itemTemplate" ngModel name="workType" #workType="ngModel" required
+                    [notFoundTemplate]="notFoundTemplate" (ngModelChange)="onWorkTypeSelected($event)">
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.Name"></a>
+                </ng-template>
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+                </ng-template>
+            </div>
+
             <div *ngIf="f.submitted && workType.invalid" class="text-danger">
                 <span *ngIf="workType.errors">שדה זה חובה</span>
             </div>
@@ -66,10 +97,10 @@
                 <span *ngIf="billingHours.errors">שדה זה חובה</span>
             </div>
             <div class="form-outline d-flex justify-content-center mb-4">
-                <ng-autocomplete style="width: 100%;" class="autoComplete"  [data]="Project" [searchKeyword]="'Name'" placeholder="פרויקט"
-                     historyIdentifier="Project" [itemTemplate]="itemTemplate"
-                    [(ngModel)]="GuidProject"
-                    ngModel name="Project" #project="ngModel" required [notFoundTemplate]="notFoundTemplate">
+                <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="Project" [searchKeyword]="'Name'"
+                    placeholder="פרויקט" historyIdentifier="Project" [itemTemplate]="itemTemplate"
+                    [(ngModel)]="GuidProject" ngModel name="Project" #project="ngModel" required
+                    [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
                 <ng-template #itemTemplate let-item>
                     <a [innerHTML]="item.Name"></a>
@@ -80,7 +111,7 @@
             </div>
             <div *ngIf="f.submitted && project.invalid" class="text-danger">
                 <span *ngIf="project.errors">שדה זה חובה</span>
-             </div>
+            </div>
             <div class="form-outline d-flex justify-content-center ">
                 <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
                     class="form-control textarea" placeholder=" תאור " ngModel>
@@ -95,7 +126,9 @@
                 <span *ngIf="NoteToProjectManager.errors">שדה זה חובה</span>
             </div>
 
-            <button type="submit" class="btn" [disabled]="isDisabled" placement="bottom" ngbTooltip=" יצירת פריט תכולת פרויקט">צור דיווח </button>
+            <button type="submit" class="btn" [disabled]="isDisabled" placement="bottom"
+            placement="bottom"
+            ngbTooltip="יצירת פריט תכולת פרויקט"     ngbTooltip=" יצירת פריט תכולת פרויקט">צור דיווח </button>
         </form>
 
     </div>

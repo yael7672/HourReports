@@ -10,7 +10,7 @@ import { UserServiceService } from '../../user-service.service';
   styleUrls: ['./delete-project-content-item.component.css']
 })
 export class DeleteProjectContentItemComponent implements OnInit {
-  @Input() projectContentItemGuid: any
+  @Input() projectContentItemGuidOrTaskGuid: any
   ifSortDown = true;
   showMassgeToUser = true;
   massgeUserHeader = "";
@@ -18,6 +18,7 @@ export class DeleteProjectContentItemComponent implements OnInit {
   massgeUserFooter = "";
   kindOfMassage = 'deleteProjectContentItem';
   massageToUser = "";
+  @Input() projectContentItemGuid:any
   constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
   }
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class DeleteProjectContentItemComponent implements OnInit {
     }
   }
   DeleteProjectContentItemByGuid() {
-    this.userServiceService.DeleteProjectContentItemByGuid(this.projectContentItemGuid).subscribe(
+    this.userServiceService.DeleteProjectContentItemByGuid(this.projectContentItemGuidOrTaskGuid).subscribe(
       (res) => {
         this.massageToUser = res;
         swal(this.massageToUser)
