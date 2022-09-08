@@ -23,7 +23,8 @@
         <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
           (ngModelChange)="dateOfSearchAfterForLineChart = $event">
       </div>
-      <button (click)="SortByDateRange()" class="btn btn-color">השווה</button>
+      <button (click)="SortByDateRange()" placement="bottom"
+      ngbTooltip="השווה מידע בין 2 התאריכים" class="btn btn-color">השווה</button>
     </div>
   </ng-container>
 </div>
