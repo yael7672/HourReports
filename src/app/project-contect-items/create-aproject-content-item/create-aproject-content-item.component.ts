@@ -11,6 +11,7 @@ import { UserServiceService } from '../../user-service.service';
 import swal from 'sweetalert';
 import { AppService } from '../../app-service.service';
 import { PopUpServiceService } from '../../pop-up-service.service';
+import { ownerid } from 'src/app/interfacees/ownerid';
 
 @Component({
   selector: 'app-create-aproject-content-item',
@@ -32,6 +33,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   projectfilter: any
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
+  EmployeeeArr!:ownerid[]
   ProjectContentItem!: any
   systemGuid: any;
   ProjectItem!: any
@@ -48,6 +50,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
   ProjectGuidValue: any;
   ProjectGuid: any;
   GuidProject: any
+  isChecked!:boolean
+  adminGuid:any
+  openInputReportMoreEmployee=false
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.isDisabled = false;
@@ -62,6 +67,13 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.GetRegarding()
     this.GetProject()
     this.GetWorkType()
+    this.GetAllEmployee()
+  }
+  checkIfReportMoreEmployees(val:any){
+    if(val==true)
+    {
+      this.openInputReportMoreEmployee=true
+    }
   }
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
@@ -86,6 +98,17 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.isDisabled = false;
 
         })
+  }
+  GetAllEmployee() {
+    // לשים GUID אמיתי של מנהל
+    this.adminGuid=""
+    this.userServiceService.GetAllEmployee( this.adminGuid).subscribe(
+      (res: any) => {
+        this.EmployeeeArr = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
   }
   GetRegarding() {
     this.userServiceService.GetRegarding().subscribe(

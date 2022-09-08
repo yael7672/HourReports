@@ -39,7 +39,10 @@ export class ShowMyTaskComponent implements OnInit {
   thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   tableSpecificTaskOpen = false;
-  startWorkOfTask = false;;
+  startWorkOfTask = false;
+  TasksGuid: any;
+  showMassgeToUserDeleteTask=false
+;
   taskListDataDetails: any;
   UpdateProjectContentItemDetails = false;
   ifThereAreprojectContentItem = false;
@@ -224,10 +227,15 @@ export class ShowMyTaskComponent implements OnInit {
     this.projectContentItem = val;
     this.UpdateProjectContentItemDetails = true;
   }
-  deleteProjectContentItemIcon(ProjectContentItem: any) {
+  deleteProjectContentItemIcon(projectContectItem: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
-    this.projectContentItemGuid = ProjectContentItem.Guid;
+    this.projectContentItemGuid = projectContectItem.Guid;
+  }
+  DeleteTask(Tasks: any) {  
+    this.popUpService.setSpecificPopUp(true, 'DeleteTask');
+  this.showMassgeToUserDeleteTask = true;
+    this.TasksGuid = Tasks.TaskGuid;
   }
 // מפה חיפוש ומיון
   WhichTableOpen(val: any) {

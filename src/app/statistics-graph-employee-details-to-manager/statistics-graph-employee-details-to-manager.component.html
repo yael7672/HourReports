@@ -1,14 +1,35 @@
-<!-- <div class="form-outline d-flex justify-content-center">
-  <select id="inputState" class="form-control" ngModel >
+<div class="form-outline d-flex justify-content-center">
+  <select id="inputState" class="form-control" ngModel
+    (ngModelChange)="GetWorkTimeByWorkTypeAndWorkTimeCompareActualTimeChart($event)">
     <option value="">--בחר אחת מהאופציות הבאות--</option>
-    <option value="1">שעות בפועל לעומת שעות עבודה</option>
-    <option value="2">שעות בפועל לעומת סוג עבודה </option>
+    <option value="1"> מיון לפי טווח תאריכים</option>
+    <option value="2">שעות עבודה היום</option>
+    <option value="3">שעות עבודה בשבוע האחרון</option>
+    <option value="4">שעות עבודה החודש</option>
   </select>
-</div> -->
+</div>
+<div class="form-outline d-flex justify-content-center">
+  <span>{{this.EmployeeName }}</span><span> :</span><span>נתוני עובד</span>  
+</div>
+
+<ng-container *ngIf="showCompareDatesEmployeeDetails">
+  <div class="form-group ">
+    <button
+      (click)="SortWorkTimeByWorkTypeAndWorkTimeCompareActualTimeByDateRange(dateOfSearchBeforeFor2BarChart,dateOfSearchAfterFor2BarChart)"
+      class="btn btn-color">השווה</button>
+    <div class="input-group input-daterange">
+      <input type="date" class="form-control" id="date" name="date" max="{{todayDate | date: 'yyyy-MM-dd'}}"
+        [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateOfSearchBeforeFor2BarChart = $event">
+      <div class="input-group-addon">ל - </div>
+      <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+        max="{{todayDate | date: 'yyyy-MM-dd'}}" (ngModelChange)="dateOfSearchAfterFor2BarChart = $event">
+    </div>
+  </div>
+</ng-container>
 
 <div class="all-canvas-page">
   <app-smart-card [title]="'השוואה בין שעות עבודה לשעות בפועל'" class="task-card-timer">
-  
+
     <div body class="body">
       <div class="canvas ">
         <canvas id="BarChart">

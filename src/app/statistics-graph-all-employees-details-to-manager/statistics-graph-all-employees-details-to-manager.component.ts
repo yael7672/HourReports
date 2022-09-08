@@ -24,7 +24,7 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   employeeDetailsOpenTask: any
   openChartMonthlyWorkingHours = true;
   openChartOpenTask = false;
-  showCompareDates = false;
+  showCompareDatesAllEmployeeDetails = false;
   dateOfSearchBeforeForBarChart: any;
   dateOfSearchAfterForBarChart: any;
   todayDate!: any;
@@ -167,7 +167,7 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   }
   GetWorkTimeChartByWorkTime(val: any) {
     if (val == 1) {
-      this.showCompareDates = true
+      this.showCompareDatesAllEmployeeDetails = true
     }
     else {
       if (val == 2) {

@@ -3,7 +3,7 @@
 <!-- <app-search-and-sort-tasks [taskArr]="taskArr"
  [taskArrCopy]="taskArrCopy"></app-search-and-sort-tasks> -->
 
- <div class="search">
+<div class="search">
   <div class="form-outline">
     <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
       <option value="">--בחר אחת מהאופציות הבאות--</option>
@@ -13,31 +13,32 @@
     </select>
 
     <div class="form-outline d-flex justify-content-center ">
-      <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="taskArr" [searchKeyword]="'Subject'" placeholder=" חפש לפי משימה" 
-      historyIdentifier="Subject" [itemTemplate]="itemTemplate" 
-      (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject" #Subject="ngModel" required [notFoundTemplate]="notFoundTemplate">
-   </ng-autocomplete>
-   <ng-template #itemTemplate let-item >
-       <a [innerHTML]="item.Subject" style="text-align:center ;"></a>
-   </ng-template>
-   <ng-template #notFoundTemplate let-notFound>
-       <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-   </ng-template>
-  </div>
+      <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="taskArr" [searchKeyword]="'Subject'"
+        placeholder=" חפש לפי משימה" historyIdentifier="Subject" [itemTemplate]="itemTemplate"
+        (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject" #Subject="ngModel" required
+        [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+      <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.Subject" style="text-align:center ;"></a>
+      </ng-template>
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+      </ng-template>
+    </div>
 
-  <div class="form-outline d-flex justify-content-center ">
+    <div class="form-outline d-flex justify-content-center ">
 
-    <ng-autocomplete style="width: 100%;" [data]="projectArr" [searchKeyword]="'Name'" placeholder="חפש לפי פרויקט"
-      historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
-      (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
-      [notFoundTemplate]="notFoundTemplate2">
-    </ng-autocomplete>
-    <ng-template #itemTemplate2 let-item>
-      <a [innerHTML]="item.Name" style="text-align:center ;"></a>
-    </ng-template>
-    <ng-template #notFoundTemplate2 let-notFound>
-      <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-    </ng-template>
+      <ng-autocomplete style="width: 100%;" [data]="projectArr" [searchKeyword]="'Name'" placeholder="חפש לפי פרויקט"
+        historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
+        (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
+        [notFoundTemplate]="notFoundTemplate2">
+      </ng-autocomplete>
+      <ng-template #itemTemplate2 let-item>
+        <a [innerHTML]="item.Name" style="text-align:center ;"></a>
+      </ng-template>
+      <ng-template #notFoundTemplate2 let-notFound>
+        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+      </ng-template>
     </div>
   </div>
 </div>
@@ -46,23 +47,22 @@
 
 <!-- המשימות שלי -->
 
-<app-smart-card  *ngIf="tableMyTaskOpen&&!ifThereAreTasks" [title]="titleTableTask">
+<app-smart-card *ngIf="tableMyTaskOpen&&!ifThereAreTasks" [title]="titleTableTask">
   <div body>
-    <app-smart-table [ifUpdateTask]="true"  [thArr]="thArrTask" [ifSortDown]="ifSortDown" 
-    [tableDataKeys]="taskListKeys" [tableData]="taskArr"
-      (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
+    <app-smart-table [ifDeleteTask]="true" [ifUpdateTask]="true" [thArr]="thArrTask" [ifSortDown]="ifSortDown"
+      [tableDataKeys]="taskListKeys" [tableData]="taskArr" (DeleteTaskIcon)="DeleteTask($event)"
       (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
-      (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedTask($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+      (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedTask($event)"
+      [showMassgeToUserDeleteTask]="true" [ifDeleteOpen]="isPopUpOpen?.DeleteTask"  [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
     </app-smart-table>
   </div>
 </app-smart-card>
 
 
-<div  *ngIf="ifThereAreTasks">
+<div *ngIf="ifThereAreTasks">
   <br>
   <h2>אין משימות פעילות!</h2>
 </div>
-
 
 
 
@@ -95,6 +95,11 @@
 </div>
 
 <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
-  <app-delete-project-content-item [projectContentItemGuid]="projectContentItemGuid">
+  <app-delete-project-content-item [projectContentItemGuidOrTaskGuid]="projectContentItemGuid">
   </app-delete-project-content-item>
+</div>
+
+<div *ngIf="isPopUpOpen?.DeleteTask">
+  <app-delete-task [TaskGuid]="TasksGuid">
+  </app-delete-task>
 </div>

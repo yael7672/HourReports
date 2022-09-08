@@ -37,6 +37,8 @@ export class PopUpServiceService {
       DeleteProjectContentItemIcon: type === 'DeleteProjectContentItemIcon' ? data : false,
       EditEmployeeDetailsByAdmin: type === 'EditEmployeeDetailsByAdmin' ? data : false,
       MyNewTask: type === 'MyNewTask' ? data : false,
+      DeleteTask: type === 'DeleteTask' ? data : false,
+
     }
     this.setKindOfPopUp(obj)
   }

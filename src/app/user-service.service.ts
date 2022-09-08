@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { averageBreaks } from './interfacees/averageBreaks';
+import { ownerid } from './interfacees/ownerid';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
@@ -121,17 +122,22 @@ export class UserServiceService {
   UpdateTaskHasRead(SystemGuid: string,TaskGuid:string) {
     return this.http.get<any>(environment.url + 'UpdateTaskHasRead/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+ '&TaskGuid=' + TaskGuid)
   }
-  async  GetActualTimeAndWorkTime(SystemGuid: string){
-    return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
+  async  GetActualTimeAndWorkTime(SystemGuid: string ,SelectedTime:any,fromDate:any,untilDate:any){
+    return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&SelectedTime=' + SelectedTime + '&FromDate=' + fromDate + '&UntilDate=' + untilDate).toPromise();
   }
-  async GetWorkTimeByWorkType(SystemGuid: string){
-    return await this.http.get<any>(environment.url + 'GetWorkTimeByWorkType/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid).toPromise();
+  async GetWorkTimeByWorkType(SystemGuid: string,SelectedTime:any,fromDate:any,untilDate:any){
+    return await this.http.get<any>(environment.url + 'GetWorkTimeByWorkType/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&SelectedTime=' + SelectedTime + '&FromDate=' + fromDate + '&UntilDate=' + untilDate).toPromise();
   }
   UpdateEmployeeDetails(EmployeeDetails: any) {
     return this.http.post<any>(environment.url + 'UpdateEmployeeDetails?OrganizationName=AuroraProd', EmployeeDetails);
   }
   MessageToTheManager(){
     return  this.http.get<any>(environment.url + 'MessageToTheManager');
-
+  }
+  DeleteTaskByGuid(TaskId:any){
+    return this.http.delete<any>(environment.url + 'DeleteTaskByGuid?OrganizationName=AuroraProd&TaskId=' + TaskId)
+  }
+  GetAllEmployee(adminGuid:any) {
+    return this.http.get<ownerid[]>(environment.url + 'GetEmployees?OrganizationName=AuroraProd'+'&adminGuid=' + adminGuid );
   }
 }

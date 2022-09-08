@@ -21,12 +21,15 @@ export class SmartTableComponent implements OnInit {
   @Input() ifDelete!: boolean;
   @Input() thArr: any;
   @Input() ifUpdateOpen: any
+  @Input() ifDeleteOpen:any
   @Input() ifSortDown!: boolean
   @Input() tableData: any
   @Input() tableDataKeys: any
   @Input() hideSort: any
   @Input() showGraph: any
   @Input() ifShowAndEditEmployeeSetting: any
+  @Input() ifDeleteTask: any
+  @Input() showMassgeToUserDeleteTask: any
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
   @Output() SortTableDown = new EventEmitter<any>();
@@ -35,7 +38,7 @@ export class SmartTableComponent implements OnInit {
   @Output() ShowOpenTask = new EventEmitter<any>();
   @Output() ShowProjectContentItem = new EventEmitter<any>();
   @Output() ApproveReport = new EventEmitter<any>();
-
+  @Output() DeleteTaskIcon= new EventEmitter<any>();
   @Output() EditEmployeeDetailsByAdmin = new EventEmitter<any>();
   ifDelete1 = true;
   ifUpdate1 = true
@@ -61,6 +64,11 @@ export class SmartTableComponent implements OnInit {
   deleteProjectContentItemIcon(colData: any) {
     this.DeleteProjectContentItemIcon.emit(colData);
   }
+
+  deleteTaskIcon(colData: any) {
+    this.DeleteTaskIcon.emit(colData);
+  }
+
   returnColDataByType(colData: any, tableDataKey: any) {
     if (tableDataKey && typeof tableDataKey === 'string') {
       return colData[tableDataKey]
@@ -79,7 +87,7 @@ export class SmartTableComponent implements OnInit {
     this.SortTableUp.emit(th);
   }
   selectedData(val: any) {
-    if (!this.ifUpdateOpen) {
+    if (!this.ifUpdateOpen && !this.ifDeleteOpen) {
       this.SelectedData.emit(val);
     }
   }
@@ -113,6 +121,7 @@ export class SmartTableComponent implements OnInit {
   }
   showStatisticsGraphEmployeeDetailsToManager(val: any) {
     this.router.navigate(['/Statistics-Graph-Employee-Details-ToManager', val.EmployeeGuid])
+    localStorage.setItem("EmployeeName",val.EmployeeName)
   }
 
   editEmployeeDetailsByAdmin(val: any) {
