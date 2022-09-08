@@ -1,17 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 
 @Component({
-  selector: 'app-employee-report',
-  templateUrl: './employee-report.component.html',
-  styleUrls: ['./employee-report.component.css']
+  selector: 'app-details-of-working-hours-employee',
+  templateUrl: './details-of-working-hours-employee.component.html',
+  styleUrls: ['./details-of-working-hours-employee.component.css']
 })
-export class EmployeeReportComponent implements OnInit {
-  employeeListKeys = ['EmployeeName', 'EmployeeJob', 'EmployeeJobPercentage', 'EmployeeDailyWorkingHours', 'EmployeeMonthlyWorkingHours', 'TotalMonthlyWorkingHours', 'MonthlyTargetByJobScope'];
-  thArrEmployee = ['שם העובד', 'תפקיד העובד', 'אחוז משרה', 'ש"ע יומי', 'ש"ע חודשי', 'סה"כ שעות בחודש', 'יעד חודשי לפי משרה'];
+export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
+
+ 
+  WorkingHoursListKeys = ['Date', 'DayOnMonth', 'DailyWorkingHours', 'DailyWorkingHoursthatAreMissing' ];
+  thArrWorkingHours = ['תאריך', 'יום בחודש', 'ש"ע יומי', 'ש"ע יומיות - חסרות'];
   employeeDetails: any;
   ifSortDown = false;
   systemGuid: any;
@@ -19,7 +21,7 @@ export class EmployeeReportComponent implements OnInit {
   ifShowAndEditEmployeeSetting = true
   isPopUpOpen: any;
   employeeDetailsVal: any;
-  title = "דו'ח עובדים";
+  title = "פרטי שעות עבודה";
 
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private appService: AppService) {
@@ -132,4 +134,5 @@ export class EmployeeReportComponent implements OnInit {
       this.route.navigate(['team-report'])
     }
   }
+  editProjectContentItemIcon(val:any){}
 }

@@ -1,5 +1,10 @@
-<app-smart-card [title]="' דיווחים  שלי'">
+
+  <app-smart-card [title]="' דיווחים  שלי'">
   <div body>
+    <button  (click)="goToDetailsOfWorkingHours()"
+    class="edit-button" class="edit-button" placement="left"  ngbTooltip="לצפיה בפרטי שעות העבודה">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+  </button>
     <div class="form-outline d-flex justify-content-center">
       <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
         <option value="">--בחר אחת מהאופציות הבאות--</option>

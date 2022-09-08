@@ -1,0 +1,17 @@
+
+<app-smart-card [title]="title">
+    <div body>
+      <app-smart-table [ifUpdateTask]="true" [ifDelete]="true"  [thArr]="thArrWorkingHours" [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
+        [tableData]="" 
+        (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+        (SortTableUp)="SortTableUp($event)"
+        [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+       
+      </app-smart-table>
+       <!-- <div *ngIf="taskTeamsArr?.length<1">
+          <br>
+          <h2>אין משימות פעילות!</h2>
+        </div> -->
+    </div>
+  </app-smart-card>
+  

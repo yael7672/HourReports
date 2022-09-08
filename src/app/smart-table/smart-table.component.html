@@ -68,10 +68,18 @@
           class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני העובד">
           <i class="fa fa-cog"></i>
         </button>
+        <button *ngIf="ifShowAndEditTeamSetting" (click)="editTeamDetailsByAdmin(colData)" class="edit-button"
+        class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני הצוות">
+        <i class="fa fa-cog"></i>
+      </button>
         <button *ngIf="ifShowOpenEmployeeTask" (click)="showOpenTask(colData)" class="edit-button" class="edit-button"
           placement="bottom" ngbTooltip="צפיה במשימות הפתוחות של העובד">
           <i class="fa fa-edit"></i>
         </button>
+        <button *ngIf="ifShowOpenTeamTask" (click)="showOpenTeamTask(colData)" class="edit-button" class="edit-button"
+        placement="right" ngbTooltip="צפיה במשימות הפתוחות של הצוות">
+        <i class="fa fa-edit"></i>
+      </button>
         <button *ngIf="ifShowEmployeeProjectContentItem" (click)="showProjectContentItem(colData)" class="edit-button"
           class="edit-button" placement="bottom" ngbTooltip="צפיה  בדיווחי שעות של העובד">
           <i class="fa fa-calendar-check-o"></i>

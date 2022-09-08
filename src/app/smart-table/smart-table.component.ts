@@ -26,6 +26,9 @@ export class SmartTableComponent implements OnInit {
   @Input() tableDataKeys: any
   @Input() hideSort: any
   @Input() showGraph: any
+  @Input() ifShowAndEditTeamSetting!: boolean
+  @Input() ifShowOpenTeamTask!: boolean
+
   @Input() ifShowAndEditEmployeeSetting: any
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
@@ -35,6 +38,8 @@ export class SmartTableComponent implements OnInit {
   @Output() ShowOpenTask = new EventEmitter<any>();
   @Output() ShowProjectContentItem = new EventEmitter<any>();
   @Output() ApproveReport = new EventEmitter<any>();
+  @Output() EditTeamDetailsByAdmin = new EventEmitter<any>();
+  @Output() ShowOpenTeamTask = new EventEmitter<any>();
 
   @Output() EditEmployeeDetailsByAdmin = new EventEmitter<any>();
   ifDelete1 = true;
@@ -44,7 +49,7 @@ export class SmartTableComponent implements OnInit {
   showaApproveReportIcon: any;
   arrayOfReports: any[] = [];
   isPopUpOpen: any;
-
+  arr: any = []
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
@@ -66,10 +71,22 @@ export class SmartTableComponent implements OnInit {
       return colData[tableDataKey]
     }
     else {
-      if (colData[tableDataKey[0]]) {
-        return colData[tableDataKey[0]][tableDataKey[1]];
+      if (colData[tableDataKey[0]]?.length >= 1) {
+        this.arr = [];
+        for (let i = 0; i < colData.TeamMemmber?.length; i++) {
+          if (colData[tableDataKey[0]]) {
+            this.arr += colData[tableDataKey[0]][i][tableDataKey[1]] + " , ";
+          }
+          else return null;
+        }
+        return this.arr;
       }
-      else return null;
+      else {
+        if (colData[tableDataKey[0]]) {
+          return colData[tableDataKey[0]][tableDataKey[1]]
+        }
+        else return null;
+      }
     }
   }
   sortTableDown(th: any) {
@@ -92,7 +109,7 @@ export class SmartTableComponent implements OnInit {
   approveReport(val = null) {
     if (this.arrayOfReports.length > 0) {
       this.ApproveReport.emit(this.arrayOfReports)
-    } 
+    }
     else {
       this.ApproveReport.emit(val)
     }
@@ -118,8 +135,13 @@ export class SmartTableComponent implements OnInit {
   editEmployeeDetailsByAdmin(val: any) {
     this.EditEmployeeDetailsByAdmin.emit(val);
   }
-  chooseAll(isChecked:any)
-  {
+  chooseAll(isChecked: any) {
 
+  }
+  showOpenTeamTask(val: any) {
+    this.ShowOpenTeamTask.emit(val);
+  }
+  editTeamDetailsByAdmin(val: any) {
+    this.EditTeamDetailsByAdmin.emit(val);
   }
 }

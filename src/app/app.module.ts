@@ -48,6 +48,9 @@ import { EmployeeReportComponent } from './employee-report/employee-report.compo
 import { TasksByEmployeeComponent } from './tasks/tasks-by-employee/tasks-by-employee.component';
 import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/project-contect-items-by-employee/project-contect-items-by-employee.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { TeamReportComponent } from './team-report/team-report.component';
+import { TaskByTeamComponent } from './task-by-team/task-by-team.component';
+import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -93,7 +96,10 @@ import { AdminSettingsComponent } from './admin-settings/admin-settings.componen
     MyNewTasksComponent,
     StatisticsGraphEmployeeDetailsToManagerComponent,
     StatisticsGraphAllEmployeesDetailsToManagerComponent,
-    AdminSettingsComponent
+    AdminSettingsComponent,
+    TeamReportComponent,
+    TaskByTeamComponent,
+    DetailsOfWorkingHoursEmployeeComponent
   ],
   imports: [
     BrowserModule,

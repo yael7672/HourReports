@@ -113,8 +113,10 @@ export class UserServiceService {
   ApprovalPojectContentItem(obj:any) {
     return this.http.post<any>(environment.url + 'ApprovalPojectContentItem',obj)
   }
-
   
+  GetTeamDetails() {
+    return this.http.get<any>(environment.url + 'GetTeamDetails?OrganizationName=AuroraProd')
+  }
   GetMyNewTasks(SystemGuid: string) {
     return this.http.get<any>(environment.url + 'GetMyNewTasks/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
@@ -132,6 +134,9 @@ export class UserServiceService {
   }
   MessageToTheManager(){
     return  this.http.get<any>(environment.url + 'MessageToTheManager');
-
   }
+  GetTaskByTeamGuid(TeamGuid:string) {
+    return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)
+  }
+  
 }

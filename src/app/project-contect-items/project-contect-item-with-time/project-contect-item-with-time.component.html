@@ -14,16 +14,13 @@
                 <!-- workTimeHourProjectContectItemWithTimer -->
             </p>
         </div>
-        <div class="row">
-            <div class="col-6">
+        <div class="flex-button">
                 <form (ngSubmit)="OpenPopUpIfCloseProjectcontectItemWithTimer()" #f=ngForm>
                     <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים </button>
                 </form>
-            </div>
-            <div class="col-6">
+           
                 <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn "
                     (click)="CancelProjectContectItemWithTimer()">בטל דיווח</button>
-            </div>
         </div>
     </div>
     <div footer>

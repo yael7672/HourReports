@@ -6,7 +6,7 @@ import { PopUpServiceService } from '../../pop-up-service.service';
 import { ProjectContentItemComponent } from '../project-content-item/project-content-item.component';
 import { UserServiceService } from '../../user-service.service';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-project-contect-items',
@@ -46,7 +46,10 @@ export class MyProjectContectItemsComponent implements OnInit {
   projectArr: any;
   workTypeArr: any;
 
-  constructor(private activatedRoute: ActivatedRoute,private userService: UserServiceService, private datePipe: DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
+  constructor(private activatedRoute: ActivatedRoute,private userService: UserServiceService,
+     private datePipe: DatePipe, private appService: AppService,
+      private popUpService: PopUpServiceService,
+      private route:Router) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -215,7 +218,10 @@ export class MyProjectContectItemsComponent implements OnInit {
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
-
+  goToDetailsOfWorkingHours()
+  {
+    this.route.navigate(['/details-of-working-hours-Employee'])
+  }
 }
 
 

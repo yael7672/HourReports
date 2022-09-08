@@ -26,6 +26,9 @@ import { EmployeeReportComponent } from './employee-report/employee-report.compo
 import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/project-contect-items-by-employee/project-contect-items-by-employee.component';
 import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
 import { TasksByEmployeeComponent } from './tasks/tasks-by-employee/tasks-by-employee.component';
+import { TeamReportComponent } from './team-report/team-report.component';
+import { TaskByTeamComponent } from './task-by-team/task-by-team.component';
+import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -52,12 +55,15 @@ const routes: Routes = [
   { path: 'my-project-contect-items-component/:id', component: MyProjectContectItemsComponent },
   { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
   { path: 'employee-report', component: EmployeeReportComponent },
+  { path: 'team-report', component: TeamReportComponent },
+  { path: 'tasks-by-team/:id', component: TaskByTeamComponent },
   { path: 'tasks-by-employee/:id', component: TasksByEmployeeComponent },
   { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent },
   { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
   { path: 'Statistics-Graph-Employee-Details-ToManager/:id', component: StatisticsGraphEmployeeDetailsToManagerComponent },
   { path: 'Statistics-Graph-All-Employees-Details-ToManager', component: StatisticsGraphAllEmployeesDetailsToManagerComponent },
-  { path: 'AdminSettings', component: AdminSettingsComponent }
+  { path: 'AdminSettings', component: AdminSettingsComponent },
+  { path: 'details-of-working-hours-Employee', component: DetailsOfWorkingHoursEmployeeComponent }
 
 ];
 
