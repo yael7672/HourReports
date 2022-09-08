@@ -58,6 +58,11 @@ export class MenuComponent implements OnInit {
   taskListDataDetailsParseToJson: any;
   MyNewTaskArr: any;
   ifThereNewTasks=false;
+  DateArr:any
+  LastDateInThisMonth!: any;
+  TwoLastDaysInThisMonth!: any;
+  OneDaysInThisMonth!: any;
+  showMassgeToManager=false
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -91,6 +96,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.GetWorkType()
     this.GetProject();
+    this.MessageToTheManager()
     this.systemGuid = localStorage.getItem('systemGuid');
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
@@ -203,5 +209,21 @@ export class MenuComponent implements OnInit {
         }
       }
     )
+  }
+  MessageToTheManager(){
+    this.userService.MessageToTheManager().subscribe(res => {
+      if (res) {
+        this.DateArr = res;
+        this.LastDateInThisMonth= this.datePipe.transform(this.DateArr.LastDateInThisMonth, 'dd/MM/yyyy')
+        this.TwoLastDaysInThisMonth=  this.datePipe.transform(this.DateArr.TwoLastDaysInThisMonth, 'dd/MM/yyyy')
+        this.OneDaysInThisMonth=  this.datePipe.transform(this.DateArr.OneDaysInThisMonth, 'dd/MM/yyyy')
+        if(this.todayDate== this.LastDateInThisMonth||this.todayDate==this.TwoLastDaysInThisMonth||this.todayDate== this.OneDaysInThisMonth){
+          this.showMassgeToManager=true
+        }
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
   }
 }

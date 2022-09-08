@@ -22,9 +22,12 @@
       </div>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
+      <a *ngIf="showMassgeToManager" (click)="MessageToTheManager()" placement="top"
+      ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNoMessege" style="font-size: 30px; " [ngClass]="{ 'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i></a> 
       <a (click)="openPopUp('MyNewTask',true)"  placement="bottom" ngbTooltip="משימות חדשות שלא נקראו" (clickOutside)="onClickedOutsideMyNewTask($event)">
-        <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px" [ngClass]="{ 'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
+        <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px " [ngClass]="{ 'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
       </a>
+
       <a (click)="Logout()" placement="bottom" ngbTooltip="התנתק מהמערכת"><i class="fa fa-sign-out " aria-hidden="true"></i></a>
       <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
         (clickOutside)="onClickedOutside($event)" placement="bottom"

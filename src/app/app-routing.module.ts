@@ -34,7 +34,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   // { path: 'menu', component: MenuComponent },
  // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  { path: 'login', component: LoginComponent },
+  // { path: 'login', component: LoginComponent },
   { path: 'createTask', component: CreateNewTaskComponent },
   { path: 'updateTask', component: UpdateAnExistingTaskComponent },
   { path: 'endOfTask', component: EndOfTaskComponent },

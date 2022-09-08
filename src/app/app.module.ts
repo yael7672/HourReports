@@ -53,6 +53,7 @@ import { TaskByTeamComponent } from './task-by-team/task-by-team.component';
 import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 
 import { DeleteTaskComponent } from './delete-task/delete-task.component';
+import { MassegeToManagerComponent } from './massege-to-manager/massege-to-manager.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -102,7 +103,8 @@ import { DeleteTaskComponent } from './delete-task/delete-task.component';
     TeamReportComponent,
     TaskByTeamComponent,
     DetailsOfWorkingHoursEmployeeComponent,
-    DeleteTaskComponent
+    DeleteTaskComponent,
+    MassegeToManagerComponent
   ],
   imports: [
     BrowserModule,
