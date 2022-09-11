@@ -1,0 +1,77 @@
+.actionArea {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 19;
+    /* background-color: #0e1b34de; */
+    width: 35%;
+    
+  }
+  .card {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 19;
+  /* background-color: #0e1b34de; */
+  width: 50%;
+  min-width: 200px;
+  max-width: 30vw;
+  min-height: 30vw;
+}
+ p.card-title{
+text-align: right !important;
+font-size: small;
+font-weight: bold;
+/* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif */
+}
+/* .DailyAndMonthlyWorkingHoursC {
+  display: flex;
+  flex-direction:column;
+  direction: rtl;
+  height: 10vh !important;
+  border-radius: 10px;
+  font-weight: 100 !important;
+}
+.DailyAndMonthlyWorkingHoursC p{
+  padding: 0;
+} */
+.profile-image-pic {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.iconify {
+  font-size: 30px;
+  margin-top: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.visible {
+  height: 3em;
+  width: 10em;
+  background: yellow;
+}
+
+h5{
+  text-align: center;
+  color: brown;
+}
+a.link{
+color: rgb(15, 15, 72);
+display: flex;
+justify-content: center
+}
+.todayDate{
+  display: flex;
+  justify-content: center
+}

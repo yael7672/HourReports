@@ -38,7 +38,7 @@ export class PopUpServiceService {
       EditEmployeeDetailsByAdmin: type === 'EditEmployeeDetailsByAdmin' ? data : false,
       MyNewTask: type === 'MyNewTask' ? data : false,
       DeleteTask: type === 'DeleteTask' ? data : false,
-
+      MessageToTheManager: type === 'MessageToTheManager' ? data : false,
     }
     this.setKindOfPopUp(obj)
   }

@@ -64,10 +64,12 @@ const routes: Routes = [
   { path: 'AdminSettings', component: AdminSettingsComponent },
   { path: 'details-of-working-hours-Employee', component: DetailsOfWorkingHoursEmployeeComponent }
 ] },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [],
+  // imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

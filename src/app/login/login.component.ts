@@ -33,8 +33,14 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('systemName', this.user.Name);
         localStorage.setItem('systemMail', this.user.Mail);
         localStorage.setItem('ifAdmin', 'true');
+<<<<<<< HEAD
         this.router.navigate(['/menu/show-my-task', this.user.SystemGuid])
 
+=======
+        this.router.navigate(['/'])
+
+        // this.router.navigate(['show-my-task', this.user.SystemGuid])
+>>>>>>> yaelBanayNew
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
         this.appService.setIsLogin(true);

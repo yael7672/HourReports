@@ -54,6 +54,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   isChecked!:boolean
   adminGuid:any
   openInputReportMoreEmployee=false
+  selectedEmployee:any
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.isDisabled = false;
