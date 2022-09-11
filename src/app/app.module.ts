@@ -115,8 +115,6 @@ import { MassegeToManagerComponent } from './massege-to-manager/massege-to-manag
     NgbModule,
     ClickOutsideModule,
     AutocompleteLibModule,
-    // NgMultiSelectDropDownModule.forRoot(),
-
    
   ],
   providers: [DatePipe],
