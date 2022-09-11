@@ -25,3 +25,11 @@
     background-color: white;
     border: none;
 }
+.fa-check-circle:before {
+  content: "\f058";
+  color: green;
+}
+.fa-times-circle:before {
+  content: "\f057";
+  color: red;
+}

@@ -1,7 +1,9 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th *ngIf="ifShowCheckBox" > בחר </th>
+      <th *ngIf="ifShowXorVIcons"></th>
+
+      <th *ngIf="ifShowCheckBox"> בחר </th>
       <th *ngFor="let th of thArr" scope="col">
         <ng-container *ngIf="ifSortDown; else sortTableUpp;">
           <button (click)="sortTableDown(th)">
@@ -29,19 +31,23 @@
   </thead>
   <tbody>
     <tr *ngFor="let colData of tableData; let i = index" (click)="selectedData(colData)">
+      <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing>0||colData.DailyWorkingHoursthatAreMissing<0"
+        class="fa fa-times-circle" aria-hidden="true"></i>
+      <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing==0" class="fa fa-check-circle"
+        aria-hidden="true"></i>
+
       <input *ngIf="ifShowCheckBox" class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
         [(ngModel)]="isChecked[i]" (change)="checkValue(isChecked[i],colData)">
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
-        <ng-container
-          *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' &&
+        <ng-container *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' &&
            tableDataKey!=='EmployeeMonthlyWorkingHours' && tableDataKey!=='DailyWorkingHours' &&
            tableDataKey!=='DailyWorkingHoursthatAreMissing' else ConvertToNumber;">
           <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
             <ng-container *ngIf="tableDataKey!=='Date' else Date;">
               <ng-container *ngIf="tableDataKey!=='ScheduledEndDate' else CreatedOn;">
-              <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+                <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+              </ng-container>
             </ng-container>
-          </ng-container>
           </ng-container>
         </ng-container>
         <ng-template #ConvertToNumber>
@@ -59,6 +65,7 @@
         <button *ngIf="ifUpdate && this.arrayOfReports.length < 1" (click)="editProjectContentItemIcon(colData)"
           placement="top" ngbTooltip="באפשרותך לערוך את הדיווח.">
           <i class="fa fa-pencil" aria-hidden="true"></i></button>
+
         <button *ngIf="ifUpdateTask" (click)="editProjectContentItemIcon(colData)" placement="right"
           ngbTooltip="באפשרותך לערוך את המשימה.">
           <i class="fa fa-pencil" aria-hidden="true"></i></button>
@@ -66,7 +73,7 @@
           placement="bottom" ngbTooltip="באפשרותך למחוק את הדיווח.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
-            <button *ngIf="ifDeleteTask" (click)="deleteTaskIcon(colData)" class="edit-button" class="edit-button"
+        <button *ngIf="ifDeleteTask" (click)="deleteTaskIcon(colData)" class="edit-button" class="edit-button"
           placement="bottom" ngbTooltip="באפשרותך למחוק את המשימה.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
@@ -75,17 +82,17 @@
           <i class="fa fa-cog"></i>
         </button>
         <button *ngIf="ifShowAndEditTeamSetting" (click)="editTeamDetailsByAdmin(colData)" class="edit-button"
-        class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני הצוות">
-        <i class="fa fa-cog"></i>
-      </button>
+          class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני הצוות">
+          <i class="fa fa-cog"></i>
+        </button>
         <button *ngIf="ifShowOpenEmployeeTask" (click)="showOpenTask(colData)" class="edit-button" class="edit-button"
           placement="bottom" ngbTooltip="צפיה במשימות הפתוחות של העובד">
           <i class="fa fa-edit"></i>
         </button>
         <button *ngIf="ifShowOpenTeamTask" (click)="showOpenTeamTask(colData)" class="edit-button" class="edit-button"
-        placement="right" ngbTooltip="צפיה במשימות הפתוחות של הצוות">
-        <i class="fa fa-edit"></i>
-      </button>
+          placement="right" ngbTooltip="צפיה במשימות הפתוחות של הצוות">
+          <i class="fa fa-edit"></i>
+        </button>
         <button *ngIf="ifShowEmployeeProjectContentItem" (click)="showProjectContentItem(colData)" class="edit-button"
           class="edit-button" placement="bottom" ngbTooltip="צפיה  בדיווחי שעות של העובד">
           <i class="fa fa-calendar-check-o"></i>
@@ -100,10 +107,11 @@
           class="edit-button" class="edit-button" placement="bottom" ngbTooltip="אישור הדיווח">
           <i class="fa fa-check" aria-hidden="true"></i>
         </button>
-        <button *ngIf="ifCreateReport" (click)="createReport(colData)"
-        class="edit-button" class="edit-button" placement="bottom" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
-        <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
-      </button>
+        <button *ngIf="ifCreateReport" (click)="createReport(colData)" class="edit-button" class="edit-button"
+          placement="bottom" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
+          <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+        </button>
       </td>
+    </tr>
   </tbody>
 </table>

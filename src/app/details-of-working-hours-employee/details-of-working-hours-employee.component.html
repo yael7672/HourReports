@@ -11,8 +11,8 @@
          <p> סה"כ שעות מדווחות החודש:  {{hoursReportedThisMonth}}</p>
          <p> סה"כ שעות עבודה לחודש זה:  {{workingDaysThisMonth}}</p>
 
-      <app-smart-table [ifCreateReport]="true"   [thArr]="thArrWorkingHours" [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
-        [tableData]="detailsOfWorkingHourByEmployee" 
+      <app-smart-table [ifCreateReport]="true"  [ifShowXorVIcons]="true" [ifTrIsNull]="true" [thArr]="thArrWorkingHours" [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
+        [tableData]="detailsOfWorkingHourByEmployeeToSend" 
          (SortTableDown)="SortTableDown($event)"
         (SortTableUp)="SortTableUp($event)" (CreateReport)="createReport($event)"
         [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
