@@ -75,7 +75,8 @@
 .body {
     display: flex;
     justify-content: center;
-    margin-top: 70px;
+    /* margin-top: 70px; */
+    flex-direction: column;
 }
 
 #BarChart {
@@ -84,4 +85,20 @@
 
 #BarChart2 {
     margin: 10px;
+}
+
+.selectInCard {
+    display: flex;
+    justify-content: center !important;
+    flex-direction: column;
+}
+
+.selectDate {
+    width: 100%;
+}
+
+.inputDate {
+    width: 80%;
+    display: flex;
+    /* justify-content: center; */
 }

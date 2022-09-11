@@ -26,7 +26,7 @@ export class MassegeToManagerComponent implements OnInit {
     console.log("ClosePopUp");
   }
   linkToEmployeeReport() {
-    this.route.navigate(['employee-report'])
+    this.route.navigate(['/menu/employee-report'])
     this.closePopUp()
   }
 }
