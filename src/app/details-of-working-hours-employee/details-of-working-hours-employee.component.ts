@@ -11,10 +11,10 @@ import { UserServiceService } from '../user-service.service';
 })
 export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
 
- 
-  WorkingHoursListKeys = ['Date', 'DayOnMonth', 'DailyWorkingHours', 'DailyWorkingHoursthatAreMissing' ];
+
+  WorkingHoursListKeys = ['Date', 'DayOnMonth', 'DailyWorkingHours', 'DailyWorkingHoursthatAreMissing'];
   thArrWorkingHours = ['תאריך', 'יום בחודש', 'ש"ע יומי', 'ש"ע יומיות - חסרות'];
-  employeeDetails: any;
+  detailsOfWorkingHourByEmployee!: any[];
   ifSortDown = false;
   systemGuid: any;
   showGraph = true
@@ -22,7 +22,9 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   isPopUpOpen: any;
   employeeDetailsVal: any;
   title = "פרטי שעות עבודה";
-
+  hoursReportedThisMonth!: any;
+  workingDaysThisMonth: any;
+  dateToUpdate: any;
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -33,9 +35,9 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem('systemGuid')
-
+    this.getDetailsOfWorkingHourByEmployee(1)
   }
-  
+
   SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;
@@ -60,11 +62,11 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
         break;
     }
     if (keyToSort != 'Project') {
-      this.employeeDetails?.sort((a: any, b: any) =>
+      this.detailsOfWorkingHourByEmployee?.sort((a: any, b: any) =>
         (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.employeeDetails?.sort((a: any, b: any) =>
+      this.detailsOfWorkingHourByEmployee?.sort((a: any, b: any) =>
         (a[keyToSort[1]] > (b[keyToSort[1]])) ? 1 : -1)
     }
   }
@@ -92,11 +94,11 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
         break;
     }
     if (keyToSort != 'Project') {
-      this.employeeDetails?.sort((a: any, b: any) =>
+      this.detailsOfWorkingHourByEmployee?.sort((a: any, b: any) =>
         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.employeeDetails?.sort((a: any, b: any) =>
+      this.detailsOfWorkingHourByEmployee?.sort((a: any, b: any) =>
         (a[keyToSort[1]] < (b[keyToSort[1]])) ? 1 : -1)
     }
   }
@@ -125,5 +127,30 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       this.route.navigate(['team-report'])
     }
   }
-  editProjectContentItemIcon(val:any){}
+  
+  getDetailsOfWorkingHourByEmployee(val: any) {
+    this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, val).subscribe(res => {
+      if (res) {
+        this.detailsOfWorkingHourByEmployee = res;
+        this.detailsOfWorkingHourByEmployee.forEach((x: any) => {
+          if (x.HoursReportedThisMonth != 0) {
+            this.hoursReportedThisMonth = x.HoursReportedThisMonth;
+          }
+          if (x.WorkingDaysThisMonth != 0) {
+            this.workingDaysThisMonth = x.WorkingDaysThisMonth;
+          }
+
+        });
+        console.log(this.hoursReportedThisMonth);
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
+  }
+  createReport(val: any) {
+    this.dateToUpdate= val.Date;
+    this.appService.setIsPopUpOpen(true);
+    this.popUpService.setSpecificPopUp(true, "createAprojectContentItem")
+  }
 }

@@ -33,7 +33,9 @@
         [(ngModel)]="isChecked[i]" (change)="checkValue(isChecked[i],colData)">
       <ng-container *ngFor="let tableDataKey of tableDataKeys">
         <ng-container
-          *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' && tableDataKey!=='EmployeeMonthlyWorkingHours' else WorkingHours;">
+          *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' &&
+           tableDataKey!=='EmployeeMonthlyWorkingHours' && tableDataKey!=='DailyWorkingHours' &&
+           tableDataKey!=='DailyWorkingHoursthatAreMissing' else ConvertToNumber;">
           <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
             <ng-container *ngIf="tableDataKey!=='Date' else Date;">
               <ng-container *ngIf="tableDataKey!=='ScheduledEndDate' else CreatedOn;">
@@ -42,7 +44,7 @@
           </ng-container>
           </ng-container>
         </ng-container>
-        <ng-template #WorkingHours>
+        <ng-template #ConvertToNumber>
           <td> {{colData[tableDataKey] | number}}</td>
         </ng-template>
         <ng-template #CreatedOn>
@@ -98,6 +100,10 @@
           class="edit-button" class="edit-button" placement="bottom" ngbTooltip="אישור הדיווח">
           <i class="fa fa-check" aria-hidden="true"></i>
         </button>
+        <button *ngIf="ifCreateReport" (click)="createReport(colData)"
+        class="edit-button" class="edit-button" placement="bottom" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
+        <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+      </button>
       </td>
   </tbody>
 </table>

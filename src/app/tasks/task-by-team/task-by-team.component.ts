@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PopUpServiceService } from '../pop-up-service.service';
-import { UserServiceService } from '../user-service.service';
+import { PopUpServiceService } from '../../pop-up-service.service';
+import { UserServiceService } from '../../user-service.service';
 
 @Component({
   selector: 'app-task-by-team',

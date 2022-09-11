@@ -49,7 +49,7 @@ import { TasksByEmployeeComponent } from './tasks/tasks-by-employee/tasks-by-emp
 import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/project-contect-items-by-employee/project-contect-items-by-employee.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { TeamReportComponent } from './team-report/team-report.component';
-import { TaskByTeamComponent } from './task-by-team/task-by-team.component';
+import { TaskByTeamComponent } from './tasks/task-by-team/task-by-team.component';
 import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 import { DeleteTaskComponent } from './delete-task/delete-task.component';
 
@@ -100,8 +100,8 @@ import { DeleteTaskComponent } from './delete-task/delete-task.component';
     AdminSettingsComponent,
     TeamReportComponent,
     TaskByTeamComponent,
-    DetailsOfWorkingHoursEmployeeComponent,
-    DeleteTaskComponent
+    DeleteTaskComponent,
+    DetailsOfWorkingHoursEmployeeComponent
   ],
   imports: [
     BrowserModule,

@@ -27,7 +27,7 @@ import { ProjectContectItemsByEmployeeComponent } from './project-contect-items/
 import { ShowMyTeamTaskComponent } from './tasks/show-my-team-task/show-my-team-task.component';
 import { TasksByEmployeeComponent } from './tasks/tasks-by-employee/tasks-by-employee.component';
 import { TeamReportComponent } from './team-report/team-report.component';
-import { TaskByTeamComponent } from './task-by-team/task-by-team.component';
+import { TaskByTeamComponent } from './tasks/task-by-team/task-by-team.component';
 import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 
 const routes: Routes = [

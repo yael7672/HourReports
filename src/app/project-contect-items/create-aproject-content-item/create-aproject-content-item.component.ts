@@ -20,6 +20,7 @@ import { ownerid } from 'src/app/interfacees/ownerid';
 })
 export class CreateAprojectContentItemComponent implements OnInit {
   @Input() MyTask!: any;
+  @Input() dateToUpdate!: any; 
   @Input() actualTime: any;
   @Input() KindPopUpUpdateProjectContectItemWithTime: any;
   @Input() projectContectItemByTimerGuid: any
@@ -68,6 +69,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.GetProject()
     this.GetWorkType()
     this.GetAllEmployee()
+    console.log(this.dateToUpdate);
+    
   }
   checkIfReportMoreEmployees(val:any){
     if(val==true)

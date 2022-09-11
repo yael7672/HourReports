@@ -29,7 +29,7 @@ export class SmartTableComponent implements OnInit {
   @Input() showGraph: any
   @Input() ifShowAndEditTeamSetting!: boolean
   @Input() ifShowOpenTeamTask!: boolean
-
+  @Input()ifCreateReport!: boolean;
   @Input() ifShowAndEditEmployeeSetting: any
   @Input() ifDeleteTask: any
   @Input() showMassgeToUserDeleteTask: any
@@ -43,8 +43,8 @@ export class SmartTableComponent implements OnInit {
   @Output() ApproveReport = new EventEmitter<any>();
   @Output() EditTeamDetailsByAdmin = new EventEmitter<any>();
   @Output() ShowOpenTeamTask = new EventEmitter<any>();
-
   @Output() DeleteTaskIcon= new EventEmitter<any>();
+  @Output() CreateReport= new EventEmitter<any>();
   @Output() EditEmployeeDetailsByAdmin = new EventEmitter<any>();
   ifDelete1 = true;
   ifUpdate1 = true
@@ -154,4 +154,9 @@ export class SmartTableComponent implements OnInit {
   editTeamDetailsByAdmin(val: any) {
     this.EditTeamDetailsByAdmin.emit(val);
   }
+  createReport(val:any)
+    {
+      this.CreateReport.emit(val);
+    }
+  
 }
