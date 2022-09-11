@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('ifAdmin', 'true');
         this.router.navigate(['/menu/show-my-task', this.user.SystemGuid])
 
+
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
         this.appService.setIsLogin(true);

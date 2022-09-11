@@ -172,14 +172,17 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
     else {
       if (val == 2) {
         this.GetEmployeeDetails(this.systemGuid, "", "", 2)
+        this.showCompareDatesAllEmployeeDetails = false
       }
       else {
         if (val == 3) {
           this.GetEmployeeDetails(this.systemGuid, "", "", 3)
+          this.showCompareDatesAllEmployeeDetails = false
         }
         else {
           if (val == 4) {
             this.GetEmployeeDetails(this.systemGuid, "", "", 4)
+            this.showCompareDatesAllEmployeeDetails = false
           }
         }
       }

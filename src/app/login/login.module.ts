@@ -8,9 +8,10 @@
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { HttpClientModule } from '@angular/common/http';
 
-// // const declaration=[
-// //     // LoginComponent
-// //   ]
+// const declaration=[
+//     LoginComponent
+//   ]
+
 //   const imports=[
 //     CommonModule,
 //     // RouterModule,
