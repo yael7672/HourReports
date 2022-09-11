@@ -130,7 +130,7 @@ export class ShowMyTeamTaskComponent implements OnInit {
     }
   }
   SelectedData(val: any) {
-    this.route.navigate(['/specific-task', val.TaskGuid])
+    this.route.navigate(['/menu/specific-task', val.TaskGuid])
   }
 }
 

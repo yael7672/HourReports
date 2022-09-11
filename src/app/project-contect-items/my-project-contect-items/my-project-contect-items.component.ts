@@ -220,7 +220,7 @@ export class MyProjectContectItemsComponent implements OnInit {
   }
   goToDetailsOfWorkingHours()
   {
-    this.route.navigate(['/details-of-working-hours-Employee'])
+    this.route.navigate(['/menu/details-of-working-hours-Employee'])
   }
 }
 

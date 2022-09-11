@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem('systemGuid')) {
-      this.router.navigate(['/menu'])
+     // this.router.navigate(['/menu'])
     }
   }
   Login(form: NgForm) {
@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('systemName', this.user.Name);
         localStorage.setItem('systemMail', this.user.Mail);
         localStorage.setItem('ifAdmin', 'true');
-        this.router.navigate(['show-my-task', this.user.SystemGuid])
+        this.router.navigate(['/menu/show-my-task', this.user.SystemGuid])
+
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
         this.appService.setIsLogin(true);

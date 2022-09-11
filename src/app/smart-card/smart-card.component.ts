@@ -54,7 +54,7 @@ export class SmartCardComponent implements OnInit {
   }
   showStatisticsGraphAllEmployeeDetailsToManager()
   {
-    this.router.navigate(['/Statistics-Graph-All-Employees-Details-ToManager'])
+    this.router.navigate(['/menu/Statistics-Graph-All-Employees-Details-ToManager'])
 
   }
 

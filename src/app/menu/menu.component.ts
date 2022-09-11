@@ -108,7 +108,7 @@ export class MenuComponent implements OnInit {
     }
   }
   returnToTheOpenTask() {
-    this.router.navigate(['/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
+    this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
   }
 
   closePersonalDetails() {
@@ -144,7 +144,7 @@ export class MenuComponent implements OnInit {
   }
   
   goToMyprojectContentItem() {
-    this.router.navigate(['/my-project-contect-items-component',this.systemGuid])
+    this.router.navigate(['/menu/my-project-contect-items-component',this.systemGuid])
   }
   GetProject() {
     this.userService.GetProject().subscribe(res => {
@@ -158,11 +158,11 @@ export class MenuComponent implements OnInit {
       })
   }
   GoToStatisticsGraph() {
-    this.router.navigate(['StatisticsGraph'])
+    this.router.navigate(['menu/StatisticsGraph'])
   }
   GoToHome() {
 
-    this.router.navigate(['show-my-task',this.systemGuid])
+    this.router.navigate(['menu/show-my-task',this.systemGuid])
   }
   ClickPersonalDetails() {
     this.openPersonalDetails = true;

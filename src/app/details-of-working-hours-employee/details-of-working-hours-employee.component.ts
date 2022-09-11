@@ -104,11 +104,11 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   }
 
   openProjectContentItemByEmployeeGuid(val: any) {
-    this.route.navigate(['/project-contect-items-by-employee', val.EmployeeGuid])
+    this.route.navigate(['/menu/project-contect-items-by-employee', val.EmployeeGuid])
     localStorage.setItem('employeeDetails', JSON.stringify(val))
   }
   openTasksByEmployeeGuid(val: any) {
-    this.route.navigate(['/tasks-by-employee', val.EmployeeGuid])
+    this.route.navigate(['/menu/tasks-by-employee', val.EmployeeGuid])
     localStorage.setItem('employeeDetails', JSON.stringify(val))
   }
 

@@ -88,7 +88,7 @@ export class ShowMyTaskComponent implements OnInit {
       localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
       clearInterval(this.interval);
       this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
-      this.route.navigate(['/specific-task', val.TaskGuid])
+      this.route.navigate(['/menu/specific-task', val.TaskGuid])
     }
     else {
       swal("קיימת משימה פעילה")
@@ -241,15 +241,15 @@ export class ShowMyTaskComponent implements OnInit {
   WhichTableOpen(val: any) {
     if (val == 0) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/show-my-task',this.systemGuid]);
+      this.route.navigate(['/menu/show-my-task',this.systemGuid]);
     }
     if (val == 1) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/show-team-my-task/',this.systemGuid]);
+      this.route.navigate(['/menu/show-team-my-task/',this.systemGuid]);
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/the-last-tasks-i-worked']);
+      this.route.navigate(['/menu/the-last-tasks-i-worked']);
     }
   }
   onSearchTask(filterKeyBySubject: any) {

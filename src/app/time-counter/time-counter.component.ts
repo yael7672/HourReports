@@ -131,7 +131,7 @@ export class TimeCounterComponent implements OnInit {
         if (res) {
           this.massageFromServer = res;
           this.systemGuid = localStorage.getItem('systemGuid');
-          this.route.navigate(['/show-my-task', this.systemGuid])
+          this.route.navigate(['/menu/show-my-task', this.systemGuid])
           this.popUpService.setAllmyTask(true)
           this.popUpService.SetProjectContentItemByTaskGuid(true)
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)

@@ -107,11 +107,11 @@ export class TeamReportComponent implements OnInit {
   }
 
   openProjectContentItemByEmployeeGuid(val: any) {
-    this.route.navigate(['/project-contect-items-by-employee', val.EmployeeGuid])
+    this.route.navigate(['/menu/project-contect-items-by-employee', val.EmployeeGuid])
     localStorage.setItem('teamsDetails', JSON.stringify(val))
   }
   openTasksByTeamGuid(val: any) {
-  this.route.navigate(['/tasks-by-team', val.Guid])
+  this.route.navigate(['/menu/tasks-by-team', val.Guid])
 
     localStorage.setItem('teamsDetails', JSON.stringify(val))
   }

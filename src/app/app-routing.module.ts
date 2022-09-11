@@ -31,10 +31,9 @@ import { TaskByTeamComponent } from './tasks/task-by-team/task-by-team.component
 import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  // { path: 'menu', component: MenuComponent },
+   { path: '', component: LoginComponent },
  // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  { path: 'login', component: LoginComponent },
+  { path: 'menu', component: MenuComponent, children:[
   { path: 'createTask', component: CreateNewTaskComponent },
   { path: 'updateTask', component: UpdateAnExistingTaskComponent },
   { path: 'endOfTask', component: EndOfTaskComponent },
@@ -64,7 +63,7 @@ const routes: Routes = [
   { path: 'Statistics-Graph-All-Employees-Details-ToManager', component: StatisticsGraphAllEmployeesDetailsToManagerComponent },
   { path: 'AdminSettings', component: AdminSettingsComponent },
   { path: 'details-of-working-hours-Employee', component: DetailsOfWorkingHoursEmployeeComponent }
-
+] },
 ];
 
 @NgModule({

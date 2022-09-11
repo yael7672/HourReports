@@ -33,7 +33,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
   LogOut() {
     localStorage.clear();
-    this.route.navigate(['/login'])
+    this.route.navigate(['/menu/login'])
   }
   openPopUpp(data: string, type: boolean) {
     this.openPopUp.emit({ date: data, type: type })
@@ -42,7 +42,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.closePersonalDetails.emit()
   }
   goTpHoursAwaitingApproval() {
-    this.route.navigate(['/hours-awaiting-approval-component'])
+    this.route.navigate(['/menu/hours-awaiting-approval-component'])
   }
   GetDailyWorkingHoursAndMonthlyWorkingHours(systemGuid: any) {
 
@@ -58,7 +58,7 @@ export class PersonalDetailsComponent implements OnInit {
     )
   }
   goToEmployeeReport() {
-    this.route.navigate(['/employee-report'])
+    this.route.navigate(['/menu/employee-report'])
   }
   MessageToTheManager() {
     this.userService.MessageToTheManager().subscribe(
@@ -73,7 +73,7 @@ export class PersonalDetailsComponent implements OnInit {
     )
     if (this.MessageToTheManagerRes) {
        this.IfMessageToTheManager = true
-      // this.route.navigate(['/employee-report'])
+      // this.route.navigate(['/menu/employee-report'])
     }
   }
 
