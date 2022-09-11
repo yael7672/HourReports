@@ -31,44 +31,55 @@ import { TaskByTeamComponent } from './task-by-team/task-by-team.component';
 import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  // { path: '', component: LoginComponent },
   // { path: 'menu', component: MenuComponent },
- // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  // { path: 'login', component: LoginComponent },
-  { path: 'createTask', component: CreateNewTaskComponent },
-  { path: 'updateTask', component: UpdateAnExistingTaskComponent },
-  { path: 'endOfTask', component: EndOfTaskComponent },
-  { path: 'pop', component: PopUpComponent },
-  { path: 'createAprojectContentItem', component: CreateAprojectContentItemComponent },
-  { path: 'specific-task/:id', component: SpecificTaskComponent },
-  { path: 'smartCard', component: SmartCardComponent },
-  { path: 'personalDetails', component: PersonalDetailsComponent },
-  { path: 'charts9', component: ChartsComponent },
-  { path: 'StatisticsGraph', component: StatisticsGraphComponent },
-  { path: 'ChartsMyTask', component: ChartsMyTaskComponent },
-  { path: 'sick', component: SickLeaveProjectContentItemComponent },
-  { path: 'up', component: UpdateProjectContentItemComponent },
-  { path: 'show-my-task/:id', component: ShowMyTaskComponent },
-  { path: 'show-team-my-task/:id', component: ShowMyTeamTaskComponent },
-  { path: 'the-last-tasks-i-worked/:id', component: TheLastTasksIWorkedComponent },
-  { path: 'project-contect-items-by-employee/:id', component: ProjectContectItemsByEmployeeComponent },
-  { path: 'my-project-contect-items-component/:id', component: MyProjectContectItemsComponent },
-  { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
-  { path: 'employee-report', component: EmployeeReportComponent },
-  { path: 'team-report', component: TeamReportComponent },
-  { path: 'tasks-by-team/:id', component: TaskByTeamComponent },
-  { path: 'tasks-by-employee/:id', component: TasksByEmployeeComponent },
-  { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent },
-  { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
-  { path: 'Statistics-Graph-Employee-Details-ToManager/:id', component: StatisticsGraphEmployeeDetailsToManagerComponent },
-  { path: 'Statistics-Graph-All-Employees-Details-ToManager', component: StatisticsGraphAllEmployeesDetailsToManagerComponent },
-  { path: 'AdminSettings', component: AdminSettingsComponent },
-  { path: 'details-of-working-hours-Employee', component: DetailsOfWorkingHoursEmployeeComponent }
+  // { path: '', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+  //   {
+  //     path: '',
+  //     redirectTo: 'Login',
+  //     pathMatch: 'full'
+  // },
 
+  //  { path: '', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+  // { path: '', component: LoginComponent },
+  {
+    path: '', component: LoginComponent, children: [
+      { path: 'createTask', component: CreateNewTaskComponent },
+      { path: 'updateTask', component: UpdateAnExistingTaskComponent },
+      { path: 'endOfTask', component: EndOfTaskComponent },
+      { path: 'pop', component: PopUpComponent },
+      { path: 'createAprojectContentItem', component: CreateAprojectContentItemComponent },
+      { path: 'specific-task/:id', component: SpecificTaskComponent },
+      { path: 'smartCard', component: SmartCardComponent },
+      { path: 'personalDetails', component: PersonalDetailsComponent },
+      { path: 'charts9', component: ChartsComponent },
+      { path: 'StatisticsGraph', component: StatisticsGraphComponent },
+      { path: 'ChartsMyTask', component: ChartsMyTaskComponent },
+      { path: 'sick', component: SickLeaveProjectContentItemComponent },
+      { path: 'up', component: UpdateProjectContentItemComponent },
+      { path: 'show-my-task/:id', component: ShowMyTaskComponent },
+      { path: 'show-team-my-task/:id', component: ShowMyTeamTaskComponent },
+      { path: 'the-last-tasks-i-worked/:id', component: TheLastTasksIWorkedComponent },
+      { path: 'project-contect-items-by-employee/:id', component: ProjectContectItemsByEmployeeComponent },
+      { path: 'my-project-contect-items-component/:id', component: MyProjectContectItemsComponent },
+      { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
+      { path: 'employee-report', component: EmployeeReportComponent },
+      { path: 'team-report', component: TeamReportComponent },
+      { path: 'tasks-by-team/:id', component: TaskByTeamComponent },
+      { path: 'tasks-by-employee/:id', component: TasksByEmployeeComponent },
+      { path: 'my-project-contect-items-component', component: MyProjectContectItemsComponent },
+      { path: 'hours-awaiting-approval-component', component: HoursAwaitingApprovalComponent },
+      { path: 'Statistics-Graph-Employee-Details-ToManager/:id', component: StatisticsGraphEmployeeDetailsToManagerComponent },
+      { path: 'Statistics-Graph-All-Employees-Details-ToManager', component: StatisticsGraphAllEmployeesDetailsToManagerComponent },
+      { path: 'AdminSettings', component: AdminSettingsComponent },
+      { path: 'details-of-working-hours-Employee', component: DetailsOfWorkingHoursEmployeeComponent }
+    ]
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [],
+  // imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

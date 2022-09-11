@@ -10,7 +10,8 @@
             </div>
             <div *ngIf="openInputReportMoreEmployee">
                 <div class="form-outline d-flex justify-content-center mb-4">
-                    <ng-autocomplete style="width:100%;" class="autoComplete" [data]=" this.EmployeeeArr"
+               
+                    <ng-autocomplete style="width:100%;" multiple class="autoComplete" [data]=" this.EmployeeeArr"
                         [searchKeyword]="'Name'" placeholder="עובדים נוספים" historyIdentifier="ReportMoreEmployee"
                         [itemTemplate]="itemTemplate" ngModel name="ReportMoreEmployee" #ReportMoreEmployee="ngModel"
                         required [notFoundTemplate]="notFoundTemplate">

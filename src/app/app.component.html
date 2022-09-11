@@ -1,11 +1,13 @@
-
 <div class="all-page" *ngIf="appProperties" [class.tablet-view]="!appProperties.isDesktop"
     [class.desktop-view]="appProperties.isDesktop" [class.under-1680]="(appProperties.isUnder1680$ | async) === true"
     [class.above-1680]="(appProperties.isUnder1680$ | async) !== true"
     [class.rtl]="(appProperties.isRtl$ | async) === true" [class.ltr]="(appProperties.isRtl$ | async) !== true"
     [class.pop-up-open]="(appProperties.isPopUpOpen$ | async) === true">
-    <div *ngIf="showMenu">
+  <div *ngIf="showMenu">
         <app-menu></app-menu>
     </div>
+    <div *ngIf="!showMenu">
+        <app-login></app-login>
+  </div> 
     <router-outlet></router-outlet>
 </div>

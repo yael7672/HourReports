@@ -167,6 +167,7 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     this.employeeDetailsWorkType.forEach((element: any, index: any) => {
       this.EmployeeBarWorkTimeByWorkTypeChart.data.labels[index] = this.employeeDetailsWorkType[index];
     });
+    this.EmployeeBarWorkTimeByWorkTypeChart.update();
   }
 
   GetWorkTimeByWorkTypeAndWorkTimeCompareActualTimeChart(val: any) {
