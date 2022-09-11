@@ -101,7 +101,8 @@ import { DeleteTaskComponent } from './delete-task/delete-task.component';
     TeamReportComponent,
     TaskByTeamComponent,
     DeleteTaskComponent,
-    DetailsOfWorkingHoursEmployeeComponent
+    DetailsOfWorkingHoursEmployeeComponent,
+    DeleteTaskComponent
   ],
   imports: [
     BrowserModule,
