@@ -61,10 +61,17 @@ a {
   width: 10em;
   background: yellow;
 }
-.checkIfNewTask {
-  display: flex;
-  justify-content: center
-}
+
 h5{
   text-align: center;
+  color: brown;
+}
+a.link{
+color: rgb(15, 15, 72);
+display: flex;
+justify-content: center
+}
+.todayDate{
+  display: flex;
+  justify-content: center
 }

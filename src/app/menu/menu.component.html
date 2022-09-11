@@ -22,7 +22,7 @@
       </div>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
-      <a *ngIf="showMassgeToManager" (click)="MessageToTheManager()" placement="top"
+      <a *ngIf="showMassgeToManager" (click)="openPopUp('MessageToTheManager',true)" placement="top"
       ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNoMessege" style="font-size: 30px; " [ngClass]="{ 'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i></a> 
       <a (click)="openPopUp('MyNewTask',true)"  placement="bottom" ngbTooltip="משימות חדשות שלא נקראו" (clickOutside)="onClickedOutsideMyNewTask($event)">
         <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px " [ngClass]="{ 'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
@@ -75,7 +75,9 @@
   <div *ngIf="isPopUpOpen?.MyNewTask">
     <app-my-new-tasks></app-my-new-tasks>
   </div>
-
+  <div *ngIf="isPopUpOpen?.MessageToTheManager">
+    <app-massege-to-manager></app-massege-to-manager>
+  </div>
   <!-- <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
     <app-pop-up>
       <div body>
