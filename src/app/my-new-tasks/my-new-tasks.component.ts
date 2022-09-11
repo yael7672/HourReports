@@ -17,7 +17,7 @@ import { UserServiceService } from '../user-service.service';
 })
 export class MyNewTasksComponent implements OnInit {
   systemGuid: any;
-  MyNewTaskArr!: any;
+  MyNewTaskArr: any[]=[];
   ifHideEditOrDelete = true
   openDetailsTask = false
   HideSortIcon = true
@@ -36,14 +36,14 @@ export class MyNewTasksComponent implements OnInit {
         this.GetMyNewTasks()
     })
     this.popUpService.getAllMyNewTask().subscribe(res => {
-      if (res==true){
-          this.ifThereNewTasks = true 
+      if (res == true) {
+        this.ifThereNewTasks = true
         this.GetMyNewTasks()
       }
-      else{
-        this.ifThereNewTasks = false 
+      else {
+        this.ifThereNewTasks = false
       }
-    
+
     })
 
   }
@@ -58,14 +58,20 @@ export class MyNewTasksComponent implements OnInit {
       res => {
         if (res) {
           this.MyNewTaskArr = res;
-          this.popUpService.setAllMyNewTask(false)
+
+          if (this.MyNewTaskArr.length <=0) {
+            this.popUpService.setAllMyNewTask(true)
+          }
+          else {
+            this.popUpService.setAllMyNewTask(false)
+          }
 
         }
       }, err => {
         console.log(err.error)
-        if (err.error = "'tasks' is null!") {
-          this.popUpService.setAllMyNewTask(true)
-        }
+        // if (err.error = "'tasks' is null!") {
+        //   this.popUpService.setAllMyNewTask(true)
+        // }
       }
     )
   }
@@ -92,18 +98,17 @@ export class MyNewTasksComponent implements OnInit {
         this.MarkTaskRes = res;
         // swal(this.MarkTaskRes)
         this.checkIfThereTask()
-       
+
       },
       (err: any) =>
         swal(err.error)
     )
   }
   checkIfThereTask() {
-   if(this.ifThereNewTasks=true)
-   {
-    
-     this.popUpService.setAllMyNewTask(true)
-   }
+    if (this.ifThereNewTasks = true) {
+
+      this.popUpService.setAllMyNewTask(true)
+    }
   }
 
 }

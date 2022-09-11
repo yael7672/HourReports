@@ -57,12 +57,12 @@ export class MenuComponent implements OnInit {
   ifX = true
   taskListDataDetailsParseToJson: any;
   MyNewTaskArr: any;
-  ifThereNewTasks=false;
-  DateArr:any
+  ifThereNewTasks = false;
+  DateArr: any
   LastDateInThisMonth!: any;
   TwoLastDaysInThisMonth!: any;
   OneDaysInThisMonth!: any;
-  showMassgeToManager=false
+  showMassgeToManager = false
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -78,14 +78,14 @@ export class MenuComponent implements OnInit {
         this.startWorkOfTask = false;
     })
     this.popUpService.getAllMyNewTask().subscribe(res => {
-      if (res==true){
-          this.ifThereNewTasks = true 
+      if (res == true) {
+        this.ifThereNewTasks = true
         this.GetMyNewTasks()
       }
-      if (res==false){
-        this.ifThereNewTasks = false 
-      this.GetMyNewTasks()
-    }
+      if (res == false) {
+        this.ifThereNewTasks = false
+        this.GetMyNewTasks()
+      }
     })
     //   this.popUpService.GetIfStartPouse().subscribe(res => {
     //     if (res) {
@@ -148,9 +148,9 @@ export class MenuComponent implements OnInit {
       this.popUpService.setSpecificPopUp(type, data)
     }
   }
-  
+
   goToMyprojectContentItem() {
-    this.router.navigate(['/menu/my-project-contect-items-component',this.systemGuid])
+    this.router.navigate(['/menu/my-project-contect-items-component', this.systemGuid])
   }
   GetProject() {
     this.userService.GetProject().subscribe(res => {
@@ -168,7 +168,7 @@ export class MenuComponent implements OnInit {
   }
   GoToHome() {
 
-    this.router.navigate(['menu/show-my-task',this.systemGuid])
+    this.router.navigate(['menu/show-my-task', this.systemGuid])
   }
   ClickPersonalDetails() {
     this.openPersonalDetails = true;
@@ -189,10 +189,10 @@ export class MenuComponent implements OnInit {
     }
   }
 
-    onClickedOutsideMyNewTask(val: any) {
-      // if (this.openPersonalDetails) {
-      //   this.openPersonalDetails = false;
-      // }
+  onClickedOutsideMyNewTask(val: any) {
+    // if (this.openPersonalDetails) {
+    //   this.openPersonalDetails = false;
+    // }
   }
   GetMyNewTasks() {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -200,25 +200,32 @@ export class MenuComponent implements OnInit {
       res => {
         if (res) {
           this.MyNewTaskArr = res;
-          this.ifThereNewTasks = false
+          if (this.MyNewTaskArr.length <= 0) {
+            this.ifThereNewTasks = true
+          }
+          else {
+            this.ifThereNewTasks = false
+
+          }
+
         }
       }, err => {
         console.log(err.error)
-        if (err.error = "'tasks' is null!") {
-          this.ifThereNewTasks = true
-        }
+        // if (err.error = "'tasks' is null!") {
+        //   this.ifThereNewTasks = true
+        // }
       }
     )
   }
-  MessageToTheManager(){
+  MessageToTheManager() {
     this.userService.MessageToTheManager().subscribe(res => {
       if (res) {
         this.DateArr = res;
-        this.LastDateInThisMonth= this.datePipe.transform(this.DateArr.LastDateInThisMonth, 'dd/MM/yyyy')
-        this.TwoLastDaysInThisMonth=  this.datePipe.transform(this.DateArr.TwoLastDaysInThisMonth, 'dd/MM/yyyy')
-        this.OneDaysInThisMonth=  this.datePipe.transform(this.DateArr.OneDaysInThisMonth, 'dd/MM/yyyy')
-        if(this.todayDate== this.LastDateInThisMonth||this.todayDate==this.TwoLastDaysInThisMonth||this.todayDate== this.OneDaysInThisMonth){
-          this.showMassgeToManager=true
+        this.LastDateInThisMonth = this.datePipe.transform(this.DateArr.LastDateInThisMonth, 'dd/MM/yyyy')
+        this.TwoLastDaysInThisMonth = this.datePipe.transform(this.DateArr.TwoLastDaysInThisMonth, 'dd/MM/yyyy')
+        this.OneDaysInThisMonth = this.datePipe.transform(this.DateArr.OneDaysInThisMonth, 'dd/MM/yyyy')
+        if (this.todayDate == this.LastDateInThisMonth || this.todayDate == this.TwoLastDaysInThisMonth || this.todayDate == this.OneDaysInThisMonth) {
+          this.showMassgeToManager = true
         }
       }
     },
