@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
@@ -25,6 +26,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   hoursReportedThisMonth!: any;
   workingDaysThisMonth: any;
   dateToUpdate: any;
+  detailsOfWorkingHourByEmployeeToSend: any[]=[];
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -42,31 +44,27 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
     this.ifSortDown = false;
     let keyToSort: any;
     switch (thName) {
-      case 'שם העובד':
-        keyToSort = 'EmployeeName';
+      case 'תאריך':
+        keyToSort = 'Date';
         break;
-      case 'תפקיד העובד':
-        keyToSort = 'EmployeeJob';
+      case 'יום בחודש':
+        keyToSort = 'DayOnMonth';
         break;
-      case 'אחוז משרה':
-        keyToSort = 'EmployeeJobPercentage';
+      case 'ש"ע יומי':
+        keyToSort = 'DailyWorkingHours';
         break;
-      case 'שעות עבודה שביצע היום':
-        keyToSort = 'EmployeeDailyWorkingHours';
+      case 'ש"ע יומיות - חסרות':
+        keyToSort = 'DailyWorkingHoursthatAreMissing';
         break;
-      case 'שעות עבודה שביצע החודש':
-        keyToSort = 'EmployeeMonthlyWorkingHours';
-        break;
-
       default:
         break;
     }
     if (keyToSort != 'Project') {
-      this.detailsOfWorkingHourByEmployee?.sort((a: any, b: any) =>
+      this.detailsOfWorkingHourByEmployeeToSend?.sort((a: any, b: any) =>
         (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.detailsOfWorkingHourByEmployee?.sort((a: any, b: any) =>
+      this.detailsOfWorkingHourByEmployeeToSend?.sort((a: any, b: any) =>
         (a[keyToSort[1]] > (b[keyToSort[1]])) ? 1 : -1)
     }
   }
@@ -74,35 +72,30 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
     this.ifSortDown = true;
     let keyToSort: any;
     switch (thName) {
-      case 'שם העובד':
-        keyToSort = 'EmployeeName';
+      case 'תאריך':
+        keyToSort = 'Date';
         break;
-      case 'תפקיד העובד':
-        keyToSort = 'EmployeeJob';
+      case 'יום בחודש':
+        keyToSort = 'DayOnMonth';
         break;
-      case 'אחוז משרה':
-        keyToSort = 'EmployeeJobPercentage';
+      case 'ש"ע יומי':
+        keyToSort = 'DailyWorkingHours';
         break;
-      case 'שעות עבודה שביצע היום':
-        keyToSort = 'EmployeeDailyWorkingHours';
+      case 'ש"ע יומיות - חסרות':
+        keyToSort = 'DailyWorkingHoursthatAreMissing';
         break;
-      case 'שעות עבודה שביצע החודש':
-        keyToSort = 'EmployeeMonthlyWorkingHours';
-        break;
-
       default:
         break;
     }
     if (keyToSort != 'Project') {
-      this.detailsOfWorkingHourByEmployee?.sort((a: any, b: any) =>
+      this.detailsOfWorkingHourByEmployeeToSend?.sort((a: any, b: any) =>
         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
     }
     else {
-      this.detailsOfWorkingHourByEmployee?.sort((a: any, b: any) =>
+      this.detailsOfWorkingHourByEmployeeToSend?.sort((a: any, b: any) =>
         (a[keyToSort[1]] < (b[keyToSort[1]])) ? 1 : -1)
     }
   }
-
   openProjectContentItemByEmployeeGuid(val: any) {
     this.route.navigate(['/menu/project-contect-items-by-employee', val.EmployeeGuid])
     localStorage.setItem('employeeDetails', JSON.stringify(val))
@@ -127,11 +120,17 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       this.route.navigate(['team-report'])
     }
   }
-  
+
   getDetailsOfWorkingHourByEmployee(val: any) {
     this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, val).subscribe(res => {
       if (res) {
         this.detailsOfWorkingHourByEmployee = res;
+   this.detailsOfWorkingHourByEmployee.forEach(x=>{
+    if(x.Date!=null)
+    {
+      this.detailsOfWorkingHourByEmployeeToSend.push(x)
+    }
+   })     
         this.detailsOfWorkingHourByEmployee.forEach((x: any) => {
           if (x.HoursReportedThisMonth != 0) {
             this.hoursReportedThisMonth = x.HoursReportedThisMonth;
@@ -139,7 +138,6 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
           if (x.WorkingDaysThisMonth != 0) {
             this.workingDaysThisMonth = x.WorkingDaysThisMonth;
           }
-
         });
         console.log(this.hoursReportedThisMonth);
       }
@@ -149,7 +147,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       })
   }
   createReport(val: any) {
-    this.dateToUpdate= val.Date;
+    this.dateToUpdate = val.Date;
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(true, "createAprojectContentItem")
   }

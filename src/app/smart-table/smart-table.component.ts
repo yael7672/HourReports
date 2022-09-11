@@ -10,6 +10,7 @@ import { PopUpServiceService } from '../pop-up-service.service';
 })
 export class SmartTableComponent implements OnInit {
   systemGuid: any;
+  @Input()  ifTrIsNull!: boolean;
   @Input() ifShowCheckBox!: boolean;
   @Input() ifShowEmployeeProjectContentItem!: boolean;
   @Input() ifShowOpenEmployeeTask!: boolean;
@@ -20,6 +21,7 @@ export class SmartTableComponent implements OnInit {
   @Input() ifShowProjectContentItem!: boolean;
   @Input() ifDelete!: boolean;
   @Input() thArr: any;
+  @Input() ifShowXorVIcons!: boolean;
   @Input() ifUpdateOpen: any
   @Input() ifDeleteOpen:any
   @Input() ifSortDown!: boolean
