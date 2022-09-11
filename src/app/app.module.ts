@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { ProjectContentItemComponent } from './project-contect-items/project-content-item/project-content-item.component';
 import { FilterPipe } from './filter.pipe';
 import { MassgeToUserComponent } from './massge-to-user/massge-to-user.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';  
 import { PauseWorkComponent } from './pause-work/pause-work.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -53,69 +53,10 @@ import { TaskByTeamComponent } from './tasks/task-by-team/task-by-team.component
 import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 import { DeleteTaskComponent } from './delete-task/delete-task.component';
 import { MassegeToManagerComponent } from './massege-to-manager/massege-to-manager.component';
-import { LoginModule } from './login/login.module';
-import { RouterModule } from '@angular/router';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
-const declarations = [
-  AppComponent,
-  CreateNewTaskComponent,
-  UpdateAnExistingTaskComponent,
-  PopUpComponent,
-  EndOfTaskComponent,
-  MenuComponent,
-  CreateAprojectContentItemComponent,
-  ShowMyTaskComponent,
-  SpecificTaskComponent,
-  SmartCardComponent,
-  // LoginComponent,
-  ProjectContentItemComponent,
-  FilterPipe,
-  MassgeToUserComponent,
-  PauseWorkComponent,
-  PersonalDetailsComponent,
-  ChartsComponent,
-  StatisticsGraphComponent,
-  ChartsMyTaskComponent,
-  MyProjectContectItemsComponent,
-  SickLeaveProjectContentItemComponent,
-  FreedomProjectContentItemComponent,
-  ProjectContectItemWithTimeComponent,
-  HoursAwaitingApprovalComponent,
-  MassgeToUserWithEditComponent,
-  UpdateProjectContentItemComponent,
-  DeleteProjectContentItemComponent,
-  SmartTableComponent,
-  ShowMyTeamTaskComponent,
-  TheLastTasksIWorkedComponent,
-  SearchAndSortTasksComponent,
-  TimeCounterComponent,
-  EmployeeReportComponent,
-  TasksByEmployeeComponent,
-  ProjectContectItemsByEmployeeComponent,
-  MyNewTasksComponent,
-  StatisticsGraphEmployeeDetailsToManagerComponent,
-  StatisticsGraphAllEmployeesDetailsToManagerComponent,
-  AdminSettingsComponent,
-  TeamReportComponent,
-  TaskByTeamComponent,
-  DetailsOfWorkingHoursEmployeeComponent,
-  DeleteTaskComponent,
-  MassegeToManagerComponent
-]
-const imports = [
-  // BrowserModule,
-  // AppRoutingModule,
-  // HttpClientModule,
 
-  NgbModule,
-  ClickOutsideModule,
-  AutocompleteLibModule,
-  // RouterModule,
-  // LoginRoutingModule,
-
-]
 
 @NgModule({
   declarations: [
@@ -162,15 +103,22 @@ const imports = [
     TaskByTeamComponent,
     DeleteTaskComponent,
     DetailsOfWorkingHoursEmployeeComponent,
-    DeleteTaskComponent
+    DeleteTaskComponent,
+    MassegeToManagerComponent
   ],
   imports: [
-    imports,
-    LoginModule ,
-  //   RouterModule.forRoot([
-  // ]),
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule ,
+    CommonModule,
+    NgbModule,
+    ClickOutsideModule,
+    AutocompleteLibModule,
+    // NgMultiSelectDropDownModule.forRoot(),
+
+   
   ],
-  exports: [imports, declarations],
   providers: [DatePipe],
   bootstrap: [AppComponent],
 })
