@@ -119,7 +119,6 @@ const imports = [
 
 @NgModule({
   declarations: [
-<<<<<<< HEAD
     AppComponent,
     CreateNewTaskComponent,
     UpdateAnExistingTaskComponent,
@@ -164,9 +163,6 @@ const imports = [
     DeleteTaskComponent,
     DetailsOfWorkingHoursEmployeeComponent,
     DeleteTaskComponent
-=======
-    declarations
->>>>>>> yaelBanayNew
   ],
   imports: [
     imports,

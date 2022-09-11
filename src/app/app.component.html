@@ -3,15 +3,6 @@
     [class.above-1680]="(appProperties.isUnder1680$ | async) !== true"
     [class.rtl]="(appProperties.isRtl$ | async) === true" [class.ltr]="(appProperties.isRtl$ | async) !== true"
     [class.pop-up-open]="(appProperties.isPopUpOpen$ | async) === true">
-<<<<<<< HEAD
    
-=======
-  <div *ngIf="showMenu">
-        <app-menu></app-menu>
-    </div>
-    <div *ngIf="!showMenu">
-        <app-login></app-login>
-  </div> 
->>>>>>> yaelBanayNew
     <router-outlet></router-outlet>
 </div>
