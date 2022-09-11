@@ -35,7 +35,7 @@
                     <span *ngIf="ReportMoreEmployee.errors">שדה זה חובה</span>
                 </div> -->
             </div>
-            <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime&&!dateToUpdate" class="form-outline d-flex justify-content-center">
+            <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime &&!dateToUpdate" class="form-outline d-flex justify-content-center">
                 <input type="date" class="form-control" id="oneDate" name="oneDate"
                     [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="oneDate = $event">
             </div>

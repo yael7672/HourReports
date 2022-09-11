@@ -148,6 +148,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   }
   createReport(val: any) {
     this.dateToUpdate = val.Date;
+    localStorage.setItem('dateToUpdate',this.dateToUpdate)
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(true, "createAprojectContentItem")
   }

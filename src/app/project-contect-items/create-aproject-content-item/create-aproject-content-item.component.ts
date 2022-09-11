@@ -20,7 +20,7 @@ import { ownerid } from 'src/app/interfacees/ownerid';
 })
 export class CreateAprojectContentItemComponent implements OnInit {
   @Input() MyTask!: any;
-  @Input() dateToUpdate!: any; 
+  @Input() dateToUpdate!: any;
   @Input() actualTime: any;
   @Input() KindPopUpUpdateProjectContectItemWithTime: any;
   @Input() projectContectItemByTimerGuid: any
@@ -34,7 +34,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   projectfilter: any
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
-  EmployeeeArr!:ownerid[]
+  EmployeeeArr!: ownerid[]
   ProjectContentItem!: any
   systemGuid: any;
   ProjectItem!: any
@@ -51,10 +51,10 @@ export class CreateAprojectContentItemComponent implements OnInit {
   ProjectGuidValue: any;
   ProjectGuid: any;
   GuidProject: any
-  isChecked!:boolean
-  adminGuid:any
-  openInputReportMoreEmployee=false
-  selectedEmployee:any
+  isChecked!: boolean
+  adminGuid: any
+  openInputReportMoreEmployee = false
+  selectedEmployee: any
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.isDisabled = false;
@@ -64,25 +64,25 @@ export class CreateAprojectContentItemComponent implements OnInit {
         this.ifX = false
       }
     })
- }
-  ngOnInit(): void {
-    this.GetRegarding()
-    this.GetProject()
-    this.GetWorkType()
-    this.GetAllEmployee()
-    console.log(this.dateToUpdate);
-    
   }
-  checkIfReportMoreEmployees(val:any){
-    if(val==true)
-    {
-      this.openInputReportMoreEmployee=true
+  ngOnInit(): void {
+    this.GetRegarding();
+    this.GetProject();
+    this.GetWorkType();
+    this.GetAllEmployee();
+    this.dateToUpdate = localStorage.getItem('dateToUpdate');
+    console.log(this.dateToUpdate);
+
+  }
+  checkIfReportMoreEmployees(val: any) {
+    if (val == true) {
+      this.openInputReportMoreEmployee = true
     }
   }
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-    form.value.Project = { "Guid": form.value.Project.Guid },
-    form.value.WorkType = { "Guid": form.value.workType.Guid }
+      form.value.Project = { "Guid": form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
@@ -105,8 +105,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   GetAllEmployee() {
     // לשים GUID אמיתי של מנהל
-    this.adminGuid=""
-    this.userServiceService.GetAllEmployee( this.adminGuid).subscribe(
+    this.adminGuid = ""
+    this.userServiceService.GetAllEmployee(this.adminGuid).subscribe(
       (res: any) => {
         this.EmployeeeArr = res;
       },
@@ -186,17 +186,17 @@ export class CreateAprojectContentItemComponent implements OnInit {
     if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
       this.subject1 = "הפסקות";
       this.billingHours1 = "2";
-      this.GuidProject = {  "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560","Name":"פרויקט-  2022 ניהול משרד💼  Aurora" }
+      this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
     } else
       if (val.Guid == "00ee906b-6add-ea11-a813-000d3a21015b") {
         this.subject1 = "יום חופש";
         this.billingHours1 = "2";
-        this.GuidProject = {  "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560","Name":"פרויקט-  2022 ניהול משרד💼  Aurora" }
+        this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
       } else
         if (val.Guid == "0c03dc7d-6add-ea11-a813-000d3a21015b") {
           this.subject1 = "יום מחלה";
           this.billingHours1 = "2";
-          this.GuidProject = {  "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560","Name":"פרויקט-  2022 ניהול משרד💼  Aurora" }
+          this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
         }
         else {
           this.subject1 = "";

@@ -8,8 +8,8 @@
           <option value="2"> חודש קודם</option>
         </select>
       </div>   
-         <p> סה"כ שעות מדווחות החודש:  {{hoursReportedThisMonth}}</p>
-         <p> סה"כ שעות עבודה לחודש זה:  {{workingDaysThisMonth}}</p>
+         <p> סה"כ שעות מדווחות החודש: <span>{{hoursReportedThisMonth}}</span> </p>
+         <p> סה"כ שעות עבודה לחודש זה: <span>{{workingDaysThisMonth}}</span> </p>
 
       <app-smart-table [ifCreateReport]="true"  [ifShowXorVIcons]="true" [ifTrIsNull]="true" [thArr]="thArrWorkingHours" [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
         [tableData]="detailsOfWorkingHourByEmployeeToSend" 
@@ -24,6 +24,6 @@
         </div> -->
     </div>
   </app-smart-card>
-  <!-- <div *ngIf="isPopUpOpen?.createAprojectContentItem">
+  <div *ngIf="isPopUpOpen?.createAprojectContentItem">
     <app-create-aproject-content-item [dateToUpdate]="dateToUpdate"></app-create-aproject-content-item>
-  </div>   -->
+  </div>  

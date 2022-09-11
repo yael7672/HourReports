@@ -2,7 +2,6 @@
   <div class="selectInCard">
     <app-smart-card [title]="' שעות עבודה חודשיות לעובדים'" class="task-card-timer">
       <div body class="body">
-        <div class="selectDate">
           <div class="form-outline d-flex justify-content-center">
             <select style="text-align:center;" id="inputState" class="form-control" ngModel
               (ngModelChange)="GetWorkTimeChartByWorkTime($event)">
@@ -16,8 +15,7 @@
           <div class="form-outline  inputDate ">
           <ng-container *ngIf="showCompareDatesAllEmployeeDetails">
             <div class="form-group ">
-              <button (click)="SortWorkTimeByDateRange(dateOfSearchBeforeForBarChart,dateOfSearchAfterForBarChart)"
-                class="btn btn-color">השווה</button>
+             
               <div class="input-group input-daterange">
                 <input type="date" class="form-control" id="date" name="date" max="{{todayDate | date: 'yyyy-MM-dd'}}"
                   [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateOfSearchBeforeForBarChart = $event">
@@ -25,9 +23,11 @@
                 <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
                   max="{{todayDate | date: 'yyyy-MM-dd'}}" (ngModelChange)="dateOfSearchAfterForBarChart = $event">
               </div>
+              <button (click)="SortWorkTimeByDateRange(dateOfSearchBeforeForBarChart,dateOfSearchAfterForBarChart)"
+              class="btn btn-color">השווה</button>
             </div>
+            
           </ng-container>
-        </div>
         </div>
         <div class="canvas ">
           <canvas id="BarChart">
