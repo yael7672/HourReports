@@ -1,4 +1,4 @@
-<app-pop-up #upPopUP [ifX]="ifX">
+<app-pop-up #upPopUP [ifX]="ifX" [ifXt]="ifXt" (ClickCancel)="CancelProjectContectItem()">
     <h4 header class="mb-4">יצירת דיווח</h4>
     <div body>
         <!-- <form  (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm"> -->
@@ -140,3 +140,15 @@
     <div footer>
     </div>
 </app-pop-up>
+
+<div *ngIf="showMassgeToUserCancelProjectContectItemWithTimerInCreate">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user [kindOfMassage]="'projectContectItemByTimer'"
+                [massgeUserHeader]="massgeUserCloseProjectContectItemByTimerCancel"
+                (clickYes)="clickYes(actualTime)" 
+                (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="'projectContectItemByTimer'">
+            </app-massge-to-user>
+        </div>
+    </app-pop-up>
+</div>

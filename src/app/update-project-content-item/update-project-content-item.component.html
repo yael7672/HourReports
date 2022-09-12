@@ -3,7 +3,7 @@
   <h4 header class="mb-4" *ngIf="header"> {{header}}</h4>
   <div body>
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
-      <div  class="form-outline d-flex justify-content-center ">
+      <div *ngIf="!header" class="form-outline d-flex justify-content-center ">
         <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
           class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" ngModel
           required>

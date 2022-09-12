@@ -1,3 +1,7 @@
+<h3
+  style="text-align: center; padding:25px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;">
+  <span><span>נתוני עובד</span><span> :</span> {{this.EmployeeName }}</span> </h3>
+  
 <div class="form-outline d-flex justify-content-center">
   <select id="inputState" class="form-control" ngModel
     (ngModelChange)="GetWorkTimeByWorkTypeAndWorkTimeCompareActualTimeChart($event)">
@@ -8,9 +12,10 @@
     <option value="4">שעות עבודה החודש</option>
   </select>
 </div>
-<div class="form-outline d-flex justify-content-center">
+<!-- <div class="form-outline d-flex justify-content-center">
   <span>{{this.EmployeeName }}</span><span> :</span><span>נתוני עובד</span>  
-</div>
+</div> -->
+
 
 <ng-container *ngIf="showCompareDatesEmployeeDetails">
   <div class="form-group ">

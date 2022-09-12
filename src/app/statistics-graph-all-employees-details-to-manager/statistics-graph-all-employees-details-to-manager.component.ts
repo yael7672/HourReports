@@ -33,6 +33,9 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   employeeDetailsWeeklyWorkingHours: any;
   employeeDetailsDailyWorkingHours: any;
   employeeDetailsFromDateUntilHours: any;
+  colorArrTaskOpen!: any[];
+  colorArr2TaskOpen!: any[];
+  colorArrTaskOpenCopy !: any[];
   constructor(public route: Router, private appService: AppService,
     private popUpService: PopUpServiceService, private userService: UserServiceService
     , private datePipe: DatePipe) {
@@ -145,7 +148,6 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
         this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.datasets[0].data[index] = this.employeeDetailsMonthlyWorkingHours[index];
       });
     }
-
     this.employeeDetailsName.forEach((element: any, index: any) => {
       this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.labels[index] = this.employeeDetailsName[index];
     });
@@ -153,18 +155,18 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   }
 
   ComparisonEmployeeDetailsOpenTasks() {
-
     this.employeeDetailsOpenTask.forEach((element: any, index: any) => {
       this.AllEmployeeOpenTasksChart.data.datasets[0].data[index] = this.employeeDetailsOpenTask[index];
     });
-
-
-
     this.employeeDetailsName.forEach((element: any, index: any) => {
       this.AllEmployeeOpenTasksChart.data.labels[index] = this.employeeDetailsName[index];
     });
+    this.CreatColorArr()
+    this.AllEmployeeOpenTasksChart.data.datasets[0].backgroundColor = this.colorArrTaskOpen;
+    this.AllEmployeeOpenTasksChart.data.datasets[0].borderColor = this.colorArrTaskOpen;
     this.AllEmployeeOpenTasksChart.update();
   }
+
   GetWorkTimeChartByWorkTime(val: any) {
     if (val == 1) {
       this.showCompareDatesAllEmployeeDetails = true
@@ -200,5 +202,31 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
       FromDate = this.datePipe.transform(FromDate, 'dd/MM/yyyy')
     }
     this.GetEmployeeDetails(this.systemGuid, UntilDate, FromDate, 1)
+  }
+  CreatColorArr() {
+    this.colorArrTaskOpenCopy = [...this.employeeDetailsOpenTask]
+    this.colorArrTaskOpen = [];
+    let a = 0;
+    this.colorArrTaskOpenCopy.forEach(i => {
+      if (i < 11) {
+        this.colorArrTaskOpen[a] = "green";
+      } else
+        if (i > 11 && i < 25) {
+          this.colorArrTaskOpen[a] = "blue";
+        }
+        else
+          if (i > 26 && i < 110) {
+            this.colorArrTaskOpen[a] = "red";
+          }
+          // else
+          //   if (i > 111 && i < 150) {
+          //     this.colorArrTaskOpen[a] = "rgb(6, 142, 6)";
+          //   }
+          //   else
+          //   if (i > 151) {
+          //     this.colorArrTaskOpen[a] = "rgb(10, 179, 10)";
+          //   }
+      a++;
+    })
   }
 }

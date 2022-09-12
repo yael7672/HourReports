@@ -25,18 +25,26 @@ h2 {
 .input-container {
     margin: 1rem;
 }
-.search{
+
+.search {
     display: flex;
     justify-content: center;
     margin-top: 3rem;
 }
+
 /* .autocomplete  ul li a{
     display: flex !important;
     justify-content: center !important;
 } */
 
-.autocomplete a{
-  text-align: center ; 
-  display: flex !important;
-  justify-content: center !important;
+.autocomplete a {
+    text-align: center;
+    display: flex !important;
+    justify-content: center !important;
+
+}
+
+.autocomplete-container .input-container input {
+    display: flex;
+    direction: rtl;
 }

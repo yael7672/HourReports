@@ -2,6 +2,8 @@
   <div class="actionArea">
     <form class="popContainer">
       <a *ngIf="ifX" class="close" (click)="closePopUp()">&times;</a>
+      <a *ngIf="ifXt" class="close" (click)="CancelPopUp()">&times;</a>
+
       <h4>{{title}}</h4>
       <div class="header">
         <ng-content select="[header]"></ng-content>

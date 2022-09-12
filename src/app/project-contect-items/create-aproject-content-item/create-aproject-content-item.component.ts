@@ -55,6 +55,13 @@ export class CreateAprojectContentItemComponent implements OnInit {
   adminGuid: any
   openInputReportMoreEmployee = false
   selectedEmployee: any
+  massageToUser: any;
+  timeToSendCreate: any;
+  timetoSend: any;
+  interval: any;
+  parseTime: any;
+  massgeUserCloseProjectContectItemByTimerCancel = "האם ברצונך לבטל דיווח זה?"
+  showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.isDisabled = false;
@@ -204,4 +211,42 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.GuidProject = ""
         }
   }
+  CancelProjectContectItem() {
+    this.showMassgeToUserCancelProjectContectItemWithTimerInCreate = true
+  }
+  clickNo(kindOfMassage: string) {
+    if (kindOfMassage = 'projectContectItemByTimer') {
+      this.showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
+    }
+  }
+
+  clickYes(time: any) {
+    this.endButtonTimerContectProjectContectItem = false;
+    if (time.worktime != "" || time != null) {
+      clearInterval(this.interval);
+      this.timeToSendCreate = time
+      this.projectContectItemByTimerGuid = localStorage.getItem("projectContectItemByTimerGuid")
+      localStorage.removeItem("DateNowProjectContectItemWithTimer")
+      this.popUpService.SetIfXProjectContectItemUpdateWithTime(true)
+      this.DeleteProjectContentItemByGuid(this.projectContectItemByTimerGuid)
+    }
+    this.showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
+
+  }
+
+
+  DeleteProjectContentItemByGuid(projectContectItemByTimerGuid: any) {
+    this.userServiceService.DeleteProjectContentItemByGuid(projectContectItemByTimerGuid).subscribe(
+      (res) => {
+        this.massageToUser = res;
+        swal("!הדיווח בוטל")
+          this.appService.setIsPopUpOpen(false);
+          this.popUpService.setClosePopUp();
+         this.popUpService.setAllmyProjectContectItem(true)
+      },
+      (err) =>
+        swal(err.error))
+  }
+
+
 }

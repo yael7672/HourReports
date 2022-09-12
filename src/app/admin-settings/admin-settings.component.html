@@ -2,17 +2,20 @@
     <h4 header class="mb-4" *ngIf="header"> {{header}} </h4>
     <div body>
         <form (ngSubmit)="UpdateEmployeeDetails(f)" #f="ngForm">
+            <p>שם העובד</p>
             <div class="form-outline d-flex justify-content-center">
-                <!-- <p>שם העובד</p> -->
+
                 <input type="text" id="EmployeeName" name="EmployeeName" class="form-control" placeholder="שם העובד "
-                  [disabled]="true"  [(ngModel)]="employeeDetails.EmployeeName" [ngModelOptions]="{standalone: true}" ngModel
-                    #EmployeeName="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && EmployeeName.invalid }">
+                    [disabled]="true" [(ngModel)]="employeeDetails.EmployeeName" [ngModelOptions]="{standalone: true}"
+                    ngModel #EmployeeName="ngModel" required
+                    [ngClass]="{ 'is-invalid': f.submitted && EmployeeName.invalid }">
             </div>
             <div *ngIf="f.submitted && EmployeeName.invalid" class="text-danger">
                 <span *ngIf="EmployeeName.errors">שדה זה חובה</span>
             </div>
+            <p>תפקיד עובד</p>
             <div class="form-outline d-flex justify-content-center">
-                <!-- <p>תפקיד עובד</p> -->
+
                 <input type="text" id="EmployeeJob" name="EmployeeJob" class="form-control" placeholder="תפקיד העובד "
                     [(ngModel)]="employeeDetails.EmployeeJob" [ngModelOptions]="{standalone: true}" ngModel
                     [ngClass]="{ 'is-invalid': f.submitted && EmployeeJob.invalid }" required #EmployeeJob="ngModel"
@@ -21,9 +24,10 @@
             <div *ngIf="f.submitted && EmployeeJob.invalid" class="text-danger">
                 <span *ngIf="EmployeeJob.errors">שדה זה חובה</span>
             </div>
+            <p> היקף משרה</p>
             <div class="form-outline d-flex justify-content-center">
 
-                <!-- <p> היקף משרה</p> -->
+
                 <input type="text" id="EmployeeJobPercentage" name="EmployeeJobPercentage" class="form-control"
                     placeholder="היקף משרה " [(ngModel)]="employeeDetails.EmployeeJobPercentage"
                     [ngModelOptions]="{standalone: true}" ngModel
@@ -34,9 +38,10 @@
             <div *ngIf="f.submitted && EmployeeJobPercentage.invalid" class="text-danger">
                 <span *ngIf="EmployeeJobPercentage.errors">שדה זה חובה</span>
             </div>
+            <p> סה"כ שעות עבודה חודשיות</p>
             <div class="form-outline d-flex justify-content-center">
 
-                <!-- <p> סה"כ שעות עבודה חודשיות</p> -->
+
                 <input type="text" id="TotalMonthlyWorkingHours" name="TotalMonthlyWorkingHours" class="form-control"
                     placeholder="סהכ שעות עבודה חודשיות " [(ngModel)]="employeeDetails.TotalMonthlyWorkingHours"
                     [ngModelOptions]="{standalone: true}" ngModel
@@ -47,9 +52,8 @@
             <div *ngIf="f.submitted && TotalMonthlyWorkingHours.invalid" class="text-danger">
                 <span *ngIf="TotalMonthlyWorkingHours.errors">שדה זה חובה</span>
             </div>
+            <p>יעד חודשי לפי משרה </p>
             <div class="form-outline d-flex justify-content-center">
-
-                <!-- <p>יעד חודשי לפי משרה </p> -->
                 <input type="text" id="MonthlyTargetByJobScope" name="MonthlyTargetByJobScope" class="form-control"
                     placeholder=" יעד חודשי לפי משרה" [(ngModel)]="employeeDetails.MonthlyTargetByJobScope"
                     [ngModelOptions]="{standalone: true}" ngModel

@@ -11,8 +11,10 @@ export class PopUpComponent implements OnInit {
   isClose!:boolean
   @Input()title!:string;
   @Input()ifX!:boolean;
+  @Input() ifXt!:boolean;
   @Input() hideButton!: any; 
   @Input() textButtonBack:any;
+  @Output() ClickCancel = new EventEmitter<any>();
   constructor(private popUpService:PopUpServiceService,private appService:AppService) { }
   ngOnInit(): void {
     console.log("popUpLoaded");
@@ -22,5 +24,9 @@ export class PopUpComponent implements OnInit {
     this.appService.setIsPopUpOpen(false);
     this.popUpService.setClosePopUp();
     console.log("ClosePopUp");
+  }
+  CancelPopUp(){
+    this.ClickCancel.emit('')
+
   }
 }

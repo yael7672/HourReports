@@ -140,7 +140,7 @@ export class SmartTableComponent implements OnInit {
     }
   }
   showStatisticsGraphEmployeeDetailsToManager(val: any) {
-    this.router.navigate(['/menuStatistics-Graph-Employee-Details-ToManager', val.EmployeeGuid])
+    this.router.navigate(['/menu/Statistics-Graph-Employee-Details-ToManager', val.EmployeeGuid])
     localStorage.setItem("EmployeeName",val.EmployeeName)
   }
 
