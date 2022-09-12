@@ -126,10 +126,10 @@ export class EmployeeReportComponent implements OnInit {
   }
   WhichTableOpen(val: any) {
     if (val == 0) {
-      this.route.navigate(['employee-report'])
+      this.route.navigate(['/menu/employee-report'])
     }
     if (val == 1) {
-      this.route.navigate(['team-report'])
+      this.route.navigate(['/menu/team-report'])
     }
   }
 }
