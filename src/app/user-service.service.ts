@@ -89,9 +89,9 @@ export class UserServiceService {
   UpdateProjectContentItemDetails(ProjectItemToUpdate: any) {
     return this.http.post<string>(environment.url + 'UpdateProjectContentItemDetails?OrganizationName=AuroraProd', ProjectItemToUpdate);
   }
-  GetMyProjectContectItem(SystemGuid: any, SelectedTime: number, FromDate: string, UntilDate: string) {
+  GetMyProjectContectItem(SystemGuid: any, SelectedTime: number, FromDate: string, UntilDate: string,SpecificDate:string) {
 
-    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate)
+    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate+'&SpecificDate=' + SpecificDate)
 
   }
   GetProjectContentItemByGuid(projectContectItemGuid: string) {

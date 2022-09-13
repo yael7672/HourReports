@@ -57,7 +57,7 @@ export class ProjectContectItemsByEmployeeComponent implements OnInit {
     this.selectedTime = selectedTime;
     if (selectedTime) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
+      this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate,"").subscribe(res => {
         if (res) {
           this.myProjectContectItemArr = res;
           console.log(this.myProjectContectItemArr);

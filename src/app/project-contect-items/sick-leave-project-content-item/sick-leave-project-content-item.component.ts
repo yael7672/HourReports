@@ -72,7 +72,7 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   }
   checkIfIsReportOnThisDate() {
     this.systemGuid = localStorage.getItem('systemGuid')
-    this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate).subscribe(res => {
+    this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate,"").subscribe(res => {
       if (res) {
         this.MyProjectContectItemArr = res;
         if (this.MyProjectContectItemArr.length > 0) {

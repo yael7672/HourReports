@@ -121,15 +121,20 @@ export class EmployeeReportComponent implements OnInit {
     this.employeeDetailsVal = val
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(true, "EditEmployeeDetailsByAdmin")
-
     localStorage.setItem('employeeDetails', JSON.stringify(val))
   }
   WhichTableOpen(val: any) {
     if (val == 0) {
-      this.route.navigate(['employee-report'])
+      this.route.navigate(['/menu/employee-report'])
     }
     if (val == 1) {
-      this.route.navigate(['team-report'])
+      this.route.navigate(['/menu/team-report'])
     }
+  }
+  goToDetailsOfWorkingHoursForEmployee(employeeDeatils:any)
+  {
+    localStorage.setItem('employeeDetails', JSON.stringify(employeeDeatils))
+    this.route.navigate(['/menu/details-of-working-hours-employee-for-admin',employeeDeatils.EmployeeGuid])
+
   }
 }

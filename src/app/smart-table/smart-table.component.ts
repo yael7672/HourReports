@@ -10,7 +10,7 @@ import { PopUpServiceService } from '../pop-up-service.service';
 })
 export class SmartTableComponent implements OnInit {
   systemGuid: any;
-  @Input()  ifTrIsNull!: boolean;
+  @Input() ifTrIsNull!: boolean;
   @Input() ifShowCheckBox!: boolean;
   @Input() ifShowEmployeeProjectContentItem!: boolean;
   @Input() ifShowOpenEmployeeTask!: boolean;
@@ -23,7 +23,7 @@ export class SmartTableComponent implements OnInit {
   @Input() thArr: any;
   @Input() ifShowXorVIcons!: boolean;
   @Input() ifUpdateOpen: any
-  @Input() ifDeleteOpen:any
+  @Input() ifDeleteOpen: any
   @Input() ifSortDown!: boolean
   @Input() tableData: any
   @Input() tableDataKeys: any
@@ -31,10 +31,11 @@ export class SmartTableComponent implements OnInit {
   @Input() showGraph: any
   @Input() ifShowAndEditTeamSetting!: boolean
   @Input() ifShowOpenTeamTask!: boolean
-  @Input()ifCreateReport!: boolean;
+  @Input() ifCreateReport!: boolean;
   @Input() ifShowAndEditEmployeeSetting: any
   @Input() ifDeleteTask: any
   @Input() showMassgeToUserDeleteTask: any
+  @Input() showEmployeeProductivityForMonth!: boolean;
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
   @Output() SortTableDown = new EventEmitter<any>();
@@ -45,9 +46,12 @@ export class SmartTableComponent implements OnInit {
   @Output() ApproveReport = new EventEmitter<any>();
   @Output() EditTeamDetailsByAdmin = new EventEmitter<any>();
   @Output() ShowOpenTeamTask = new EventEmitter<any>();
-  @Output() DeleteTaskIcon= new EventEmitter<any>();
-  @Output() CreateReport= new EventEmitter<any>();
+  @Output() DeleteTaskIcon = new EventEmitter<any>();
+  @Output() CreateReport = new EventEmitter<any>();
   @Output() EditEmployeeDetailsByAdmin = new EventEmitter<any>();
+  @Output() GoToDetailsOfWorkingHoursForEmployee = new EventEmitter<any>();
+   
+
   ifDelete1 = true;
   ifUpdate1 = true
   ifAdmin: any;
@@ -142,6 +146,7 @@ export class SmartTableComponent implements OnInit {
   showStatisticsGraphEmployeeDetailsToManager(val: any) {
     this.router.navigate(['/menu/Statistics-Graph-Employee-Details-ToManager', val.EmployeeGuid])
     localStorage.setItem("EmployeeName",val.EmployeeName)
+
   }
 
   editEmployeeDetailsByAdmin(val: any) {
@@ -156,9 +161,11 @@ export class SmartTableComponent implements OnInit {
   editTeamDetailsByAdmin(val: any) {
     this.EditTeamDetailsByAdmin.emit(val);
   }
-  createReport(val:any)
-    {
-      this.CreateReport.emit(val);
-    }
-  
+  createReport(val: any) {
+    this.CreateReport.emit(val);
+  }
+  goToDetailsOfWorkingHoursForEmployee(val:any) {
+    this.GoToDetailsOfWorkingHoursForEmployee.emit(val);
+
+  }
 }

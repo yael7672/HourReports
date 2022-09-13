@@ -90,7 +90,7 @@ export class MyProjectContectItemsComponent implements OnInit {
     this.selectedTime = selectedTime;
     if (selectedTime) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate).subscribe(res => {
+      this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate,"").subscribe(res => {
         if (res) {
           this.myProjectContectItemArr = res;
         }
@@ -220,7 +220,7 @@ export class MyProjectContectItemsComponent implements OnInit {
   }
   goToDetailsOfWorkingHours()
   {
-    this.route.navigate(['/menu/details-of-working-hours-Employee'])
+    this.route.navigate(['/menu/details-of-working-hours-employee',this.systemGuid])
   }
 }
 

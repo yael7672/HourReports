@@ -53,6 +53,8 @@ import { TaskByTeamComponent } from './tasks/task-by-team/task-by-team.component
 import { DetailsOfWorkingHoursEmployeeComponent } from './details-of-working-hours-employee/details-of-working-hours-employee.component';
 import { DeleteTaskComponent } from './delete-task/delete-task.component';
 import { MassegeToManagerComponent } from './massege-to-manager/massege-to-manager.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DetailsOfWorkingHoursEmployeeForAdminComponent } from './details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -60,51 +62,8 @@ import { MassegeToManagerComponent } from './massege-to-manager/massege-to-manag
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CreateNewTaskComponent,
-    UpdateAnExistingTaskComponent,
-    PopUpComponent,
-    EndOfTaskComponent,
-    MenuComponent,
-    CreateAprojectContentItemComponent,
-    ShowMyTaskComponent,
-    SpecificTaskComponent,
-    SmartCardComponent,
     LoginComponent,
-    ProjectContentItemComponent,
-    FilterPipe,
-    MassgeToUserComponent,
-    PauseWorkComponent,
-    PersonalDetailsComponent,
-    ChartsComponent,
-    StatisticsGraphComponent,
-    ChartsMyTaskComponent,
-    MyProjectContectItemsComponent,
-    SickLeaveProjectContentItemComponent,
-    FreedomProjectContentItemComponent,
-    ProjectContectItemWithTimeComponent,
-    HoursAwaitingApprovalComponent,
-    MassgeToUserWithEditComponent,
-    UpdateProjectContentItemComponent,
-    DeleteProjectContentItemComponent,
-    SmartTableComponent,
-    ShowMyTeamTaskComponent,
-    TheLastTasksIWorkedComponent,
-    SearchAndSortTasksComponent,
-    TimeCounterComponent,
-    EmployeeReportComponent,
-    TasksByEmployeeComponent,
-    ProjectContectItemsByEmployeeComponent,
-    MyNewTasksComponent,
-    StatisticsGraphEmployeeDetailsToManagerComponent,
-    StatisticsGraphAllEmployeesDetailsToManagerComponent,
-    AdminSettingsComponent,
-    TeamReportComponent,
-    TaskByTeamComponent,
-    DeleteTaskComponent,
-    DetailsOfWorkingHoursEmployeeComponent,
-    DeleteTaskComponent,
-    MassegeToManagerComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

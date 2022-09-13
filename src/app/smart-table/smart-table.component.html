@@ -111,6 +111,10 @@
           placement="bottom" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
           <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
         </button>
+        <button placement="right" *ngIf="showEmployeeProductivityForMonth" ngbTooltip="לצפייה בתפוקה היומית של העובד בחודש זה"
+          (click)="goToDetailsOfWorkingHoursForEmployee(colData)" class="edit-button" class="edit-button">
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+        </button>
       </td>
     </tr>
   </tbody>

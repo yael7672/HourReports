@@ -96,9 +96,8 @@ export class CreateNewTaskComponent implements OnInit {
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
         this.popUpService.setAllmyTask(true)
-        this.popUpService.setAllMyNewTask(false)
-
-        this.router.navigate(['/menu'])
+        this.popUpService.setAllMyNewTask(false);
+        this.router.navigate(['/menu/show-my-task',localStorage.getItem('systemGuid')]);
       }
     },
       err => {
