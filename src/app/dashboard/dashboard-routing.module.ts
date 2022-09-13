@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminSettingsComponent } from '../admin-settings/admin-settings.component';
+import { AuthGuard } from '../auth.guard';
 import { ChartsMyTaskComponent } from '../charts-my-task/charts-my-task.component';
 import { ChartsComponent } from '../charts/charts.component';
+import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
 import { DetailsOfWorkingHoursEmployeeComponent } from '../details-of-working-hours-employee/details-of-working-hours-employee.component';
 import { EmployeeReportComponent } from '../employee-report/employee-report.component';
 import { HoursAwaitingApprovalComponent } from '../hours-awaiting-approval/hours-awaiting-approval.component';
@@ -32,7 +34,7 @@ import { UpdateProjectContentItemComponent } from '../update-project-content-ite
 
 const routes: Routes = [
     {
-        path: '', component: MenuComponent, children: [
+        path: '', component: MenuComponent, canActivate:[AuthGuard] ,children: [
             { path: 'createTask', component: CreateNewTaskComponent },
             { path: 'updateTask', component: UpdateAnExistingTaskComponent },
             { path: 'endOfTask', component: EndOfTaskComponent },
@@ -61,7 +63,9 @@ const routes: Routes = [
             { path: 'Statistics-Graph-Employee-Details-ToManager/:id', component: StatisticsGraphEmployeeDetailsToManagerComponent },
             { path: 'Statistics-Graph-All-Employees-Details-ToManager', component: StatisticsGraphAllEmployeesDetailsToManagerComponent },
             { path: 'AdminSettings', component: AdminSettingsComponent },
-            { path: 'details-of-working-hours-Employee', component: DetailsOfWorkingHoursEmployeeComponent }
+            { path: 'details-of-working-hours-employee/:id', component: DetailsOfWorkingHoursEmployeeComponent },
+            { path: 'details-of-working-hours-employee-for-admin/:id', component: DetailsOfWorkingHoursEmployeeForAdminComponent }
+
         ]
     },
 

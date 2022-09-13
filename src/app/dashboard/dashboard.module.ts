@@ -50,6 +50,10 @@ import { TeamReportComponent } from '../team-report/team-report.component';
 import { TimeCounterComponent } from '../time-counter/time-counter.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { UpdateProjectContentItemComponent } from '../update-project-content-item/update-project-content-item.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
 
 @NgModule({
  declarations:[
@@ -95,17 +99,18 @@ import { UpdateProjectContentItemComponent } from '../update-project-content-ite
     DeleteTaskComponent,
     DetailsOfWorkingHoursEmployeeComponent,
     DeleteTaskComponent,
-    MassegeToManagerComponent
+    MassegeToManagerComponent,
+    DetailsOfWorkingHoursEmployeeForAdminComponent
+
 ],
  imports : [
     CommonModule,
-    RouterModule,
     DashboardRoutingModule,
-    AppRoutingModule,
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
+    FormsModule ,
+    NgbModule,
+    ClickOutsideModule,
+    AutocompleteLibModule,
 ],
 providers: [],
 bootstrap: []

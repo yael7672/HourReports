@@ -8,11 +8,11 @@
 
 <app-smart-card [title]="title" [showChrtEmployee]="'true'">
   <div body>
-    <app-smart-table [ifShowOpenEmployeeTask]="true" [ifShowEmployeeProjectContentItem]="true"
+    <app-smart-table [showEmployeeProductivityForMonth]="true" [ifShowOpenEmployeeTask]="true" [ifShowEmployeeProjectContentItem]="true"
       [ifShowProjectContentItem]="true" [thArr]="thArrEmployee" [tableDataKeys]="employeeListKeys"
       [tableData]="employeeDetails" (ShowProjectContentItem)="openProjectContentItemByEmployeeGuid($event)"
       (EditEmployeeDetailsByAdmin)="editEmployeeDetailsByAdmin($event)"
-      [ifShowAndEditEmployeeSetting]="ifShowAndEditEmployeeSetting" (ShowOpenTask)="openTasksByEmployeeGuid($event)"
+      [ifShowAndEditEmployeeSetting]="ifShowAndEditEmployeeSetting" (ShowOpenTask)="openTasksByEmployeeGuid($event)" (GoToDetailsOfWorkingHoursForEmployee)="goToDetailsOfWorkingHoursForEmployee($event)"
       (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown"
       [showGraph]="showGraph">
     </app-smart-table>

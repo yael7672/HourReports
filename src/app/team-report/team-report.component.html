@@ -6,9 +6,9 @@
       <option value="1"> דו'ח צוותים</option>
     </select>
   </div>
-<app-smart-card [title]="title" [showChrtEmployee]="'true'">
+<app-smart-card [title]="title">
     <div body>
-      <app-smart-table [ifShowAndEditTeamSetting]="true" [ifShowOpenTeamTask]="true"
+      <app-smart-table  [ifShowOpenTeamTask]="true"
          [thArr]="thArrTeamReport" [tableDataKeys]="teamReportListKeys"
         [tableData]="teamsDetails"
         (EditTeamDetailsByAdmin)="editTeamDetailsByAdmin($event)"

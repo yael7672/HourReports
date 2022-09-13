@@ -1,0 +1,29 @@
+
+<app-smart-card [title]="titleTable">
+    <div body>
+      <div class="form-outline d-flex justify-content-center">
+        <select id="inputState" class="form-control" ngModel (ngModelChange)="getDetailsOfWorkingHourByEmployee($event)">
+          <option value="">--בחר אחת מהאופציות הבאות--</option>
+          <option value="1"> החודש </option>
+          <option value="2"> חודש קודם</option>
+        </select>
+      </div>   
+         <p> סה"כ שעות מדווחות החודש: <span>{{hoursReportedThisMonth}}</span> </p>
+         <p> סה"כ שעות עבודה לחודש זה: <span>{{workingDaysThisMonth}}</span> </p>
+
+      <app-smart-table [ifCreateReport]="true"  [ifShowXorVIcons]="true" [ifTrIsNull]="true" [thArr]="thArrWorkingHours" [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
+        [tableData]="detailsOfWorkingHourByEmployeeToSend" 
+         (SortTableDown)="SortTableDown($event)"
+        (SortTableUp)="SortTableUp($event)" (CreateReport)="createReport($event)" (SelectedData)="getReportsBySpesificDate($event)"
+        [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+       
+      </app-smart-table>
+       <!-- <div *ngIf="taskTeamsArr?.length<1">
+          <br>
+          <h2>אין משימות פעילות!</h2>
+        </div> -->
+    </div>
+  </app-smart-card>
+  <div *ngIf="isPopUpOpen?.createAprojectContentItem">
+    <app-create-aproject-content-item [dateToUpdate]="dateToUpdate"></app-create-aproject-content-item>
+  </div>  

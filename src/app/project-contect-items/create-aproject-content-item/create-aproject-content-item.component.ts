@@ -198,10 +198,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.billingHours1 = "2";
           this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
         }
-        else {
-          this.subject1 = "";
-          this.billingHours1 = "";
-          this.GuidProject = ""
-        }
+     
   }
 }
