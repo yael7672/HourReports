@@ -20,6 +20,7 @@ import { SmartCardComponent } from '../smart-card/smart-card.component';
 import { StatisticsGraphAllEmployeesDetailsToManagerComponent } from '../statistics-graph-all-employees-details-to-manager/statistics-graph-all-employees-details-to-manager.component';
 import { StatisticsGraphEmployeeDetailsToManagerComponent } from '../statistics-graph-employee-details-to-manager/statistics-graph-employee-details-to-manager.component';
 import { StatisticsGraphComponent } from '../statistics-graph/statistics-graph.component';
+import { SystemSettingComponent } from '../system-setting/system-setting.component';
 import { CreateNewTaskComponent } from '../tasks/create-new-task/create-new-task.component';
 import { EndOfTaskComponent } from '../tasks/end-of-task/end-of-task.component';
 import { ShowMyTaskComponent } from '../tasks/show-my-task/show-my-task.component';
@@ -64,7 +65,8 @@ const routes: Routes = [
             { path: 'Statistics-Graph-All-Employees-Details-ToManager', component: StatisticsGraphAllEmployeesDetailsToManagerComponent },
             { path: 'AdminSettings', component: AdminSettingsComponent },
             { path: 'details-of-working-hours-employee/:id', component: DetailsOfWorkingHoursEmployeeComponent },
-            { path: 'details-of-working-hours-employee-for-admin/:id', component: DetailsOfWorkingHoursEmployeeForAdminComponent }
+            { path: 'details-of-working-hours-employee-for-admin/:id', component: DetailsOfWorkingHoursEmployeeForAdminComponent },
+            { path: 'system-setting', component: SystemSettingComponent }
 
         ]
     },

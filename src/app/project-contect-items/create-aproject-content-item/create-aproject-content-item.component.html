@@ -11,7 +11,7 @@
             <div *ngIf="openInputReportMoreEmployee">
                 <div class="form-outline d-flex justify-content-center mb-4">
                
-                    <ng-autocomplete style="width:100%;" multiple class="autoComplete" [data]=" this.EmployeeeArr"
+                    <!-- <ng-autocomplete style="width:100%;" multiple class="autoComplete" [data]=" this.EmployeeeArr"
                         [searchKeyword]="'Name'" placeholder="עובדים נוספים" historyIdentifier="ReportMoreEmployee"
                         [itemTemplate]="itemTemplate" ngModel name="ReportMoreEmployee" #ReportMoreEmployee="ngModel"
                         required [notFoundTemplate]="notFoundTemplate">
@@ -21,7 +21,26 @@
                     </ng-template>
                     <ng-template #notFoundTemplate let-notFound>
                         <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-                    </ng-template>
+                    </ng-template> -->
+                    <!-- מפה MULTY -->
+                    <div class="example-block">
+                        <div class="example-block__item">
+                            <ngx-select [formControl]="ngxControl"
+                                      
+                                        placeholder="No city selected">
+                            </ngx-select>
+                            <p></p>
+                            <div class="alert alert-secondary">
+                                <pre>{{ngxControl.value | json}}</pre>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary"
+                                        (click)="ngxControl.disabled? ngxControl.enable(): ngxControl.disable()">
+                                    {{ngxControl.disabled ? 'Enable' : 'Disable'}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- <multiselect-autocomplet></multiselect-autocomplet> -->
 

@@ -56,6 +56,8 @@ import { MassegeToManagerComponent } from './massege-to-manager/massege-to-manag
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from './details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { SystemSettingComponent } from './system-setting/system-setting.component';
+import { AddProjectByManagerComponent } from './add-project-by-manager/add-project-by-manager.component';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -65,6 +67,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
   declarations: [
     LoginComponent,
     AppComponent,
+    AddProjectByManagerComponent,
+   
   ],
   imports: [
     BrowserModule,
