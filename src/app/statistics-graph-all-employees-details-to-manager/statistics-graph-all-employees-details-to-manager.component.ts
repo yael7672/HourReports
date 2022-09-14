@@ -128,6 +128,8 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   // 4=החודש
 
   ComparisonEmployeeDetailsMonthlyWorkingHours(val: any) {
+    this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.datasets[0].data=[]
+    this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.labels=[]
     if (val == 1) {
       this.employeeDetailsFromDateUntilHours.forEach((element: any, index: any) => {
         this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.datasets[0].data[index] = this.employeeDetailsFromDateUntilHours[index];
@@ -155,6 +157,8 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   }
 
   ComparisonEmployeeDetailsOpenTasks() {
+    this.AllEmployeeOpenTasksChart.data.datasets[0].data=[]
+    this.AllEmployeeOpenTasksChart.data.labels=[]
     this.employeeDetailsOpenTask.forEach((element: any, index: any) => {
       this.AllEmployeeOpenTasksChart.data.datasets[0].data[index] = this.employeeDetailsOpenTask[index];
     });
@@ -201,7 +205,7 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
       FromDate = this.todayDate
       FromDate = this.datePipe.transform(FromDate, 'dd/MM/yyyy')
     }
-    this.GetEmployeeDetails(this.systemGuid, UntilDate, FromDate, 1)
+    this.GetEmployeeDetails(this.systemGuid, FromDate,UntilDate , 1)
   }
   CreatColorArr() {
     this.colorArrTaskOpenCopy = [...this.employeeDetailsOpenTask]

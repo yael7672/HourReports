@@ -23,7 +23,16 @@
     max-width: 40%;
 }
 
-
+.passwordBtn{
+  position: relative;
+}
+#togglePassword{
+  position: absolute;
+  top: 10px;
+  left: 80px;
+  display: flex;
+  justify-content: left;
+}
 
 
 

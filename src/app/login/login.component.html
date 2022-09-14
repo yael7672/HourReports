@@ -11,7 +11,7 @@
                     <input type="text" class="form-control" id="Username" aria-describedby="emailHelp"
                         placeholder="שם משתמש" #SystemUserName="ngModel" name="SystemUserName" ngModel>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 passwordBtn">
                     <input [type]="show_button ? 'text' : 'password'" class="form-control" id="password"
                         aria-describedby="passwordHelp" placeholder="סיסמה" #password="ngModel" name="password" ngModel/>
                     <i [class]="show_eye ? 'fa fa-eye' : 'fa fa-eye-slash'" id="togglePassword"

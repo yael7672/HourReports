@@ -55,6 +55,7 @@ import { DeleteTaskComponent } from './delete-task/delete-task.component';
 import { MassegeToManagerComponent } from './massege-to-manager/massege-to-manager.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from './details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -74,6 +75,7 @@ import { DetailsOfWorkingHoursEmployeeForAdminComponent } from './details-of-wor
     NgbModule,
     ClickOutsideModule,
     AutocompleteLibModule,
+    NgxSelectModule
     // NgMultiSelectDropDownModule.forRoot(),
 
    
