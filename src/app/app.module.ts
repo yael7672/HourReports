@@ -67,7 +67,7 @@ import { AddProjectByManagerComponent } from './add-project-by-manager/add-proje
   declarations: [
     LoginComponent,
     AppComponent,
-    AddProjectByManagerComponent,
+  
    
   ],
   imports: [

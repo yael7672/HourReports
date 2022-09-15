@@ -25,10 +25,29 @@
         <div [innerHTML]="'לא נמצאו תוצאות'"></div>
       </ng-template>
     </div>
+    <select id="inputState" class="form-control mt-3"  ngModel (ngModelChange)="SearchProjectOption($event)">
+      <option value="">חיפוש פרויקט לפי</option>
+      <option value="0">כל הפרויקטים </option>
+      <option value="1"> הפרויקטים שלי</option>
+    </select>
 
-    <div class="form-outline d-flex justify-content-center ">
+    <div class="form-outline d-flex justify-content-center  " *ngIf="ShowAllProjects">
 
       <ng-autocomplete style="width: 100%;" dir="rtl" [data]="projectArr" [searchKeyword]="'Name'" placeholder="חפש לפי פרויקט"
+        historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
+        (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
+        [notFoundTemplate]="notFoundTemplate2">
+      </ng-autocomplete>
+      <ng-template #itemTemplate2 let-item>
+        <a [innerHTML]="item.Name" style="text-align:center ;"></a>
+      </ng-template>
+      <ng-template #notFoundTemplate2 let-notFound>
+        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+      </ng-template>
+    </div>
+    <div class="form-outline d-flex justify-content-center  " *ngIf="ShowMyProjects">
+
+      <ng-autocomplete style="width: 100%;" dir="rtl" [data]="MyProjectArr" [searchKeyword]="'Name'" placeholder="חפש לפי הפרויקטים שלי"
         historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
         (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
         [notFoundTemplate]="notFoundTemplate2">

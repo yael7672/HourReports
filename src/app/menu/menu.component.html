@@ -18,6 +18,7 @@
         <i class="fa fa-clock-o" aria-hidden="true"></i></a>
       <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart"
           aria-hidden="true"></i> </a>
+       
     </div>
     <p class="p-of-title ">דיווחי שעות </p>
     <div class="aImg2">
@@ -37,6 +38,8 @@
       </a>
     </div>
   </div>
+
+
 
   <div *ngIf="startWorkOfTask">
     <a (click)="returnToTheOpenTask()" placement="bottom" ngbTooltip="חזרה למשימה פתוחה"><i id="clock-history"
@@ -59,6 +62,10 @@
 
   <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
     <app-create-aproject-content-item></app-create-aproject-content-item>
+  </div>
+
+  <div *ngIf="isPopUpOpen?.SystemSetting">
+    <app-add-project-by-manager [ProjectTypeArr]="projectArr"></app-add-project-by-manager>
   </div>
 
   <div *ngIf="isPopUpOpen?.sickLeave">

@@ -5,11 +5,11 @@ import { averageBreaks } from './interfacees/averageBreaks';
 import { ownerid } from './interfacees/ownerid';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
+import { ProjectToCreate } from './interfacees/ProjectToCreate';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
 import { TaskByGuid } from './interfacees/TaskByGuid';
 import { User } from './interfacees/user';
 import { WorkType } from './interfacees/work-type';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -55,8 +55,8 @@ export class UserServiceService {
   CreateProjectContentItemByTaskGuid(SystemGuid: string, TaskGuid: string, IftaskForTeam: boolean) {
     return this.http.get<any>(environment.url + 'CreateProjectContentItemByTaskGuid/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid + '&IftaskForTeam=' + IftaskForTeam);
   }
-  logIn(email: any,password:any) {
-    return this.http.get<User[]>(environment.url + 'Login?OrganizationName=AuroraProd&email=' + email  + '&password=' + password);
+  logIn(email: any, password: any) {
+    return this.http.get<User[]>(environment.url + 'Login?OrganizationName=AuroraProd&email=' + email + '&password=' + password);
   }
   CreatePauseWork(SystemGuid: any) {
     return this.http.get<any>(environment.url + 'CreateNewProjectItemPause?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid);
@@ -89,9 +89,9 @@ export class UserServiceService {
   UpdateProjectContentItemDetails(ProjectItemToUpdate: any) {
     return this.http.post<string>(environment.url + 'UpdateProjectContentItemDetails?OrganizationName=AuroraProd', ProjectItemToUpdate);
   }
-  GetMyProjectContectItem(SystemGuid: any, SelectedTime: number, FromDate: string, UntilDate: string,SpecificDate:string) {
+  GetMyProjectContectItem(SystemGuid: any, SelectedTime: number, FromDate: string, UntilDate: string, SpecificDate: string) {
 
-    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate+'&SpecificDate=' + SpecificDate)
+    return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SpecificDate=' + SpecificDate)
 
   }
   GetProjectContentItemByGuid(projectContectItemGuid: string) {
@@ -108,44 +108,51 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + 'GetAllUserAndTeams?OrganizationName=AuroraProd')
   }
 
-  GetEmployeeDetails(SystemGuid: string, fromDate:any, untilDate:any) {
-    return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&FromDate=' + fromDate + '&UntilDate=' + untilDate)
+  GetEmployeeDetails(SystemGuid: string, fromDate: any, untilDate: any) {
+    return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&FromDate=' + fromDate + '&UntilDate=' + untilDate)
   }
-  ApprovalPojectContentItem(obj:any) {
-    return this.http.post<any>(environment.url + 'ApprovalPojectContentItem',obj)
+  ApprovalPojectContentItem(obj: any) {
+    return this.http.post<any>(environment.url + 'ApprovalPojectContentItem', obj)
   }
-  
+
   GetTeamDetails() {
     return this.http.get<any>(environment.url + 'GetTeamDetails?OrganizationName=AuroraProd')
   }
   GetMyNewTasks(SystemGuid: string) {
     return this.http.get<any>(environment.url + 'GetMyNewTasks/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
-  UpdateTaskHasRead(SystemGuid: string,TaskGuid:string) {
-    return this.http.get<any>(environment.url + 'UpdateTaskHasRead/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+ '&TaskGuid=' + TaskGuid)
+  UpdateTaskHasRead(SystemGuid: string, TaskGuid: string) {
+    return this.http.get<any>(environment.url + 'UpdateTaskHasRead/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid)
   }
-  async  GetActualTimeAndWorkTime(SystemGuid: string ,SelectedTime:any,fromDate:any,untilDate:any){
-    return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&SelectedTime=' + SelectedTime + '&FromDate=' + fromDate + '&UntilDate=' + untilDate).toPromise();
+  async GetActualTimeAndWorkTime(SystemGuid: string, SelectedTime: any, fromDate: any, untilDate: any) {
+    return await this.http.get<any>(environment.url + 'GetActualTimeAndWorkTime/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + fromDate + '&UntilDate=' + untilDate).toPromise();
   }
-  async GetWorkTimeByWorkType(SystemGuid: string,SelectedTime:any,fromDate:any,untilDate:any){
-    return await this.http.get<any>(environment.url + 'GetWorkTimeByWorkType/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid +'&SelectedTime=' + SelectedTime + '&FromDate=' + fromDate + '&UntilDate=' + untilDate).toPromise();
+  async GetWorkTimeByWorkType(SystemGuid: string, SelectedTime: any, fromDate: any, untilDate: any) {
+    return await this.http.get<any>(environment.url + 'GetWorkTimeByWorkType/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + fromDate + '&UntilDate=' + untilDate).toPromise();
   }
   UpdateEmployeeDetails(EmployeeDetails: any) {
     return this.http.post<any>(environment.url + 'UpdateEmployeeDetails?OrganizationName=AuroraProd', EmployeeDetails);
   }
-  MessageToTheManager(){
-    return  this.http.get<any>(environment.url + 'MessageToTheManager');
+  MessageToTheManager() {
+    return this.http.get<any>(environment.url + 'MessageToTheManager');
   }
-  DeleteTaskByGuid(TaskId:any){
+  DeleteTaskByGuid(TaskId: any) {
     return this.http.delete<any>(environment.url + 'DeleteTaskByGuid?OrganizationName=AuroraProd&TaskId=' + TaskId)
   }
-  GetAllEmployee(adminGuid:any) {
-    return this.http.get<ownerid[]>(environment.url + 'GetEmployees?OrganizationName=AuroraProd'+'&adminGuid=' + adminGuid );
+  GetAllEmployee(adminGuid: any) {
+    return this.http.get<ownerid[]>(environment.url + 'GetEmployees?OrganizationName=AuroraProd' + '&adminGuid=' + adminGuid);
   }
-  GetTaskByTeamGuid(TeamGuid:string) {
+  GetTaskByTeamGuid(TeamGuid: string) {
     return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)
   }
-  GetDetailsOfWorkingHourByEmployee(SystemGuid:string,SelectedTime:number) {
-    return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+'&SelectedTime='+SelectedTime)
+  GetDetailsOfWorkingHourByEmployee(SystemGuid: string, SelectedTime: number) {
+    return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime)
+  }
+  AddNewProject(project:ProjectToCreate) {
+    return this.http.post<string>(environment.url + 'AddNewProject?OrganizationName=AuroraProd', project);
+  }
+  GetProjectsBySystemUser(SystemGuid:any){
+    return this.http.get<any>(environment.url + 'GetProjectsBySystemUser/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+
   }
 }

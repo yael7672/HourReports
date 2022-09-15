@@ -41,8 +41,7 @@ export class ShowMyTaskComponent implements OnInit {
   tableSpecificTaskOpen = false;
   startWorkOfTask = false;
   TasksGuid: any;
-  showMassgeToUserDeleteTask=false
-;
+  showMassgeToUserDeleteTask = false;
   taskListDataDetails: any;
   UpdateProjectContentItemDetails = false;
   ifThereAreprojectContentItem = false;
@@ -51,8 +50,11 @@ export class ShowMyTaskComponent implements OnInit {
   employeeDetails: any;
   systemGuidFromLocalStorage: any;
   employeeDetailsParseJson: any;
+  ShowAllProjects=false
+  ShowMyProjects=true
+  MyProjectArr!:Project[]
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
-     private appService: AppService, private userService: UserServiceService,private route : Router ) {
+    private appService: AppService, private userService: UserServiceService, private route: Router) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -65,12 +67,13 @@ export class ShowMyTaskComponent implements OnInit {
     this.GetProject();
     this.GetWorkType();
     this.GetMyTask();
+    this.getMyProject()
     this.employeeDetails = localStorage.getItem('employeeDetails');
     this.employeeDetailsParseJson = JSON.parse(this.employeeDetails);
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuidFromLocalStorage = localStorage.getItem('systemGuid');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-  
+
   }
 
   GetWorkType() {
@@ -232,20 +235,20 @@ export class ShowMyTaskComponent implements OnInit {
     this.showMassgeToUser = true;
     this.projectContentItemGuid = projectContectItem.Guid;
   }
-  DeleteTask(Tasks: any) {  
+  DeleteTask(Tasks: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteTask');
-  this.showMassgeToUserDeleteTask = true;
+    this.showMassgeToUserDeleteTask = true;
     this.TasksGuid = Tasks.TaskGuid;
   }
-// מפה חיפוש ומיון
+  // מפה חיפוש ומיון
   WhichTableOpen(val: any) {
     if (val == 0) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/show-my-task',this.systemGuid]);
+      this.route.navigate(['/menu/show-my-task', this.systemGuid]);
     }
     if (val == 1) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/show-team-my-task/',this.systemGuid]);
+      this.route.navigate(['/menu/show-team-my-task/', this.systemGuid]);
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
@@ -270,4 +273,27 @@ export class ShowMyTaskComponent implements OnInit {
     }
   }
   // עד לפה חיפוש ומיון
+  SearchProjectOption(val: any) {
+    if (val == "0") {
+      this.ShowAllProjects = true
+      this.ShowMyProjects=false
+    }
+    if (val == "1") {
+      this.ShowMyProjects=true
+      this.ShowAllProjects = false
+
+    }
+  }
+
+
+  getMyProject(){
+    this.userService.GetProjectsBySystemUser(this.systemGuid).subscribe(res => {
+      if (res) {
+        this.MyProjectArr = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      }) 
+  }
 }

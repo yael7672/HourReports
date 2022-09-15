@@ -56,6 +56,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
 import { SystemSettingComponent } from '../system-setting/system-setting.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { AddProjectByManagerComponent } from '../add-project-by-manager/add-project-by-manager.component';
 
 @NgModule({
  declarations:[
@@ -103,8 +104,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     DeleteTaskComponent,
     MassegeToManagerComponent,
     DetailsOfWorkingHoursEmployeeForAdminComponent,
-    SystemSettingComponent
-
+    SystemSettingComponent,
+    AddProjectByManagerComponent
 ],
  imports : [
     CommonModule,

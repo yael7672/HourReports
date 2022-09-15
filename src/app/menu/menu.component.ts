@@ -15,9 +15,10 @@ import { Chart } from 'chart.js';
 import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
 import { PauseWorkComponent } from '../pause-work/pause-work.component';
 import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AttributeMarker } from '@angular/compiler/src/core';
 import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorkingHours';
+import { TimeCounterComponent } from '../time-counter/time-counter.component';
 
 
 @Component({
@@ -64,14 +65,18 @@ export class MenuComponent implements OnInit {
   OneDaysInThisMonth!: any;
   showMassgeToManager = false
   taskNameFromLocalStorage: any
+  openDropdown=false
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "האם ברצונך לצאת להפסקה?"
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "שים לך אתה באמצע עבודה על משימה"
+  Time: any;
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = "kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
   constructor(public router: Router,
-    private popUpService: PopUpServiceService,
+   private activatedRoute:ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
-    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
-    this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+ private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
+
+    
+      this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -137,18 +142,18 @@ export class MenuComponent implements OnInit {
 
   openPopUp(data: string, type: boolean) {
     if (data == 'pause') {
-      this.popUpService.getStartTimer().subscribe(res => {
+      // this.popUpService.getStartTimer().subscribe(res => {
         // if (res) {
-          if(this.startWorkOfTask){
+        if (this.startWorkOfTask) {
           // this.startWorkOfTask = true;
           this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson.Subject;
           this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
-        } 
+        }
         else {
           this.appService.setIsPopUpOpen(true);
           this.popUpService.setSpecificPopUp(type, data)
         }
-      })
+      // })
     }
     else {
       this.appService.setIsPopUpOpen(true);
@@ -244,9 +249,33 @@ export class MenuComponent implements OnInit {
     localStorage.removeItem("dateToUpdate");
   }
   clickYesGoingBreak(val: any) {
-
+    this.getCreatedProjectContentItemFromLoaclStorage()
+this.GoToPausetimerTask()
   }
   clickNoGoingbreak() {
     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
   }
-}
+  getCreatedProjectContentItemFromLoaclStorage() {
+    if (localStorage.getItem('DateNow')) {
+      this.setWorkTime(localStorage.getItem('DateNow'))
+    }
+  }
+  setWorkTime(res: any) {
+    this.workTime = this.convertTimeStempToTime(res)
+  }
+  convertTimeStempToTime(ProjectContentItemCreatedDate: any) {
+    var timestampCreatOn = ProjectContentItemCreatedDate;
+    const timestampNow = Date.now();
+    this.Time = timestampNow - timestampCreatOn;
+    return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
+    this.GoToPausetimerTask()
+  }
+  GoToPausetimerTask(){
+  let pauseTaskComp= new TimeCounterComponent(this.activatedRoute,this.userService,this.datePipe,this.popUpService,this.router)
+  pauseTaskComp.pauseTimer( this.workTime)
+  this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
+  this.router.navigate(['/menu/show-my-task',this.systemGuid]);
+
+  }
+ 
+  }
