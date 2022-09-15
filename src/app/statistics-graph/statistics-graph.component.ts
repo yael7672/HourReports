@@ -42,7 +42,7 @@ export class StatisticsGraphComponent implements OnInit {
   todayDateCopy = new Date();
   showThisWeek!: any;
   dateAndCulculte: any;
-  dateAndCulculteArr:any;
+  dateAndCulculteArr: any;
   constructor(private userService: UserServiceService, public datepipe: DatePipe) {
     Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip);
   }
@@ -154,7 +154,7 @@ export class StatisticsGraphComponent implements OnInit {
       err => {
         console.log(err.error);
       })
-    this.GetAverageBreaksByTimeLineChart(this.systemGuid,this.dateOfSearchBeforeForLineChart,this.dateOfSearchAfterForLineChart,Number(val))
+    this.GetAverageBreaksByTimeLineChart(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart, Number(val))
 
   }
   CreateObjectWithDateAndCulculte(dateArrForLineChart: any, culculte: any) {
@@ -209,7 +209,7 @@ export class StatisticsGraphComponent implements OnInit {
     if (val == null) //זה אומר שלחץ על כפתור ההשואה
     {
       this.GetMyProjectContentItemByTimeLineChart();
-       this.GetAverageBreaksByTimeLineChart(this.systemGuid,this.dateOfSearchBeforeForBarChart, this.dateOfSearchAfterForBarChart,"")
+      this.GetAverageBreaksByTimeLineChart(this.systemGuid, this.dateOfSearchBeforeForBarChart, this.dateOfSearchAfterForBarChart, "")
     }
   }
 
@@ -233,9 +233,9 @@ export class StatisticsGraphComponent implements OnInit {
               this.colorArr[a] = "rgb(6, 142, 6)";
             }
             else
-            if (i > 151) {
-              this.colorArr[a] = "rgb(10, 179, 10)";
-            }
+              if (i > 151) {
+                this.colorArr[a] = "rgb(10, 179, 10)";
+              }
       a++;
     })
   }

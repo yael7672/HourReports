@@ -65,18 +65,18 @@ export class MenuComponent implements OnInit {
   OneDaysInThisMonth!: any;
   showMassgeToManager = false
   taskNameFromLocalStorage: any
-  openDropdown=false
+  openDropdown = false
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "האם ברצונך לצאת להפסקה?"
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "שים לך אתה באמצע עבודה על משימה"
   Time: any;
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = "kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
   constructor(public router: Router,
-   private activatedRoute:ActivatedRoute, private popUpService: PopUpServiceService,
+    private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
- private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
+    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
 
-    
-      this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+
+    this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -143,16 +143,16 @@ export class MenuComponent implements OnInit {
   openPopUp(data: string, type: boolean) {
     if (data == 'pause') {
       // this.popUpService.getStartTimer().subscribe(res => {
-        // if (res) {
-        if (this.startWorkOfTask) {
-          // this.startWorkOfTask = true;
-          this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson.Subject;
-          this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
-        }
-        else {
-          this.appService.setIsPopUpOpen(true);
-          this.popUpService.setSpecificPopUp(type, data)
-        }
+      // if (res) {
+      if (this.startWorkOfTask) {
+        // this.startWorkOfTask = true;
+        this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson.Subject;
+        this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
+      }
+      else {
+        this.appService.setIsPopUpOpen(true);
+        this.popUpService.setSpecificPopUp(type, data)
+      }
       // })
     }
     else {
@@ -250,7 +250,7 @@ export class MenuComponent implements OnInit {
   }
   clickYesGoingBreak(val: any) {
     this.getCreatedProjectContentItemFromLoaclStorage()
-this.GoToPausetimerTask()
+    this.GoToPausetimerTask()
   }
   clickNoGoingbreak() {
     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
@@ -270,12 +270,12 @@ this.GoToPausetimerTask()
     return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
     this.GoToPausetimerTask()
   }
-  GoToPausetimerTask(){
-  let pauseTaskComp= new TimeCounterComponent(this.activatedRoute,this.userService,this.datePipe,this.popUpService,this.router)
-  pauseTaskComp.pauseTimer( this.workTime)
-  this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
-  this.router.navigate(['/menu/show-my-task',this.systemGuid]);
+  GoToPausetimerTask() {
+    let pauseTaskComp = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router)
+    pauseTaskComp.pauseTimer(this.workTime)
+    this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
+    this.router.navigate(['/menu/show-my-task', this.systemGuid]);
 
   }
- 
-  }
+
+}

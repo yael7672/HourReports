@@ -116,6 +116,7 @@ import { AddProjectByManagerComponent } from '../add-project-by-manager/add-proj
     ClickOutsideModule,
     AutocompleteLibModule,
     NgxSelectModule
+
 ],
 providers: [],
 bootstrap: []
