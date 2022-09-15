@@ -81,8 +81,8 @@
             <ng-container *ngIf="KindPopUpUpdateProjectContectItemWithTime">
                 <div class="form-outline d-flex justify-content-center">
                     <input type="number" id="ActualTime" name="ActualTime" class="form-control" placeholder="שעות בפועל"
-                        required ngModel #ActualTime="ngModel" disabled
-                        [ngClass]="{ 'is-invalid': f.submitted && ActualTime.invalid }" [ngModel]="actualTime">
+                        required ngModel #ActualTime="ngModel" 
+                        [ngClass]="{ 'is-invalid': f.submitted && ActualTime.invalid }" [(ngModel)]="actualTime">
                 </div>
                 <div *ngIf="f.submitted && ActualTime.invalid" class="text-danger">
                     <span *ngIf="ActualTime.errors">שדה זה חובה</span>

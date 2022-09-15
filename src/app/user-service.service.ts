@@ -145,7 +145,7 @@ export class UserServiceService {
   GetTaskByTeamGuid(TeamGuid:string) {
     return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)
   }
-  GetDetailsOfWorkingHourByEmployee(SystemGuid:string,SelectedTime:number) {
-    return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+'&SelectedTime='+SelectedTime)
+  GetDetailsOfWorkingHourByEmployee(SystemGuid:string,SelectedTime:number,FromDate:string,UntilDate:string) {
+    return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+'&SelectedTime='+SelectedTime+'&FromDate='+FromDate+'&UntilDate='+UntilDate)
   }
 }

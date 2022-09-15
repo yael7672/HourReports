@@ -5,7 +5,7 @@
       <a *ngIf="ifXt" class="close" (click)="CancelPopUp()">&times;</a>
 
       <h4>{{title}}</h4>
-      <div class="header">
+      <div class="header" *ngIf="title">
         <ng-content select="[header]"></ng-content>
       </div>
       <div class="body">

@@ -54,6 +54,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
+import { AppModalComponent } from '../app-modal/app-modal.component';
 
 @NgModule({
  declarations:[
@@ -100,7 +101,8 @@ import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-wo
     DetailsOfWorkingHoursEmployeeComponent,
     DeleteTaskComponent,
     MassegeToManagerComponent,
-    DetailsOfWorkingHoursEmployeeForAdminComponent
+    DetailsOfWorkingHoursEmployeeForAdminComponent,
+    AppModalComponent
 
 ],
  imports : [
