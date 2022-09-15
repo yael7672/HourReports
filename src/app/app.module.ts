@@ -55,7 +55,6 @@ import { DeleteTaskComponent } from './delete-task/delete-task.component';
 import { MassegeToManagerComponent } from './massege-to-manager/massege-to-manager.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from './details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
-import { NgxSelectModule } from 'ngx-select-ex';
 import { SystemSettingComponent } from './system-setting/system-setting.component';
 import { AddProjectByManagerComponent } from './add-project-by-manager/add-project-by-manager.component';
 
@@ -79,7 +78,6 @@ import { AddProjectByManagerComponent } from './add-project-by-manager/add-proje
     NgbModule,
     ClickOutsideModule,
     AutocompleteLibModule,
-    NgxSelectModule
     // NgMultiSelectDropDownModule.forRoot(),
 
    

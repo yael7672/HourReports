@@ -107,14 +107,12 @@ export class UserServiceService {
   GetAllUserAndTeams() {
     return this.http.get<any>(environment.url + 'GetAllUserAndTeams?OrganizationName=AuroraProd')
   }
-
   GetEmployeeDetails(SystemGuid: string, fromDate: any, untilDate: any) {
     return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&FromDate=' + fromDate + '&UntilDate=' + untilDate)
   }
   ApprovalPojectContentItem(obj: any) {
     return this.http.post<any>(environment.url + 'ApprovalPojectContentItem', obj)
   }
-
   GetTeamDetails() {
     return this.http.get<any>(environment.url + 'GetTeamDetails?OrganizationName=AuroraProd')
   }
@@ -145,7 +143,6 @@ export class UserServiceService {
   GetTaskByTeamGuid(TeamGuid: string) {
     return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)
   }
-
   AddNewProject(project:ProjectToCreate) {
     return this.http.post<string>(environment.url + 'AddNewProject?OrganizationName=AuroraProd', project);
   }
