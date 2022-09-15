@@ -45,7 +45,38 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     this.GetActualTimeAndWorkTime(this.EmployeeGuid, 4, "", "")
     this.GetWorkTimeByWorkType(this.EmployeeGuid, 4, "", "")
     this.EmployeeName = localStorage.getItem('EmployeeName');
+    this.GetActualTimeAndWorkTimeChart()
+    this.GetEmployeeBarWorkTimeByWorkTypeChart()
 
+  }
+
+  GetEmployeeBarWorkTimeByWorkTypeChart() {
+    this.EmployeeBarWorkTimeByWorkTypeChart = new Chart('BarChart2', {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'שעות עבודה',
+          data: [],
+          backgroundColor: [
+            'green',
+          ],
+          borderColor: [
+            'green',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+  GetActualTimeAndWorkTimeChart() {
     this.EmployeeBarChart = new Chart('BarChart', {
       type: 'bar',
       data: {
@@ -85,45 +116,6 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
       }
 
     });
-    this.EmployeeBarWorkTimeByWorkTypeChart = new Chart('BarChart2', {
-      type: 'bar',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'שעות עבודה',
-          data: [],
-          backgroundColor: [
-            'green',
-
-          ],
-          borderColor: [
-            'green',
-
-          ],
-          borderWidth: 1
-        },
-          // {
-          // label: ' ',
-          // data: [],
-          // backgroundColor: [
-
-          // ],
-          // borderColor: [
-
-          // ],
-          // borderWidth: 1
-          // },
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-
-    });
   }
 
   GetActualTimeAndWorkTime(EmployeeGuid: any, selectedTime: any, FromDate: any, UntilDate: any) {
@@ -142,6 +134,8 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     )
   }
   Comparison() {
+    this.EmployeeBarChart.data.datasets[0].data = [];
+    this.EmployeeBarChart.data.datasets[1].data = [];
     this.EmployeeBarChart.data.datasets[0].data[0] = this.employeeDetailsWorkTime2;
     this.EmployeeBarChart.data.datasets[1].data[0] = this.employeeDetailsActualTime;
     this.EmployeeBarChart.update();
@@ -161,6 +155,8 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
   }
 
   ComparisonWorkTimeByWorkType() {
+    this.EmployeeBarWorkTimeByWorkTypeChart.data.datasets[0].data = [];
+    this.EmployeeBarWorkTimeByWorkTypeChart.data.labels = [];
     this.employeeDetailsWorkTime.forEach((element: any, index: any) => {
       this.EmployeeBarWorkTimeByWorkTypeChart.data.datasets[0].data[index] = this.employeeDetailsWorkTime[index];
     });

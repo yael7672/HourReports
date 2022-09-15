@@ -63,6 +63,10 @@ export class MenuComponent implements OnInit {
   TwoLastDaysInThisMonth!: any;
   OneDaysInThisMonth!: any;
   showMassgeToManager = false
+  taskNameFromLocalStorage: any
+  massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "האם ברצונך לצאת להפסקה?"
+  massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "שים לך אתה באמצע עבודה על משימה"
+  kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = "kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
   constructor(public router: Router,
     private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -100,6 +104,7 @@ export class MenuComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
+    this.taskNameFromLocalStorage = localStorage.getItem("taskListDataDetails")
     if (localStorage.getItem("DateNowPause")) {
       this.openPopUp('pause', true)
     }
@@ -133,11 +138,13 @@ export class MenuComponent implements OnInit {
   openPopUp(data: string, type: boolean) {
     if (data == 'pause') {
       this.popUpService.getStartTimer().subscribe(res => {
-        if (res) {
-          this.startWorkOfTask = true;
-          this.taskListDataDetailsParseToJson.Subject = "שם המשימה:" + this.taskListDataDetailsParseToJson.TaskByGuid;
+        // if (res) {
+          if(this.startWorkOfTask){
+          // this.startWorkOfTask = true;
+          this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson.Subject;
           this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
-        } else {
+        } 
+        else {
           this.appService.setIsPopUpOpen(true);
           this.popUpService.setSpecificPopUp(type, data)
         }
@@ -233,8 +240,13 @@ export class MenuComponent implements OnInit {
         console.log(err.error);
       })
   }
-  removeDateFromLocalStorage()
-  {
+  removeDateFromLocalStorage() {
     localStorage.removeItem("dateToUpdate");
+  }
+  clickYesGoingBreak(val: any) {
+
+  }
+  clickNoGoingbreak() {
+    this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
   }
 }

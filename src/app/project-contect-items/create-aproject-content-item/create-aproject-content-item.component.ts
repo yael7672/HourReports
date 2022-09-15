@@ -35,6 +35,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
   EmployeeeArr!: ownerid[]
+  EmployeeeArr2!:any[]
   ProjectContentItem!: any
   systemGuid: any;
   ProjectItem!: any
@@ -60,6 +61,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   timetoSend: any;
   interval: any;
   parseTime: any;
+  ngxControl:any
   massgeUserCloseProjectContectItemByTimerCancel = "האם ברצונך לבטל דיווח זה?"
   showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
@@ -116,6 +118,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.userServiceService.GetAllEmployee(this.adminGuid).subscribe(
       (res: any) => {
         this.EmployeeeArr = res;
+        this.EmployeeeArr2=res
       },
       (err: any) =>
         console.log(err.error)

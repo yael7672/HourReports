@@ -77,4 +77,7 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
 
+  goToSystemSetting(){
+    this.route.navigate(['/menu/system-setting'])
+  }
 }

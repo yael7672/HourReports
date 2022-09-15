@@ -1,0 +1,26 @@
+.actionArea {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 19;
+    /* background-color: #0e1b34de; */
+    width: 35%;
+    
+  }
+  .card {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 19;
+  /* background-color: #0e1b34de; */
+  width: 50%;
+  min-width: 200px;
+  max-width: 30vw;
+  min-height: 30vw;
+}
+ p.card-title{
+text-align: right !important;
+font-size: small;
+font-weight: bold;
+/* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif */
+}

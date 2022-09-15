@@ -54,7 +54,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
-import { AppModalComponent } from '../app-modal/app-modal.component';
+import { SystemSettingComponent } from '../system-setting/system-setting.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 @NgModule({
  declarations:[
@@ -102,7 +103,7 @@ import { AppModalComponent } from '../app-modal/app-modal.component';
     DeleteTaskComponent,
     MassegeToManagerComponent,
     DetailsOfWorkingHoursEmployeeForAdminComponent,
-    AppModalComponent
+    SystemSettingComponent
 
 ],
  imports : [
@@ -113,6 +114,8 @@ import { AppModalComponent } from '../app-modal/app-modal.component';
     NgbModule,
     ClickOutsideModule,
     AutocompleteLibModule,
+    NgxSelectModule
+
 ],
 providers: [],
 bootstrap: []
