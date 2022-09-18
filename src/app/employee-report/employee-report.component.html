@@ -8,7 +8,20 @@
 
 <app-smart-card [title]="title" [showChrtEmployee]="'true'">
   <div body>
-    <app-smart-table [showEmployeeProductivityForMonth]="true" [ifShowOpenEmployeeTask]="true" [ifShowEmployeeProjectContentItem]="true"
+    <div class="form-outline d-flex justify-content-center ">
+      <ng-autocomplete style="width: 100%;"class="autoComplete" dir="rtl" [data]="employeeDetails" [searchKeyword]="'EmployeeName'"
+        placeholder=" חפש לפי משימה" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
+        (ngModelChange)="onSearchEmployee($event.EmployeeName)" ngModel name="EmployeeName" #Subject="ngModel" required
+        [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+      <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.Subject" style="text-align:center ;"></a>
+      </ng-template>
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+      </ng-template>
+    </div>
+    <app-smart-table [showEmployeeProductivityForMonth]="true" [ifShowpagination]="[true,10]" [ifShowOpenEmployeeTask]="true" [ifShowEmployeeProjectContentItem]="true"
       [ifShowProjectContentItem]="true" [thArr]="thArrEmployee" [tableDataKeys]="employeeListKeys"
       [tableData]="employeeDetails" (ShowProjectContentItem)="openProjectContentItemByEmployeeGuid($event)"
       (EditEmployeeDetailsByAdmin)="editEmployeeDetailsByAdmin($event)"

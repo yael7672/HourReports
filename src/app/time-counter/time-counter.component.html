@@ -6,13 +6,3 @@
     <div class="button-box"><button [disabled]="disabledPauseButton" placement="top" ngbTooltip="בלחיצה על כפתור זה, מתעדכן משך זמן העבודה בפריט תכולת פרוייקט שנוצר קודם, והטיימר מפסיק את פעולתו."(click)="pauseTimer(workTime)" class="btn btn-color">הפסק</button></div>
     <div class="button-box"><button [disabled]="disabledEndButton" placement="top" ngbTooltip="בלחיצה על כפתור זה, המשימה הושלמה והיא עוברת למצב של קריאה בלבד."(click)="endTimer(workTime)" class="btn btn-color">משימה הושלמה</button></div>
 </footer>
-
-<!-- <div *ngIf="showMassgeToUseMIfFinishtasklesstime">
-    <app-pop-up>
-      <div body>
-        <app-massge-to-user [kindOfMassage]="kindOfMassageUserFinishtasklesstime"
-          [massgeUserHeader]="massgeUserFinishtasklesstimeHeader" [massgeUserBody1]="massgeUserFinishtasklesstimeBody"
-          [massgeUserBody2]="massgeUserFinishtasklesstimeBody2"></app-massge-to-user>
-      </div>
-    </app-pop-up>
-  </div> -->

@@ -50,6 +50,8 @@ export class ShowMyTaskComponent implements OnInit {
   employeeDetails: any;
   systemGuidFromLocalStorage: any;
   employeeDetailsParseJson: any;
+  tasksGuid: any;
+  tasksName: any;
   ShowAllProjects=false
   ShowMyProjects=true
   MyProjectArr!:Project[]
@@ -234,9 +236,14 @@ export class ShowMyTaskComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
     this.projectContentItemGuid = projectContectItem.Guid;
+
   }
   DeleteTask(Tasks: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteTask');
+  this.showMassgeToUserDeleteTask = true;
+    this.tasksGuid = Tasks.TaskGuid;
+    this.tasksName = Tasks.Subject;
+
     this.showMassgeToUserDeleteTask = true;
     this.TasksGuid = Tasks.TaskGuid;
   }

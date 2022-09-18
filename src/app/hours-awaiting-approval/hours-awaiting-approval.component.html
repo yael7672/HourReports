@@ -1,6 +1,6 @@
 <app-smart-card  [title]='"דיווחי שעות שנדרשים לתיקון "'>
   <div body>
-  <app-smart-table [ifUpdate]="true" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
+  <app-smart-table [ifUpdate]="true" [thArr]="thArrTableProjectContentItem" [ifShowpagination]="[true,10]" [tableDataKeys]="projectContentItemListKeys"
     [tableData]="hoursAwaitingApprovalArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
     (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
     (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown">

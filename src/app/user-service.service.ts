@@ -14,7 +14,7 @@ import { WorkType } from './interfacees/work-type';
   providedIn: 'root'
 })
 export class UserServiceService {
-
+a!:string
   constructor(private http: HttpClient) { }
 
   GetMyTask(SystemGuid: string) {
@@ -31,7 +31,10 @@ export class UserServiceService {
     return this.http.post<string>(environment.url + '/UpdateProjectContectItemWithTimer/?OrganizationName=AuroraProd', ProjectItemToUpdate);
 
   }
-  UpdateTaskDetails(taskId: any, ProjectGuid: any, DescriptionTask: any, TaskSubject: any, WorkType: any, AssignTask: any) {
+  UpdateTaskDetails(taskId: any, ProjectGuid: any, DescriptionTask: string, TaskSubject: string, WorkType: any, AssignTask: any) {
+this.a= environment.url + '/UpdateTaskDetails/?OrganizationName=AuroraProd&taskId=' + taskId + '&ProjectGuid=' + ProjectGuid + '&DescriptionTask=' + DescriptionTask + '&TaskSubject=' + TaskSubject + '&WorkType=' + WorkType + '&AssignTask=' + AssignTask;
+console.log(this.a);
+
     return this.http.get<any>(environment.url + '/UpdateTaskDetails/?OrganizationName=AuroraProd&taskId=' + taskId + '&ProjectGuid=' + ProjectGuid + '&DescriptionTask=' + DescriptionTask + '&TaskSubject=' + TaskSubject + '&WorkType=' + WorkType + '&AssignTask=' + AssignTask);
   }
   async AddNewTask(TaskObj: any) {
@@ -107,12 +110,14 @@ export class UserServiceService {
   GetAllUserAndTeams() {
     return this.http.get<any>(environment.url + 'GetAllUserAndTeams?OrganizationName=AuroraProd')
   }
+
   GetEmployeeDetails(SystemGuid: string, fromDate: any, untilDate: any) {
     return this.http.get<any>(environment.url + 'GetEmployeeDetails?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&FromDate=' + fromDate + '&UntilDate=' + untilDate)
   }
   ApprovalPojectContentItem(obj: any) {
     return this.http.post<any>(environment.url + 'ApprovalPojectContentItem', obj)
   }
+
   GetTeamDetails() {
     return this.http.get<any>(environment.url + 'GetTeamDetails?OrganizationName=AuroraProd')
   }

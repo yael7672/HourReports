@@ -1,0 +1,12 @@
+.text-danger {
+    font-size: 12px;
+    text-align: right;
+    position: relative;
+    top: -10px;
+
+}
+.form-outline .autoComplete {
+    border: 0.01rem solid rgb(220 217 217);
+    border-radius: 5px;
+    text-decoration: underline;
+}

@@ -30,10 +30,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let colData of tableData; let i = index" (click)="selectedData(colData)">
-      <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing>0||colData.DailyWorkingHoursthatAreMissing<0"
+    <tr *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
+      (click)="selectedData(colData)">
+      <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing<0"
         class="fa fa-times-circle" aria-hidden="true"></i>
-      <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing==0" class="fa fa-check-circle"
+      <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing == 0" class="fa fa-check-circle"
         aria-hidden="true"></i>
 
       <input *ngIf="ifShowCheckBox" class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
@@ -74,7 +75,7 @@
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
         <button *ngIf="ifDeleteTask" (click)="deleteTaskIcon(colData)" class="edit-button" class="edit-button"
-          placement="bottom" ngbTooltip="באפשרותך למחוק את המשימה.">
+          placement="right" ngbTooltip="באפשרותך למחוק את המשימה.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
         <button *ngIf="ifShowAndEditEmployeeSetting" (click)="editEmployeeDetailsByAdmin(colData)" class="edit-button"
@@ -86,7 +87,7 @@
           <i class="fa fa-cog"></i>
         </button>
         <button *ngIf="ifShowOpenEmployeeTask" (click)="showOpenTask(colData)" class="edit-button" class="edit-button"
-          placement="bottom" ngbTooltip="צפיה במשימות הפתוחות של העובד">
+          placement="right" ngbTooltip="צפיה במשימות הפתוחות של העובד">
           <i class="fa fa-edit"></i>
         </button>
         <button *ngIf="ifShowOpenTeamTask" (click)="showOpenTeamTask(colData)" class="edit-button" class="edit-button"
@@ -111,11 +112,21 @@
           placement="bottom" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
           <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
         </button>
-        <button placement="right" *ngIf="showEmployeeProductivityForMonth" ngbTooltip="לצפייה בתפוקה היומית של העובד בחודש זה"
-          (click)="goToDetailsOfWorkingHoursForEmployee(colData)" class="edit-button" class="edit-button">
+        <button placement="right" *ngIf="showEmployeeProductivityForMonth"
+          ngbTooltip="לצפייה בתפוקה היומית של העובד בחודש זה" (click)="goToDetailsOfWorkingHoursForEmployee(colData)"
+          class="edit-button" class="edit-button">
           <i class="fa fa-clock-o" aria-hidden="true"></i>
+        </button>
+        <button placement="right" *ngIf="showProjectContentItemBySpecificDay" ngbTooltip="הצג דיוחי שעות ליום זה"
+          (click)="goToshowProjectContentItemBySpecificDay(colData)" class="edit-button" class="edit-button">
+          <i class="fa fa-eye" id="togglePassword"></i>
         </button>
       </td>
     </tr>
   </tbody>
 </table>
+<ng-container *ngIf="ifShowpagination?ifShowpagination[0]:''">
+  <div *ngIf="tableData?.length > 0">
+    <pagination-controls (pageChange)="p = $event" [nextLabel]="'הבא'" [previousLabel]="'הקודם'"></pagination-controls>
+  </div>
+</ng-container>

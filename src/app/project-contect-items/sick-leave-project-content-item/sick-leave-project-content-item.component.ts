@@ -22,6 +22,8 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   isChecked!: boolean;
   ifBetweenDates = false;
   showInputsDates = false;
+  thArrTableProjectContentItem = ['שם', 'תאריך' ];
+  projectContentItemListKeys = ['Name', 'Date'];
   kindOfMassage = 'checkIfIsReportOnThisDate';
   subjectTask = "חופשת מחלה"
   hoursActually = "9";

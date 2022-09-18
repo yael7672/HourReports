@@ -6,6 +6,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./massge-to-user.component.css']
 })
 export class MassgeToUserComponent implements OnInit {
+  
+  @Input() textOfBtnNo: any
+  @Input() textOfBtnYes: any
   @Input() massgeUserHeader: any
   @Input() massgeUserBody2: any
   @Input() massgeUserBody1: any

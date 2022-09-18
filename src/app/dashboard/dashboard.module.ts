@@ -55,74 +55,83 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
 import { SystemSettingComponent } from '../system-setting/system-setting.component';
-import { NgxSelectModule, INgxSelectOptions } from 'ngx-select-ex';
+import { NgxSelectModule } from 'ngx-select-ex';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {  INgxSelectOptions } from 'ngx-select-ex';
 import { AddProjectByManagerComponent } from '../add-project-by-manager/add-project-by-manager.component';
+import { AddUserComponent } from '../add-user/add-user.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
     optionValueField: 'Guid',
     optionTextField: 'Name'
 };
 @NgModule({
-    declarations: [
-        UpdateProjectContentItemComponent,
-        CreateNewTaskComponent,
-        UpdateAnExistingTaskComponent,
-        PopUpComponent,
-        EndOfTaskComponent,
-        MenuComponent,
-        CreateAprojectContentItemComponent,
-        ShowMyTaskComponent,
-        SpecificTaskComponent,
-        SmartCardComponent,
-        ProjectContentItemComponent,
-        FilterPipe,
-        MassgeToUserComponent,
-        PauseWorkComponent,
-        PersonalDetailsComponent,
-        ChartsComponent,
-        StatisticsGraphComponent,
-        ChartsMyTaskComponent,
-        MyProjectContectItemsComponent,
-        SickLeaveProjectContentItemComponent,
-        FreedomProjectContentItemComponent,
-        ProjectContectItemWithTimeComponent,
-        HoursAwaitingApprovalComponent,
-        MassgeToUserWithEditComponent,
-        DeleteProjectContentItemComponent,
-        SmartTableComponent,
-        ShowMyTeamTaskComponent,
-        TheLastTasksIWorkedComponent,
-        SearchAndSortTasksComponent,
-        TimeCounterComponent,
-        EmployeeReportComponent,
-        TasksByEmployeeComponent,
-        ProjectContectItemsByEmployeeComponent,
-        MyNewTasksComponent,
-        StatisticsGraphEmployeeDetailsToManagerComponent,
-        StatisticsGraphAllEmployeesDetailsToManagerComponent,
-        AdminSettingsComponent,
-        TeamReportComponent,
-        TaskByTeamComponent,
-        DeleteTaskComponent,
-        DetailsOfWorkingHoursEmployeeComponent,
-        DeleteTaskComponent,
-        MassegeToManagerComponent,
-        DetailsOfWorkingHoursEmployeeForAdminComponent,
-        SystemSettingComponent,
-        AddProjectByManagerComponent
-    ],
-    imports: [
-        CommonModule,
-        DashboardRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NgbModule,
-        ClickOutsideModule,
-        AutocompleteLibModule,
-        NgxSelectModule.forRoot(CustomSelectOptions)
-    ],
+ declarations:[
+    UpdateProjectContentItemComponent,
+    CreateNewTaskComponent,
+    UpdateAnExistingTaskComponent,
+    PopUpComponent,
+    EndOfTaskComponent,
+    MenuComponent,
+    CreateAprojectContentItemComponent,
+    ShowMyTaskComponent,
+    SpecificTaskComponent,
+    SmartCardComponent,
+    ProjectContentItemComponent,
+    FilterPipe,
+    MassgeToUserComponent,
+    PauseWorkComponent,
+    PersonalDetailsComponent,
+    ChartsComponent,
+    StatisticsGraphComponent,
+    ChartsMyTaskComponent,
+    MyProjectContectItemsComponent,
+    SickLeaveProjectContentItemComponent,
+    FreedomProjectContentItemComponent,
+    ProjectContectItemWithTimeComponent,
+    HoursAwaitingApprovalComponent,
+    MassgeToUserWithEditComponent,
+    DeleteProjectContentItemComponent,
+    SmartTableComponent,
+    ShowMyTeamTaskComponent,
+    TheLastTasksIWorkedComponent,
+    SearchAndSortTasksComponent,
+    TimeCounterComponent,
+    EmployeeReportComponent,
+    TasksByEmployeeComponent,
+    ProjectContectItemsByEmployeeComponent,
+    MyNewTasksComponent,
+    StatisticsGraphEmployeeDetailsToManagerComponent,
+    StatisticsGraphAllEmployeesDetailsToManagerComponent,
+    AdminSettingsComponent,
+    TeamReportComponent,
+    TaskByTeamComponent,
+    DeleteTaskComponent,
+    DetailsOfWorkingHoursEmployeeComponent,
+    DeleteTaskComponent,
+    MassegeToManagerComponent,
+    DetailsOfWorkingHoursEmployeeForAdminComponent,
+    SystemSettingComponent,
+    AddProjectByManagerComponent,
+    AddUserComponent
 
-    providers: [],
-    bootstrap: []
+    
+
+],
+ imports : [
+    CommonModule,
+    DashboardRoutingModule,
+    ReactiveFormsModule,
+    FormsModule ,
+    NgbModule,
+    ClickOutsideModule,
+    AutocompleteLibModule,
+    NgxSelectModule,
+    NgxPaginationModule
+
+],
+providers: [],
+bootstrap: []
+   
 })
 export class DashboardModule { }

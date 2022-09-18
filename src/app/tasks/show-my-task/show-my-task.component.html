@@ -13,7 +13,7 @@
     </select>
 
     <div class="form-outline d-flex justify-content-center ">
-      <ng-autocomplete style="width: 100%;"class="autoComplete" dir="rtl" [data]="taskArr" [searchKeyword]="'Subject'"
+      <ng-autocomplete style="width: 100%;"class="autoComplete" dir="rtl"  [data]="taskArr" [searchKeyword]="'Subject'"
         placeholder=" חפש לפי משימה" historyIdentifier="Subject" [itemTemplate]="itemTemplate"
         (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject" #Subject="ngModel" required
         [notFoundTemplate]="notFoundTemplate">
@@ -68,7 +68,7 @@
 
 <app-smart-card *ngIf="tableMyTaskOpen&&!ifThereAreTasks" [title]="titleTableTask">
   <div body>
-    <app-smart-table [ifDeleteTask]="true" [ifUpdateTask]="true" [thArr]="thArrTask" [ifSortDown]="ifSortDown"
+    <app-smart-table [ifDeleteTask]="true" [ifUpdateTask]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTask" [ifSortDown]="ifSortDown"
       [tableDataKeys]="taskListKeys" [tableData]="taskArr" (DeleteTaskIcon)="DeleteTask($event)"
       (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
       (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedTask($event)"
@@ -95,6 +95,6 @@
 </div>
 
 <div *ngIf="isPopUpOpen?.DeleteTask">
-  <app-delete-task [TaskGuid]="TasksGuid">
+  <app-delete-task [TaskGuid]="tasksGuid" [TasksName]="tasksName">
   </app-delete-task>
 </div>

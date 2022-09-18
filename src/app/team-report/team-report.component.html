@@ -8,7 +8,7 @@
   </div>
 <app-smart-card [title]="title">
     <div body>
-      <app-smart-table  [ifShowOpenTeamTask]="true"
+      <app-smart-table  [ifShowOpenTeamTask]="true" [ifShowpagination]="[true,10]"
          [thArr]="thArrTeamReport" [tableDataKeys]="teamReportListKeys"
         [tableData]="teamsDetails"
         (EditTeamDetailsByAdmin)="editTeamDetailsByAdmin($event)"

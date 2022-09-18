@@ -1,7 +1,7 @@
 
 <app-smart-card   [title]="titleTableTask">
     <div body>
-      <app-smart-table [ifUpdate]="true" [ifDelete]="true" [thArr]="thArrTask" [ifSortDown]="ifSortDown" 
+      <app-smart-table [ifUpdate]="true" [ifDelete]="true" [thArr]="thArrTask" [ifShowpagination]="[true,10]" [ifSortDown]="ifSortDown" 
       [tableDataKeys]="taskListKeys" [tableData]="taskArr"
         (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
         (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (EditEmployeeDetailsByAdmin)="editEmployeeDetailsByAdmin($event)" (SortTableDown)="SortTableDown($event)"

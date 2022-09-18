@@ -36,6 +36,8 @@ export class FreedomProjectContentItemComponent implements OnInit {
   massgeUserBody = "קיימים דיווחים על התאריכים הנבחרים"
   massgeUserFooter = "?האם ברצונך להמשיך";
   isDisabled = false;
+  thArrTableProjectContentItem = ['שם', 'תאריך' ];
+  projectContentItemListKeys = ['Name', 'Date'];
   projectContentItemToCreate: any;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService,
     private datepipe: DatePipe) { }
@@ -108,6 +110,8 @@ export class FreedomProjectContentItemComponent implements OnInit {
     this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate,"").subscribe(res => {
       if (res) {
         this.MyProjectContectItemArr = res;
+        console.log(this.MyProjectContectItemArr);
+        
         if (this.MyProjectContectItemArr.length > 0) {
           this.showMassgeToUser = true;
         }

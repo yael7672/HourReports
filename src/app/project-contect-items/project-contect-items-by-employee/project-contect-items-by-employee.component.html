@@ -16,7 +16,7 @@
     </div>
     <div *ngIf="myProjectContectItemArr?.length > 0">
       <app-smart-table [ifUpdate]="true" [ifShowCheckBox]="true" [ifApproveReport]="true"
-        [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [tableDataKeys]="projectContentItemListKeys"
+        [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [ifShowpagination]="[true,10]" [tableDataKeys]="projectContentItemListKeys"
         [tableData]="myProjectContectItemArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
         (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
         (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails"
@@ -42,7 +42,7 @@
       <app-massge-to-user [kindOfMassage]="'kindOfMassageIfApprovalTheReports'" 
       [massgeUserHeader]="massgeUserHeader"
         [massgeUserBody1]="massgeUserBody1" [massgeUserBody2]="massgeUserBody2"
-        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+        (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true" [textOfBtnNo]="'לא, איני רוצה לאשר '" [textOfBtnYes]="'כן, אני רוצה לאשר'"></app-massge-to-user>
     </div>
   </app-pop-up>
 </div>

@@ -3,7 +3,9 @@
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassage" [massgeUserHeader]="massgeUserHeader"
           [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter" (clickYes)="clickYes($event)"
-          (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+          (clickNo)="clickNo($event)" [ifButton]="true" [textOfBtnNo]="'לא, איני רוצה למחוק את המשימה'" [textOfBtnYes]="'כן, אני רוצה למחוק את המשימה'">
+        <div body>שם המשימה: {{TasksName}}</div>
+        </app-massge-to-user>
       </div>
     </app-pop-up>
   </div>

@@ -1,18 +1,16 @@
-<!-- <div class="actionArea">
-    <app-smart-card>
-        <div body>
-            <a class="close" (click)="closePopUp()">&times;</a>
-            <h5> הגדרות מערכת</h5>
-            <button type="submit" class="btn" placement="bottom" 
-            placement="bottom" ngbTooltip="יצירת פרויקט">יצירת
-                פרויקט </button>
-        </div>
-
-    </app-smart-card>
-</div> -->
-<app-pop-up #upPopUP [ifX]="ifX"  >
-    <h4 header class="mb-4">יצירת דיווח</h4>
+<app-smart-card>
     <div body>
-        <h1>cdcdc</h1>
-        </div>
-</app-pop-up>
+        <h5> הגדרות מערכת</h5>
+        <div class="system-setting">
+        <a (click)="openPopUp('SystemSetting',true)" placement="top" ngbTooltip="הגדרות מערכת">
+            <i class="fa fa-cog mt-2" style="font-size: 24px;"></i></a>
+        
+            <a (click)="openPopUp('AddUser',true)" placement="top" ngbTooltip="הוספת משתמש">
+                <i class="iconify" data-icon="mingcute:user-add-fill" style="font-size: 24px;"></i>
+            </a>
+    </div>
+</div>
+</app-smart-card>
+<div *ngIf="isPopUpOpen?.AddUser">
+    <app-add-user></app-add-user>
+  </div>

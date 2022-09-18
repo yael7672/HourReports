@@ -25,7 +25,7 @@
     <p> סה"כ שעות מדווחות החודש: <span>{{hoursReportedThisMonth}}</span> </p>
     <p> סה"כ שעות עבודה לחודש זה: <span>{{workingDaysThisMonth}}</span> </p>
 
-    <app-smart-table [ifCreateReport]="true" [ifShowXorVIcons]="true" [ifTrIsNull]="true" [thArr]="thArrWorkingHours"
+    <app-smart-table [ifCreateReport]="true" [ifShowXorVIcons]="true" [ifShowpagination]="[true,10]" [ifTrIsNull]="true" [thArr]="thArrWorkingHours"
       [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
       [tableData]="detailsOfWorkingHourByEmployeeToSend" (SortTableDown)="SortTableDown($event)"
       (SortTableUp)="SortTableUp($event)" (CreateReport)="createReport($event)"
@@ -47,7 +47,7 @@
     <div body>
       <app-smart-card [title]="titleTable+' לתאריך ' + spesificDate">
         <div body>
-          <app-smart-table *ngIf="reportsBySpesificDate.length > 0" [thArr]="thArrTableProjectContentItem"
+          <app-smart-table *ngIf="reportsBySpesificDate.length > 0" [ifShowpagination]="[true,3]" [thArr]="thArrTableProjectContentItem"
             [tableData]="reportsBySpesificDate" [tableDataKeys]="projectContentItemListKeys">
           </app-smart-table>
           <div *ngIf="reportsBySpesificDate.length < 1">

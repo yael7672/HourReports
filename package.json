@@ -32,6 +32,7 @@
     "ng-click-outside": "^9.0.1",
     "ng-multiselect-dropdown": "^1.0.0-beta.16",
     "ngx-device-detector": "^3.0.0",
+    "ngx-pagination": "^6.0.2",
     "ngx-select-ex": "^8.0.1",
     "rxjs": "~7.5.0",
     "sweetalert": "^2.1.2",

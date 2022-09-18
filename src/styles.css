@@ -70,7 +70,9 @@ h4 {
 tr{
 text-align: center;
 }
-
+textarea.form-control {
+  min-height: 100px;
+}
 .card{
   display: flex;
   flex-direction: column;
@@ -81,11 +83,9 @@ text-align: center;
   background-color: #fff;
   max-width: 100%;
   min-width: 50%;
-
   margin: auto;
   padding: 20px;
   overflow-x: hidden;
-  min-width: 70%;
 }
 .task-card-timer {
   max-width: 600px;
@@ -124,3 +124,15 @@ text-align: center;
   margin: 0.9rem;
 } 
 
+.ngx-pagination {
+  margin-left: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+.ngx-pagination .current {
+  padding: 0.1875rem 0.625rem;
+  background: #f1b93c;
+  color: #fefefe;
+  cursor: default;
+}
