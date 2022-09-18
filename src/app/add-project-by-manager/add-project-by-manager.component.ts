@@ -14,23 +14,23 @@ import { UserServiceService } from '../user-service.service';
 })
 export class AddProjectByManagerComponent implements OnInit {
   todayDate: any;
-  myDate=new Date()
+  myDate = new Date()
   adminGuid: any;
-  ProjectManagerArr!: ownerid[]
+  ProjectManagerOrHeadProgrammerArr!: ownerid[]
   constructor(private userService: UserServiceService, private router: Router,
     private datePipe: DatePipe, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-   }
+  }
   isDisabled = false
   massageAddProject: any
-  @Input() ProjectTypeArr!:any
+  @Input() ProjectTypeArr!: any
 
   ngOnInit(): void {
     this.GetAllEmployee()
   }
   CreateNewProject(form: NgForm) {
     this.isDisabled = true;
-    form.value.ProjectType =form.value.ProjectType.Guid
+    form.value.ProjectType = form.value.ProjectType.Guid
     form.value.StartDate = this.datePipe.transform(form.value.StartDate, 'dd/MM/yyyy')
     form.value.EndDate = this.datePipe.transform(form.value.EndDate, 'dd/MM/yyyy')
     this.userService.AddNewProject(form.value).subscribe(res => {
@@ -49,8 +49,8 @@ export class AddProjectByManagerComponent implements OnInit {
     this.adminGuid = ""
     this.userService.GetAllEmployee(this.adminGuid).subscribe(
       (res: any) => {
-        this.ProjectManagerArr = res;
-
+        this.ProjectManagerOrHeadProgrammerArr = res;
+      
       },
       (err: any) =>
         console.log(err.error)

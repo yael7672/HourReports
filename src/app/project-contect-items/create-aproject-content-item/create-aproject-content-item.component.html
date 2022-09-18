@@ -25,14 +25,28 @@
                     </ng-template>
                 
                 </ngx-select> -->
-                <div class="card" style="overflow: hidden; height: 80px;">
-                    <ngx-select
-                    
-                        [items]="this.EmployeeeArr"
-                        placeholder="No city selected"
-                        appendTo="body">
-                    </ngx-select>
-                </div>
+                <ngx-select [items]="this.EmployeeeArr" [(ngModel)]="ngxValue"></ngx-select>
+                <!-- <div class="example-block">
+                    <div class="example-block__item">
+                        <ngx-select [multiple]="true"
+                                    [items]="this.EmployeeeArr"
+                                    [disabled]="ngxDisabled"
+                                    [(ngModel)]="ngxValue"
+                                    [autoClearSearch]="true"
+                                    placeholder="No city selected"
+                                    (selectionChanges)="doSelectOptions($event)">
+                        </ngx-select>
+                        <p></p>
+                        <div class="alert alert-secondary">
+                            <pre>{{ngxValue | json}}</pre>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" (click)="ngxDisabled = !ngxDisabled">
+                                {{ngxDisabled ? 'Enable' : 'Disable'}}
+                            </button>
+                        </div>
+                    </div>
+                </div> -->
             </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime &&!dateToUpdate" class="form-outline d-flex justify-content-center">
                 <input type="date" class="form-control" id="oneDate" name="oneDate"

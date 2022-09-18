@@ -17,33 +17,21 @@
                 <span *ngIf="ConfirmedHours.errors">שדה זה חובה</span>
             </div>
             <div class="form-outline d-flex justify-content-center">
-                <input type="date" id="date" name="StartDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
+                <input type="date" id="date" name="StartDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"  [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
                 [ngClass]="{ 'is-invalid': f.submitted && StartDate.invalid }" #StartDate="ngModel" ngModel required placeholder="תאריך התחלה " />
             </div>
             <div *ngIf="f.submitted && StartDate.invalid" class="text-danger">
                 <span *ngIf="StartDate.errors">שדה זה חובה</span>
             </div>
             <div class="form-outline d-flex justify-content-center">
-                <input type="date" id="date" name="EndDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
+                <input type="date" id="date" name="EndDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"    [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
                 [ngClass]="{ 'is-invalid': f.submitted && EndDate.invalid }"  #EndDate="ngModel" ngModel required placeholder="תאריך סיום " />
             </div>
             <div *ngIf="f.submitted && EndDate.invalid" class="text-danger">
                 <span *ngIf="EndDate.errors">שדה זה חובה</span>
             </div>
-            <!-- <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control" name="ProjectType" #ProjectType="ngModel" ngModel 
-                [ngClass]="{ 'is-invalid': f.submitted && ProjectType.invalid }" required>
-                <option value="">סוג פרויקט</option>
-                <option *ngFor="let ProjectType of ProjectTypeArr" value="{{ProjectType.Guid}}">
-                    {{ProjectType.Name}}</option>
-                </select>
-            </div>
-            
-            <div *ngIf="f.submitted && ProjectType.invalid" class="text-danger">
-                <span *ngIf="ProjectType.errors">שדה זה חובה</span>
-              </div> -->
               <div class="form-outline d-flex justify-content-center mb-4">
-                <ng-autocomplete style="width: 100%;" [data]="ProjectTypeArr" [searchKeyword]="'Name'" placeholder="  פרויקט" 
+                <ng-autocomplete style="width: 100%;" [data]="ProjectTypeArr" [searchKeyword]="'Name'" placeholder=" סוג פרויקט" 
                 historyIdentifier="ProjectType" class="autoComplete" [itemTemplate]="itemTemplate" 
                  ngModel name="ProjectType" #ProjectType="ngModel" required [notFoundTemplate]="notFoundTemplate">
              </ng-autocomplete>
@@ -61,24 +49,24 @@
                 <select id="inputState" class="form-control" name="ProjectManager" #ProjectManager="ngModel" ngModel 
                 [ngClass]="{ 'is-invalid': f.submitted && ProjectManager.invalid }" required>
                 <option value="">מנהל פרויקט</option>
-                <option *ngFor="let ProjectManager of ProjectManagerArr" value="{{ProjectManager.Guid}}">
+                <option *ngFor="let ProjectManager of ProjectManagerOrHeadProgrammerArr" value="{{ProjectManager.Guid}}">
                     {{ProjectManager.Name}}</option>
                 </select>
             </div>
             <div *ngIf="f.submitted && ProjectManager.invalid" class="text-danger">
                 <span *ngIf="ProjectManager.errors">שדה זה חובה</span>
               </div>
-              <!-- <div class="form-outline d-flex justify-content-center">
+              <div class="form-outline d-flex justify-content-center">
                 <select id="inputState" class="form-control" name="HeadProgrammer" #HeadProgrammer="ngModel" ngModel 
                 [ngClass]="{ 'is-invalid': f.submitted && HeadProgrammer.invalid }" required>
                 <option value="">מתכנת ראשי</option>
-                <option *ngFor="let HeadProgrammer of HeadProgrammerArr" value="{{HeadProgrammer.Guid}}">
+                <option *ngFor="let HeadProgrammer of ProjectManagerOrHeadProgrammerArr" value="{{HeadProgrammer.Guid}}">
                     {{HeadProgrammer.Name}}</option>
                 </select>
             </div>
             <div *ngIf="f.submitted && HeadProgrammer.invalid" class="text-danger">
                 <span *ngIf="HeadProgrammer.errors">שדה זה חובה</span>
-              </div> -->
+              </div>
 
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Project" name="Description" class="form-control" placeholder="תיאור הפרויקט *"
