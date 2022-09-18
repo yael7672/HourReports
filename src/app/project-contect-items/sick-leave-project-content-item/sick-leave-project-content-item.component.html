@@ -61,8 +61,8 @@
                         </textarea>
             </div>
          
-            <button type="submit" class="btn "  placement="bottom"
-            ngbTooltip="יצירת דיווח עבור יום/שעות מחלה" [disabled]="isDisabled">צור דיווח  </button>
+            <button type="submit" class="btn "  placement="top"
+            ngbTooltip="יצירת דיווח עבור יום/שעות מחלה" [disabled]="isDisabled">   צור דיווח - מחלה </button>
         </form>
     </div>
     <div footer>
@@ -73,7 +73,13 @@
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassage" [massgeUserHeader]="massgeUserHeader"
           [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter"
-          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [ifButton]="true"></app-massge-to-user>
+          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [textOfBtnNo]="'לא, איני מעוניין להמשיך'" [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'" [ifButton]="true" 
+          >
+          <div body>
+            <app-smart-table [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
+                [tableData]="MyProjectContectItemArr">
+            </app-smart-table>
+        </div></app-massge-to-user>
       </div>
     </app-pop-up>
   </div>

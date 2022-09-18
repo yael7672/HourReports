@@ -37,7 +37,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
   allUserAndTeams: any;
   systemGuid: any;
   actualHours: any;
-  date:any;
+  date: any;
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserServiceService, private appService: AppService,
     private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
@@ -67,13 +67,13 @@ export class UpdateProjectContentItemComponent implements OnInit {
 
   UpdateTaskDetails(form: NgForm) {
     this.TaskToUpdate = {
-      Date:this.date,
-      Project: form.value.Project.Guid,
-      TaskGuid: this.ProjectContentItem.TaskGuid,
-      WorkType: form.value.WorkType.Guid,
-      AssignTask: form.value.AssignTask.Guid,
-      Description: this.ProjectContentItem.Description,
-      Subject: this.ProjectContentItem.Subject,
+      Date: this.date,
+      Project: form.value.Project?.Guid ? form.value.Project?.Guid : "",
+      TaskGuid: this.ProjectContentItem?.TaskGuid ? this.ProjectContentItem?.TaskGuid : "",
+      WorkType: form.value.WorkType?.Guid ? form.value.WorkType?.Guid : "",
+      AssignTask: form.value.AssignTask?.Guid ? form.value.AssignTask?.Guid : "",
+      Description: this.ProjectContentItem?.Description ? this.ProjectContentItem?.Description : "",
+      Subject: this.ProjectContentItem?.Subject ? this.ProjectContentItem?.Subject : "",
     }
     this.userService.UpdateTaskDetails(this.TaskToUpdate.TaskGuid, this.TaskToUpdate.Project, this.TaskToUpdate.Description, this.TaskToUpdate.Subject, this.TaskToUpdate.WorkType, this.TaskToUpdate.AssignTask).subscribe(
       (res) => {
@@ -88,9 +88,9 @@ export class UpdateProjectContentItemComponent implements OnInit {
     )
   }
   UpdateProjectItemButton(form: NgForm) {
-    
+
     this.ProjectItemToUpdate = {
-      Date:this.date,
+      Date: this.date,
       Guid: this.ProjectContentItem.Guid,
       Description: this.ProjectContentItem.Description,
       ActualTime: this.actualHours,

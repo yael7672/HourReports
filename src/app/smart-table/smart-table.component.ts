@@ -28,12 +28,14 @@ export class SmartTableComponent implements OnInit {
   @Input() tableData: any
   @Input() tableDataKeys: any
   @Input() hideSort: any
-  @Input() showGraph: any
+  @Input() showGraph: any;
+  @Input() ifShowpagination: any
   @Input() ifShowAndEditTeamSetting!: boolean
   @Input() ifShowOpenTeamTask!: boolean
   @Input() ifCreateReport!: boolean;
   @Input() ifShowAndEditEmployeeSetting: any
   @Input() ifDeleteTask: any
+  @Input() showProjectContentItemBySpecificDay: any
   @Input() showMassgeToUserDeleteTask: any
   @Input() showEmployeeProductivityForMonth!: boolean;
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
@@ -50,7 +52,9 @@ export class SmartTableComponent implements OnInit {
   @Output() CreateReport = new EventEmitter<any>();
   @Output() EditEmployeeDetailsByAdmin = new EventEmitter<any>();
   @Output() GoToDetailsOfWorkingHoursForEmployee = new EventEmitter<any>();
-   
+  @Output() ShowProjectContentItemBySpecificDay = new EventEmitter<any>();
+
+  p:any
 
   ifDelete1 = true;
   ifUpdate1 = true
@@ -168,4 +172,10 @@ export class SmartTableComponent implements OnInit {
     this.GoToDetailsOfWorkingHoursForEmployee.emit(val);
 
   }
+  goToshowProjectContentItemBySpecificDay(val:any)
+  {
+    this.ShowProjectContentItemBySpecificDay.emit(val);
+
+  }
+  
 }

@@ -39,7 +39,7 @@
   </div>
 
   <div *ngIf="startWorkOfTask">
-    <a (click)="returnToTheOpenTask()" placement="bottom" ngbTooltip="חזרה למשימה פתוחה"><i id="clock-history"
+    <a (click)="returnToTheOpenTask()" placement="right" ngbTooltip="חזרה למשימה  : {{taskListDataDetailsParseToJson.Subject}}"><i id="clock-history"
         class="iconify" data-icon="bi:clock-history"></i></a>
   </div>
 
@@ -77,15 +77,16 @@
   <div *ngIf="isPopUpOpen?.MessageToTheManager">
     <app-massege-to-manager></app-massege-to-manager>
   </div>
-  
+
   <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
     <app-pop-up>
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
           [inputValue]="taskNameFromLocalStorage"
-          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody"
+          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody" [textOfBtnNo]="'לא, איני מעוניין להמשיך'" [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'"
           [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true"
-          [massgeUserBody1]="" (clickYes)="clickYesGoingBreak($event)" (clickNo)="clickNoGoingbreak()"></app-massge-to-user>
+          [massgeUserBody1]="" (clickYes)="clickYesGoingBreak($event)" (clickNo)="clickNoGoingbreak()">
+        </app-massge-to-user>
       </div>
     </app-pop-up>
   </div>

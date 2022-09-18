@@ -58,6 +58,7 @@ import { DetailsOfWorkingHoursEmployeeForAdminComponent } from './details-of-wor
 import { NgxSelectModule } from 'ngx-select-ex';
 import { SystemSettingComponent } from './system-setting/system-setting.component';
 import { AddProjectByManagerComponent } from './add-project-by-manager/add-project-by-manager.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -79,7 +80,8 @@ import { AddProjectByManagerComponent } from './add-project-by-manager/add-proje
     NgbModule,
     ClickOutsideModule,
     AutocompleteLibModule,
-    NgxSelectModule
+    NgxSelectModule,
+    NgxPaginationModule
     // NgMultiSelectDropDownModule.forRoot(),
 
    

@@ -1,7 +1,7 @@
 
   <app-smart-card  [title]="titleTableProjectContentItemComponent">
     <div body>
-<app-smart-table  [ifUpdate]="true" [ifDelete]="true" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
+<app-smart-table  [ifUpdate]="true" [ifDelete]="true" [ifShowpagination]="[true,10]" [title]="'דיווחי שעות'" [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
  [tableData]="projectContentItemArr"
  (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)" 
  (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" [ifSortDown]="ifSortDown"  (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" >

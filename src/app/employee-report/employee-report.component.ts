@@ -20,6 +20,8 @@ export class EmployeeReportComponent implements OnInit {
   isPopUpOpen: any;
   employeeDetailsVal: any;
   title = "דו'ח עובדים";
+  employeesName: any;
+  employeesDetailsCopy: any[]=[]
 
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private appService: AppService) {
@@ -35,9 +37,12 @@ export class EmployeeReportComponent implements OnInit {
 
   }
   GetEmployeeDetails() {
-    this.userService.GetEmployeeDetails(this.systemGuid,"", "").subscribe(
+    this.userService.GetEmployeeDetails(this.systemGuid, "", "").subscribe(
       (res: any) => {
         this.employeeDetails = res;
+        this.employeesDetailsCopy = res
+        console.log(this.employeesName);
+        
       },
       (err: any) =>
         console.log(err.error)
@@ -131,10 +136,20 @@ export class EmployeeReportComponent implements OnInit {
       this.route.navigate(['/menu/team-report'])
     }
   }
-  goToDetailsOfWorkingHoursForEmployee(employeeDeatils:any)
-  {
+  goToDetailsOfWorkingHoursForEmployee(employeeDeatils: any) {
     localStorage.setItem('employeeDetails', JSON.stringify(employeeDeatils))
-    this.route.navigate(['/menu/details-of-working-hours-employee-for-admin',employeeDeatils.EmployeeGuid])
+    this.route.navigate(['/menu/details-of-working-hours-employee-for-admin', employeeDeatils.EmployeeGuid])
 
+  }
+  onSearchEmployee(filterKeyBySubject: any) {
+    this.employeeDetails = [...this.employeesDetailsCopy];
+    if (filterKeyBySubject !== "" && filterKeyBySubject !== null && filterKeyBySubject !== undefined) {
+      this.employeeDetails = this.employeeDetails.filter((f: any) => f?.EmployeeName.includes(filterKeyBySubject));
+    }
+    else {
+      if (filterKeyBySubject == "" || filterKeyBySubject == null || filterKeyBySubject !== undefined) {
+        this.employeeDetails = [...this.employeesDetailsCopy];
+      }
+    }
   }
 }

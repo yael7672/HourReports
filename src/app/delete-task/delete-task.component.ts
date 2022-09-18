@@ -11,19 +11,25 @@ import { UserServiceService } from '../user-service.service';
 })
 export class DeleteTaskComponent implements OnInit {
   @Input() TaskGuid:any
+  @Input() TasksName:any
   massageToUser: any;
   showMassgeToUserDeleteTask=true;
   ifSortDown = true;
   massgeUserHeader = "";
-  massgeUserBody = "האם אתה בטוח שברצונך למחוק משימה זו?"
+  massgeUserBody = "?האם אתה בטוח שברצונך למחוק משימה זו"
   massgeUserFooter = "";
   kindOfMassage = 'deleteTask';
+  taskListDataDetails: any
+  taskListDataDetailsParseToJson: any;
+  taskNameFromLocalStorage: any;
+  
   // massageToUser = "";
 
   constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
   }
 
   ngOnInit(): void {
+  
   }
   clickYes(kindOfMassage: string) {
     if (kindOfMassage = 'checkIfIsReportOnThisDate') {

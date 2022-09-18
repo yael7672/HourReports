@@ -33,7 +33,7 @@
                 [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer"
                 (clickYes)="clickYes(this.TimeProjectContectItemHour)" (clickCancel)="clickCancel($event)"
                 [ButtonCancel]="ButtonCancel" (clickNo)="clickNo($event)" [ifButton]="true"
-                [kindOfMassage]="projectContectItemByTimer"></app-massge-to-user>
+                [kindOfMassage]="projectContectItemByTimer" [textOfBtnNo]="'לא, איני רוצה לסיים '" [textOfBtnYes]="'כן, אני רוצה  לסיים'"></app-massge-to-user>
         </div>
     </app-pop-up>
 </div>
@@ -43,7 +43,7 @@
             <app-massge-to-user [kindOfMassage]="projectContectItemByTimer"
                 [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer"
                 (clickYes)="clickYes(this.TimeProjectContectItemHour)" (clickYes)="clickCancel($event)"
-                (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="projectContectItemByTimer">
+                (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="projectContectItemByTimer" [textOfBtnNo]="'לא, איני רוצה לסיים דיווח זה  '" [textOfBtnYes]="'כן, אני רוצה לסיים דיווח זה  '">
             </app-massge-to-user>
         </div>
     </app-pop-up>

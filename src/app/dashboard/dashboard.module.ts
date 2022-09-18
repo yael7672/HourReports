@@ -56,6 +56,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
 import { SystemSettingComponent } from '../system-setting/system-setting.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
  declarations:[
@@ -103,7 +104,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     DeleteTaskComponent,
     MassegeToManagerComponent,
     DetailsOfWorkingHoursEmployeeForAdminComponent,
-    SystemSettingComponent
+    SystemSettingComponent,
+    
 
 ],
  imports : [
@@ -114,7 +116,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     NgbModule,
     ClickOutsideModule,
     AutocompleteLibModule,
-    NgxSelectModule
+    NgxSelectModule,
+    NgxPaginationModule
 
 ],
 providers: [],

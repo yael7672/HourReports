@@ -128,6 +128,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       this.sortByDateRange()
     }
     else {
+      this.showInputsDates = false;
       this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
       this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
       this.detailsOfWorkingHourByEmployeeToSend = [];
@@ -190,7 +191,6 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
   sortByDateRange() {
-
     this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
     this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
     this.detailsOfWorkingHourByEmployeeToSend = [];

@@ -1,16 +1,18 @@
-
 <div header>
     <h3>{{massgeUserHeader}}</h3>
 </div>
 <div class="body" body>
     <h3 *ngIf="massgeUserBody1">{{massgeUserBody1}}</h3>
-    <h5 *ngIf="massgeUserBody2" > {{massgeUserBody2}}</h5>
-    <h5 *ngIf="inputValue" > {{inputValue}}</h5>
+    <h5 *ngIf="massgeUserBody2"> {{massgeUserBody2}}</h5>
+    <h5 *ngIf="inputValue"> {{inputValue}}</h5>
+    <ng-content select="[body]">
+    </ng-content>
 </div>
 <br>
 <div class="footer">
-    <button *ngIf="ifButton" (click)="BtnNo()" type="button" class="btn btn-color">לא</button>
-    <button   *ngIf="ifButton" (click)="BtnYes()" type="button" class="btn btn-color">כן</button> 
-    <button   *ngIf="ifButton&&ButtonCancel==true" (click)="BtnCancel()" type="button" class="btn btn-color">בטל דיווח</button> 
+    <button *ngIf="ifButton" (click)="BtnNo()" type="button" class="btn btn-color">{{textOfBtnNo}}</button>
+    <button *ngIf="ifButton" (click)="BtnYes()" type="button" class="btn btn-color">{{textOfBtnYes}}</button>
+    <button *ngIf="ifButton&&ButtonCancel==true" (click)="BtnCancel()" type="button" class="btn btn-color">בטל
+        דיווח</button>
 
 </div>

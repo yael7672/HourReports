@@ -51,6 +51,8 @@ export class ShowMyTaskComponent implements OnInit {
   employeeDetails: any;
   systemGuidFromLocalStorage: any;
   employeeDetailsParseJson: any;
+  tasksGuid: any;
+  tasksName: any;
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
      private appService: AppService, private userService: UserServiceService,private route : Router ) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -231,11 +233,14 @@ export class ShowMyTaskComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.showMassgeToUser = true;
     this.projectContentItemGuid = projectContectItem.Guid;
+
   }
   DeleteTask(Tasks: any) {  
     this.popUpService.setSpecificPopUp(true, 'DeleteTask');
   this.showMassgeToUserDeleteTask = true;
-    this.TasksGuid = Tasks.TaskGuid;
+    this.tasksGuid = Tasks.TaskGuid;
+    this.tasksName = Tasks.Subject;
+
   }
 // מפה חיפוש ומיון
   WhichTableOpen(val: any) {
