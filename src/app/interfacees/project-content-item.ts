@@ -15,5 +15,6 @@ export interface ProjectContentItem {
     Regardingobjectid: Regardingobjectid;
     Description: string;
     WorkType: WorkType;
+    MoreEmployee:ownerid[]
 }
 
