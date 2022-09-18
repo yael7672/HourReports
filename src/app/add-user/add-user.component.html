@@ -1,0 +1,68 @@
+<app-pop-up #upPopUP [ifX]="true">
+    <div body>
+        <h4 header class="mb-4">הוספת עובד</h4>
+
+        <form (ngSubmit)="f.valid && AddNewUser(f)" #f="ngForm">
+            <div class="form-outline d-flex justify-content-center">
+                <input type="text" id="name" name="name" class="form-control" placeholder="שם" ngModel #name="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && name.invalid" class="text-danger">
+                <span *ngIf="name.errors">שדה זה חובה</span>
+            </div>
+
+            <div class="form-outline d-flex justify-content-center">
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="טלפון" ngModel #phone="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && phone.invalid" class="text-danger">
+                <span *ngIf="phone.errors">שדה זה חובה</span>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="email" id="mail" name="mail" class="form-control" placeholder="דואר אלקטרוני" ngModel #mail="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && mail.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && mail.invalid" class="text-danger">
+                <span *ngIf="mail.errors">שדה זה חובה</span>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="password" id="password" name="password" class="form-control" placeholder="סיסמא" ngModel #password="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && password.invalid" class="text-danger">
+                <span *ngIf="password.errors">שדה זה חובה</span>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="text" id="role" name="role" class="form-control" placeholder="תפקיד" ngModel #role="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && role.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && role.invalid" class="text-danger">
+                <span *ngIf="role.errors">שדה זה חובה</span>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="number" id="jobPercentage" name="jobPercentage" class="form-control" placeholder="אחוז משרה" ngModel #jobPercentage="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jobPercentage.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && jobPercentage.invalid" class="text-danger">
+                <span *ngIf="jobPercentage.errors">שדה זה חובה</span>
+            </div>
+            <!-- <div class="form-outline d-flex justify-content-center">
+                <input type="number" id="jobPercentage" name="jobPercentage" class="form-control" placeholder="אחוז משרה" ngModel #jobPercentage="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jobPercentage.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && jobPercentage.invalid" class="text-danger">
+                <span *ngIf="jobPercentage.errors">שדה זה חובה</span>
+            </div> -->
+            <div class="form-outline d-flex justify-content-center">
+                <input type="number" id="monthlyHours" name="monthlyHours" class="form-control" placeholder="שעות חודשיות" ngModel #monthlyHours="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jobPercentage.invalid }" required />
+            </div>
+            <div *ngIf="f.submitted && monthlyHours.invalid" class="text-danger">
+                <span *ngIf="monthlyHours.errors">שדה זה חובה</span>
+            </div>
+            
+            <button type="submit" placement="bottom" ngbTooltip="יצירת עובד חדש" class="btn" [disabled]="isDisabled">צור
+                עובד חדש</button>
+        </form>
+    </div>
+</app-pop-up>

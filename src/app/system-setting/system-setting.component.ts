@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
+import { UserServiceService } from '../user-service.service';
 
 @Component({
   selector: 'app-system-setting',
@@ -9,8 +10,15 @@ import { PopUpServiceService } from '../pop-up-service.service';
 })
 export class SystemSettingComponent implements OnInit {
  titleSystemSetting="הגדרות מערכת"
-  constructor(private appService:AppService, private popUpService:PopUpServiceService) { }
- 
+ isPopUpOpen :any;
+ isDisabled = false;
+
+ constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
+   this.popUpService.getKindOfPopUp().subscribe(res => {
+     this.isPopUpOpen = res;
+     console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
+   }) 
+  }
   ngOnInit(): void {
   }
   ifX=true
@@ -19,7 +27,8 @@ export class SystemSettingComponent implements OnInit {
     this.popUpService.setClosePopUp();
     console.log("ClosePopUp");
   }
-
-
-  
+  openPopUp(data: string, type: boolean) {
+        this.appService.setIsPopUpOpen(true);
+        this.popUpService.setSpecificPopUp(type, data)
+  }
 }
