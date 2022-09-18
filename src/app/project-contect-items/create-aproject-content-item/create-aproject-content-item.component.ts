@@ -12,6 +12,7 @@ import swal from 'sweetalert';
 import { AppService } from '../../app-service.service';
 import { PopUpServiceService } from '../../pop-up-service.service';
 import { ownerid } from 'src/app/interfacees/ownerid';
+import { INgxSelectOption } from 'ngx-select-ex/ngx-select/ngx-select.interfaces';
 
 @Component({
   selector: 'app-create-aproject-content-item',
@@ -35,7 +36,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
   EmployeeeArr!: ownerid[]
-  EmployeeeArr2!:any[]
+  EmployeeeArr2!: any[]
   ProjectContentItem!: any
   systemGuid: any;
   ProjectItem!: any
@@ -61,7 +62,11 @@ export class CreateAprojectContentItemComponent implements OnInit {
   timetoSend: any;
   interval: any;
   parseTime: any;
-  ngxControl:any
+  ngxControl: any
+  ngxValue: any = [];
+  ngxDisabled = false;
+  // doSelectOptions = (options: INgxSelectOption[]) => {console.log('MultipleDemoComponent.doSelectOptions', options)
+  // alert("dddd");}
   massgeUserCloseProjectContectItemByTimerCancel = "האם ברצונך לבטל דיווח זה?"
   showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
@@ -90,8 +95,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project.Guid },
-      form.value.WorkType = { "Guid": form.value.workType.Guid }
+    form.value.Project = { "Guid": form.value.Project.Guid },
+    form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
@@ -118,7 +123,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.userServiceService.GetAllEmployee(this.adminGuid).subscribe(
       (res: any) => {
         this.EmployeeeArr = res;
-        this.EmployeeeArr2=res
       },
       (err: any) =>
         console.log(err.error)
@@ -210,7 +214,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.billingHours1 = "2";
           this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
         }
-     
+
   }
   CancelProjectContectItem() {
     this.showMassgeToUserCancelProjectContectItemWithTimerInCreate = true
@@ -241,9 +245,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
       (res) => {
         this.massageToUser = res;
         swal("!הדיווח בוטל")
-          this.appService.setIsPopUpOpen(false);
-          this.popUpService.setClosePopUp();
-         this.popUpService.setAllmyProjectContectItem(true)
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
+        this.popUpService.setAllmyProjectContectItem(true)
       },
       (err) =>
         swal(err.error))

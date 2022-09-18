@@ -1,1 +1,83 @@
-<p>add-project-by-manager works!</p>
+<app-pop-up #upPopUP [ifX]="true">
+    <h4 header class="mb-4">יצירת פרויקט</h4>
+    <div body>
+        <form (ngSubmit)="f.valid && CreateNewProject(f)" #f="ngForm">
+            <div class="form-outline d-flex justify-content-center">
+                <input type="text" id="Name" name="Name" class="form-control" placeholder="שם הפרויקט*"
+                    [ngClass]="{ 'is-invalid': f.submitted && Name.invalid }" #Name="ngModel" ngModel required />
+            </div>
+            <div *ngIf="f.submitted && Name.invalid" class="text-danger">
+                <span *ngIf="Name.errors">שדה זה חובה</span>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="text" id="ConfirmedHours" name="ConfirmedHours" class="form-control" placeholder=" שעות לאישור*"
+                    [ngClass]="{ 'is-invalid': f.submitted && ConfirmedHours.invalid }" #ConfirmedHours="ngModel" ngModel required />
+            </div>
+            <div *ngIf="f.submitted && ConfirmedHours.invalid" class="text-danger">
+                <span *ngIf="ConfirmedHours.errors">שדה זה חובה</span>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="date" id="date" name="StartDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"  [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+                [ngClass]="{ 'is-invalid': f.submitted && StartDate.invalid }" #StartDate="ngModel" ngModel required placeholder="תאריך התחלה " />
+            </div>
+            <div *ngIf="f.submitted && StartDate.invalid" class="text-danger">
+                <span *ngIf="StartDate.errors">שדה זה חובה</span>
+            </div>
+            <div class="form-outline d-flex justify-content-center">
+                <input type="date" id="date" name="EndDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"    [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+                [ngClass]="{ 'is-invalid': f.submitted && EndDate.invalid }"  #EndDate="ngModel" ngModel required placeholder="תאריך סיום " />
+            </div>
+            <div *ngIf="f.submitted && EndDate.invalid" class="text-danger">
+                <span *ngIf="EndDate.errors">שדה זה חובה</span>
+            </div>
+              <div class="form-outline d-flex justify-content-center mb-4">
+                <ng-autocomplete style="width: 100%;" [data]="ProjectTypeArr" [searchKeyword]="'Name'" placeholder=" סוג פרויקט" 
+                historyIdentifier="ProjectType" class="autoComplete" [itemTemplate]="itemTemplate" 
+                 ngModel name="ProjectType" #ProjectType="ngModel" required [notFoundTemplate]="notFoundTemplate">
+             </ng-autocomplete>
+             <ng-template #itemTemplate let-item >
+                 <a [innerHTML]="item.Name"></a>
+             </ng-template>
+             <ng-template #notFoundTemplate let-notFound>
+                 <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+             </ng-template>
+            </div>
+            <div *ngIf="f.submitted && ProjectType.invalid" class="text-danger">
+                <span *ngIf="ProjectType.errors">שדה זה חובה</span>
+              </div>
+              <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control" name="ProjectManager" #ProjectManager="ngModel" ngModel 
+                [ngClass]="{ 'is-invalid': f.submitted && ProjectManager.invalid }" required>
+                <option value="">מנהל פרויקט</option>
+                <option *ngFor="let ProjectManager of ProjectManagerOrHeadProgrammerArr" value="{{ProjectManager.Guid}}">
+                    {{ProjectManager.Name}}</option>
+                </select>
+            </div>
+            <div *ngIf="f.submitted && ProjectManager.invalid" class="text-danger">
+                <span *ngIf="ProjectManager.errors">שדה זה חובה</span>
+              </div>
+              <div class="form-outline d-flex justify-content-center">
+                <select id="inputState" class="form-control" name="HeadProgrammer" #HeadProgrammer="ngModel" ngModel 
+                [ngClass]="{ 'is-invalid': f.submitted && HeadProgrammer.invalid }" required>
+                <option value="">מתכנת ראשי</option>
+                <option *ngFor="let HeadProgrammer of ProjectManagerOrHeadProgrammerArr" value="{{HeadProgrammer.Guid}}">
+                    {{HeadProgrammer.Name}}</option>
+                </select>
+            </div>
+            <div *ngIf="f.submitted && HeadProgrammer.invalid" class="text-danger">
+                <span *ngIf="HeadProgrammer.errors">שדה זה חובה</span>
+              </div>
+
+            <div class="form-outline d-flex justify-content-center">
+                <input type="text" id="Project" name="Description" class="form-control" placeholder="תיאור הפרויקט *"
+                    [ngClass]="{ 'is-invalid': f.submitted && Description.invalid }" #Description="ngModel" ngModel required />
+            </div>
+            <div *ngIf="f.submitted && Description.invalid" class="text-danger">
+                <span *ngIf="Description.errors">שדה זה חובה</span>
+            </div>
+            <button type="submit" placement="bottom" ngbTooltip="יצירת משימה חדשה" class="btn"
+                [disabled]="isDisabled">צור משימה חדשה</button>
+
+        </form>
+    </div>
+</app-pop-up>

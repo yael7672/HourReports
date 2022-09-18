@@ -5,11 +5,11 @@ import { averageBreaks } from './interfacees/averageBreaks';
 import { ownerid } from './interfacees/ownerid';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
+import { ProjectToCreate } from './interfacees/ProjectToCreate';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
 import { TaskByGuid } from './interfacees/TaskByGuid';
 import { User } from './interfacees/user';
 import { WorkType } from './interfacees/work-type';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -148,7 +148,14 @@ console.log(this.a);
   GetTaskByTeamGuid(TeamGuid: string) {
     return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)
   }
-  GetDetailsOfWorkingHourByEmployee(SystemGuid: string, SelectedTime: number, FromDate: string, UntilDate: string) {
-    return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate)
+  AddNewProject(project:ProjectToCreate) {
+    return this.http.post<string>(environment.url + 'AddNewProject?OrganizationName=AuroraProd', project);
+  }
+  GetProjectsBySystemUser(SystemGuid:any){
+    return this.http.get<any>(environment.url + 'GetProjectsBySystemUser/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+  }
+
+  GetDetailsOfWorkingHourByEmployee(SystemGuid:string,SelectedTime:number,FromDate:string,UntilDate:string) {
+    return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+'&SelectedTime='+SelectedTime+'&FromDate='+FromDate+'&UntilDate='+UntilDate)
   }
 }

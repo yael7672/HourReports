@@ -93,6 +93,8 @@ export class TimeCounterComponent implements OnInit {
         this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
         this.isDisabledStart = false;
         this.isTaskAccomplished = false;
+        this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+        this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
         this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.taskListDataDetailsParseToJson.TaskGuid,
           this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
             res => {

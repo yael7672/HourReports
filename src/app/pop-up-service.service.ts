@@ -42,6 +42,8 @@ export class PopUpServiceService {
       ProjectContentItemBySpesificDate: type === 'ProjectContentItemBySpesificDate' ? data : false,
       SystemSetting: type === 'SystemSetting' ? data : false,
 
+      
+
     }
     this.setKindOfPopUp(obj)
   }

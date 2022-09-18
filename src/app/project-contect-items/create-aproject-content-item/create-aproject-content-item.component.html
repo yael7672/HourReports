@@ -9,49 +9,43 @@
                     (change)="checkIfReportMoreEmployees(isChecked)">
             </div>
             <div *ngIf="openInputReportMoreEmployee">
-                <div class="form-outline d-flex justify-content-center mb-4">
-               
-                    <!-- <ng-autocomplete style="width:100%;" multiple class="autoComplete" [data]=" this.EmployeeeArr"
-                        [searchKeyword]="'Name'" placeholder="עובדים נוספים" historyIdentifier="ReportMoreEmployee"
-                        [itemTemplate]="itemTemplate" ngModel name="ReportMoreEmployee" #ReportMoreEmployee="ngModel"
-                        required [notFoundTemplate]="notFoundTemplate">
-                    </ng-autocomplete>
-                    <ng-template #itemTemplate let-item>
-                        <a [innerHTML]="item.Name"></a>
+                <!-- <ngx-select [items]="this.EmployeeeArr" optionValueField="hex" optionTextField="name" [(ngModel)]="ngxValue">
+                    <ng-template ngx-select-option-selected let-option let-text="text">
+                        <span class="color-box" ></span>
+                        <span [innerHtml]="text"></span>
+                        {{option.Name}}
                     </ng-template>
-                    <ng-template #notFoundTemplate let-notFound>
-                        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-                    </ng-template> -->
-                    <!-- מפה MULTY -->
-                    <div class="example-block">
-                        <div class="example-block__item">
-                            <ngx-select [formControl]="ngxControl"
-                                      
-                                        placeholder="No city selected">
-                            </ngx-select>
-                            <p></p>
-                            <div class="alert alert-secondary">
-                                <pre>{{ngxControl.value | json}}</pre>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-primary"
-                                        (click)="ngxControl.disabled? ngxControl.enable(): ngxControl.disable()">
-                                    {{ngxControl.disabled ? 'Enable' : 'Disable'}}
-                                </button>
-                            </div>
+                    <ng-template ngx-select-option let-option let-text="text">
+                        <span class="color-box"></span>
+                        <span [innerHtml]="text"></span>
+                        {{option.Name}}
+                    </ng-template>
+                    <ng-template ngx-select-option-not-found>
+                        Nothing found
+                    </ng-template>
+                
+                </ngx-select> -->
+                <ngx-select [items]="this.EmployeeeArr" [(ngModel)]="ngxValue"></ngx-select>
+                <!-- <div class="example-block">
+                    <div class="example-block__item">
+                        <ngx-select [multiple]="true"
+                                    [items]="this.EmployeeeArr"
+                                    [disabled]="ngxDisabled"
+                                    [(ngModel)]="ngxValue"
+                                    [autoClearSearch]="true"
+                                    placeholder="No city selected"
+                                    (selectionChanges)="doSelectOptions($event)">
+                        </ngx-select>
+                        <p></p>
+                        <div class="alert alert-secondary">
+                            <pre>{{ngxValue | json}}</pre>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" (click)="ngxDisabled = !ngxDisabled">
+                                {{ngxDisabled ? 'Enable' : 'Disable'}}
+                            </button>
                         </div>
                     </div>
-                </div>
-                <!-- <multiselect-autocomplet></multiselect-autocomplet> -->
-
-                <!--             
-                <div class="form-outline d-flex justify-content-center ">
-                    <input type="text" id="ReportMoreEmployee" name="ReportMoreEmployee" class="form-control" ngModel
-                        name="ReportMoreEmployee" #ReportMoreEmployee="ngModel" placeholder="עובדים נוספים"
-                        [ngClass]="{ 'is-invalid': f.submitted && ReportMoreEmployee.invalid }" required>
-                </div> -->
-                <!-- <div *ngIf="f.submitted && ReportMoreEmployee.invalid" class="text-danger">
-                    <span *ngIf="ReportMoreEmployee.errors">שדה זה חובה</span>
                 </div> -->
             </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime &&!dateToUpdate" class="form-outline d-flex justify-content-center">
