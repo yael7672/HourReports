@@ -36,6 +36,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
   EmployeeeArr!: ownerid[]
+  EmployeeeArrWithOutMe: ownerid[] = []
   EmployeeeArr2!: any[]
   ProjectContentItem!: any
   systemGuid: any;
@@ -63,7 +64,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
   interval: any;
   parseTime: any;
   ngxControl: any
-  ngxValue: any = [];
+  MoreEmployeeArr: any = [];
+  MoreEmployeeGuid: any[] = [];
+
   ngxDisabled = false;
   // doSelectOptions = (options: INgxSelectOption[]) => {console.log('MultipleDemoComponent.doSelectOptions', options)
   // alert("dddd");}
@@ -92,11 +95,25 @@ export class CreateAprojectContentItemComponent implements OnInit {
     if (val == true) {
       this.openInputReportMoreEmployee = true
     }
+    if (val == false) {
+      this.openInputReportMoreEmployee = false
+    }
   }
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-    form.value.Project = { "Guid": form.value.Project.Guid },
-    form.value.WorkType = { "Guid": form.value.workType.Guid }
+      form.value.Project = { "Guid": form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
+
+    // detailsOfWorkingHourByEmployee!: any[];
+    // detailsOfWorkingHourByEmployeeToSend: any[] = [];
+    this.MoreEmployeeArr.forEach((x: any) => {
+      x = { "Guid": x }
+      this.MoreEmployeeGuid.push(x)
+    })
+    form.value.MoreEmployee = this.MoreEmployeeGuid
+    console.log("עודבים נוספים");
+    console.log(form.value.MoreEmployeeGuid);
+
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
@@ -118,11 +135,20 @@ export class CreateAprojectContentItemComponent implements OnInit {
         })
   }
   GetAllEmployee() {
+    this.systemGuid = localStorage.getItem('systemGuid')
+   
     // לשים GUID אמיתי של מנהל
     this.adminGuid = ""
     this.userServiceService.GetAllEmployee(this.adminGuid).subscribe(
       (res: any) => {
         this.EmployeeeArr = res;
+        this.EmployeeeArr.forEach((x: any) => {
+          if (x.Guid.toUpperCase() != this.systemGuid) {
+            this.EmployeeeArrWithOutMe.push(x)
+          }
+
+        })
+
       },
       (err: any) =>
         console.log(err.error)

@@ -69,6 +69,7 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
       this.fromDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
       this.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     }
+     form.value.MoreEmployee=[]
     this.projectContentItemToCreate = form.value;
     this.checkIfIsReportOnThisDate()
   }
