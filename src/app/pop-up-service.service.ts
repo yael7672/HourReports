@@ -40,7 +40,7 @@ export class PopUpServiceService {
       DeleteTask: type === 'DeleteTask' ? data : false,
       MessageToTheManager: type === 'MessageToTheManager' ? data : false,
       ProjectContentItemBySpesificDate: type === 'ProjectContentItemBySpesificDate' ? data : false,
-      SystemSetting: type === 'SystemSetting' ? data : false,
+      AddProject: type === 'AddProject' ? data : false,
       AddUser: type === 'AddUser' ? data : false,
     }
     this.setKindOfPopUp(obj)
