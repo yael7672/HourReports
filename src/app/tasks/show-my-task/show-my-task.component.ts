@@ -52,9 +52,10 @@ export class ShowMyTaskComponent implements OnInit {
   employeeDetailsParseJson: any;
   tasksGuid: any;
   tasksName: any;
-  ShowAllProjects=false
-  ShowMyProjects=true
-  MyProjectArr!:Project[]
+  ShowAllProjects = false
+  ShowMyProjects = true
+  MyProjectArr!: Project[]
+  image!: any;
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private appService: AppService, private userService: UserServiceService, private route: Router) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -238,14 +239,12 @@ export class ShowMyTaskComponent implements OnInit {
     this.projectContentItemGuid = projectContectItem.Guid;
 
   }
-  DeleteTask(Tasks: any) {
+  DeleteTask(Task: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteTask');
-  this.showMassgeToUserDeleteTask = true;
-    this.tasksGuid = Tasks.TaskGuid;
-    this.tasksName = Tasks.Subject;
-
     this.showMassgeToUserDeleteTask = true;
-    this.TasksGuid = Tasks.TaskGuid;
+    this.tasksGuid = Task.TaskGuid;
+    this.tasksName = Task.Subject;
+    this.showMassgeToUserDeleteTask = true;
   }
   // מפה חיפוש ומיון
   WhichTableOpen(val: any) {
@@ -283,17 +282,17 @@ export class ShowMyTaskComponent implements OnInit {
   SearchProjectOption(val: any) {
     if (val == "0") {
       this.ShowAllProjects = true
-      this.ShowMyProjects=false
+      this.ShowMyProjects = false
     }
     if (val == "1") {
-      this.ShowMyProjects=true
+      this.ShowMyProjects = true
       this.ShowAllProjects = false
 
     }
   }
 
 
-  getMyProject(){
+  getMyProject() {
     this.userService.GetProjectsBySystemUser(this.systemGuid).subscribe(res => {
       if (res) {
         this.MyProjectArr = res;
@@ -301,6 +300,6 @@ export class ShowMyTaskComponent implements OnInit {
     },
       err => {
         console.log(err.error);
-      }) 
+      })
   }
 }

@@ -23,10 +23,11 @@ export class TasksByEmployeeComponent implements OnInit {
   thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   projectContentItem: any;
-  projectContentItemGuid: any;
+  taskGuid: any;
   isPopUpOpen: any;
   workTypeArr: any;
   projectArr: any;
+  tasksName: any;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService,
     private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -79,13 +80,15 @@ export class TasksByEmployeeComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.projectContentItem = val;
   }
-  deleteProjectContentItemIcon(ProjectContentItem: any) {
-    this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
-    this.projectContentItemGuid = ProjectContentItem.Guid;
+  deleteProjectContentItemIcon(task: any) {
+    this.popUpService.setSpecificPopUp(true, 'DeleteTask');
+    this.tasksName = task.Subject;
+    this.taskGuid = task.TaskGuid
+    ;
   }
-  editEmployeeDetailsByAdmin(ProjectContentItem: any) {
+  editEmployeeDetailsByAdmin(task: any) {
     this.popUpService.setSpecificPopUp(true, 'EditEmployeeDetailsByAdmin');
-    this.projectContentItemGuid = ProjectContentItem.Guid;
+    this.taskGuid = task.TaskGuid;
   }
   SortTableDown(thName: any) {
     this.ifSortDown = false;

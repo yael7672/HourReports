@@ -70,6 +70,7 @@ export class MenuComponent implements OnInit {
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "שים לך אתה באמצע עבודה על משימה"
   Time: any;
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = "kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
+  profilImage: any;
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -103,6 +104,8 @@ export class MenuComponent implements OnInit {
     //   })
   }
   ngOnInit(): void {
+    this.profilImage = localStorage.getItem('image');
+
     this.GetWorkType()
     this.GetProject();
     this.MessageToTheManager()

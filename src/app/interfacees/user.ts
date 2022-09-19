@@ -4,4 +4,5 @@ export interface User {
     Mail:string;
     password:any;
     SystemGuid:string;
+    image:string
     }

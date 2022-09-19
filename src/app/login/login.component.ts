@@ -36,6 +36,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('systemGuid', this.user.SystemGuid);
         localStorage.setItem('systemName', this.user.Name);
         localStorage.setItem('systemMail', this.user.Mail);
+        localStorage.setItem('image', this.user.image);
+
         localStorage.setItem('ifAdmin', 'true');
         this.router.navigate(['/menu/show-my-task', this.user.SystemGuid])
 

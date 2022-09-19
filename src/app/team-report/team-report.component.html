@@ -8,6 +8,21 @@
   </div>
 <app-smart-card [title]="title">
     <div body>
+      <div class="search" *ngIf="teamsDetails">
+        <div style="width: 30%;">
+          <ng-autocomplete class="autoComplete" dir="rtl" [data]="teamsDetails" [searchKeyword]="'TeamName'"
+            placeholder=" חפש לפי שם צוות" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
+            (ngModelChange)="onSearchTeam($event.TeamName)" ngModel name="TeamName" #Subject="ngModel" required
+            [notFoundTemplate]="notFoundTemplate">
+          </ng-autocomplete>
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.TeamName" style="text-align:center ;"></a>
+          </ng-template>
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+          </ng-template>
+        </div>
+        </div>
       <app-smart-table  [ifShowOpenTeamTask]="true" [ifShowpagination]="[true,10]"
          [thArr]="thArrTeamReport" [tableDataKeys]="teamReportListKeys"
         [tableData]="teamsDetails"

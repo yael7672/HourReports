@@ -44,7 +44,7 @@ export class TimeCounterComponent implements OnInit {
     }
   }
   startTimer() {
-    localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
+
 
     this.disabledStartButton = true;
     this.disabledPauseButton = false;

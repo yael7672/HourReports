@@ -33,7 +33,7 @@
           aria-hidden="true"></i></a>
       <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
         (clickOutside)="onClickedOutside($event)" placement="bottom" ngbTooltip=" פרטי משתמש ואזור אישי">
-        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+        <img src="{{profilImage}}"
           class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
       </a>
     </div>

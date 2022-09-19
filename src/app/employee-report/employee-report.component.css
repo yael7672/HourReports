@@ -7,3 +7,9 @@ p {
     display: flex;
     justify-content: center;
   }
+  .search{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem; 
+    width: 100%;
+}

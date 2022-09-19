@@ -12,7 +12,6 @@
     text-align: right;
   }
   td.td {
-    display: flex;
     flex-direction: row;
     border-bottom-width: 0px;
   }
@@ -32,4 +31,18 @@
 .fa-times-circle:before {
   content: "\f057";
   color: red;
+}
+
+.profile-image-pic {
+  height: 35px;
+  width: 35px;
+  object-fit: cover;
+  direction: rtl;
+  margin-right: 15px;
+  padding: 0rem;
+
+}
+.all-btn-of-table{
+  display: flex;
+
 }

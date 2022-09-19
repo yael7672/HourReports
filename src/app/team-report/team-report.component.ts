@@ -20,6 +20,7 @@ export class TeamReportComponent implements OnInit {
   isPopUpOpen: any;
   teamsDetailsVal: any;
   title = "דו'ח צוותים";
+  teamsDetailsCopy: any;
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -34,6 +35,7 @@ export class TeamReportComponent implements OnInit {
     this.userService.GetTeamDetails().subscribe(
       (res: any) => {
         this.teamsDetails = res;
+        this.teamsDetailsCopy = res;
         console.log( this.teamsDetails);
 
       },
@@ -45,26 +47,17 @@ export class TeamReportComponent implements OnInit {
     this.ifSortDown = false;
     let keyToSort: any;
     switch (thName) {
-      case 'שם העובד':
-        keyToSort = 'EmployeeName';
+      case 'שם הצוות':
+        keyToSort = 'TeamName';
         break;
-      case 'תפקיד העובד':
-        keyToSort = 'EmployeeJob';
+        case 'חברים בצוות':
+          keyToSort = 'TeamMemmber';
         break;
-      case 'אחוז משרה':
-        keyToSort = 'EmployeeJobPercentage';
-        break;
-      case 'שעות עבודה שביצע היום':
-        keyToSort = 'EmployeeDailyWorkingHours';
-        break;
-      case 'שעות עבודה שביצע החודש':
-        keyToSort = 'EmployeeMonthlyWorkingHours';
-        break;
-
+      
       default:
         break;
     }
-    if (keyToSort != 'Project') {
+    if (keyToSort != 'TeamMemmber') {
       this.teamsDetails?.sort((a: any, b: any) =>
         (a[keyToSort] > (b[keyToSort])) ? 1 : -1)
     }
@@ -77,26 +70,17 @@ export class TeamReportComponent implements OnInit {
     this.ifSortDown = true;
     let keyToSort: any;
     switch (thName) {
-      case 'שם העובד':
-        keyToSort = 'EmployeeName';
+      case 'שם הצוות':
+        keyToSort = 'TeamName';
         break;
-      case 'תפקיד העובד':
-        keyToSort = 'EmployeeJob';
+      case 'חברים בצוות':
+        keyToSort = 'TeamMemmber';
         break;
-      case 'אחוז משרה':
-        keyToSort = 'EmployeeJobPercentage';
-        break;
-      case 'שעות עבודה שביצע היום':
-        keyToSort = 'EmployeeDailyWorkingHours';
-        break;
-      case 'שעות עבודה שביצע החודש':
-        keyToSort = 'EmployeeMonthlyWorkingHours';
-        break;
-
+    
       default:
         break;
     }
-    if (keyToSort != 'Project') {
+    if (keyToSort != 'TeamMemmber') {
       this.teamsDetails?.sort((a: any, b: any) =>
         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
     }
@@ -131,4 +115,14 @@ export class TeamReportComponent implements OnInit {
       this.route.navigate(['/menu/team-report'])
     }
   }
-}
+  onSearchTeam(filterKeyBySubject: any) {
+    this.teamsDetails = [...this.teamsDetailsCopy];
+    if (filterKeyBySubject !== "" && filterKeyBySubject !== null && filterKeyBySubject !== undefined) {
+      this.teamsDetails = this.teamsDetails.filter((f: any) => f?.TeamName.includes(filterKeyBySubject));
+    }
+    else {
+      if (filterKeyBySubject == "" || filterKeyBySubject == null || filterKeyBySubject !== undefined) {
+        this.teamsDetails = [...this.teamsDetailsCopy];
+      }
+    }
+  }}
