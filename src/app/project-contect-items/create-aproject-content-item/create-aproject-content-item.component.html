@@ -3,6 +3,7 @@
     <div body>
         <!-- <form  (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm"> -->
         <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
+            <!-- <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime"> -->
             <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime">
                 <label for="vehicle1">לדיווח על מספר עובדים</label>
                 <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked"
@@ -86,7 +87,7 @@
                 <select id="inputState" class="form-control" [(ngModel)]="billingHours1" name="BillableHours"
                     #billingHours="ngModel" ngModel [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }"
                     required>
-                    <option value="">?האם שעות לחיוב</option>
+                    <option value="">האם שעות לחיוב?</option>
                     <option value="1">כן </option>
                     <option value="2">לא </option>
                     <option value="970140002">אחר </option>

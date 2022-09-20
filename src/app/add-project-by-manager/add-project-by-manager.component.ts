@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from '../app-service.service';
+import { Acccount } from '../interfacees/Acccount';
 import { ownerid } from '../interfacees/ownerid';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
@@ -17,6 +18,7 @@ export class AddProjectByManagerComponent implements OnInit {
   myDate = new Date()
   adminGuid: any;
   ProjectManagerOrHeadProgrammerArr!: ownerid[]
+ AcccountArr!:Acccount[]
   constructor(private userService: UserServiceService, private router: Router,
     private datePipe: DatePipe, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -56,5 +58,15 @@ export class AddProjectByManagerComponent implements OnInit {
         console.log(err.error)
     )
   }
+  GetAccount() {
+    this.userService.GetAccount().subscribe(
+      (res: any) => {
+        this.AcccountArr = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
+
 }
 
