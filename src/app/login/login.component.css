@@ -7,7 +7,7 @@
   .profile-image-pic{
     height: 200px;
     width: 200px;
-    object-fit: cover;
+    object-fit: contain;
   }
   
   
@@ -18,10 +18,14 @@
   
   a{
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    color: #0343b9;
+
+
   }
-.card{
-    max-width: 40%;
-}
+
 
 .passwordBtn{
   position: relative;

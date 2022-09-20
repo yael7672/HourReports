@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
+import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
@@ -48,7 +49,6 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
-
     this.systemGuid = localStorage.getItem('systemGuid')
     this.getDetailsOfWorkingHourByEmployee(1)
   }
@@ -125,7 +125,6 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   getDetailsOfWorkingHourByEmployee(val: any) {
     if (val == 3) {
       this.showInputsDates = true;
-      this.sortByDateRange()
     }
     else {
       this.showInputsDates = false;
@@ -193,10 +192,15 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   sortByDateRange() {
     this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
     this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
+    if(this.fromDate&&this.untilDate!=null)
+    {
     this.detailsOfWorkingHourByEmployeeToSend = [];
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
     this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, 3, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
       if (res) {
+        this.fromDate="";
+        this.untilDate="";
+        this.todayDate=""
         this.detailsOfWorkingHourByEmployee = res;
         this.detailsOfWorkingHourByEmployee.forEach(x => {
           if (x.Date != null) {
@@ -210,6 +214,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
           if (x.WorkingDaysThisMonth != 0) {
             this.workingDaysThisMonth = x.WorkingDaysThisMonth;
           }
+
         });
         console.log(this.hoursReportedThisMonth);
       }
@@ -217,6 +222,10 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       err => {
         console.log(err.error);
       })
+    }
+    else{
+      swal('עליך להזין תאריך התחלה ותאריך סיום')    
+    }
   }
 
 }

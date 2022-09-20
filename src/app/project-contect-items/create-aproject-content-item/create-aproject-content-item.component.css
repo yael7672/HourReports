@@ -10,3 +10,7 @@
     border-radius: 5px;
     text-decoration: underline;
 }
+img.image {
+    height: 40px;
+    width: 40px;
+}

@@ -1,31 +1,46 @@
 .text-danger {
-    font-size: 12px;
-    text-align: right;
-    position: relative;
-    top: -10px;
+  font-size: 12px;
+  text-align: right;
+  position: relative;
+  top: -10px;
 
-}p{
-  margin-top: 0;
-margin-bottom: 0rem;
-text-align: right;  
 }
+
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+  text-align: right;
+}
+
 .input-group-addon {
   padding: 0.5rem
 }
-.input-group{
+
+.input-group {
   direction: rtl;
 }
+
 input#fromDate {
   width: 9rem;
 }
+
 input#untilDate {
-width: 9rem;
+  width: 9rem;
 }
+
 .form-group {
   margin-bottom: 1rem;
   display: flex;
   direction: rtl;
 }
-label{
+
+label {
   padding: 0.5rem
+}
+
+img.image {
+  height: 45px;
+  width: 45px;
+  margin-bottom: 0.5rem;
+
 }

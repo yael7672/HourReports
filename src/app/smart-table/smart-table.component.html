@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th *ngIf="ifShowXorVIcons"></th>
+      <th *ngIf="showEmployeeImageProfil"></th>
 
       <th *ngIf="ifShowCheckBox"> בחר </th>
       <th *ngFor="let th of thArr" scope="col">
@@ -32,10 +33,12 @@
   <tbody>
     <tr *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
       (click)="selectedData(colData)">
+
       <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing<0"
         class="fa fa-times-circle" aria-hidden="true"></i>
       <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing == 0" class="fa fa-check-circle"
         aria-hidden="true"></i>
+        <img  *ngIf="showEmployeeImageProfil" src="{{colData?.EmployeeProfilImage?colData.EmployeeProfilImage:defultImage}}" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
 
       <input *ngIf="ifShowCheckBox" class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
         [(ngModel)]="isChecked[i]" (change)="checkValue(isChecked[i],colData)">
@@ -46,6 +49,7 @@
           <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
             <ng-container *ngIf="tableDataKey!=='Date' else Date;">
               <ng-container *ngIf="tableDataKey!=='ScheduledEndDate' else CreatedOn;">
+
                 <td>{{returnColDataByType(colData, tableDataKey)}}</td>
               </ng-container>
             </ng-container>
@@ -63,6 +67,7 @@
       </ng-container>
 
       <td class="td">
+        <div class="all-btn-of-table">
         <button *ngIf="ifUpdate && this.arrayOfReports.length < 1" (click)="editProjectContentItemIcon(colData)"
           placement="top" ngbTooltip="באפשרותך לערוך את הדיווח.">
           <i class="fa fa-pencil" aria-hidden="true"></i></button>
@@ -109,7 +114,7 @@
           <i class="fa fa-check" aria-hidden="true"></i>
         </button>
         <button *ngIf="ifCreateReport" (click)="createReport(colData)" class="edit-button" class="edit-button"
-          placement="bottom" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
+          placement="right" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
           <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
         </button>
         <button placement="right" *ngIf="showEmployeeProductivityForMonth"
@@ -121,12 +126,13 @@
           (click)="goToshowProjectContentItemBySpecificDay(colData)" class="edit-button" class="edit-button">
           <i class="fa fa-eye" id="togglePassword"></i>
         </button>
+        </div>
       </td>
     </tr>
   </tbody>
 </table>
 <ng-container *ngIf="ifShowpagination?ifShowpagination[0]:''">
-  <div *ngIf="tableData?.length > 0">
+  <div *ngIf="tableData?.length > ifShowpagination[1]">
     <pagination-controls (pageChange)="p = $event" [nextLabel]="'הבא'" [previousLabel]="'הקודם'"></pagination-controls>
   </div>
 </ng-container>

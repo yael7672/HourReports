@@ -20,6 +20,7 @@ export class SmartCardComponent implements OnInit {
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
    }
+  @Input() src!: string;
   @Input() thArr!: any;
   @Input() tableData!: any;
   @Input() tableDataKeys!: any;

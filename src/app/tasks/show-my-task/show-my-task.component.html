@@ -66,7 +66,8 @@
 
 <!-- המשימות שלי -->
 
-<app-smart-card *ngIf="tableMyTaskOpen&&!ifThereAreTasks" [title]="titleTableTask">
+<app-smart-card *ngIf="tableMyTaskOpen&&!ifThereAreTasks" [title]="titleTableTask"   [src]="'../../../assets/images/2387679.png'">
+  >
   <div body>
     <app-smart-table [ifDeleteTask]="true" [ifUpdateTask]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTask" [ifSortDown]="ifSortDown"
       [tableDataKeys]="taskListKeys" [tableData]="taskArr" (DeleteTaskIcon)="DeleteTask($event)"

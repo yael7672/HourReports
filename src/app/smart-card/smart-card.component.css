@@ -27,3 +27,9 @@ h3 {
    margin-left: auto;
     direction: ltr
 }
+
+img {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 0.5rem
+}

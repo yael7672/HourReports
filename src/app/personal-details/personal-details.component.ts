@@ -22,6 +22,7 @@ export class PersonalDetailsComponent implements OnInit {
   DailyAndMonthlyWorkingHours: any;
   MessageToTheManagerRes: any;
   IfMessageToTheManager = false
+  image:any;
 
   constructor(public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { }
 
@@ -29,9 +30,12 @@ export class PersonalDetailsComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.systemName = localStorage.getItem('systemName');
     this.systemMail = localStorage.getItem('systemMail');
-    this.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid);
+    this.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid); 
+       this.image = localStorage.getItem('image');
+
   }
   LogOut() {
+
     localStorage.clear();
     this.route.navigate(['/menu/login'])
   }

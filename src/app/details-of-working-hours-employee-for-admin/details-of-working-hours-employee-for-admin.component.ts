@@ -125,7 +125,6 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
   getDetailsOfWorkingHourByEmployee(val: any) {
     if (val == 3) {
       this.showInputsDates = true;
-      this.sortByDateRange()
     }
     else {
       this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
@@ -134,6 +133,9 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, val, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
         if (res) {
+          this.fromDate="";
+          this.untilDate="";
+          this.todayDate="";
           this.detailsOfWorkingHourByEmployee = res;
           this.detailsOfWorkingHourByEmployee.forEach(x => {
             if (x.Date != null) {

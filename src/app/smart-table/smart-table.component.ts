@@ -38,6 +38,7 @@ export class SmartTableComponent implements OnInit {
   @Input() showProjectContentItemBySpecificDay: any
   @Input() showMassgeToUserDeleteTask: any
   @Input() showEmployeeProductivityForMonth!: boolean;
+  @Input() showEmployeeImageProfil!: boolean;
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
   @Output() SortTableDown = new EventEmitter<any>();
@@ -54,7 +55,7 @@ export class SmartTableComponent implements OnInit {
   @Output() GoToDetailsOfWorkingHoursForEmployee = new EventEmitter<any>();
   @Output() ShowProjectContentItemBySpecificDay = new EventEmitter<any>();
 
-  p:any
+  p: any
 
   ifDelete1 = true;
   ifUpdate1 = true
@@ -64,6 +65,7 @@ export class SmartTableComponent implements OnInit {
   arrayOfReports: any[] = [];
   isPopUpOpen: any;
   arr: any = []
+  defultImage = "https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png";
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
@@ -94,7 +96,7 @@ export class SmartTableComponent implements OnInit {
         this.arr = [];
         for (let i = 0; i < colData.TeamMemmber?.length; i++) {
           if (colData[tableDataKey[0]]) {
-            this.arr += colData[tableDataKey[0]][i][tableDataKey[1]] + " , ";
+            this.arr += " , " + colData[tableDataKey[0]][i][tableDataKey[1]];
           }
           else return null;
         }
@@ -149,7 +151,7 @@ export class SmartTableComponent implements OnInit {
   }
   showStatisticsGraphEmployeeDetailsToManager(val: any) {
     this.router.navigate(['/menu/Statistics-Graph-Employee-Details-ToManager', val.EmployeeGuid])
-    localStorage.setItem("EmployeeName",val.EmployeeName)
+    localStorage.setItem("EmployeeName", val.EmployeeName)
 
   }
 
@@ -168,14 +170,13 @@ export class SmartTableComponent implements OnInit {
   createReport(val: any) {
     this.CreateReport.emit(val);
   }
-  goToDetailsOfWorkingHoursForEmployee(val:any) {
+  goToDetailsOfWorkingHoursForEmployee(val: any) {
     this.GoToDetailsOfWorkingHoursForEmployee.emit(val);
 
   }
-  goToshowProjectContentItemBySpecificDay(val:any)
-  {
+  goToshowProjectContentItemBySpecificDay(val: any) {
     this.ShowProjectContentItemBySpecificDay.emit(val);
 
   }
-  
+
 }

@@ -1,6 +1,10 @@
 <app-pop-up #upPopUP [ifX]="true">
-    <h4 header class="mb-4">יצירת דיווח - חופשה </h4>
     <div body>
+        <h4 header class="mb-4">יצירת דיווח - חופשה 
+            <img class="image" src="../../../assets/images/891681.png">
+
+        </h4>
+
         <form (ngSubmit)="f.valid &&CreateNewFreedomProjectItem(f)" #f="ngForm">
             <div class="checkbox">
                 <label for="vehicle1">לדיווח על מספר ימים</label>
