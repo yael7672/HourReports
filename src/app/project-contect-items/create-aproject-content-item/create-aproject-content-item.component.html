@@ -1,7 +1,8 @@
 <app-pop-up #upPopUP [ifX]="ifX" [ifXt]="ifXt" (ClickCancel)="CancelProjectContectItem()">
-    <h4 header class="mb-4">יצירת דיווח</h4>
     <div body>
-        <!-- <form  (ngSubmit)="f.valid &&CreateNewProjectItem(f)" #f="ngForm"> -->
+        <h4 header class="mb-4">יצירת דיווח
+            <img class="image" src="../../../assets/images/4228724.png">
+        </h4>
         <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
             <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime">
                 <label for="vehicle1">לדיווח על מספר עובדים</label>
@@ -58,7 +59,6 @@
                     <div [innerHTML]="'לא נמצאו תוצאות'"></div>
                 </ng-template>
             </div>
-
             <div *ngIf="f.submitted && workType.invalid" class="text-danger">
                 <span *ngIf="workType.errors">שדה זה חובה</span>
             </div>
@@ -125,10 +125,9 @@
                 <span *ngIf="NoteToProjectManager.errors">שדה זה חובה</span>
             </div>
 
-            <button type="submit" class="btn" [disabled]="isDisabled" placement="bottom" placement="bottom"
-                ngbTooltip="יצירת פריט תכולת פרויקט" ngbTooltip=" יצירת פריט תכולת פרויקט">צור דיווח </button>
+            <button type="submit" class="btn" [disabled]="isDisabled" placement="top" ngbTooltip=" יצירת דיווח">צור
+                דיווח</button>
         </form>
-
     </div>
     <div footer>
     </div>
@@ -138,9 +137,9 @@
     <app-pop-up>
         <div body>
             <app-massge-to-user [kindOfMassage]="'projectContectItemByTimer'"
-                [massgeUserHeader]="massgeUserCloseProjectContectItemByTimerCancel"
-                (clickYes)="clickYes(actualTime)" 
-                (clickNo)="clickNo($event)" [ifButton]="true" [textOfBtnNo]="'לא, איני מעוניין להמשיך'" [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'" [kindOfMassage]="'projectContectItemByTimer'" >
+                [massgeUserHeader]="massgeUserCloseProjectContectItemByTimerCancel" (clickYes)="clickYes(actualTime)"
+                (clickNo)="clickNo($event)" [ifButton]="true" [textOfBtnNo]="'לא, איני מעוניין להמשיך'"
+                [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'" [kindOfMassage]="'projectContectItemByTimer'">
             </app-massge-to-user>
         </div>
     </app-pop-up>

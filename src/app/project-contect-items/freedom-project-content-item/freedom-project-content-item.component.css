@@ -34,3 +34,7 @@ input#untilDate {
 label{
   padding: 0.5rem
 }
+img.image {
+  height: 35px;
+  width: 35px;
+}

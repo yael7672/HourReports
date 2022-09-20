@@ -1,26 +1,22 @@
 <app-pop-up #upPopUP [ifX]="ifX">
-    <h4 header class="mb-4">דיווחי שעות
-        <!-- <img src="..\../assets/images/pathIcon2.jpg" alt="Card image cap"
-        class="image my-3" alt="profile"> -->
-        <!-- <i class="fa fa-coffee "></i> -->
-    </h4>
     <div body>
-
+        <h4 header class="mb-4">דיווחי שעות </h4>
+        <img src="../../../assets/images/3264753.png"  class="image my-3" alt="profile">
+        
         <div class="form-outline d-flex justify-content-center">
             <button class="btn" *ngIf="!endButtonTimerContectProjectContectItem"
                 (click)="startTimerProjectContectItem()">התחל </button>
             <p *ngIf="TimeProjectContectItemHour" class="Time">
                 {{TimeProjectContectItemHour}}
-                <!-- workTimeHourProjectContectItemWithTimer -->
             </p>
         </div>
         <div class="flex-button">
-                <form (ngSubmit)="OpenPopUpIfCloseProjectcontectItemWithTimer()" #f=ngForm>
-                    <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים </button>
-                </form>
-           
-                <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn "
-                    (click)="CancelProjectContectItemWithTimer()">בטל דיווח</button>
+            <form (ngSubmit)="OpenPopUpIfCloseProjectcontectItemWithTimer()" #f=ngForm>
+                <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים </button>
+            </form>
+
+            <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn "
+                (click)="CancelProjectContectItemWithTimer()">בטל דיווח</button>
         </div>
     </div>
     <div footer>
@@ -33,7 +29,8 @@
                 [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer"
                 (clickYes)="clickYes(this.TimeProjectContectItemHour)" (clickCancel)="clickCancel($event)"
                 [ButtonCancel]="ButtonCancel" (clickNo)="clickNo($event)" [ifButton]="true"
-                [kindOfMassage]="projectContectItemByTimer" [textOfBtnNo]="'לא, איני רוצה לסיים '" [textOfBtnYes]="'כן, אני רוצה  לסיים'"></app-massge-to-user>
+                [kindOfMassage]="projectContectItemByTimer" [textOfBtnNo]="'לא, איני רוצה לסיים '"
+                [textOfBtnYes]="'כן, אני רוצה  לסיים'"></app-massge-to-user>
         </div>
     </app-pop-up>
 </div>
@@ -43,7 +40,8 @@
             <app-massge-to-user [kindOfMassage]="projectContectItemByTimer"
                 [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer"
                 (clickYes)="clickYes(this.TimeProjectContectItemHour)" (clickYes)="clickCancel($event)"
-                (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="projectContectItemByTimer" [textOfBtnNo]="'לא, איני רוצה לסיים דיווח זה  '" [textOfBtnYes]="'כן, אני רוצה לסיים דיווח זה  '">
+                (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="projectContectItemByTimer"
+                [textOfBtnNo]="'לא, איני רוצה לסיים דיווח זה  '" [textOfBtnYes]="'כן, אני רוצה לסיים דיווח זה  '">
             </app-massge-to-user>
         </div>
     </app-pop-up>

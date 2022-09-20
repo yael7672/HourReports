@@ -13,7 +13,9 @@
           </button>
         </div>
         <div class="card-body">
-            <h3 class="card-title"> {{title}}</h3>
+            <h3 class="card-title"> {{title}}
+                <img *ngIf="src" src="{{src}}">
+            </h3>
             <div class="header">
                 <ng-content select="[header]"></ng-content>
             </div>

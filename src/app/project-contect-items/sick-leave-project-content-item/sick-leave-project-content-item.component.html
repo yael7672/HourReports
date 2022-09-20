@@ -1,85 +1,87 @@
 <app-pop-up #upPopUP [ifX]="true">
-    <h4 header class="mb-4">יצירת   דיווח - מחלה </h4>
-    <div body>
-        <form (ngSubmit)="f.valid &&CreateNewSickLeaveProjectItem(f)" #f="ngForm">
-            <div class="checkbox">
-                <label for="vehicle1">לדיווח על מספר ימים</label>
-                <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked" (change)="checkValue(isChecked)">
-                </div>
-                <ng-container *ngIf="showInputsDates">
-                    <div class="form-group ">
-                      <div class="input-group input-daterange" >
-                        <input type="date" class="form-control" id="fromDate" name="fromDate" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-                          (ngModelChange)="dateOne = $event">
-                        <div class="input-group-addon">ל-</div>
-                        <input type="date" class="form-control" id="untilDate" name="untilDate" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-                          (ngModelChange)="dateTwo = $event">
-                      </div>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="!showInputsDates">
-                    <div   class="form-outline d-flex justify-content-center">
-                        <input type="date" class="form-control" id="oneDate" name="oneDate" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-                              (ngModelChange)="dateTwo = $event">
-                    </div>
-                </ng-container>
-            <p>סוג עבודה</p>
-            <div class="form-outline d-flex justify-content-center">
-                <select [disabled]="true" id="WorkType" class="form-control " name="WorkType"
-                    [ngClass]="{ 'is-invalid': f.submitted && workType[0].invalid }"   ngModel>
-                    <option value="" >מחלה</option>
-                  
-                </select>
+  <div body>
+    <h4 header>יצירת דיווח - מחלה 
+        <img class="image" src="../../../assets/images/5389709.png">
+ </h4>  
+    <form (ngSubmit)="f.valid &&CreateNewSickLeaveProjectItem(f)" #f="ngForm">
+      <div class="checkbox">
+        <label for="vehicle1">לדיווח על מספר ימים</label>
+        <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked" (change)="checkValue(isChecked)">
+      </div>
+      <ng-container *ngIf="showInputsDates">
+        <div class="form-group ">
+          <div class="input-group input-daterange">
+            <input type="date" class="form-control" id="fromDate" name="fromDate"
+              [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateOne = $event">
+            <div class="input-group-addon">ל-</div>
+            <input type="date" class="form-control" id="untilDate" name="untilDate"
+              [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateTwo = $event">
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!showInputsDates">
+        <div class="form-outline d-flex justify-content-center">
+          <input type="date" class="form-control" id="oneDate" name="oneDate" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+            (ngModelChange)="dateTwo = $event">
+        </div>
+      </ng-container>
+      <p>סוג עבודה</p>
+      <div class="form-outline d-flex justify-content-center">
+        <select [disabled]="true" id="WorkType" class="form-control " name="WorkType"
+          [ngClass]="{ 'is-invalid': f.submitted && workType[0].invalid }" ngModel>
+          <option value="">מחלה</option>
 
-            </div>
-         
-            <p>שעות בפועל</p>
-            <div class="form-outline d-flex justify-content-center ">
-                <input type="number" id="FirstName" name="ActualTime"[disabled]="ifBetweenDates" [(ngModel)]="hoursActually"  class="form-control" 
-                     ngModel #HoursActually="ngModel"
-                    [ngClass]="{'is-invalid': f.submitted && HoursActually.invalid }">
-            </div>
-            <div *ngIf="f.submitted && HoursActually.invalid" class="text-danger">
-                <span *ngIf="HoursActually.errors">שדה זה חובה</span>
-            </div>
-             
-            <p>פרוייקט</p>
-            <div class="form-outline d-flex justify-content-center">
-                <select [disabled]="true" id="inputState" class="form-control" ngModel name="Project" #SourceTask="ngModel"
-                  >
-                    <option value="" >מחלה</option>
-                    <option *ngFor="let MyTask of myTask" value="{{MyTask.TaskGuid}}">
-                        {{MyTask.Subject}}
-                    </option>
-                </select>
-            </div>
-         
-     
-            <div class="form-outline d-flex justify-content-center ">
-                <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
-                    class="form-control textarea" placeholder=" תאור המשימה  " ngModel>
+        </select>
+
+      </div>
+
+      <p>שעות בפועל</p>
+      <div class="form-outline d-flex justify-content-center ">
+        <input type="number" id="FirstName" name="ActualTime" [disabled]="ifBetweenDates" [(ngModel)]="hoursActually"
+          class="form-control" ngModel #HoursActually="ngModel"
+          [ngClass]="{'is-invalid': f.submitted && HoursActually.invalid }">
+      </div>
+      <div *ngIf="f.submitted && HoursActually.invalid" class="text-danger">
+        <span *ngIf="HoursActually.errors">שדה זה חובה</span>
+      </div>
+
+      <p>פרוייקט</p>
+      <div class="form-outline d-flex justify-content-center">
+        <select [disabled]="true" id="inputState" class="form-control" ngModel name="Project" #SourceTask="ngModel">
+          <option value="">מחלה</option>
+          <option *ngFor="let MyTask of myTask" value="{{MyTask.TaskGuid}}">
+            {{MyTask.Subject}}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-outline d-flex justify-content-center ">
+        <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
+          class="form-control textarea" placeholder=" תאור המשימה  " ngModel>
                         </textarea>
-            </div>
-         
-            <button type="submit" class="btn "  placement="top"
-            ngbTooltip="יצירת דיווח עבור יום/שעות מחלה" [disabled]="isDisabled">   צור דיווח - מחלה </button>
-        </form>
-    </div>
-    <div footer>
-    </div>
+      </div>
+
+      <button type="submit" class="btn " placement="top" ngbTooltip="יצירת דיווח עבור יום/שעות מחלה"
+        [disabled]="isDisabled"> צור דיווח - מחלה </button>
+    </form>
+  </div>
+  <div footer>
+  </div>
 </app-pop-up>
 <div *ngIf="showMassgeToUser">
-    <app-pop-up>
-      <div body>
-        <app-massge-to-user [kindOfMassage]="kindOfMassage" [massgeUserHeader]="massgeUserHeader"
-          [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter"
-          (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" [textOfBtnNo]="'לא, איני מעוניין להמשיך'" [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'" [ifButton]="true" 
-          >
-          <div body>
-            <app-smart-table [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
-                [tableData]="MyProjectContectItemArr">
-            </app-smart-table>
-        </div></app-massge-to-user>
-      </div>
-    </app-pop-up>
-  </div>
+  <app-pop-up>
+    <div body>
+      <app-massge-to-user [kindOfMassage]="kindOfMassage" [massgeUserHeader]="massgeUserHeader"
+        [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter" (clickYes)="clickYes($event)"
+        (clickNo)="clickNo($event)" [textOfBtnNo]="'לא, איני מעוניין להמשיך'"
+        [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'" [ifButton]="true">
+        <div body>
+          <app-smart-table [thArr]="thArrTableProjectContentItem" [tableDataKeys]="projectContentItemListKeys"
+            [tableData]="MyProjectContectItemArr">
+          </app-smart-table>
+        </div>
+      </app-massge-to-user>
+    </div>
+  </app-pop-up>
+</div>
