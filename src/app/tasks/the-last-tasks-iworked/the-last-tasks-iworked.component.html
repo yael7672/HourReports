@@ -1,12 +1,18 @@
-<!-- חיפוש ומיון -->
-
-<app-search-and-sort-tasks [taskArr]="sortTaskArr" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks>
-
+<div class="select-table">
+    <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
+        <option value="">--בחר אחת מהאופציות הבאות--</option>
+        <option value="0">המשימות שלי </option>
+        <option value="1"> המשימות של הצוותים אליהם אני שייך</option>
+        <option value="2">המשימות האחרונות שעבדתי עליהן </option>
+    </select>
+</div>
 <!-- המשימות האחרונות שעבדתי עליהן -->
 <app-smart-card [title]="titleLastTaskIWorkedOn" [src]="'../../../assets/images/2387679.png'">
     <div body>
-        <app-smart-table [ifUpdate]="true" [ifShowpagination]="[true,10]"  [thArr]="thArrTaskTeams"  [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys" 
-        [tableData]="sortTaskArr"
+        <!-- חיפוש ומיון -->
+        <app-search-and-sort-tasks [taskArr]="sortTaskArr" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks>
+        <app-smart-table [ifUpdate]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTaskTeams"
+            [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys" [tableData]="sortTaskArr"
             (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
             (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
             (SortTableUp)="SortTableUp($event)">

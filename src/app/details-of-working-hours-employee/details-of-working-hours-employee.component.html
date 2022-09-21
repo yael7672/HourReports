@@ -13,12 +13,12 @@
         <div class="input-group input-daterange">
           <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
             (ngModelChange)="fromDate = $event">
-          <div class="input-group-addon">ל - </div>
+          <div class="input-group-addon">עד - </div>
           <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
             (ngModelChange)="untilDate = $event">
         </div>
-        <button (click)="sortByDateRange()" placement="right" ngbTooltip="השווה מידע בין 2 התאריכים"
-          class="btn btn-color">השווה</button>
+        <button (click)="sortByDateRange()" placement="right" ngbTooltip="סנן מידע בין טווח התאריכים"
+          class="btn btn-color">סנן</button>
       </div>
     </ng-container>
     <p> סה"כ שעות מדווחות : <span>{{hoursReportedThisMonth}}</span> </p>

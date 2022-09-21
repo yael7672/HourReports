@@ -132,5 +132,19 @@ export class ShowMyTeamTaskComponent implements OnInit {
   SelectedData(val: any) {
     this.route.navigate(['/menu/specific-task', val.TaskGuid])
   }
+  WhichTableOpen(val: any) {
+    if (val == 0) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/menu/show-my-task',this.systemGuid]);
+    }
+    if (val == 1) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/menu/show-team-my-task/',this.systemGuid]);
+    }
+    if (val == 2) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
+    }
+  }
 }
 

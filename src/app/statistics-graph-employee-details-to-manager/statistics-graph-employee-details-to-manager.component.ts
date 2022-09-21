@@ -80,7 +80,7 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     this.EmployeeBarChart = new Chart('BarChart', {
       type: 'bar',
       data: {
-        labels: ["שעות בפועל - שעות עבודה"],
+        labels: ["שעות בפועעד - שעות עבודה"],
         datasets: [{
           label: 'שעות עבודה',
           data: [],

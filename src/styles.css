@@ -136,3 +136,8 @@ textarea.form-control {
   color: #fefefe;
   cursor: default;
 }
+.select-table{
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}

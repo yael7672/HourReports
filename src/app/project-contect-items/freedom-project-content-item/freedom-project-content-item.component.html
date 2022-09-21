@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <input type="date" class="form-control" id="fromDate" name="fromDate"
                         [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateOne = $event">
-                    <div class="input-group-addon">ל-</div>
+                    <div class="input-group-addon">עד-</div>
                     <input type="date" class="form-control  " id="untilDate" name="untilDate"
                         [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateTwo = $event">
                 </div>
