@@ -1,65 +1,92 @@
-p{
+p {
     margin-bottom: 0rem;
     font-weight: bold;
-    }
-    span{
-        font-weight: normal;
-    
-    }
-    .btn{
-        margin-right: 1rem;
-    }
-    .form-group{
-        display: flex;
-    }
-    .input-group-addon
-    {
+}
+
+span {
+    font-weight: normal;
+
+}
+
+.btn {
+    margin-right: 1rem;
+}
+
+.form-group {
+    display: flex;
+}
+
+.input-group-addon {
     padding: 0.5rem
-    }
-    .label{
-        border-color: orange;
-    }
-    .form-control{
-        width: 16rem;
-    }
-    .all-canvas-page{
-        display:flex;
-        direction: rtl;
-        flex-wrap: wrap;
-    }
-    
-    .select-input{
-        display:flex;
-        flex-direction: column;
-        direction: rtl;
-        justify-content: center;
-    }
-    .form-group{
-        justify-content: center;
-        width: 100%;
-    }
-    
-    .input-group {
-        width: 30rem;
-    
-    }
-    #lineChart{
-        width: 100%;
-    }
-    /*  */
-    .frac { display: inline-block;
-        position: relative;
-        vertical-align: middle;
-        letter-spacing: 0.001em;
-        text-align: center;
-    }
-    .frac > span {
-        display: block;
-        padding: 0.1em;
-    }
-    .frac span.bottom {
-        border-top: thin solid black;
-    }
-    .frac span.symbol {
-        display: none;}
-    
+}
+
+.label {
+    border-color: orange;
+}
+
+.form-control {
+    width: 16rem;
+}
+
+.all-canvas-page {
+    display: flex;
+    direction: rtl;
+    flex-wrap: wrap;
+}
+
+.select-input {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    justify-content: center;
+}
+
+.form-group {
+    justify-content: center;
+    width: 100%;
+}
+
+.input-group {
+    width: 30rem;
+
+}
+
+#lineChart {
+    width: 100%;
+}
+
+/*  */
+.frac {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center;
+}
+
+.frac>span {
+    display: block;
+    padding: 0.1em;
+}
+
+.frac span.bottom {
+    border-top: thin solid black;
+}
+
+.frac span.symbol {
+    display: none;
+}
+
+.edit-button {
+    border-color: white;
+    background-color: white;
+    border: none;
+}
+.create-report {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+.iconify {
+    font-size: 30px;
+}

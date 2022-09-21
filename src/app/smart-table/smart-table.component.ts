@@ -72,6 +72,8 @@ export class SmartTableComponent implements OnInit {
     })
   }
   ngOnInit(): void {
+    console.log(this.ifShowpagination);
+    
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
   }

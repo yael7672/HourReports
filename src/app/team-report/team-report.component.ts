@@ -10,8 +10,8 @@ import { UserServiceService } from '../user-service.service';
   styleUrls: ['./team-report.component.css']
 })
 export class TeamReportComponent implements OnInit {
-  teamReportListKeys = ['TeamName',['TeamMemmber','Name']]
-  thArrTeamReport = [ 'שם הצוות','חברים בצוות'];
+  teamReportListKeys = ['TeamName', ['TeamMemmber', 'Name']]
+  thArrTeamReport = ['שם הצוות', 'חברים בצוות'];
   teamsDetails: any;
   ifSortDown = false;
   systemGuid: any;
@@ -21,22 +21,37 @@ export class TeamReportComponent implements OnInit {
   teamsDetailsVal: any;
   title = "דו'ח צוותים";
   teamsDetailsCopy: any;
+  employeesDetailsCopy: any;
+  employeeDetails: any;
+  teamsDetailsCopy1: any = []
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
     })
   }
   ngOnInit(): void {
-    this.GetTeamDetails()
+    this.GetTeamDetails();
+    this.GetEmployeeDetails();
+
+  }
+  GetEmployeeDetails() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetEmployeeDetails(this.systemGuid, "", "").subscribe(
+      (res: any) => {
+        this.employeeDetails = res;
+        this.employeesDetailsCopy = res
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
   }
   GetTeamDetails() {
     this.userService.GetTeamDetails().subscribe(
       (res: any) => {
         this.teamsDetails = res;
         this.teamsDetailsCopy = res;
-        console.log( this.teamsDetails);
+        console.log(this.teamsDetails);
 
       },
       (err: any) =>
@@ -50,10 +65,10 @@ export class TeamReportComponent implements OnInit {
       case 'שם הצוות':
         keyToSort = 'TeamName';
         break;
-        case 'חברים בצוות':
-          keyToSort = 'TeamMemmber';
+      case 'חברים בצוות':
+        keyToSort = 'TeamMemmber';
         break;
-      
+
       default:
         break;
     }
@@ -76,7 +91,7 @@ export class TeamReportComponent implements OnInit {
       case 'חברים בצוות':
         keyToSort = 'TeamMemmber';
         break;
-    
+
       default:
         break;
     }
@@ -95,7 +110,7 @@ export class TeamReportComponent implements OnInit {
     localStorage.setItem('teamsDetails', JSON.stringify(val))
   }
   openTasksByTeamGuid(val: any) {
-  this.route.navigate(['/menu/tasks-by-team', val.Guid])
+    this.route.navigate(['/menu/tasks-by-team', val.Guid])
 
     localStorage.setItem('teamsDetails', JSON.stringify(val))
   }
@@ -125,4 +140,25 @@ export class TeamReportComponent implements OnInit {
         this.teamsDetails = [...this.teamsDetailsCopy];
       }
     }
-  }}
+  }
+  onSearchEmployee(filterKeyByEmployeeName: any) {
+    this.teamsDetails = [...this.teamsDetailsCopy];
+    this.teamsDetailsCopy1=[];
+    if (filterKeyByEmployeeName !== "" && filterKeyByEmployeeName !== null && filterKeyByEmployeeName !== undefined) {
+      this.teamsDetails.filter((f: any) =>
+
+        f?.TeamMemmber?.forEach((i: any) => {
+          if (i.Name == filterKeyByEmployeeName) {
+            this.teamsDetailsCopy1.push(f);
+          }
+
+        }))
+      this.teamsDetails = this.teamsDetailsCopy1;
+    }
+    else {
+      if (filterKeyByEmployeeName == "" || filterKeyByEmployeeName == null || filterKeyByEmployeeName !== undefined) {
+        this.employeeDetails = [...this.employeesDetailsCopy];
+      }
+    }
+  }
+}

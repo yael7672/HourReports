@@ -89,7 +89,7 @@ export class StatisticsGraphComponent implements OnInit {
     this.BarChart = new Chart('BarChart', {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [],
         datasets: [{
           label: 'רמת פרודקטביות ',
           data: [12, 19, 3, 5, 2, 3],

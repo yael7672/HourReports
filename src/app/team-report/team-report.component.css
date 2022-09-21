@@ -10,7 +10,7 @@
 }
 .search{
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-bottom: 1rem; 
   width: 100%;
 }

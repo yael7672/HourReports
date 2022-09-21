@@ -8,8 +8,8 @@
   </div>
 <app-smart-card [title]="title" [src]="'../../../assets/images/470336.png'">
     <div body>
-      <div class="search" *ngIf="teamsDetails">
-        <div style="width: 30%;">
+      <div class="search" >
+        <div *ngIf="teamsDetails" class="autocomplete" style="width: 30%;">
           <ng-autocomplete class="autoComplete" dir="rtl" [data]="teamsDetails" [searchKeyword]="'TeamName'"
             placeholder=" חפש לפי שם צוות" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
             (ngModelChange)="onSearchTeam($event.TeamName)" ngModel name="TeamName" #Subject="ngModel" required
@@ -17,6 +17,19 @@
           </ng-autocomplete>
           <ng-template #itemTemplate let-item>
             <a [innerHTML]="item.TeamName" style="text-align:center ;"></a>
+          </ng-template>
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+          </ng-template>
+        </div>
+        <div *ngIf="employeeDetails" style="width: 30%;">
+          <ng-autocomplete style="width: 100%;"class="autoComplete" dir="rtl" [data]="employeeDetails" [searchKeyword]="'EmployeeName'"
+            placeholder=" חפש לפי שם עובד" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
+            (ngModelChange)="onSearchEmployee($event.EmployeeName)" ngModel name="EmployeeName" #Subject="ngModel" required
+            [notFoundTemplate]="notFoundTemplate">
+          </ng-autocomplete>
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.EmployeeName" style="text-align:center ;"></a>
           </ng-template>
           <ng-template #notFoundTemplate let-notFound>
             <div [innerHTML]="'לא נמצאו תוצאות'"></div>

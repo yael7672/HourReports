@@ -28,7 +28,7 @@
       [thArr]="thArrWorkingHours" [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
       [tableData]="detailsOfWorkingHourByEmployeeToSend" (SortTableDown)="SortTableDown($event)"
       (ShowProjectContentItemBySpecificDay)="getReportsBySpesificDate($event)" (SortTableUp)="SortTableUp($event)"
-      (CreateReport)="createReport($event)" [ifUpdateOpen]="isPopUpOpen?.createAprojectContentItem"
+      (CreateReport)="createReportWithDate($event)" [ifUpdateOpen]="isPopUpOpen?.createAprojectContentItem"
       [showProjectContentItemBySpecificDay]="true">
     </app-smart-table>
     <!-- <div *ngIf="taskTeamsArr?.length<1">
@@ -44,9 +44,15 @@
   <app-pop-up [ifX]="true">
     <h4 header class="mb-4"></h4>
     <div body>
+      <div class="create-report">
+      <button  (click)="createReport()" class="edit-button"
+      placement="right" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
+      <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+    </button>
+  </div>
       <app-smart-card [title]="title +' לתאריך ' + spesificDate">
         <div body>
-          <app-smart-table *ngIf="reportsBySpesificDate.length > 0" [ifShowpagination]="[true,3]" [thArr]="thArrTableProjectContentItem"
+          <app-smart-table *ngIf="reportsBySpesificDate.length > 0" [thArr]="thArrTableProjectContentItem"
             [tableData]="reportsBySpesificDate" [tableDataKeys]="projectContentItemListKeys">
           </app-smart-table>
           <div *ngIf="reportsBySpesificDate.length < 1">
