@@ -82,11 +82,12 @@ export class CreateAprojectContentItemComponent implements OnInit {
       }
     })
   }
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    this.GetAllEmployee();
     this.GetRegarding();
     this.GetProject();
     this.GetWorkType();
-    this.GetAllEmployee();
+  
     this.dateToUpdate = localStorage.getItem('dateToUpdate');
     console.log(this.dateToUpdate);
 
@@ -99,11 +100,11 @@ export class CreateAprojectContentItemComponent implements OnInit {
       this.openInputReportMoreEmployee = false
     }
   }
+
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project.Guid },
-      form.value.WorkType = { "Guid": form.value.workType.Guid }
-
+    form.value.Project = { "Guid": form.value.Project.Guid },
+    form.value.WorkType = { "Guid": form.value.workType.Guid }
     // detailsOfWorkingHourByEmployee!: any[];
     // detailsOfWorkingHourByEmployeeToSend: any[] = [];
     this.MoreEmployeeArr.forEach((x: any) => {
@@ -113,7 +114,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
     form.value.MoreEmployee = this.MoreEmployeeGuid
     console.log("עודבים נוספים");
     console.log(form.value.MoreEmployeeGuid);
-
     form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
@@ -136,7 +136,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   GetAllEmployee() {
     this.systemGuid = localStorage.getItem('systemGuid')
-   
     // לשים GUID אמיתי של מנהל
     this.adminGuid = ""
     this.userServiceService.GetAllEmployee(this.adminGuid).subscribe(
@@ -146,9 +145,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
           if (x.Guid.toUpperCase() != this.systemGuid) {
             this.EmployeeeArrWithOutMe.push(x)
           }
-
         })
-
       },
       (err: any) =>
         console.log(err.error)
@@ -160,9 +157,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
         this.Regarding = res;
       },
       (err: any) =>
-
         swal(err.error)
-
     )
   }
   GetWorkType() {
@@ -187,8 +182,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.projectContectItemByTimerGuid = localStorage.getItem("projectContectItemByTimerGuid")
     form.value.Guid = this.projectContectItemByTimerGuid
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project.Guid },
-      form.value.WorkType = { "Guid": form.value.workType.Guid }
+    form.value.Project = { "Guid": form.value.Project.Guid },
+    form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.ActualTime = this.actualTime
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
       (res) => {
@@ -264,7 +259,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
 
   }
-
 
   DeleteProjectContentItemByGuid(projectContectItemByTimerGuid: any) {
     this.userServiceService.DeleteProjectContentItemByGuid(projectContectItemByTimerGuid).subscribe(

@@ -16,24 +16,46 @@
             <div *ngIf="f.submitted && ConfirmedHours.invalid" class="text-danger">
                 <span *ngIf="ConfirmedHours.errors">שדה זה חובה</span>
             </div>
+            <div class="form-outline d-flex justify-content-center mb-4">
+                <ng-autocomplete style="width: 100%;" [data]="AcccountArr" [searchKeyword]="'Name'" placeholder="לקוח" 
+                historyIdentifier="Account" class="autoComplete" [itemTemplate]="itemTemplate" 
+                ngModel name="Account" #Account="ngModel" required [notFoundTemplate]="notFoundTemplate">
+             </ng-autocomplete>
+             <ng-template #itemTemplate let-item >
+                 <a [innerHTML]="item.Name"></a>
+             </ng-template>
+             <ng-template #notFoundTemplate let-notFound>
+                 <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+             </ng-template>
+            </div>
+            <div *ngIf="f.submitted && ProjectType.invalid" class="text-danger">
+                <span *ngIf="Account.errors">שדה זה חובה</span>
+             </div>
+             <div class="InputWithText">
+            <p class="date">תאריך התחלה</p>
             <div class="form-outline d-flex justify-content-center">
-                <input type="date" id="date" name="StartDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"  [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+                <input type="date" id="date" name="StartDate"value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"  [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
                 [ngClass]="{ 'is-invalid': f.submitted && StartDate.invalid }" #StartDate="ngModel" ngModel required placeholder="תאריך התחלה " />
             </div>
+        </div>
             <div *ngIf="f.submitted && StartDate.invalid" class="text-danger">
                 <span *ngIf="StartDate.errors">שדה זה חובה</span>
             </div>
+            <div class="InputWithText">
+                 <p class="date">תאריך סיום</p>
             <div class="form-outline d-flex justify-content-center">
                 <input type="date" id="date" name="EndDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"    [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
                 [ngClass]="{ 'is-invalid': f.submitted && EndDate.invalid }"  #EndDate="ngModel" ngModel required placeholder="תאריך סיום " />
             </div>
+        </div>
             <div *ngIf="f.submitted && EndDate.invalid" class="text-danger">
                 <span *ngIf="EndDate.errors">שדה זה חובה</span>
             </div>
+           
               <div class="form-outline d-flex justify-content-center mb-4">
                 <ng-autocomplete style="width: 100%;" [data]="ProjectTypeArr" [searchKeyword]="'Name'" placeholder=" סוג פרויקט" 
                 historyIdentifier="ProjectType" class="autoComplete" [itemTemplate]="itemTemplate" 
-                 ngModel name="ProjectType" #ProjectType="ngModel" required [notFoundTemplate]="notFoundTemplate">
+                ngModel name="ProjectType" #ProjectType="ngModel" required [notFoundTemplate]="notFoundTemplate">
              </ng-autocomplete>
              <ng-template #itemTemplate let-item >
                  <a [innerHTML]="item.Name"></a>
@@ -44,7 +66,7 @@
             </div>
             <div *ngIf="f.submitted && ProjectType.invalid" class="text-danger">
                 <span *ngIf="ProjectType.errors">שדה זה חובה</span>
-              </div>
+             </div>
               <div class="form-outline d-flex justify-content-center">
                 <select id="inputState" class="form-control" name="ProjectManager" #ProjectManager="ngModel" ngModel 
                 [ngClass]="{ 'is-invalid': f.submitted && ProjectManager.invalid }" required>
@@ -75,9 +97,8 @@
             <div *ngIf="f.submitted && Description.invalid" class="text-danger">
                 <span *ngIf="Description.errors">שדה זה חובה</span>
             </div>
-            <button type="submit" placement="bottom" ngbTooltip="יצירת משימה חדשה" class="btn"
-                [disabled]="isDisabled">צור משימה חדשה</button>
-
+            <button type="submit" placement="bottom" ngbTooltip="יצירת פרוייקט" class="btn"
+                [disabled]="isDisabled">יצירת פרוייקט </button>
         </form>
     </div>
 </app-pop-up>

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
+import { Acccount } from './interfacees/Acccount';
 import { averageBreaks } from './interfacees/averageBreaks';
 import { ownerid } from './interfacees/ownerid';
 import { Project } from './interfacees/project';
@@ -157,5 +158,8 @@ console.log(this.a);
 
   GetDetailsOfWorkingHourByEmployee(SystemGuid:string,SelectedTime:number,FromDate:string,UntilDate:string) {
     return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+'&SelectedTime='+SelectedTime+'&FromDate='+FromDate+'&UntilDate='+UntilDate)
+  }
+  GetAccount(){
+    return this.http.get<Acccount[]>(environment.url + 'GetAccount/?OrganizationName=AuroraProd')
   }
 }

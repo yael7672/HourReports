@@ -24,16 +24,16 @@
     <div class="aImg2">
       <a *ngIf="showMassgeToManager" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
         ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNewMessege" style="font-size: 30px; "></i></a>
-      <a (click)="openPopUp('MyNewTask',true)" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
+      <a (click)="openPopUpMyNewTask()" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
         (clickOutside)="onClickedOutsideMyNewTask($event)">
         <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px "
-          [ngClass]="{ 'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
+          [ngClass]="{'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
       </a>
       <a (click)="Logout()" placement="bottom" ngbTooltip="התנתק מהמערכת"><i class="fa fa-sign-out "
           aria-hidden="true"></i></a>
       <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
         (clickOutside)="onClickedOutside($event)" placement="bottom" ngbTooltip=" פרטי משתמש ואזור אישי">
-        <img src="{{profilImage}}"
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
           class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
       </a>
     </div>
@@ -65,7 +65,7 @@
   </div>
 
   <div *ngIf="isPopUpOpen?.AddProject">
-    <app-add-project-by-manager [ProjectTypeArr]="projectArr"></app-add-project-by-manager>
+    <app-add-project-by-manager [ProjectTypeArr]="workTypeArr"></app-add-project-by-manager>
   </div>
 
   <div *ngIf="isPopUpOpen?.sickLeave">
@@ -78,7 +78,7 @@
       [workType]="workTypeArr"></app-freedom-project-content-item>
   </div>
 
-  <div *ngIf="isPopUpOpen?.MyNewTask">
+  <div *ngIf="openMyNewTaskPopUp">
     <app-my-new-tasks></app-my-new-tasks>
   </div>
   <div *ngIf="isPopUpOpen?.MessageToTheManager">
@@ -90,7 +90,7 @@
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
           [inputValue]="taskNameFromLocalStorage"
-          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody" [textOfBtnNo]="'לא, איני מעוניין להמשיך'" [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'"
+          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody" [textOfBtnNo]="'טעות, מעוניין להמשיך לעבודה על המשימה'" [textOfBtnYes]="'כן, מעוניין לצאת להפסקה'"
           [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true"
           [massgeUserBody1]="" (clickYes)="clickYesGoingBreak($event)" (clickNo)="clickNoGoingbreak()">
         </app-massge-to-user>

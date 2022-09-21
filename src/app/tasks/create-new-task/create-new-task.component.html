@@ -52,9 +52,10 @@
                 <span *ngIf="project.errors">שדה זה חובה</span>
             </div>
             <div class="form-outline d-flex justify-content-center">
-                <select id="inputState" class="form-control" name="BillableHours" #billableHours="ngModel" ngModel
-                    [ngClass]="{ 'is-invalid': f.submitted && billableHours.invalid }" required>
-                    <option value="">?האם שעות לחיוב*</option>
+                <select id="inputState" class="form-control" name="BillableHours" #billableHours="ngModel" ngModel 
+                [ngClass]="{ 'is-invalid': f.submitted && billableHours.invalid }" required>
+                    <option value="">האם שעות לחיוב?</option>
+
                     <option value="1">כן </option>
                     <option value="2">לא</option>
                     <option value="970140002">אחר</option>

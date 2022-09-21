@@ -4,6 +4,7 @@
             <img class="image" src="../../../assets/images/4228724.png">
         </h4>
         <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
+            <!-- <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime"> -->
             <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime">
                 <label for="vehicle1">לדיווח על מספר עובדים</label>
                 <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked"
@@ -86,7 +87,7 @@
                 <select id="inputState" class="form-control" [(ngModel)]="billingHours1" name="BillableHours"
                     #billingHours="ngModel" ngModel [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }"
                     required>
-                    <option value="">?האם שעות לחיוב</option>
+                    <option value="">האם שעות לחיוב?</option>
                     <option value="1">כן </option>
                     <option value="2">לא </option>
                     <option value="970140002">אחר </option>
@@ -138,8 +139,8 @@
         <div body>
             <app-massge-to-user [kindOfMassage]="'projectContectItemByTimer'"
                 [massgeUserHeader]="massgeUserCloseProjectContectItemByTimerCancel" (clickYes)="clickYes(actualTime)"
-                (clickNo)="clickNo($event)" [ifButton]="true" [textOfBtnNo]="'לא, איני מעוניין להמשיך'"
-                [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'" [kindOfMassage]="'projectContectItemByTimer'">
+                (clickNo)="clickNo($event)" [ifButton]="true" [textOfBtnNo]="'טעות! אני מעוניין להמשיך'"
+                [textOfBtnYes]="'כן, בטל דיווח'" [kindOfMassage]="'projectContectItemByTimer'">
             </app-massge-to-user>
         </div>
     </app-pop-up>

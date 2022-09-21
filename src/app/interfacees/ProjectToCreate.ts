@@ -1,6 +1,7 @@
 
 export interface ProjectToCreate {
     Name: any;
+    Account:any;
     ConfirmedHours: any;
     StartDate: Date;
     EndDate: Date;
