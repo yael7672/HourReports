@@ -3,7 +3,7 @@
 <app-search-and-sort-tasks [taskArr]="sortTaskArr" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks>
 
 <!-- המשימות האחרונות שעבדתי עליהן -->
-<app-smart-card [title]="titleLastTaskIWorkedOn">
+<app-smart-card [title]="titleLastTaskIWorkedOn" [src]="'../../../assets/images/2387679.png'">
     <div body>
         <app-smart-table [ifUpdate]="true" [ifShowpagination]="[true,10]"  [thArr]="thArrTaskTeams"  [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys" 
         [tableData]="sortTaskArr"

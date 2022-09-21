@@ -13,6 +13,7 @@ import { averageBreaks } from '../interfacees/averageBreaks';
 })
 export class StatisticsGraphComponent implements OnInit {
   LineChartText = "בתאריך"
+  src=""
   systemGuid!: any;
   LineChart1: any;
   showInputsDates = false;

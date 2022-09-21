@@ -3,7 +3,7 @@
 <app-search-and-sort-tasks [taskArr]="taskTeamsArr" [taskArrCopy]="taskTeamsArrCopy"></app-search-and-sort-tasks>
 
 <!-- המשימות האחרונות שעבדתי עליהן -->
-<app-smart-card [title]="titleTableTeamsTask">
+<app-smart-card [title]="titleTableTeamsTask" [src]="'../../../assets/images/2387679.png'">
   <div body>
     <app-smart-table [ifUpdate]="true" [ifShowpagination]="[true,10]"  [thArr]="thArrTaskTeams" [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys"
       [tableData]="taskTeamsArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
