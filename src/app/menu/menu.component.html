@@ -24,7 +24,7 @@
     <div class="aImg2">
       <a *ngIf="showMassgeToManager" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
         ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNewMessege" style="font-size: 30px; "></i></a>
-      <a (click)="openPopUp('MyNewTask',true)" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
+      <a (click)="openPopUpMyNewTask()" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
         (clickOutside)="onClickedOutsideMyNewTask($event)">
         <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px "
           [ngClass]="{'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
@@ -78,7 +78,7 @@
       [workType]="workTypeArr"></app-freedom-project-content-item>
   </div>
 
-  <div *ngIf="isPopUpOpen?.MyNewTask">
+  <div *ngIf="openMyNewTaskPopUp">
     <app-my-new-tasks></app-my-new-tasks>
   </div>
   <div *ngIf="isPopUpOpen?.MessageToTheManager">
@@ -90,7 +90,7 @@
       <div body>
         <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
           [inputValue]="taskNameFromLocalStorage"
-          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody" [textOfBtnNo]="'לא, איני מעוניין להמשיך'" [textOfBtnYes]="'כן, אני מעוניין להמשיך בדיווח'"
+          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody" [textOfBtnNo]="'טעות, מעוניין להמשיך לעבודה על המשימה'" [textOfBtnYes]="'כן, מעוניין לצאת להפסקה'"
           [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true"
           [massgeUserBody1]="" (clickYes)="clickYesGoingBreak($event)" (clickNo)="clickNoGoingbreak()">
         </app-massge-to-user>

@@ -66,10 +66,11 @@ export class MenuComponent implements OnInit {
   showMassgeToManager = false
   taskNameFromLocalStorage: any
   openDropdown = false
-  massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "האם ברצונך לצאת להפסקה?"
+  massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "?האם ברצונך לצאת להפסקה"
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "שים לך אתה באמצע עבודה על משימה"
   Time: any;
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = "kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
+  openMyNewTaskPopUp = false
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -146,15 +147,19 @@ export class MenuComponent implements OnInit {
       // if (res) {
       if (this.startWorkOfTask) {
         // this.startWorkOfTask = true;
-        this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson.Subject;
+        this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson?.Subject;
         this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
       }
+
       else {
         this.appService.setIsPopUpOpen(true);
         this.popUpService.setSpecificPopUp(type, data)
       }
       // })
-    }
+    } 
+    // if (data == 'MyNewTask') {
+    //   this.openMyNewTaskPopUp = true
+    // }
     else {
       this.appService.setIsPopUpOpen(true);
       this.popUpService.setSpecificPopUp(type, data)
@@ -179,11 +184,13 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['menu/StatisticsGraph'])
   }
   GoToHome() {
-
     this.router.navigate(['menu/show-my-task', this.systemGuid])
   }
   ClickPersonalDetails() {
     this.openPersonalDetails = true;
+  }
+  openPopUpMyNewTask(){
+    this.openMyNewTaskPopUp=true
   }
   Logout() {
     localStorage.clear();
@@ -202,9 +209,9 @@ export class MenuComponent implements OnInit {
   }
 
   onClickedOutsideMyNewTask(val: any) {
-    // if (this.openPersonalDetails) {
-    //   this.openPersonalDetails = false;
-    // }
+    if (this.openMyNewTaskPopUp) {
+      this.openMyNewTaskPopUp = false;
+    }
   }
   GetMyNewTasks() {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -251,6 +258,8 @@ export class MenuComponent implements OnInit {
   clickYesGoingBreak(val: any) {
     this.getCreatedProjectContentItemFromLoaclStorage()
     this.GoToPausetimerTask()
+    this.openPopUp('pause',true)
+
   }
   clickNoGoingbreak() {
     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false

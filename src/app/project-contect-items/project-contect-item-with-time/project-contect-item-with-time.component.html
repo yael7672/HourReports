@@ -5,14 +5,14 @@
         
         <div class="form-outline d-flex justify-content-center">
             <button class="btn" *ngIf="!endButtonTimerContectProjectContectItem"
-                (click)="startTimerProjectContectItem()">התחל </button>
+                (click)="startTimerProjectContectItem()">התחל דיווח </button>
             <p *ngIf="TimeProjectContectItemHour" class="Time">
                 {{TimeProjectContectItemHour}}
             </p>
         </div>
         <div class="flex-button">
             <form (ngSubmit)="OpenPopUpIfCloseProjectcontectItemWithTimer()" #f=ngForm>
-                <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים </button>
+                <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn ">סיים דיווח </button>
             </form>
 
             <button *ngIf="endButtonTimerContectProjectContectItem" type="submit" class="btn "
