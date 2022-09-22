@@ -78,7 +78,7 @@ export class HoursAwaitingApprovalComponent implements OnInit {
     this.ifSortDown = false;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':
@@ -112,7 +112,7 @@ export class HoursAwaitingApprovalComponent implements OnInit {
     this.ifSortDown = true;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':

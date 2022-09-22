@@ -87,7 +87,7 @@
                 <select id="inputState" class="form-control" [(ngModel)]="billingHours1" name="BillableHours"
                     #billingHours="ngModel" ngModel [ngClass]="{ 'is-invalid': f.submitted && billingHours.invalid }"
                     required>
-                    <option value="">האם שעות לחיוב?</option>
+                    <option value="" [disabled]="true">האם שעות לחיוב?</option>
                     <option value="1">כן </option>
                     <option value="2">לא </option>
                     <option value="970140002">אחר </option>

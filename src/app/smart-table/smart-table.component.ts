@@ -54,8 +54,9 @@ export class SmartTableComponent implements OnInit {
   @Output() EditEmployeeDetailsByAdmin = new EventEmitter<any>();
   @Output() GoToDetailsOfWorkingHoursForEmployee = new EventEmitter<any>();
   @Output() ShowProjectContentItemBySpecificDay = new EventEmitter<any>();
-
   p: any
+  openTable = true;
+  openCard = false;
 
   ifDelete1 = true;
   ifUpdate1 = true
@@ -64,7 +65,7 @@ export class SmartTableComponent implements OnInit {
   showaApproveReportIcon: any;
   arrayOfReports: any[] = [];
   isPopUpOpen: any;
-  arr: any = []
+  arr: any = [];
   defultImage = "https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png";
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -73,7 +74,7 @@ export class SmartTableComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.ifShowpagination);
-    
+
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
   }

@@ -1,138 +1,271 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th *ngIf="ifShowXorVIcons"></th>
-      <th *ngIf="showEmployeeImageProfil"></th>
+<div *ngIf="openTable">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th *ngIf="ifShowXorVIcons"></th>
+        <th *ngIf="showEmployeeImageProfil"></th>
+        <th *ngIf="ifShowCheckBox"> בחר </th>
+        <th *ngFor="let th of thArr" scope="col">
+          <ng-container *ngIf="ifSortDown; else sortTableUpp;">
+            <button (click)="sortTableDown(th)">
+              <ng-container>
+                {{th}}
+              </ng-container>
+              <i class="fa fa-caret-down" *ngIf="!hideSort"></i>
+              <ng-template #WorkingHours>
+                <ng-container> {{th}}</ng-container>
+              </ng-template>
+            </button>
+          </ng-container>
+          <ng-template #sortTableUpp>
+            <button (click)="sortTableUp(th)">
+              <ng-container>
+                {{th}}
+              </ng-container>
+              <i class="fa fa-caret-up" *ngIf="!hideSort"></i>
+            </button>
+          </ng-template>
+        </th>
+        <th *ngIf="this.arrayOfReports.length > 0" (click)="approveReport()" class="edit-button" class="edit-button"
+          placement="bottom" ngbTooltip="אישור הדיווח"><i class="fa fa-check" aria-hidden="true"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
+        (click)="selectedData(colData)">
 
-      <th *ngIf="ifShowCheckBox"> בחר </th>
-      <th *ngFor="let th of thArr" scope="col">
-        <ng-container *ngIf="ifSortDown; else sortTableUpp;">
-          <button (click)="sortTableDown(th)">
-            <ng-container>
-              {{th}}
-            </ng-container>
-            <i class="fa fa-caret-down" *ngIf="!hideSort"></i>
-            <ng-template #WorkingHours>
-              <ng-container> {{th}}</ng-container>
-            </ng-template>
-          </button>
-        </ng-container>
-        <ng-template #sortTableUpp>
-          <button (click)="sortTableUp(th)">
-            <ng-container>
-              {{th}}
-            </ng-container>
-            <i class="fa fa-caret-up" *ngIf="!hideSort"></i>
-          </button>
-        </ng-template>
-      </th>
-      <th *ngIf="this.arrayOfReports.length > 0" (click)="approveReport()" class="edit-button" class="edit-button"
-        placement="bottom" ngbTooltip="אישור הדיווח"><i class="fa fa-check" aria-hidden="true"></i></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
-      (click)="selectedData(colData)">
+        <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing<0"
+          class="fa fa-times-circle" aria-hidden="true"></i>
+        <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing == 0" class="fa fa-check-circle"
+          aria-hidden="true"></i>
 
-      <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing<0"
-        class="fa fa-times-circle" aria-hidden="true"></i>
-      <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing == 0" class="fa fa-check-circle"
-        aria-hidden="true"></i>
-        <img  *ngIf="showEmployeeImageProfil" src="{{colData?.EmployeeProfilImage?colData.EmployeeProfilImage:defultImage}}" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+        <img *ngIf="showEmployeeImageProfil"
+          src="{{colData?.EmployeeProfilImage?colData.EmployeeProfilImage:defultImage}}"
+          class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
 
-      <input *ngIf="ifShowCheckBox" class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-        [(ngModel)]="isChecked[i]" (change)="checkValue(isChecked[i],colData)">
-      <ng-container *ngFor="let tableDataKey of tableDataKeys">
-        <ng-container *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' &&
+        <input *ngIf="ifShowCheckBox" class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+          [(ngModel)]="isChecked[i]" (change)="checkValue(isChecked[i],colData)">
+
+  
+        <ng-container *ngFor="let tableDataKey of tableDataKeys">
+          <ng-container *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' &&
            tableDataKey!=='EmployeeMonthlyWorkingHours' && tableDataKey!=='DailyWorkingHours' &&
            tableDataKey!=='DailyWorkingHoursthatAreMissing' else ConvertToNumber;">
+            <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
+              <ng-container *ngIf="tableDataKey!=='Date' else Date;">
+                <ng-container *ngIf="tableDataKey!=='ScheduledEndDate' else CreatedOn;">
+
+                  <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-template #ConvertToNumber>
+            <td> {{colData[tableDataKey] | number}}</td>
+          </ng-template>
+          <ng-template #CreatedOn>
+            <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}</td>
+          </ng-template>
+          <ng-template #Date>
+            <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy '}}</td>
+          </ng-template>
+        </ng-container>
+
+        <td class="td">
+          <div class="all-btn-of-table">
+            <button *ngIf="ifUpdate && this.arrayOfReports.length < 1" (click)="editProjectContentItemIcon(colData)"
+              placement="top" ngbTooltip="באפשרותך לערוך את הדיווח.">
+              <i class="fa fa-pencil" aria-hidden="true"></i></button>
+
+            <button *ngIf="ifUpdateTask" (click)="editProjectContentItemIcon(colData)" placement="right"
+              ngbTooltip="באפשרותך לערוך את המשימה.">
+              <i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button *ngIf="ifDelete" (click)="deleteProjectContentItemIcon(colData)" class="edit-button"
+              class="edit-button" placement="bottom" ngbTooltip="באפשרותך למחוק את הדיווח.">
+              <i class="iconify" data-icon="akar-icons:trash-can"></i>
+            </button>
+            <button *ngIf="ifDeleteTask" (click)="deleteTaskIcon(colData)" class="edit-button" class="edit-button"
+              placement="right" ngbTooltip="באפשרותך למחוק את המשימה.">
+              <i class="iconify" data-icon="akar-icons:trash-can"></i>
+            </button>
+            <button *ngIf="ifShowAndEditEmployeeSetting" (click)="editEmployeeDetailsByAdmin(colData)"
+              class="edit-button" class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני העובד">
+              <i class="fa fa-cog"></i>
+            </button>
+            <button *ngIf="ifShowAndEditTeamSetting" (click)="editTeamDetailsByAdmin(colData)" class="edit-button"
+              class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני הצוות">
+              <i class="fa fa-cog"></i>
+            </button>
+            <button *ngIf="ifShowOpenEmployeeTask" (click)="showOpenTask(colData)" class="edit-button"
+              class="edit-button" placement="right" ngbTooltip="צפיה במשימות הפתוחות של העובד">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button *ngIf="ifShowOpenTeamTask" (click)="showOpenTeamTask(colData)" class="edit-button"
+              class="edit-button" placement="right" ngbTooltip="צפיה במשימות הפתוחות של הצוות">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button *ngIf="ifShowEmployeeProjectContentItem" (click)="showProjectContentItem(colData)"
+              class="edit-button" class="edit-button" placement="bottom" ngbTooltip="צפיה  בדיווחי שעות של העובד">
+              <i class="fa fa-calendar-check-o"></i>
+            </button>
+
+            <button *ngIf="ifShowEmployeeProjectContentItem&&showGraph"
+              (click)="showStatisticsGraphEmployeeDetailsToManager(colData)" class="edit-button" class="edit-button"
+              placement="bottom" ngbTooltip="צפיה  בנתוני עובד">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="ifApproveReport&&this.arrayOfReports.length < 1" (click)="approveReport(colData)"
+              class="edit-button" class="edit-button" placement="bottom" ngbTooltip="אישור הדיווח">
+              <i class="fa fa-check" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="ifCreateReport" (click)="createReport(colData)" class="edit-button" class="edit-button"
+              placement="right" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
+              <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+            </button>
+            <button placement="right" *ngIf="showEmployeeProductivityForMonth"
+              ngbTooltip="לצפייה בתפוקה היומית של העובד בחודש זה"
+              (click)="goToDetailsOfWorkingHoursForEmployee(colData)" class="edit-button" class="edit-button">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+            </button>
+            <button placement="right" *ngIf="showProjectContentItemBySpecificDay" ngbTooltip="הצג דיוחי שעות ליום זה"
+              (click)="goToshowProjectContentItemBySpecificDay(colData)" class="edit-button" class="edit-button">
+              <i class="fa fa-eye" id="togglePassword"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div  *ngIf="openCard">
+  <button style="position: fixed;" *ngIf="this.arrayOfReports.length > 0" (click)="approveReport()" class="edit-button" placement="bottom"
+    ngbTooltip="אישור הדיווח"><i class="fa fa-check" aria-hidden="true"></i></button>
+<div class="all-cards">
+  <div class="card" style="width: 18rem;"
+    *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
+    (click)="selectedData(colData)">
+    <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing<0"
+      class="fa fa-times-circle" id="fa-times-circle-card" aria-hidden="true"></i>
+    <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing == 0" id="fa-check-circle-card"
+      class="fa fa-check-circle " aria-hidden="true"></i>
+    <div class="img-card"> <img *ngIf="showEmployeeImageProfil"
+        src="{{colData?.EmployeeProfilImage?colData.EmployeeProfilImage:defultImage}}"
+        class="img-fluid profile-image-pic-card img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+    </div>
+
+    <input *ngIf="ifShowCheckBox" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="isChecked[i]"
+      (change)="checkValue(isChecked[i],colData)">
+    <ul class="list-group list-group-flush">
+      <ng-container *ngFor="let tableDataKey of tableDataKeys; let i = index ;">
+
+        <ng-container *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' &&
+         tableDataKey!=='EmployeeMonthlyWorkingHours' && tableDataKey!=='DailyWorkingHours' &&
+         tableDataKey!=='DailyWorkingHoursthatAreMissing' else ConvertToNumber;">
           <ng-container *ngIf="tableDataKey!=='CreatedOn' else CreatedOn;">
             <ng-container *ngIf="tableDataKey!=='Date' else Date;">
               <ng-container *ngIf="tableDataKey!=='ScheduledEndDate' else CreatedOn;">
-
-                <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+                <li class="list-group-item">
+                  <ng-container *ngIf="thArr">
+                    <span class="th-arr-card">{{thArr[i]}}: </span>
+                  </ng-container>
+                  {{returnColDataByType(colData, tableDataKey)}}
+                </li>
               </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
         <ng-template #ConvertToNumber>
-          <td> {{colData[tableDataKey] | number}}</td>
+          <li class="list-group-item">
+            <ng-container *ngIf="thArr">
+              <span class="th-arr-card">{{thArr[i]}}: </span>
+            </ng-container> {{colData[tableDataKey] | number}}
+          </li>
         </ng-template>
         <ng-template #CreatedOn>
-          <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}</td>
+          <li class="list-group-item">
+            <ng-container *ngIf="thArr">
+              <span class="th-arr-card">{{thArr[i]}}: </span>
+            </ng-container> {{colData[tableDataKey] | date: 'dd/MM/yyyy HH:mm'}}
+          </li>
         </ng-template>
         <ng-template #Date>
-          <td> {{colData[tableDataKey] | date: 'dd/MM/yyyy '}}</td>
+          <li class="list-group-item">
+            <ng-container *ngIf="thArr">
+              <span class="th-arr-card">{{thArr[i]}}:</span>
+            </ng-container>
+            {{colData[tableDataKey] | date: 'dd/MM/yyyy '}}
+          </li>
         </ng-template>
       </ng-container>
-
-      <td class="td">
-        <div class="all-btn-of-table">
+      <div class="all-btn-of-card">
         <button *ngIf="ifUpdate && this.arrayOfReports.length < 1" (click)="editProjectContentItemIcon(colData)"
           placement="top" ngbTooltip="באפשרותך לערוך את הדיווח.">
           <i class="fa fa-pencil" aria-hidden="true"></i></button>
 
-        <button *ngIf="ifUpdateTask" (click)="editProjectContentItemIcon(colData)" placement="right"
+        <button *ngIf="ifUpdateTask" (click)="editProjectContentItemIcon(colData)" placement="top"
           ngbTooltip="באפשרותך לערוך את המשימה.">
           <i class="fa fa-pencil" aria-hidden="true"></i></button>
         <button *ngIf="ifDelete" (click)="deleteProjectContentItemIcon(colData)" class="edit-button" class="edit-button"
-          placement="bottom" ngbTooltip="באפשרותך למחוק את הדיווח.">
+          placement="top" ngbTooltip="באפשרותך למחוק את הדיווח.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
         <button *ngIf="ifDeleteTask" (click)="deleteTaskIcon(colData)" class="edit-button" class="edit-button"
-          placement="right" ngbTooltip="באפשרותך למחוק את המשימה.">
+          placement="top" ngbTooltip="באפשרותך למחוק את המשימה.">
           <i class="iconify" data-icon="akar-icons:trash-can"></i>
         </button>
         <button *ngIf="ifShowAndEditEmployeeSetting" (click)="editEmployeeDetailsByAdmin(colData)" class="edit-button"
-          class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני העובד">
+          placement="top" ngbTooltip="צפיה ועריכת נתוני העובד">
           <i class="fa fa-cog"></i>
         </button>
         <button *ngIf="ifShowAndEditTeamSetting" (click)="editTeamDetailsByAdmin(colData)" class="edit-button"
-          class="edit-button" placement="bottom" ngbTooltip="צפיה ועריכת נתוני הצוות">
+          class="edit-button" placement="top" ngbTooltip="צפיה ועריכת נתוני הצוות">
           <i class="fa fa-cog"></i>
         </button>
         <button *ngIf="ifShowOpenEmployeeTask" (click)="showOpenTask(colData)" class="edit-button" class="edit-button"
-          placement="right" ngbTooltip="צפיה במשימות הפתוחות של העובד">
+          placement="top" ngbTooltip="צפיה במשימות הפתוחות של העובד">
           <i class="fa fa-edit"></i>
         </button>
         <button *ngIf="ifShowOpenTeamTask" (click)="showOpenTeamTask(colData)" class="edit-button" class="edit-button"
-          placement="right" ngbTooltip="צפיה במשימות הפתוחות של הצוות">
+          placement="top" ngbTooltip="צפיה במשימות הפתוחות של הצוות">
           <i class="fa fa-edit"></i>
         </button>
         <button *ngIf="ifShowEmployeeProjectContentItem" (click)="showProjectContentItem(colData)" class="edit-button"
-          class="edit-button" placement="bottom" ngbTooltip="צפיה  בדיווחי שעות של העובד">
+          placement="top" ngbTooltip="צפיה  בדיווחי שעות של העובד">
           <i class="fa fa-calendar-check-o"></i>
         </button>
 
         <button *ngIf="ifShowEmployeeProjectContentItem&&showGraph"
           (click)="showStatisticsGraphEmployeeDetailsToManager(colData)" class="edit-button" class="edit-button"
-          placement="bottom" ngbTooltip="צפיה  בנתוני עובד">
+          placement="top" ngbTooltip="צפיה  בנתוני עובד">
           <i class="fa fa-bar-chart" aria-hidden="true"></i>
         </button>
         <button *ngIf="ifApproveReport&&this.arrayOfReports.length < 1" (click)="approveReport(colData)"
-          class="edit-button" class="edit-button" placement="bottom" ngbTooltip="אישור הדיווח">
+          class="edit-button" placement="top" ngbTooltip="אישור הדיווח">
           <i class="fa fa-check" aria-hidden="true"></i>
         </button>
         <button *ngIf="ifCreateReport" (click)="createReport(colData)" class="edit-button" class="edit-button"
-          placement="right" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
+          placement="top" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
           <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
         </button>
-        <button placement="right" *ngIf="showEmployeeProductivityForMonth"
+        <button placement="top" *ngIf="showEmployeeProductivityForMonth"
           ngbTooltip="לצפייה בתפוקה היומית של העובד בחודש זה" (click)="goToDetailsOfWorkingHoursForEmployee(colData)"
           class="edit-button" class="edit-button">
           <i class="fa fa-clock-o" aria-hidden="true"></i>
         </button>
-        <button placement="right" *ngIf="showProjectContentItemBySpecificDay" ngbTooltip="הצג דיוחי שעות ליום זה"
+        <button placement="top" *ngIf="showProjectContentItemBySpecificDay" ngbTooltip="הצג דיוחי שעות ליום זה"
           (click)="goToshowProjectContentItemBySpecificDay(colData)" class="edit-button" class="edit-button">
           <i class="fa fa-eye" id="togglePassword"></i>
         </button>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </ul>
+  </div>
+</div>
+</div>
 <ng-container *ngIf="ifShowpagination?ifShowpagination[0]:''">
   <div *ngIf="tableData?.length > ifShowpagination[1]">
-    <pagination-controls (pageChange)="p = $event" [nextLabel]="'הבא'" [previousLabel]="'הקודם'"></pagination-controls>
+    <pagination-controls (pageChange)="p = $event" [nextLabel]="'הבא'" [previousLabel]="'הקודם'">
+    </pagination-controls>
   </div>
 </ng-container>

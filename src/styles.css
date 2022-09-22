@@ -6,10 +6,10 @@
   width: 20rem;
 }
 
-.card-of-task .card-of-description .card-body form .input-container {
+/* .card-of-task .card-of-description .card-body form .input-container {
   display: flex;
   flex-direction: column;
-}
+} */
 
 
 
@@ -73,20 +73,7 @@ text-align: center;
 textarea.form-control {
   min-height: 100px;
 }
-.card{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 3vw;
-  border-radius: 8px;
-  background-color: #fff;
-  max-width: 100%;
-  min-width: 40%;
-  margin: auto;
-  padding: 20px;
-  overflow-x: hidden;
-}
+
 .task-card-timer {
   max-width: 600px;
   width: 100%;

@@ -36,7 +36,7 @@ export class ShowMyTaskComponent implements OnInit {
   projectContentItemArr: any;
   projectContentItem: any;
   titleTableTask = 'המשימות שלי';
-  thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
+  thArrTask = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   tableSpecificTaskOpen = false;
   startWorkOfTask = false;
@@ -160,7 +160,7 @@ export class ShowMyTaskComponent implements OnInit {
     this.ifSortDown = false;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':
@@ -194,7 +194,7 @@ export class ShowMyTaskComponent implements OnInit {
     this.ifSortDown = true;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':
@@ -258,7 +258,7 @@ export class ShowMyTaskComponent implements OnInit {
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/the-last-tasks-i-worked']);
+      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
     }
   }
   onSearchTask(filterKeyBySubject: any) {

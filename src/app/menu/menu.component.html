@@ -1,4 +1,28 @@
-<div class="all-page">
+
+         <a class="menu-icon">
+          <i class="fa fa-bars" aria-hidden="true"></i></a> 
+
+      <!-- <p class="p-of-title ">דיווחי שעות </p> -->
+      <div class="icons-right">
+      <a *ngIf="showMassgeToManager" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
+        ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNewMessege" style="font-size: 30px; "></i></a>
+      <a (click)="openPopUpMyNewTask()" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
+        (clickOutside)="onClickedOutsideMyNewTask($event)">
+        <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px "
+          [ngClass]="{'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
+      </a>
+      <a (click)="Logout()" placement="bottom" ngbTooltip="התנתק מהמערכת"><i class="fa fa-sign-out "
+          aria-hidden="true"></i></a>
+      <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
+        (clickOutside)="onClickedOutside($event)" placement="bottom" ngbTooltip=" פרטי משתמש ואזור אישי">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+          class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
+      </a> 
+
+    </div>
+
+
+  <!-- <div class="all-page">
   <div class="aImg">
     <div class="icons">
       <a (click)="GoToHome()">
@@ -13,113 +37,96 @@
           class="fa fa-calendar-check-o"></i>
       </a>
       <a (click)="openPopUp('pause',true)" placement="bottom" ngbTooltip="צא להפסקה"><i class="fa fa-coffee"></i></a>
-      <a (click)="openPopUp('timeOfProjectContectItem',true)" placement="bottom"
-        ngbTooltip="יצירת מהירה של דיווח">
+      <a (click)="openPopUp('timeOfProjectContectItem',true)" placement="bottom" ngbTooltip="יצירת מהירה של דיווח">
         <i class="fa fa-clock-o" aria-hidden="true"></i></a>
       <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart"
           aria-hidden="true"></i> </a>
-       
+
+    </div> -->
+    
+  <!-- </div>
+</div>  -->
+
+<div *ngIf="startWorkOfTask">
+  <a (click)="returnToTheOpenTask()" placement="right"
+    ngbTooltip="חזרה למשימה  : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
+      data-icon="bi:clock-history"></i></a>
+</div>
+
+<div *ngIf="isPopUpOpen?.creatTask">
+  <app-create-new-task></app-create-new-task>
+</div>
+
+<div *ngIf="isPopUpOpen?.updateTask">
+  <app-update-an-existing-task></app-update-an-existing-task>
+</div>
+
+<div *ngIf="openPersonalDetails">
+  <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [todayDate]="todayDate"
+    (closePersonalDetails)="closePersonalDetails()">
+  </app-personal-details>
+</div>
+
+<div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
+  <app-create-aproject-content-item></app-create-aproject-content-item>
+</div>
+
+<div *ngIf="isPopUpOpen?.AddProject">
+  <app-add-project-by-manager [ProjectTypeArr]="workTypeArr"></app-add-project-by-manager>
+</div>
+
+<div *ngIf="isPopUpOpen?.sickLeave">
+  <app-sick-leave-project-content-item [myTask]="taskArr" [todayDate]="todayDate" [project]="projectArr"
+    [workType]="workTypeArr"></app-sick-leave-project-content-item>
+</div>
+
+<div *ngIf="isPopUpOpen?.Freedom">
+  <app-freedom-project-content-item [project]="projectArr" [myTask]="taskArr" [todayDate]="todayDate"
+    [workType]="workTypeArr"></app-freedom-project-content-item>
+</div>
+
+<div *ngIf="openMyNewTaskPopUp">
+  <app-my-new-tasks></app-my-new-tasks>
+</div>
+<div *ngIf="isPopUpOpen?.MessageToTheManager">
+  <app-massege-to-manager></app-massege-to-manager>
+</div>
+
+<div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
+  <app-pop-up>
+    <div body>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
+        [inputValue]="taskNameFromLocalStorage" [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody"
+        [textOfBtnNo]="'טעות, מעוניין להמשיך לעבודה על המשימה'" [textOfBtnYes]="'כן, מעוניין לצאת להפסקה'"
+        [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true"
+        [massgeUserBody1]="" (clickYes)="clickYesGoingBreak($event)" (clickNo)="clickNoGoingbreak()">
+      </app-massge-to-user>
     </div>
-    <p class="p-of-title ">דיווחי שעות </p>
-    <div class="aImg2">
-      <a *ngIf="showMassgeToManager" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
-        ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNewMessege" style="font-size: 30px; "></i></a>
-      <a (click)="openPopUpMyNewTask()" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
-        (clickOutside)="onClickedOutsideMyNewTask($event)">
-        <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px "
-          [ngClass]="{'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
-      </a>
-      <a (click)="Logout()" placement="bottom" ngbTooltip="התנתק מהמערכת"><i class="fa fa-sign-out "
-          aria-hidden="true"></i></a>
-      <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
-        (clickOutside)="onClickedOutside($event)" placement="bottom" ngbTooltip=" פרטי משתמש ואזור אישי">
-        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
-          class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
-      </a>
+  </app-pop-up>
+</div>
+
+<div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
+  <app-pop-up>
+    <div body>
+      <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite"
+        [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody"
+        [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader"
+        [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" [ifButton]="true"></app-massge-to-user>
+      <!-- (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" -->
     </div>
-  </div>
+  </app-pop-up>
+</div>
 
+<div *ngIf="isPopUpOpen?.pause">
+  <app-pause-work [buttonEnd]="endButton" [workTime]="workTime">
+  </app-pause-work>
+</div>
 
+<div *ngIf="isPopUpOpen?.timeOfProjectContectItem">
+  <app-project-contect-item-with-time></app-project-contect-item-with-time>
+</div>
 
-  <div *ngIf="startWorkOfTask">
-    <a (click)="returnToTheOpenTask()" placement="right" ngbTooltip="חזרה למשימה  : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history"
-        class="iconify" data-icon="bi:clock-history"></i></a>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.creatTask">
-    <app-create-new-task></app-create-new-task>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.updateTask">
-    <app-update-an-existing-task></app-update-an-existing-task>
-  </div>
-
-  <div *ngIf="openPersonalDetails">
-    <app-personal-details (openPopUp)="openPopUp($event.date,$event.type)" [todayDate]="todayDate"
-      (closePersonalDetails)="closePersonalDetails()">
-    </app-personal-details>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.ceateAprojectContentItem">
-    <app-create-aproject-content-item></app-create-aproject-content-item>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.AddProject">
-    <app-add-project-by-manager [ProjectTypeArr]="workTypeArr"></app-add-project-by-manager>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.sickLeave">
-    <app-sick-leave-project-content-item [myTask]="taskArr" [todayDate]="todayDate" [project]="projectArr"
-      [workType]="workTypeArr"></app-sick-leave-project-content-item>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.Freedom">
-    <app-freedom-project-content-item [project]="projectArr" [myTask]="taskArr" [todayDate]="todayDate"
-      [workType]="workTypeArr"></app-freedom-project-content-item>
-  </div>
-
-  <div *ngIf="openMyNewTaskPopUp">
-    <app-my-new-tasks></app-my-new-tasks>
-  </div>
-  <div *ngIf="isPopUpOpen?.MessageToTheManager">
-    <app-massege-to-manager></app-massege-to-manager>
-  </div>
-
-  <div *ngIf="showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause">
-    <app-pop-up>
-      <div body>
-        <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
-          [inputValue]="taskNameFromLocalStorage"
-          [massgeUserBody1]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody" [textOfBtnNo]="'טעות, מעוניין להמשיך לעבודה על המשימה'" [textOfBtnYes]="'כן, מעוניין לצאת להפסקה'"
-          [massgeUserHeader]="massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader" [ifButton]="true"
-          [massgeUserBody1]="" (clickYes)="clickYesGoingBreak($event)" (clickNo)="clickNoGoingbreak()">
-        </app-massge-to-user>
-      </div>
-    </app-pop-up>
-  </div>
-
-  <div *ngIf="showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite">
-    <app-pop-up>
-      <div body>
-        <app-massge-to-user [kindOfMassage]="kindOfMassageifInTheMiddleOfPauseAndRefreshWebsite"
-          [massgeUserHeader]="massgeUserRefreshWebsiteInMiddlePauseBody"
-          [massgeUserBody1]="massgeUserRefreshWebsiteInMiddlePauseHeader"
-          [massgeUserBody2]="massgeUserRefreshWebsiteInMiddlePauseFooter" [ifButton]="true"></app-massge-to-user>
-        <!-- (clickYes)="clickYes($event)" (clickNo)="clickNo($event)" -->
-      </div>
-    </app-pop-up>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.pause">
-    <app-pause-work [buttonEnd]="endButton" [workTime]="workTime">
-    </app-pause-work>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.timeOfProjectContectItem">
-    <app-project-contect-item-with-time></app-project-contect-item-with-time>
-  </div>
-
-  <div *ngIf="isPopUpOpen?.HoursAwaitingApproval">
-    <app-hours-awaiting-approval></app-hours-awaiting-approval>
-  </div>
-  <router-outlet></router-outlet>
+<div *ngIf="isPopUpOpen?.HoursAwaitingApproval">
+  <app-hours-awaiting-approval></app-hours-awaiting-approval>
+</div>
+<router-outlet></router-outlet>

@@ -14,12 +14,9 @@ export class AppComponent implements OnInit {
   systemGuid: any;
   showMenu = false;
   constructor(private appService: AppService) {
-    this.appService.getIsLogin().subscribe(res => {
-      if (res)
-        this.showMenu = true;
-      else
-        this.showMenu = false;
-    })
+  var x=   this.appService.getAppProperties()
+   console.log(x);
+   
   }
 
   ngOnInit(): void {

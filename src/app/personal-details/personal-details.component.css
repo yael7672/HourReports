@@ -1,16 +1,4 @@
 .actionArea {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 19;
-    /* background-color: #0e1b34de; */
-    width: 35%;
-    
-  }
-  .card {
-    min-width: 200px;
-    max-width: 20vw;
-
   position: fixed;
   top: 0;
   right: 0;
@@ -20,28 +8,13 @@
 
 }
 
-.card {
-  min-width: 200px;
-  max-width: 20vw;
-  min-height: 30vw;
+
+p.card-title {
+  text-align: right !important;
+  font-size: small;
+  font-weight: bold;
 }
- p.card-title{
-text-align: right !important;
-font-size: small;
-font-weight: bold;
-/* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif */
-}
-/* .DailyAndMonthlyWorkingHoursC {
-  display: flex;
-  flex-direction:column;
-  direction: rtl;
-  height: 10vh !important;
-  border-radius: 10px;
-  font-weight: 100 !important;
-}
-.DailyAndMonthlyWorkingHoursC p{
-  padding: 0;
-} */
+
 .profile-image-pic {
   height: 100px;
   width: 100px;
@@ -67,4 +40,25 @@ a {
   height: 3em;
   width: 10em;
   background: yellow;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3vw;
+  border-radius: 8px;
+  background-color: #fff;
+  min-width: 200px;
+  max-width: 20vw;
+  min-height: 30vw;
+  margin: auto;
+  padding: 20px;
+  overflow-x: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 19;
+  width: 35%;
 }

@@ -5,7 +5,7 @@
 <div class="form-outline d-flex justify-content-center">
   <select id="inputState" class="form-control" ngModel
     (ngModelChange)="GetWorkTimeByWorkTypeAndWorkTimeCompareActualTimeChart($event)">
-    <option value="">--בחר אחת מהאופציות הבאות--</option>
+    <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
     <option value="1"> מיון לפי טווח תאריכים</option>
     <option value="2">שעות עבודה היום</option>
     <option value="3">שעות עבודה בשבוע האחרון</option>

@@ -18,7 +18,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
   constructor(private popUpService: PopUpServiceService, private activatedRoute: ActivatedRoute, private appService: AppService, private userService: UserServiceService, public route: Router) { }
 
   titleLastTaskIWorkedOn = "המשימות האחרונות שעבדתי עליהן";
-  thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
+  thArrTaskTeams = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'צוות'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
   sortTaskArr: any[] = [];
   projectContentItem: any;
@@ -58,7 +58,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
     this.ifSortDown = false;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':
@@ -92,7 +92,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
     this.ifSortDown = true;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':

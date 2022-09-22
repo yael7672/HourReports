@@ -38,6 +38,19 @@
   justify-content: left;
 }
 
-
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3vw;
+  border-radius: 8px;
+  background-color: #fff;
+  max-width: 100%;
+  min-width: 40%;
+  margin: auto;
+  padding: 20px;
+  overflow-x: hidden;
+}
 
   

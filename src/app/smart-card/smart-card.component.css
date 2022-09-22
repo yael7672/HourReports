@@ -33,3 +33,16 @@ img {
     width: 50px;
     margin-bottom: 0.5rem
 }
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3vw;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    overflow-x: hidden;
+  }

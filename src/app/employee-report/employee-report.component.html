@@ -1,6 +1,6 @@
 <div class="select-input">
   <select style="margin-top: 5rem;" id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
-    <option value="">--בחר אחת מהאופציות הבאות--</option>
+    <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
     <option value="0">דוח עובדים</option>
     <option value="1"> דוח צוותים</option>
   </select>
@@ -9,7 +9,7 @@
 <app-smart-card [title]="title" [showChrtEmployee]="'true'" [src]="'../../../assets/images/470319.png'">
   <div body>
     <div class="search">
-    <div style="width: 25%;">
+    <div style="width: 25%;" *ngIf="employeeDetails">
       <ng-autocomplete style="width: 100%;"class="autoComplete" dir="rtl" [data]="employeeDetails" [searchKeyword]="'EmployeeName'"
         placeholder=" חפש לפי שם עובד" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
         (ngModelChange)="onSearchEmployee($event.EmployeeName)" ngModel name="EmployeeName" #Subject="ngModel" required

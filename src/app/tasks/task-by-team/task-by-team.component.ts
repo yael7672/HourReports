@@ -15,7 +15,7 @@ export class TaskByTeamComponent implements OnInit {
   isPopUpOpen: any;
   tableMyTaskTeamsOpen = false;
   titleTableTeamsTask ="";
-  thArrTaskTeams = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'צוות'];
+  thArrTaskTeams = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'צוות'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
   taskTeamsArr: any;
   teamGuid: any;
@@ -65,7 +65,7 @@ export class TaskByTeamComponent implements OnInit {
     this.ifSortDown = false;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':
@@ -102,7 +102,7 @@ export class TaskByTeamComponent implements OnInit {
     this.ifSortDown = true;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':

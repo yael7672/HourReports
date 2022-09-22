@@ -1,33 +1,38 @@
-.edit-button{
-    border-color: white;
-    background-color: white;
-    border: none;
-  }
-  .th-bold
-  {
-    font-weight: bold;
-  }
-  p {
-    margin: 0;
-    text-align: right;
-  }
-  td.td {
-    flex-direction: row;
-    border-bottom-width: 0px;
-  }
-  .table>:not(caption)>*>*
-  {
-    box-shadow: none;
-  }
-  button{
-    border-color: white;
-    background-color: white;
-    border: none;
+.edit-button {
+  border-color: white;
+  background-color: white;
+  border: none;
 }
+
+.th-bold {
+  font-weight: bold;
+}
+
+p {
+  margin: 0;
+  text-align: right;
+}
+
+td.td {
+  flex-direction: row;
+  border-bottom-width: 0px;
+}
+
+.table>:not(caption)>*>* {
+  box-shadow: none;
+}
+
+button {
+  border-color: white;
+  background-color: white;
+  border: none;
+}
+
 .fa-check-circle:before {
   content: "\f058";
   color: green;
 }
+
 .fa-times-circle:before {
   content: "\f057";
   color: red;
@@ -42,7 +47,62 @@
   padding: 0rem;
 
 }
-.all-btn-of-table{
+
+.all-btn-of-table {
   display: flex;
 
+}
+
+.all-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly
+}
+
+ul {
+  padding-right: 0rem;
+}
+
+.th-arr-card {
+  font-weight: bold;
+}
+
+.all-btn-of-card {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.list-group-item,ul.list-group.list-group-flush {
+  border: 0px;
+}
+
+.card {
+  margin: 0.3rem;
+  padding: 10px;
+  overflow-x: hidden;
+ 
+}
+
+#fa-check-circle-card,
+#fa-times-circle-card {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-image-pic-card {
+
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+  direction: rtl;
+  margin-right: 15px;
+  padding: 0rem;
+
+}
+
+.img-card {
+  display: flex;
+  justify-content: center;
 }

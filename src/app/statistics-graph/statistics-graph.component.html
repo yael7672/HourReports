@@ -1,12 +1,10 @@
-<h3
-  style="text-align: center; padding:25px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;">
-  גרפים וסטטיסטיקות</h3>
+
 <div class="select-input">
 
   <div class="form-outline d-flex justify-content-center">
     <select id="inputState" class="form-control" ngModel
       (ngModelChange)="GetMyProjectContentItemByTimeLineChart($event)">
-      <option value="">--בחר אחת מהאופציות הבאות--</option>
+      <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
       <option value="0">מיון לפי טווח תאריכים </option>
       <option value="1"> היום </option>
       <option value="2"> 7 ימים אחרונים </option>

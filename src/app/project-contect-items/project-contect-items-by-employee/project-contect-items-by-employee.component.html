@@ -2,7 +2,7 @@
   <div body>
     <div class="form-outline d-flex justify-content-center">
       <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
-        <option value="">--בחר אחת מהאופציות הבאות--</option>
+        <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
         <option value="6"> דיווחי שעות שעדיין לא אושרו </option>
         <option value="1"> היום </option>
         <option value="2"> 7 ימים אחרונים </option>

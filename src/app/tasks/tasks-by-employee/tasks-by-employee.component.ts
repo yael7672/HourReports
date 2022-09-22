@@ -20,7 +20,7 @@ export class TasksByEmployeeComponent implements OnInit {
   sortTaskArr: any;
   ifThereAreTasks = false;
   ifSortDown = false;
-  thArrTask = ['שם המשימה', 'נוצר ב:', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
+  thArrTask = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   taskListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
   projectContentItem: any;
   taskGuid: any;
@@ -94,7 +94,7 @@ export class TasksByEmployeeComponent implements OnInit {
     this.ifSortDown = false;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':
@@ -131,7 +131,7 @@ export class TasksByEmployeeComponent implements OnInit {
     this.ifSortDown = true;
     let keyToSort: any;
     switch (thName) {
-      case 'נוצר ב:':
+      case 'נוצר ב':
         keyToSort = 'CreatedOn';
         break;
       case 'שעות מוקצות למשימה':

@@ -2,7 +2,7 @@
   <div body>
     <div class="form-outline d-flex justify-content-center">
       <select id="inputState" class="form-control" ngModel (ngModelChange)="getDetailsOfWorkingHourByEmployee($event)">
-        <option value="">--בחר אחת מהאופציות הבאות--</option>
+        <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
         <option value="1"> החודש </option>
         <option value="2"> חודש קודם</option>
         <option value="3">מיון לפי טווח תאריכים </option>
