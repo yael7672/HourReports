@@ -18,17 +18,17 @@
       <p class="card-title">סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</p>
     </div>
     <div class="icons" *ngIf="systemGuid">
-      <a (click)="openPopUpp('sickLeave',true)" placement="top" ngbTooltip="דיווח מהיר של חופשת מחלה"><i class="iconify"
+      <a (click)="openPopUpp('sickLeave',true)" placement="top" ngbTooltip="דיווח מהיר של מחלה"><i class="iconify"
           data-icon="ic:outline-sick"></i>
       </a>
       <a (click)="openPopUpp('Freedom',true)" placement="top" ngbTooltip="דיווח מהיר של חופשה"><i class="iconify"
           data-icon="iconoir:sea-and-sun"></i>
       </a>
       <a (click)="goTpHoursAwaitingApproval()" placement="top"
-        ngbTooltip="לצפייה ואישור של דיווחים הממתנים לאישור מנהל"><i class="iconify"
+        ngbTooltip="לצפייה ואישור של דיווחים הנדרשים לתיקון"><i class="iconify"
           data-icon="carbon:condition-wait-point"></i></a>
       <a (click)="goToEmployeeReport()" placement="top"
-        ngbTooltip="דו'ח עובדים"><i class="iconify" data-icon="carbon:report"></i></a>
+        ngbTooltip="דוח עובדים / צוותים"><i class="iconify" data-icon="carbon:report"></i></a>
 
         <a (click)="goToSystemSetting()">  <i class="fa fa-cog mt-2" style="font-size: 24px;"></i></a>
     </div>

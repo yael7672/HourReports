@@ -1,40 +1,47 @@
-p{
-margin-bottom: 0rem;
-font-weight: bold;
+p {
+    margin-bottom: 0rem;
+    font-weight: bold;
 }
-span{
+
+span {
     font-weight: normal;
 
 }
-.btn{
+
+.btn {
     margin-right: 1rem;
 }
-.form-group{
+
+.form-group {
     display: flex;
 }
-.input-group-addon
-{
-padding: 0.5rem
+
+.input-group-addon {
+    padding: 0.5rem
 }
-.label{
+
+.label {
     border-color: orange;
 }
-.form-control{
+
+.form-control {
     width: 16rem;
 }
-.all-canvas-page{
-    display:flex;
+
+.all-canvas-page {
+    display: flex;
     direction: rtl;
     flex-wrap: wrap;
 }
 
-.select-input{
-    display:flex;
+.select-input {
+    display: flex;
     flex-direction: column;
     direction: rtl;
     justify-content: center;
 }
-.form-group{
+
+.form-group {
     justify-content: center;
     width: 100%;
 }
@@ -43,22 +50,45 @@ padding: 0.5rem
     width: 30rem;
 
 }
-#lineChart{
+
+#lineChart {
     width: 100%;
 }
+
 /*  */
-.frac { display: inline-block;
+.frac {
+    display: inline-block;
     position: relative;
     vertical-align: middle;
     letter-spacing: 0.001em;
     text-align: center;
 }
-.frac > span {
+
+.frac>span {
     display: block;
     padding: 0.1em;
 }
+
 .frac span.bottom {
     border-top: thin solid black;
 }
+
 .frac span.symbol {
-    display: none;}
+    display: none;
+}
+
+.edit-button {
+    border-color: white;
+    background-color: white;
+    border: none;
+}
+
+.iconify {
+    font-size: 30px;
+}
+
+.create-report {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}

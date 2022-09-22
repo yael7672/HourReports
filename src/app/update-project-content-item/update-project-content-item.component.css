@@ -1,5 +1,12 @@
 p {
-    margin: 0;
-    text-align: right;
-  }
+  margin: 0;
+  text-align: right;
+}
 
+.p-autocomplete {
+  text-align: right;
+  margin-bottom: -0.7rem;
+}
+.autocomplete{
+  margin-bottom: 1rem;
+}

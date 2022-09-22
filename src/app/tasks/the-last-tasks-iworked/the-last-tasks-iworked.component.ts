@@ -127,4 +127,18 @@ export class TheLastTasksIWorkedComponent implements OnInit {
       (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
     )
   }
+  WhichTableOpen(val: any) {
+    if (val == 0) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/menu/show-my-task',this.systemGuid]);
+    }
+    if (val == 1) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/menu/show-team-my-task/',this.systemGuid]);
+    }
+    if (val == 2) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
+    }
+  }
 }

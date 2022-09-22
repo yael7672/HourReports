@@ -7,7 +7,6 @@ button {
 .search {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
 }
 
 .input-container {
@@ -28,23 +27,25 @@ h2 {
 
 .search {
     display: flex;
-    justify-content: center;
-    margin-top: 3rem;
-}
-
-/* .autocomplete  ul li a{
-    display: flex !important;
-    justify-content: center !important;
-} */
-
-.autocomplete a {
-    text-align: center;
-    display: flex !important;
-    justify-content: center !important;
-
-}
-
-.autocomplete-container .input-container input {
-    display: flex;
+    justify-content: space-around;
     direction: rtl;
+    margin-bottom: 1rem;
+
+}
+
+.autocomplete-1,
+.autocomplete-2,
+.autocomplete-3,
+#inputState-1 {
+    min-width: 20%;
+}
+
+#inputState-2 {
+    width: 13rem;
+    min-width: 13rem;
+
+}
+
+select#inputState {
+    margin-top: 1.2rem;
 }

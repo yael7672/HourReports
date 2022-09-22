@@ -39,6 +39,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   fromDate: any;
   untilDate: any;
   myDate = new Date();
+  spesificDateForCreateReport: any;
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private datepipe: DatePipe, private appService: AppService, private activatedRoute: ActivatedRoute) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -156,15 +157,21 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
         })
     }
   }
-  createReport(val: any) {
+  createReportWithDate(val: any) {
     this.dateToUpdate = val.Date;
     localStorage.setItem('dateToUpdate', this.dateToUpdate)
     this.appService.setIsPopUpOpen(true);
-    this.popUpService.setSpecificPopUp(true, "createAprojectContentItem")
+    this.popUpService.setSpecificPopUp(true, "createAprojectContentItem");
+  }
+  createReport() {
+    localStorage.setItem('dateToUpdate', this.spesificDateForCreateReport)
+    this.appService.setIsPopUpOpen(true);
+    this.popUpService.setSpecificPopUp(true, "createAprojectContentItem");
   }
 
   getReportsBySpesificDate(val: any) {
-    this.spesificDate = this.datepipe.transform(val.Date, 'dd/MM/yyyy')
+    this.spesificDate = this.datepipe.transform(val.Date, 'dd/MM/yyyy');
+    this.spesificDateForCreateReport=val.Date;
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
     this.userService.GetMyProjectContectItem(this.systemGuid, 0, "", "", this.spesificDate).subscribe(res => {
       if (res) {
@@ -177,7 +184,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       err => {
         console.log(err.error);
       })
-  } 
+  }
   closeDialog(val: any) { }
   editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(false, 'UpdateProjectContentItemDetails');
@@ -190,41 +197,47 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
   sortByDateRange() {
-    this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
-    this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
-    if(this.fromDate&&this.untilDate!=null)
-    {
-    this.detailsOfWorkingHourByEmployeeToSend = [];
-    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, 3, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
-      if (res) {
-        this.fromDate="";
-        this.untilDate="";
-        this.todayDate=""
-        this.detailsOfWorkingHourByEmployee = res;
-        this.detailsOfWorkingHourByEmployee.forEach(x => {
-          if (x.Date != null) {
-            this.detailsOfWorkingHourByEmployeeToSend.push(x)
-          }
-        })
-        this.detailsOfWorkingHourByEmployee.forEach((x: any) => {
-          if (x.HoursReportedThisMonth != 0) {
-            this.hoursReportedThisMonth = x.HoursReportedThisMonth;
-          }
-          if (x.WorkingDaysThisMonth != 0) {
-            this.workingDaysThisMonth = x.WorkingDaysThisMonth;
-          }
+    if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
+      let d1 = new Date(this.fromDate);
+      let d2 = new Date(this.untilDate)
+      if (d1.getTime() <= d2.getTime()) {
+        this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy');
+        this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy');
+      this.detailsOfWorkingHourByEmployeeToSend = [];
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, 3, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
+        if (res) {
+          this.fromDate = "";
+          this.untilDate = "";
+          this.todayDate = ""
+          this.detailsOfWorkingHourByEmployee = res;
+          this.detailsOfWorkingHourByEmployee.forEach(x => {
+            if (x.Date != null) {
+              this.detailsOfWorkingHourByEmployeeToSend.push(x)
+            }
+          })
+          this.detailsOfWorkingHourByEmployee.forEach((x: any) => {
+            if (x.HoursReportedThisMonth != 0) {
+              this.hoursReportedThisMonth = x.HoursReportedThisMonth;
+            }
+            if (x.WorkingDaysThisMonth != 0) {
+              this.workingDaysThisMonth = x.WorkingDaysThisMonth;
+            }
 
-        });
-        console.log(this.hoursReportedThisMonth);
+          });
+          console.log(this.hoursReportedThisMonth);
+        }
+      },
+        err => {
+          console.log(err.error);
+        })
       }
-    },
-      err => {
-        console.log(err.error);
-      })
+      else {
+        swal('תאריך התחלה לא יכול להיות גדול מתאריך סיום!')
+      }
     }
-    else{
-      swal('עליך להזין תאריך התחלה ותאריך סיום')    
+    else {
+      swal('עליך להזין תאריך התחלה ותאריך סיום')
     }
   }
 

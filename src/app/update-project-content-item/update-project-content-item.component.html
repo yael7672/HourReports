@@ -3,13 +3,14 @@
   <h4 header class="mb-4" *ngIf="ifUpdateTask"> עריכת משימה</h4>
 
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
+      <p class=""> תאריך:</p>
       <div *ngIf="!header" class="form-outline d-flex justify-content-center ">
         <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
           class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" ngModel
           required>
       </div>
-        <p> פרוייקט:</p>
-        <div class="form-outline d-flex justify-content-center ">
+        <p class="p-autocomplete"> פרוייקט:</p>
+        <div class="autocomplete">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
             placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
             [(ngModel)]="ProjectContentItem.Project" ngModel name="Project" #Project="ngModel" required
@@ -23,8 +24,8 @@
           </ng-template>
         </div>
       
-      <p> סוג עבודה:</p>
-      <div class="form-outline d-flex justify-content-center mb-4 ">
+      <p class="p-autocomplete"> סוג עבודה:</p>
+      <div class="autocomplete">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"
           placeholder="סוג עבודה" historyIdentifier="WorkType" [itemTemplate]="itemTemplate"
           [(ngModel)]="ProjectContentItem.WorkType" ngModel name="WorkType" #WorkType="ngModel" required
@@ -37,8 +38,8 @@
           <div [innerHTML]="'לא נמצאו תוצאות'"></div>
         </ng-template>
       </div>
-      <p *ngIf="ifUpdateTask"> הקצה משימה:</p>
-      <div *ngIf="ifUpdateTask" class="form-outline d-flex justify-content-center mb-4 ">
+      <p class="p-autocomplete" *ngIf="ifUpdateTask"> הקצה משימה:</p>
+      <div *ngIf="ifUpdateTask" class="autocomplete">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="allUserAndTeams" [searchKeyword]="'Name'"
           placeholder="הקצה משימה למשתמש או לצוות" 
           [(ngModel)]="ProjectContentItem.OwnerId" historyIdentifier="AssignTask" [itemTemplate]="itemTemplate"

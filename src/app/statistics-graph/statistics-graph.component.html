@@ -19,7 +19,7 @@
       <div class="input-group input-daterange">
         <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
           (ngModelChange)="dateOfSearchBeforeForLineChart = $event">
-        <div class="input-group-addon">ל - </div>
+        <div class="input-group-addon">עד - </div>
         <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
           (ngModelChange)="dateOfSearchAfterForLineChart = $event">
       </div>
