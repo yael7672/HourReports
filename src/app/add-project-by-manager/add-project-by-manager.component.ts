@@ -18,7 +18,7 @@ export class AddProjectByManagerComponent implements OnInit {
   myDate = new Date()
   adminGuid: any;
   ProjectManagerOrHeadProgrammerArr!: ownerid[]
- AcccountArr!:Acccount[]
+ AccountArr!:Acccount[]
   constructor(private userService: UserServiceService, private router: Router,
     private datePipe: DatePipe, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -29,6 +29,7 @@ export class AddProjectByManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllEmployee()
+    this.GetAccount()
   }
   CreateNewProject(form: NgForm) {
     this.isDisabled = true;
@@ -61,7 +62,7 @@ export class AddProjectByManagerComponent implements OnInit {
   GetAccount() {
     this.userService.GetAccount().subscribe(
       (res: any) => {
-        this.AcccountArr = res;
+        this.AccountArr = res;
       },
       (err: any) =>
         console.log(err.error)

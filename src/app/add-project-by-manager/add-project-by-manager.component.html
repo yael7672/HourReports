@@ -17,7 +17,7 @@
                 <span *ngIf="ConfirmedHours.errors">שדה זה חובה</span>
             </div>
             <div class="form-outline d-flex justify-content-center mb-4">
-                <ng-autocomplete style="width: 100%;" [data]="AcccountArr" [searchKeyword]="'Name'" placeholder="לקוח" 
+                <ng-autocomplete style="width: 100%;" [data]="AccountArr" [searchKeyword]="'Name'" placeholder="לקוח" 
                 historyIdentifier="Account" class="autoComplete" [itemTemplate]="itemTemplate" 
                 ngModel name="Account" #Account="ngModel" required [notFoundTemplate]="notFoundTemplate">
              </ng-autocomplete>
