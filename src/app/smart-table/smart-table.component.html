@@ -143,7 +143,7 @@
   <button style="position: fixed;" *ngIf="this.arrayOfReports.length > 0" (click)="approveReport()" class="edit-button" placement="bottom"
     ngbTooltip="אישור הדיווח"><i class="fa fa-check" aria-hidden="true"></i></button>
 <div class="all-cards">
-  <div class="card" style="width: 18rem;"
+  <div class="card" style="width: 17rem;"
     *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
     (click)="selectedData(colData)">
     <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing<0"

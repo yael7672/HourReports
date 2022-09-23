@@ -2,18 +2,31 @@
 .input-container {
     margin: 1rem;
 }
-.search{
-    display: flex;
-    justify-content:space-around ;
-    direction: rtl;
-    margin-bottom: 1rem;
 
-}
 
-.autocomplete-1,.autocomplete-2,.form-control{
-    min-width: 20%;
+.autocomplete-1,
+.autocomplete-2,
+.form-control{
+   width: 14rem;
 }
 
 select#inputState {
     margin-top: 1.2rem;
+}
+.search {
+    display: flex;
+    justify-content: space-between;
+    direction: rtl;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 900px) {
+    .search {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        direction: rtl;
+        margin-bottom: 1rem;
+        align-items: center;
+    }
 }

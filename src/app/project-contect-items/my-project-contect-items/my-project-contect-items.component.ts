@@ -46,16 +46,17 @@ export class MyProjectContectItemsComponent implements OnInit {
   projectArr: any;
   workTypeArr: any;
 
-  constructor(private activatedRoute: ActivatedRoute,private userService: UserServiceService,
-     private datePipe: DatePipe, private appService: AppService,
-      private popUpService: PopUpServiceService,
-      private route:Router) {
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService,
+    private datePipe: DatePipe, private appService: AppService,
+    private popUpService: PopUpServiceService,
+    private route: Router) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
     this.popUpService.getAllmyProjectContectItem().subscribe(res => {
       this.GetMyProjectContectItem(this.selectedTime)
-    })
+    });
+
   }
   ngOnInit(): void {
     this.GetProject();
@@ -85,12 +86,12 @@ export class MyProjectContectItemsComponent implements OnInit {
         console.log(err.error);
       })
   }
-  
+
   GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
     this.selectedTime = selectedTime;
     if (selectedTime) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate,"").subscribe(res => {
+      this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate, "").subscribe(res => {
         if (res) {
           this.myProjectContectItemArr = res;
         }
@@ -218,10 +219,7 @@ export class MyProjectContectItemsComponent implements OnInit {
     this.showMassgeToUser = true;
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
-  goToDetailsOfWorkingHours()
-  {
-    this.route.navigate(['/menu/details-of-working-hours-employee',this.systemGuid])
-  }
+
 }
 
 

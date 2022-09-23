@@ -10,11 +10,11 @@
 <app-smart-card [title]="titleLastTaskIWorkedOn" [src]="'../../../assets/images/2387679.png'">
     <div body>
         <!-- חיפוש ומיון -->
-        <app-search-and-sort-tasks [taskArr]="sortTaskArr" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks>
+        <app-search-and-sort-tasks *ngIf="sortTaskArr.length>0" [taskArr]="sortTaskArr" (GetTaskAfterSort)="getTaskAfterSort($event)" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks>
         <app-smart-table [ifUpdate]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTaskTeams"
             [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys" [tableData]="sortTaskArr"
             (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
-            (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+            (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SelectedData)="SelectedTask($event)" (SortTableDown)="SortTableDown($event)"
             (SortTableUp)="SortTableUp($event)">
         </app-smart-table>
     </div>

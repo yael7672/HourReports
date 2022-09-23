@@ -17,6 +17,7 @@ export class PopUpServiceService {
   private WorkTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private IfXProjectContectItemUpdateWithTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private refreshGetAllMyNewTask$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private navBar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 
@@ -42,6 +43,7 @@ export class PopUpServiceService {
       ProjectContentItemBySpesificDate: type === 'ProjectContentItemBySpesificDate' ? data : false,
       AddProject: type === 'AddProject' ? data : false,
       AddUser: type === 'AddUser' ? data : false,
+
     }
     this.setKindOfPopUp(obj)
   }
@@ -59,6 +61,12 @@ export class PopUpServiceService {
   }
   getAllmyTask() {
     return this.refreshGetAllMyTask$;
+  }
+  setNavBar(val: boolean) {
+    this.navBar$.next(val)
+  }
+  getNavBar() {
+    return this.navBar$;
   }
   setAllMyNewTask(val: boolean) {
     this.refreshGetAllMyNewTask$.next(val)

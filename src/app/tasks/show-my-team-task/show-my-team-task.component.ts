@@ -25,7 +25,7 @@ export class ShowMyTeamTaskComponent implements OnInit {
   ifSortDown = true;
   constructor(private userService: UserServiceService,
     private popUpService: PopUpServiceService,
-    public route: Router,private activatedRoute:ActivatedRoute) {
+    public route: Router, private activatedRoute: ActivatedRoute) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -135,16 +135,20 @@ export class ShowMyTeamTaskComponent implements OnInit {
   WhichTableOpen(val: any) {
     if (val == 0) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/show-my-task',this.systemGuid]);
+      this.route.navigate(['/menu/show-my-task', this.systemGuid]);
     }
     if (val == 1) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/show-team-my-task/',this.systemGuid]);
+      this.route.navigate(['/menu/show-team-my-task/', this.systemGuid]);
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
+      this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
     }
+  }
+  getTaskAfterSort(task: any) {
+    debugger
+    this.taskTeamsArr = task;
   }
 }
 

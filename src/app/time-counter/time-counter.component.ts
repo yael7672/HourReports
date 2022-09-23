@@ -44,8 +44,6 @@ export class TimeCounterComponent implements OnInit {
     }
   }
   startTimer() {
-
-
     this.disabledStartButton = true;
     this.disabledPauseButton = false;
     this.disabledEndButton = false;

@@ -4,10 +4,6 @@ button {
     border: none;
 }
 
-.search {
-    display: flex;
-    justify-content: center;
-}
 
 .input-container {
     margin: 1rem;
@@ -24,28 +20,34 @@ h2 {
 .input-container {
     margin: 1rem;
 }
-
-.search {
-    display: flex;
-    justify-content: space-around;
-    direction: rtl;
-    margin-bottom: 1rem;
-
-}
-
 .autocomplete-1,
 .autocomplete-2,
 .autocomplete-3,
-#inputState-1 {
-    min-width: 20%;
+#inputState-2 {
+    width: 14rem;
 }
 
-#inputState-2 {
-    width: 13rem;
-    min-width: 13rem;
+#inputState-1 {
+    width: 16rem;
 
 }
 
 select#inputState {
     margin-top: 1.2rem;
+}
+.search {
+    display: flex;
+    justify-content: space-between;
+    direction: rtl;
+    margin-bottom: 1rem;
+}
+@media (max-width: 900px) {
+    .search {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        direction: rtl;
+        margin-bottom: 1rem;
+        align-items: center;
+    }
 }

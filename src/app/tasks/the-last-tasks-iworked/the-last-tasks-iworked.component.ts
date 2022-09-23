@@ -4,6 +4,7 @@ import { AppService } from 'src/app/app-service.service';
 import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-the-last-tasks-iworked',
@@ -14,8 +15,16 @@ export class TheLastTasksIWorkedComponent implements OnInit {
   systemGuid: any;
   taskTeamsArr: any;
   taskArr: any;
+  interval: any;
+  projectContentItemArr: any;
 
-  constructor(private popUpService: PopUpServiceService, private activatedRoute: ActivatedRoute, private appService: AppService, private userService: UserServiceService, public route: Router) { }
+  constructor(private popUpService: PopUpServiceService, private activatedRoute: ActivatedRoute, private appService: AppService, private userService: UserServiceService, public route: Router) {
+    if (localStorage.getItem('DateNow')) {
+      this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
+    }
+  }
+  startWorkOfTask = false;
+  taskListDataDetails: any;
 
   titleLastTaskIWorkedOn = "המשימות האחרונות שעבדתי עליהן";
   thArrTaskTeams = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'צוות'];
@@ -37,7 +46,6 @@ export class TheLastTasksIWorkedComponent implements OnInit {
           this.sortTaskArr = res;
           this.SortLastTaskIWorkedOn()
           console.log(this.sortTaskArr);
-
         }
       }, err => {
         console.log(err.error)
@@ -123,22 +131,49 @@ export class TheLastTasksIWorkedComponent implements OnInit {
     }
   }
   SortLastTaskIWorkedOn() {
-    this.sortTaskArr.sort((a: any, b: any) =>
+    this.sortTaskArr = this.sortTaskArr.sort((a: any, b: any) =>
       (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
     )
   }
   WhichTableOpen(val: any) {
     if (val == 0) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/show-my-task',this.systemGuid]);
+      this.route.navigate(['/menu/show-my-task', this.systemGuid]);
     }
     if (val == 1) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/show-team-my-task/',this.systemGuid]);
+      this.route.navigate(['/menu/show-team-my-task/', this.systemGuid]);
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
+      this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
     }
+  }
+  getTaskAfterSort(task: any) {
+    this.sortTaskArr = task;
+  }
+  SelectedTask(val: any) {
+    debugger
+    if (!this.startWorkOfTask) {
+      this.taskListDataDetails = val;
+      localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
+      clearInterval(this.interval);
+      this.getProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
+      this.route.navigate(['/menu/specific-task', val.TaskGuid])
+    }
+    else {
+      swal("קיימת משימה פעילה")
+    }
+  }
+  async getProjectContentItemByTaskGuid(taskGuid: string) {
+    this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
+      res => {
+        if (res.length > 0) {
+          this.projectContentItemArr = res;
+        }
+      },
+      err => {
+        console.log(err.error);
+      })
   }
 }

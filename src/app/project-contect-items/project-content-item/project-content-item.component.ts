@@ -45,6 +45,8 @@ export class ProjectContentItemComponent implements OnInit {
     })
     this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
       if (res) 
+      this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+      this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
         this.GetProjectContentItemByTaskGuid(this.taskListDataDetailsParseToJson?.TaskGuid);
     })
   }

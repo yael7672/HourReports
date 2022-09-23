@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Task } from 'src/app/interfacees/task';
 import { UserServiceService } from 'src/app/user-service.service';
@@ -11,25 +11,27 @@ import { UserServiceService } from 'src/app/user-service.service';
 export class SearchAndSortTasksComponent implements OnInit {
   systemGuid: any;
 
-  constructor(public route: Router, private userService: UserServiceService,private activatedRoute:ActivatedRoute) { }
-  @Input() taskArr!: Task[]
+  constructor(public route: Router, private userService: UserServiceService, private activatedRoute: ActivatedRoute) { }
+  @Input() taskArr!: any
   @Input() taskArrCopy: any
   projectArr: any;
+  @Output() GetTaskAfterSort = new EventEmitter<any>();
+
   ngOnInit(): void {
-this.GetProject()
+    this.GetProject()
   }
   WhichTableOpen(val: any) {
     if (val == 0) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/show-my-task',this.systemGuid]);
+      this.route.navigate(['/menu/show-my-task', this.systemGuid]);
     }
     if (val == 1) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/show-team-my-task/',this.systemGuid]);
+      this.route.navigate(['/menu/show-team-my-task/', this.systemGuid]);
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
+      this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
     }
   }
   GetProject() {
@@ -52,11 +54,18 @@ this.GetProject()
         this.taskArr = [...this.taskArrCopy];
       }
     }
+    
+    this.getTaskAfterSort();
   }
   onSearchProject(filterKey: any) {
     this.taskArr = [...this.taskArrCopy];
     if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
       this.taskArr = this.taskArr.filter((f: Task) => f.Project?.Name.includes(filterKey.Name));
     }
+    this.getTaskAfterSort();
+
+  }
+  getTaskAfterSort() {
+    this.GetTaskAfterSort.emit(this.taskArr);
   }
 }

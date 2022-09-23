@@ -52,15 +52,22 @@ export class ShowMyTaskComponent implements OnInit {
   employeeDetailsParseJson: any;
   tasksGuid: any;
   tasksName: any;
-  ShowAllProjects = false
-  ShowMyProjects = true
-  MyProjectArr!: Project[]
+  showAllProjects = false;
+  showMyProjects = true;
+  myProjectArr!: Project[]
   image!: any;
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private appService: AppService, private userService: UserServiceService, private route: Router) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
+    // this.popUpService.getStartTimer().subscribe(res => {
+    //   debugger
+    //   this.startWorkOfTask = res ? res : false;
+    // })
+    if (localStorage.getItem('DateNow')) {
+      this.startWorkOfTask = localStorage.getItem('DateNow')?true:false;
+    }
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
         this.GetMyTask()
@@ -93,27 +100,22 @@ export class ShowMyTaskComponent implements OnInit {
       this.taskListDataDetails = val;
       localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
       clearInterval(this.interval);
-      this.GetProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
+      this.getProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
       this.route.navigate(['/menu/specific-task', val.TaskGuid])
     }
     else {
       swal("קיימת משימה פעילה")
     }
   }
-  async GetProjectContentItemByTaskGuid(taskGuid: string) {
+  async getProjectContentItemByTaskGuid(taskGuid: string) {
     this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
       res => {
         if (res.length > 0) {
           this.projectContentItemArr = res;
-          this.ifThereAreprojectContentItem = true;
-        }
-        else {
-          this.ifThereAreprojectContentItem = false;
         }
       },
       err => {
         console.log(err.error);
-        this.ifThereAreprojectContentItem = false;
       })
   }
   GetProject() {
@@ -281,12 +283,12 @@ export class ShowMyTaskComponent implements OnInit {
   // עד לפה חיפוש ומיון
   SearchProjectOption(val: any) {
     if (val == "0") {
-      this.ShowAllProjects = true
-      this.ShowMyProjects = false
+      this.showAllProjects = true
+      this.showMyProjects = false
     }
     if (val == "1") {
-      this.ShowMyProjects = true
-      this.ShowAllProjects = false
+      this.showMyProjects = true
+      this.showAllProjects = false
 
     }
   }
@@ -295,7 +297,7 @@ export class ShowMyTaskComponent implements OnInit {
   getMyProject() {
     this.userService.GetProjectsBySystemUser(this.systemGuid).subscribe(res => {
       if (res) {
-        this.MyProjectArr = res;
+        this.myProjectArr = res;
       }
     },
       err => {

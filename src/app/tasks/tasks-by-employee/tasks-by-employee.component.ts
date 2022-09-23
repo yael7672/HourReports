@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Project } from 'src/app/interfacees/project';
 import { PopUpServiceService } from '../../pop-up-service.service';
 import { UserServiceService } from '../../user-service.service';
 
@@ -28,6 +29,10 @@ export class TasksByEmployeeComponent implements OnInit {
   workTypeArr: any;
   projectArr: any;
   tasksName: any;
+  showAllProjects = false;
+  showMyProjects = true;
+  myProjectArr!: Project[]
+
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService,
     private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -84,7 +89,7 @@ export class TasksByEmployeeComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'DeleteTask');
     this.tasksName = task.Subject;
     this.taskGuid = task.TaskGuid
-    ;
+      ;
   }
   editEmployeeDetailsByAdmin(task: any) {
     this.popUpService.setSpecificPopUp(true, 'EditEmployeeDetailsByAdmin');
@@ -163,5 +168,47 @@ export class TasksByEmployeeComponent implements OnInit {
       this.taskArr?.sort((a: any, b: any) =>
         (a[keyToSort[1]] < (b[keyToSort[1]])) ? 1 : -1)
     }
+  }
+  SearchProjectOption(val: any) {
+    if (val == "0") {
+      this.showAllProjects = true
+      this.showMyProjects = false
+    }
+    if (val == "1") {
+      this.showMyProjects = true
+      this.showAllProjects = false
+
+    }
+  }
+  onSearchTask(filterKeyBySubject: any) {
+    this.taskArr = [...this.taskArrCopy];
+    if (filterKeyBySubject !== "" && filterKeyBySubject !== null && filterKeyBySubject !== undefined) {
+      this.taskArr = this.taskArr.filter((f: any) => f.Subject?.includes(filterKeyBySubject));
+    }
+    else {
+      if (filterKeyBySubject == "" || filterKeyBySubject == null || filterKeyBySubject !== undefined) {
+        this.taskArr = [...this.taskArrCopy];
+      }
+    }
+  }
+  onSearchProject(filterKey: any) {
+    this.taskArr = [...this.taskArrCopy];
+    if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
+      this.taskArr = this.taskArr.filter((f: any) => f.Project?.Name.includes(filterKey.Name));
+    }
+  }
+  getMyProject() {
+    this.userService.GetProjectsBySystemUser(this.systemGuid).subscribe(res => {
+      if (res) {
+        this.myProjectArr = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
+  }
+  getTaskAfterSort(task: any) {
+    debugger
+    this.taskArr = task;
   }
 }

@@ -1,15 +1,17 @@
-<app-smart-card [title]="titleTable">
+
+
+<app-smart-card [title]="titleTable" [src]="'../../../assets/images/3154275.png'">
   <div body>
     <div class="form-outline d-flex justify-content-center">
-      <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
-        <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
-        <option value="6"> דיווחי שעות שעדיין לא אושרו </option>
-        <option value="1"> היום </option>
-        <option value="2"> 7 ימים אחרונים </option>
-        <option value="3"> שבוע שעבר </option>
-        <option value="4"> החודש האחרון</option>
-      </select>
-    </div>
+  <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
+    <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
+    <option value="6"> דיווחי שעות שעדיין לא אושרו </option>
+    <option value="1"> היום </option>
+    <option value="2"> 7 ימים אחרונים </option>
+    <option value="3"> שבוע שעבר </option>
+    <option value="4"> החודש האחרון</option>
+  </select>
+</div>
     <div *ngIf="myProjectContectItemArr?.length == 0||!myProjectContectItemArr">
       <br>
       <h2>אין דיווחים!</h2>

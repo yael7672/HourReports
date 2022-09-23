@@ -2,7 +2,7 @@
 
 
 <div class="select-table">
-  <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
+  <select id="inputState-1" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
     <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
     <option value="0">המשימות שלי </option>
     <option value="1"> המשימות של הצוותים אליהם אני שייך</option>
@@ -13,12 +13,12 @@
 <app-smart-card [title]="titleTableTeamsTask" [src]="'../../../assets/images/2387679.png'">
   <div body>
 
-    <app-search-and-sort-tasks [taskArr]="taskTeamsArr" [taskArrCopy]="taskTeamsArrCopy"></app-search-and-sort-tasks>
+    <app-search-and-sort-tasks *ngIf="taskTeamsArr"  (GetTaskAfterSort)="getTaskAfterSort($event)" [taskArr]="taskTeamsArr" [taskArrCopy]="taskTeamsArrCopy"></app-search-and-sort-tasks>
     <app-smart-table [ifUpdate]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTaskTeams" [ifSortDown]="ifSortDown"
       [tableDataKeys]="taskTeamsListKeys" [tableData]="taskTeamsArr"
       (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
       (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
-      (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+      (SortTableUp)="SortTableUp($event)"  [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
     </app-smart-table>
   </div>
 </app-smart-card>

@@ -127,7 +127,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     ClickOutsideModule,
     AutocompleteLibModule,
     NgxSelectModule.forRoot(CustomSelectOptions),
-    NgxPaginationModule
+    NgxPaginationModule,
+    
 
 ],
 providers: [],

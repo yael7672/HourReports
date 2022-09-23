@@ -13,6 +13,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { SmartCardComponent } from './smart-card/smart-card.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 // var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
@@ -36,6 +37,7 @@ import { SmartCardComponent } from './smart-card/smart-card.component';
     AutocompleteLibModule,
     NgxSelectModule,
     NgxPaginationModule
+    ,FlexLayoutModule
     // NgMultiSelectDropDownModule.forRoot(),
 
    

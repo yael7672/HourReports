@@ -1,50 +1,87 @@
+<!-- side bar main wrapper -->
+<div *ngIf="showNavBar" class="side-nav-bar">
+  <!-- overlay -->
+  <div class="side-nav-bar-overlay"></div>
+  <!-- side bar-->
+  <div class="side-nav-bar-menu-container">
 
-         <a class="menu-icon">
-          <i class="fa fa-bars" aria-hidden="true"></i></a> 
+    <!-- close button -->
+    <a class="close" (click)="closeNavBar()">&times;</a>
 
-      <!-- <p class="p-of-title ">דיווחי שעות </p> -->
-      <div class="icons-right">
-      <a *ngIf="showMassgeToManager" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
-        ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNewMessege" style="font-size: 30px; "></i></a>
-      <a (click)="openPopUpMyNewTask()" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
-        (clickOutside)="onClickedOutsideMyNewTask($event)">
-        <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px "
-          [ngClass]="{'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
-      </a>
-      <a (click)="Logout()" placement="bottom" ngbTooltip="התנתק מהמערכת"><i class="fa fa-sign-out "
-          aria-hidden="true"></i></a>
-      <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()"
-        (clickOutside)="onClickedOutside($event)" placement="bottom" ngbTooltip=" פרטי משתמש ואזור אישי">
-        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
-          class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
-      </a> 
-
-    </div>
-
-
-  <!-- <div class="all-page">
-  <div class="aImg">
-    <div class="icons">
-      <a (click)="GoToHome()">
+    <div class="side-nav-bar-content-container">
+      <a (click)="GoToHome()">דף הבית
         <i class="fa fa-home" placement="right" ngbTooltip="דף הבית" aria-hidden="true" placement="bottom">
-        </i></a>
-      <a (click)="openPopUp('creatTask',true)" placement="bottom" ngbTooltip="יצירת משימה"><i class="fa fa-edit"></i>
+        </i> </a>
+      <a (click)="openPopUp('creatTask',true)" placement="bottom" ngbTooltip="יצירת משימה"> יצירת משימה<i
+          class="fa fa-edit"></i>
       </a>
       <a (click)="openPopUp('createAprojectContentItem',true); removeDateFromLocalStorage()" placement="bottom"
-        ngbTooltip="יצירת דיווח"><span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+        ngbTooltip="יצירת דיווח">יצירת דיווח<span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
       </a>
-      <a (click)="goToMyprojectContentItem()" placement="bottom" ngbTooltip="הדיווחים שלי"><i
+      <a (click)="goToMyprojectContentItem()" placement="bottom" ngbTooltip="הדיווחים שלי"> הדיווחים שלי<i
           class="fa fa-calendar-check-o"></i>
       </a>
-      <a (click)="openPopUp('pause',true)" placement="bottom" ngbTooltip="צא להפסקה"><i class="fa fa-coffee"></i></a>
-      <a (click)="openPopUp('timeOfProjectContectItem',true)" placement="bottom" ngbTooltip="יצירת מהירה של דיווח">
+      <a (click)="openPopUp('pause',true)" placement="bottom" ngbTooltip="צא להפסקה"> צא להפסקה<i
+          class="fa fa-coffee"></i></a>
+      <a (click)="openPopUp('timeOfProjectContectItem',true)" placement="bottom" ngbTooltip="יצירת מהירה של דיווח">דיווח
+        מהיר
         <i class="fa fa-clock-o" aria-hidden="true"></i></a>
-      <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart"
-          aria-hidden="true"></i> </a>
+      <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות">סטטיסטיקות<i
+          class="fa fa-bar-chart" aria-hidden="true"></i> </a>
+      <a (click)="goToDetailsOfWorkingHours()" class="edit-button" class="edit-button">תפוקה יומית
+        <i class="fa fa-clock-o" aria-hidden="true"></i></a>
 
-    </div> -->
-    
-  <!-- </div>
+    </div>
+  </div>
+</div>
+
+<div class="menu-bar">
+  <a class="menu-icon" (click)="checkIfMemuOpen()">
+    <i class="fa fa-bars" aria-hidden="true"></i></a>
+  <!-- <p class="p-of-title ">דיווחי שעות </p> -->
+  <div class="icons-right">
+    <a *ngIf="showMassgeToManager" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
+      ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNewMessege" style="font-size: 30px; "></i></a>
+    <a (click)="openPopUpMyNewTask()" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
+      (clickOutside)="onClickedOutsideMyNewTask($event)">
+      <i class="fa fa-bell mt-3 ThereNoNewTask" style="font-size:38px "
+        [ngClass]="{'ThereNewTask': ifThereNewTasks==false ,'ThereNoNewTask': ifThereNewTasks==true}"></i>
+    </a>
+    <a (click)="Logout()" placement="bottom" ngbTooltip="התנתק מהמערכת"><i class="fa fa-sign-out "
+        aria-hidden="true"></i></a>
+    <a #personalDetails id="personalDetails" (click)="ClickPersonalDetails()" (clickOutside)="onClickedOutside($event)"
+      placement="bottom" ngbTooltip=" פרטי משתמש ואזור אישי">
+      <img src={{image}}
+        class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" alt="profile">
+    </a>
+
+  </div>
+</div>
+
+<!-- [ngStyle]="{'display':menuOpen? 'none' : 'block' }" -->
+<!-- <div class="icons" >
+  <div class="a">
+    <a (click)="GoToHome()">
+      <i class="fa fa-home" placement="right" ngbTooltip="דף הבית" aria-hidden="true" placement="bottom">
+      </i></a>
+    <a (click)="openPopUp('creatTask',true)" placement="bottom" ngbTooltip="יצירת משימה"><i class="fa fa-edit"></i>
+    </a>
+    <a (click)="openPopUp('createAprojectContentItem',true); removeDateFromLocalStorage()" placement="bottom"
+      ngbTooltip="יצירת דיווח"><span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+    </a>
+    <a (click)="goToMyprojectContentItem()" placement="bottom" ngbTooltip="הדיווחים שלי"><i
+        class="fa fa-calendar-check-o"></i>
+    </a>
+    <a (click)="openPopUp('pause',true)" placement="bottom" ngbTooltip="צא להפסקה"><i class="fa fa-coffee"></i></a>
+    <a (click)="openPopUp('timeOfProjectContectItem',true)" placement="bottom" ngbTooltip="יצירת מהירה של דיווח">
+      <i class="fa fa-clock-o" aria-hidden="true"></i></a>
+    <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart"
+        aria-hidden="true"></i> </a>
+
+  </div>
+</div> -->
+
+<!-- </div>
 </div>  -->
 
 <div *ngIf="startWorkOfTask">

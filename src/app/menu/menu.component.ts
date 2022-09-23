@@ -1,23 +1,14 @@
-import { jsDocComment, outputAst } from '@angular/compiler';
-import { Component, Directive, ElementRef, AfterViewInit, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Project } from '../interfacees/project';
-import { ProjectContentItem } from '../interfacees/project-content-item';
 import { Task } from '../interfacees/task';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
-import { Observable, OperatorFunction, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { TaskByGuid } from '../interfacees/TaskByGuid';
-import { Chart } from 'chart.js';
-import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
-import { PauseWorkComponent } from '../pause-work/pause-work.component';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AttributeMarker } from '@angular/compiler/src/core';
-import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorkingHours';
 import { TimeCounterComponent } from '../time-counter/time-counter.component';
 
 
@@ -65,37 +56,37 @@ export class MenuComponent implements OnInit {
   OneDaysInThisMonth!: any;
   showMassgeToManager = false
   taskNameFromLocalStorage: any
-  openDropdown = false
+  openDropdown = true;
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseBody = "?האם ברצונך לצאת להפסקה"
   massgeUserIfInTheMiddleOfWorkOnATaskAndOpenPauseHeader = "שים לך אתה באמצע עבודה על משימה"
   Time: any;
+  menuOpen = true;
+  showNavBar = false;
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = "kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
   openMyNewTaskPopUp = false
+  image: any;
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
     private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
-
-
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
+      if (this.isPopUpOpen) {
+        this.popUpService.setNavBar(false)
+      }
     })
+
     this.popUpService.getStartTimer().subscribe(res => {
-      if (res)
-        this.startWorkOfTask = true;
-      else
-        this.startWorkOfTask = false;
+      debugger
+      this.startWorkOfTask = res ? res : false;
     })
     this.popUpService.getAllMyNewTask().subscribe(res => {
-      if (res == true) {
-        this.ifThereNewTasks = true
-        this.GetMyNewTasks()
-      }
-      if (res == false) {
-        this.ifThereNewTasks = false
-        this.GetMyNewTasks()
-      }
+      this.ifThereNewTasks = res ? res : false;
+      this.GetMyNewTasks();
+    })
+    this.popUpService.getNavBar().subscribe(res => {
+      this.showNavBar = res ? res : false;
     })
     //   this.popUpService.GetIfStartPouse().subscribe(res => {
     //     if (res) {
@@ -106,7 +97,9 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.GetWorkType()
     this.GetProject();
-    this.MessageToTheManager()
+    this.MessageToTheManager();
+    this.image = localStorage.getItem('image');
+
     this.systemGuid = localStorage.getItem('systemGuid');
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
@@ -118,16 +111,17 @@ export class MenuComponent implements OnInit {
       this.openPopUp('timeOfProjectContectItem', true)
     }
     if (localStorage.getItem('DateNow')) {
-      this.startWorkOfTask = true;
+      this.startWorkOfTask = localStorage.getItem('DateNow')?true:false;
     }
-    else {
-      this.startWorkOfTask = false;
-    }
+    
   }
   returnToTheOpenTask() {
+    debugger
     this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
   }
-
+  checkIfMemuOpen() {
+    this.popUpService.setNavBar(true)
+  }
   closePersonalDetails() {
     this.openPersonalDetails = false;
   }
@@ -156,7 +150,7 @@ export class MenuComponent implements OnInit {
         this.popUpService.setSpecificPopUp(type, data)
       }
       // })
-    } 
+    }
     // if (data == 'MyNewTask') {
     //   this.openMyNewTaskPopUp = true
     // }
@@ -167,6 +161,7 @@ export class MenuComponent implements OnInit {
   }
 
   goToMyprojectContentItem() {
+    this.popUpService.setNavBar(false);
     this.router.navigate(['/menu/my-project-contect-items-component', this.systemGuid])
   }
   GetProject() {
@@ -181,16 +176,18 @@ export class MenuComponent implements OnInit {
       })
   }
   GoToStatisticsGraph() {
+    this.popUpService.setNavBar(false);
     this.router.navigate(['menu/StatisticsGraph'])
   }
   GoToHome() {
+    this.popUpService.setNavBar(false);
     this.router.navigate(['menu/show-my-task', this.systemGuid])
   }
   ClickPersonalDetails() {
     this.openPersonalDetails = true;
   }
-  openPopUpMyNewTask(){
-    this.openMyNewTaskPopUp=true
+  openPopUpMyNewTask() {
+    this.openMyNewTaskPopUp = true
   }
   Logout() {
     localStorage.clear();
@@ -207,7 +204,11 @@ export class MenuComponent implements OnInit {
       this.openPersonalDetails = false;
     }
   }
-
+  onClickedOutsideNav() {
+    if (this.showNavBar) {
+      this.showNavBar = false;
+    }
+  }
   onClickedOutsideMyNewTask(val: any) {
     if (this.openMyNewTaskPopUp) {
       this.openMyNewTaskPopUp = false;
@@ -258,7 +259,7 @@ export class MenuComponent implements OnInit {
   clickYesGoingBreak(val: any) {
     this.getCreatedProjectContentItemFromLoaclStorage()
     this.GoToPausetimerTask()
-    this.openPopUp('pause',true)
+    this.openPopUp('pause', true)
 
   }
   clickNoGoingbreak() {
@@ -285,6 +286,14 @@ export class MenuComponent implements OnInit {
     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
     this.router.navigate(['/menu/show-my-task', this.systemGuid]);
 
+  }
+
+  closeNavBar() {
+    this.popUpService.setNavBar(false);
+  }
+  goToDetailsOfWorkingHours() {
+    this.popUpService.setNavBar(false);
+    this.router.navigate(['/menu/details-of-working-hours-employee', this.systemGuid])
   }
 
 }

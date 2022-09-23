@@ -1,12 +1,7 @@
-
+ 
   <app-smart-card [title]="' דיווחים  שלי'" [src]="'../../../assets/images/3154275.png'">
   <div body>
-    
-    <button  (click)="goToDetailsOfWorkingHours()"
-    class="edit-button" class="edit-button" >
-    <i class="fa fa-clock-o" aria-hidden="true"></i>
-    לצפייה בתפוקה היומית שלי לחודש זה</button>
-    <div class="form-outline d-flex justify-content-center">
+   <div class="form-outline d-flex justify-content-center">
       <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
         <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
         <option value="1"> היום </option>
@@ -15,6 +10,8 @@
         <option value="4"> החודש האחרון</option>
       </select>
     </div>
+    
+  
     <div *ngIf="myProjectContectItemArr?.length == 0||!myProjectContectItemArr">
       <br>
       <h2>אין דיווחים!</h2>
