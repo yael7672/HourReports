@@ -7,6 +7,7 @@ import { ownerid } from './interfacees/ownerid';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
 import { ProjectToCreate } from './interfacees/ProjectToCreate';
+import { ProjectType } from './interfacees/ProjectType';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
 import { TaskByGuid } from './interfacees/TaskByGuid';
 import { User } from './interfacees/user';
@@ -161,5 +162,8 @@ console.log(this.a);
   }
   GetAccount(){
     return this.http.get<Acccount[]>(environment.url + 'GetAccount/?OrganizationName=AuroraProd')
+  }
+  GetProjectType(){
+    return this.http.get<ProjectType[]>(environment.url + 'GetProjectTypes/?OrganizationName=AuroraProd')
   }
 }

@@ -19,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AttributeMarker } from '@angular/compiler/src/core';
 import { MonthlyAndDailyWorkingHours } from '../interfacees/MonthlyAndDailyWorkingHours';
 import { TimeCounterComponent } from '../time-counter/time-counter.component';
+import { ProjectType } from '../interfacees/ProjectType';
 
 
 @Component({
@@ -71,6 +72,7 @@ export class MenuComponent implements OnInit {
   Time: any;
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = "kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
   openMyNewTaskPopUp = false
+  ProjectTypeArr!: ProjectType[];
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -106,6 +108,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.GetWorkType()
     this.GetProject();
+    this.GetProjectType();
     this.MessageToTheManager()
     this.systemGuid = localStorage.getItem('systemGuid');
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
@@ -285,6 +288,16 @@ export class MenuComponent implements OnInit {
     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
     this.router.navigate(['/menu/show-my-task', this.systemGuid]);
 
+  }
+
+  GetProjectType() {
+    this.userService.GetProjectType().subscribe(
+      (res: any) => {
+        this.ProjectTypeArr = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
   }
 
 }

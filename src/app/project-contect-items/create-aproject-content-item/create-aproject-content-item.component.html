@@ -5,7 +5,7 @@
         </h4>
         <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
             <!-- <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime"> -->
-            <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime">
+            <div class="checkbox" >
                 <label for="vehicle1">לדיווח על מספר עובדים</label>
                 <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked"
                     (change)="checkIfReportMoreEmployees(isChecked)">

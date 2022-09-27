@@ -185,6 +185,18 @@ export class CreateAprojectContentItemComponent implements OnInit {
     form.value.Project = { "Guid": form.value.Project.Guid },
     form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.ActualTime = this.actualTime
+
+    if(this.MoreEmployeeArr.length > 0){
+      alert("דיווח על מב' עובדים")
+    }
+   else{
+      alert("דיווח על עובד1")
+    }
+    // this.MoreEmployeeArr.forEach((x: any) => {
+    //   x = { "Guid": x }
+    //   this.MoreEmployeeGuid.push(x)
+    // })
+    // form.value.MoreEmployee = this.MoreEmployeeGuid
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
       (res) => {
         this.ProjectContentItemWithTime = res;
