@@ -66,6 +66,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   ngxControl: any
   MoreEmployeeArr: any = [];
   MoreEmployeeGuid: any[] = [];
+  createProjectContectItemWithTimerMoreEmployee = false
 
   ngxDisabled = false;
   // doSelectOptions = (options: INgxSelectOption[]) => {console.log('MultipleDemoComponent.doSelectOptions', options)
@@ -82,12 +83,12 @@ export class CreateAprojectContentItemComponent implements OnInit {
       }
     })
   }
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.GetAllEmployee();
     this.GetRegarding();
     this.GetProject();
     this.GetWorkType();
-  
+
     this.dateToUpdate = localStorage.getItem('dateToUpdate');
     console.log(this.dateToUpdate);
 
@@ -103,8 +104,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
 
   CreateNewProjectItem(form: NgForm) {
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-    form.value.Project = { "Guid": form.value.Project.Guid },
-    form.value.WorkType = { "Guid": form.value.workType.Guid }
+      form.value.Project = { "Guid": form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
     // detailsOfWorkingHourByEmployee!: any[];
     // detailsOfWorkingHourByEmployeeToSend: any[] = [];
     this.MoreEmployeeArr.forEach((x: any) => {
@@ -114,15 +115,24 @@ export class CreateAprojectContentItemComponent implements OnInit {
     form.value.MoreEmployee = this.MoreEmployeeGuid
     console.log("עודבים נוספים");
     console.log(form.value.MoreEmployeeGuid);
-    form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
-    form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+    if (this.createProjectContectItemWithTimerMoreEmployee == true) {
+      form.value.fromDate = this.datePipe.transform(this.todayDate, 'dd/MM/yyyy')
+      form.value.untilDate = this.datePipe.transform(this.todayDate, 'dd/MM/yyyy')
+    }
+    else {
+      form.value.fromDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+      form.value.untilDate = this.datePipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+    }
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
       (
         (res) => {
-
           this.ProjectContentItem = res;
-          swal("!דיווח נוצר בהצלחה")
+          if (this.createProjectContectItemWithTimerMoreEmployee != true) {
+            swal("!דיווח נוצר בהצלחה")
+          }
+
           // this.isDisabled = false;
+          this.createProjectContectItemWithTimerMoreEmployee = false
           this.popUpService.setAllmyProjectContectItem(true)
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)
           this.appService.setIsPopUpOpen(false);
@@ -179,19 +189,20 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   UpdateProjectContectItemWithTime(form: NgForm) {
+    if (this.MoreEmployeeArr.length > 0) {
+      this.createProjectContectItemWithTimerMoreEmployee = true
+    }
+    else {
+      this.createProjectContectItemWithTimerMoreEmployee = false
+    }
     this.projectContectItemByTimerGuid = localStorage.getItem("projectContectItemByTimerGuid")
     form.value.Guid = this.projectContectItemByTimerGuid
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-    form.value.Project = { "Guid": form.value.Project.Guid },
-    form.value.WorkType = { "Guid": form.value.workType.Guid }
+      form.value.Project = { "Guid": form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.ActualTime = this.actualTime
 
-    if(this.MoreEmployeeArr.length > 0){
-      alert("דיווח על מב' עובדים")
-    }
-   else{
-      alert("דיווח על עובד1")
-    }
+
     // this.MoreEmployeeArr.forEach((x: any) => {
     //   x = { "Guid": x }
     //   this.MoreEmployeeGuid.push(x)
@@ -200,12 +211,16 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
       (res) => {
         this.ProjectContentItemWithTime = res;
+
         swal(this.ProjectContentItemWithTime)
         this.popUpService.setAllmyProjectContectItem(true)
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
         localStorage.removeItem("projectContectItemByTimerGuid")
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
+        if (this.createProjectContectItemWithTimerMoreEmployee = true) {
+          this.CreateNewProjectItem(form)
+        }
       },
       (err) =>
         swal(err.error))

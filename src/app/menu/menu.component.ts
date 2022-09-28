@@ -283,7 +283,7 @@ export class MenuComponent implements OnInit {
     this.GoToPausetimerTask()
   }
   GoToPausetimerTask() {
-    let pauseTaskComp = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router)
+    let pauseTaskComp = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router,this.appService)
     pauseTaskComp.pauseTimer(this.workTime)
     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
     this.router.navigate(['/menu/show-my-task', this.systemGuid]);

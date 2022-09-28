@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./massge-to-user.component.css']
 })
 export class MassgeToUserComponent implements OnInit {
-  
+
   @Input() textOfBtnNo: any
   @Input() textOfBtnYes: any
   @Input() massgeUserHeader: any
@@ -68,9 +68,14 @@ export class MassgeToUserComponent implements OnInit {
                       if (this.kindOfMassage == 'kindOfMassageIfApprovalTheReports') {
                         this.clickYes.emit('kindOfMassageIfApprovalTheReports')
                       }
-                      else{
+                      else {
                         if (this.kindOfMassage == 'deleteTask') {
                           this.clickYes.emit('deleteTask')
+                        }
+                        else {
+                          if (this.kindOfMassage == 'projectContectItemOfTask') {
+                            this.clickYes.emit('projectContectItemOfTask')
+                          }
                         }
                       }
                     }
@@ -127,6 +132,11 @@ export class MassgeToUserComponent implements OnInit {
                       else {
                         if (this.kindOfMassage == 'deleteTask') {
                           this.clickNo.emit('deleteTask')
+                        }
+                        else{
+                          if(this.kindOfMassage == 'projectContectItemOfTask'){
+                            this.clickNo.emit('projectContectItemOfTask')
+                          }
                         }
                       }
                     }

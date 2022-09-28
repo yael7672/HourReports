@@ -17,10 +17,10 @@
   <ng-container *ngIf="showInputsDates">
     <div class="form-group ">
       <div class="input-group input-daterange">
-        <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+        <input type="date" class="form-control" id="date" name="date" max="{{todayDate | date: 'yyyy-MM-dd'}}"[ngModel]=" todayDate| date: 'yyyy-MM-dd'"
           (ngModelChange)="dateOfSearchBeforeForLineChart = $event">
         <div class="input-group-addon">עד - </div>
-        <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+        <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"
           (ngModelChange)="dateOfSearchAfterForLineChart = $event">
       </div>
       <button (click)="SortByDateRange()" placement="bottom"

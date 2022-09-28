@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopupService } from '@progress/kendo-angular-popup';
 import swal from 'sweetalert';
+import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 
@@ -31,8 +32,15 @@ export class TimeCounterComponent implements OnInit {
   isTaskAccomplished = false;
   taskListDataDetails: any;
   massageFromServer: any;
-  constructor(private activatedRoute:ActivatedRoute ,private userService: UserServiceService, private datePipe: DatePipe,
-    private popUpService: PopUpServiceService, public route: Router) { }
+  showMassgeToUserCancelProjectContectItemOfTask = false
+  HideStartAndShowCancelProjectContectItem = false
+  projectContectItemOfTask = "projectContectItemOfTask"
+  kindPopUp = "cancelProjectContectItemOfTask"
+  massgeUserCloseProjectContectItemByTimer = "האם ברצונך לסיים דיווח זה?"
+  timeToSendCreate: any;
+  massageToUser: any;
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
+    private popUpService: PopUpServiceService, public route: Router, private appService: AppService) { }
 
   ngOnInit(): void {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
@@ -44,8 +52,7 @@ export class TimeCounterComponent implements OnInit {
     }
   }
   startTimer() {
-
-
+    this.HideStartAndShowCancelProjectContectItem = true
     this.disabledStartButton = true;
     this.disabledPauseButton = false;
     this.disabledEndButton = false;
@@ -63,7 +70,7 @@ export class TimeCounterComponent implements OnInit {
         let a = Date.now();
         localStorage.setItem("DateNow", a.toString());
         this.ContinueToWorkOnATask();
-         this.massageFromServer = res;
+        this.massageFromServer = res;
         this.popUpService.SetProjectContentItemByTaskGuid(true)
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
       }
@@ -71,6 +78,44 @@ export class TimeCounterComponent implements OnInit {
       console.log(err.error);
     })
   }
+  cancelProjectContectItenOnTask() {
+    this.showMassgeToUserCancelProjectContectItemOfTask = true
+  }
+
+  clickNo() {
+    this.showMassgeToUserCancelProjectContectItemOfTask = false
+  }
+
+  clickYes(time: any) {
+    this.HideStartAndShowCancelProjectContectItem = false;
+    if (time.worktime != "" || time != null) {
+      clearInterval(this.interval);
+      this.timeToSendCreate = time
+      this.projectContectItemGuid = localStorage.getItem("projectContectItemGuid")
+      this.workTime = ["00:00:00"];
+      this.workTime = ""
+      localStorage.removeItem("DateNow")
+      this.popUpService.SetIfXProjectContectItemUpdateWithTime(true)
+      this.DeleteProjectContentItemByGuid(this.projectContectItemGuid)
+    }
+    this.showMassgeToUserCancelProjectContectItemOfTask = false
+
+  }
+
+  DeleteProjectContentItemByGuid(projectContectItemByTaskGuid: any) {
+    this.userService.DeleteProjectContentItemByGuid(projectContectItemByTaskGuid).subscribe(
+      (res) => {
+        this.massageToUser = res;
+        swal("!הדיווח בוטל")
+        this.popUpService.setStartTimer(false);
+        this.appService.setIsPopUpOpen(false);
+        this.popUpService.setClosePopUp();
+        this.popUpService.setAllmyProjectContectItem(true)
+      },
+      (err) =>
+        swal(err.error))
+  }
+
   pauseTimer(time: any) {
     if (this.workTime == 0 || this.workTime < "00:01:00")
       swal("אין אפשרות לדווח פחות מ-1 דק")
