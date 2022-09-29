@@ -49,3 +49,7 @@ h2 {
 select#inputState {
     margin-top: 1.2rem;
 }
+.searchProject{
+display: flex;
+
+}
