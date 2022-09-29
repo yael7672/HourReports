@@ -303,5 +303,4 @@ export class MenuComponent implements OnInit {
         console.log(err.error)
     )
   }
-
 }
