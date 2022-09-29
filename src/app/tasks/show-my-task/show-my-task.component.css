@@ -35,7 +35,11 @@ h2 {
 select#inputState {
     margin-top: 1.2rem;
 }
-<<<<<<< HEAD
+
+.searchProject{
+    display: flex;
+    
+    }
 .search {
     display: flex;
     justify-content: space-between;
@@ -51,9 +55,4 @@ select#inputState {
         margin-bottom: 1rem;
         align-items: center;
     }
-=======
-.searchProject{
-display: flex;
-
->>>>>>> eacadf7fe7b5e5d5acb89501944ef9cee6656648
 }
