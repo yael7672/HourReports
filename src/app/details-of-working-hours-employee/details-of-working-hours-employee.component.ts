@@ -40,11 +40,24 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   untilDate: any;
   myDate = new Date();
   spesificDateForCreateReport: any;
+  whichDetailsOfWorkingHourEmployeeOpen: any;
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private datepipe: DatePipe, private appService: AppService, private activatedRoute: ActivatedRoute) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
+    })
+    this.popUpService.getDetailsOfWorkingHoursEmployee().subscribe(res => {
+      if (res) {
+        this.whichDetailsOfWorkingHourEmployeeOpen = Number(localStorage.getItem('whichDetailsOfWorkingHourEmployeeOpen'));
+        if (this.whichDetailsOfWorkingHourEmployeeOpen != 3) {
+          this.getDetailsOfWorkingHourByEmployee(this.whichDetailsOfWorkingHourEmployeeOpen);
+        }
+        else {
+          this.fromDate = localStorage.getItem('fromDate');
+          this.untilDate = localStorage.getItem('untilDate');
+          this.sortByDateRange();
+        }
+      }
     })
   }
 
@@ -124,6 +137,8 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   }
 
   getDetailsOfWorkingHourByEmployee(val: any) {
+    localStorage.setItem('whichDetailsOfWorkingHourEmployeeOpen', val)
+
     if (val == 3) {
       this.showInputsDates = true;
     }
@@ -198,6 +213,8 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   }
   sortByDateRange() {
     if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
+      localStorage.setItem('fromDate', this.fromDate);
+      localStorage.setItem('untilDate', this.untilDate);
       let d1 = new Date(this.fromDate);
       let d2 = new Date(this.untilDate)
       if (d1.getTime() <= d2.getTime()) {

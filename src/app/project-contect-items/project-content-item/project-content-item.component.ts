@@ -41,13 +41,13 @@ export class ProjectContentItemComponent implements OnInit {
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
     })
     this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
-      if (res) 
+      if (res) {
       this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
       this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
         this.GetProjectContentItemByTaskGuid(this.taskListDataDetailsParseToJson?.TaskGuid);
+      }
     })
   }
   ngOnInit(): void {

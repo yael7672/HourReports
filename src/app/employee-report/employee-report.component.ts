@@ -19,7 +19,7 @@ export class EmployeeReportComponent implements OnInit {
   ifShowAndEditEmployeeSetting = true
   isPopUpOpen: any;
   employeeDetailsVal: any;
-  title = "דו'ח עובדים";
+  title = "דוח עובדים";
   employeesName: any;
   employeesDetailsCopy: any[]=[]
 

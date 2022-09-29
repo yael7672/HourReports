@@ -8,17 +8,19 @@
         <option value="3">מיון לפי טווח תאריכים </option>
       </select>
     </div>
+    
+    
     <ng-container *ngIf="showInputsDates">
       <div class="form-group ">
         <div class="input-group input-daterange">
-          <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-            (ngModelChange)="fromDate = $event">
+          <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
+            [(ngModel)]="fromDate" placeholder="מתאריך">
           <div class="input-group-addon">עד - </div>
-          <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-            (ngModelChange)="untilDate = $event">
+          <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
+          [(ngModel)]="untilDate">
         </div>
-        <button (click)="sortByDateRange()" placement="right" ngbTooltip="סנן מידע בין טווח התאריכים"
-          class="btn btn-color">סנן</button>
+        <button (click)="sortByDateRange()" placement="right" ngbTooltip="מיין מידע בין טווח התאריכים"
+          class="btn btn-color">מיין</button>
       </div>
     </ng-container>
     <p> סה"כ שעות מדווחות : <span>{{hoursReportedThisMonth}}</span> </p>
@@ -45,11 +47,11 @@
     <h4 header class="mb-4"></h4>
     <div body>
       <div class="create-report">
-      <button  (click)="createReport()" class="edit-button"
-      placement="right" ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
-      <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
-    </button>
-  </div>
+        <button (click)="createReport()" class="edit-button" placement="right"
+          ngbTooltip="באפשרותך ליצור דיווח שעות ליום זה ">
+          <span class="iconify" data-icon="fluent:task-list-add-20-filled"></span>
+        </button>
+      </div>
       <app-smart-card [title]="title +' לתאריך ' + spesificDate">
         <div body>
           <app-smart-table *ngIf="reportsBySpesificDate.length > 0" [thArr]="thArrTableProjectContentItem"

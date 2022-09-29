@@ -1,4 +1,4 @@
-<div *ngIf="openTable">
+<div *ngIf="!isUnder1100">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -139,7 +139,7 @@
   </table>
 
 </div>
-<div  *ngIf="openCard">
+<div  *ngIf="isUnder1100">
   <button style="position: fixed;" *ngIf="this.arrayOfReports.length > 0" (click)="approveReport()" class="edit-button" placement="bottom"
     ngbTooltip="אישור הדיווח"><i class="fa fa-check" aria-hidden="true"></i></button>
 <div class="all-cards">

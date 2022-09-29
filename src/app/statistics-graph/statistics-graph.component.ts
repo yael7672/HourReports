@@ -13,7 +13,7 @@ import { averageBreaks } from '../interfacees/averageBreaks';
 })
 export class StatisticsGraphComponent implements OnInit {
   LineChartText = "בתאריך"
-  src=""
+  src = ""
   systemGuid!: any;
   LineChart1: any;
   showInputsDates = false;
@@ -25,10 +25,8 @@ export class StatisticsGraphComponent implements OnInit {
   actualHoursArrForBarChart!: any[]
   dateArrForLineChart!: any[]
   dateArrForBarChart!: any[]
-  dateOfSearchBeforeForLineChart !: any;
-  dateOfSearchAfterForLineChart!: any;
-  dateOfSearchBeforeForBarChart !: any;
-  dateOfSearchAfterForBarChart!: any;
+  fromDate !: any;
+  untilDate!: any;
   BarChart: any;
   culculte!: any[];
   culculteCopy !: any[];
@@ -78,11 +76,6 @@ export class StatisticsGraphComponent implements OnInit {
       },
       options: {
         scales: {
-          // yAxes: [{
-          //   ticks: {
-          //     beginAtZero: true
-          //   }
-          // }]
         }
       }
     });
@@ -120,32 +113,31 @@ export class StatisticsGraphComponent implements OnInit {
 
   GetMyProjectContentItemByTimeLineChart(val = null, showThisWeek = null) {
     if (val == 0) {
-      this.SortByDateRange(val);
+      this.showInputsDates = true;
       return
     }
     if (showThisWeek != null) {
       val = showThisWeek;
     }
-    //this.LineChart1.render();
+    this.showInputsDates = val == 0 || val == null ? true : false;
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.dateOfSearchBeforeForLineChart = this.datepipe.transform(this.dateOfSearchBeforeForLineChart, 'dd/MM/yyyy')
-    this.dateOfSearchAfterForLineChart = this.datepipe.transform(this.dateOfSearchAfterForLineChart, 'dd/MM/yyyy')
-    if (!this.dateOfSearchBeforeForLineChart) {
-      this.dateOfSearchBeforeForLineChart = "";
+    this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
+    this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
+    if (!this.fromDate) {
+      this.fromDate = "";
     }
-    if (!this.dateOfSearchAfterForLineChart) {
-      this.dateOfSearchAfterForLineChart = "";
+    if (!this.untilDate) {
+      this.untilDate = "";
     }
-    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart, Number(val)).then(res => {
+    this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.fromDate, this.untilDate, Number(val)).then(res => {
       if (res) {
         this.WorkingHoursAndActualHoursForLineChart = res;
         this.workingHourArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((workingHour: { workHours: any; }) => workingHour.workHours)
         this.actualHoursArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((actualHours: { actualHours: any; }) => actualHours.actualHours)
         this.dateArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((Date: { Date: any; }) => this.datepipe.transform(Date.Date, 'dd/MM/yyyy'))
         this.updateLineChart();
-        this.dateOfSearchBeforeForLineChart = "";
-        this.dateOfSearchAfterForLineChart = "";
-        this.showInputsDates = false;
+        this.fromDate = "";
+        this.untilDate = "";
         this.culculte = this.WorkingHoursAndActualHoursForLineChart.map((i: { workHours: number; actualHours: number; }) => (i.workHours * 100)
           / i.actualHours)
         this.CreateObjectWithDateAndCulculte(this.dateArrForLineChart, this.culculte)
@@ -155,7 +147,8 @@ export class StatisticsGraphComponent implements OnInit {
       err => {
         console.log(err.error);
       })
-    this.GetAverageBreaksByTimeLineChart(this.systemGuid, this.dateOfSearchBeforeForLineChart, this.dateOfSearchAfterForLineChart, Number(val))
+    this.GetAverageBreaksByTimeLineChart(this.systemGuid, this.fromDate, this.untilDate, Number(val))
+
 
   }
   CreateObjectWithDateAndCulculte(dateArrForLineChart: any, culculte: any) {
@@ -180,8 +173,8 @@ export class StatisticsGraphComponent implements OnInit {
 
     this.BarChart.update();
   }
-  GetAverageBreaksByTimeLineChart(systemGuid: any, dateOfSearchBeforeForLineChart: any, dateOfSearchAfterForLineChart: any, selectedDay: any) {
-    this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForLineChart, dateOfSearchAfterForLineChart, selectedDay).then(
+  GetAverageBreaksByTimeLineChart(systemGuid: any, fromDate: any, untilDate: any, selectedDay: any) {
+    this.userService.GetAverageBreaks(systemGuid, fromDate, untilDate, selectedDay).then(
       res => {
         if (res) {
           this.AverageBreaksByTimeLineChart = res
@@ -194,8 +187,8 @@ export class StatisticsGraphComponent implements OnInit {
       })
   }
 
-  // GetAverageBreaksByTimeBarChart(systemGuid: any, dateOfSearchBeforeForBarChart: any, dateOfSearchAfterForBarChart: any) {
-  //   this.userService.GetAverageBreaks(systemGuid, dateOfSearchBeforeForBarChart, dateOfSearchAfterForBarChart,"3").subscribe(
+  // GetAverageBreaksByTimeBarChart(systemGuid: any, fromDate: any, untilDate: any) {
+  //   this.userService.GetAverageBreaks(systemGuid, fromDate, untilDate,"3").subscribe(
   //     res => {
   //       if (res) {
   //         this.AverageBreaksByTimeBarChart = res
@@ -205,12 +198,20 @@ export class StatisticsGraphComponent implements OnInit {
   //       console.log(err.error);
   //     })
   // }
-  SortByDateRange(val = null) {
-    this.showInputsDates = true;
-    if (val == null) //זה אומר שלחץ על כפתור ההשואה
-    {
-      this.GetMyProjectContentItemByTimeLineChart();
-      this.GetAverageBreaksByTimeLineChart(this.systemGuid, this.dateOfSearchBeforeForBarChart, this.dateOfSearchAfterForBarChart, "")
+  SortByDateRange() {
+    if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
+      let d1 = new Date(this.fromDate);
+      let d2 = new Date(this.untilDate)
+      if (d1.getTime() <= d2.getTime()) {
+        this.GetMyProjectContentItemByTimeLineChart();
+        this.GetAverageBreaksByTimeLineChart(this.systemGuid, this.fromDate, this.untilDate, "")
+      }
+      else {
+        swal('!תאריך התחלה לא יכול להיות גדול מתאריך סיום')
+      }
+    }
+    else {
+      swal('עליך להזין תאריך התחלה ותאריך סיום')
     }
   }
 

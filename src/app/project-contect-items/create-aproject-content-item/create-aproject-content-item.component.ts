@@ -127,6 +127,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)
           this.appService.setIsPopUpOpen(false);
           this.popUpService.setClosePopUp();
+          this.popUpService.setDetailsOfWorkingHoursEmployee(true);
+          this.popUpService.setDetailsOfWorkingHoursEmployeeForAdmin(true);
         },
         (err) => {
           swal(err.error)

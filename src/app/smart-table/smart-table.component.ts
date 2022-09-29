@@ -57,7 +57,6 @@ export class SmartTableComponent implements OnInit {
   p: any
   openTable = true;
   openCard = false;
-
   ifDelete1 = true;
   ifUpdate1 = true
   ifAdmin: any;
@@ -66,11 +65,15 @@ export class SmartTableComponent implements OnInit {
   arrayOfReports: any[] = [];
   isPopUpOpen: any;
   arr: any = [];
+  isUnder1100: any;
   defultImage = "https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png";
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
+    var appProperties = this.appService.getAppProperties()
+    this.isUnder1100 = appProperties.isUnder1680$.value;
+    console.log(this.isUnder1100);
   }
   ngOnInit(): void {
     console.log(this.ifShowpagination);

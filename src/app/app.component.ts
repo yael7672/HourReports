@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   systemGuid: any;
   showMenu = false;
   constructor(private appService: AppService) {
-  var x=   this.appService.getAppProperties()
+  var x = this.appService.getAppProperties()
    console.log(x);
    
   }

@@ -64,6 +64,10 @@ export class PersonalDetailsComponent implements OnInit {
   goToEmployeeReport() {
     this.route.navigate(['/menu/employee-report'])
   }
+  goToDetailsOfWorkingHours() {
+    this.popUpService.setNavBar(false);
+    this.route.navigate(['/menu/details-of-working-hours-employee', this.systemGuid])
+  }
   MessageToTheManager() {
     this.userService.MessageToTheManager().subscribe(
       res => {

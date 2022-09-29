@@ -65,6 +65,7 @@ export class MenuComponent implements OnInit {
   kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause = "kindOfMassageifInTheMiddleOfWorkOnATaskkAndOpenPause"
   openMyNewTaskPopUp = false
   image: any;
+  isUnder1100: boolean;
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -76,11 +77,10 @@ export class MenuComponent implements OnInit {
         this.popUpService.setNavBar(false)
       }
     })
+    var appProperties = this.appService.getAppProperties()
+    this.isUnder1100 = appProperties.isUnder1680$.value;
+    console.log(this.isUnder1100);
 
-    this.popUpService.getStartTimer().subscribe(res => {
-      debugger
-      this.startWorkOfTask = res ? res : false;
-    })
     this.popUpService.getAllMyNewTask().subscribe(res => {
       this.ifThereNewTasks = res ? res : false;
       this.GetMyNewTasks();
@@ -111,12 +111,11 @@ export class MenuComponent implements OnInit {
       this.openPopUp('timeOfProjectContectItem', true)
     }
     if (localStorage.getItem('DateNow')) {
-      this.startWorkOfTask = localStorage.getItem('DateNow')?true:false;
+      this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
     }
-    
+
   }
   returnToTheOpenTask() {
-    debugger
     this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
   }
   checkIfMemuOpen() {
@@ -291,9 +290,6 @@ export class MenuComponent implements OnInit {
   closeNavBar() {
     this.popUpService.setNavBar(false);
   }
-  goToDetailsOfWorkingHours() {
-    this.popUpService.setNavBar(false);
-    this.router.navigate(['/menu/details-of-working-hours-employee', this.systemGuid])
-  }
+
 
 }

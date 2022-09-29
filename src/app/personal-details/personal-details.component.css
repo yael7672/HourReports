@@ -8,6 +8,16 @@
 
 }
 
+.fa-clock-o {
+  font-size: 25px;
+  margin-top: 0.8rem;
+
+}
+
+i.fa.fa-cog.mt-2 {
+  margin: 0.3rem;
+
+}
 
 p.card-title {
   text-align: right !important;

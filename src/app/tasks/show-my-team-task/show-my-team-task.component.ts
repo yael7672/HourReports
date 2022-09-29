@@ -147,7 +147,6 @@ export class ShowMyTeamTaskComponent implements OnInit {
     }
   }
   getTaskAfterSort(task: any) {
-    debugger
     this.taskTeamsArr = task;
   }
 }

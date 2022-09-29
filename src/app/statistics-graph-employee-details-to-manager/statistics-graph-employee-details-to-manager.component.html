@@ -5,7 +5,7 @@
 <div class="form-outline d-flex justify-content-center">
   <select id="inputState" class="form-control" ngModel
     (ngModelChange)="GetWorkTimeByWorkTypeAndWorkTimeCompareActualTimeChart($event)">
-    <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
+    <option value="" [disabled]="true" >--בחר אחת מהאופציות הבאות--</option>
     <option value="1"> מיון לפי טווח תאריכים</option>
     <option value="2">שעות עבודה היום</option>
     <option value="3">שעות עבודה בשבוע האחרון</option>
@@ -20,15 +20,15 @@
 <ng-container *ngIf="showCompareDatesEmployeeDetails">
   <div class="form-group ">
     <button
-      (click)="SortWorkTimeByWorkTypeAndWorkTimeCompareActualTimeByDateRange(dateOfSearchBeforeFor2BarChart,dateOfSearchAfterFor2BarChart)"
+      (click)="SortWorkTimeByWorkTypeAndWorkTimeCompareActualTimeByDateRange()"
       class="btn btn-color">השווה</button>
-    <div class="input-group input-daterange">
-      <input type="date" class="form-control" id="date" name="date" max="{{todayDate | date: 'yyyy-MM-dd'}}"
-        [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateOfSearchBeforeFor2BarChart = $event">
-      <div class="input-group-addon">ל - </div>
-      <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-        max="{{todayDate | date: 'yyyy-MM-dd'}}" (ngModelChange)="dateOfSearchAfterFor2BarChart = $event">
-    </div>
+      <div class="input-group input-daterange">
+        <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
+          [(ngModel)]="untilDate" placeholder="מתאריך">
+        <div class="input-group-addon">עד - </div>
+        <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
+        [(ngModel)]="fromDate">
+      </div>
   </div>
 </ng-container>
 

@@ -41,12 +41,26 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
   myDate = new Date();
   showInputsDates = false;
   spesificDateForCreateReport: any;
+  whichDetailsOfWorkingHourOpen!: any;
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private appService: AppService, private datepipe: DatePipe, private activatedRoute: ActivatedRoute) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
     })
+    this.popUpService.getDetailsOfWorkingHoursEmployeeForAdmin().subscribe(res => {
+      if (res) {
+        this.whichDetailsOfWorkingHourOpen = Number(localStorage.getItem('whichDetailsOfWorkingHourOpen'));
+        if (this.whichDetailsOfWorkingHourOpen != 3) {
+          this.getDetailsOfWorkingHourByEmployee(this.whichDetailsOfWorkingHourOpen);
+        }
+        else {
+          this.fromDate = localStorage.getItem('fromDate');
+          this.untilDate = localStorage.getItem('untilDate');
+          this.sortByDateRange();
+        }
+      }
+    })
+
   }
   ngOnInit(): void {
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -123,13 +137,12 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
   }
 
   getDetailsOfWorkingHourByEmployee(val: any) {
+    localStorage.setItem('whichDetailsOfWorkingHourOpen', val)
     if (val == 3) {
       this.showInputsDates = true;
     }
     else {
       this.showInputsDates = false;
-      // this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
-      // this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
       this.detailsOfWorkingHourByEmployeeToSend = [];
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, val, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
@@ -183,18 +196,18 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
   }
   sortByDateRange() {
     if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
+      localStorage.setItem('fromDate', this.fromDate);
+      localStorage.setItem('untilDate', this.untilDate);
       let d1 = new Date(this.fromDate);
       let d2 = new Date(this.untilDate)
-      if (d1.getTime() < d2.getTime()) {
+      if (d1.getTime() < d2.getTime() || d1.getTime() == d2.getTime()) {
         this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy');
         this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy');
+
         this.detailsOfWorkingHourByEmployeeToSend = [];
         this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
         this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, 3, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
           if (res) {
-            this.fromDate = "";
-            this.untilDate = "";
-            this.todayDate = "";
             this.detailsOfWorkingHourByEmployee = res;
             this.detailsOfWorkingHourByEmployee.forEach(x => {
               if (x.Date != null) {
@@ -208,9 +221,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
               if (x.WorkingDaysThisMonth != 0) {
                 this.workingDaysThisMonth = x.WorkingDaysThisMonth;
               }
-
             });
-            console.log(this.hoursReportedThisMonth);
           }
         },
           err => {
@@ -218,7 +229,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
           })
       }
       else {
-        swal('תאריך התחלה לא יכול להיות גדול מתאריך סיום!')
+        swal('!תאריך התחלה לא יכול להיות גדול מתאריך סיום')
       }
     }
     else {

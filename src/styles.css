@@ -25,6 +25,8 @@ h4 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+
 }
 
 .close {
@@ -41,6 +43,7 @@ h4 {
   padding-top: 2rem;
   flex-wrap: wrap;
 }
+
 .button-of-task {
   display: flex;
   flex-direction: row;
@@ -62,14 +65,16 @@ h4 {
   background-color: #f1b93c;
   color: black;
 }
-.all-page.pop-up-open
-{
+
+.all-page.pop-up-open {
   overflow: hidden;
   height: 90vh;
 }
-tr{
-text-align: center;
+
+tr {
+  text-align: center;
 }
+
 textarea.form-control {
   min-height: 100px;
 }
@@ -80,6 +85,7 @@ textarea.form-control {
   display: block;
   margin: 0 auto;
 }
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -94,7 +100,7 @@ textarea.form-control {
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
-  
+
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
@@ -109,21 +115,30 @@ textarea.form-control {
 
 .input-container {
   margin: 0.9rem;
-} 
+}
 
 .ngx-pagination {
   margin-left: 0;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
 }
+
 .ngx-pagination .current {
   padding: 0.1875rem 0.625rem;
   background: #f1b93c;
   color: #fefefe;
   cursor: default;
 }
-.select-table{
+
+@media (max-width: 455px) {
+  ul.ngx-pagination {
+    padding-left: 1.5rem;
+  }
+}
+
+
+.select-table {
   display: flex;
   justify-content: center;
   margin-top: 3rem;

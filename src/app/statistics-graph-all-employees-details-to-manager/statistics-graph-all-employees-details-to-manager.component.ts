@@ -6,6 +6,7 @@ import { UserServiceService } from '../user-service.service';
 import Chart from 'chart.js/auto';
 import { BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
 import { DatePipe } from '@angular/common';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-statistics-graph-all-employees-details-to-manager',
@@ -25,14 +26,14 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   openChartMonthlyWorkingHours = true;
   openChartOpenTask = false;
   showCompareDatesAllEmployeeDetails = false;
-  dateOfSearchBeforeForBarChart: any;
-  dateOfSearchAfterForBarChart: any;
+  fromDate: any;
+  untilDate: any;
   todayDate!: any;
   myDate = new Date()
   employeeDetailsMonthlyWorkingHours: any
   employeeDetailsWeeklyWorkingHours: any;
   employeeDetailsDailyWorkingHours: any;
-  employeeDetailsFromDateUntilHours: any;
+  employeeDetailsfromDateUntilHours: any;
   colorArrTaskOpen!: any[];
   colorArr2TaskOpen!: any[];
   colorArrTaskOpenCopy !: any[];
@@ -104,19 +105,20 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
     this.GetEmployeeDetails(this.systemGuid, "", "", 4)
   }
 
-  GetEmployeeDetails(systemGuid: any, FromDate: any, UntilDate: any, val: any) {
-    this.userService.GetEmployeeDetails(systemGuid, FromDate, UntilDate).subscribe(
+  GetEmployeeDetails(systemGuid: any, fromDate: any, untilDate: any, val: any) {
+    this.userService.GetEmployeeDetails(systemGuid, fromDate, untilDate).subscribe(
       (res: any) => {
         this.employeeDetails = res;
         this.employeeDetailsMonthlyWorkingHours = this.employeeDetails.map((Employee: any) => Employee.EmployeeMonthlyWorkingHours)
         this.employeeDetailsDailyWorkingHours = this.employeeDetails.map((Employee: any) => Employee.EmployeeDailyWorkingHours)
         this.employeeDetailsWeeklyWorkingHours = this.employeeDetails.map((Employee: any) => Employee.EmployeeWeeklyWorkingHours)
-        this.employeeDetailsFromDateUntilHours = this.employeeDetails.map((Employee: any) => Employee.EmployeeFromDateUntilHours)
+        this.employeeDetailsfromDateUntilHours = this.employeeDetails.map((Employee: any) => Employee.EmployeefromDateUntilHours)
         this.employeeDetailsName = this.employeeDetails.map((Employee: any) => Employee.EmployeeName)
         this.employeeDetailsOpenTask = this.employeeDetails.map((Employee: any) => Employee.EmployeeOpenTasks)
         this.ComparisonEmployeeDetailsOpenTasks()
         this.ComparisonEmployeeDetailsMonthlyWorkingHours(val)
-
+        this.fromDate = "";
+        this.untilDate = "";
       },
       (err: any) =>
         console.log(err.error)
@@ -128,11 +130,11 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   // 4=החודש
 
   ComparisonEmployeeDetailsMonthlyWorkingHours(val: any) {
-    this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.datasets[0].data=[]
-    this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.labels=[]
+    this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.datasets[0].data = []
+    this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.labels = []
     if (val == 1) {
-      this.employeeDetailsFromDateUntilHours.forEach((element: any, index: any) => {
-        this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.datasets[0].data[index] = this.employeeDetailsFromDateUntilHours[index];
+      this.employeeDetailsfromDateUntilHours.forEach((element: any, index: any) => {
+        this.AllEmployeeChartEmployeeDetailsMonthlyWorkingHours.data.datasets[0].data[index] = this.employeeDetailsfromDateUntilHours[index];
       });
     }
     if (val == 2) {
@@ -157,8 +159,8 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
   }
 
   ComparisonEmployeeDetailsOpenTasks() {
-    this.AllEmployeeOpenTasksChart.data.datasets[0].data=[]
-    this.AllEmployeeOpenTasksChart.data.labels=[]
+    this.AllEmployeeOpenTasksChart.data.datasets[0].data = []
+    this.AllEmployeeOpenTasksChart.data.labels = []
     this.employeeDetailsOpenTask.forEach((element: any, index: any) => {
       this.AllEmployeeOpenTasksChart.data.datasets[0].data[index] = this.employeeDetailsOpenTask[index];
     });
@@ -194,18 +196,22 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
       }
     }
   }
-  SortWorkTimeByDateRange(FromDate: any, UntilDate: any) {
-    UntilDate = this.datePipe.transform(UntilDate, 'dd/MM/yyyy')
-    FromDate = this.datePipe.transform(FromDate, 'dd/MM/yyyy')
-    if (UntilDate == undefined || null) {
-      UntilDate = this.todayDate
-      UntilDate = this.datePipe.transform(UntilDate, 'dd/MM/yyyy')
+  SortWorkTimeByDateRange() {
+    if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
+      let d1 = new Date(this.fromDate);
+      let d2 = new Date(this.untilDate)
+      if (d1.getTime() <= d2.getTime()) {
+        this.untilDate = this.datePipe.transform(this.untilDate, 'dd/MM/yyyy')
+        this.fromDate = this.datePipe.transform(this.fromDate, 'dd/MM/yyyy')
+        this.GetEmployeeDetails(this.systemGuid, this.fromDate, this.untilDate, 1)
+      }
+      else {
+        swal('!תאריך התחלה לא יכול להיות גדול מתאריך סיום')
+      }
     }
-    if (FromDate == undefined || null) {
-      FromDate = this.todayDate
-      FromDate = this.datePipe.transform(FromDate, 'dd/MM/yyyy')
+    else {
+      swal('עליך להזין תאריך התחלה ותאריך סיום')
     }
-    this.GetEmployeeDetails(this.systemGuid, FromDate,UntilDate , 1)
   }
   CreatColorArr() {
     this.colorArrTaskOpenCopy = [...this.employeeDetailsOpenTask]
@@ -222,14 +228,14 @@ export class StatisticsGraphAllEmployeesDetailsToManagerComponent implements OnI
           if (i > 26 && i < 110) {
             this.colorArrTaskOpen[a] = "red";
           }
-          // else
-          //   if (i > 111 && i < 150) {
-          //     this.colorArrTaskOpen[a] = "rgb(6, 142, 6)";
-          //   }
-          //   else
-          //   if (i > 151) {
-          //     this.colorArrTaskOpen[a] = "rgb(10, 179, 10)";
-          //   }
+      // else
+      //   if (i > 111 && i < 150) {
+      //     this.colorArrTaskOpen[a] = "rgb(6, 142, 6)";
+      //   }
+      //   else
+      //   if (i > 151) {
+      //     this.colorArrTaskOpen[a] = "rgb(10, 179, 10)";
+      //   }
       a++;
     })
   }

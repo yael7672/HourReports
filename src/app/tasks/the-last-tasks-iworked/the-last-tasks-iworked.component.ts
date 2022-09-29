@@ -17,11 +17,19 @@ export class TheLastTasksIWorkedComponent implements OnInit {
   taskArr: any;
   interval: any;
   projectContentItemArr: any;
+  UpdateTaskDetails: any;
+  showMassgeToUserDeleteTask: any;
+  tasksGuid: any;
+  tasksName: any;
+  isPopUpOpen: any;
 
   constructor(private popUpService: PopUpServiceService, private activatedRoute: ActivatedRoute, private appService: AppService, private userService: UserServiceService, public route: Router) {
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
     }
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+    })
   }
   startWorkOfTask = false;
   taskListDataDetails: any;
@@ -52,16 +60,20 @@ export class TheLastTasksIWorkedComponent implements OnInit {
       }
     )
   }
-
   editProjectContentItemIcon(val: any) {
     this.popUpService.setSpecificPopUp(true, 'UpdateProjectContentItemDetails');
     this.projectContentItem = val;
+    this.UpdateTaskDetails = true;
   }
-  deleteProjectContentItemIcon(ProjectContentItem: any) {
-    this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
-    this.showMassgeToUser = true;
-    this.projectContentItemGuid = ProjectContentItem.Guid;
+
+  DeleteTask(Task: any) {
+    this.popUpService.setSpecificPopUp(true, 'DeleteTask');
+    this.showMassgeToUserDeleteTask = true;
+    this.tasksGuid = Task.TaskGuid;
+    this.tasksName = Task.Subject;
+    this.showMassgeToUserDeleteTask = true;
   }
+
   SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;
@@ -153,7 +165,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
     this.sortTaskArr = task;
   }
   SelectedTask(val: any) {
-    debugger
+    
     if (!this.startWorkOfTask) {
       this.taskListDataDetails = val;
       localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))

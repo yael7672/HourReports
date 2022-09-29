@@ -46,7 +46,7 @@ export class AppService {
 
   setScreenResize() {
     this.isUnder1680 = window.innerWidth < 1680;
-    this.isUnder1680$.next(window.innerWidth < 1680);
+    this.isUnder1680$.next(window.innerWidth < 1100);
   }
 
   setDeviceInfo() {
@@ -79,7 +79,7 @@ export class AppService {
     };
   }
 
-  getAppProperties(): AppProperties {
+  getAppProperties(): AppProperties {     
     return {
       isUnder1680$: this.isUnder1680$,
       deviceInfo$: this.deviceInfo$,

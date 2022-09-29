@@ -10,12 +10,14 @@
 <app-smart-card [title]="titleLastTaskIWorkedOn" [src]="'../../../assets/images/2387679.png'">
     <div body>
         <!-- חיפוש ומיון -->
-        <app-search-and-sort-tasks *ngIf="sortTaskArr.length>0" [taskArr]="sortTaskArr" (GetTaskAfterSort)="getTaskAfterSort($event)" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks>
-        <app-smart-table [ifUpdate]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTaskTeams"
+        <app-search-and-sort-tasks *ngIf="sortTaskArr.length > 0" [taskArr]="sortTaskArr"
+            (GetTaskAfterSort)="getTaskAfterSort($event)" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks>
+        <app-smart-table [ifUpdateTask]="true" [ifShowpagination]="[true,10]" [ifDeleteTask]="true" [thArr]="thArrTaskTeams"
             [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys" [tableData]="sortTaskArr"
-            (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
-            (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SelectedData)="SelectedTask($event)" (SortTableDown)="SortTableDown($event)"
-            (SortTableUp)="SortTableUp($event)">
+            (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SelectedData)="SelectedTask($event)"
+            (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)"
+            (DeleteTaskIcon)="DeleteTask($event)" [showMassgeToUserDeleteTask]="true"
+            [ifDeleteOpen]="isPopUpOpen?.DeleteTask" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
         </app-smart-table>
     </div>
 </app-smart-card>

@@ -8,25 +8,31 @@ import { PopUpServiceService } from '../pop-up-service.service';
   styleUrls: ['./pop-up.component.css']
 })
 export class PopUpComponent implements OnInit {
-  isClose!:boolean
-  @Input()title!:string;
-  @Input()ifX!:boolean;
-  @Input() ifXt!:boolean;
-  @Input() hideButton!: any; 
-  @Input() textButtonBack:any;
+  isClose!: boolean
+  @Input() title!: string;
+  @Input() ifX!: boolean;
+  @Input() ifXt!: boolean;
+  @Input() hideButton!: any;
+  @Input() textButtonBack: any;
   @Output() ClickCancel = new EventEmitter<any>();
-  constructor(private popUpService:PopUpServiceService,private appService:AppService) { }
+  whichPopUpOpen: any;
+  constructor(private popUpService: PopUpServiceService, private appService: AppService) {
+     this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.whichPopUpOpen = res;
+    }) }
   ngOnInit(): void {
-    console.log("popUpLoaded");
   }
-  closePopUp()
-  {   
+  closePopUp() {
+    
+   if(this.whichPopUpOpen.ProjectContentItemBySpesificDate)
+   {
+    this.popUpService.setDetailsOfWorkingHoursEmployee(true);
+    this.popUpService.setDetailsOfWorkingHoursEmployeeForAdmin(true);
+   }
     this.appService.setIsPopUpOpen(false);
     this.popUpService.setClosePopUp();
-    console.log("ClosePopUp");
   }
-  CancelPopUp(){
+  CancelPopUp() {
     this.ClickCancel.emit('')
-
   }
 }

@@ -61,10 +61,6 @@ export class ShowMyTaskComponent implements OnInit {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
-    // this.popUpService.getStartTimer().subscribe(res => {
-    //   debugger
-    //   this.startWorkOfTask = res ? res : false;
-    // })
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = localStorage.getItem('DateNow')?true:false;
     }
@@ -235,12 +231,7 @@ export class ShowMyTaskComponent implements OnInit {
     this.projectContentItem = val;
     this.UpdateProjectContentItemDetails = true;
   }
-  deleteProjectContentItemIcon(projectContectItem: any) {
-    this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
-    this.showMassgeToUser = true;
-    this.projectContentItemGuid = projectContectItem.Guid;
 
-  }
   DeleteTask(Task: any) {
     this.popUpService.setSpecificPopUp(true, 'DeleteTask');
     this.showMassgeToUserDeleteTask = true;

@@ -19,7 +19,7 @@ export class TeamReportComponent implements OnInit {
   ifShowAndEditEmployeeSetting = true
   isPopUpOpen: any;
   teamsDetailsVal: any;
-  title = "דו'ח צוותים";
+  title = "דוח צוותים";
   teamsDetailsCopy: any;
   employeesDetailsCopy: any;
   employeeDetails: any;

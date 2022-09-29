@@ -208,7 +208,7 @@ export class TasksByEmployeeComponent implements OnInit {
       })
   }
   getTaskAfterSort(task: any) {
-    debugger
+    
     this.taskArr = task;
   }
 }

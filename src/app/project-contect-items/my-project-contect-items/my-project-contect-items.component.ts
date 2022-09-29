@@ -112,25 +112,7 @@ export class MyProjectContectItemsComponent implements OnInit {
       return ((sortValueTimestampA ? sortValueTimestampA : new Date()) > (sortValueTimestampB ? sortValueTimestampB : new Date()) ? 1 : -1)
     })
   }
-  UpdateProjectItemButton() {
-    this.ProjectItemToUpdate = {
-      Guid: this.ProjectContentItem.Guid,
-      Description: this.ProjectContentItem.Description,
-      ActualTime: this.workingHours,
-      //BillableHours:form.value.BillingHours
-    }
-    this.userService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
-      (res) => {
-        this.massageToUser = res;
-        swal(this.massageToUser)
-        this.appService.setIsPopUpOpen(false);
-        this.popUpService.setClosePopUp();
-        this.popUpService.SetProjectContentItemByTaskGuid(true)
-      },
-      (err) =>
-        alert("error")
-    )
-  }
+ 
   openPopUp(data: string, type: boolean) {
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(type, data)

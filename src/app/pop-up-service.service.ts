@@ -18,7 +18,10 @@ export class PopUpServiceService {
   private IfXProjectContectItemUpdateWithTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private refreshGetAllMyNewTask$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private navBar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private detailsOfWorkingHoursEmployeeForAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private detailsOfWorkingHoursEmployee$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  
   constructor() { }
 
   setSpecificPopUp(data: boolean, type: string) {
@@ -121,5 +124,21 @@ export class PopUpServiceService {
  getStartTimer()
   {
     return this.isStartTimer$;
+  }
+  setDetailsOfWorkingHoursEmployeeForAdmin(val:boolean)
+  {
+    this.detailsOfWorkingHoursEmployeeForAdmin$.next(val);
+  }
+  getDetailsOfWorkingHoursEmployeeForAdmin()
+  {
+    return this.detailsOfWorkingHoursEmployeeForAdmin$;
+  }
+  setDetailsOfWorkingHoursEmployee(val:boolean)
+  {
+    this.detailsOfWorkingHoursEmployee$.next(val);
+  }
+  getDetailsOfWorkingHoursEmployee()
+  {
+    return this.detailsOfWorkingHoursEmployee$;
   }
 }
