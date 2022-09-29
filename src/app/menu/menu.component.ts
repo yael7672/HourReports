@@ -10,6 +10,7 @@ import { TaskByGuid } from '../interfacees/TaskByGuid';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimeCounterComponent } from '../time-counter/time-counter.component';
+import { ProjectType } from '../interfacees/ProjectType';
 
 
 @Component({
@@ -66,6 +67,7 @@ export class MenuComponent implements OnInit {
   openMyNewTaskPopUp = false
   image: any;
   isUnder1100: boolean;
+  ProjectTypeArr: any;
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -280,7 +282,7 @@ export class MenuComponent implements OnInit {
     this.GoToPausetimerTask()
   }
   GoToPausetimerTask() {
-    let pauseTaskComp = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router)
+    let pauseTaskComp = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router,this.appService)
     pauseTaskComp.pauseTimer(this.workTime)
     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
     this.router.navigate(['/menu/show-my-task', this.systemGuid]);
@@ -291,5 +293,15 @@ export class MenuComponent implements OnInit {
     this.popUpService.setNavBar(false);
   }
 
+
+  GetProjectType() {
+    this.userService.GetProjectType().subscribe(
+      (res: any) => {
+        this.ProjectTypeArr = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
 
 }
