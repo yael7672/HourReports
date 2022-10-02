@@ -60,7 +60,8 @@ export class ShowMyTaskComponent implements OnInit {
   readonly VAPID_PUBLIC_KEY = "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
 
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,  
-    private appService: AppService, private userService: UserServiceService, private route: Router) {
+    private appService: AppService, private userService: UserServiceService, private route: Router,
+    private swPush: SwPush) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -82,7 +83,16 @@ export class ShowMyTaskComponent implements OnInit {
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuidFromLocalStorage = localStorage.getItem('systemGuid');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-
+    // this.requestSubscription();
+    const subscription = {
+      endpoint:
+          '<CLIENT_ENDPOINT>',
+      expirationTime: null,
+      keys: {
+          p256dh: '<CLIENT_P256DH>',
+          auth: '<CLIENT_AUTH>',
+      },
+  };
   }
 
   GetWorkType() {
@@ -94,6 +104,20 @@ export class ShowMyTaskComponent implements OnInit {
         console.log(err.error)
     )
   } 
+
+  // requestSubscription = () => {
+  //   if (!this.swPush.isEnabled) {
+  //     console.log("Notification is not enabled.");
+  //     return;
+  //   }
+
+  //   this.swPush.requestSubscription({
+  //     serverPublicKey: '<VAPID_PUBLIC_KEY_FROM_BACKEND>'
+  //   }).then((_) => {
+  //     console.log(JSON.stringify(_));
+  //   }).catch((_) => console.log);
+  // };
+  // notifyMe() {
 
  
 

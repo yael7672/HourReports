@@ -67,10 +67,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   MoreEmployeeArr: any = [];
   MoreEmployeeGuid: any[] = [];
   createProjectContectItemWithTimerMoreEmployee = false
-
   ngxDisabled = false;
-  // doSelectOptions = (options: INgxSelectOption[]) => {console.log('MultipleDemoComponent.doSelectOptions', options)
-  // alert("dddd");}
   massgeUserCloseProjectContectItemByTimerCancel = "האם ברצונך לבטל דיווח זה?"
   showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
@@ -88,7 +85,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.GetRegarding();
     this.GetProject();
     this.GetWorkType();
-
     this.dateToUpdate = localStorage.getItem('dateToUpdate');
     console.log(this.dateToUpdate);
 
@@ -130,7 +126,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
           if (this.createProjectContectItemWithTimerMoreEmployee != true) {
             swal("!דיווח נוצר בהצלחה")
           }
-
           // this.isDisabled = false;
           this.createProjectContectItemWithTimerMoreEmployee = false
           this.popUpService.setAllmyProjectContectItem(true)
@@ -203,17 +198,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
       form.value.Project = { "Guid": form.value.Project.Guid },
       form.value.WorkType = { "Guid": form.value.workType.Guid }
     form.value.ActualTime = this.actualTime
-
-
-    // this.MoreEmployeeArr.forEach((x: any) => {
-    //   x = { "Guid": x }
-    //   this.MoreEmployeeGuid.push(x)
-    // })
-    // form.value.MoreEmployee = this.MoreEmployeeGuid
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
       (res) => {
         this.ProjectContentItemWithTime = res;
-
         swal(this.ProjectContentItemWithTime)
         this.popUpService.setAllmyProjectContectItem(true)
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
@@ -301,6 +288,4 @@ export class CreateAprojectContentItemComponent implements OnInit {
       (err) =>
         swal(err.error))
   }
-
-
 }

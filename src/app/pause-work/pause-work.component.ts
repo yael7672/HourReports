@@ -9,6 +9,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShowMyTaskComponent } from '../tasks/show-my-task/show-my-task.component';
+import { SwPush } from '@angular/service-worker';
 
 
 @Component({
@@ -59,7 +60,7 @@ export class PauseWorkComponent implements OnInit {
      private datePipe: DatePipe, private userServiceService: UserServiceService,
      public router: Router,private appService: AppService,
       private popUpService: PopUpServiceService, 
-      private buttonWorkingTaskService: ButtonWorkingTaskService,
+      private buttonWorkingTaskService: ButtonWorkingTaskService,private swPush: SwPush,
       private activatedRoute: ActivatedRoute) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
   }
@@ -96,7 +97,7 @@ export class PauseWorkComponent implements OnInit {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-            let showMyTaskComp = new ShowMyTaskComponent( this.activatedRoute,this.popUpService,this.appService, this.userServiceService,this.router)
+            let showMyTaskComp = new ShowMyTaskComponent( this.activatedRoute,this.popUpService,this.appService, this.userServiceService,this.router,  this.swPush)
             showMyTaskComp.SelectedTask(this.taskListDataDetails)
           }, 500)
         }
