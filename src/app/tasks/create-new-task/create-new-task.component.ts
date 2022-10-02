@@ -72,7 +72,7 @@ export class CreateNewTaskComponent implements OnInit {
       // Regardingobjectid: { "Guid": form.value.Regardingobject },לגבי
       WorkType: { "Guid": form.value.workType.Guid },
       OwnerId: { "Guid": localStorage.getItem('systemGuid') },
-      Project: { "Guid": form.value.project.Guid  }
+      Project: { "Guid": form.value.project.Guid }
     }
     this.AddNewTask()
   }
@@ -97,7 +97,7 @@ export class CreateNewTaskComponent implements OnInit {
         this.popUpService.setClosePopUp();
         this.popUpService.setAllmyTask(true)
         this.popUpService.setAllMyNewTask(false);
-        this.router.navigate(['/menu/show-my-task',localStorage.getItem('systemGuid')]);
+        this.router.navigate(['/menu/show-my-task', localStorage.getItem('systemGuid')]);
       }
     },
       err => {
@@ -107,5 +107,27 @@ export class CreateNewTaskComponent implements OnInit {
     )
     this.getMyTasksProp = false
     window.localStorage.setItem("getMyTask", JSON.stringify(this.getMyTasksProp))
+  }
+  notifyMe() {
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") {
+      const notification = new Notification("נוצרה לך משימה חדשה!",
+        {
+          body: this.tasks.Subject,tag:'https://developer.mozilla.org/en-US/docs/Web/API/Notification',
+
+          icon: '../../../assets/images/2387679.png'
+        });
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          const notification = new Notification("נוצרה לך משימה חדשה!",
+            {
+              body: 'מה שלומך?',
+              icon: ''
+            });
+        }
+      });
+    }
   }
 }

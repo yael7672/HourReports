@@ -48,6 +48,7 @@ export class ShowMyTaskComponent implements OnInit {
   ifThereAreprojectContentItem = false;
   ifUpdateOpen = false;
   ifAdmin: any;
+  img=''
   employeeDetails: any;
   systemGuidFromLocalStorage: any;
   employeeDetailsParseJson: any;
@@ -57,16 +58,14 @@ export class ShowMyTaskComponent implements OnInit {
   showMyProjects = true;
   myProjectArr!: Project[]
   image!: any;
-  readonly VAPID_PUBLIC_KEY = "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
+  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
+    private appService: AppService, private userService: UserServiceService, private route: Router) {
 
-  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,  
-    private appService: AppService, private userService: UserServiceService, private route: Router,
-    private swPush: SwPush) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
     if (localStorage.getItem('DateNow')) {
-      this.startWorkOfTask = localStorage.getItem('DateNow')?true:false;
+      this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
     }
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
@@ -78,24 +77,34 @@ export class ShowMyTaskComponent implements OnInit {
     this.GetWorkType();
     this.GetMyTask();
     this.getMyProject();
-    this.notifyMe()
     this.employeeDetails = localStorage.getItem('employeeDetails');
     this.employeeDetailsParseJson = JSON.parse(this.employeeDetails);
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuidFromLocalStorage = localStorage.getItem('systemGuid');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    this.requestSubscription();
-    const subscription = {
-      endpoint:
-          '<CLIENT_ENDPOINT>',
-      expirationTime: null,
-      keys: {
-          p256dh: '<CLIENT_P256DH>',
-          auth: '<CLIENT_AUTH>',
-      },
-  };
+    // this.notifyMe()
   }
-
+  notifyMe() {
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") {
+      const notification = new Notification("נוצרה לך משימה חדשה!",
+        {
+          body: 'מה שלומך?',
+          icon: '../../../assets/images/2387679.png'
+        });
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          const notification = new Notification("נוצרה לך משימה חדשה!",
+            {
+              body: 'מה שלומך?',
+              icon: ''
+            });
+        }
+      });
+    }
+  }
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
       (res: any) => {
@@ -104,57 +113,8 @@ export class ShowMyTaskComponent implements OnInit {
       (err: any) =>
         console.log(err.error)
     )
-  } 
-  requestSubscription = () => {
-    if (!this.swPush.isEnabled) {
-      console.log("Notification is not enabled.");
-      return;
-    }
-
-    this.swPush.requestSubscription({
-      serverPublicKey: '<VAPID_PUBLIC_KEY_FROM_BACKEND>'
-    }).then((_) => {
-      console.log(JSON.stringify(_));
-    }).catch((_) => console.log);
-  };
-  notifyMe() {
-
-    if (!("Notification" in window)) {
-
-      // Check if the browser supports notifications
-
-      alert("This browser does not support desktop notification");
-
-    } else if (Notification.permission === "granted") {
-
-      // Check whether notification permissions have already been granted;
-
-      // if so, create a notification
-
-      const notification = new Notification("Hi there!");
-
-      // …
-
-    } else if (Notification.permission !== "denied") {
-
-      // We need to ask the user for permission
-
-      Notification.requestPermission().then((permission) => {
-
-        // If the user accepts, let's create a notification
-
-        if (permission === "granted") {
-
-          const notification = new Notification("Hi there!");
-
-          // …
-
-        }
-
-      });
-    }
   }
- 
+
 
   SelectedTask(val: any) {
     if (!this.startWorkOfTask) {
@@ -316,7 +276,7 @@ export class ShowMyTaskComponent implements OnInit {
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
+      this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
     }
   }
   onSearchTask(filterKeyBySubject: any) {
@@ -360,4 +320,5 @@ export class ShowMyTaskComponent implements OnInit {
         console.log(err.error);
       })
   }
+
 }

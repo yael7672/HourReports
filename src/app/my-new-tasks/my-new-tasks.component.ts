@@ -18,7 +18,7 @@ import { UserServiceService } from '../user-service.service';
 })
 export class MyNewTasksComponent implements OnInit {
   systemGuid: any;
-  MyNewTaskArr: any[]=[];
+  MyNewTaskArr: any[] = [];
   ifHideEditOrDelete = true
   openDetailsTask = false
   HideSortIcon = true
@@ -30,7 +30,7 @@ export class MyNewTasksComponent implements OnInit {
   ifThereNewTasks = false
   IfThereTask: any;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private router: Router, private popUpService: PopUpServiceService,
-    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService,private swPush: SwPush
+    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
@@ -44,11 +44,8 @@ export class MyNewTasksComponent implements OnInit {
       else {
         this.ifThereNewTasks = false
       }
-
     })
-
   }
-
   ngOnInit(): void {
     this.GetMyNewTasks()
   }
@@ -60,7 +57,7 @@ export class MyNewTasksComponent implements OnInit {
         if (res) {
           this.MyNewTaskArr = res;
 
-          if (this.MyNewTaskArr.length <=0) {
+          if (this.MyNewTaskArr.length <= 0) {
             this.popUpService.setAllMyNewTask(true)
           }
           else {
@@ -81,13 +78,14 @@ export class MyNewTasksComponent implements OnInit {
     this.popUpService.setClosePopUp();
     console.log("ClosePopUp");
   }
+ 
 
   showDetailsTask(val: any) {
     this.openDetailsTask = true
     this.closePopUp()
     this.popUpService.setAllmyTask(true)
     this.detailsTask = val
-    let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute, this.popUpService, this.appService, this.userService, this.router,this.swPush)
+    let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute, this.popUpService, this.appService, this.userService, this.router)
     showMyTaskComp.SelectedTask(this.detailsTask)
     this.UpdateTaskHasRead(this.detailsTask.TaskGuid)
   }
