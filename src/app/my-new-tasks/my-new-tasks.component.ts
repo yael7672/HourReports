@@ -50,8 +50,26 @@ export class MyNewTasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetMyNewTasks()
+
   }
 
+
+  notifyMe() {
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") {
+      const notification = new Notification("Hi theredd!");
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          const notification = new Notification("Hi thereddd!");
+          notification.body
+        }
+      });
+    }
+  }
+
+  
   GetMyNewTasks() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetMyNewTasks(this.systemGuid).subscribe(

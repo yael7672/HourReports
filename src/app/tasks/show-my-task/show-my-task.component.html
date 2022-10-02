@@ -36,14 +36,8 @@
       </ng-template>
     </div>
    
-<<<<<<< HEAD
-    <select id="inputState-2"  *ngIf="taskArr" class="form-control mt-3" ngModel (ngModelChange)="SearchProjectOption($event)">
-        <option value="" [disabled]="true">חיפוש פרויקט לפי</option>
-=======
-    <div class="searchProject">
     <select id="inputState-2" class="form-control mt-3" ngModel (ngModelChange)="SearchProjectOption($event)">
         <option value="">חיפוש פרויקט לפי</option>
->>>>>>> eacadf7fe7b5e5d5acb89501944ef9cee6656648
         <option value="0">כל הפרויקטים </option>
         <option value="1"> הפרויקטים שלי</option>
       </select>
@@ -73,7 +67,6 @@
           <div [innerHTML]="'לא נמצאו תוצאות'"></div>
         </ng-template>
       </div>
-    </div>
     </div>
     <app-smart-table [ifDeleteTask]="true" [ifUpdateTask]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTask"
       [ifSortDown]="ifSortDown" [tableDataKeys]="taskListKeys" [tableData]="taskArr"
