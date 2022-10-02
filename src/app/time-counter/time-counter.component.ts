@@ -52,10 +52,6 @@ export class TimeCounterComponent implements OnInit {
     }
   }
   startTimer() {
-<<<<<<< HEAD
-=======
-    this.HideStartAndShowCancelProjectContectItem = true
->>>>>>> eacadf7fe7b5e5d5acb89501944ef9cee6656648
     this.disabledStartButton = true;
     this.disabledPauseButton = false;
     this.disabledEndButton = false;
