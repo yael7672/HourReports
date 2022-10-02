@@ -143,10 +143,10 @@
   <button style="position: fixed;" *ngIf="this.arrayOfReports.length > 0" (click)="approveReport()" class="edit-button" placement="bottom"
     ngbTooltip="אישור הדיווח"><i class="fa fa-check" aria-hidden="true"></i></button>
 <div class="all-cards">
-  <div class="card" style="width: 17rem;"
+  <div class="card" style="width: 17rem;" [ngStyle]="{'background-color':isChecked[i]  ? '#f1b93c' : null }"
     *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
     (click)="selectedData(colData)">
-    <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing<0"
+    <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing < 0"
       class="fa fa-times-circle" id="fa-times-circle-card" aria-hidden="true"></i>
     <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing == 0" id="fa-check-circle-card"
       class="fa fa-check-circle " aria-hidden="true"></i>
@@ -154,10 +154,9 @@
         src="{{colData?.EmployeeProfilImage?colData.EmployeeProfilImage:defultImage}}"
         class="img-fluid profile-image-pic-card img-thumbnail rounded-circle my-3" width="200px" alt="profile">
     </div>
-
     <input *ngIf="ifShowCheckBox" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="isChecked[i]"
       (change)="checkValue(isChecked[i],colData)">
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush" >
       <ng-container *ngFor="let tableDataKey of tableDataKeys; let i = index ;">
 
         <ng-container *ngIf="tableDataKey!=='WorkingHours' && tableDataKey!=='EmployeeDailyWorkingHours' &&
@@ -191,7 +190,7 @@
           </li>
         </ng-template>
         <ng-template #Date>
-          <li class="list-group-item">
+          <li class="list-group-item" >
             <ng-container *ngIf="thArr">
               <span class="th-arr-card">{{thArr[i]}}:</span>
             </ng-container>
