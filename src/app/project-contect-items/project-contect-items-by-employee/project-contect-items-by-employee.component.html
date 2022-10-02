@@ -17,8 +17,9 @@
       <h2>אין דיווחים!</h2>
     </div>
     <div *ngIf="myProjectContectItemArr?.length > 0">
+      <!-- [ifShowpagination]="[true,10]" -->
       <app-smart-table [ifUpdate]="true" [ifShowCheckBox]="true" [ifApproveReport]="true"
-        [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [ifShowpagination]="[true,10]" [tableDataKeys]="projectContentItemListKeys"
+        [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown"  [tableDataKeys]="projectContentItemListKeys"
         [tableData]="myProjectContectItemArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
         (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
         (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails"
