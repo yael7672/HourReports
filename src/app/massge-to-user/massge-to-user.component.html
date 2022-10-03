@@ -10,8 +10,8 @@
 </div>
 <br>
 <div class="footer">
-    <button *ngIf="ifButton" (click)="BtnNo()" type="button" class="btn btn-color">{{textOfBtnNo}}</button>
-    <button *ngIf="ifButton" (click)="BtnYes()" type="button" class="btn btn-color">{{textOfBtnYes}}</button>
+    <button *ngIf="ifButton&&textOfBtnNo" (click)="BtnNo()" type="button" class="btn btn-color">{{textOfBtnNo}}</button>
+    <button *ngIf="ifButton&&textOfBtnYes" (click)="BtnYes()" type="button" class="btn btn-color">{{textOfBtnYes}}</button>
     <button *ngIf="ifButton&&ButtonCancel==true" (click)="BtnCancel()" type="button" class="btn btn-color">בטל
         דיווח</button>
 

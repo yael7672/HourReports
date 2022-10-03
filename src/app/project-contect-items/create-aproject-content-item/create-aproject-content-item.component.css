@@ -14,3 +14,16 @@ img.image {
     height: 40px;
     width: 40px;
 }
+.date {
+    display: flex;
+    justify-content: right;
+    /* margin-bottom: 0.5rem; */
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    display: flex;
+}
+
+.InputWithText {
+    position: relative;
+}

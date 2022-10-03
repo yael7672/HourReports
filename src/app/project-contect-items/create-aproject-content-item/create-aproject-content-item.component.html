@@ -31,14 +31,20 @@
             </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime &&!dateToUpdate"
                 class="form-outline d-flex justify-content-center">
+                <div class="InputWithText">
+                    <p class="date">תאריך </p>
                 <input type="date" class="form-control" id="oneDate" name="oneDate"
                     [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"(ngModelChange)="oneDate = $event">
-            </div>
+                </div>
+                </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime&&dateToUpdate"
                 class="form-outline d-flex justify-content-center">
+                <div class="InputWithText">
+                    <p class="date">תאריך </p>
                 <input type="date" class="form-control" id="oneDate" name="oneDate"
                     [ngModel]=" dateToUpdate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"(ngModelChange)="oneDate = $event">
-            </div>
+                </div>
+                </div>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Subject" name="Name" class="form-control" placeholder="נושא" ngModel
                     #subject="ngModel" [(ngModel)]="subject1"

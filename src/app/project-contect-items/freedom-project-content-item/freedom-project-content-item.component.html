@@ -21,6 +21,7 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="!showInputsDates">
+                <p>תאריך</p>
                 <div class="form-outline d-flex justify-content-center">
                     <input type="date" class="form-control" id="oneDate" name="oneDate"
                         [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateTwo = $event">

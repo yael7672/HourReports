@@ -21,3 +21,27 @@
         </div>
     </app-pop-up>
 </div>
+<!-- <div *ngIf="showMassageToUSERifMiiddlePauseAndOpenTask">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user [kindOfMassage]="UserifMiiddlePauseAndOpenTask"
+                [massgeUserHeader]="massgeUserOpenTimerTaskInMiddlePause"
+                (clickYes)="clickYesFinishPauseAndStartTimerTask()" 
+                (clickNo)="clickNoFinishPauseAndStartTimerTask()" [ifButton]="true" 
+                [textOfBtnNo]="'טעות, אני מעוניין להמשיך בהפסקה'" [textOfBtnYes]="'כן, אני מעוניין להתחיל עבודה על משימה זו  '">
+            </app-massge-to-user>
+        </div>
+    </app-pop-up>
+</div> -->
+<div *ngIf="showMassageToUSERifMiiddlePauseAndOpenTask">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user [kindOfMassage]="UserifMiiddlePauseAndOpenTask"
+                [massgeUserHeader]="massgeUserOpenTimerTaskInMiddlePause"
+                (clickYes)="clickYesOpenPauseToFinish()" 
+                [ifButton]="true" [textOfBtnYes]="'OK'" [ifButton2]="false"
+             >
+            </app-massge-to-user>
+        </div>
+    </app-pop-up>
+</div>

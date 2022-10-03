@@ -56,13 +56,17 @@ export class PauseWorkComponent implements OnInit {
   ifCancel = true
   massgeUserEditPauseHour1 = "עריכת שעות הפסקה"
   massageToUser: any;
+  youAreInPause!: boolean
   constructor(private userService: UserServiceService, private elementRef: ElementRef,
-     private datePipe: DatePipe, private userServiceService: UserServiceService,
-     public router: Router,private appService: AppService,
-      private popUpService: PopUpServiceService, 
-      private buttonWorkingTaskService: ButtonWorkingTaskService,private swPush: SwPush,
-      private activatedRoute: ActivatedRoute) {
+    private datePipe: DatePipe, private userServiceService: UserServiceService,
+    public router: Router, private appService: AppService,
+    private popUpService: PopUpServiceService,
+    private buttonWorkingTaskService: ButtonWorkingTaskService, private swPush: SwPush,
+    private activatedRoute: ActivatedRoute) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.popUpService.getInPause().subscribe(res => {
+      this.youAreInPause = res;
+    })
   }
 
   ngOnInit(): void {
@@ -97,7 +101,7 @@ export class PauseWorkComponent implements OnInit {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-            let showMyTaskComp = new ShowMyTaskComponent( this.activatedRoute,this.popUpService,this.appService, this.userServiceService,this.router,  this.swPush)
+            let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute, this.popUpService, this.appService, this.userServiceService, this.router, this.swPush)
             showMyTaskComp.SelectedTask(this.taskListDataDetails)
           }, 500)
         }
@@ -127,7 +131,7 @@ export class PauseWorkComponent implements OnInit {
 
 
   startPause() {
-
+    this.popUpService.setInPause(true);
     this.ifX = false;
     this.endButton = true;
     localStorage.setItem("endButton", String(this.endButton))
@@ -162,11 +166,14 @@ export class PauseWorkComponent implements OnInit {
         this.parseTime = "";
       }
     }
+    this.popUpService.setInPause(false);
+
     this.endButton = false
     this.showMassgeToUserEdit = true
     // this.PauseWork(this.parseTime)
   }
   clickNo() {
+    this.showMassgeToUserEdit = false
     this.showMassgeToUser = false
   }
 
@@ -249,7 +256,7 @@ export class PauseWorkComponent implements OnInit {
   clickNoCancel() {
     this.showMassgeToUserCancelPause = false
   }
-  clickYesCancel(time:any){
+  clickYesCancel(time: any) {
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
       clearInterval(this.interval);
@@ -273,6 +280,8 @@ export class PauseWorkComponent implements OnInit {
     localStorage.setItem("endButton", String(this.endButton))
     this.appService.setIsPopUpOpen(false);
     this.popUpService.setSpecificPopUp(false, "pause")
+    this.popUpService.setInPause(false);
+
   }
 
 }

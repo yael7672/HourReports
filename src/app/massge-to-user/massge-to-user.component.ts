@@ -15,6 +15,7 @@ export class MassgeToUserComponent implements OnInit {
   @Input() kindOfMassage: any;
   @Input() inputValue: any;
   @Input() ifButton: any;
+  @Input() ifButton2: any;
   @Input() ButtonCancel!: boolean
   @Output() clickYes = new EventEmitter<any>();
   @Output() clickNo = new EventEmitter<any>();
@@ -76,6 +77,12 @@ export class MassgeToUserComponent implements OnInit {
                           if (this.kindOfMassage == 'projectContectItemOfTask') {
                             this.clickYes.emit('projectContectItemOfTask')
                           }
+                          else{
+                            if(this.kindOfMassage == 'UserifMiiddlePauseAndOpenTask')
+                            {
+                              this.clickYes.emit('UserifMiiddlePauseAndOpenTaskw')
+                            }
+                          }
                         }
                       }
                     }
@@ -136,6 +143,12 @@ export class MassgeToUserComponent implements OnInit {
                         else{
                           if(this.kindOfMassage == 'projectContectItemOfTask'){
                             this.clickNo.emit('projectContectItemOfTask')
+                          }
+                          else{
+                            if(this.kindOfMassage == 'UserifMiiddlePauseAndOpenTask')
+                            {
+                              this.clickNo.emit('UserifMiiddlePauseAndOpenTaskw')
+                            }
                           }
                         }
                       }

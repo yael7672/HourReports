@@ -77,22 +77,27 @@ export class MyNewTasksComponent implements OnInit {
       res => {
         if (res) {
           this.MyNewTaskArr = res;
-
+          this.MyNewTaskArr.sort((a: any, b: any) => {
+            const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
+            const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
+            debugger
+            return (sortValueTimestampA > sortValueTimestampB ? 1 : -1) 
+           })
           if (this.MyNewTaskArr.length <=0) {
             this.popUpService.setAllMyNewTask(true)
           }
           else {
             this.popUpService.setAllMyNewTask(false)
           }
-
         }
       }, err => {
         console.log(err.error)
-        // if (err.error = "'tasks' is null!") {
-        //   this.popUpService.setAllMyNewTask(true)
-        // }
       }
     )
+  }
+  toTimestamp(sortValue: any) {
+    var datum = Date.parse(sortValue);
+    return datum / 1000;
   }
   closePopUp() {
     this.appService.setIsPopUpOpen(false);

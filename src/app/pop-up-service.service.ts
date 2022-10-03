@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class PopUpServiceService {
-  
+
   private isStartTimer$: BehaviorSubject<any> = new BehaviorSubject(null);
   private isPouseTimer$: BehaviorSubject<any> = new BehaviorSubject(null);
   private kindOfPopUp$: BehaviorSubject<any> = new BehaviorSubject(null);
@@ -20,8 +20,9 @@ export class PopUpServiceService {
   private navBar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private detailsOfWorkingHoursEmployeeForAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private detailsOfWorkingHoursEmployee$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private middlePause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  
+
   constructor() { }
 
   setSpecificPopUp(data: boolean, type: string) {
@@ -35,8 +36,8 @@ export class PopUpServiceService {
       sickLeave: type === 'sickLeave' ? data : false,
       Freedom: type === 'Freedom' ? data : false,
       HoursAwaitingApproval: type === 'HoursAwaitingApproval' ? data : false,
-      timeOfProjectContectItem:type==='timeOfProjectContectItem'? data : false,
-      UpdateProjectContentItemDetails:type === 'UpdateProjectContentItemDetails' ? data : false,
+      timeOfProjectContectItem: type === 'timeOfProjectContectItem' ? data : false,
+      UpdateProjectContentItemDetails: type === 'UpdateProjectContentItemDetails' ? data : false,
       ceateAprojectContentItem: type === 'createAprojectContentItem' ? data : false,
       DeleteProjectContentItemIcon: type === 'DeleteProjectContentItemIcon' ? data : false,
       EditEmployeeDetailsByAdmin: type === 'EditEmployeeDetailsByAdmin' ? data : false,
@@ -101,44 +102,40 @@ export class PopUpServiceService {
   GetIfClosePouse() {
     return this.ifClosePouse$;
   }
-  SetWorkTimeAfterProjectContectItem(val:boolean)
-  {
+  SetWorkTimeAfterProjectContectItem(val: boolean) {
     this.WorkTime$.next(val)
   }
-  GetWorkTimeAfterProjectContectItem()
-  {
+  GetWorkTimeAfterProjectContectItem() {
     return this.WorkTime$;
   }
-  SetIfXProjectContectItemUpdateWithTime(val:boolean)
-  {
+  SetIfXProjectContectItemUpdateWithTime(val: boolean) {
     this.IfXProjectContectItemUpdateWithTime$.next(val)
   }
- GetIfXProjectContectItemUpdateWithTime()
-  {
+  GetIfXProjectContectItemUpdateWithTime() {
     return this.IfXProjectContectItemUpdateWithTime$;
   }
-  setStartTimer(val:boolean)
-  {
+  setStartTimer(val: boolean) {
     this.isStartTimer$.next(val);
   }
- getStartTimer()
-  {
+  getStartTimer() {
     return this.isStartTimer$;
   }
-  setDetailsOfWorkingHoursEmployeeForAdmin(val:boolean)
-  {
+  setDetailsOfWorkingHoursEmployeeForAdmin(val: boolean) {
     this.detailsOfWorkingHoursEmployeeForAdmin$.next(val);
   }
-  getDetailsOfWorkingHoursEmployeeForAdmin()
-  {
+  getDetailsOfWorkingHoursEmployeeForAdmin() {
     return this.detailsOfWorkingHoursEmployeeForAdmin$;
   }
-  setDetailsOfWorkingHoursEmployee(val:boolean)
-  {
+  setDetailsOfWorkingHoursEmployee(val: boolean) {
     this.detailsOfWorkingHoursEmployee$.next(val);
   }
-  getDetailsOfWorkingHoursEmployee()
-  {
+  getDetailsOfWorkingHoursEmployee() {
     return this.detailsOfWorkingHoursEmployee$;
+  }
+  setInPause(val: boolean) {
+    this.middlePause$.next(val);
+  }
+  getInPause() {
+    return this.middlePause$;
   }
 }
