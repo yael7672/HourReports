@@ -12,9 +12,13 @@
     <option value="4"> החודש האחרון</option>
   </select>
 </div>
-    <div *ngIf="myProjectContectItemArr?.length == 0||!myProjectContectItemArr">
+    <div *ngIf="myProjectContectItemArr?.length == 0">
       <br>
       <h2>אין דיווחים!</h2>
+    </div>
+    <div *ngIf="!myProjectContectItemArr">
+      <br>
+      <h2>רק רגע...</h2>
     </div>
     <div *ngIf="myProjectContectItemArr?.length > 0">
       <!-- [ifShowpagination]="[true,10]" -->

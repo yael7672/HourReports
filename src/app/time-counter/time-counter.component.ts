@@ -35,10 +35,10 @@ export class TimeCounterComponent implements OnInit {
   massageFromServer: any;
   youAreInPause = false
   showMassgeToUserCancelProjectContectItemOfTask = false
-  HideStartAndShowCancelProjectContectItem = false
+  hideStartAndShowCancelProjectContectItem !:boolean;
   projectContectItemOfTask = "projectContectItemOfTask"
   kindPopUp = "cancelProjectContectItemOfTask"
-  massgeUserCloseProjectContectItemByTimer = "האם ברצונך לסיים דיווח זה?"
+  massgeUserCloseProjectContectItemByTimer = "האם ברצונך לבטל דיווח זה?"
   timeToSendCreate: any;
   massageToUser: any;
   time: any
@@ -59,6 +59,10 @@ export class TimeCounterComponent implements OnInit {
       this.startWorkOfTask = true;
       this.ContinueToWorkOnATask();
       this.disabledStartButton = true;
+      if (this.workTime){
+        this.hideStartAndShowCancelProjectContectItem = true;
+
+      }
     }
   }
   startTimer() {
@@ -66,7 +70,7 @@ export class TimeCounterComponent implements OnInit {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
     else {
-      this.HideStartAndShowCancelProjectContectItem = true
+      this.hideStartAndShowCancelProjectContectItem = true
       this.disabledStartButton = true;
       this.disabledPauseButton = false;
       this.disabledEndButton = false;
@@ -92,6 +96,8 @@ export class TimeCounterComponent implements OnInit {
         console.log(err.error);
       })
     }
+
+
   }
 
   clickNoFinishPauseAndStartTimerTask() {
@@ -153,7 +159,7 @@ export class TimeCounterComponent implements OnInit {
   }
 
   clickYes(time: any) {
-    this.HideStartAndShowCancelProjectContectItem = false;
+    this.hideStartAndShowCancelProjectContectItem = false;
     if (time.worktime != "" || time != null) {
       clearInterval(this.interval);
       this.timeToSendCreate = time
@@ -169,6 +175,7 @@ export class TimeCounterComponent implements OnInit {
   }
 
   DeleteProjectContentItemByGuid(projectContectItemByTaskGuid: any) {
+
     this.userService.DeleteProjectContentItemByGuid(projectContectItemByTaskGuid).subscribe(
       (res) => {
         this.massageToUser = res;
@@ -186,6 +193,7 @@ export class TimeCounterComponent implements OnInit {
     if (this.workTime == 0 || this.workTime < "00:01:00")
       swal("אין אפשרות לדווח פחות מ-1 דק")
     else {
+
       this.popUpService.setStartTimer(false);
       this.disabledPauseButton = true;
       this.disabledStartButton = false;
@@ -214,7 +222,9 @@ export class TimeCounterComponent implements OnInit {
                 swal(this.massageFromServer);
                 this.workTime = ["00:00:00"];
                 this.popUpService.SetProjectContentItemByTaskGuid(true)
-                this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+                this.popUpService.SetWorkTimeAfterProjectContectItem(true);
+                this.hideStartAndShowCancelProjectContectItem = true;
+
               }
             },
             err => {

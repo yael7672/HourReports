@@ -129,7 +129,7 @@ export class EmployeeReportComponent implements OnInit {
     localStorage.setItem('employeeDetails', JSON.stringify(val))
   }
   WhichTableOpen(val: any) {
-    if (val == 0) {
+    if (val == "") {
       this.route.navigate(['/menu/employee-report'])
     }
     if (val == 1) {

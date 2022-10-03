@@ -234,6 +234,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
 
   }
   onWorkTypeSelected(val: any) {
+    debugger
     if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
       this.subject1 = "הפסקות";
       this.billingHours1 = "2";
@@ -250,6 +251,17 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.subject1 = "יום מחלה";
           this.billingHours1 = "2";
           this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+        }
+        else
+        if (val.Guid == "894aec3d-e8ab-eb11-8236-0022488040a9") {
+          this.subject1 = "חג - ";
+          this.billingHours1 = "2";
+          this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+        }
+        else
+        {
+          this.GuidProject = { "Guid": "", "Name": "" }
+
         }
 
   }

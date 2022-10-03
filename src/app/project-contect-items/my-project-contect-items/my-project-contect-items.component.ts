@@ -45,7 +45,6 @@ export class MyProjectContectItemsComponent implements OnInit {
   startWorkOfTask: any;
   projectArr: any;
   workTypeArr: any;
-
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService,
     private datePipe: DatePipe, private appService: AppService,
     private popUpService: PopUpServiceService,
@@ -88,12 +87,17 @@ export class MyProjectContectItemsComponent implements OnInit {
   }
 
   GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
+    if (selectedTime == "") {
+      this.selectedTime = "2";
+      selectedTime = "2";
+    }
     this.selectedTime = selectedTime;
     if (selectedTime) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.userService.GetMyProjectContectItem(this.systemGuid, selectedTime, fromDate, untilDate, "").subscribe(res => {
         if (res) {
           this.myProjectContectItemArr = res;
+
         }
       },
         err => {
@@ -112,7 +116,7 @@ export class MyProjectContectItemsComponent implements OnInit {
       return ((sortValueTimestampA ? sortValueTimestampA : new Date()) > (sortValueTimestampB ? sortValueTimestampB : new Date()) ? 1 : -1)
     })
   }
- 
+
   openPopUp(data: string, type: boolean) {
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(type, data)

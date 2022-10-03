@@ -15,7 +15,13 @@
         align-items: center;
     }
 }
+img {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 0.5rem
+}
+
 
 #inputState-1 {
-    width: 16rem;
+    width: 18rem;
 }

@@ -2,10 +2,12 @@
 
 <!-- <app-search-and-sort-tasks [taskArr]="taskArr"
  [taskArrCopy]="taskArrCopy"></app-search-and-sort-tasks> -->
+<h2>
+ {{titleTableTask}} <img src="../../../assets/images/2387679.png" alt=""> 
+</h2>
 <div class="select-table">
   <select id="inputState-1" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
-    <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
-    <option value="0">המשימות שלי </option>
+    <option value="">המשימות שלי </option>
     <option value="1"> המשימות של הצוותים אליהם אני שייך</option>
     <option value="2">המשימות האחרונות שעבדתי עליהן </option>
   </select>
@@ -16,28 +18,32 @@
 
 <!-- המשימות שלי -->
 
-<app-smart-card *ngIf="tableMyTaskOpen&&!ifThereAreTasks" [title]="titleTableTask"
-  [src]="'../../../assets/images/2387679.png'">
+<app-smart-card *ngIf="tableMyTaskOpen&&!ifThereAreTasks">
   >
   <div body>
     <div class="search">
+
     
+
+
       <div class="autocomplete-1" *ngIf="taskArr">
-      <ng-autocomplete style="width: 100%;" class="autoComplete" dir="rtl" [data]="taskArr" [searchKeyword]="'Subject'"
-        placeholder=" חפש לפי משימה" historyIdentifier="Subject" [itemTemplate]="itemTemplate"
-        (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject" #Subject="ngModel" required
-        [notFoundTemplate]="notFoundTemplate">
-      </ng-autocomplete>
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.Subject" style="text-align:center ;"></a>
-      </ng-template>
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-      </ng-template>
-    </div>
-   
-    <select id="inputState-2" class="form-control mt-3" ngModel (ngModelChange)="SearchProjectOption($event)">
-        <option value="">חיפוש פרויקט לפי</option>
+        <ng-autocomplete style="width: 100%;" class="autoComplete" dir="rtl" [data]="taskArr"
+          [searchKeyword]="'Subject'" placeholder=" חפש לפי משימה" historyIdentifier="Subject"
+          [itemTemplate]="itemTemplate" (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject"
+          #Subject="ngModel" required [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.Subject" style="text-align:center ;"></a>
+        </ng-template>
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+        </ng-template>
+      </div>
+      <!-- <img src="../../../assets/images/753345.png"> -->
+
+      <select id="inputState-2" class="form-control mt-3" *ngIf="taskArr" ngModel
+        (ngModelChange)="SearchProjectOption($event)">
+        <option value="">חיפוש לפי פרויקט </option>
         <option value="0">כל הפרויקטים </option>
         <option value="1"> הפרויקטים שלי</option>
       </select>
@@ -54,7 +60,7 @@
           <div [innerHTML]="'לא נמצאו תוצאות'"></div>
         </ng-template>
       </div>
-      <div  class="autocomplete-3" *ngIf="showMyProjects&&taskArr" >
+      <div class="autocomplete-3" *ngIf="showMyProjects&&taskArr">
         <ng-autocomplete style="width: 100%;" dir="rtl" [data]="myProjectArr" [searchKeyword]="'Name'"
           placeholder="חפש לפי הפרויקטים שלי" historyIdentifier="Project" class="autoComplete"
           [itemTemplate]="itemTemplate2" (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask"
@@ -74,15 +80,19 @@
       (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedTask($event)"
       [showMassgeToUserDeleteTask]="true" [ifDeleteOpen]="isPopUpOpen?.DeleteTask"
       [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+      
     </app-smart-table>
+    <div *ngIf="taskArr?.length==0">
+      <br>
+      <h2>אין משימות פעילות!</h2>
+    </div>
+    <div *ngIf=" !taskArr">
+      <h2>רק רגע...</h2>
+    </div>
   </div>
 </app-smart-card>
 
 
-<div *ngIf="ifThereAreTasks">
-  <br>
-  <h2>אין משימות פעילות!</h2>
-</div>
 
 <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
   <app-update-project-content-item [kindUpdate]="'updateTaskDetails'" [project]="project" [workType]="workType"

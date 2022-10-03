@@ -1,14 +1,16 @@
+<h2>
+    הגדרות מערכת <img src="../../../assets/images/694900.png" alt="">
+</h2>
 <app-smart-card>
     <div body>
-        <h5> הגדרות מערכת</h5>
         <div class="system-setting">
-        <a (click)="openPopUp('AddProject',true)" placement="top" ngbTooltip=" הוספת פרויקט">
-            <i class="fa fa-cog mt-2" style="font-size: 24px;"></i></a>
+            <a (click)="openPopUp('AddProject',true)" placement="top" ngbTooltip=" הוספת פרויקט">
+                <i class="fa fa-cog mt-2" style="font-size: 24px;"></i></a>
             <a (click)="openPopUp('AddUser',true)" placement="top" ngbTooltip="הוספת משתמש">
                 <i class="iconify" data-icon="mingcute:user-add-fill" style="font-size: 24px;"></i>
             </a>
+        </div>
     </div>
-</div>
 </app-smart-card>
 <div *ngIf="isPopUpOpen?.AddUser">
     <app-add-user></app-add-user>

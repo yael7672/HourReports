@@ -1,16 +1,17 @@
 <!-- חיפוש ומיון -->
 
-
+<h2>
+  {{titleTableTeamsTask}}  <img src="../../../assets/images/2387679.png" alt="" >
+</h2>
 <div class="select-table">
   <select id="inputState-1" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
-    <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
     <option value="0">המשימות שלי </option>
-    <option value="1"> המשימות של הצוותים אליהם אני שייך</option>
+    <option value=""> המשימות של הצוותים אליהם אני שייך</option>
     <option value="2">המשימות האחרונות שעבדתי עליהן </option>
   </select>
 </div>
 <!-- המשימות האחרונות שעבדתי עליהן -->
-<app-smart-card [title]="titleTableTeamsTask" [src]="'../../../assets/images/2387679.png'">
+<app-smart-card>
   <div body>
 
     <app-search-and-sort-tasks *ngIf="taskTeamsArr"  (GetTaskAfterSort)="getTaskAfterSort($event)" [taskArr]="taskTeamsArr" [taskArrCopy]="taskTeamsArrCopy"></app-search-and-sort-tasks>
@@ -20,6 +21,13 @@
       (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
       (SortTableUp)="SortTableUp($event)"  [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
     </app-smart-table>
+    <div *ngIf="taskTeamsArr?.length==0">
+      <br>
+      <h2>אין משימות פעילות!</h2>
+    </div>
+    <div *ngIf=" !taskTeamsArr">
+      <h2>רק רגע...</h2>
+    </div>
   </div>
 </app-smart-card>
 

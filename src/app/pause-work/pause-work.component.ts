@@ -63,6 +63,7 @@ export class PauseWorkComponent implements OnInit {
     private popUpService: PopUpServiceService,
     private buttonWorkingTaskService: ButtonWorkingTaskService, private swPush: SwPush,
     private activatedRoute: ActivatedRoute) {
+
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getInPause().subscribe(res => {
       this.youAreInPause = res;
@@ -101,7 +102,7 @@ export class PauseWorkComponent implements OnInit {
           this.openSpecificTask = true
           setTimeout(() => {
             this.taskListDataDetails = localStorage.getItem("taskListDataDetails")
-            let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute, this.popUpService, this.appService, this.userServiceService, this.router, this.swPush)
+        let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute, this.popUpService, this.appService, this.userServiceService, this.router, this.swPush)
             showMyTaskComp.SelectedTask(this.taskListDataDetails)
           }, 500)
         }

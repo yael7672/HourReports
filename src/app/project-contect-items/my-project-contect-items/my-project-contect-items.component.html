@@ -1,31 +1,34 @@
- 
-  <app-smart-card [title]="' דיווחים  שלי'" [src]="'../../../assets/images/3154275.png'">
+<h2>
+דיווחים שלי  <img src="../../../assets/images/3154275.png" alt=""> 
+</h2>
+<div class="form-outline d-flex justify-content-center">
+  <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
+    <option value=""> ימים אחרונים 7</option>
+    <option value="1"> היום </option>
+    <option value="3"> שבוע שעבר </option>
+    <option value="4"> החודש האחרון</option>
+  </select>
+</div>
+<app-smart-card>
   <div body>
-   <div class="form-outline d-flex justify-content-center">
-      <select id="inputState" class="form-control" ngModel (ngModelChange)="GetMyProjectContectItem($event)">
-        <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
-        <option value="1"> היום </option>
-        <option value="2"> 7 ימים אחרונים </option>
-        <option value="3"> שבוע שעבר </option>
-        <option value="4"> החודש האחרון</option>
-      </select>
-    </div>
-    
-  
-    <div *ngIf="myProjectContectItemArr?.length == 0||!myProjectContectItemArr">
+    <div *ngIf="myProjectContectItemArr?.length == 0">
       <br>
       <h2>אין דיווחים!</h2>
     </div>
+    <div *ngIf="!myProjectContectItemArr">
+      <h2>רק רגע...</h2>
+    </div>
     <div *ngIf="myProjectContectItemArr?.length > 0">
-      <app-smart-table [ifUpdate]="true" [ifDelete]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [tableDataKeys]="projectContentItemListKeys" [tableData]="myProjectContectItemArr"
-      (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
-      (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
-      (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
-    </app-smart-table>
-     
+      <app-smart-table [ifUpdate]="true" [ifDelete]="true" [ifShowpagination]="[true,10]"
+        [thArr]="thArrTableProjectContentItem" [ifSortDown]="ifSortDown" [tableDataKeys]="projectContentItemListKeys"
+        [tableData]="myProjectContectItemArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
+        (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+        (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
+      </app-smart-table>
+
       <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
         <app-update-project-content-item [kindUpdate]="'updateProjectContectItem'" [project]="projectArr"
-          [myProjectContectItemArr]="myProjectContectItemArr" [workType]="workTypeArr" 
+          [myProjectContectItemArr]="myProjectContectItemArr" [workType]="workTypeArr"
           [ProjectContentItem]="projectContentItem"></app-update-project-content-item>
       </div>
       <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">

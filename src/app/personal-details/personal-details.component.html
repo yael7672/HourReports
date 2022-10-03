@@ -3,6 +3,7 @@
     <a class="close" (click)="closePersonalDetailss()">&times;</a>
     <div *ngIf="systemGuid">
       <div class="card-body">
+        <h5>אזור אישי</h5>
         <p>{{todayDate|date:'dd/MM/yyyy'}}</p>
         <img src="{{image}}" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
           
@@ -30,8 +31,8 @@
       <a (click)="goToEmployeeReport()" placement="top"
         ngbTooltip="דוח עובדים / צוותים"><i class="iconify" data-icon="carbon:report"></i></a>
         <a (click)="goToDetailsOfWorkingHours()" class="edit-button" class="edit-button"> 
-          <i class="fa fa-clock-o" aria-hidden="true"></i></a>
-        <a (click)="goToSystemSetting()">  <i class="fa fa-cog mt-2" style="font-size: 24px;"></i></a>
+          <i class="fa fa-clock-o" aria-hidden="true" ngbTooltip="לצפייה בתפוקה הייומית שלי"></i></a>
+        <a (click)="goToSystemSetting()">  <i class="fa fa-cog mt-2" ngbTooltip="הגדרות מנהל" style="font-size: 24px;"></i></a>
     </div>
   </div>
 </div>

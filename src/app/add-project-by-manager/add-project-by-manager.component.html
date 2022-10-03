@@ -1,6 +1,7 @@
-<app-pop-up #upPopUP [ifX]="true">
-    <h4 header class="mb-4">יצירת פרויקט</h4>
+<app-pop-up #upPopUP [ifX]="true"> 
     <div body>
+    <h4 header class="mb-4">יצירת פרויקט</h4>
+   
         <form (ngSubmit)="f.valid && CreateNewProject(f)" #f="ngForm">
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Name" name="Name" class="form-control" placeholder="שם הפרויקט*"

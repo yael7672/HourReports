@@ -137,7 +137,7 @@ export class ShowMyTeamTaskComponent implements OnInit {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/menu/show-my-task', this.systemGuid]);
     }
-    if (val == 1) {
+    if (val == "") {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/menu/show-team-my-task/', this.systemGuid]);
     }

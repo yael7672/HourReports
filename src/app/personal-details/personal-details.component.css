@@ -45,7 +45,10 @@ p.card-title {
 a {
   text-decoration: none;
 }
-
+.my-3 {
+  margin-top: 0rem!important;
+  margin-bottom: 0.5rem!important;
+}
 .visible {
   height: 3em;
   width: 10em;
@@ -71,4 +74,6 @@ a {
   right: 0;
   z-index: 19;
   width: 35%;
+}.mt-2 {
+  margin-top: 0.7rem!important;
 }

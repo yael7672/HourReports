@@ -16,11 +16,6 @@ import { SmartCardComponent } from './smart-card/smart-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
-// import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
-// var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart
-
-
 @NgModule({
   declarations: [
     LoginComponent,
@@ -43,11 +38,8 @@ import { environment } from '../environments/environment';
     ,FlexLayoutModule,
      ServiceWorkerModule.register('ngsw-worker.js', {
   enabled: environment.production,
-  // Register the ServiceWorker as soon as the app is stable
-  // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'
 })
-    // NgMultiSelectDropDownModule.forRoot(),
 
    
   ],

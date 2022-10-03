@@ -1,32 +1,43 @@
-<app-smart-card [title]="titleTable" [src]="'../../../assets/images/4285519.png'">
+<h2>
+   {{titleTable}} <img src="../../../assets/images/4285519.png" alt="" >
+</h2>
+<div class="form-outline d-flex justify-content-center">
+  <select id="inputState" class="form-control" ngModel (ngModelChange)="getDetailsOfWorkingHourByEmployee($event)">
+    <option value=""> החודש </option>
+    <option value="2"> חודש קודם</option>
+    <option value="3">מיון לפי טווח תאריכים </option>
+  </select>
+</div>
+<app-smart-card>
   <div body>
-    <div class="form-outline d-flex justify-content-center">
-      <select id="inputState" class="form-control" ngModel (ngModelChange)="getDetailsOfWorkingHourByEmployee($event)">
-        <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
-        <option value="1"> החודש </option>
-        <option value="2"> חודש קודם</option>
-        <option value="3">מיון לפי טווח תאריכים </option>
-      </select>
-    </div>
+    
     <ng-container *ngIf="showInputsDates">
       <div class="form-group ">
         <div class="input-group input-daterange">
+<<<<<<< HEAD
 
           <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
             (ngModelChange)="fromDate = $event" max="{{todayDate | date: 'yyyy-MM-dd'}}">
           <div class="input-group-addon">עד - </div>
           <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"
             (ngModelChange)="untilDate = $event">
+=======
+          <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
+            [(ngModel)]="fromDate" placeholder="מתאריך">
+          <div class="input-group-addon">עד - </div>
+          <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
+          [(ngModel)]="untilDate">
+>>>>>>> 8963372571881eb312d09edd53382ee4dd7423fa
         </div>
         <button (click)="sortByDateRange()" placement="right" ngbTooltip="סנן מידע בין טווח התאריכים"
           class="btn btn-color">מיין</button>
       </div>
     </ng-container>
-
+    <ng-container *ngIf="detailsOfWorkingHourByEmployeeToSend?.length>1" >
     <p> סה"כ שעות מדווחות החודש: <span>{{hoursReportedThisMonth}}</span> </p>
     <p> סה"כ שעות עבודה לחודש זה: <span>{{workingDaysThisMonth}}</span> </p>
-
-    <app-smart-table [ifCreateReport]="true" [ifShowXorVIcons]="true" [ifShowpagination]="[true,10]" [ifTrIsNull]="true"
+</ng-container>
+    <app-smart-table *ngIf="detailsOfWorkingHourByEmployeeToSend?.length>0" [ifCreateReport]="true" [ifShowXorVIcons]="true" [ifShowpagination]="[true,10]" [ifTrIsNull]="true"
       [thArr]="thArrWorkingHours" [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
       [tableData]="detailsOfWorkingHourByEmployeeToSend" (SortTableDown)="SortTableDown($event)"
       (SortTableUp)="SortTableUp($event)" (CreateReport)="createReportWithDate($event)"
@@ -34,10 +45,14 @@
       (ShowProjectContentItemBySpecificDay)="getReportsBySpesificDate($event)"
       [showProjectContentItemBySpecificDay]="true">
     </app-smart-table>
-    <!-- <div *ngIf="taskTeamsArr?.length<1">
-          <br>
-          <h2>אין משימות פעילות!</h2>
-        </div> -->
+    <div *ngIf="detailsOfWorkingHourByEmployee?.length==0">
+      <br>
+      <h2>עדיין אין דיווחי שעות לחודש זה!</h2>
+    </div>
+    <div *ngIf="!detailsOfWorkingHourByEmployee">
+      <br>
+      <h2>רק רגע...</h2>
+    </div>
   </div>
 </app-smart-card>
 <div *ngIf="isPopUpOpen?.createAprojectContentItem">

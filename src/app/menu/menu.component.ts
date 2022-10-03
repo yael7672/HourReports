@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimeCounterComponent } from '../time-counter/time-counter.component';
 import { ProjectType } from '../interfacees/ProjectType';
+import { SwPush } from '@angular/service-worker';
 
 
 @Component({
@@ -73,7 +74,7 @@ export class MenuComponent implements OnInit {
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
-    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
+    private appService: AppService, private swPush: SwPush, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;

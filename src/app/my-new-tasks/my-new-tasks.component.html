@@ -3,7 +3,7 @@
         <div body> 
             <a class="close" (click)="closePopUp()">&times;</a>
            <h5>משימות חדשות</h5>
-            <app-smart-table *ngIf="!ifThereNewTasks" [tableData]="MyNewTaskArr" [ifShowpagination]="[true,3]" (SelectedData)="showDetailsTask($event)"
+            <app-smart-table *ngIf="!ifThereNewTasks" [tableData]="MyNewTaskArr"  (SelectedData)="showDetailsTask($event)"
                 [tableDataKeys]="MyNewTaskKey" [hideSort]="'true'" [thArr]="thArrMyNewTask"></app-smart-table>
             <div *ngIf="ifThereNewTasks" class="checkIfNewTask">
                 <h5>אין משימות חדשות!</h5>
