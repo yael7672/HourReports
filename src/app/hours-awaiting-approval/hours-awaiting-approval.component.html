@@ -1,16 +1,25 @@
-<app-smart-card  [title]='"דיווחי שעות שנדרשים לתיקון "' [src]="'../../../assets/images/3442207.png'">
+<h2>
+  דיווחי שעות שנדרשים לתיקון <img src="../../../assets/images/3442207.png" alt="">
+</h2>
+<app-smart-card>
   <div body>
-  <app-smart-table [ifUpdate]="true" [thArr]="thArrTableProjectContentItem" [ifShowpagination]="[true,10]" [tableDataKeys]="projectContentItemListKeys"
-    [tableData]="hoursAwaitingApprovalArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
-    (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
-    (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown">
-  </app-smart-table>
+    <app-smart-table [ifUpdate]="true" [thArr]="thArrTableProjectContentItem" [ifShowpagination]="[true,10]"
+      [tableDataKeys]="projectContentItemListKeys" [tableData]="hoursAwaitingApprovalArr"
+      (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
+      (EditProjectContentItemIcon)="editProjectContentItemIcon($event)" (SortTableDown)="SortTableDown($event)"
+      (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown">
+    </app-smart-table>
+    <div *ngIf="hoursAwaitingApprovalArr?.length==0" class="checkIfNewTask">
+      <h2>אין דיווחי שעות שנדרשים לתיקון!</h2>
+    </div><div *ngIf="justMinute">
+  <h2>רק רגע...</h2>
 </div>
-  </app-smart-card>
+  </div>
+</app-smart-card>
 
 <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
-  <app-update-project-content-item [ProjectContentItem]="projectContentItem" [kindUpdate]="'updateProjectContectItem'" [project]="projectArr"
-   [workType]="workTypeArr"></app-update-project-content-item>
+  <app-update-project-content-item [ProjectContentItem]="projectContentItem" [kindUpdate]="'updateProjectContectItem'"
+    [project]="projectArr" [workType]="workTypeArr"></app-update-project-content-item>
 </div>
 <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
   <app-delete-project-content-item [projectContentItemGuidOrTaskGuid]="projectContentItemGuid">

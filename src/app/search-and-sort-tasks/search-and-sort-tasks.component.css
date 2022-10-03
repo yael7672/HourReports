@@ -15,7 +15,7 @@ select#inputState {
 }
 .search {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     direction: rtl;
     margin-bottom: 1rem;
 }

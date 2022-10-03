@@ -1,5 +1,7 @@
-
-<app-smart-card [title]="titleTableTeamsTask">
+<h2>
+   {{titleTableTeamsTask}} <img src="../../../assets/images/2387679.png" alt="" >
+</h2>
+<app-smart-card>
   <div body>
     <app-smart-table [ifUpdateTask]="true" [ifDelete]="true" [ifShowpagination]="[true,10]"  [thArr]="thArrTaskTeams" [ifSortDown]="ifSortDown" [tableDataKeys]="taskTeamsListKeys"
       [tableData]="taskTeamsArr" (DeleteProjectContentItemIcon)="deleteProjectContentItemIcon($event)"
@@ -8,9 +10,12 @@
       [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
      
     </app-smart-table>
-     <div *ngIf="taskTeamsArr?.length<1">
+      <div *ngIf="taskTeamsArr?.length==0">
         <br>
         <h2>אין משימות פעילות!</h2>
+      </div>
+      <div *ngIf=" !taskTeamsArr">
+        <h2>רק רגע...</h2>
       </div>
   </div>
 </app-smart-card>

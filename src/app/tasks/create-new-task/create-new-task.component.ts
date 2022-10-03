@@ -98,6 +98,7 @@ export class CreateNewTaskComponent implements OnInit {
         this.popUpService.setAllmyTask(true)
         this.popUpService.setAllMyNewTask(false);
         this.router.navigate(['/menu/show-my-task', localStorage.getItem('systemGuid')]);
+        this.notifyMe();
       }
     },
       err => {
@@ -114,8 +115,7 @@ export class CreateNewTaskComponent implements OnInit {
     } else if (Notification.permission === "granted") {
       const notification = new Notification("נוצרה לך משימה חדשה!",
         {
-          body: this.tasks.Subject,tag:'https://developer.mozilla.org/en-US/docs/Web/API/Notification',
-
+          body: this.tasks.Subject,
           icon: '../../../assets/images/2387679.png'
         });
     } else if (Notification.permission !== "denied") {

@@ -27,7 +27,7 @@ export class ShowMyTaskComponent implements OnInit {
   taskDateRecords: any;
   systemGuid: any;
   interval: any;
-  taskArr!: Task[];
+  taskArr!: any;
   taskArrCopy: any;
   sortTaskArr: any;
   ifThereAreTasks = false;
@@ -266,7 +266,7 @@ export class ShowMyTaskComponent implements OnInit {
   }
   // מפה חיפוש ומיון
   WhichTableOpen(val: any) {
-    if (val == 0) {
+    if (val == "") {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/menu/show-my-task', this.systemGuid]);
     }

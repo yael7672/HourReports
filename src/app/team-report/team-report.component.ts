@@ -126,7 +126,7 @@ export class TeamReportComponent implements OnInit {
     if (val == 0) {
       this.route.navigate(['/menu/employee-report'])
     }
-    if (val == 1) {
+    if (val == "") {
       this.route.navigate(['/menu/team-report'])
     }
   }

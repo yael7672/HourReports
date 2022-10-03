@@ -11,12 +11,11 @@ import { UserServiceService } from '../user-service.service';
   styleUrls: ['./admin-settings.component.css']
 })
 export class AdminSettingsComponent implements OnInit {
-  @Input() header:any;
   @Input() employeeDetails:any;
   UpdateEmployeeRes:any
   disableAfterUpdate=false
   EmployeeDetailsToUpdate:any
-
+  header='עריכת פרטי עובד';
   constructor(private userService:UserServiceService,private appService:AppService,private popUpService:PopUpServiceService) { }
 
   ngOnInit(): void {

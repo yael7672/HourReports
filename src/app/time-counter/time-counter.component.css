@@ -1,5 +1,9 @@
 .time {
-    font-weight: bold;
-    font-size: large;
-    text-align: center;
-  }
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+}
+
+.button-box {
+  margin: 0.5rem;
+}

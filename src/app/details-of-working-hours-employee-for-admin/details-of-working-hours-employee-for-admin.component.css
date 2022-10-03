@@ -90,4 +90,10 @@ span {
 }
 .iconify {
     font-size: 30px;
+}h3{
+    text-align: center;
+  }    img {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 0.5rem
 }

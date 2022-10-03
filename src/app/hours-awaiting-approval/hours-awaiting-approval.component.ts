@@ -20,19 +20,18 @@ export class HoursAwaitingApprovalComponent implements OnInit {
   thArrTableProjectContentItem = ['שם', 'תאריך', 'הערות מנהל', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   projectArr: any;
   workTypeArr: any;
-  ifSortDown = false;;
+  ifSortDown = false;
+  justMinute = false;
 
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
-      console.log("isPopUpOpen - subScriber", this.isPopUpOpen);
     })
   }
   ngOnInit(): void {
     this.GetHoursAwaitingApproval();
     this.GetWorkType();
     this.GetProject();
-
   }
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
@@ -54,10 +53,14 @@ export class HoursAwaitingApprovalComponent implements OnInit {
       })
   }
   GetHoursAwaitingApproval() {
+    this.justMinute = true;
+
     this.systemGuid = localStorage.getItem('systemGuid')
     this.userService.GetHoursAwaitingApproval(this.systemGuid).subscribe(res => {
       if (res) {
         this.hoursAwaitingApprovalArr = res;
+        this.justMinute = false;
+
       }
     },
       err => {
@@ -133,7 +136,7 @@ export class HoursAwaitingApprovalComponent implements OnInit {
       default:
         break;
     }
-    if (keyToSort!= 'Project') {
+    if (keyToSort != 'Project') {
       this.hoursAwaitingApprovalArr?.sort((a: any, b: any) =>
         (a[keyToSort] < (b[keyToSort])) ? 1 : -1)
     }

@@ -1,54 +1,54 @@
-
+<h2>
+{{title}}  <img src="../../../assets/images/470336.png" alt="">
+</h2>
 <div class="select-input">
-    <select style="margin-top: 5rem;" id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
-      <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
-      <option value="0">דוח עובדים</option>
-      <option value="1"> דוח צוותים</option>
-    </select>
-  </div>
-<app-smart-card [title]="title" [src]="'../../../assets/images/470336.png'">
-    <div body>
-      <div class="search" >
-        <div *ngIf="teamsDetails" class="autocomplete" style="width: 30%;">
-          <ng-autocomplete class="autoComplete" dir="rtl" [data]="teamsDetails" [searchKeyword]="'TeamName'"
-            placeholder=" חפש לפי שם צוות" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
-            (ngModelChange)="onSearchTeam($event.TeamName)" ngModel name="TeamName" #Subject="ngModel" required
-            [notFoundTemplate]="notFoundTemplate">
-          </ng-autocomplete>
-          <ng-template #itemTemplate let-item>
-            <a [innerHTML]="item.TeamName" style="text-align:center ;"></a>
-          </ng-template>
-          <ng-template #notFoundTemplate let-notFound>
-            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-          </ng-template>
-        </div>
-        <div *ngIf="employeeDetails" style="width: 30%;">
-          <ng-autocomplete style="width: 100%;"class="autoComplete" dir="rtl" [data]="employeeDetails" [searchKeyword]="'EmployeeName'"
-            placeholder=" חפש לפי שם עובד" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
-            (ngModelChange)="onSearchEmployee($event.EmployeeName)" ngModel name="EmployeeName" #Subject="ngModel" required
-            [notFoundTemplate]="notFoundTemplate">
-          </ng-autocomplete>
-          <ng-template #itemTemplate let-item>
-            <a [innerHTML]="item.EmployeeName" style="text-align:center ;"></a>
-          </ng-template>
-          <ng-template #notFoundTemplate let-notFound>
-            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-          </ng-template>
-        </div>
-        </div>
-      <app-smart-table  [ifShowOpenTeamTask]="true" [ifShowpagination]="[true,10]"
-         [thArr]="thArrTeamReport" [tableDataKeys]="teamReportListKeys"
-        [tableData]="teamsDetails"
-        (EditTeamDetailsByAdmin)="editTeamDetailsByAdmin($event)"
-        (ShowOpenTeamTask)="openTasksByTeamGuid($event)"
-        (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown"
-        [showGraph]="showGraph">
-      </app-smart-table>
+  <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
+    <option value="0">דוח עובדים</option>
+    <option value=""> דוח צוותים</option>
+  </select>
+</div>
+<app-smart-card>
+  <div body>
+    <div class="search">
+      <div *ngIf="teamsDetails" class="autocomplete" style="width:16rem;">
+        <ng-autocomplete class="autoComplete" dir="rtl" [data]="teamsDetails" [searchKeyword]="'TeamName'"
+          placeholder=" חפש לפי שם צוות" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
+          (ngModelChange)="onSearchTeam($event.TeamName)" ngModel name="TeamName" #Subject="ngModel" required
+          [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.TeamName" style="text-align:center ;"></a>
+        </ng-template>
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+        </ng-template>
+      </div>
+      <div *ngIf="employeeDetails" style="width: 16rem;">
+        <ng-autocomplete style="width: 100%;" class="autoComplete" dir="rtl" [data]="employeeDetails"
+          [searchKeyword]="'EmployeeName'" placeholder=" חפש לפי שם עובד" historyIdentifier="EmployeeName"
+          [itemTemplate]="itemTemplate" (ngModelChange)="onSearchEmployee($event.EmployeeName)" ngModel
+          name="EmployeeName" #Subject="ngModel" required [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.EmployeeName" style="text-align:center ;"></a>
+        </ng-template>
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+        </ng-template>
+      </div>
     </div>
-  </app-smart-card>
-  
-  
-  
-  <div *ngIf="isPopUpOpen?.EditEmployeeDetailsByAdmin">
-    <app-admin-settings [employeeDetails]="teamsDetailsVal" [header]="'עריכת נתונים'"></app-admin-settings>
+    <app-smart-table [ifShowOpenTeamTask]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTeamReport"
+      [tableDataKeys]="teamReportListKeys" [tableData]="teamsDetails"
+      (EditTeamDetailsByAdmin)="editTeamDetailsByAdmin($event)" (ShowOpenTeamTask)="openTasksByTeamGuid($event)"
+      (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown"
+      [showGraph]="showGraph">
+    </app-smart-table>
+    <div *ngIf="!teamsDetails">
+      <br>
+      <h2>רק רגע...</h2>
+    </div>
   </div>
+</app-smart-card>
+<div *ngIf="isPopUpOpen?.EditEmployeeDetailsByAdmin">
+  <app-admin-settings [employeeDetails]="teamsDetailsVal"></app-admin-settings>
+</div>

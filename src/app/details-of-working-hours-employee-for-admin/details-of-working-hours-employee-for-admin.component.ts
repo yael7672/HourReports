@@ -27,7 +27,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
   hoursReportedThisMonth!: any;
   workingDaysThisMonth: any;
   dateToUpdate: any;
-  detailsOfWorkingHourByEmployeeToSend: any[] = [];
+  detailsOfWorkingHourByEmployeeToSend: any = [];
   employeeDetailsParseJson: any;
   employeeDetails: any;
   titleTable: any;
@@ -137,13 +137,17 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
   }
 
   getDetailsOfWorkingHourByEmployee(val: any) {
+    if (val == "") {
+      val = 1;
+    }
     localStorage.setItem('whichDetailsOfWorkingHourOpen', val)
     if (val == 3) {
       this.showInputsDates = true;
     }
     else {
       this.showInputsDates = false;
-      this.detailsOfWorkingHourByEmployeeToSend = [];
+      debugger
+      // this.detailsOfWorkingHourByEmployeeToSend = [];
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, val, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
         if (res) {
@@ -162,6 +166,8 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
             }
           });
           console.log(this.hoursReportedThisMonth);
+          console.log(this.detailsOfWorkingHourByEmployeeToSend);
+
         }
       },
         err => {

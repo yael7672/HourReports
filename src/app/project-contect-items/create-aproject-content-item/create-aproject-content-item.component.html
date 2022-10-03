@@ -6,7 +6,7 @@
         <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
             <!-- <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime"> -->
             <div class="checkbox" >
-                <label for="vehicle1">לדיווח על מספר עובדים</label>
+                <label for="vehicle1"> לדיווח על מספר עובדים </label>
                 <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked"
                     (change)="checkIfReportMoreEmployees(isChecked)">
             </div>
@@ -31,9 +31,10 @@
             </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime &&!dateToUpdate"
                 class="form-outline d-flex justify-content-center">
-                <input type="date" class="form-control" id="oneDate" name="oneDate"
+                <input type="date" class="form-control" id="oneDate" name="oneDate" style="position: relative;"
                     [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"(ngModelChange)="oneDate = $event">
-            </div>
+            <p class="p-in-input-date">בחר תאריך:</p>
+                </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime&&dateToUpdate"
                 class="form-outline d-flex justify-content-center">
                 <input type="date" class="form-control" id="oneDate" name="oneDate"

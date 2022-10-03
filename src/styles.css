@@ -47,7 +47,7 @@ h4 {
 .button-of-task {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   width: 100%;
 }
 
@@ -86,33 +86,6 @@ textarea.form-control {
   margin: 0 auto;
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -60px;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
 .input-container {
   margin: 0.9rem;
 }
@@ -141,5 +114,12 @@ textarea.form-control {
 .select-table {
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
+}
+h2 {
+  direction: rtl;
+  text-align: center;
+  color: rgba(6, 6, 19, 0.795);
+  font-size: 25pt;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 }

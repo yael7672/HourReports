@@ -1,15 +1,17 @@
+<h2>
+{{title}}  <img src="../../../assets/images/470319.png" alt="">
+</h2>
 <div class="select-input">
-  <select style="margin-top: 5rem;" id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
-    <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
-    <option value="0">דוח עובדים</option>
+  <select  id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
+    <option value="">דוח עובדים</option>
     <option value="1"> דוח צוותים</option>
   </select>
 </div>
 
-<app-smart-card [title]="title" [showChrtEmployee]="'true'" [src]="'../../../assets/images/470319.png'">
+<app-smart-card  [showChrtEmployee]="'true'" >
   <div body>
     <div class="search">
-    <div style="width: 25%;" *ngIf="employeeDetails">
+    <div style="width: 16rem;" *ngIf="employeeDetails">
       <ng-autocomplete style="width: 100%;"class="autoComplete" dir="rtl" [data]="employeeDetails" [searchKeyword]="'EmployeeName'"
         placeholder=" חפש לפי שם עובד" historyIdentifier="EmployeeName" [itemTemplate]="itemTemplate"
         (ngModelChange)="onSearchEmployee($event.EmployeeName)" ngModel name="EmployeeName" #Subject="ngModel" required
@@ -31,11 +33,15 @@
       (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" [ifSortDown]="ifSortDown"
       [showGraph]="showGraph" [showEmployeeImageProfil]="true">
     </app-smart-table>
+    <div *ngIf="!employeeDetails">
+      <br>
+      <h2>רק רגע...</h2>
+    </div>
   </div>
 </app-smart-card>
 
 
 
 <div *ngIf="isPopUpOpen?.EditEmployeeDetailsByAdmin">
-  <app-admin-settings [employeeDetails]="employeeDetailsVal" [header]="'עריכת נתונים'"></app-admin-settings>
+  <app-admin-settings [employeeDetails]="employeeDetailsVal" ></app-admin-settings>
 </div>

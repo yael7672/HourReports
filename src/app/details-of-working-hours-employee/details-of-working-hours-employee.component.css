@@ -93,3 +93,13 @@ span {
     flex-direction: row;
     justify-content: end;
 }
+
+h3 {
+    text-align: center;
+}
+
+img {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 0.5rem
+}

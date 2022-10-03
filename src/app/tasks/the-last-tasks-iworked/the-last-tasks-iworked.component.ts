@@ -33,7 +33,6 @@ export class TheLastTasksIWorkedComponent implements OnInit {
   }
   startWorkOfTask = false;
   taskListDataDetails: any;
-
   titleLastTaskIWorkedOn = "המשימות האחרונות שעבדתי עליהן";
   thArrTaskTeams = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'צוות'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
@@ -156,7 +155,7 @@ export class TheLastTasksIWorkedComponent implements OnInit {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/menu/show-team-my-task/', this.systemGuid]);
     }
-    if (val == 2) {
+    if (val == "") {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
     }

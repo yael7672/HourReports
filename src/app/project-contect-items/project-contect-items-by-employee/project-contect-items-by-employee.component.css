@@ -25,9 +25,3 @@
     --bs-table-accent-bg: var(--bs-table-hover-bg);
     color: var(--bs-table-hover-color);
   }
-  h2 {
-    text-align: center;
-    color: rgba(6, 6, 19, 0.795);
-    font-size: 30pt;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
-  }
