@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PopupService } from '@progress/kendo-angular-popup';
+// import { PopupService } from '@progress/kendo-angular-popup';
 import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { PopUpServiceService } from '../pop-up-service.service';

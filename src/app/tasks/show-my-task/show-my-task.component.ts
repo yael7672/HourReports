@@ -104,6 +104,16 @@ export class ShowMyTaskComponent implements OnInit {
         }
       });
     }
+    // this.requestSubscription();
+    const subscription = {
+      endpoint:
+          '<CLIENT_ENDPOINT>',
+      expirationTime: null,
+      keys: {
+          p256dh: '<CLIENT_P256DH>',
+          auth: '<CLIENT_AUTH>',
+      },
+  };
   }
   GetWorkType() {
     this.userService.GetWorkType().subscribe(

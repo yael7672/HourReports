@@ -86,6 +86,9 @@ export class MenuComponent implements OnInit {
 
     this.popUpService.getAllMyNewTask().subscribe(res => {
       this.ifThereNewTasks = res ? res : false;
+      if (this.ifThereNewTasks = true) {
+        this.notifyMe()
+      }
       this.GetMyNewTasks();
     })
     this.popUpService.getNavBar().subscribe(res => {
@@ -102,7 +105,6 @@ export class MenuComponent implements OnInit {
     this.GetProject();
     this.MessageToTheManager();
     this.image = localStorage.getItem('image');
-
     this.systemGuid = localStorage.getItem('systemGuid');
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
@@ -162,7 +164,22 @@ export class MenuComponent implements OnInit {
       this.popUpService.setSpecificPopUp(type, data)
     }
   }
-
+  notifyMe() {
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") {
+      const notification = new Notification("יש לך משימה/ות חדשה/ות !");
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          const notification = new Notification("יש לך משימה/ות חדשה/ות !",{
+            body:"יש לך משימה/ות חדשה/ות!",
+            icon:'../../../assets/images/2387679.png'
+          });
+        }
+      });
+    }
+  }
   goToMyprojectContentItem() {
     this.popUpService.setNavBar(false);
     this.router.navigate(['/menu/my-project-contect-items-component', this.systemGuid])
@@ -284,7 +301,7 @@ export class MenuComponent implements OnInit {
     this.GoToPausetimerTask()
   }
   GoToPausetimerTask() {
-    let pauseTaskComp = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router,this.appService)
+    let pauseTaskComp = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router, this.appService)
     pauseTaskComp.pauseTimer(this.workTime)
     this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = false
     this.router.navigate(['/menu/show-my-task', this.systemGuid]);
