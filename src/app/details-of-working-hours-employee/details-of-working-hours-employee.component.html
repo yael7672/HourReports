@@ -20,9 +20,9 @@
             (ngModelChange)="untilDate = $event"> -->
 
           <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
-            [(ngModel)]="fromDate" placeholder="מתאריך">
+            [(ngModel)]="fromDate" placeholder="מתאריך" max="{{todayDate | date: 'yyyy-MM-dd'}}">
           <div class="input-group-addon">עד - </div>
-          <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
+          <input type="text" class="form-control" onmouseover="this.type='date'" max="{{todayDate | date: 'yyyy-MM-dd'}}" placeholder="לתאריך"
             [(ngModel)]="untilDate">
         </div>
         <button (click)="sortByDateRange()" placement="right" ngbTooltip="מיין מידע בין טווח התאריכים"
