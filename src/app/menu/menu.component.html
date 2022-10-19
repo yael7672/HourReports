@@ -43,7 +43,6 @@
             <i class="fa fa-clock-o" aria-hidden="true"></i></a>
           <a (click)="GoToStatisticsGraph()" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i
               class="fa fa-bar-chart" aria-hidden="true"></i> </a>
-        
     </div>
   </div>
 </div>
@@ -120,7 +119,7 @@
 
 <div *ngIf="startWorkOfTask">
   <a (click)="returnToTheOpenTask()" placement="right"
-    ngbTooltip="חזרה למשימה  : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
+    ngbTooltip="חזרה למשימה : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
       data-icon="bi:clock-history"></i></a>
 </div>
 

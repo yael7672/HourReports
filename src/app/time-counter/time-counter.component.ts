@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 // import { PopupService } from '@progress/kendo-angular-popup';
 import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
+import { openSpecificTask } from '../interfacees/openSpecificTask';
+import { TaskByGuid } from '../interfacees/TaskByGuid';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 
@@ -33,22 +35,30 @@ export class TimeCounterComponent implements OnInit {
   isTaskAccomplished = false;
   taskListDataDetails: any;
   massageFromServer: any;
-  youAreInPause = false
+  ifInPause = false
   showMassgeToUserCancelProjectContectItemOfTask = false
-  hideStartAndShowCancelProjectContectItem !:boolean;
+  hideStartAndShowCancelProjectContectItem !: boolean;
   projectContectItemOfTask = "projectContectItemOfTask"
   kindPopUp = "cancelProjectContectItemOfTask"
   massgeUserCloseProjectContectItemByTimer = "האם ברצונך לבטל דיווח זה?"
   timeToSendCreate: any;
   massageToUser: any;
   time: any
-  showMassageToUSERifMiiddlePauseAndOpenTask = false
-  UserifMiiddlePauseAndOpenTask = "UserifMiiddlePauseAndOpenTask"
-  massgeUserOpenTimerTaskInMiddlePause = "שים לב אתה באמצע הפסקה האם ברצונך לסיימה ולהתחיל לעבוד על משימה?"
+  showMassageToUSERifMiiddlePauseAndOpenTask = false;
+  hideDelayAndShowRenewProjectContectItemOnTask = false;
+  UserifMiiddlePauseAndOpenTask = "UserifMiiddlePauseAndOpenTask";
+  massgeUserOpenTimerTaskInMiddlePause = "שים לב אתה באמצע הפסקה האם ברצונך לסיימה ולהתחיל לעבוד על משימה?";
+  timePauseInterval: any;
+  openSpecificTaskDetails: any = {}
+  openTasksDetails: any[] = [];
+  parseTimeDate: any;
+  projectContentItemArr: any;
+  projectContectItemByGuidDeatils: any;
+  latest_date: any;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router, private appService: AppService) {
     this.popUpService.getInPause().subscribe(res => {
-      this.youAreInPause = res;
+      this.ifInPause = res;
     })
   }
 
@@ -59,14 +69,14 @@ export class TimeCounterComponent implements OnInit {
       this.startWorkOfTask = true;
       this.ContinueToWorkOnATask();
       this.disabledStartButton = true;
-      if (this.workTime){
+      if (this.workTime) {
         this.hideStartAndShowCancelProjectContectItem = true;
 
       }
     }
   }
   startTimer() {
-    if (this.youAreInPause) {
+    if (this.ifInPause) {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
     else {
@@ -121,14 +131,14 @@ export class TimeCounterComponent implements OnInit {
 
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(true, 'pause')
-        this.showMassageToUSERifMiiddlePauseAndOpenTask = false
+    this.showMassageToUSERifMiiddlePauseAndOpenTask = false
 
   }
   clickYesOpenPauseToFinish() {
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(true, 'pause')
-        this.showMassageToUSERifMiiddlePauseAndOpenTask = false
-   // this.time=localStorage.getItem("")
+    this.showMassageToUSERifMiiddlePauseAndOpenTask = false
+    // this.time=localStorage.getItem("")
     // if ( this.time.worktime != "" ||  this.time != null) {
     //   this.timetoSend =  this.time.worktime ?  this.time.worktime.split(':') :  this.time.split(':')
     //   clearInterval(this.interval);
@@ -146,7 +156,7 @@ export class TimeCounterComponent implements OnInit {
     // this.endButton = false
     // this.showMassgeToUserEdit = true
     // this.route.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
-   // this.startTimer()
+    // this.startTimer()
 
   }
 
@@ -175,7 +185,6 @@ export class TimeCounterComponent implements OnInit {
   }
 
   DeleteProjectContentItemByGuid(projectContectItemByTaskGuid: any) {
-
     this.userService.DeleteProjectContentItemByGuid(projectContectItemByTaskGuid).subscribe(
       (res) => {
         this.massageToUser = res;
@@ -193,7 +202,6 @@ export class TimeCounterComponent implements OnInit {
     if (this.workTime == 0 || this.workTime < "00:01:00")
       swal("אין אפשרות לדווח פחות מ-1 דק")
     else {
-
       this.popUpService.setStartTimer(false);
       this.disabledPauseButton = true;
       this.disabledStartButton = false;
@@ -279,6 +287,7 @@ export class TimeCounterComponent implements OnInit {
     if (localStorage.getItem('DateNow')) {
       this.setWorkTime(localStorage.getItem('DateNow'))
     }
+
   }
   setWorkTime(res: any) {
     this.workTime = this.convertTimeStempToTime(res)
@@ -289,4 +298,119 @@ export class TimeCounterComponent implements OnInit {
     this.Time = timestampNow - timestampCreatOn;
     return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
   }
+
+  delayProjectContectItenOnTask(time: any) {
+    this.hideDelayAndShowRenewProjectContectItemOnTask = true
+    this.timePauseInterval = time
+    // 
+
+    this.popUpService.setStartTimer(false);
+    this.disabledPauseButton = true;
+    this.disabledStartButton = false;
+    this.startWorkOfTask = false;
+    clearInterval(this.interval);
+    if (time != "" || !time) {
+      this.timetoSend = time.split(':')
+      clearInterval(this.interval);
+      if (this.timetoSend[2] > 30) {
+        this.timetoSend[1]++;
+      }
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+      // this.isDisabledStart = false;
+      this.isTaskAccomplished = false;
+      this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+      this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
+      this.openSpecificTaskDetails.Name = this.taskListDataDetailsParseToJson.Subject ? this.taskListDataDetailsParseToJson.Subject : ""
+      this.openSpecificTaskDetails.Time = this.timetoSend ? this.timetoSend : 0
+      this.openSpecificTaskDetails.ProjectContectItemGuid = this.projectContectItemGuid ? this.projectContectItemGuid : ""
+      this.openTasksDetails.push(this.openSpecificTaskDetails)
+      let DatePauseTask = Date.now()
+      localStorage.setItem('DatePauseTask', DatePauseTask.toString())
+
+      localStorage.setItem('openTasksDetails', JSON.stringify(this.openTasksDetails))
+      console.log(this.openTasksDetails);
+
+      this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : 0, this.taskListDataDetailsParseToJson.TaskGuid,
+        this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
+          res => {
+            if (res) {
+              this.massageFromServer = res;
+              swal(this.massageFromServer);
+              this.popUpService.SetProjectContentItemByTaskGuid(true)
+              this.popUpService.SetWorkTimeAfterProjectContectItem(true);
+              this.hideStartAndShowCancelProjectContectItem = true;
+            }
+          },
+          err => {
+            console.log(err.error);
+          })
+    }
+  }
+
+  renewProjectContectItenOnTask(workTime: any) {
+    this.hideDelayAndShowRenewProjectContectItemOnTask = false
+    // this.hideStartAndShowCancelProjectContectItem = false
+    this.disabledPauseButton = false
+    this.openTasksDetails.forEach((item, index) => {
+      if (item === this.taskListDataDetailsParseToJson.Subject) {
+        this.openTasksDetails.splice(index, 1);
+      }
+      this.userService.GetProjectContentItemByGuid(item.ProjectContectItemGuid).subscribe(res => {
+        if (res) {
+          this.projectContectItemByGuidDeatils = res;
+        }
+      });
+    })
+    this.ContinueToWorkOnATask2()
+    // this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
+    // this.latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
+    // alert( this.latest_date);
+    // localStorage.setItem('DateNow',)
+
+  }
+
+  ContinueToWorkOnATask2() {
+    this.getCreatedProjectContentItemFromLoaclStorage2();
+    this.interval = setInterval(() => {
+      if (this.workTime) {
+        this.getCreatedProjectContentItemFromLoaclStorage2();
+      }
+    }, 1000)
+  }
+  getCreatedProjectContentItemFromLoaclStorage2() {
+    if (localStorage.getItem('DateNow')) {
+      this.setWorkTime(localStorage.getItem('DateNow'))
+    }
+
+  }
+  setWorkTime2(res: any) {
+    this.workTime = this.convertTimeStempToTime2(res)
+  }
+  convertTimeStempToTime2(ProjectContentItemCreatedDate: any) {
+    var timestampCreatOn = ProjectContentItemCreatedDate;
+    const timestampNow = Date.now();
+    let DatePauseTask = localStorage.getItem("DatePauseTask")
+    // this.Time = timestampNow - timestampCreatOn - DatePauseTask;
+    return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
+  }
+
+
+
+
+  //  async GetProjectContentItemByGuid(ProjectContectItemGuid: any) {
+  //     this.userService.GetProjectContentItemByGuid(ProjectContectItemGuid).then(res => {
+  //       if (res) {
+  //         this.projectContectItemByGuidDeatils = res;
+  //         // const timestampCreatOn = new Date(this.projectContectItemByGuidDeatils.CreatedOn)
+  //         // const timestampNow = (new Date(Date.now()))
+  //         // this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
+  //         // this.latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
+  //         // alert( this.latest_date);
+  //         // localStorage.setItem('WorkTimePause', this.workTimeHour)
+  //       }
+  //     })
+  //   }
+
+
 }

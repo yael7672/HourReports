@@ -124,7 +124,6 @@ export class MenuComponent implements OnInit {
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
     }
-
   }
 
   returnToTheOpenTask() {
@@ -155,7 +154,6 @@ export class MenuComponent implements OnInit {
         this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson?.Subject;
         this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
       }
-
       else {
         this.appService.setIsPopUpOpen(true);
         this.popUpService.setSpecificPopUp(type, data)

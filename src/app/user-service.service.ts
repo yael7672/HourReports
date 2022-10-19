@@ -99,7 +99,7 @@ console.log(this.a);
     return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SpecificDate=' + SpecificDate)
 
   }
-  GetProjectContentItemByGuid(projectContectItemGuid: string) {
+   GetProjectContentItemByGuid(projectContectItemGuid: string) {
     return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?OrganizationName=AuroraProd&ProjectContentItemGuid=' + projectContectItemGuid)
   }
   DeleteProjectContentItemByGuid(projectContectItemGuid: string) {

@@ -22,7 +22,7 @@ export class PersonalDetailsComponent implements OnInit {
   DailyAndMonthlyWorkingHours: any;
   MessageToTheManagerRes: any;
   IfMessageToTheManager = false
-  image:any;
+  image: any;
 
   constructor(public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { }
 
@@ -30,8 +30,8 @@ export class PersonalDetailsComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.systemName = localStorage.getItem('systemName');
     this.systemMail = localStorage.getItem('systemMail');
-    this.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid); 
-       this.image = localStorage.getItem('image');
+    this.GetDailyWorkingHoursAndMonthlyWorkingHours(this.systemGuid);
+    this.image = localStorage.getItem('image');
 
   }
   LogOut() {
@@ -73,19 +73,24 @@ export class PersonalDetailsComponent implements OnInit {
       res => {
         if (res) {
           this.MessageToTheManagerRes = res
-         
+
         }
       }, err => {
         console.log(err.error)
       }
     )
     if (this.MessageToTheManagerRes) {
-       this.IfMessageToTheManager = true
+      this.IfMessageToTheManager = true
       // this.route.navigate(['/menu/employee-report'])
     }
   }
 
-  goToSystemSetting(){
-    this.route.navigate(['/menu/system-setting'])
+  goToSystemSetting() {
+    this.route.navigate(['/menu/projects-by-employee'])
   }
+  openProjects() {
+    this.route.navigate(['/menu/system-setting'])
+
+  }
+
 }

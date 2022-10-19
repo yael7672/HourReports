@@ -60,6 +60,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {  INgxSelectOptions } from 'ngx-select-ex';
 import { AddProjectByManagerComponent } from '../add-project-by-manager/add-project-by-manager.component';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { ProjectsByEmployeeComponent } from '../projects-by-employee/projects-by-employee.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
     optionValueField: 'Guid',
@@ -113,8 +114,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     DetailsOfWorkingHoursEmployeeForAdminComponent,
     SystemSettingComponent,
     AddProjectByManagerComponent,
-    AddUserComponent
-
+    AddUserComponent,
+    ProjectsByEmployeeComponent
     
 
 ],
