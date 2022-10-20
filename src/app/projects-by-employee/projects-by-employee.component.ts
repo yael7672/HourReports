@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ownerid } from '../interfacees/ownerid';
 import { Project } from '../interfacees/project';
 import { UserServiceService } from '../user-service.service';
@@ -11,8 +11,8 @@ import { UserServiceService } from '../user-service.service';
 })
 export class ProjectsByEmployeeComponent implements OnInit {
   ActiveProjectArr !: Project[];
-  thArrTask = ["שם"];
-  ProjectListKeys = ['Name'];
+  thArrTask = ["שם", "נושא", "תיאור", "לקוח", "סוג פרויקט", " איש קשר בפרויקט", "מנהל פרויקט", "מפתח ראשי", "שעות לאישור", "תאריך התחלה", "תאריך סיום"];
+  ProjectListKeys = ['Name', 'Subject', 'Description', ['Account', 'Name'], ['ProjectType', 'Name'], ['ContactInProject', 'Name'], ['ProjectManager', 'Name'], ['HeadProgrammer', 'Name'], 'ConfirmedHours', 'StartDate', 'EndDate'];
   systemGuid: any;
   systemGuidFromLocalStorage: any;
   adminGuid: any
@@ -21,7 +21,8 @@ export class ProjectsByEmployeeComponent implements OnInit {
   showMyActiveProjects = true
   showAllMyProject = false
   showProjectByEmployeeGuid = false
-  constructor(private userService: UserServiceService, private activatedRoute: ActivatedRoute) { }
+  constructor(private userService: UserServiceService, private activatedRoute: ActivatedRoute
+   , private route:Router) { }
 
 
   ngOnInit(): void {
@@ -72,14 +73,22 @@ export class ProjectsByEmployeeComponent implements OnInit {
     )
   }
   onSearchEmployee(filterKey: any) {
-    this.ProjectManagerOrHeadProgrammerArr = [...this.ProjectManagerOrHeadProgrammerArrCopy];
+    // this.ProjectManagerOrHeadProgrammerArr = [...this.ProjectManagerOrHeadProgrammerArrCopy];
     if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
-      this.ProjectManagerOrHeadProgrammerArr = this.ProjectManagerOrHeadProgrammerArr.filter((f: ownerid) => f?.Name.includes(filterKey.Name));
+      // this.ProjectManagerOrHeadProgrammerArr = this.ProjectManagerOrHeadProgrammerArr.filter((f: ownerid) => f?.Name.includes(filterKey.Name));
+      this.systemGuid = filterKey.Guid
+      this.getMyProject()
     }
-    this.getTaskAfterSort();
+    // this.getTaskAfterSort();
 
   }
   getTaskAfterSort() {
     // this.GetTaskAfterSort.emit(this.taskArr);
+  }
+
+  SelectedProject(specificProject: any) {
+    console.log(specificProject)
+    this.route.navigate(['/menu/specific-project-details',specificProject.Guid])
+
   }
 }

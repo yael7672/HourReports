@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
@@ -61,11 +60,13 @@ import {  INgxSelectOptions } from 'ngx-select-ex';
 import { AddProjectByManagerComponent } from '../add-project-by-manager/add-project-by-manager.component';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { ProjectsByEmployeeComponent } from '../projects-by-employee/projects-by-employee.component';
+import { SpecificProjectDetailsComponent } from '../specific-project-details/specific-project-details.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
     optionValueField: 'Guid',
     optionTextField: 'Name'
 };
+
 @NgModule({
  declarations:[
     UpdateProjectContentItemComponent,
@@ -115,7 +116,9 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     SystemSettingComponent,
     AddProjectByManagerComponent,
     AddUserComponent,
-    ProjectsByEmployeeComponent
+    ProjectsByEmployeeComponent,
+    SpecificProjectDetailsComponent
+
     
 
 ],

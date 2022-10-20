@@ -10,14 +10,10 @@
         <option value="0">כל הפרויקטים</option>
         <option value="1">הפרויקטים הפעילים שלי</option>
         <option value="2">פרויקטים לפי עובד </option>
-
-
-
     </select>
 </div>
 
 <!-- עד לפה חיפוש ומיון-->
-
 <!-- הפרויקטים שלי -->
 
 <app-smart-card>
@@ -39,61 +35,18 @@
             </div>
         </div>
 
-            <!-- <div class="autocomplete-1" *ngIf="taskArr">
-                <ng-autocomplete style="width: 100%;" class="autoComplete" dir="rtl" [data]="taskArr"
-                    [searchKeyword]="'Subject'" placeholder=" חפש לפי משימה" historyIdentifier="Subject"
-                    [itemTemplate]="itemTemplate" (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject"
-                    #Subject="ngModel" required [notFoundTemplate]="notFoundTemplate">
-                </ng-autocomplete>
-                <ng-template #itemTemplate let-item>
-                    <a [innerHTML]="item.Subject" style="text-align:center ;"></a>
-                </ng-template>
-                <ng-template #notFoundTemplate let-notFound>
-                    <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-                </ng-template>
-            </div> -->
-            <!-- <img src="../../../assets/images/753345.png"> -->
-
-            <!--     
-            <div class="autocomplete-2" *ngIf="showAllProjects&&taskArr">
-                <ng-autocomplete style="width: 100%;" dir="rtl" [data]="projectArr" [searchKeyword]="'Name'"
-                    placeholder="חפש לפי פרויקט" historyIdentifier="Project" class="autoComplete"
-                    [itemTemplate]="itemTemplate2" (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask"
-                    #SourceTask="ngModel" required [notFoundTemplate]="notFoundTemplate2">
-                </ng-autocomplete>
-                <ng-template #itemTemplate2 let-item>
-                    <a [innerHTML]="item.Name" style="text-align:center ;"></a>
-                </ng-template>
-                <ng-template #notFoundTemplate2 let-notFound>
-                    <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-                </ng-template>
-            </div>
-            <div class="autocomplete-3" *ngIf="showMyProjects&&taskArr">
-                <ng-autocomplete style="width: 100%;" dir="rtl" [data]="myProjectArr" [searchKeyword]="'Name'"
-                    placeholder="חפש לפי הפרויקטים שלי" historyIdentifier="Project" class="autoComplete"
-                    [itemTemplate]="itemTemplate2" (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask"
-                    #SourceTask="ngModel" required [notFoundTemplate]="notFoundTemplate2">
-                </ng-autocomplete>
-                <ng-template #itemTemplate2 let-item>
-                    <a [innerHTML]="item.Name" style="text-align:center ;"></a>
-                </ng-template>
-                <ng-template #notFoundTemplate2 let-notFound>
-                    <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-                </ng-template>
-            </div>
-        </div> -->
-            <app-smart-table [ifShowpagination]="[true,10]"
-                [thArr]="thArrTask" [tableDataKeys]="ProjectListKeys" [tableData]="ActiveProjectArr"
+            <app-smart-table [ifShowpagination]="[true,10]" [hideSort]="true" 
+            (SelectedData)="SelectedProject($event)"   [thArr]="thArrTask" [tableDataKeys]="ProjectListKeys" [tableData]="ActiveProjectArr"
                 [showMassgeToUserDeleteTask]="true">
 
             </app-smart-table>
-            <!-- <div *ngIf="taskArr?.length==0">
+            <div *ngIf="ActiveProjectArr?.length==0">
          <br>
-         <h2>אין משימות פעילות!</h2>
+         <h2>אין פרויקטים פעילים!</h2>
        </div>
-       <div *ngIf=" !taskArr">
-         <h2>רק רגע...</h2>-->
-       
+       <div *ngIf=" !ActiveProjectArr">
+         <h2>רק רגע...</h2>
+      </div>
     </div>
 </app-smart-card>
 

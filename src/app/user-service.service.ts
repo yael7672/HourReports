@@ -166,4 +166,9 @@ console.log(this.a);
   GetProjectType(){
     return this.http.get<ProjectType[]>(environment.url + 'GetProjectTypes/?OrganizationName=AuroraProd')
   }
+ async GetProjectContectItemByProjectAndBySystemUser(SystemUser:any,projectGuid:any,SelectedTime:any, FromDate:any, UntilDate:any){
+    return await this.http.get<any>(environment.url + 'GetProjectContectItemByProjectAndBySystemUser/?OrganizationName=AuroraProd&SystemUser=' + SystemUser +'&Project='+projectGuid+'&SelectedTime='+ SelectedTime +'&FromDate='+FromDate+'&UntilDate='+UntilDate ).toPromise();
+
+  }
+
 }

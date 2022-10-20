@@ -18,6 +18,7 @@ import { ProjectContectItemsByEmployeeComponent } from '../project-contect-items
 import { SickLeaveProjectContentItemComponent } from '../project-contect-items/sick-leave-project-content-item/sick-leave-project-content-item.component';
 import { ProjectsByEmployeeComponent } from '../projects-by-employee/projects-by-employee.component';
 import { SmartCardComponent } from '../smart-card/smart-card.component';
+import { SpecificProjectDetailsComponent } from '../specific-project-details/specific-project-details.component';
 import { StatisticsGraphAllEmployeesDetailsToManagerComponent } from '../statistics-graph-all-employees-details-to-manager/statistics-graph-all-employees-details-to-manager.component';
 import { StatisticsGraphEmployeeDetailsToManagerComponent } from '../statistics-graph-employee-details-to-manager/statistics-graph-employee-details-to-manager.component';
 import { StatisticsGraphComponent } from '../statistics-graph/statistics-graph.component';
@@ -68,7 +69,9 @@ const routes: Routes = [
             { path: 'details-of-working-hours-employee/:id', component: DetailsOfWorkingHoursEmployeeComponent },
             { path: 'details-of-working-hours-employee-for-admin/:id', component: DetailsOfWorkingHoursEmployeeForAdminComponent },
             { path: 'system-setting', component: SystemSettingComponent },
-            { path: 'projects-by-employee', component: ProjectsByEmployeeComponent }
+            { path: 'projects-by-employee', component: ProjectsByEmployeeComponent },
+            { path: 'specific-project-details/:id', component: SpecificProjectDetailsComponent },
+
 
         ]
     },
