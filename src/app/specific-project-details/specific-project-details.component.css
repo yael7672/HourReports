@@ -100,3 +100,7 @@ button.btn.btn-color{
     display: flex;
     /* justify-content: center; */
 /* } */ 
+.span
+{
+    font-weight: 600;
+}

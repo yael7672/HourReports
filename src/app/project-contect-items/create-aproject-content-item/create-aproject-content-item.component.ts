@@ -68,6 +68,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   MoreEmployeeGuid: any[] = [];
   createProjectContectItemWithTimerMoreEmployee = false
   ngxDisabled = false;
+  repeat = false;
   massgeUserCloseProjectContectItemByTimerCancel = "האם ברצונך לבטל דיווח זה?"
   showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
@@ -130,31 +131,29 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.createProjectContectItemWithTimerMoreEmployee = false
           this.popUpService.setAllmyProjectContectItem(true)
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-          this.dateToUpdate = localStorage.getItem('dateToUpdate');
-          this.dateToUpdate= this.datePipe.transform(this.dateToUpdate, 'yyyy-MM-dd')
-          if (this.dateToUpdate) {
-            // this.popUpService.setClosePopUp();
-            form.reset({
-              oneDate: this.dateToUpdate
+          if (this.repeat == true) {
+            this.dateToUpdate = localStorage.getItem('dateToUpdate');
+            this.dateToUpdate = this.datePipe.transform(this.dateToUpdate, 'yyyy-MM-dd')
+            if (this.dateToUpdate) {
+              // this.popUpService.setClosePopUp();
+              form.reset({
+                oneDate: this.dateToUpdate
 
-            });
+              });
+            }
+            else {
+              form.reset({
+                oneDate: this.todayDate
+              });
+            }
+
+            this.appService.setIsPopUpOpen(true);
+            this.popUpService.setSpecificPopUp(true, 'createAprojectContentItem')
           }
-          else {
-            form.reset({
-              oneDate: this.todayDate
-            });
+          if (this.repeat == false) {
+            this.popUpService.setClosePopUp();
           }
-
-          this.appService.setIsPopUpOpen(true);
-          this.popUpService.setSpecificPopUp(true, 'createAprojectContentItem')
-
-          // const inputs = document.getElementById("oneDate");
-          // inputs?.hasAttribute("ta")
           this.appService.setIsPopUpOpen(false);
-          // this.oneDate = ""
-          // form.value.oneDate = this.datePipe.transform(this.todayDate, 'dd/MM/yyyy')
-          // this.oneDate = this.datePipe.transform(this.todayDate, 'dd/MM/yyyy')
-
           this.popUpService.setDetailsOfWorkingHoursEmployee(true);
           this.popUpService.setDetailsOfWorkingHoursEmployeeForAdmin(true);
         },
@@ -240,6 +239,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   CreateOrUpdateProjectContectItem(form: NgForm) {
     this.isDisabled = true;
+    this.repeat = false
+
     if (this.KindPopUpUpdateProjectContectItemWithTime) {
       this.UpdateProjectContectItemWithTime(form)
     }
@@ -247,6 +248,17 @@ export class CreateAprojectContentItemComponent implements OnInit {
       this.CreateNewProjectItem(form)
     }
   }
+  CreateOrUpdateProjectContectItemRepeat(form: NgForm) {
+    this.isDisabled = true;
+    this.repeat = true
+    if (this.KindPopUpUpdateProjectContectItemWithTime) {
+      this.UpdateProjectContectItemWithTime(form)
+    }
+    else {
+      this.CreateNewProjectItem(form)
+    }
+  }
+
   filter(value: any) {
     this.Project = this.Project.filter((f: Project) => f?.Name.includes(value));
   }

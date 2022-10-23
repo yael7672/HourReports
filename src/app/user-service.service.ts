@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Pipe } from '@angular/core';
+import { Injectable , Pipe } from '@angular/core/core';
+// import { Injectable} from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Acccount } from './interfacees/Acccount';
 import { averageBreaks } from './interfacees/averageBreaks';
@@ -16,7 +17,7 @@ import { WorkType } from './interfacees/work-type';
   providedIn: 'root'
 })
 export class UserServiceService {
-a!:string
+  a!: string
   constructor(private http: HttpClient) { }
 
   GetMyTask(SystemGuid: string) {
@@ -34,8 +35,8 @@ a!:string
 
   }
   UpdateTaskDetails(taskId: any, ProjectGuid: any, DescriptionTask: string, TaskSubject: string, WorkType: any, AssignTask: any) {
-this.a= environment.url + '/UpdateTaskDetails/?OrganizationName=AuroraProd&taskId=' + taskId + '&ProjectGuid=' + ProjectGuid + '&DescriptionTask=' + DescriptionTask + '&TaskSubject=' + TaskSubject + '&WorkType=' + WorkType + '&AssignTask=' + AssignTask;
-console.log(this.a);
+    this.a = environment.url + '/UpdateTaskDetails/?OrganizationName=AuroraProd&taskId=' + taskId + '&ProjectGuid=' + ProjectGuid + '&DescriptionTask=' + DescriptionTask + '&TaskSubject=' + TaskSubject + '&WorkType=' + WorkType + '&AssignTask=' + AssignTask;
+    console.log(this.a);
 
     return this.http.get<any>(environment.url + '/UpdateTaskDetails/?OrganizationName=AuroraProd&taskId=' + taskId + '&ProjectGuid=' + ProjectGuid + '&DescriptionTask=' + DescriptionTask + '&TaskSubject=' + TaskSubject + '&WorkType=' + WorkType + '&AssignTask=' + AssignTask);
   }
@@ -99,7 +100,7 @@ console.log(this.a);
     return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SpecificDate=' + SpecificDate)
 
   }
-   GetProjectContentItemByGuid(projectContectItemGuid: string) {
+  GetProjectContentItemByGuid(projectContectItemGuid: string) {
     return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?OrganizationName=AuroraProd&ProjectContentItemGuid=' + projectContectItemGuid)
   }
   DeleteProjectContentItemByGuid(projectContectItemGuid: string) {
@@ -150,24 +151,28 @@ console.log(this.a);
   GetTaskByTeamGuid(TeamGuid: string) {
     return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)
   }
-  AddNewProject(project:ProjectToCreate) {
+  AddNewProject(project: ProjectToCreate) {
     return this.http.post<string>(environment.url + 'AddNewProject?OrganizationName=AuroraProd', project);
   }
-  GetProjectsBySystemUser(SystemGuid:any){
-    return this.http.get<any>(environment.url + 'GetProjectsBySystemUser/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+  GetProjectsBySystemUser(SystemGuid: any, Status: any) {
+    return this.http.get<any>(environment.url + 'GetProjectsBySystemUser/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&Status=' + Status)
   }
 
-  GetDetailsOfWorkingHourByEmployee(SystemGuid:string,SelectedTime:number,FromDate:string,UntilDate:string) {
-    return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid+'&SelectedTime='+SelectedTime+'&FromDate='+FromDate+'&UntilDate='+UntilDate)
+  GetDetailsOfWorkingHourByEmployee(SystemGuid: string, SelectedTime: number, FromDate: string, UntilDate: string) {
+    return this.http.get<any>(environment.url + 'GetDetailsOfWorkingHourByEmployee/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate)
   }
-  GetAccount(){
+  GetAccount() {
     return this.http.get<Acccount[]>(environment.url + 'GetAccount/?OrganizationName=AuroraProd')
   }
-  GetProjectType(){
+  GetProjectType() {
     return this.http.get<ProjectType[]>(environment.url + 'GetProjectTypes/?OrganizationName=AuroraProd')
   }
- async GetProjectContectItemByProjectAndBySystemUser(SystemUser:any,projectGuid:any,SelectedTime:any, FromDate:any, UntilDate:any){
-    return await this.http.get<any>(environment.url + 'GetProjectContectItemByProjectAndBySystemUser/?OrganizationName=AuroraProd&SystemUser=' + SystemUser +'&Project='+projectGuid+'&SelectedTime='+ SelectedTime +'&FromDate='+FromDate+'&UntilDate='+UntilDate ).toPromise();
+  async GetProjectContectItemByProjectAndBySystemUser(SystemUser: any, projectGuid: any, SelectedTime: any, FromDate: any, UntilDate: any) {
+    return await this.http.get<any>(environment.url + 'GetProjectContectItemByProjectAndBySystemUser/?OrganizationName=AuroraProd&SystemUser=' + SystemUser + '&Project=' + projectGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate).toPromise();
+
+  }
+  async GetProjectByGuid(SystemUser: any, GuidProject: any) {
+    return await this.http.get<any>(environment.url + 'GetProjectByGuid/?OrganizationName=AuroraProd&SystemUser=' + SystemUser + '&GuidProject=' + GuidProject).toPromise();
 
   }
 

@@ -63,6 +63,7 @@ export class ShowMyTaskComponent implements OnInit {
   ifThereNewTasks!:boolean
   MyNewTaskArr: any[]=[];
   readonly VAPID_PUBLIC_KEY = "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
+  Status: any;
 
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,  
     private appService: AppService, private userService: UserServiceService, private route: Router,
@@ -385,7 +386,8 @@ export class ShowMyTaskComponent implements OnInit {
 
 
   getMyProject() {
-    this.userService.GetProjectsBySystemUser(this.systemGuid).subscribe(res => {
+    this.Status="All"
+    this.userService.GetProjectsBySystemUser(this.systemGuid,this.Status).subscribe(res => {
       if (res) {
         this.myProjectArr = res;
       }

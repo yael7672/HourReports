@@ -21,8 +21,11 @@ export class ProjectsByEmployeeComponent implements OnInit {
   showMyActiveProjects = true
   showAllMyProject = false
   showProjectByEmployeeGuid = false
+  status: any;
+  statusEmployee: any;
+  // All OnlyActive
   constructor(private userService: UserServiceService, private activatedRoute: ActivatedRoute
-   , private route:Router) { }
+    , private route: Router) { }
 
 
   ngOnInit(): void {
@@ -30,28 +33,44 @@ export class ProjectsByEmployeeComponent implements OnInit {
     // this.systemGuidFromParems = this.activatedRoute.snapshot.paramMap.get('id');
     this.systemGuid = localStorage.getItem('systemGuid');;
     this.GetAllEmployee()
-    this.getMyProject()
+    this.status = "All"
+    this.getMyProject(this.status)
   }
   WhichTableProjectOpen(val: any) {
-    if (val == 1) {
+    if (val == "1") {
       this.showMyActiveProjects = true
       this.showAllMyProject = false
+      this.status = "OnlyActive"
+      this.getMyProject(this.status)
       this.showProjectByEmployeeGuid = false
     }
-    if (val == 0) {
+    if (val == "") {
       this.showMyActiveProjects = false
       this.showAllMyProject = true
+      this.status = "All"
+      this.getMyProject(this.status)
       this.showProjectByEmployeeGuid = false
     }
-    if (val == 2) {
+    if (val == "2") {
       this.showMyActiveProjects = false
       this.showAllMyProject = false
       this.showProjectByEmployeeGuid = true
     }
 
   }
-  getMyProject() {
-    this.userService.GetProjectsBySystemUser(this.systemGuid).subscribe(res => {
+  WhichTableProjectOpenByEmployee(val: any) {
+    if (val == "1") {
+      this.status = "OnlyActive"
+      this.getMyProject(this.status)
+    }
+    if (val == "2") {
+      this.status = "All"
+      this.getMyProject(this.status)
+    }
+  }
+
+  getMyProject(status: any) {
+    this.userService.GetProjectsBySystemUser(this.systemGuid, status).subscribe(res => {
       if (res) {
         this.ActiveProjectArr = res;
       }
@@ -63,7 +82,7 @@ export class ProjectsByEmployeeComponent implements OnInit {
   GetAllEmployee() {
     // לשים GUID אמיתי של מנהל
     this.adminGuid = ""
-    this.userService.GetAllEmployee(this.adminGuid).subscribe(
+    this.userService.GetAllEmployee(this.systemGuid).subscribe(
       (res: any) => {
         this.ProjectManagerOrHeadProgrammerArr = res;
 
@@ -77,7 +96,7 @@ export class ProjectsByEmployeeComponent implements OnInit {
     if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
       // this.ProjectManagerOrHeadProgrammerArr = this.ProjectManagerOrHeadProgrammerArr.filter((f: ownerid) => f?.Name.includes(filterKey.Name));
       this.systemGuid = filterKey.Guid
-      this.getMyProject()
+      this.getMyProject("All")
     }
     // this.getTaskAfterSort();
 
@@ -88,7 +107,7 @@ export class ProjectsByEmployeeComponent implements OnInit {
 
   SelectedProject(specificProject: any) {
     console.log(specificProject)
-    this.route.navigate(['/menu/specific-project-details',specificProject.Guid])
+    this.route.navigate(['/menu/specific-project-details', specificProject.Guid])
 
   }
 }

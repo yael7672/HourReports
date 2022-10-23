@@ -9,6 +9,11 @@
     margin-bottom: 1rem; 
     width: 100%;
 }
+.select-table1{
+    display: flex;
+    margin-top: 15px;
+    margin-right:12px ;
+}
 /* button {
     border-color: white;
     background-color: white;

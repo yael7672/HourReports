@@ -12,6 +12,7 @@ import { LoginComponent } from '../login/login.component';
 import { MenuComponent } from '../menu/menu.component';
 import { PersonalDetailsComponent } from '../personal-details/personal-details.component';
 import { PopUpComponent } from '../pop-up/pop-up.component';
+import { ProjectContectItemByProjectComponent } from '../project-contect-item-by-project/project-contect-item-by-project.component';
 import { CreateAprojectContentItemComponent } from '../project-contect-items/create-aproject-content-item/create-aproject-content-item.component';
 import { MyProjectContectItemsComponent } from '../project-contect-items/my-project-contect-items/my-project-contect-items.component';
 import { ProjectContectItemsByEmployeeComponent } from '../project-contect-items/project-contect-items-by-employee/project-contect-items-by-employee.component';
@@ -37,7 +38,7 @@ import { UpdateProjectContentItemComponent } from '../update-project-content-ite
 
 const routes: Routes = [
     {
-        path: '', component: MenuComponent, canActivate:[AuthGuard] ,children: [
+        path: '', component: MenuComponent, canActivate: [AuthGuard], children: [
             { path: 'createTask', component: CreateNewTaskComponent },
             { path: 'updateTask', component: UpdateAnExistingTaskComponent },
             { path: 'endOfTask', component: EndOfTaskComponent },
@@ -70,7 +71,8 @@ const routes: Routes = [
             { path: 'details-of-working-hours-employee-for-admin/:id', component: DetailsOfWorkingHoursEmployeeForAdminComponent },
             { path: 'system-setting', component: SystemSettingComponent },
             { path: 'projects-by-employee', component: ProjectsByEmployeeComponent },
-            { path: 'specific-project-details/:id', component: SpecificProjectDetailsComponent },
+            { path: 'project-contect-item-by-project/:id', component: ProjectContectItemByProjectComponent }
+            ,{ path: 'specific-project-details/:id', component: SpecificProjectDetailsComponent },
 
 
         ]

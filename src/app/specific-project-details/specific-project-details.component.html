@@ -1,63 +1,76 @@
-<h2>
-    פריטי תכולת פרויקט לפי פרויקט <img src="../../../assets/images/2387679.png" width="80px" height="95px" alt="">
-</h2>
-<div class="select-table">
-       <select id="inputState-1" class="form-control" ngModel (ngModelChange)="SelectTimeProjectContectItemByProject($event)">
-           <option value="1"> הכל</option>
-           <option value="2"> היום </option>
-           <option value="3"> החודש  </option>
-           <option value="4"> השבוע</option>
-           <option value="5"> לפי טווח תאריכים </option>
-       </select>
-   </div>
-   <button (click)="ExportToExcelPage()"
-   class="btn btn-color">יצא נתונים לקובץ Excel</button>
- 
-<!-- עד לפה חיפוש ומיון-->
-<!-- הפרויקטים שלי -->
-<div class="form-outline  inputDate ">
-    <ng-container *ngIf="showCompareDates">
-      <div class="form-group ">
-       
-        <div class="input-group input-daterange">
-          <input type="text" class="form-control" id="date" max="todayDate" name="date" onmouseover="this.type='date'"
-            [(ngModel)]="FromDate" placeholder="מתאריך">
-          <div class="input-group-addon">עד - </div>
-          <input type="text" class="form-control" max="todayDate"  onmouseover="this.type='date'" placeholder="לתאריך"
-          [(ngModel)]="UntilDate">
-        </div>
-        <button (click)="SortProjectContectItemByDateRange()"
-        class="btn btn-color">חפש</button>
-      </div>
-      
-    </ng-container>
-  </div>
+<app-tab-nab-menu [tabLink]="tabLink"></app-tab-nab-menu>
 
-<app-smart-card>
-    <div body>
-        <!-- <div class="search" > 
-               <div class="autocomplete-2" >
-                   <ng-autocomplete style="width: 100%;" dir="rtl" [data]="ProjectManagerOrHeadProgrammerArr" [searchKeyword]="'Name'"
-                       placeholder="חפש לפי עובד" historyIdentifier="Project" class="autoComplete"
-                       [itemTemplate]="itemTemplate2" (ngModelChange)="onSearchEmployee($event)" ngModel name="Name"
-                       #SourceTask="ngModel" required [notFoundTemplate]="notFoundTemplate2">
-                   </ng-autocomplete>
-                   <ng-template #itemTemplate2 let-item>
-                       <a [innerHTML]="item.Name" style="text-align:center ;"></a>
-                   </ng-template>
-                   <ng-template #notFoundTemplate2 let-notFound>
-                       <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-                   </ng-template>
-               </div>
-           </div> -->
-        <app-smart-table [ifShowpagination]="[true,10]" [thArr]="thArrProjectContectItemList"
-            [tableDataKeys]="ProjectListKeys" [tableData]="ProjectContentItemArr" [showMassgeToUserDeleteTask]="true">
-        </app-smart-table>
-        <!-- <div *ngIf="taskArr?.length==0">
-            <br>
-            <h2>אין משימות פעילות!</h2>
-          </div>
-          <div *ngIf=" !taskArr">
-            <h2>רק רגע...</h2>-->
+<!-- <button (click)="openChartCompare()">השוואה בין שעות עבודה לשעות בפועל</button> -->
+<app-smart-card class="task-card-timer" [ifX]="false" [title]="titleCard">
+  <div body>
+
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">שם: </p>
+      <p>{{ProjectArr.Name}} </p>
+
     </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">לקוח: </p>
+      <p>{{ProjectArr.Account?.Name}} </p>
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">שעות לאישור: </p>
+      <p>{{ProjectArr.ConfirmedHours}} </p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">תאריך התחלה: </p>
+      <p>{{ProjectArr.StartDate}} </p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">תאריך סיום: </p>
+      <p>{{ProjectArr.EndDate}}</p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">סוג פרויקט: </p>
+      <p>{{ProjectArr.ProjectType?.Name}}</p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">מנהל פרויקט: </p>
+      <p>{{ProjectArr.ProjectManager?.Name}}</p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">מפתח ראשי: </p>
+      <p>{{ProjectArr.HeadProgrammer?.Name}}</p>
+
+    </div>
+
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">תיאור פרויקט: </p>
+      <p>{{ProjectArr.Description}}</p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">נושא: </p>
+      <p>{{ProjectArr.Subject}} </p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">לקוח בפרויקט: </p>
+      <p>{{ProjectArr.ContactInProject?.Name}} </p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">שעות לאישור: </p>
+      <p>{{ProjectArr.isBillableHours}} </p>
+
+    </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">סה"כ שעות לאישור: </p>
+      <p>{{ProjectArr.totalDevHours}} </p>
+
+    </div>
+
+    <br>
+
+  </div>
 </app-smart-card>

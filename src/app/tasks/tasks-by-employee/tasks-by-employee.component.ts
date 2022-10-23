@@ -32,7 +32,7 @@ export class TasksByEmployeeComponent implements OnInit {
   showAllProjects = false;
   showMyProjects = true;
   myProjectArr!: Project[]
-
+  Status:any;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService,
     private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -198,7 +198,8 @@ export class TasksByEmployeeComponent implements OnInit {
     }
   }
   getMyProject() {
-    this.userService.GetProjectsBySystemUser(this.systemGuid).subscribe(res => {
+    this.Status="All"
+    this.userService.GetProjectsBySystemUser(this.systemGuid,this.Status).subscribe(res => {
       if (res) {
         this.myProjectArr = res;
       }
