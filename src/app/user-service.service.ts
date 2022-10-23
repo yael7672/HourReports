@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable , Pipe } from '@angular/core/core';
-// import { Injectable} from '@angular/core';
+// import { Injectable , Pipe } from '@angular/core/core';
+import { Injectable} from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Acccount } from './interfacees/Acccount';
 import { averageBreaks } from './interfacees/averageBreaks';

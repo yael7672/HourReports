@@ -61,8 +61,8 @@ import { AddProjectByManagerComponent } from '../add-project-by-manager/add-proj
 import { AddUserComponent } from '../add-user/add-user.component';
 import { ProjectsByEmployeeComponent } from '../projects-by-employee/projects-by-employee.component';
 import { SpecificProjectDetailsComponent } from '../specific-project-details/specific-project-details.component';
-import { ProjectContectItemByProjectComponent } from '../project-contect-item-by-project/project-contect-item-by-project.component';
-import { TabNabMenuComponent } from '../tab-nab-menu/tab-nab-menu.component';
+// import { ProjectContectItemByProjectComponent } from '../project-contect-item-by-project/project-contect-item-by-project.component';
+// import { TabNabMenuComponent } from '../tab-nab-menu/tab-nab-menu.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
     optionValueField: 'Guid',
@@ -120,8 +120,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     AddUserComponent,
     ProjectsByEmployeeComponent,
     SpecificProjectDetailsComponent,
-    ProjectContectItemByProjectComponent,
-    TabNabMenuComponent,
+    // ProjectContectItemByProjectComponent,
+    // TabNabMenuComponent,
 
     
 

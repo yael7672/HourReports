@@ -7,7 +7,6 @@ import { BehaviorSubject } from 'rxjs';
 export class PopUpServiceService {
 
   private isStartTimer$: BehaviorSubject<any> = new BehaviorSubject(null);
-  private isPouseTimer$: BehaviorSubject<any> = new BehaviorSubject(null);
   private kindOfPopUp$: BehaviorSubject<any> = new BehaviorSubject(null);
   private refreshMyprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private refreshCeateAprojectContentItem$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);

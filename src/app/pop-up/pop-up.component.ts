@@ -8,7 +8,6 @@ import { PopUpServiceService } from '../pop-up-service.service';
   styleUrls: ['./pop-up.component.css']
 })
 export class PopUpComponent implements OnInit {
-  isClose!: boolean
   @Input() title!: string;
   @Input() ifX!: boolean;
   @Input() ifXt!: boolean;
