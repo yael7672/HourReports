@@ -3,7 +3,7 @@
         <h4 header class="mb-4">יצירת דיווח
             <img class="image" src="../../../assets/images/4228724.png">
         </h4>
-        <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
+        <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm" >
             <!-- <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime"> -->
             <div class="checkbox" >
                 <label for="vehicle1"> לדיווח על מספר עובדים </label>
@@ -31,15 +31,21 @@
             </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime &&!dateToUpdate"
                 class="form-outline d-flex justify-content-center">
-                <input type="date" class="form-control" id="oneDate" name="oneDate" style="position: relative;"
-                    [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"(ngModelChange)="oneDate = $event">
-            <p class="p-in-input-date">בחר תאריך:</p>
+                <div class="InputWithText">
+                    <p class="date">תאריך </p>
+                <input type="date" class="form-control" id="oneDate" name="oneDate"
+                    [ngModel]=" todayDate| date: 'yyyy-MM-dd'" value="" max="{{todayDate | date: 'yyyy-MM-dd'}}" (ngModelChange)="oneDate = $event">
+                </div>
+
                 </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime&&dateToUpdate"
                 class="form-outline d-flex justify-content-center">
-                <input type="date" class="form-control" id="oneDate" name="oneDate"
-                    [ngModel]=" dateToUpdate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"(ngModelChange)="oneDate = $event">
-            </div>
+                <div class="InputWithText">
+                    <p class="date">תאריך </p>
+                <input type="date" class="form-control" id="oneDate" name="oneDate" 
+                    [ngModel]=" dateToUpdate| date: 'yyyy-MM-dd'" value="" max="{{todayDate | date: 'yyyy-MM-dd'}}"(ngModelChange)="oneDate = $event">
+                </div>
+                </div>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Subject" name="Name" class="form-control" placeholder="נושא" ngModel
                     #subject="ngModel" [(ngModel)]="subject1"

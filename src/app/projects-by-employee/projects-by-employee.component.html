@@ -1,0 +1,69 @@
+<!-- חיפוש ומיון -->
+
+<!-- <app-search-and-sort-tasks [taskArr]="taskArr"
+ [taskArrCopy]="taskArrCopy"></app-search-and-sort-tasks> -->
+<h2>
+ פרויקטים  <img src="../../../assets/images/2387679.png" width="80px" height="95px" alt="">
+</h2>
+<div class="select-table">
+    <select id="inputState-1" class="form-control" ngModel (ngModelChange)="WhichTableProjectOpen($event)">
+        <option value="0">כל הפרויקטים</option>
+        <option value="1">הפרויקטים הפעילים שלי</option>
+        <option value="2">פרויקטים לפי עובד </option>
+    </select>
+</div>
+
+<!-- עד לפה חיפוש ומיון-->
+<!-- הפרויקטים שלי -->
+
+<app-smart-card>
+
+    <div body>
+        <div class="search" *ngIf="showProjectByEmployeeGuid"> 
+            <div class="autocomplete-2" >
+                <ng-autocomplete style="width: 100%;" dir="rtl" [data]="ProjectManagerOrHeadProgrammerArr" [searchKeyword]="'Name'"
+                    placeholder="חפש לפי עובד" historyIdentifier="Project" class="autoComplete"
+                    [itemTemplate]="itemTemplate2" (ngModelChange)="onSearchEmployee($event)" ngModel name="Name"
+                    #SourceTask="ngModel" required [notFoundTemplate]="notFoundTemplate2">
+                </ng-autocomplete>
+                <ng-template #itemTemplate2 let-item>
+                    <a [innerHTML]="item.Name" style="text-align:center ;"></a>
+                </ng-template>
+                <ng-template #notFoundTemplate2 let-notFound>
+                    <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+                </ng-template>
+            </div>
+        </div>
+
+            <app-smart-table [ifShowpagination]="[true,10]" [hideSort]="true" 
+            (SelectedData)="SelectedProject($event)"   [thArr]="thArrTask" [tableDataKeys]="ProjectListKeys" [tableData]="ActiveProjectArr"
+                [showMassgeToUserDeleteTask]="true">
+
+            </app-smart-table>
+            <div *ngIf="ActiveProjectArr?.length==0">
+         <br>
+         <h2>אין פרויקטים פעילים!</h2>
+       </div>
+       <div *ngIf=" !ActiveProjectArr">
+         <h2>רק רגע...</h2>
+      </div>
+    </div>
+</app-smart-card>
+
+
+
+<!-- <div *ngIf="isPopUpOpen?.UpdateProjectContentItemDetails">
+     <app-update-project-content-item [kindUpdate]="'updateTaskDetails'" [project]="project" [workType]="workType"
+       [ifUpdateTask]="true" [header]="'עדכון משימה'" [ProjectContentItem]="projectContentItem">
+     </app-update-project-content-item>
+   </div>
+   
+   <div *ngIf="isPopUpOpen?.DeleteProjectContentItemIcon">
+     <app-delete-project-content-item [projectContentItemGuidOrTaskGuid]="projectContentItemGuid">
+     </app-delete-project-content-item>
+   </div>
+   
+   <div *ngIf="isPopUpOpen?.DeleteTask">
+     <app-delete-task [TaskGuid]="tasksGuid" [TasksName]="tasksName">
+     </app-delete-task>
+   </div> -->

@@ -1,0 +1,70 @@
+.autocomplete-1,
+.autocomplete-2,
+.form-control{
+   width: 14rem;
+}
+.search{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem; 
+    width: 100%;
+}
+/* button {
+    border-color: white;
+    background-color: white;
+    border: none;
+}
+
+
+.input-container {
+    margin: 1rem;
+}
+
+
+
+
+.input-container {
+    margin: 1rem;
+}
+.autocomplete-1,
+.autocomplete-2,
+.autocomplete-3,
+#inputState-2 {
+    width: 14rem;
+}
+
+#inputState-1 {
+    width: 16rem;
+
+}
+
+select#inputState {
+    margin-top: 1.2rem;
+}
+
+.searchProject{
+    display: flex;
+    
+    }
+.search {
+    display: flex;
+    justify-content: space-between;
+    direction: rtl;
+    margin-bottom: 1rem;
+}
+@media (max-width: 900px) {
+    .search {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        direction: rtl;
+        margin-bottom: 1rem;
+        align-items: center;
+    }}
+    img {
+        height: 50px;
+        width: 50px;
+        margin-bottom: 0.5rem
+    }
+    
+ */

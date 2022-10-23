@@ -20,6 +20,7 @@
         </div>
       </ng-container>
       <ng-container *ngIf="!showInputsDates">
+        <p>תאריך</p>
         <div class="form-outline d-flex justify-content-center">
           <input type="date" class="form-control" id="oneDate" name="oneDate" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
             (ngModelChange)="dateTwo = $event">
@@ -30,9 +31,7 @@
         <select [disabled]="true" id="WorkType" class="form-control " name="WorkType"
           [ngClass]="{ 'is-invalid': f.submitted && workType[0].invalid }" ngModel>
           <option value="">מחלה</option>
-
         </select>
-
       </div>
 
       <p>שעות בפועל</p>
@@ -58,7 +57,7 @@
 
       <div class="form-outline d-flex justify-content-center ">
         <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
-          class="form-control textarea" placeholder=" תאור המשימה  " ngModel>
+          class="form-control textarea" placeholder="תאור המשימה" ngModel>
                         </textarea>
       </div>
 

@@ -69,6 +69,8 @@ export class MenuComponent implements OnInit {
   image: any;
   isUnder1100: boolean;
   ProjectTypeArr: any;
+  DateNowPause: any
+  youAreInPause !:boolean
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -83,13 +85,16 @@ export class MenuComponent implements OnInit {
     var appProperties = this.appService.getAppProperties()
     this.isUnder1100 = appProperties.isUnder1680$.value;
     console.log(this.isUnder1100);
-
     this.popUpService.getAllMyNewTask().subscribe(res => {
-      this.ifThereNewTasks = res ? res : false;
-      if (this.ifThereNewTasks = true) {
-        this.notifyMe()
-      }
+      this.ifThereNewTasks = res;
       this.GetMyNewTasks();
+    })
+    this.DateNowPause=localStorage.getItem("DateNowPause")
+    if (this.DateNowPause) {
+      this.popUpService.setInPause(true);
+    }
+    this.popUpService.getInPause().subscribe(res => {
+      this.youAreInPause = res ;
     })
     this.popUpService.getNavBar().subscribe(res => {
       this.showNavBar = res ? res : false;
@@ -101,6 +106,7 @@ export class MenuComponent implements OnInit {
     //   })
   }
   ngOnInit(): void {
+
     this.GetWorkType()
     this.GetProject();
     this.MessageToTheManager();
@@ -118,7 +124,6 @@ export class MenuComponent implements OnInit {
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
     }
-
   }
 
   returnToTheOpenTask() {
@@ -149,7 +154,6 @@ export class MenuComponent implements OnInit {
         this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson?.Subject;
         this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
       }
-
       else {
         this.appService.setIsPopUpOpen(true);
         this.popUpService.setSpecificPopUp(type, data)
@@ -164,22 +168,7 @@ export class MenuComponent implements OnInit {
       this.popUpService.setSpecificPopUp(type, data)
     }
   }
-  notifyMe() {
-    if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
-    } else if (Notification.permission === "granted") {
-      const notification = new Notification("יש לך משימה/ות חדשה/ות !");
-    } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          const notification = new Notification("יש לך משימה/ות חדשה/ות !",{
-            body:"יש לך משימה/ות חדשה/ות!",
-            icon:'../../../assets/images/2387679.png'
-          });
-        }
-      });
-    }
-  }
+
   goToMyprojectContentItem() {
     this.popUpService.setNavBar(false);
     this.router.navigate(['/menu/my-project-contect-items-component', this.systemGuid])
@@ -245,9 +234,7 @@ export class MenuComponent implements OnInit {
           }
           else {
             this.ifThereNewTasks = false
-
           }
-
         }
       }, err => {
         console.log(err.error)

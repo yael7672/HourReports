@@ -99,7 +99,7 @@ console.log(this.a);
     return this.http.get<ProjectContentItem[]>(environment.url + '/GetMyProjectContectItems?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&SelectedTime=' + SelectedTime + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SpecificDate=' + SpecificDate)
 
   }
-  GetProjectContentItemByGuid(projectContectItemGuid: string) {
+   GetProjectContentItemByGuid(projectContectItemGuid: string) {
     return this.http.get<any>(environment.url + '/GetProjectContentItemByGuid/?OrganizationName=AuroraProd&ProjectContentItemGuid=' + projectContectItemGuid)
   }
   DeleteProjectContentItemByGuid(projectContectItemGuid: string) {
@@ -166,4 +166,9 @@ console.log(this.a);
   GetProjectType(){
     return this.http.get<ProjectType[]>(environment.url + 'GetProjectTypes/?OrganizationName=AuroraProd')
   }
+ async GetProjectContectItemByProjectAndBySystemUser(SystemUser:any,projectGuid:any,SelectedTime:any, FromDate:any, UntilDate:any){
+    return await this.http.get<any>(environment.url + 'GetProjectContectItemByProjectAndBySystemUser/?OrganizationName=AuroraProd&SystemUser=' + SystemUser +'&Project='+projectGuid+'&SelectedTime='+ SelectedTime +'&FromDate='+FromDate+'&UntilDate='+UntilDate ).toPromise();
+
+  }
+
 }

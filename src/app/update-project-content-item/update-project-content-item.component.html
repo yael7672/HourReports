@@ -5,9 +5,12 @@
     <form (ngSubmit)="UpdateTaskOrProjectContectItem(f)" #f="ngForm">
       <p *ngIf="!header"> תאריך:</p>
       <div *ngIf="!header" class="form-outline d-flex justify-content-center ">
+        <!-- <div class="InputWithText"> -->
+          <p class="date">תאריך </p>
         <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
           class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" ngModel
           required>
+        <!-- </div> -->
       </div>
         <p class="p-autocomplete"> פרוייקט:</p>
         <div class="autocomplete">

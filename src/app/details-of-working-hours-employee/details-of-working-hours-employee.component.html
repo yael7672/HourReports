@@ -13,10 +13,16 @@
     <ng-container *ngIf="showInputsDates">
       <div class="form-group ">
         <div class="input-group input-daterange">
-          <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
-            [(ngModel)]="fromDate" placeholder="מתאריך">
+          <!-- <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"
+            (ngModelChange)="fromDate = $event">
           <div class="input-group-addon">עד - </div>
-          <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
+          <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"
+            (ngModelChange)="untilDate = $event"> -->
+
+          <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
+            [(ngModel)]="fromDate" placeholder="מתאריך" max="{{todayDate | date: 'yyyy-MM-dd'}}">
+          <div class="input-group-addon">עד - </div>
+          <input type="text" class="form-control" onmouseover="this.type='date'" max="{{todayDate | date: 'yyyy-MM-dd'}}" placeholder="לתאריך"
             [(ngModel)]="untilDate">
         </div>
         <button (click)="sortByDateRange()" placement="right" ngbTooltip="מיין מידע בין טווח התאריכים"

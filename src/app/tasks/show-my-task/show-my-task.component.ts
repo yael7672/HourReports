@@ -1,3 +1,6 @@
+import { style } from '@angular/animations';
+import { NgStyle } from '@angular/common';
+import { HtmlTagDefinition } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwPush } from '@angular/service-worker';
@@ -27,7 +30,7 @@ export class ShowMyTaskComponent implements OnInit {
   taskDateRecords: any;
   systemGuid: any;
   interval: any;
-  taskArr!: any;
+  taskArr!: Task[];
   taskArrCopy: any;
   sortTaskArr: any;
   ifThereAreTasks = false;
@@ -48,7 +51,6 @@ export class ShowMyTaskComponent implements OnInit {
   ifThereAreprojectContentItem = false;
   ifUpdateOpen = false;
   ifAdmin: any;
-  img=''
   employeeDetails: any;
   systemGuidFromLocalStorage: any;
   employeeDetailsParseJson: any;
@@ -58,21 +60,33 @@ export class ShowMyTaskComponent implements OnInit {
   showMyProjects = true;
   myProjectArr!: Project[]
   image!: any;
-  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
-    private appService: AppService, private userService: UserServiceService, private route: Router) {
+  ifThereNewTasks!:boolean
+  MyNewTaskArr: any[]=[];
+  readonly VAPID_PUBLIC_KEY = "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
 
+  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,  
+    private appService: AppService, private userService: UserServiceService, private route: Router,
+    private swPush: SwPush) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
     if (localStorage.getItem('DateNow')) {
-      this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
+      this.startWorkOfTask = localStorage.getItem('DateNow')?true:false;
     }
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
         this.GetMyTask()
     })
+    this.popUpService.getAllMyNewTask().subscribe(res => {
+      this.ifThereNewTasks = res ? res : false;
+ 
+    })
   }
   ngOnInit(): void {
+    this.GetMyNewTasks()
+    // if (this.ifThereNewTasks = true) {
+    //   this.notifyMeMyNewTask()
+    // }
     this.GetProject();
     this.GetWorkType();
     this.GetMyTask();
@@ -82,28 +96,6 @@ export class ShowMyTaskComponent implements OnInit {
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuidFromLocalStorage = localStorage.getItem('systemGuid');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    // this.notifyMe()
-  }
-  notifyMe() {
-    if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
-    } else if (Notification.permission === "granted") {
-      const notification = new Notification("נוצרה לך משימה חדשה!",
-        {
-          body: 'מה שלומך?',
-          icon: '../../../assets/images/2387679.png'
-        });
-    } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          const notification = new Notification("נוצרה לך משימה חדשה!",
-            {
-              body: 'מה שלומך?',
-              icon: ''
-            });
-        }
-      });
-    }
     // this.requestSubscription();
     const subscription = {
       endpoint:
@@ -115,6 +107,63 @@ export class ShowMyTaskComponent implements OnInit {
       },
   };
   }
+ 
+  GetMyNewTasks() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userService.GetMyNewTasks(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+          this.MyNewTaskArr = res;
+          console.log("משימות חדשות");
+          
+          console.log( this.MyNewTaskArr)
+          this.MyNewTaskArr.sort((a: any, b: any) => {
+            const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
+            const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
+            debugger
+            return (sortValueTimestampA > sortValueTimestampB ? 1 : -1) 
+           })
+          if (this.MyNewTaskArr.length <=0) {
+            this.popUpService.setAllMyNewTask(true)
+        
+          }
+          else {
+            this.popUpService.setAllMyNewTask(false) 
+               if (this.ifThereNewTasks = true) {
+              this.notifyMeMyNewTask()
+            }
+          }
+        }
+      }, err => {
+        console.log(err.error)
+      }
+    )
+  }
+  toTimestamp(sortValue: any) {
+    var datum = Date.parse(sortValue);
+    return datum / 1000;
+  }
+
+  notifyMeMyNewTask() {
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") {
+      const notification = new Notification("יש לך משימה/ות חדשה/ות !",{
+        body:"שם המשימה: "+this.MyNewTaskArr[0]?.Subject,
+        icon:'../../../assets/images/2387679.png'
+      });
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          const notification = new Notification("יש לך משימה/ות חדשה/ות !",{
+            body:"שם המשימה: "+this.MyNewTaskArr[0]?.Subject,
+            icon:'../../../assets/images/2387679.png'
+          });
+        }
+      });
+    }
+  }
+
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
       (res: any) => {
@@ -123,8 +172,23 @@ export class ShowMyTaskComponent implements OnInit {
       (err: any) =>
         console.log(err.error)
     )
-  }
+  } 
 
+  // requestSubscription = () => {
+  //   if (!this.swPush.isEnabled) {
+  //     console.log("Notification is not enabled.");
+  //     return;
+  //   }
+
+  //   this.swPush.requestSubscription({
+  //     serverPublicKey: '<VAPID_PUBLIC_KEY_FROM_BACKEND>'
+  //   }).then((_) => {
+  //     console.log(JSON.stringify(_));
+  //   }).catch((_) => console.log);
+  // };
+  // notifyMe() {
+
+ 
 
   SelectedTask(val: any) {
     if (!this.startWorkOfTask) {
@@ -276,7 +340,7 @@ export class ShowMyTaskComponent implements OnInit {
   }
   // מפה חיפוש ומיון
   WhichTableOpen(val: any) {
-    if (val == "") {
+    if (val == 0) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/menu/show-my-task', this.systemGuid]);
     }
@@ -286,7 +350,7 @@ export class ShowMyTaskComponent implements OnInit {
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
+      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
     }
   }
   onSearchTask(filterKeyBySubject: any) {
@@ -330,5 +394,4 @@ export class ShowMyTaskComponent implements OnInit {
         console.log(err.error);
       })
   }
-
 }

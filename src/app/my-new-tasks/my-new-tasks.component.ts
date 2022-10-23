@@ -30,7 +30,7 @@ export class MyNewTasksComponent implements OnInit {
   ifThereNewTasks = false
   IfThereTask: any;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private router: Router, private popUpService: PopUpServiceService,
-    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService
+    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService,private SwPush:SwPush
     , private datePipe: DatePipe) {
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
@@ -74,22 +74,28 @@ export class MyNewTasksComponent implements OnInit {
       res => {
         if (res) {
           this.MyNewTaskArr = res;
+          this.MyNewTaskArr.sort((a: any, b: any) => {
+            const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
+            const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
+            debugger
+            return (sortValueTimestampA > sortValueTimestampB ? 1 : -1) 
+           })
+          if (this.MyNewTaskArr.length <=0) {
 
-          if (this.MyNewTaskArr.length <= 0) {
             this.popUpService.setAllMyNewTask(true)
           }
           else {
             this.popUpService.setAllMyNewTask(false)
           }
-
         }
       }, err => {
         console.log(err.error)
-        // if (err.error = "'tasks' is null!") {
-        //   this.popUpService.setAllMyNewTask(true)
-        // }
       }
     )
+  }
+  toTimestamp(sortValue: any) {
+    var datum = Date.parse(sortValue);
+    return datum / 1000;
   }
   closePopUp() {
     this.appService.setIsPopUpOpen(false);
@@ -103,7 +109,7 @@ export class MyNewTasksComponent implements OnInit {
     this.closePopUp()
     this.popUpService.setAllmyTask(true)
     this.detailsTask = val
-    let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute, this.popUpService, this.appService, this.userService, this.router)
+    let showMyTaskComp = new ShowMyTaskComponent(this.activatedRoute, this.popUpService, this.appService, this.userService, this.router,this.SwPush)
     showMyTaskComp.SelectedTask(this.detailsTask)
     this.UpdateTaskHasRead(this.detailsTask.TaskGuid)
   }

@@ -175,6 +175,14 @@ svg#clock-history {
     padding-right: 4px;
 }
 
+.ThereNoInPause {
+    color: rgb(0, 0, 0);
+}
+
+.ThereInPause{
+    color: red;
+}
+
 .icons {
     display: flex;
     flex-direction: row;

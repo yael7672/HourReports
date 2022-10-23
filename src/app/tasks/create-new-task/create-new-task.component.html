@@ -5,8 +5,11 @@
         </h4>
         <form (ngSubmit)="f.valid && CreateNewTask(f)" #f="ngForm">
             <div class="form-outline d-flex justify-content-center">
+                <div class="InputWithText">
+                    <p class="date">תאריך התחלה</p>
                 <input type="date" id="date" name="date" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"
                     placeholder="תאריך " />
+                </div>
             </div>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Subject" name="Subject" class="form-control" placeholder="נושא המשימה*"
@@ -55,7 +58,6 @@
                 <select id="inputState" class="form-control" name="BillableHours" #billableHours="ngModel" ngModel 
                 [ngClass]="{ 'is-invalid': f.submitted && billableHours.invalid }" required>
                     <option value="">האם שעות לחיוב?</option>
-
                     <option value="1">כן </option>
                     <option value="2">לא</option>
                     <option value="970140002">אחר</option>
