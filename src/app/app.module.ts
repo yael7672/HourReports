@@ -16,10 +16,12 @@ import { SmartCardComponent } from './smart-card/smart-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     LoginComponent,
     AppComponent,
+
   
    
   ],

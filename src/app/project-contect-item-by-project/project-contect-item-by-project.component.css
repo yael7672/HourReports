@@ -1,0 +1,44 @@
+.inputDate {
+    width: fit-content;
+}
+.dateRange{
+    display: flex; 
+    justify-content: center;
+    direction:rtl;
+}
+.input-group-addon {
+    padding: 0.5rem
+}
+
+.label {
+    border-color: orange;
+}
+
+.form-control {
+    width: 16rem;
+}
+
+.all-canvas-page {
+    display: flex;
+    direction: rtl;
+    flex-wrap: wrap;
+}
+
+.select-input {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    justify-content: center;
+}
+
+
+
+.input-group.input-daterange { 
+       width: 20rem;
+}
+.form-group {
+    display: flex;
+}
+button.btn.btn-color{
+    margin-right: 1rem;
+}

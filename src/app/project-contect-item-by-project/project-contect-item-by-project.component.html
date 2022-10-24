@@ -1,0 +1,55 @@
+<app-tab-nav-menu [tabLink]="tabLink"></app-tab-nav-menu>
+<h2>
+    פרויקטים <img src="../../../assets/images/2387679.png" width="80px" height="95px" alt="">
+</h2>
+<div class="select-table">
+    <select id="inputState-1" class="form-control" ngModel
+        (ngModelChange)="selectTimeProjectContectItemByProject($event)">
+        <option value=""> הכל </option>
+        <option value="2"> היום </option>
+        <option value="3"> החודש </option>
+        <option value="4"> השבוע </option>
+        <option value="5"> לפי טווח תאריכים </option>
+    </select>
+</div>
+<button (click)="ExportDataProjectContectItemToExcel()" class="btn btn-color">חפש</button>
+
+
+<div class="dateRange">
+    <div class="form-outline  inputDate ">
+        <ng-container *ngIf="selectDate">
+            <div class="form-group ">
+                <div class="input-group input-daterange">
+                    <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
+                        [(ngModel)]="fromDate" placeholder="מתאריך">
+                    <div class="input-group-addon">עד - </div>
+                    <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
+                        [(ngModel)]="untilDate">
+                </div>
+                <button (click)="SortProjectProjectContectItemyDateRange($event)" class="btn btn-color">חפש</button>
+            </div>
+
+        </ng-container>
+    </div>
+</div>
+<!-- עד לפה חיפוש ומיון-->
+<!-- הפרויקטים שלי -->
+
+<app-smart-card>
+
+    <div body>
+
+        <app-smart-table [ifShowpagination]="[true,10]" [hideSort]="true"
+            [thArr]="thArrTableProjectContentItemByProject" [tableDataKeys]="projectContentItemByProjectListKeys"
+            [tableData]="ProjectContectItemByProjectArr" [showMassgeToUserDeleteTask]="true">
+
+        </app-smart-table>
+        <div *ngIf="ProjectContectItemByProjectArr?.length==0">
+            <br>
+            <h2> לא נמצאו פרויקטים!</h2>
+        </div>
+        <div *ngIf=" !ProjectContectItemByProjectArr">
+            <h2>רק רגע...</h2>
+        </div>
+    </div>
+</app-smart-card>
