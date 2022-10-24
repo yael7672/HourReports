@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert';
 import { ProjectContentItem } from '../interfacees/project-content-item';
 import { UserServiceService } from '../user-service.service';
+import * as XLSX from 'xlsx'; 
 
 @Component({
   selector: 'app-project-contect-item-by-project',
@@ -24,23 +25,26 @@ export class ProjectContectItemByProjectComponent implements OnInit {
   ProjectContectItemByProjectArr!: ProjectContentItem[]
   thArrTableProjectContentItemByProject = ['שם', 'תאריך', 'תאור', 'שעות לחיוב?', 'משך', 'סוג עבודה'];
   projectContentItemByProjectListKeys = ['Name', 'Date', 'Description', 'BillableHours', 'WorkingHours', ['WorkType', 'Name']];
+  EmployeeGuid: any;
 
   constructor(public activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.EmployeeGuid = this.activatedRoute.snapshot.paramMap.get('userId');
+
     this.tabLink = [
-      { title: 'פריטי תכולת פרויקט לפי פרויקט', fragment: '/menu/project-contect-item-by-project/' + this.id },
-      { title: 'כללי', fragment: '/menu/specific-project-details/' + this.id },
+      { title: 'פריטי תכולת פרויקט לפי פרויקט', fragment: '/menu/project-contect-item-by-project/' + this.id  +'/'+ this.EmployeeGuid },
+      { title: 'כללי', fragment: '/menu/specific-project-details/' + this.id  +'/'+  this.EmployeeGuid},
     ];
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.untilDate = this.todayDate
     this.fromDate = this.todayDate
-
+    
   }
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem("systemGuid")
+
     this.GetProjectContectItemByProjectAndBySystemUser("1")
-    this.fileName = "דיווחי שעות"
   }
   selectTimeProjectContectItemByProject(val: any) {
     if (val == "2" || val == "3" || val == "4" || val == "5") {
@@ -59,7 +63,7 @@ export class ProjectContectItemByProjectComponent implements OnInit {
 
 
   async GetProjectContectItemByProjectAndBySystemUser(SelectedTime: any) {
-    this.userService.GetProjectContectItemByProjectAndBySystemUser(this.systemGuid, this.id, SelectedTime, "", "").then(res => {
+    this.userService.GetProjectContectItemByProjectAndBySystemUser(this.EmployeeGuid, this.id, SelectedTime, "", "").then(res => {
       if (res) {
         this.ProjectContectItemByProjectArr = res;
       }
@@ -88,6 +92,14 @@ export class ProjectContectItemByProjectComponent implements OnInit {
   }
 
   ExportDataProjectContectItemToExcel() {
+    let element = document.getElementById('excel-table'); 
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    /* save to file */
+    this.fileName= 'ExcelSheet.xlsx'; 
+    XLSX.writeFile(wb, this.fileName);
 
   }
 }

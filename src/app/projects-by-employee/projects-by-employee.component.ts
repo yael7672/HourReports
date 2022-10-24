@@ -95,7 +95,8 @@ export class ProjectsByEmployeeComponent implements OnInit {
     // this.ProjectManagerOrHeadProgrammerArr = [...this.ProjectManagerOrHeadProgrammerArrCopy];
     if (filterKey !== "" && filterKey !== null && filterKey !== undefined) {
       // this.ProjectManagerOrHeadProgrammerArr = this.ProjectManagerOrHeadProgrammerArr.filter((f: ownerid) => f?.Name.includes(filterKey.Name));
-      this.systemGuid = filterKey.Guid
+      this.systemGuid = filterKey.Guid;
+      localStorage.setItem('EmployeeGuid',  this.systemGuid);
       this.getMyProject("All")
     }
     // this.getTaskAfterSort();
@@ -107,7 +108,7 @@ export class ProjectsByEmployeeComponent implements OnInit {
 
   SelectedProject(specificProject: any) {
     console.log(specificProject)
-    this.route.navigate(['/menu/specific-project-details', specificProject.Guid])
+    this.route.navigate(['/menu/specific-project-details', specificProject.Guid ,specificProject.OwnerId.Guid])
 
   }
 }

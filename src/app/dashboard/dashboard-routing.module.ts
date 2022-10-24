@@ -71,8 +71,8 @@ const routes: Routes = [
             { path: 'details-of-working-hours-employee-for-admin/:id', component: DetailsOfWorkingHoursEmployeeForAdminComponent },
             { path: 'system-setting', component: SystemSettingComponent },
             { path: 'projects-by-employee', component: ProjectsByEmployeeComponent },
-            { path: 'project-contect-item-by-project/:id', component: ProjectContectItemByProjectComponent },
-            { path: 'specific-project-details/:id', component: SpecificProjectDetailsComponent }
+            { path: 'project-contect-item-by-project/:id/:userId', component: ProjectContectItemByProjectComponent },
+            { path: 'specific-project-details/:id/:userId', component: SpecificProjectDetailsComponent }
 
 
         ]

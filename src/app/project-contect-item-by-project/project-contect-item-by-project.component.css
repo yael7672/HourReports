@@ -42,3 +42,6 @@
 button.btn.btn-color{
     margin-right: 1rem;
 }
+.btnExport{
+    display: flex;
+}

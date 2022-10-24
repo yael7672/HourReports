@@ -39,6 +39,7 @@ export class SmartTableComponent implements OnInit {
   @Input() showMassgeToUserDeleteTask: any
   @Input() showEmployeeProductivityForMonth!: boolean;
   @Input() showEmployeeImageProfil!: boolean;
+  @Input() id:any
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
   @Output() SortTableDown = new EventEmitter<any>();

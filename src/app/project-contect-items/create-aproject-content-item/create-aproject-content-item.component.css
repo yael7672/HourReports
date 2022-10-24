@@ -3,7 +3,6 @@
     text-align: right;
     position: relative;
     top: -10px;
-
 }
 
 .form-outline .autoComplete {
@@ -38,4 +37,14 @@ label {
 .p-in-input-date {
     position: absolute;
 }
+/* 
+.button2{
+    display: flex;
+} */
+.btn{
+    /* display: flex; */
+    justify-content: center;
+    position: initial;
+    margin-top: 10px;
 
+}

@@ -17,13 +17,15 @@ export class SpecificProjectDetailsComponent implements OnInit {
   tabLink!: any[]
   id: any
   titleCard:any="פרטי פרויקט"
+  EmployeeGuid:any;
   constructor(private userService: UserServiceService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-
+    this.EmployeeGuid = this.activatedRoute.snapshot.paramMap.get('userId');
+    this.projectGuid = this.activatedRoute.snapshot.paramMap.get('id');
     this.tabLink = [
-      { title: 'פריטי תכולת פרויקט לפי פרויקט', fragment: '/menu/project-contect-item-by-project/' + this.id },
-      { title: 'כללי', fragment: '/menu/specific-project-details/' + this.id },
+      { title: 'פריטי תכולת פרויקט לפי פרויקט', fragment: '/menu/project-contect-item-by-project/' + this.id +'/'+ this.EmployeeGuid },
+      { title: 'כללי', fragment: '/menu/specific-project-details/' + this.id  +'/'+  this.EmployeeGuid },
 
     ];
   }
@@ -36,14 +38,14 @@ export class SpecificProjectDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.systemGuid = localStorage.getItem('systemGuid');;
-    this.projectGuid = this.activatedRoute.snapshot.paramMap.get('id');
+
+    
     this.GetProjectByGuid()
 
   }
 
   GetProjectByGuid(){
-      this.userService.GetProjectByGuid(this.systemGuid, this.projectGuid).then(res => {
+      this.userService.GetProjectByGuid(this.EmployeeGuid, this.projectGuid).then(res => {
         if (res) {
           this.ProjectArr = res;
         }

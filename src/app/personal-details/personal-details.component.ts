@@ -85,10 +85,10 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
 
-  goToSystemSetting() {
+  openProjects() {
     this.route.navigate(['/menu/projects-by-employee'])
   }
-  openProjects() {
+ goToSystemSetting () {
     this.route.navigate(['/menu/system-setting'])
 
   }

@@ -12,8 +12,9 @@
         <option value="5"> לפי טווח תאריכים </option>
     </select>
 </div>
-<button (click)="ExportDataProjectContectItemToExcel()" class="btn btn-color">חפש</button>
-
+<div class="btnExport">
+<button (click)="ExportDataProjectContectItemToExcel()" class="btn btn-color">יצא נתונים לקובץ Excel</button>
+</div>
 
 <div class="dateRange">
     <div class="form-outline  inputDate ">
@@ -38,8 +39,7 @@
 <app-smart-card>
 
     <div body>
-
-        <app-smart-table [ifShowpagination]="[true,10]" [hideSort]="true"
+        <app-smart-table [id]="'excel-table'" [ifShowpagination]="[true,10]" [hideSort]="true"
             [thArr]="thArrTableProjectContentItemByProject" [tableDataKeys]="projectContentItemByProjectListKeys"
             [tableData]="ProjectContectItemByProjectArr" [showMassgeToUserDeleteTask]="true">
 

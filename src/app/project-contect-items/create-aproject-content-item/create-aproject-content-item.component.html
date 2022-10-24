@@ -1,11 +1,11 @@
-<app-pop-up #upPopUP  [ifX]="true" (ClickCancel)="CancelProjectContectItem()">
+<app-pop-up #upPopUP [ifX]="true" (ClickCancel)="CancelProjectContectItem()">
     <div body>
         <h4 header class="mb-4">יצירת דיווח
             <img class="image" src="../../../assets/images/4228724.png">
         </h4>
-        <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm" >
+        <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
             <!-- <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime"> -->
-            <div class="checkbox" >
+            <div class="checkbox">
                 <label for="vehicle1"> לדיווח על מספר עובדים </label>
                 <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked"
                     (change)="checkIfReportMoreEmployees(isChecked)">
@@ -33,19 +33,21 @@
                 class="form-outline d-flex justify-content-center">
                 <div class="InputWithText">
                     <p class="date">תאריך </p>
-                <input type="date" class="form-control" id="oneDate" name="oneDate"
-                    [ngModel]=" todayDate| date: 'yyyy-MM-dd'" value="" max="{{todayDate | date: 'yyyy-MM-dd'}}" (ngModelChange)="oneDate = $event">
+                    <input type="date" class="form-control" id="oneDate" name="oneDate"
+                        [ngModel]=" todayDate| date: 'yyyy-MM-dd'" value="" max="{{todayDate | date: 'yyyy-MM-dd'}}"
+                        (ngModelChange)="oneDate = $event">
                 </div>
 
-                </div>
+            </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime&&dateToUpdate"
                 class="form-outline d-flex justify-content-center">
                 <div class="InputWithText">
                     <p class="date">תאריך </p>
-                <input type="date" class="form-control" id="oneDate" name="oneDate" 
-                    [ngModel]=" dateToUpdate| date: 'yyyy-MM-dd'" value="" max="{{todayDate | date: 'yyyy-MM-dd'}}"(ngModelChange)="oneDate = $event">
+                    <input type="date" class="form-control" id="oneDate" name="oneDate"
+                        [ngModel]=" dateToUpdate| date: 'yyyy-MM-dd'" value="" max="{{todayDate | date: 'yyyy-MM-dd'}}"
+                        (ngModelChange)="oneDate = $event">
                 </div>
-                </div>
+            </div>
             <div class="form-outline d-flex justify-content-center">
                 <input type="text" id="Subject" name="Name" class="form-control" placeholder="נושא" ngModel
                     #subject="ngModel" [(ngModel)]="subject1"
@@ -83,8 +85,9 @@
             <ng-container *ngIf="KindPopUpUpdateProjectContectItemWithTime">
                 <div class="form-outline d-flex justify-content-center">
                     <input type="number" id="ActualTime" name="ActualTime" class="form-control" placeholder="שעות בפועל"
-                        required ngModel #ActualTime="ngModel" 
-                        [ngClass]="{ 'is-invalid': f.submitted && ActualTime.invalid }" [ngModel]="actualTime |number" (ngModel)="actualTime">
+                        required ngModel #ActualTime="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && ActualTime.invalid }" [ngModel]="actualTime |number"
+                        (ngModel)="actualTime">
                 </div>
                 <div *ngIf="f.submitted && ActualTime.invalid" class="text-danger">
                     <span *ngIf="ActualTime.errors">שדה זה חובה</span>
@@ -135,12 +138,13 @@
 
             <button type="submit" class="btn" [disabled]="isDisabled" placement="top" ngbTooltip=" יצירת דיווח">צור
                 דיווח</button>
+     
         </form>
-        <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItemRepeat(f)" #f="ngForm" >
-
-        <button type="submit" class="btn" [disabled]="isDisabled" placement="top" ngbTooltip=" יצירת דיווח">שמור וצור חדש
-            </button>
-        </form>
+       <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItemRepeat(f)" #f="ngForm">
+                <button type="submit" class="btn button2" [disabled]="isDisabled" placement="top"
+                    ngbTooltip="יצירת דיווח">שמור וצור חדש
+                </button>
+            </form>
     </div>
     <div footer>
     </div>

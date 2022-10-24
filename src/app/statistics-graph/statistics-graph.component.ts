@@ -52,6 +52,8 @@ export class StatisticsGraphComponent implements OnInit {
     this.GetMyProjectContentItemByTimeLineChart(this.showThisWeek)
 
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.untilDate=this.todayDate
+    this.fromDate= this.todayDate
     this.LineChart1 = new Chart('lineChart', {
       type: 'line',
       data: {
