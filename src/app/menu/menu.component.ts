@@ -70,7 +70,7 @@ export class MenuComponent implements OnInit {
   isUnder1100: boolean;
   ProjectTypeArr: any;
   DateNowPause: any
-  youAreInPause !:boolean
+  youAreInPause = false
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -89,12 +89,15 @@ export class MenuComponent implements OnInit {
       this.ifThereNewTasks = res;
       this.GetMyNewTasks();
     })
-    this.DateNowPause=localStorage.getItem("DateNowPause")
+    this.DateNowPause = localStorage.getItem("DateNowPause")
     if (this.DateNowPause) {
       this.popUpService.setInPause(true);
+
     }
     this.popUpService.getInPause().subscribe(res => {
-      this.youAreInPause = res ;
+      this.youAreInPause = res;
+      console.log("this.youAreInPause")
+      console.log(this.youAreInPause)
     })
     this.popUpService.getNavBar().subscribe(res => {
       this.showNavBar = res ? res : false;

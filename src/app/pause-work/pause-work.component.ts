@@ -258,6 +258,7 @@ export class PauseWorkComponent implements OnInit {
     this.showMassgeToUserCancelPause = false
   }
   clickYesCancel(time: any) {
+    this.popUpService.setInPause(false);
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
       clearInterval(this.interval);
