@@ -45,3 +45,6 @@ button.btn.btn-color{
 .btnExport{
     display: flex;
 }
+#excel-table{
+    color: blue;
+}
