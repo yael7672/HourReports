@@ -101,6 +101,8 @@ export class ProjectContectItemByProjectComponent implements OnInit {
     /* save to file */
     this.fileName= 'ExcelSheet.xlsx'; 
     XLSX.writeFile(wb, this.fileName);
+  }
+  ExportDataProjectContectItemToExcel2() {
 
   }
 }
