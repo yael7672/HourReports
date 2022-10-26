@@ -78,6 +78,12 @@
     font-size: 40px
 }
 
+.fa-cog {
+    padding: 1rem;
+    font-size: 50px
+}
+
+
 
 .fa-search {
     padding-top: 0.5rem;
@@ -93,6 +99,7 @@
 .my-3 {
     margin-top: 0rem !important;
 }
+
 .fa-bell {
     font-size: 38px;
 }
@@ -103,9 +110,11 @@
         margin-top: 6rem;
     }
 
-    
-    .fa-sign-out,.fa-bell ,i.fa.fa-bars {
-        
+
+    .fa-sign-out,
+    .fa-bell,
+    i.fa.fa-bars {
+
         font-size: 30px;
     }
 
@@ -129,7 +138,7 @@
 }
 
 .iconify {
-    font-size: 31px;
+    font-size: 28px;
     /* padding: 1rem; */
     margin: 0.8rem;
     margin-bottom: 1.5rem;
@@ -179,7 +188,7 @@ svg#clock-history {
     color: rgb(0, 0, 0);
 }
 
-.ThereInPause{
+.ThereInPause {
     color: red;
 }
 
@@ -211,21 +220,23 @@ svg#clock-history {
 
 
 body {
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
 }
+
 a {
-  text-decoration: none;
-  color: #1E1E23;
-  opacity:1;
-  font-family: 'work sans', sans serif;
-  font-size: 1.5em;
-  font-weight: 400;
-  transition: 200ms;
+    text-decoration: none;
+    color: #1E1E23;
+    opacity: 1;
+    font-family: 'work sans', sans serif;
+    font-size: 1.5em;
+    font-weight: 400;
+    transition: 200ms;
 }
+
 a:hover {
-  opacity:0.5;
+    opacity: 0.5;
 }
 
 .side-nav-bar {
@@ -236,30 +247,32 @@ a:hover {
     left: 0;
     right: 0;
 }
-    .side-nav-bar-overlay {
-        background: rgba(0,0,0,0.5);
-        width: 100%;
-        height: 100%;
-    }
 
-    .side-nav-bar-menu-container {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        background: #FFF;
-        display: flex;
-        flex-direction: column;
-        width: 6rem;
-    }
-        .side-nav-bar-close {
-            display: inline-block;
-            font-size: 2.5em;
-            margin: 24px 0px 0px 24px;
-            cursor: pointer;
-        }
-    
+.side-nav-bar-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+}
 
-   
+.side-nav-bar-menu-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    width: 6rem;
+}
+
+.side-nav-bar-close {
+    display: inline-block;
+    font-size: 2.5em;
+    margin: 24px 0px 0px 24px;
+    cursor: pointer;
+}
+
+
+
 
 .side-nav-bar-overlay-collapsed {
     background: transparent !important;
@@ -268,13 +281,16 @@ a:hover {
 .side-nav-bar-collapsed {
     visibility: collapse !important;
 }
+
 a.close {
     font-size: 2em;
     margin-top: 1rem;
 }
-.close{
+
+.close {
     width: 90%;
 }
+
 .side-nav-bar-content-container {
     padding: 25px;
     display: flex;

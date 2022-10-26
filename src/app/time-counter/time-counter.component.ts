@@ -55,11 +55,22 @@ export class TimeCounterComponent implements OnInit {
   projectContentItemArr: any;
   projectContectItemByGuidDeatils: any;
   latest_date: any;
+  myDate = new Date();
+  todayDate: any;
+  openTasks!: any[]
+  TaskGuid: any;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router, private appService: AppService) {
     this.popUpService.getInPause().subscribe(res => {
       this.ifInPause = res;
     })
+    this.popUpService.getOpenTaskPopUp().subscribe(res => {
+      this.openTasks = res;
+      console.log("this.openTasks")
+      console.log(this.openTasks)
+    })
+    this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+
   }
 
   ngOnInit(): void {
@@ -90,6 +101,7 @@ export class TimeCounterComponent implements OnInit {
         this.IftaskForTeam = false;
       else
         this.IftaskForTeam = true;
+      this.taskListDataDetailsParseToJson.Date = this.todayDate
       this.userService.CreateProjectContentItemByTaskGuid(this.systemGuid, this.taskListDataDetailsParseToJson.TaskGuid, this.IftaskForTeam).subscribe(res => {
         if (res) {
           this.popUpService.setStartTimer(true);
@@ -231,7 +243,7 @@ export class TimeCounterComponent implements OnInit {
                 this.workTime = ["00:00:00"];
                 this.popUpService.SetProjectContentItemByTaskGuid(true)
                 this.popUpService.SetWorkTimeAfterProjectContectItem(true);
-                this.hideStartAndShowCancelProjectContectItem = true;
+                this.hideStartAndShowCancelProjectContectItem = false;
 
               }
             },
@@ -242,6 +254,7 @@ export class TimeCounterComponent implements OnInit {
       }
     }
   }
+
   endTimer(time: any) {
     this.popUpService.setStartTimer(false);
     this.disabledPauseButton = true;
@@ -302,8 +315,6 @@ export class TimeCounterComponent implements OnInit {
   delayProjectContectItenOnTask(time: any) {
     this.hideDelayAndShowRenewProjectContectItemOnTask = true
     this.timePauseInterval = time
-    // 
-
     this.popUpService.setStartTimer(false);
     this.disabledPauseButton = true;
     this.disabledStartButton = false;
@@ -325,11 +336,18 @@ export class TimeCounterComponent implements OnInit {
       this.openSpecificTaskDetails.Time = this.timetoSend ? this.timetoSend : 0
       this.openSpecificTaskDetails.ProjectContectItemGuid = this.projectContectItemGuid ? this.projectContectItemGuid : ""
       this.openTasksDetails.push(this.openSpecificTaskDetails)
+      this.TaskGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      // this.openTasks.push(this.openSpecificTaskDetails.ProjectContectItemGuid, this.TaskGuid,true)
+      this.popUpService.setOpenTaskPopUp(this.openSpecificTaskDetails.ProjectContectItemGuid, this.TaskGuid, true)
+      //לשים אחרי שהמשימה נסגרת 
+      //   this.openTasks.forEach((element,index)=>{ 
+      //   if(element.TaskGuid == "") delete this.openTasks[index];
+      //  });
+
       let DatePauseTask = Date.now()
       localStorage.setItem('DatePauseTask', DatePauseTask.toString())
-
       localStorage.setItem('openTasksDetails', JSON.stringify(this.openTasksDetails))
-      console.log(this.openTasksDetails);
+      // console.log(this.openTasksDetails);
 
       this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : 0, this.taskListDataDetailsParseToJson.TaskGuid,
         this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
@@ -348,6 +366,7 @@ export class TimeCounterComponent implements OnInit {
     }
   }
 
+
   renewProjectContectItenOnTask(workTime: any) {
     this.hideDelayAndShowRenewProjectContectItemOnTask = false
     // this.hideStartAndShowCancelProjectContectItem = false
@@ -362,6 +381,19 @@ export class TimeCounterComponent implements OnInit {
         }
       });
     })
+
+
+
+
+
+
+
+    // 
+    // 
+    // 
+    // 
+    // 
+
     this.ContinueToWorkOnATask2()
     // this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
     // this.latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
@@ -398,19 +430,7 @@ export class TimeCounterComponent implements OnInit {
 
 
 
-  //  async GetProjectContentItemByGuid(ProjectContectItemGuid: any) {
-  //     this.userService.GetProjectContentItemByGuid(ProjectContectItemGuid).then(res => {
-  //       if (res) {
-  //         this.projectContectItemByGuidDeatils = res;
-  //         // const timestampCreatOn = new Date(this.projectContectItemByGuidDeatils.CreatedOn)
-  //         // const timestampNow = (new Date(Date.now()))
-  //         // this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
-  //         // this.latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
-  //         // alert( this.latest_date);
-  //         // localStorage.setItem('WorkTimePause', this.workTimeHour)
-  //       }
-  //     })
-  //   }
+
 
 
 }

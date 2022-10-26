@@ -23,8 +23,14 @@ export class PersonalDetailsComponent implements OnInit {
   MessageToTheManagerRes: any;
   IfMessageToTheManager = false
   image: any;
-
-  constructor(public route: Router, private appService: AppService, private popUpService: PopUpServiceService, private userService: UserServiceService) { }
+  // showBackUserMode = false
+  isAdminMode = false
+  constructor(public route: Router, private appService: AppService, private popUpService: PopUpServiceService
+    , private userService: UserServiceService) {
+    this.popUpService.getIsAdminMode().subscribe(res => {
+      this.isAdminMode = res;
+    })
+  }
 
   ngOnInit(): void {
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -35,7 +41,6 @@ export class PersonalDetailsComponent implements OnInit {
 
   }
   LogOut() {
-
     localStorage.clear();
     this.route.navigate(['/menu/login'])
   }
@@ -61,9 +66,7 @@ export class PersonalDetailsComponent implements OnInit {
       }
     )
   }
-  goToEmployeeReport() {
-    this.route.navigate(['/menu/employee-report'])
-  }
+ 
   goToDetailsOfWorkingHours() {
     this.popUpService.setNavBar(false);
     this.route.navigate(['/menu/details-of-working-hours-employee', this.systemGuid])
@@ -73,7 +76,6 @@ export class PersonalDetailsComponent implements OnInit {
       res => {
         if (res) {
           this.MessageToTheManagerRes = res
-
         }
       }, err => {
         console.log(err.error)
@@ -85,12 +87,14 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
 
-  openProjects() {
-    this.route.navigate(['/menu/projects-by-employee'])
-  }
- goToSystemSetting () {
-    this.route.navigate(['/menu/system-setting'])
+
+  SwitchToAdminMode() {
+    this.popUpService.setIsAdminMode(true);
+    this.route.navigate(['/menu/show-my-task', this.systemGuid])
 
   }
-
+  SwitchToUserMode(){
+    this.popUpService.setIsAdminMode(false);
+    this.route.navigate(['/menu/show-my-task', this.systemGuid])
+  }
 }

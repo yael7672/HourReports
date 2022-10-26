@@ -71,6 +71,7 @@ export class MenuComponent implements OnInit {
   ProjectTypeArr: any;
   DateNowPause: any
   youAreInPause = false
+  isAdminMode = false
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -96,8 +97,6 @@ export class MenuComponent implements OnInit {
     }
     this.popUpService.getInPause().subscribe(res => {
       this.youAreInPause = res;
-      console.log("this.youAreInPause")
-      console.log(this.youAreInPause)
     })
     this.popUpService.getNavBar().subscribe(res => {
       this.showNavBar = res ? res : false;
@@ -107,6 +106,9 @@ export class MenuComponent implements OnInit {
     //       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
     //     }
     //   })
+    this.popUpService.getIsAdminMode().subscribe(res => {
+      this.isAdminMode = res;
+    })
   }
   ngOnInit(): void {
 
@@ -311,5 +313,14 @@ export class MenuComponent implements OnInit {
       (err: any) =>
         console.log(err.error)
     )
+  }
+  goToEmployeeReport() {
+    this.router.navigate(['/menu/employee-report'])
+  }
+  openProjects() {
+    this.router.navigate(['/menu/projects-by-employee'])
+  }
+  goToSystemSetting() {
+    this.router.navigate(['/menu/system-setting'])
   }
 }

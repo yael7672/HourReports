@@ -30,6 +30,7 @@ export class AppService {
 
   private isLogin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  
   constructor(@Inject(DOCUMENT) private document: Document, public deviceService: DeviceDetectorService) {
     this.startListeners();
     this.setScreenResize();
@@ -114,4 +115,7 @@ export class AppService {
     return this.isLogin$;
   }
 
+
+
+  
 }

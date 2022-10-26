@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { OpenTask } from './interfacees/OpenTask';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,9 @@ export class PopUpServiceService {
   private detailsOfWorkingHoursEmployeeForAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private detailsOfWorkingHoursEmployee$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private middlePause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+  private isAdminMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isOpenTask$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([])
+  OpenTask: OpenTask[]=[]
 
   constructor() { }
 
@@ -137,4 +140,19 @@ export class PopUpServiceService {
   getInPause() {
     return this.middlePause$;
   }
+  setIsAdminMode(event: boolean) {
+    this.isAdminMode$.next(event);
+  }
+  getIsAdminMode() {
+    return this.isAdminMode$;
+  }
+
+  setOpenTaskPopUp(ProjectContectItemGuid: any, TaskGuid: any, Type: any) {
+    this.OpenTask.push({ProjectContectItemGuid:ProjectContectItemGuid,TaskGuid:TaskGuid,Type:Type})
+    this.isOpenTask$.next(this.OpenTask);
+  }
+  getOpenTaskPopUp() {
+    return this.isOpenTask$;
+  }
+
 }

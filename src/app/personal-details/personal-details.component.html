@@ -5,10 +5,15 @@
       <div class="card-body">
         <h5>אזור אישי</h5>
         <p>{{todayDate|date:'dd/MM/yyyy'}}</p>
-        <img src="{{image}}" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
-          
+        <img src="{{image}}" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px"
+          alt="profile">
+
         <h5 class="card-title">{{systemName}}</h5>
         <p class="card-text">{{systemMail}}</p>
+        <button *ngIf="!isAdminMode" (click)="SwitchToAdminMode()" placement="bottom" ngbTooltip="עבור למצב מנהל"
+          class="btn btn-color">עבור למצב מנהל</button>
+        <button *ngIf="isAdminMode" (click)="SwitchToUserMode()" placement="bottom" ngbTooltip="עבור למצב משתמש רגיל"
+          class="btn btn-color">עבור למצב משתמש רגיל</button>
       </div>
     </div>
     <div *ngIf="!systemGuid">
@@ -19,22 +24,19 @@
       <p class="card-title">סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</p>
     </div>
     <div class="icons" *ngIf="systemGuid">
-      <a (click)="openPopUpp('sickLeave',true)" placement="top" ngbTooltip="דיווח מהיר של מחלה"><i class="iconify"
-          data-icon="ic:outline-sick"></i>
+      <a (click)="openPopUpp('sickLeave',true)" *ngIf="!isAdminMode" placement="top" ngbTooltip="דיווח מהיר של מחלה"><i
+          class="iconify" data-icon="ic:outline-sick"></i>
       </a>
-      <a (click)="openPopUpp('Freedom',true)" placement="top" ngbTooltip="דיווח מהיר של חופשה"><i class="iconify"
-          data-icon="iconoir:sea-and-sun"></i>
+      <a (click)="openPopUpp('Freedom',true)" *ngIf="!isAdminMode" placement="top" ngbTooltip="דיווח מהיר של חופשה"><i
+          class="iconify" data-icon="iconoir:sea-and-sun"></i>
       </a>
-      <a (click)="goTpHoursAwaitingApproval()" placement="top"
+      <a (click)="goTpHoursAwaitingApproval()" *ngIf="!isAdminMode" placement="top"
         ngbTooltip="לצפייה ואישור של דיווחים הנדרשים לתיקון"><i class="iconify"
           data-icon="carbon:condition-wait-point"></i></a>
-      <a (click)="goToEmployeeReport()" placement="top"
-        ngbTooltip="דוח עובדים / צוותים"><i class="iconify" data-icon="carbon:report"></i></a>
-        <a (click)="goToDetailsOfWorkingHours()" class="edit-button" class="edit-button"> 
-          <i class="fa fa-clock-o" aria-hidden="true" ngbTooltip="לצפייה בתפוקה היומית שלי"></i></a>
-        <a (click)="goToSystemSetting()">  <i class="fa fa-cog mt-2" ngbTooltip="הגדרות מנהל" style="font-size: 24px;"></i></a>
-        <a (click)="openProjects()" placement="top" ngbTooltip=" פרויקטים ">
-          <i class="fa fa-cog mt-2" style="font-size: 24px;"></i></a>
+
+      <a (click)="goToDetailsOfWorkingHours()" *ngIf="!isAdminMode" class="edit-button" class="edit-button">
+        <i class="fa fa-clock-o" aria-hidden="true" ngbTooltip="לצפייה בתפוקה היומית שלי"></i></a>
+
     </div>
   </div>
 </div>

@@ -3,15 +3,14 @@
 <app-smart-card class="task-card-timer" [ifX]="false" [title]="titleCard">
   <div body>
 
-    <div class="form-outline d-flex justify-content-right ">
-      <p class="span">שם: </p>
+    <div class="form-outline d-flex justify-content-center ">
+      <p class="span">שם פרויקט: </p>
       <p>{{ProjectArr?.Name}} </p>
-
     </div>
-    <div class="form-outline d-flex justify-content-right ">
+    <!-- <div class="form-outline d-flex justify-content-right ">
       <p class="span">לקוח: </p>
       <p>{{ProjectArr?.Account?.Name}} </p>
-    </div>
+    </div> -->
     <div class="form-outline d-flex justify-content-right ">
       <p class="span">שעות לאישור: </p>
       <p>{{ProjectArr?.ConfirmedHours}} </p>
@@ -32,7 +31,7 @@
       <p>{{ProjectArr?.ProjectType?.Name}}</p>
 
     </div>
-    <div class="form-outline d-flex justify-content-right ">
+    <!-- <div class="form-outline d-flex justify-content-right ">
       <p class="span">מנהל פרויקט: </p>
       <p>{{ProjectArr?.ProjectManager?.Name}}</p>
 
@@ -41,25 +40,21 @@
       <p class="span">מפתח ראשי: </p>
       <p>{{ProjectArr?.HeadProgrammer?.Name}}</p>
 
-    </div>
+    </div> -->
 
-    <div class="form-outline d-flex justify-content-right ">
-      <p class="span">תיאור פרויקט: </p>
-      <p>{{ProjectArr?.Description}}</p>
 
-    </div>
-    <div class="form-outline d-flex justify-content-right ">
+    <!-- <div class="form-outline d-flex justify-content-right ">
       <p class="span">נושא: </p>
       <p>{{ProjectArr?.Subject}} </p>
 
-    </div>
+    </div> -->
     <div class="form-outline d-flex justify-content-right ">
       <p class="span">לקוח בפרויקט: </p>
       <p>{{ProjectArr?.ContactInProject?.Name}} </p>
 
     </div>
     <div class="form-outline d-flex justify-content-right ">
-      <p class="span">שעות לאישור: </p>
+      <p class="span">שעות לחיוב: </p>
       <p>{{ProjectArr?.isBillableHours}} </p>
 
     </div>
@@ -68,7 +63,11 @@
       <p>{{ProjectArr?.totalDevHours}} </p>
 
     </div>
+    <div class="form-outline d-flex justify-content-right ">
+      <p class="span">תיאור פרויקט: </p>
+      <p>{{ProjectArr?.Description}}</p>
 
+    </div>
     <br>
 
   </div>
