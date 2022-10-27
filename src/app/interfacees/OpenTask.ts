@@ -1,5 +1,8 @@
 export interface OpenTask {
     ProjectContectItemGuid:any;
-    TaskGuid:any
+    TaskGuid:any;
+    TimeTask:any;
+    ParseTime:any;
     Type:any;
+   
     }

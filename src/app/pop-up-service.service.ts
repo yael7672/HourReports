@@ -147,8 +147,8 @@ export class PopUpServiceService {
     return this.isAdminMode$;
   }
 
-  setOpenTaskPopUp(ProjectContectItemGuid: any, TaskGuid: any, Type: any) {
-    this.OpenTask.push({ProjectContectItemGuid:ProjectContectItemGuid,TaskGuid:TaskGuid,Type:Type})
+  setOpenTaskPopUp(ProjectContectItemGuid: any, TaskGuid: any,TimeTask:any,ParseTime:any, Type: any) {
+    this.OpenTask.push({ProjectContectItemGuid:ProjectContectItemGuid,TaskGuid:TaskGuid,TimeTask:TimeTask,ParseTime:ParseTime,Type:Type})
     this.isOpenTask$.next(this.OpenTask);
   }
   getOpenTaskPopUp() {

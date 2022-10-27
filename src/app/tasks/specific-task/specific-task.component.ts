@@ -45,7 +45,7 @@ export class SpecificTaskComponent implements OnInit {
   taskListDataDetails: any;
   taskListDataDetailsParseToJson: any;
   openChartComparePopUp!: boolean
-  
+
   constructor(private appService: AppService, private popUpService: PopUpServiceService,
     private userService: UserServiceService, private activatedRoute: ActivatedRoute) {
   }
@@ -57,13 +57,15 @@ export class SpecificTaskComponent implements OnInit {
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
     console.log(this.taskListDataDetailsParseToJson);
   }
+
+
   SelectedData(val: any) {
     this.objectEmitter.emit(val)
   }
   clickOfButton(kindOfButton: string, type: boolean) {
     this.getDataClickOfButton.emit({ "kind": kindOfButton, "type": type })
   }
- 
+
   backToMyTask() {
     this.clickBackToMyTask.emit();
   }

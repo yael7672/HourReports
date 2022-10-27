@@ -60,19 +60,20 @@ export class ShowMyTaskComponent implements OnInit {
   showMyProjects = true;
   myProjectArr!: Project[]
   image!: any;
-  ifThereNewTasks!:boolean
-  MyNewTaskArr: any[]=[];
+  ifThereNewTasks!: boolean
+  MyNewTaskArr: any[] = [];
+  openTasks!: any[]
   readonly VAPID_PUBLIC_KEY = "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
   Status: any;
 
-  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,  
+  constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private appService: AppService, private userService: UserServiceService, private route: Router,
     private swPush: SwPush) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
     if (localStorage.getItem('DateNow')) {
-      this.startWorkOfTask = localStorage.getItem('DateNow')?true:false;
+      this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
     }
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
@@ -80,7 +81,11 @@ export class ShowMyTaskComponent implements OnInit {
     })
     this.popUpService.getAllMyNewTask().subscribe(res => {
       this.ifThereNewTasks = res ? res : false;
- 
+    })
+    this.popUpService.getOpenTaskPopUp().subscribe(res => {
+      this.openTasks = res;
+      console.log("this.openTasks")
+      console.log(this.openTasks)
     })
   }
   ngOnInit(): void {
@@ -100,15 +105,15 @@ export class ShowMyTaskComponent implements OnInit {
     // this.requestSubscription();
     const subscription = {
       endpoint:
-          '<CLIENT_ENDPOINT>',
+        '<CLIENT_ENDPOINT>',
       expirationTime: null,
       keys: {
-          p256dh: '<CLIENT_P256DH>',
-          auth: '<CLIENT_AUTH>',
+        p256dh: '<CLIENT_P256DH>',
+        auth: '<CLIENT_AUTH>',
       },
-  };
+    };
   }
- 
+
   GetMyNewTasks() {
     this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetMyNewTasks(this.systemGuid).subscribe(
@@ -116,21 +121,21 @@ export class ShowMyTaskComponent implements OnInit {
         if (res) {
           this.MyNewTaskArr = res;
           console.log("משימות חדשות");
-          
-          console.log( this.MyNewTaskArr)
+
+          console.log(this.MyNewTaskArr)
           this.MyNewTaskArr.sort((a: any, b: any) => {
             const sortValueTimestampA = this.toTimestamp(a.CreatedOn);
             const sortValueTimestampB = this.toTimestamp(b.CreatedOn);
             debugger
-            return (sortValueTimestampA > sortValueTimestampB ? 1 : -1) 
-           })
-          if (this.MyNewTaskArr.length <=0) {
+            return (sortValueTimestampA > sortValueTimestampB ? 1 : -1)
+          })
+          if (this.MyNewTaskArr.length <= 0) {
             this.popUpService.setAllMyNewTask(true)
-        
+
           }
           else {
-            this.popUpService.setAllMyNewTask(false) 
-               if (this.ifThereNewTasks = true) {
+            this.popUpService.setAllMyNewTask(false)
+            if (this.ifThereNewTasks = true) {
               this.notifyMeMyNewTask()
             }
           }
@@ -149,16 +154,16 @@ export class ShowMyTaskComponent implements OnInit {
     if (!("Notification" in window)) {
       alert("This browser does not support desktop notification");
     } else if (Notification.permission === "granted") {
-      const notification = new Notification("יש לך משימה/ות חדשה/ות !",{
-        body:"שם המשימה: "+this.MyNewTaskArr[0]?.Subject,
-        icon:'../../../assets/images/2387679.png'
+      const notification = new Notification("יש לך משימה/ות חדשה/ות !", {
+        body: "שם המשימה: " + this.MyNewTaskArr[0]?.Subject,
+        icon: '../../../assets/images/2387679.png'
       });
     } else if (Notification.permission !== "denied") {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
-          const notification = new Notification("יש לך משימה/ות חדשה/ות !",{
-            body:"שם המשימה: "+this.MyNewTaskArr[0]?.Subject,
-            icon:'../../../assets/images/2387679.png'
+          const notification = new Notification("יש לך משימה/ות חדשה/ות !", {
+            body: "שם המשימה: " + this.MyNewTaskArr[0]?.Subject,
+            icon: '../../../assets/images/2387679.png'
           });
         }
       });
@@ -173,7 +178,7 @@ export class ShowMyTaskComponent implements OnInit {
       (err: any) =>
         console.log(err.error)
     )
-  } 
+  }
 
   // requestSubscription = () => {
   //   if (!this.swPush.isEnabled) {
@@ -189,11 +194,16 @@ export class ShowMyTaskComponent implements OnInit {
   // };
   // notifyMe() {
 
- 
 
+    // this.openTasks.forEach(element => {
+    //   if (this.taskListDataDetails.TaskGuid = element.ProjectContectItemGuid) { 
+    //     this.route.navigate(['/menu/specific-task', val.TaskGuid])
+    //   }
+    // });
   SelectedTask(val: any) {
     if (!this.startWorkOfTask) {
       this.taskListDataDetails = val;
+
       localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
       clearInterval(this.interval);
       this.getProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
@@ -202,6 +212,7 @@ export class ShowMyTaskComponent implements OnInit {
     else {
       swal("קיימת משימה פעילה")
     }
+
   }
   async getProjectContentItemByTaskGuid(taskGuid: string) {
     this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
@@ -351,7 +362,7 @@ export class ShowMyTaskComponent implements OnInit {
     }
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      this.route.navigate(['/menu/the-last-tasks-i-worked',this.systemGuid]);
+      this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
     }
   }
   onSearchTask(filterKeyBySubject: any) {
@@ -386,8 +397,8 @@ export class ShowMyTaskComponent implements OnInit {
 
 
   getMyProject() {
-    this.Status="All"
-    this.userService.GetProjectsBySystemUser(this.systemGuid,this.Status).subscribe(res => {
+    this.Status = "All"
+    this.userService.GetProjectsBySystemUser(this.systemGuid, this.Status).subscribe(res => {
       if (res) {
         this.myProjectArr = res;
       }
