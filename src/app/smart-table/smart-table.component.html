@@ -35,8 +35,10 @@
         *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
         (click)="selectedData(colData)">
 
-        <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing<0"
+        <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 "
           class="fa fa-times-circle" aria-hidden="true"></i>
+          <i *ngIf="ifShowXorVIcons&& colData.DailyWorkingHoursthatAreMissing < 0 "
+            class="fa fa-warning" ></i>
         <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing == 0" class="fa fa-check-circle"
           aria-hidden="true"></i>
 
@@ -146,8 +148,10 @@
   <div class="card" style="width: 17rem;" [ngStyle]="{'background-color':isChecked[i]  ? '#f1b93c' : null }"
     *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
     (click)="selectedData(colData)">
-    <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing > 0 || colData.DailyWorkingHoursthatAreMissing < 0"
+    <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing < 0 "
       class="fa fa-times-circle" id="fa-times-circle-card" aria-hidden="true"></i>
+      <i *ngIf="ifShowXorVIcons&& colData.DailyWorkingHoursthatAreMissing > 0 "
+      class="fa fa-warning" ></i>
     <i *ngIf="ifShowXorVIcons&&colData.DailyWorkingHoursthatAreMissing == 0" id="fa-check-circle-card"
       class="fa fa-check-circle " aria-hidden="true"></i>
     <div class="img-card"> <img *ngIf="showEmployeeImageProfil"

@@ -106,3 +106,9 @@ ul {
   display: flex;
   justify-content: center;
 }
+.fa-warning:before{
+color: orange;
+}
+.fa-warning:after{
+  color: orange;
+  }

@@ -51,6 +51,7 @@ export class MassgeToUserComponent implements OnInit {
               if (this.kindOfMassage == 'projectContectItemByTimer') {
                 this.clickYes.emit('projectContectItemByTimer')
               }
+            
               else {
                 if (this.kindOfMassage == 'checkIfIsReportOnThisDate') {
                   this.clickYes.emit('checkIfIsReportOnThisDate')
@@ -82,6 +83,13 @@ export class MassgeToUserComponent implements OnInit {
                             {
                               this.clickYes.emit('UserifMiiddlePauseAndOpenTaskw')
                             }
+                            else{
+                              if(this.kindOfMassage == 'projectContectItemByTimerCancel')
+                              {
+                                this.clickYes.emit('projectContectItemByTimerCancel')
+                              }
+                            }
+                            
                           }
                         }
                       }
@@ -148,6 +156,12 @@ export class MassgeToUserComponent implements OnInit {
                             if(this.kindOfMassage == 'UserifMiiddlePauseAndOpenTask')
                             {
                               this.clickNo.emit('UserifMiiddlePauseAndOpenTaskw')
+                            }
+                            else{
+                              if(this.kindOfMassage == 'projectContectItemByTimerCancel')
+                              {
+                                this.clickNo.emit('projectContectItemByTimerCancel')
+                              }
                             }
                           }
                         }

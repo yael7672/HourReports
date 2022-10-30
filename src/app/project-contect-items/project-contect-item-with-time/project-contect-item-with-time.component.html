@@ -25,7 +25,7 @@
 <div *ngIf="showMassgeToUserProjectContectItemWithTimer">
     <app-pop-up>
         <div body>
-            <app-massge-to-user [kindOfMassage]="projectContectItemByTimer"
+            <app-massge-to-user 
                 [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer"
                 (clickYes)="clickYes(this.TimeProjectContectItemHour)" (clickCancel)="clickCancel($event)"
                 [ButtonCancel]="ButtonCancel" (clickNo)="clickNo($event)" [ifButton]="true"
@@ -37,11 +37,11 @@
 <div *ngIf="showMassgeToUserCancelProjectContectItemWithTimer">
     <app-pop-up>
         <div body>
-            <app-massge-to-user [kindOfMassage]="projectContectItemByTimer"
+            <app-massge-to-user [kindOfMassage]="projectContectItemByTimerCancel"
                 [massgeUserHeader]="massgeUserCloseProjectContectItemByTimer"
                 (clickYes)="clickYes(this.TimeProjectContectItemHour)" (clickYes)="clickCancel($event)"
-                (clickNo)="clickNo($event)" [ifButton]="true" [kindOfMassage]="projectContectItemByTimer"
-                [textOfBtnNo]="'לא, איני רוצה לסיים דיווח זה  '" [textOfBtnYes]="'כן, אני רוצה לסיים דיווח זה  '">
+                (clickNo)="clickNo($event)" [ifButton]="true" 
+                [textOfBtnNo]="'לא, איני רוצה לסיים דיווח זה  '" [textOfBtnYes]="'כן, אני רוצה לסיים דיווח זה '">
             </app-massge-to-user>
         </div>
     </app-pop-up>

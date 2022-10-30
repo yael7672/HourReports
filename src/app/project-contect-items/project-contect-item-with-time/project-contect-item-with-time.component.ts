@@ -21,6 +21,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   @Output() getPauseTimer = new EventEmitter<any>();
   @Output() OpenPopUp = new EventEmitter<any>();
   projectContectItemByTimer = "projectContectItemByTimer"
+  projectContectItemByTimerCancel="projectContectItemByTimerCancel"
   kindPopUp = "UpdateProjectContectItemWithTime"
   massgeUserCloseProjectContectItemByTimer = "האם ברצונך לסיים דיווח זה?"
   timetoSend: any;
@@ -52,8 +53,8 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
     }
   }
   clickNo(kindOfMassage: string) {
-    if (kindOfMassage = 'projectContectItemByTimer') {
-      this.showMassgeToUserProjectContectItemWithTimer = false
+    if (kindOfMassage = 'projectContectItemByTimerCancel') {
+      this.showMassgeToUserCancelProjectContectItemWithTimer = false
     }
   }
 
