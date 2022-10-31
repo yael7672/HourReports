@@ -31,6 +31,7 @@ export class TimeCounterComponent implements OnInit {
   disabledPauseButton = false
   disabledEndButton = false
   timetoSend: any;
+  timetoSend2: any;
   parseTime: any;
   isDisabledStart = false;
   isTaskAccomplished = false;
@@ -70,6 +71,11 @@ export class TimeCounterComponent implements OnInit {
   openTasksDetailsFromLsParseToJson!: OpenTask[]
   TimeStartWorkTask: any;
   dateTaskBeforeDelay: any;
+  TimeStartWorkTaskDateNow: any;
+  TimeStartWorkTaskDateNowOpenTask: any;
+  workTimeInRenew: any
+  timerNew: any
+  Time2: any
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router, private appService: AppService) {
     this.popUpService.getInPause().subscribe(res => {
@@ -353,24 +359,27 @@ export class TimeCounterComponent implements OnInit {
   }
 
   delayProjectContectItenOnTask(time: any) {
-    let DatePauseTask = Date.now()
-    if (localStorage.getItem('DateNow')) {
-      this.TimeStartWorkTask = localStorage.getItem('DateNow')
+    //clearInterval(this.interval);
+    this.popUpService.setStartTimer(false);
+    this.TimeStartWorkTaskDateNow = localStorage.getItem('DateNow')
+    this.TimeStartWorkTaskDateNowOpenTask = localStorage.getItem('DateNowOpenTask')
+    localStorage.removeItem("DateNow")
+    localStorage.removeItem('DateNowOpenTask')
+    if (this.TimeStartWorkTaskDateNow) {
+      this.TimeStartWorkTask = this.TimeStartWorkTaskDateNow
     }
     else {
-      if (localStorage.getItem('DateNowOpenTask')) {
-        this.TimeStartWorkTask = localStorage.getItem('DateNowOpenTask')
+      if (this.TimeStartWorkTaskDateNowOpenTask) {
+        this.TimeStartWorkTask = this.TimeStartWorkTaskDateNowOpenTask
       }
     }
-
-
-    this.dateTaskBeforeDelay = DatePauseTask - Number(this.TimeStartWorkTask)
+    const DatePauseTask = Date.now().toString()
+    this.dateTaskBeforeDelay = Number(DatePauseTask) - Number(this.TimeStartWorkTask)
     //  כמה זמן עבד על המשימה מאז שהתחיל טיימר חדש עד עכשו
     alert(this.datePipe.transform(this.dateTaskBeforeDelay, 'HH:mm:ss', "+0000"))
     // עכשו - מתי התחיל את המשימה= סה"כ כמה עבד על המשימה
     localStorage.setItem('dateTimeTaskInMilliSecond', this.dateTaskBeforeDelay)
-    localStorage.removeItem("DateNow")
-    localStorage.removeItem('DateNowOpenTask')
+
 
     // this.CheckIfMiddleOfTask()
     this.hideDelayAndShowRenewProjectContectItemOnTask = true
@@ -379,7 +388,7 @@ export class TimeCounterComponent implements OnInit {
     this.disabledPauseButton = true;
     this.disabledStartButton = false;
     this.startWorkOfTask = false;
-    clearInterval(this.interval);
+    // clearInterval(this.interval);
     if (time != "" || !time) {
       this.timetoSend = time.split(':')
       clearInterval(this.interval);
@@ -451,10 +460,13 @@ export class TimeCounterComponent implements OnInit {
   }
 
   renewProjectContectItenOnTask(workTime: any) {
-
+    this.CheckIfMiddleOfTask()
     //this.workTime = workTime
     alert(this.workTime)
 
+
+    // לבדוק
+    // setInterval(this.interval)
     if (this.ifInPause) {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
@@ -473,37 +485,49 @@ export class TimeCounterComponent implements OnInit {
       this.taskListDataDetailsParseToJson.Date = this.todayDate
       this.popUpService.SetWorkTimeAfterProjectContectItem(true)
 
-      this.ContinueToWorkOnATask2(this.workTime);
+      if (workTime != "" || !workTime) {
+        // this.timetoSend = workTime.split(':')
+        this.timetoSend = workTime
+        this.timetoSend2 = this.timetoSend.split(':')
+
+        clearInterval(this.interval);
+        if (this.timetoSend2[2] > 30) {
+          this.timetoSend2[1]++;
+        }
+        this.timetoSend2[1] = (this.timetoSend2[1] / 60)
+
+      }
+      this.ContinueToWorkOnATask2();
     }
   }
 
-  ContinueToWorkOnATask2(workTime: any) {
+  ContinueToWorkOnATask2() {
     this.getCreatedProjectContentItemFromLoaclStorage2();
     this.interval = setInterval(() => {
-      if (workTime) {
+      if (this.workTime) {
         this.getCreatedProjectContentItemFromLoaclStorage2();
       }
     }, 1000)
   }
 
   getCreatedProjectContentItemFromLoaclStorage2() {
-    if (localStorage.getItem('DateNow')) {
-      this.setWorkTime2(localStorage.getItem('DateNow'))
+    this.TimeStartWorkTaskDateNow = localStorage.getItem('DateNow')
+    this.TimeStartWorkTaskDateNowOpenTask = localStorage.getItem('DateNowOpenTask')
+    if (this.TimeStartWorkTaskDateNow) {
+      this.setWorkTime2(this.TimeStartWorkTaskDateNow)
     }
     else {
-      if (localStorage.getItem('DateNowOpenTask')) {
-        this.setWorkTime2(localStorage.getItem('DateNowOpenTask'))
+      if (this.TimeStartWorkTaskDateNowOpenTask) {
+        this.setWorkTime2(this.TimeStartWorkTaskDateNowOpenTask)
       }
     }
 
   }
   setWorkTime2(res: any) {
     this.workTime = this.convertTimeStempToTime2(res)
- 
+
   }
   convertTimeStempToTime2(ProjectContentItemContinueCreateDate: any) {
-
-
     const timestampNow = Date.now();
     let DatePauseTask = localStorage.getItem('dateTimeTaskInMilliSecond')
     // localStorage.removeItem('dateTimeTaskInMilliSecond')
@@ -531,9 +555,18 @@ export class TimeCounterComponent implements OnInit {
 
     this.Time = timestampNow - timestampContinueCreatOn;
 
-    this.Time = this.Time + Number(DatePauseTask)
+    // this.Time = this.Time + Number(DatePauseTask)
+    // + this.workTimeInRenew
+    this.timerNew = this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
     //alert(this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000"))
-    return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
+    this.timerNew = this.timerNew.split(':')
+    this.Time2 = "00:00:00"
+    this.Time2 =this.Time2.split(':')
+    this.Time2[0] = Number(this.timerNew[0]) + Number(this.timetoSend2[0])
+    this.Time2[1] = Number(this.timerNew[1]) + Number(this.timetoSend2[1])
+    this.Time2[2] = Number(this.timerNew[2]) + Number(this.timetoSend2[2])
+    this.Time2 = [String(this.Time2[0]) + ":" + String(this.Time2[1]) + ":" + String(this.Time2[2]) ]
+    return this.Time2
   }
 
 
