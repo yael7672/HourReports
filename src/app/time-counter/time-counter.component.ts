@@ -109,25 +109,28 @@ export class TimeCounterComponent implements OnInit {
 
     this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
-    this.openTasksDetailsFromLsParseToJson.forEach(element => {
-      if (this.TaskGuid2 == element.TaskGuid) {
-        element.TimeTask = element.TimeTask.split(':')
-        this.workTime = [element.TimeTask[0] + ":" + element.TimeTask[1] + ":" + element.TimeTask[2]]
-        this.timeContinueTaskAfterDelay = element.ParseTime
-        localStorage.setItem("timeContinueTaskAfterDelay", this.timeContinueTaskAfterDelay)
-        this.inMiddleTask = true
-        this.hideStartAndShowCancelProjectContectItem = true
-        this.hideDelayAndShowRenewProjectContectItemOnTask = true
-      }
-      else {
-        this.workTime = ["00:00:00"];
-        this.workTime = [];
-        this.inMiddleTask = true
-        this.hideStartAndShowCancelProjectContectItem = false
-        this.hideDelayAndShowRenewProjectContectItemOnTask = false
+    if (this.openTasksDetailsFromLsParseToJson.length > 0){
+      // 
+    }
+      this.openTasksDetailsFromLsParseToJson.forEach(element => {
+        if (this.TaskGuid2 == element.TaskGuid) {
+          element.TimeTask = element.TimeTask.split(':')
+          this.workTime = [element.TimeTask[0] + ":" + element.TimeTask[1] + ":" + element.TimeTask[2]]
+          this.timeContinueTaskAfterDelay = element.ParseTime
+          localStorage.setItem("timeContinueTaskAfterDelay", this.timeContinueTaskAfterDelay)
+          this.inMiddleTask = true
+          this.hideStartAndShowCancelProjectContectItem = true
+          this.hideDelayAndShowRenewProjectContectItemOnTask = true
+        }
+        else {
+          this.workTime = ["00:00:00"];
+          this.workTime = [];
+          this.inMiddleTask = true
+          this.hideStartAndShowCancelProjectContectItem = false
+          this.hideDelayAndShowRenewProjectContectItemOnTask = false
 
-      }
-    });
+        }
+      });
   }
 
   startTimer() {
@@ -490,11 +493,11 @@ export class TimeCounterComponent implements OnInit {
         this.timetoSend = workTime
         this.timetoSend2 = this.timetoSend.split(':')
 
-        clearInterval(this.interval);
-        if (this.timetoSend2[2] > 30) {
-          this.timetoSend2[1]++;
-        }
-        this.timetoSend2[1] = (this.timetoSend2[1] / 60)
+        // clearInterval(this.interval);
+        // if (this.timetoSend2[2] > 30) {
+        //   this.timetoSend2[1]++;
+        // }
+        // this.timetoSend2[1] = (this.timetoSend2[1] / 60)
 
       }
       this.ContinueToWorkOnATask2();
@@ -561,11 +564,23 @@ export class TimeCounterComponent implements OnInit {
     //alert(this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000"))
     this.timerNew = this.timerNew.split(':')
     this.Time2 = "00:00:00"
-    this.Time2 =this.Time2.split(':')
-    this.Time2[0] = Number(this.timerNew[0]) + Number(this.timetoSend2[0])
-    this.Time2[1] = Number(this.timerNew[1]) + Number(this.timetoSend2[1])
+    this.Time2 = this.Time2.split(':')
+
     this.Time2[2] = Number(this.timerNew[2]) + Number(this.timetoSend2[2])
-    this.Time2 = [String(this.Time2[0]) + ":" + String(this.Time2[1]) + ":" + String(this.Time2[2]) ]
+    if (Number(this.Time2[2]) > 59) {
+      this.Time2[2] = Number("00")
+      this.Time2[1] == Number(this.Time2[1]) + 1
+
+    }
+    this.Time2[1] = Number(this.timerNew[1]) + Number(this.timetoSend2[1])
+    if (Number(this.Time2[1]) > 59) {
+      this.Time2[1] = Number("00")
+      this.Time2[0] == Number(this.Time2[1]) + 1
+    }
+    this.Time2[0] = Number(this.timerNew[0]) + Number(this.timetoSend2[0])
+
+
+    this.Time2 = [String(this.Time2[0]) + ":" + String(this.Time2[1]) + ":" + String(this.Time2[2])]
     return this.Time2
   }
 
