@@ -3,23 +3,26 @@
 <app-smart-card class="task-card-timer" [ifX]="false" [title]="titleCard">
   <div body>
 
-    <div class="form-outline d-flex justify-content-center ">
+    <div class="form-outline d-flex justify-content-center  ">
       <p class="span">שם פרויקט: </p>
       <p>{{ProjectArr?.Name}} </p>
     </div>
-    <!-- <div class="form-outline d-flex justify-content-right ">
+    <div class="form-outline d-flex justify-content-right row ">
+
+      <!-- <div class="form-outline d-flex justify-content-right ">
       <p class="span">לקוח: </p>
       <p>{{ProjectArr?.Account?.Name}} </p>
     </div> -->
-    <div class="form-outline d-flex justify-content-right ">
-      <p class="span">שעות לאישור: </p>
-      <p>{{ProjectArr?.ConfirmedHours}} </p>
+      <div class="form-outline d-flex justify-content-right col-6">
+        <p class="span">שעות לאישור: </p>
+        <p>{{ProjectArr?.ConfirmedHours}} </p>
+      </div>
 
-    </div>
-    <div class="form-outline d-flex justify-content-right ">
-      <p class="span">תאריך התחלה: </p>
-      <p>{{ProjectArr?.StartDate}} </p>
+      <div class="form-outline d-flex justify-content-right col-6">
+        <p class="span">תאריך התחלה: </p>
+        <p>{{ProjectArr?.StartDate}} </p>
 
+      </div>
     </div>
     <div class="form-outline d-flex justify-content-right ">
       <p class="span">תאריך סיום: </p>
@@ -41,8 +44,6 @@
       <p>{{ProjectArr?.HeadProgrammer?.Name}}</p>
 
     </div> -->
-
-
     <!-- <div class="form-outline d-flex justify-content-right ">
       <p class="span">נושא: </p>
       <p>{{ProjectArr?.Subject}} </p>
