@@ -1,6 +1,7 @@
 .canvas {
     width: 100%;
 }
+
 .input-group-addon {
     padding: 0.5rem
 }
@@ -28,17 +29,20 @@
 
 
 
-.input-group.input-daterange { 
-       width: 20rem;
+.input-group.input-daterange {
+    width: 20rem;
 }
+
 .form-group {
     display: flex;
     justify-content: center;
 
 }
-button.btn.btn-color{
+
+button.btn.btn-color {
     margin-right: 1rem;
 }
+
 #lineChart {
     width: 100%;
 }
@@ -99,8 +103,16 @@ button.btn.btn-color{
     width: 80%;
     display: flex;
     /* justify-content: center; */
-/* } */ 
-.span
-{
+/* } */
+.span {
     font-weight: 600;
+}
+
+.box {
+    border-style: ridge; 
+}
+
+.row {
+    flex-wrap: wrap;
+   
 }

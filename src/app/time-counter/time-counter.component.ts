@@ -1,9 +1,10 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, DATE_PIPE_DEFAULT_TIMEZONE } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 // import { FlexStyleBuilder } from '@angular/flex-layout';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { PopupService } from '@progress/kendo-angular-popup';
 import swal from 'sweetalert';
+import { CONFIRM_KEY } from 'sweetalert/typings/modules/options/buttons';
 import { AppService } from '../app-service.service';
 import { openSpecificTask } from '../interfacees/openSpecificTask';
 import { OpenTask } from '../interfacees/OpenTask';
@@ -109,9 +110,9 @@ export class TimeCounterComponent implements OnInit {
 
     this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
-    if (this.openTasksDetailsFromLsParseToJson.length > 0) {
-      // 
-    }
+    // if (this.openTasksDetailsFromLsParseToJson.length > 0) {
+    //   // 
+    // }
     this.openTasksDetailsFromLsParseToJson.forEach(element => {
       if (this.TaskGuid2 == element.TaskGuid) {
         element.TimeTask = element.TimeTask.split(':')
@@ -288,6 +289,11 @@ export class TimeCounterComponent implements OnInit {
                 this.massageFromServer = res;
                 swal(this.massageFromServer);
                 this.workTime = ["00:00:00"];
+                this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
+                  if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid) delete this.openTasksInLs[index];
+                });
+                localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
+
                 this.popUpService.SetProjectContentItemByTaskGuid(true)
                 this.popUpService.SetWorkTimeAfterProjectContectItem(true);
                 this.hideStartAndShowCancelProjectContectItem = false;
@@ -365,6 +371,7 @@ export class TimeCounterComponent implements OnInit {
     //clearInterval(this.interval);
     this.popUpService.setStartTimer(false);
     this.TimeStartWorkTaskDateNow = localStorage.getItem('DateNow')
+
     this.TimeStartWorkTaskDateNowOpenTask = localStorage.getItem('DateNowOpenTask')
     localStorage.removeItem("DateNow")
     localStorage.removeItem('DateNowOpenTask')
@@ -382,8 +389,6 @@ export class TimeCounterComponent implements OnInit {
     alert(this.datePipe.transform(this.dateTaskBeforeDelay, 'HH:mm:ss', "+0000"))
     // עכשו - מתי התחיל את המשימה= סה"כ כמה עבד על המשימה
     localStorage.setItem('dateTimeTaskInMilliSecond', this.dateTaskBeforeDelay)
-
-
     // this.CheckIfMiddleOfTask()
     this.hideDelayAndShowRenewProjectContectItemOnTask = true
     this.timePauseInterval = time
@@ -392,82 +397,55 @@ export class TimeCounterComponent implements OnInit {
     this.disabledStartButton = false;
     this.startWorkOfTask = false;
     // clearInterval(this.interval);
-    if (time != "" || !time) {
-      this.timetoSend = time.split(':')
-      clearInterval(this.interval);
-      if (this.timetoSend[2] > 30) {
-        this.timetoSend[1]++;
-      }
-      this.timetoSend[1] = (this.timetoSend[1] / 60)
-
-      this.parseTime = Number(this.timetoSend[0]) + Number(this.timetoSend[1]);
-      this.timeTaskInDelay = time
-      // this.isDisabledStart = false;
-      this.isTaskAccomplished = false;
-      this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
-      this.TaskGuid = this.activatedRoute.snapshot.paramMap.get('id');
-      //this.popUpService.setOpenTaskPopUp(this.openSpecificTaskDetails.ProjectContectItemGuid, this.TaskGuid, this.timeTaskInDelay, true)
-      this.isInMiddleTask = true
-      this.openTasksInLs.push({ ProjectContectItemGuid: this.projectContectItemGuid, TaskGuid: this.TaskGuid, TimeTask: this.timeTaskInDelay, ParseTime: this.parseTime, Type: this.isInMiddleTask })
-      localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
-      //לשים אחרי שהמשימה נסגרת 
-      //   this.openTasksInLs.forEach((element,index)=>{ 
-      //   if(element.TaskGuid == "") delete this.openTasksInLs[index];
-      //  });
-
-      localStorage.setItem('DatePauseTask', DatePauseTask.toString())
-      localStorage.setItem('openTasksDetails', JSON.stringify(this.openTasksDetails))
-      this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : 0, this.taskListDataDetailsParseToJson.TaskGuid,
-        this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
-          res => {
-            if (res) {
-              this.massageFromServer = res;
-              swal(this.massageFromServer);
-              this.popUpService.SetProjectContentItemByTaskGuid(true)
-              this.popUpService.SetWorkTimeAfterProjectContectItem(true);
-              this.hideStartAndShowCancelProjectContectItem = true;
-            }
-          },
-          err => {
-            console.log(err.error);
-          })
-    }
-  }
-
-
-  renewProjectContectItenOnTask7(workTime: any) {
-
-    this.hideDelayAndShowRenewProjectContectItemOnTask = false
-    // this.hideStartAndShowCancelProjectContectItem = false
-    this.disabledPauseButton = false
-    // this.openTasksDetails.forEach((item, index) => {
-    //   if (item === this.taskListDataDetailsParseToJson.Subject) {
-    //     this.openTasksDetails.splice(index, 1);
+    // if (time != "" || !time) {
+    //   this.timetoSend = time.split(':')
+    //   clearInterval(this.interval);
+    //   if (this.timetoSend[2] > 30) {
+    //     this.timetoSend[1]++;
     //   }
-    //   this.userService.GetProjectContentItemByGuid(item.ProjectContectItemGuid).subscribe(res => {
-    //     if (res) {
-    //       this.projectContectItemByGuidDeatils = res;
-    //     }
-    //   });
-    // })
-    // 
-    // 
-    // 
-    // 
-    // 
-    // this.Time = timestampNow.getTime() - timestampCreatOn.getTime();
-    // this.latest_date = this.datePipe.transform(this.Time, 'HH:mm:ss');
-    // alert( this.latest_date);
-    // localStorage.setItem('DateNow',)
+    //   this.timetoSend[1] = (this.timetoSend[1] / 60)
+    //   }
+
+    // this.parseTime = Number(this.timetoSend[0]) + Number(this.timetoSend[1]);
+    this.timeTaskInDelay = time
+    // this.isDisabledStart = false;
+    this.isTaskAccomplished = false;
+    this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+    this.TaskGuid = this.activatedRoute.snapshot.paramMap.get('id');
+    //this.popUpService.setOpenTaskPopUp(this.openSpecificTaskDetails.ProjectContectItemGuid, this.TaskGuid, this.timeTaskInDelay, true)
+    this.isInMiddleTask = true
+    this.openTasksInLs.push({ ProjectContectItemGuid: this.projectContectItemGuid, TaskGuid: this.TaskGuid, TimeTask: this.timeTaskInDelay, ParseTime: this.parseTime, Type: this.isInMiddleTask })
+
+    localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
+    //לשים אחרי שהמשימה נסגרת 
+    //   this.openTasksInLs.forEach((element,index)=>{ 
+    //   if(element.TaskGuid == "") delete this.openTasksInLs[index];
+    //  });
+    localStorage.setItem('DatePauseTask', DatePauseTask.toString())
+    // localStorage.setItem('openTasksDetails', JSON.stringify(this.openTasksDetails))
+    this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : 0, this.taskListDataDetailsParseToJson.TaskGuid,
+      this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
+        res => {
+          if (res) {
+            this.massageFromServer = res;
+            swal(this.massageFromServer);
+            this.popUpService.SetProjectContentItemByTaskGuid(true)
+            this.popUpService.SetWorkTimeAfterProjectContectItem(true);
+            this.hideStartAndShowCancelProjectContectItem = true;
+          }
+        },
+        err => {
+          console.log(err.error);
+        })
 
   }
+
+
 
   renewProjectContectItenOnTask(workTime: any) {
-    this.CheckIfMiddleOfTask()
-    //this.workTime = workTime
-    alert(this.workTime)
-
-
+    // this.CheckIfMiddleOfTask()
+    this.workTime = workTime
+    alert(workTime)
     // לבדוק
     // setInterval(this.interval)
     if (this.ifInPause) {
@@ -488,18 +466,18 @@ export class TimeCounterComponent implements OnInit {
       this.taskListDataDetailsParseToJson.Date = this.todayDate
       this.popUpService.SetWorkTimeAfterProjectContectItem(true)
 
-      if (workTime != "" || !workTime) {
-        // this.timetoSend = workTime.split(':')
-        this.timetoSend = workTime
-        this.timetoSend2 = this.timetoSend.split(':')
+      // if (workTime != "" || !workTime) {
+      // this.timetoSend = workTime.split(':')
+      // this.timetoSend = workTime
+      // this.timetoSend2 = workTime.split(':')
 
-        // clearInterval(this.interval);
-        // if (this.timetoSend2[2] > 30) {
-        //   this.timetoSend2[1]++;
-        // }
-        // this.timetoSend2[1] = (this.timetoSend2[1] / 60)
+      // clearInterval(this.interval);
+      // if (this.timetoSend2[2] > 30) {
+      //   this.timetoSend2[1]++;
+      // }
+      // this.timetoSend2[1] = (this.timetoSend2[1] / 60)
 
-      }
+      // }
       this.ContinueToWorkOnATask2();
     }
   }
@@ -555,45 +533,77 @@ export class TimeCounterComponent implements OnInit {
     // this.Time = Number(timestampNow) - timestampContinueCreatOn;
     // 
     var timestampContinueCreatOn = Number(ProjectContentItemContinueCreateDate);
-
     this.Time = timestampNow - timestampContinueCreatOn;
-
     // this.Time = this.Time + Number(DatePauseTask)
     // + this.workTimeInRenew
     this.timerNew = this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
-    //alert(this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000"))
+    //  alert("this.timerNew" + this.timerNew)
     this.timerNew = this.timerNew.split(':')
-    this.Time2 = "00:00:00"
-    this.Time2 = this.Time2.split(':')
-    if (Number(this.timerNew[2]) + Number(this.timetoSend2[2]) > 59) {
-      this.Time2[2] = Number("00")
-      this.Time2[1] == String(Number(this.Time2[1]) + 1)
-    }
-    else {
-      this.Time2[2] = Number(this.timerNew[2]) + Number(this.timetoSend2[2])
+    // if (this.Time2 == null || this.Time2 == "" || this.Time2 == undefined) {
+    //   this.Time2 = "00:00:00"
+    //   this.Time2 = this.Time2.split(':')
 
-    }
-    if (Number(this.timerNew[1]) + Number(this.timetoSend2[1]) > 59) {
-      this.Time2[1] = Number("00")
-      this.Time2[0] = Number(this.Time2[0]) + 1
-    }
-    else {
-      this.Time2[2] = Number(this.timerNew[2]) + Number(this.timetoSend2[2])
+    // }
+    // if ((Number(this.timerNew[2]) + Number(this.timetoSend2[2])) > 59) {
+    //   this.Time2[2] = String(Number("00"))
+    //   this.Time2[1] = Number(this.Time2[1]) + (1)
+    // }
+    // else {
+    //   this.Time2[2] = Number(this.timerNew[2]) + Number(this.timetoSend2[2])
+    // }
+    // if ((Number(this.timerNew[1]) + Number(this.timetoSend2[1])) > 59) {
+    //   this.Time2[1] = String(Number("00"))
+    //   this.Time2[0] = Number(this.Time2[0]) + (1)
+    // }
+    // else {
+    //   this.Time2[2] = Number(this.timerNew[2]) + Number(this.timetoSend2[2])
+    // }
+    // this.Time2[0] = Number(this.timerNew[0]) + Number(this.timetoSend2[0])
+    // this.Time2 = [(this.Time2[0]) + ":" + (this.Time2[1]) + ":" + (this.Time2[2])]
 
-    }
-
-
-    this.Time2[0] = Number(this.timerNew[0]) + Number(this.timetoSend2[0])
-
-
-    this.Time2 = [String(this.Time2[0]) + ":" + String(this.Time2[1]) + ":" + String(this.Time2[2])]
+    // convert timer oclock this.workTime to millisecond
+    const timeConvert: any = this.datePipe.transform(this.workTime, 'HH:mm:ss');
+    this.Time
+    var datum = (new (timeConvert));
+    this.Time2 = Number(datum) + Number(this.Time)
     return this.Time2
+
   }
 
 
 
 
+  cli(workTime: any) {
+    // if (!this.workTime) { return ''; }
+    // const aaa = workTime
+    // const TimeW = aaa.split(':')
+    // let hours2: any = new Date(TimeW[0])
+    // let minutes2: any = new Date(TimeW[1])
+    // let second2: any = new Date(TimeW[2])
+    // let hours = new Date(TimeW[0]).getHours();
+    // let minutes = new Date(TimeW[1]).getMinutes();
+    // let second = new Date(TimeW[2]).getTime() / 1000
+    // let second3 = new Date(TimeW[2]).getSeconds();
+    // let timea = Number(TimeW[0] * 60 * 60) + Number(TimeW[1] * 60) + Number(TimeW[2])
+    // alert(timea)
+    // var t = new Date();
+    // var J = t.setSeconds(t.getSeconds() + timea);
+    // const timeConvert: any = this.datePipe.transform(J, 'HH:mm:ss');
+    const timeConvert3 = Number(65) + Number(65) + Number(65)
+    const timeConvert4: any = this.datePipe.transform(timeConvert3, 'HH:mm:ss');
+    const timeConvert34: any = this.datePipe.transform(new Date(65), 'HH:mm:ss');
+    alert(timeConvert34)
+    const timeConvert33: any = this.datePipe.transform(timeConvert3, 'HH:mm:ss');
+    alert(timeConvert33)
 
+    // let ampm = hours >= 12 ? 'PM' : 'AM';
+    // hours = hours % 12;
+    // hours = hours ? hours : 12; // the hour '0' should be '12'
+    // minutes = minutes < 10 ? '0' + minutes : minutes;
+    // var strTime = hours + ':' + minutes ;
+    // alert("strTime"+strTime) ;
+    return this.Time2
+  }
 
 
 }
