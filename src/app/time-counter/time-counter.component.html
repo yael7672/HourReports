@@ -2,7 +2,6 @@
     <p class="time">{{workTime}}</p>
 </div>
 <footer class="button-of-task">
-    <button (click)="cli(workTime)">ssss</button>
     <div class="button-box" *ngIf="!hideStartAndShowCancelProjectContectItem"><button   placement="top" ngbTooltip="בלחיצה על כפתור זה, נוצר במערכת דיווח, והטיימר מתחיל לפעול." (click)="startTimer()" class="btn btn-color">התחל</button></div>
     <div class="button-box" *ngIf="hideStartAndShowCancelProjectContectItem"><button  placement="top" ngbTooltip="בלחיצה על כפתור זה, באפשרותך לבטל את  הדיווח שהותחל על משימה זו ."(click)="cancelProjectContectItenOnTask()" class="btn btn-color">בטל</button></div>
     <div class="button-box" *ngIf="hideStartAndShowCancelProjectContectItem&&!hideDelayAndShowRenewProjectContectItemOnTask"><button  placement="top" ngbTooltip="בלחיצה על כפתור זה, באפשרותך להשהות עבודה על משימה זו" (click)="delayProjectContectItenOnTask(workTime)" class="btn btn-color">השהה</button></div>
