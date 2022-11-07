@@ -125,13 +125,13 @@ export class TimeCounterComponent implements OnInit {
           this.hideStartAndShowCancelProjectContectItem = true
           this.hideDelayAndShowRenewProjectContectItemOnTask = true
         }
-        else  {
-          // this.workTime = ["00:00:00"];
-          // this.workTime = [];
-          this.inMiddleTask = true
-          this.hideStartAndShowCancelProjectContectItem = false
-          this.hideDelayAndShowRenewProjectContectItemOnTask = false
-        }
+        // else {
+        // this.workTime = ["00:00:00"];
+        // this.workTime = [];
+        // this.inMiddleTask = true
+        // this.hideStartAndShowCancelProjectContectItem = false
+        // this.hideDelayAndShowRenewProjectContectItemOnTask = false
+        // }
       });
     }
   }
@@ -264,6 +264,8 @@ export class TimeCounterComponent implements OnInit {
     if (this.workTime == 0 || this.workTime < "00:01:00")
       swal("אין אפשרות לדווח פחות מ-1 דק")
     else {
+      localStorage.removeItem("interval")
+
       this.popUpService.setStartTimer(false);
       this.disabledPauseButton = true;
       this.disabledStartButton = false;
@@ -306,8 +308,9 @@ export class TimeCounterComponent implements OnInit {
                 localStorage.removeItem("TimeInDateFormat")
                 localStorage.removeItem("timerOfTask")
                 this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
-                  if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid) delete this.openTasksInLs[index];
+                  if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid) delete this.openTasksDetailsFromLsParseToJson[index];
                 });
+                
                 localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
                 this.popUpService.SetProjectContentItemByTaskGuid(true)
                 this.popUpService.SetWorkTimeAfterProjectContectItem(true);
@@ -324,6 +327,7 @@ export class TimeCounterComponent implements OnInit {
   }
 
   endTimer(time: any) {
+    localStorage.removeItem("interval")
 
     this.popUpService.setStartTimer(false);
     this.disabledPauseButton = true;
@@ -383,6 +387,9 @@ export class TimeCounterComponent implements OnInit {
       if (this.workTime) {
         this.getCreatedProjectContentItemFromLoaclStorage();
       }
+      if (Number(this.interval) > 0 && this.interval != null) {
+        localStorage.setItem("interval", this.interval)
+      }
     }, 1000)
   }
   getCreatedProjectContentItemFromLoaclStorage() {
@@ -405,8 +412,8 @@ export class TimeCounterComponent implements OnInit {
   }
 
   delayProjectContectItenOnTask(time: any) {
+    localStorage.removeItem("interval")
     clearInterval(this.interval);
-    this.interval = 1
     this.TaskGuid2 = this.activatedRoute.snapshot.paramMap.get('id');
     this.timeInDateFormat = localStorage.getItem("TimeInDateFormat")
     this.timerOfTask = localStorage.getItem("timerOfTask")
@@ -518,6 +525,8 @@ export class TimeCounterComponent implements OnInit {
       }
       this.timetoSend[1] = (this.timetoSend[1] / 60)
       this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+
+
     }
     // localStorage.setItem('openTasksDetails', JSON.stringify(this.openTasksDetails))
     this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : 0, this.projectContectItemGuid,
@@ -544,10 +553,12 @@ export class TimeCounterComponent implements OnInit {
     // alert(workTime)
     // לבדוק
     // setInterval(this.interval)
+
     if (this.ifInPause) {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
     else {
+      this.interval = 1
       this.hideDelayAndShowRenewProjectContectItemOnTask = false
       // this.hideStartAndShowCancelProjectContectItem = false
       this.disabledPauseButton = false
@@ -582,6 +593,10 @@ export class TimeCounterComponent implements OnInit {
     this.interval = setInterval(() => {
       if (this.workTime) {
         this.getCreatedProjectContentItemFromLoaclStorage2();
+        if (Number(this.interval) > 0 && this.interval != null) {
+          localStorage.setItem("interval", this.interval)
+        }
+
       }
     }, 1000)
   }
@@ -660,19 +675,18 @@ export class TimeCounterComponent implements OnInit {
     if (this.openTasksDetailsFromLsParseToJson != null) {
       this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
         if (this.TaskGuid2 == element.TaskGuid) {
-          this.prevTimeInDateFormat = this.openTasksInLs[index].ParseTime
+          this.prevTimeInDateFormat = this.openTasksDetailsFromLsParseToJson[index].ParseTime
+          // this.interval = localStorage.getItem("interval")
           const time0 = (Number(this.Time) / Number(this.interval))
-          // var datum = Date.parse(this.Time);
-          // // const Time5 = datum / 1000;
           this.Time2 = Number(this.prevTimeInDateFormat) + Number(time0) + Number(1000)
           this.timerNew = this.datePipe.transform(this.Time2, 'HH:mm:ss', "+0000");
-          this.openTasksInLs[index].ParseTime = this.Time2
-          this.openTasksInLs[index].TimeTask = this.timerNew
+          this.openTasksDetailsFromLsParseToJson[index].ParseTime = this.Time2
+          this.openTasksDetailsFromLsParseToJson[index].TimeTask = this.timerNew
         }
       })
     }
     // 
-    localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
+    localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
 
     return this.timerNew
 
