@@ -29,12 +29,12 @@
           class="btn btn-color">מיין</button>
       </div>
     </ng-container>
-    <ng-container *ngIf="detailsOfWorkingHourByEmployeeToSend?.length>=1">
+    <ng-container>
       <p> סה"כ שעות מדווחות : <span>{{hoursReportedThisMonth}}</span> </p>
       <p> סה"כ שעות עבודה : <span>{{workingDaysThisMonth}}</span> </p>
     </ng-container>
 
-    <app-smart-table *ngIf="detailsOfWorkingHourByEmployeeToSend?.length>=1" [ifCreateReport]="true"
+    <app-smart-table  [ifCreateReport]="true"
       [ifShowpagination]="[true,10]" [ifShowXorVIcons]="true" [ifTrIsNull]="true" [thArr]="thArrWorkingHours"
       [ifSortDown]="ifSortDown" [tableDataKeys]="WorkingHoursListKeys"
       [tableData]="detailsOfWorkingHourByEmployeeToSend" (SortTableDown)="SortTableDown($event)"
@@ -79,6 +79,11 @@
     </div>
   </app-pop-up>
 </div>
+<app-pop-up-for-image *ngIf="ifShowSpinner">
+  <div body class="body-content">
+      <img src="../../assets/images/image_processing20210907-24087-1xvipj3.gif" id="pop-up-image" />
+  </div>
+</app-pop-up-for-image>
 <!-- <ng-container>
     <app-modal *ngIf="isPopUpOpen?.ProjectContentItemBySpesificDate" (pleaseClose)="closeDialog($event)" [class]="'large-dialog'" #appModalConfirmation>
       <div header>this is the header</div>

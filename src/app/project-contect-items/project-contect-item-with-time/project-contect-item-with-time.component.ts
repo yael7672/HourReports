@@ -33,7 +33,13 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   ifX = true;
   ButtonCancel: boolean = true
   massageToUser: any;
-  constructor(private popUpService: PopUpServiceService, private appService: AppService, private userService: UserServiceService, private datePipe: DatePipe) { }
+  ifShowSpinner!:boolean;
+  constructor(private popUpService: PopUpServiceService, private appService: AppService,
+     private userService: UserServiceService, private datePipe: DatePipe) {
+      this.appService.getSpinner().subscribe(res => {
+        this.ifShowSpinner = res;
+      })
+      }
 
   ngOnInit(): void {
     if (localStorage.getItem("DateNowProjectContectItemWithTimer")) {
@@ -59,6 +65,8 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   }
 
   clickYes(time: any) {
+    debugger
+    this.appService.setSpinner(true);
     this.endButtonTimerContectProjectContectItem = false;
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
@@ -78,6 +86,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
 
   }
   clickCancel(time: any) {
+    this.appService.setSpinner(true);
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
       clearInterval(this.interval);
@@ -106,6 +115,8 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   DeleteProjectContentItemByGuid(projectContectItemByTimerGuid: any) {
     this.userService.DeleteProjectContentItemByGuid(projectContectItemByTimerGuid).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
+
         this.massageToUser = res;
         swal("!הדיווח בוטל")
         this.popUpService.setAllmyProjectContectItem(true)
@@ -120,7 +131,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
     this.TimeProjectContectItemHour = ""
     localStorage.removeItem("DateNowProjectContectItemWithTimer")
     this.timeToSendCreate = time
-    this.popUpService.SetIfXProjectContectItemUpdateWithTime(true)
+    this.popUpService.SetIfXProjectContectItemUpdateWithTime(true);
     this.OpenUpdatePauseTimerProjectContectItem = true
 
   }

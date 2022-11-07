@@ -21,9 +21,6 @@ import { environment } from '../environments/environment';
   declarations: [
     LoginComponent,
     AppComponent,
-
-  
-   
   ],
   imports: [
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),

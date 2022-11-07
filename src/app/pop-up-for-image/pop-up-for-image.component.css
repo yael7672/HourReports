@@ -1,0 +1,118 @@
+.popContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2vw;
+  /* border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px #04010312;
+    max-width: 650px;
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+    overflow-x: hidden; */
+
+
+}
+
+
+.actionArea {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 19;
+  background-color: #0e1b34de;
+  width: 100%;
+  height: 100%;
+  /* padding-top: 5%; */
+  overflow: auto;
+}
+
+
+.header div h3 {
+  font-size: 900px;
+}
+
+.body {
+  text-align: center;
+  direction: rtl;
+  width: 100%;
+  height: 90vh;
+}
+
+
+a {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  direction: rtl;
+  color: white;
+}
+
+h4 {
+  color: white;
+direction: rtl;}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+i.fa.fa-arrow-circle-o-left {
+  color: white;
+  font-size: 40px;
+  top: 250px;
+  left: 43px;
+  position: absolute;
+}
+
+i.fa.fa-arrow-circle-o-right {
+  color: white;
+  font-size: 40px;
+  top: 250px;
+  right: 9px;
+  position: absolute;
+}
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+}
+/* @media only screen and (min-width: 320px) and (max-width: 800px) {
+  i.fa.fa-arrow-circle-o-right[_ngcontent-qnf-c114] {
+    color: white;
+    font-size: 40px;
+    top: 312px;
+    right: -18px;
+    position: absolute;
+  }
+} */

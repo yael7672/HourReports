@@ -138,13 +138,13 @@
 
             <button type="submit" class="btn" [disabled]="isDisabled" placement="top" ngbTooltip=" יצירת דיווח">צור
                 דיווח</button>
-     
+
         </form>
-       <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItemRepeat(f)" #f="ngForm">
-                <button type="submit" class="btn button2" [disabled]="isDisabled" placement="top"
-                    ngbTooltip="יצירת דיווח">שמור וצור חדש
-                </button>
-            </form>
+        <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItemRepeat(f)" #f="ngForm">
+            <button type="submit" class="btn button2" [disabled]="isDisabled" placement="top"
+                ngbTooltip="יצירת דיווח">שמור וצור חדש
+            </button>
+        </form>
     </div>
     <div footer>
     </div>
@@ -161,3 +161,9 @@
         </div>
     </app-pop-up>
 </div>
+
+<app-pop-up-for-image *ngIf="ifShowSpinner">
+    <div body class="body-content">
+        <img src="../../assets/images/image_processing20210907-24087-1xvipj3.gif" id="pop-up-image" />
+    </div>
+</app-pop-up-for-image>

@@ -38,10 +38,13 @@ export class UpdateProjectContentItemComponent implements OnInit {
   systemGuid: any;
   actualHours: any;
   date: any;
+  ifShowSpinner!:boolean;
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserServiceService, private appService: AppService,
     private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
-
+      this.appService.getSpinner().subscribe(res => {
+        this.ifShowSpinner = res;
+      })
   }
 
   ngOnInit(): void {
@@ -55,6 +58,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
     this.GetAllUserAndTeams();
   }
   UpdateTaskOrProjectContectItem(f: NgForm) {
+    this.appService.setSpinner(true);
     if (this.kindUpdate == 'updateTaskDetails') {
       this.UpdateTaskDetails(f)
     }
@@ -76,7 +80,8 @@ export class UpdateProjectContentItemComponent implements OnInit {
       Subject: this.ProjectContentItem?.Subject ? this.ProjectContentItem?.Subject : "",
     }
     this.userService.UpdateTaskDetails(this.TaskToUpdate.TaskGuid, this.TaskToUpdate.Project, this.TaskToUpdate.Description, this.TaskToUpdate.Subject, this.TaskToUpdate.WorkType, this.TaskToUpdate.AssignTask).subscribe(
-      (res) => {
+      (res) => {   
+         this.appService.setSpinner(false);
         this.massageToUser = res;
         swal(this.massageToUser)
         this.popUpService.SetProjectContentItemByTaskGuid(true);
@@ -95,11 +100,12 @@ export class UpdateProjectContentItemComponent implements OnInit {
       Description: this.ProjectContentItem.Description,
       ActualTime: this.actualHours,
       WorkingHours: this.workingHours,
-      WorkType: { "Guid": this.ProjectContentItem.WorkType.Guid },
-      Project: { "Guid": this.ProjectContentItem.Project.Guid },
+      WorkType: { "Guid": this.ProjectContentItem.WorkType?.Guid },
+      Project: { "Guid": this.ProjectContentItem?.Project?.Guid },
     }
     this.userService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
         this.massageToUser = res;
         swal(this.massageToUser)
         this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');

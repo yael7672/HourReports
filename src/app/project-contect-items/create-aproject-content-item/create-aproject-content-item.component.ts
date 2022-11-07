@@ -69,6 +69,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   createProjectContectItemWithTimerMoreEmployee = false
   ngxDisabled = false;
   repeat = false;
+  ifShowSpinner!: boolean;
   massgeUserCloseProjectContectItemByTimerCancel = "האם ברצונך לבטל דיווח זה?"
   showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
@@ -77,8 +78,11 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.GetIfXProjectContectItemUpdateWithTime().subscribe(res => {
       if (res) {
-        this.ifX = false
+        this.ifX = false;
       }
+    })
+    this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
     })
   }
   ngOnInit(): void {
@@ -100,6 +104,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   CreateNewProjectItem(form: NgForm) {
+    this.appService.setSpinner(true);
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
       form.value.Project = { "Guid": form.value.Project.Guid },
       form.value.WorkType = { "Guid": form.value.workType.Guid }
@@ -123,6 +128,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.userServiceService.CreateNewProjectItem(form.value, form.value.fromDate, form.value.untilDate).subscribe
       (
         (res) => {
+          this.appService.setSpinner(false);
           this.ProjectContentItem = res;
           if (this.createProjectContectItemWithTimerMoreEmployee != true) {
             swal("!דיווח נוצר בהצלחה")
@@ -208,6 +214,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   UpdateProjectContectItemWithTime(form: NgForm) {
+    this.appService.setSpinner(true);
     if (this.MoreEmployeeArr.length > 0) {
       this.createProjectContectItemWithTimerMoreEmployee = true
     }
@@ -222,6 +229,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
     form.value.ActualTime = this.actualTime
     this.userServiceService.UpdateProjectContectItemWithTime(form.value).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
         this.ProjectContentItemWithTime = res;
         swal(this.ProjectContentItemWithTime)
         this.popUpService.setAllmyProjectContectItem(true)
@@ -309,6 +317,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
 
   clickYes(time: any) {
+    this.appService.setSpinner(true);
     this.endButtonTimerContectProjectContectItem = false;
     if (time.worktime != "" || time != null) {
       clearInterval(this.interval);
@@ -325,6 +334,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   DeleteProjectContentItemByGuid(projectContectItemByTimerGuid: any) {
     this.userServiceService.DeleteProjectContentItemByGuid(projectContectItemByTimerGuid).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
         this.massageToUser = res;
         swal("!הדיווח בוטל")
         this.appService.setIsPopUpOpen(false);

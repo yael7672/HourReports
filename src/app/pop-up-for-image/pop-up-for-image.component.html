@@ -1,0 +1,26 @@
+<script type="text/javascript"
+  src="https://platform-api.sharethis.com/js/sharethis.js#property=634fb60cf1b0ef0012037d29&product=image-share-buttons&source=platform"
+  async="async"></script>
+
+<div class="actionArea">
+  <form class="popContainer">
+    <a *ngIf="ifX" class="close" (click)="closePopUp()">&times;</a>
+    <h4>{{header}}</h4> 
+
+    <div class="header">
+      <ng-content select="[header]">
+      </ng-content>
+    </div>
+    <div class="body">
+      <ng-content select="[body]"></ng-content>
+    </div>
+    <a *ngIf="ifShowArrow" (click)="plusSlides(-1)" [ngClass]="ifMinus?'isDisabled':''"> <i class="fa fa-arrow-circle-o-left"
+        aria-hidden="true"></i></a>
+    <a *ngIf="ifShowArrow" (click)="plusSlides(1)" [ngClass]="ifPlus?'isDisabled':''"> <i class="fa fa-arrow-circle-o-right"
+        aria-hidden="true"></i></a>
+
+    <div class=".footer">
+      <ng-content select="[footer]"></ng-content>
+    </div>
+  </form>
+</div>

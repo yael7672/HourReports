@@ -39,10 +39,14 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
   fromDate: any;
   untilDate: any;
   myDate = new Date();
+  ifShowSpinner!:boolean;
   spesificDateForCreateReport: any;
   whichDetailsOfWorkingHourEmployeeOpen: any;
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private datepipe: DatePipe, private appService: AppService, private activatedRoute: ActivatedRoute) {
+      this.appService.getSpinner().subscribe(res => {
+        this.ifShowSpinner = res;
+      })
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -138,13 +142,18 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
 
   getDetailsOfWorkingHourByEmployee(val: any) {
     if (val == "") {
+    this.appService.setSpinner(true);
       val = 1;
     }
     localStorage.setItem('whichDetailsOfWorkingHourEmployeeOpen', val)
     if (val == 3) {
       this.showInputsDates = true;
     }
+    
     else {
+      if (val ==2) {
+        this.appService.setSpinner(true);
+      }
       this.showInputsDates = false;
       this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
       this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
@@ -153,6 +162,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, val, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
         if (res) {
           this.detailsOfWorkingHourByEmployee = res;
+          this.appService.setSpinner(false);
           this.detailsOfWorkingHourByEmployee.forEach(x => {
             if (x.Date != null) {
               this.detailsOfWorkingHourByEmployeeToSend.push(x)

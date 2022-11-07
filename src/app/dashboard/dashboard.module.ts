@@ -63,6 +63,7 @@ import { ProjectsByEmployeeComponent } from '../projects-by-employee/projects-by
 import { SpecificProjectDetailsComponent } from '../specific-project-details/specific-project-details.component';
 import { ProjectContectItemByProjectComponent } from '../project-contect-item-by-project/project-contect-item-by-project.component';
 import { TabNavMenuComponent } from '../tab-nav-menu/tab-nav-menu.component';
+import { PopUpForImageComponent } from '../pop-up-for-image/pop-up-for-image.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
     optionValueField: 'Guid',
@@ -122,8 +123,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     SpecificProjectDetailsComponent,
     ProjectContectItemByProjectComponent,
     TabNavMenuComponent,
-
-    
+PopUpForImageComponent
 
 ],
  imports : [
@@ -134,11 +134,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     NgbModule,
     ClickOutsideModule,
     AutocompleteLibModule,
-
     NgxSelectModule.forRoot(CustomSelectOptions),
     NgxPaginationModule,
-    
-
 ],
 providers: [],
 bootstrap: []
