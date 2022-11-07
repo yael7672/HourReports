@@ -7,32 +7,29 @@
       <p class="span">שם פרויקט: </p>
       <p>{{ProjectArr?.Name}} </p>
     </div>
-    <div class="form-outline d-flex justify-content-right row ">
-
-      <!-- <div class="form-outline d-flex justify-content-right ">
+    <!-- <div class="form-outline d-flex justify-content-right ">
       <p class="span">לקוח: </p>
       <p>{{ProjectArr?.Account?.Name}} </p>
     </div> -->
-      <div class="form-outline d-flex justify-content-right col-6">
-        <p class="span">שעות לאישור: </p>
-        <p>{{ProjectArr?.ConfirmedHours}} </p>
-      </div>
-
-      <div class="form-outline d-flex justify-content-right col-6">
+    <div class="form-outline d-flex justify-content-right row mb-3 ">
+      <div class="form-outline d-flex justify-content-right col-6 box">
         <p class="span">תאריך התחלה: </p>
         <p>{{ProjectArr?.StartDate}} </p>
-
+      </div>
+      <div class="form-outline d-flex justify-content-right col-6 box">
+        <p class="span">תאריך סיום: </p>
+        <p>{{ProjectArr?.EndDate}}</p>
       </div>
     </div>
-    <div class="form-outline d-flex justify-content-right ">
-      <p class="span">תאריך סיום: </p>
-      <p>{{ProjectArr?.EndDate}}</p>
-
-    </div>
-    <div class="form-outline d-flex justify-content-right ">
-      <p class="span">סוג פרויקט: </p>
-      <p>{{ProjectArr?.ProjectType?.Name}}</p>
-
+    <div class="form-outline d-flex justify-content-right row mb-3">
+      <div class="form-outline d-flex justify-content-right col-6 box">
+        <p class="span">סוג פרויקט: </p>
+        <p>{{ProjectArr?.ProjectType?.Name}}</p>
+      </div>
+      <div class="form-outline d-flex justify-content-right col-6 box">
+        <p class="span">לקוח בפרויקט: </p>
+        <p>{{ProjectArr?.ContactInProject?.Name}} </p>
+      </div>
     </div>
     <!-- <div class="form-outline d-flex justify-content-right ">
       <p class="span">מנהל פרויקט: </p>
@@ -49,25 +46,24 @@
       <p>{{ProjectArr?.Subject}} </p>
 
     </div> -->
-    <div class="form-outline d-flex justify-content-right ">
-      <p class="span">לקוח בפרויקט: </p>
-      <p>{{ProjectArr?.ContactInProject?.Name}} </p>
-
+    <div class="form-outline d-flex justify-content-right row mb-3">
+      <div class="form-outline d-flex justify-content-right box col-6">
+        <p class="span">שעות לחיוב: </p>
+        <p>{{ProjectArr?.isBillableHours}} </p>
+      </div>
+      <div class="form-outline d-flex justify-content-right box col-6">
+        <p class="span">שעות לאישור: </p>
+        <p>{{ProjectArr?.ConfirmedHours}} </p>
+      </div>
     </div>
-    <div class="form-outline d-flex justify-content-right ">
-      <p class="span">שעות לחיוב: </p>
-      <p>{{ProjectArr?.isBillableHours}} </p>
-
-    </div>
-    <div class="form-outline d-flex justify-content-right ">
+    <div class="form-outline d-flex justify-content-right box mb-3">
       <p class="span">סה"כ שעות לאישור: </p>
       <p>{{ProjectArr?.totalDevHours}} </p>
 
     </div>
-    <div class="form-outline d-flex justify-content-right ">
+    <div class="form-outline d-flex justify-content-right box mb-3">
       <p class="span">תיאור פרויקט: </p>
       <p>{{ProjectArr?.Description}}</p>
-
     </div>
     <br>
 

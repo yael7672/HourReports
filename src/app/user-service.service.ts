@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 // import { Injectable , Pipe } from '@angular/core/core';
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Acccount } from './interfacees/Acccount';
 import { averageBreaks } from './interfacees/averageBreaks';
@@ -49,9 +49,10 @@ export class UserServiceService {
   GetRegarding() {
     return this.http.get<Regardingobjectid[]>(environment.url + 'GetRegarding?OrganizationName=AuroraProd');
   }
-  UpdateProjectContentItem(duration: string, taskId: string, isTaskAccomplished: boolean, descriptionTask: string) {
-    return this.http.get<any>(environment.url + 'UpdateProjectContentItem/?OrganizationName=AuroraProd&taskId=' + taskId + '&duration=' + duration + '&IsTaskAccomplished=' + isTaskAccomplished + '&DescriptionTask=' + descriptionTask);
+  UpdateProjectContectItemByTask(duration: string, taskId: string, isTaskAccomplished: boolean, descriptionTask: string) {
+    return this.http.get<any>(environment.url + 'UpdateProjectContectItemByTask/?OrganizationName=AuroraProd&taskId=' + taskId + '&duration=' + duration + '&IsTaskAccomplished=' + isTaskAccomplished + '&DescriptionTask=' + descriptionTask);
   }
+
   async GetProjectContentItemByTaskGuid(taskId: string) {
     return await this.http.get<any>(environment.url + 'GetProjectContentItemByTaskGuid/?OrganizationName=AuroraProd&TaskId=' + taskId).toPromise();
   }
@@ -173,7 +174,9 @@ export class UserServiceService {
   }
   async GetProjectByGuid(SystemUser: any, GuidProject: any) {
     return await this.http.get<any>(environment.url + 'GetProjectByGuid/?OrganizationName=AuroraProd&SystemUser=' + SystemUser + '&GuidProject=' + GuidProject).toPromise();
-
+  }
+  UpdateProjectContentItem(duration: any, ProjectContectItemId: any, isTaskAccomplished: boolean, descriptionTask: any) {
+    return this.http.get<any>(environment.url +'UpdateProjectContentItem?OrganizationName=AuroraProd&ProjectContectItemId='+ProjectContectItemId+'&duration='+duration+'&IsTaskAccomplished='+isTaskAccomplished+'&DescriptionTask='+descriptionTask)
   }
 
 }
