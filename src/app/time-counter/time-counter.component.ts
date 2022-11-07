@@ -125,9 +125,9 @@ export class TimeCounterComponent implements OnInit {
           this.hideStartAndShowCancelProjectContectItem = true
           this.hideDelayAndShowRenewProjectContectItemOnTask = true
         }
-        if (this.TaskGuid2 != element.TaskGuid) {
-          this.workTime = ["00:00:00"];
-          this.workTime = [];
+        else  {
+          // this.workTime = ["00:00:00"];
+          // this.workTime = [];
           this.inMiddleTask = true
           this.hideStartAndShowCancelProjectContectItem = false
           this.hideDelayAndShowRenewProjectContectItemOnTask = false
@@ -413,21 +413,24 @@ export class TimeCounterComponent implements OnInit {
     if (this.timeInDateFormat && this.timerOfTask) {
       this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
       this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
-        // אם המערך ריק מכניס אליו
-        if (this.openTasksDetailsFromLs == null  ) {
-          this.openTasksInLs.push({ ProjectContectItemGuid: this.projectContectItemGuid, TaskGuid: this.TaskGuid2, TimeTask: this.timerOfTask, ParseTime: this.timeInDateFormat, Type: this.isInMiddleTask })
-          localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
+      // אם המערך ריק מכניס אליו
+      if (this.openTasksDetailsFromLs == null) {
+        this.openTasksInLs.push({ ProjectContectItemGuid: this.projectContectItemGuid, TaskGuid: this.TaskGuid2, TimeTask: this.timerOfTask, ParseTime: this.timeInDateFormat, Type: this.isInMiddleTask })
+        localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
 
-        }
+      }
       // עידכון מערך קיים- בודק אם יש כבר את המשימה במערך ומעדכן עליה
-      if (this.openTasksDetailsFromLs != null  ) {
+      if (this.openTasksDetailsFromLs != null) {
         this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
           if (this.TaskGuid2 == element.TaskGuid) {
+            this.openTasksInLs.push({ ProjectContectItemGuid: this.openTasksDetailsFromLsParseToJson[index].ProjectContectItemGuid, TaskGuid: this.openTasksDetailsFromLsParseToJson[index].TaskGuid, TimeTask: this.openTasksDetailsFromLsParseToJson[index].TimeTask, ParseTime: this.openTasksDetailsFromLsParseToJson[index].ParseTime, Type: this.openTasksDetailsFromLsParseToJson[index].Type })
             this.openTasksInLs.push({ ProjectContectItemGuid: element.ProjectContectItemGuid, TaskGuid: element.TaskGuid, TimeTask: element.TimeTask, ParseTime: element.ParseTime, Type: element.Type })
             localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
 
           }
           else {
+            // this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
+            this.openTasksInLs.push({ ProjectContectItemGuid: this.openTasksDetailsFromLsParseToJson[index].ProjectContectItemGuid, TaskGuid: this.openTasksDetailsFromLsParseToJson[index].TaskGuid, TimeTask: this.openTasksDetailsFromLsParseToJson[index].TimeTask, ParseTime: this.openTasksDetailsFromLsParseToJson[index].ParseTime, Type: this.openTasksDetailsFromLsParseToJson[index].Type })
             this.openTasksInLs.push({ ProjectContectItemGuid: this.projectContectItemGuid, TaskGuid: this.TaskGuid2, TimeTask: this.timerOfTask, ParseTime: this.timeInDateFormat, Type: this.isInMiddleTask })
             localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
 
