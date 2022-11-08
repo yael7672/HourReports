@@ -64,7 +64,6 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
         }
       }
     })
-
   }
   ngOnInit(): void {
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -179,6 +178,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
         }
       },
         err => {
+          this.appService.setSpinner(false);
           console.log(err.error);
         })
     }

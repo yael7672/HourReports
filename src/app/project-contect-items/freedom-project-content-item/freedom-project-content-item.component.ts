@@ -94,6 +94,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
       (err) =>
       
       {
+        this.appService.setSpinner(false);
         swal(err.error)
         this.isDisabled = false;
       }
@@ -129,6 +130,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
       }
     },
       err => {
+        this.appService.setSpinner(false);
         console.log(err.error);
       })
 

@@ -179,7 +179,8 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
           console.log(this.hoursReportedThisMonth);
         }
       },
-        err => {
+        err => {          
+          this.appService.setSpinner(false);
           console.log(err.error);
         })
     }

@@ -164,6 +164,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.popUpService.setDetailsOfWorkingHoursEmployeeForAdmin(true);
         },
         (err) => {
+          this.appService.setSpinner(false);
           swal(err.error)
           this.isDisabled = false;
 
@@ -242,8 +243,10 @@ export class CreateAprojectContentItemComponent implements OnInit {
         }
       },
       (err) =>
-        swal(err.error))
-
+      {
+      this.appService.setSpinner(false);
+        swal(err.error)
+      })
   }
   CreateOrUpdateProjectContectItem(form: NgForm) {
     this.isDisabled = true;
@@ -341,7 +344,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
         this.popUpService.setClosePopUp();
         this.popUpService.setAllmyProjectContectItem(true)
       },
-      (err) =>
-        swal(err.error))
+      (err) =>{
+      this.appService.setSpinner(false);
+        swal(err.error)})
   }
 }

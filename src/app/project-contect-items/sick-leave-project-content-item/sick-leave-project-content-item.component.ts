@@ -93,6 +93,7 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
       }
     },
       err => {
+        this.appService.setSpinner(false);
         console.log(err.error);
       })
   }
@@ -109,6 +110,7 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
         this.popUpService.setClosePopUp();
       },
       (err) => {
+        this.appService.setSpinner(false);
         swal(err.error);
         this.isDisabled = true;
       }

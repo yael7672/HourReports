@@ -108,6 +108,7 @@ export class CreateNewTaskComponent implements OnInit {
       }
     },
       err => {
+        this.appService.setSpinner(false);
         console.log(err.error);
         this.isDisabled = false;
       }

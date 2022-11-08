@@ -9,8 +9,8 @@ import { UserServiceService } from 'src/app/user-service.service';
   styleUrls: ['./show-my-team-task.component.css']
 })
 export class ShowMyTeamTaskComponent implements OnInit {
-  @Input() project!: any;
-  @Input() workType!: any;
+  project!: any;
+  workType!: any;
   isPopUpOpen: any;
   tableMyTaskTeamsOpen = false;
   titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך';
@@ -31,7 +31,28 @@ export class ShowMyTeamTaskComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.getTaskForMyTeams()
+    this.getTaskForMyTeams();
+    this.GetProject();
+    this.GetWorkType();
+  }
+  GetWorkType() {
+    this.userService.GetWorkType().subscribe(
+      (res: any) => {
+        this.workType = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
+  GetProject() {
+    this.userService.GetProject().subscribe(res => {
+      if (res) {
+        this.project = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
   }
   getTaskForMyTeams() {
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');

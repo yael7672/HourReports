@@ -45,8 +45,10 @@ export class DeleteProjectContentItemComponent implements OnInit {
         this.popUpService.SetProjectContentItemByTaskGuid(true);
 
       },
-      (err) =>
-        swal(err.error))
+      (err) =>{
+        swal(err.error)
+        this.appService.setSpinner(false);
+      })
   }
   clickNo(kindOfMassage: string) {
     if (kindOfMassage = 'checkIfIsReportOnThisDate') {

@@ -9,12 +9,11 @@ import { UserServiceService } from '../../user-service.service';
   styleUrls: ['./task-by-team.component.css']
 })
 export class TaskByTeamComponent implements OnInit {
-
-  @Input() project!: any;
-  @Input() workType!: any;
+  project!: any;
+  workType!: any;
   isPopUpOpen: any;
   tableMyTaskTeamsOpen = false;
-  titleTableTeamsTask ="";
+  titleTableTeamsTask = "";
   thArrTaskTeams = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'צוות'];
   taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
   taskTeamsArr: any;
@@ -28,7 +27,7 @@ export class TaskByTeamComponent implements OnInit {
   teamDetailsParseJson: any;
   constructor(private userService: UserServiceService,
     private popUpService: PopUpServiceService,
-    public route: Router,private activatedRoute:ActivatedRoute) {
+    public route: Router, private activatedRoute: ActivatedRoute) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -36,8 +35,29 @@ export class TaskByTeamComponent implements OnInit {
   ngOnInit(): void {
     this.teamDetails = localStorage.getItem('teamsDetails');
     this.teamDetailsParseJson = JSON.parse(this.teamDetails);
-    this.titleTableTeamsTask =  ' המשימות של צוות '  + this.teamDetailsParseJson?.TeamName;
+    this.titleTableTeamsTask = ' המשימות של צוות ' + this.teamDetailsParseJson?.TeamName;
     this.GetTaskByTeamGuid();
+    this.GetWorkType();
+    this.GetProject();
+  }
+  GetWorkType() {
+    this.userService.GetWorkType().subscribe(
+      (res: any) => {
+        this.workType = res;
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
+  GetProject() {
+    this.userService.GetProject().subscribe(res => {
+      if (res) {
+        this.project = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
   }
   GetTaskByTeamGuid() {
     this.teamGuid = this.activatedRoute.snapshot.paramMap.get('id');
@@ -45,7 +65,7 @@ export class TaskByTeamComponent implements OnInit {
       res => {
         if (res) {
           this.taskTeamsArr = res;
-          
+
         }
       }, err => {
         console.log(err.error)
