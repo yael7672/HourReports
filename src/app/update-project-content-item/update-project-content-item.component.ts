@@ -38,13 +38,18 @@ export class UpdateProjectContentItemComponent implements OnInit {
   systemGuid: any;
   actualHours: any;
   date: any;
+  ifShowSpinner!: boolean;
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserServiceService, private appService: AppService,
     private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
-
+    this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
+    })
   }
 
   ngOnInit(): void {
+    console.log(this.workType);
+
     this.date = this.datePipe.transform(this.ProjectContentItem?.Date, 'yyyy-MM-dd');
     this.actualHours = Number(this.ProjectContentItem?.WorkingHours)
     if (this.ProjectContentItem?.ActualTime != "")
@@ -55,6 +60,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
     this.GetAllUserAndTeams();
   }
   UpdateTaskOrProjectContectItem(f: NgForm) {
+    this.appService.setSpinner(true);
     if (this.kindUpdate == 'updateTaskDetails') {
       this.UpdateTaskDetails(f)
     }
@@ -77,14 +83,18 @@ export class UpdateProjectContentItemComponent implements OnInit {
     }
     this.userService.UpdateTaskDetails(this.TaskToUpdate.TaskGuid, this.TaskToUpdate.Project, this.TaskToUpdate.Description, this.TaskToUpdate.Subject, this.TaskToUpdate.WorkType, this.TaskToUpdate.AssignTask).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
         this.massageToUser = res;
         swal(this.massageToUser)
         this.popUpService.SetProjectContentItemByTaskGuid(true);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
-      (err) =>
+      (err) => {
+        this.appService.setSpinner(false);
+
         console.log(err.error)
+      }
     )
   }
   UpdateProjectItemButton(form: NgForm) {
@@ -95,11 +105,12 @@ export class UpdateProjectContentItemComponent implements OnInit {
       Description: this.ProjectContentItem.Description,
       ActualTime: this.actualHours,
       WorkingHours: this.workingHours,
-      WorkType: { "Guid": this.ProjectContentItem.WorkType.Guid },
-      Project: { "Guid": this.ProjectContentItem.Project.Guid },
+      WorkType: { "Guid": this.ProjectContentItem.WorkType?.Guid },
+      Project: { "Guid": this.ProjectContentItem?.Project?.Guid },
     }
     this.userService.UpdateProjectContentItemDetails(this.ProjectItemToUpdate).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
         this.massageToUser = res;
         swal(this.massageToUser)
         this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
@@ -114,8 +125,10 @@ export class UpdateProjectContentItemComponent implements OnInit {
           this.popUpService.setClosePopUp();
         }
       },
-      (err) =>
+      (err) => {
+        this.appService.setSpinner(false);
         console.log(err.error)
+      }
     )
   }
   GetAllUserAndTeams() {

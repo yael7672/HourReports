@@ -18,8 +18,6 @@ import swal from 'sweetalert';
   styleUrls: ['./show-my-task.component.css']
 })
 export class ShowMyTaskComponent implements OnInit {
-  @Input() project!: any;
-  @Input() workType!: any;
   @Output() clickSelectedTask = new EventEmitter<any>();
   @Output() getDataClickOfButton = new EventEmitter<any>();
   @Input() nameSearch: any
@@ -36,7 +34,7 @@ export class ShowMyTaskComponent implements OnInit {
   ifThereAreTasks = false;
   tableMyTaskOpen = true;
   projectArr!: Project[];
-  workTypeArr: any;
+  workType: any;
   projectContentItemArr: any;
   projectContentItem: any;
   titleTableTask = 'המשימות שלי';
@@ -65,6 +63,7 @@ export class ShowMyTaskComponent implements OnInit {
   openTasks!: any[]
   readonly VAPID_PUBLIC_KEY = "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
   Status: any;
+  project: any;
 
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private appService: AppService, private userService: UserServiceService, private route: Router,
@@ -173,7 +172,7 @@ export class ShowMyTaskComponent implements OnInit {
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
       (res: any) => {
-        this.workTypeArr = res;
+        this.workType = res;
       },
       (err: any) =>
         console.log(err.error)
@@ -228,7 +227,7 @@ export class ShowMyTaskComponent implements OnInit {
   GetProject() {
     this.userService.GetProject().subscribe(res => {
       if (res) {
-        this.projectArr = res;
+        this.project = res;
       }
     },
       err => {

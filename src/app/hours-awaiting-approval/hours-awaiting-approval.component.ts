@@ -54,11 +54,13 @@ export class HoursAwaitingApprovalComponent implements OnInit {
   }
   GetHoursAwaitingApproval() {
     this.justMinute = true;
-
-    this.systemGuid = localStorage.getItem('systemGuid')
+    this.systemGuid = localStorage.getItem('systemGuid');
     this.userService.GetHoursAwaitingApproval(this.systemGuid).subscribe(res => {
       if (res) {
-        this.hoursAwaitingApprovalArr = res;
+        
+        this.hoursAwaitingApprovalArr = res;   
+             console.log(this.hoursAwaitingApprovalArr);
+
         this.justMinute = false;
 
       }

@@ -40,12 +40,16 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
   todayDate!: any;
   myDate = new Date();
   showInputsDates = false;
+  ifShowSpinner!: boolean;
   spesificDateForCreateReport: any;
   whichDetailsOfWorkingHourOpen!: any;
   constructor(private userService: UserServiceService, public route: Router
     , public popUpService: PopUpServiceService, private appService: AppService, private datepipe: DatePipe, private activatedRoute: ActivatedRoute) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
+    })
+    this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
     })
     this.popUpService.getDetailsOfWorkingHoursEmployeeForAdmin().subscribe(res => {
       if (res) {
@@ -60,7 +64,6 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
         }
       }
     })
-
   }
   ngOnInit(): void {
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -138,6 +141,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
 
   getDetailsOfWorkingHourByEmployee(val: any) {
     if (val == "") {
+      this.appService.setSpinner(true);
       val = 1;
     }
     localStorage.setItem('whichDetailsOfWorkingHourOpen', val)
@@ -145,12 +149,15 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
       this.showInputsDates = true;
     }
     else {
+      if (val == 2) {
+        this.appService.setSpinner(true);
+      }
       this.showInputsDates = false;
-      debugger
-      // this.detailsOfWorkingHourByEmployeeToSend = [];
+      this.detailsOfWorkingHourByEmployeeToSend = [];
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, val, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
         if (res) {
+          this.appService.setSpinner(false);
           this.detailsOfWorkingHourByEmployee = res;
           this.detailsOfWorkingHourByEmployee.forEach(x => {
             if (x.Date != null) {
@@ -171,6 +178,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
         }
       },
         err => {
+          this.appService.setSpinner(false);
           console.log(err.error);
         })
     }

@@ -39,8 +39,11 @@ export class FreedomProjectContentItemComponent implements OnInit {
   thArrTableProjectContentItem = ['שם', 'תאריך' ];
   projectContentItemListKeys = ['Name', 'Date'];
   projectContentItemToCreate: any;
+  ifShowSpinner!: boolean;
   constructor(private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService,
-    private datepipe: DatePipe) { }
+    private datepipe: DatePipe) {this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
+    }) }
 
   ngOnInit(): void {
   }
@@ -56,6 +59,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
     }
   }
   CreateNewFreedomProjectItem(form: NgForm) {
+    this.appService.setSpinner(true);
     this.isDisabled = true;
     form.value.Name = "יום חופש";
     if (!form.value.ActualTime)
@@ -76,8 +80,10 @@ export class FreedomProjectContentItemComponent implements OnInit {
     this.checkIfIsReportOnThisDate()
   }
   CreateNewProjectItem() {
+    this.appService.setSpinner(true);
     this.userService.CreateNewProjectItem(this.projectContentItemToCreate, this.fromDate, this.untilDate).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
         this.massage = res;
         swal(this.massage)
         this.popUpService.setAllmyProjectContectItem(true)
@@ -88,6 +94,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
       (err) =>
       
       {
+        this.appService.setSpinner(false);
         swal(err.error)
         this.isDisabled = false;
       }
@@ -109,6 +116,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid')
     this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate,"").subscribe(res => {
       if (res) {
+        this.appService.setSpinner(false);
         this.MyProjectContectItemArr = res;
         console.log(this.MyProjectContectItemArr);
         
@@ -122,6 +130,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
       }
     },
       err => {
+        this.appService.setSpinner(false);
         console.log(err.error);
       })
 

@@ -29,8 +29,12 @@ export class CreateNewTaskComponent implements OnInit {
   projectArr!: Project[];
   getMyTasksProp = false;
   isDisabled = false;
+  ifShowSpinner!:boolean;
   constructor(private buttonWorkingTaskService: ButtonWorkingTaskService, public router: Router, private datePipe: DatePipe, private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
+    })
   }
   ngOnInit(): void {
     this.GetRegarding();
@@ -62,6 +66,7 @@ export class CreateNewTaskComponent implements OnInit {
     )
   }
   async CreateNewTask(form: NgForm) {
+    this.appService.setSpinner(true);
     this.isDisabled = true;
     this.tasks =
     {
@@ -90,6 +95,7 @@ export class CreateNewTaskComponent implements OnInit {
   async AddNewTask() {
     this.userService.AddNewTask(this.tasks).then(res => {
       if (res) {
+        this.appService.setSpinner(false);
         this.massage = res;
         this.getMyTasksProp = true
         swal(this.massage);
@@ -102,6 +108,7 @@ export class CreateNewTaskComponent implements OnInit {
       }
     },
       err => {
+        this.appService.setSpinner(false);
         console.log(err.error);
         this.isDisabled = false;
       }

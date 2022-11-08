@@ -22,7 +22,7 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   isChecked!: boolean;
   ifBetweenDates = false;
   showInputsDates = false;
-  thArrTableProjectContentItem = ['שם', 'תאריך' ];
+  thArrTableProjectContentItem = ['שם', 'תאריך'];
   projectContentItemListKeys = ['Name', 'Date'];
   kindOfMassage = 'checkIfIsReportOnThisDate';
   subjectTask = "חופשת מחלה"
@@ -38,7 +38,12 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
   systemGuid: any;
   MyProjectContectItemArr: any;
   isDisabled = false;
-  constructor(private userService: UserServiceService, private datepipe: DatePipe, private appService: AppService, private popUpService: PopUpServiceService) { }
+  ifShowSpinner!: boolean;
+  constructor(private userService: UserServiceService, private datepipe: DatePipe, private appService: AppService, private popUpService: PopUpServiceService) {
+    this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
+    })
+  }
   ngOnInit(): void {
   }
   checkValue(val: any) {
@@ -48,15 +53,14 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
     } else {
       this.showInputsDates = false;
       this.ifBetweenDates = false;
-
     }
   }
   CreateNewSickLeaveProjectItem(form: NgForm) {
+    this.appService.setSpinner(true);
     this.isDisabled = true;
     form.value.Name = "חופשת מחלה";
     if (!form.value.ActualTime)
       form.value.ActualTime = "9"
-
     form.value.WorkType = { "Guid": "0C03DC7D-6ADD-EA11-A813-000D3A21015B" }
     form.value.Project = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560" }
     form.value.BillableHours = "2";
@@ -69,14 +73,15 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
       this.fromDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
       this.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
     }
-     form.value.MoreEmployee=[]
+    form.value.MoreEmployee = []
     this.projectContentItemToCreate = form.value;
     this.checkIfIsReportOnThisDate()
   }
   checkIfIsReportOnThisDate() {
     this.systemGuid = localStorage.getItem('systemGuid')
-    this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate,"").subscribe(res => {
+    this.userService.GetMyProjectContectItem(this.systemGuid, 5, this.fromDate, this.untilDate, "").subscribe(res => {
       if (res) {
+        this.appService.setSpinner(false);
         this.MyProjectContectItemArr = res;
         if (this.MyProjectContectItemArr.length > 0) {
           this.showMassgeToUser = true;
@@ -88,12 +93,15 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
       }
     },
       err => {
+        this.appService.setSpinner(false);
         console.log(err.error);
       })
   }
   CreateNewProjectItem() {
+    this.appService.setSpinner(true);
     this.userService.CreateNewProjectItem(this.projectContentItemToCreate, this.fromDate, this.untilDate).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
         this.massage = res;
         swal(this.massage)
         this.popUpService.setAllmyProjectContectItem(true)
@@ -101,8 +109,8 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
       },
-      (err) =>
-      {        
+      (err) => {
+        this.appService.setSpinner(false);
         swal(err.error);
         this.isDisabled = true;
       }

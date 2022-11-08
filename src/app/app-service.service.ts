@@ -16,6 +16,8 @@ export class AppService {
 
   private isDescriptionPanelOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  private isSpinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   private isSelectedTask$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   private isRtl$ = new BehaviorSubject(false);
@@ -115,7 +117,10 @@ export class AppService {
     return this.isLogin$;
   }
 
-
-
-  
+  setSpinner(val:boolean) {
+    this.isSpinner$.next(val);
+  }
+  getSpinner() {
+    return this.isSpinner$;
+  }
 }

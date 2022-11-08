@@ -21,7 +21,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   @Output() getPauseTimer = new EventEmitter<any>();
   @Output() OpenPopUp = new EventEmitter<any>();
   projectContectItemByTimer = "projectContectItemByTimer"
-  projectContectItemByTimerCancel="projectContectItemByTimerCancel"
+  projectContectItemByTimerCancel = "projectContectItemByTimerCancel"
   kindPopUp = "UpdateProjectContectItemWithTime"
   massgeUserCloseProjectContectItemByTimer = "האם ברצונך לסיים דיווח זה?"
   timetoSend: any;
@@ -33,7 +33,13 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   ifX = true;
   ButtonCancel: boolean = true
   massageToUser: any;
-  constructor(private popUpService: PopUpServiceService, private appService: AppService, private userService: UserServiceService, private datePipe: DatePipe) { }
+  ifShowSpinner!: boolean;
+  constructor(private popUpService: PopUpServiceService, private appService: AppService,
+    private userService: UserServiceService, private datePipe: DatePipe) {
+    this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
+    })
+  }
 
   ngOnInit(): void {
     if (localStorage.getItem("DateNowProjectContectItemWithTimer")) {
@@ -59,6 +65,7 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   }
 
   clickYes(time: any) {
+
     this.endButtonTimerContectProjectContectItem = false;
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
@@ -75,9 +82,9 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
       this.pauseTimerProjectContectItem(this.parseTime)
     }
     this.showMassgeToUserProjectContectItemWithTimer = false
-
   }
   clickCancel(time: any) {
+    this.appService.setSpinner(true);
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
       clearInterval(this.interval);
@@ -106,21 +113,25 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
   DeleteProjectContentItemByGuid(projectContectItemByTimerGuid: any) {
     this.userService.DeleteProjectContentItemByGuid(projectContectItemByTimerGuid).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
+
         this.massageToUser = res;
         swal("!הדיווח בוטל")
         this.popUpService.setAllmyProjectContectItem(true)
       },
-      (err) =>
-        swal(err.error))
+      (err) => {
+        this.appService.setSpinner(false);
+        swal(err.error)
+      })
   }
-  
+
   pauseTimerProjectContectItem(time: any) {
 
     this.TimeProjectContectItemHour = ["00:00:00"];
     this.TimeProjectContectItemHour = ""
     localStorage.removeItem("DateNowProjectContectItemWithTimer")
     this.timeToSendCreate = time
-    this.popUpService.SetIfXProjectContectItemUpdateWithTime(true)
+    this.popUpService.SetIfXProjectContectItemUpdateWithTime(true);
     this.OpenUpdatePauseTimerProjectContectItem = true
 
   }

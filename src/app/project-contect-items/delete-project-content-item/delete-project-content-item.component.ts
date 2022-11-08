@@ -18,8 +18,12 @@ export class DeleteProjectContentItemComponent implements OnInit {
   massgeUserFooter = "";
   kindOfMassage = 'deleteProjectContentItem';
   massageToUser = "";
+  ifShowSpinner!:boolean;
   @Input() projectContentItemGuid:any
   constructor(private userServiceService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
+    this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
+    })
   }
   ngOnInit(): void {
   }
@@ -29,8 +33,10 @@ export class DeleteProjectContentItemComponent implements OnInit {
     }
   }
   DeleteProjectContentItemByGuid() {
+    this.appService.setSpinner(true);
     this.userServiceService.DeleteProjectContentItemByGuid(this.projectContentItemGuidOrTaskGuid).subscribe(
       (res) => {
+        this.appService.setSpinner(false);
         this.massageToUser = res;
         swal(this.massageToUser)
         this.showMassgeToUser = false;
@@ -39,8 +45,10 @@ export class DeleteProjectContentItemComponent implements OnInit {
         this.popUpService.SetProjectContentItemByTaskGuid(true);
 
       },
-      (err) =>
-        swal(err.error))
+      (err) =>{
+        swal(err.error)
+        this.appService.setSpinner(false);
+      })
   }
   clickNo(kindOfMassage: string) {
     if (kindOfMassage = 'checkIfIsReportOnThisDate') {
