@@ -110,6 +110,7 @@ button.btn.btn-color {
 
 .box {
     border-style: ridge; 
+    /* border-radius: 10%; */
 }
 
 .row {

@@ -72,6 +72,7 @@ export class MenuComponent implements OnInit {
   DateNowPause: any
   youAreInPause = false
   isAdminMode = false
+  isAdminModeLS:any
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -109,8 +110,13 @@ export class MenuComponent implements OnInit {
     this.popUpService.getIsAdminMode().subscribe(res => {
       this.isAdminMode = res;
     })
+     this.isAdminModeLS = localStorage.getItem("AdminMode")
+     if(!this.isAdminModeLS){
+      localStorage.setItem("AdminMode",'false')
+     }
   }
   ngOnInit(): void {
+    this.isAdminModeLS = localStorage.getItem("AdminMode")
 
     this.GetWorkType()
     this.GetProject();

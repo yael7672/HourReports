@@ -229,7 +229,8 @@ export class TimeCounterComponent implements OnInit {
       swal("אין אפשרות לדווח פחות מ-1 דק")
     else {
       localStorage.removeItem("interval")
-
+      this.hideStartAndShowCancelProjectContectItem=false
+      this.hideDelayAndShowRenewProjectContectItemOnTask=true
       this.popUpService.setStartTimer(false);
       this.disabledPauseButton = true;
       this.disabledStartButton = false;
