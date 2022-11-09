@@ -86,6 +86,7 @@ export class TimeCounterComponent implements OnInit {
   timeOnOpenTaskAfterDelayTimeZoneLS: any;
   timeOnOpenTaskAfterDelayStringLS: any;
   ifRefreshPageInMIddleWorkTask = false
+  timeTaskOnOpenTask: any
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router, private appService: AppService) {
     this.popUpService.getInPause().subscribe(res => {
@@ -131,27 +132,34 @@ export class TimeCounterComponent implements OnInit {
             this.openTasksDetailsFromLsParseToJson[index].TimeTask = this.timeOnOpenTaskAfterDelayStringLS;
             this.hideDelayAndShowRenewProjectContectItemOnTask = false
             element.TimeTask = this.timeOnOpenTaskAfterDelayStringLS.split(':')
+            if (element.TimeTask) {
+              // this.timeTaskOnOpenTask = element.TimeTask.split(':')
+              this.workTime = [element.TimeTask[0] + ":" + element.TimeTask[1] + ":" + element.TimeTask[2]]
+
+            }
+            localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
+            // this.workTime = this.datePipe.transform(element.ParseTime, 'HH:mm:ss', "+0000");
           }
           else {
             // this.openTasksDetailsFromLsParseToJson[index].ParseTime = element.ParseTime;
             // this.openTasksDetailsFromLsParseToJson[index].TimeTask = element.TimeTask;
             this.hideDelayAndShowRenewProjectContectItemOnTask = true
-            element.TimeTask = element.TimeTask.split(':')
-
+            if (element.TimeTask)
+            this.timeTaskOnOpenTask = element.TimeTask.split(':')
+            this.workTime = [this.timeTaskOnOpenTask[0] + ":" + this.timeTaskOnOpenTask[1] + ":" + this.timeTaskOnOpenTask[2]]
+            localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
           }
-          localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
-          this.workTime = [element.TimeTask[0] + ":" + element.TimeTask[1] + ":" + element.TimeTask[2]]
-          // this.workTime = this.datePipe.transform(element.ParseTime, 'HH:mm:ss', "+0000");
+
           this.timeContinueTaskAfterDelay = element.ParseTime
           localStorage.setItem("timeContinueTaskAfterDelay", this.timeContinueTaskAfterDelay)
           this.inMiddleTask = true
           this.hideStartAndShowCancelProjectContectItem = true
           localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
-          // if (localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone') && localStorage.getItem('timeOnOpenTaskAfterDelayString')) {
-          var a = Date.now().toString()
-          this.ifRefreshPageInMIddleWorkTask = true
-          this.ContinueToWorkOnATask2(a, this.ifRefreshPageInMIddleWorkTask)
-          // }
+          if (localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone') && localStorage.getItem('timeOnOpenTaskAfterDelayString')) {
+            var a = Date.now().toString()
+            this.ifRefreshPageInMIddleWorkTask = true
+            this.ContinueToWorkOnATask2(a, this.ifRefreshPageInMIddleWorkTask)
+          }
         }
         // else {
         // this.workTime = ["00:00:00"];
@@ -572,10 +580,11 @@ export class TimeCounterComponent implements OnInit {
     }
     else {
       if (this.TimeStartWorkAfterRefreshTaskDateNowOpenTask && ifRefreshPageInMIddleWorkTask) {
-          this.ifRefreshPageInMIddleWorkTask = false
-          localStorage.setItem('DateNowOpenTask',this.TimeStartWorkAfterRefreshTaskDateNowOpenTask)
-          this.setWorkTime2(this.TimeStartWorkAfterRefreshTaskDateNowOpenTask)
-      
+        this.ifRefreshPageInMIddleWorkTask = false
+        ifRefreshPageInMIddleWorkTask = false
+        localStorage.setItem('DateNowOpenTask', this.TimeStartWorkAfterRefreshTaskDateNowOpenTask)
+        this.setWorkTime2(this.TimeStartWorkAfterRefreshTaskDateNowOpenTask)
+
       }
       else {
         if (this.TimeStartWorkTaskDateNowOpenTask) {
@@ -601,21 +610,21 @@ export class TimeCounterComponent implements OnInit {
       this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
         if (this.TaskGuid2 == element?.TaskGuid) {
           this.prevTimeInDateFormat = this.openTasksDetailsFromLsParseToJson[index].ParseTime;
-        } if (this.prevTimeInDateFormat != null) {
-          this.Time2 = Number(this.Time2) + Number(this.prevTimeInDateFormat);
-          // console.log(this.Time2);
+          if (this.prevTimeInDateFormat != null) {
+            this.Time2 = Number(this.Time2) + Number(this.prevTimeInDateFormat);
+            // console.log(this.Time2);
 
+          }
+
+          this.timerNew = this.datePipe.transform(this.Time2, 'HH:mm:ss', "+0000");
+          this.openTasksDetailsFromLsParseToJson[index].ParseTime = 0;
+          this.openTasksDetailsFromLsParseToJson[index].ParseTime = this.Time2;
+          // console.log(this.openTasksDetailsFromLsParseToJson);
+          this.openTasksDetailsFromLsParseToJson[index].TimeTask = 0;
+          this.openTasksDetailsFromLsParseToJson[index].TimeTask = this.timerNew;
+          localStorage.setItem('timeOnOpenTaskAfterDelayTimeZone', this.Time2);
+          localStorage.setItem('timeOnOpenTaskAfterDelayString', this.timerNew);
         }
-
-        this.timerNew = this.datePipe.transform(this.Time2, 'HH:mm:ss', "+0000");
-        this.openTasksDetailsFromLsParseToJson[index].ParseTime = 0;
-        this.openTasksDetailsFromLsParseToJson[index].ParseTime = this.Time2;
-        // console.log(this.openTasksDetailsFromLsParseToJson);
-        this.openTasksDetailsFromLsParseToJson[index].TimeTask = 0;
-        this.openTasksDetailsFromLsParseToJson[index].TimeTask = this.timerNew;
-        localStorage.setItem('timeOnOpenTaskAfterDelayTimeZone', this.Time2);
-        localStorage.setItem('timeOnOpenTaskAfterDelayString', this.timerNew);
-
         // localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
 
       })
