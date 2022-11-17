@@ -137,6 +137,12 @@
       data-icon="bi:clock-history"></i></a>
 </div>
 
+<div >
+  <a (click)="returnToTheOpenTask()" placement="right"
+    ngbTooltip="חזרה למשימה : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
+      data-icon="bi:clock-history"></i></a>
+</div>
+
 <div *ngIf="isPopUpOpen?.creatTask">
   <app-create-new-task></app-create-new-task>
 </div>

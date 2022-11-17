@@ -105,9 +105,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
 
   CreateNewProjectItem(form: NgForm) {
     this.appService.setSpinner(true);
-    form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project.Guid },
-      form.value.WorkType = { "Guid": form.value.workType.Guid }
+    form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid')},
+    form.value.Project = { "Guid": form.value.Project.Guid },
+    form.value.WorkType = { "Guid": form.value.workType.Guid }
     // detailsOfWorkingHourByEmployee!: any[];
     // detailsOfWorkingHourByEmployeeToSend: any[] = [];
     this.MoreEmployeeArr.forEach((x: any) => {
