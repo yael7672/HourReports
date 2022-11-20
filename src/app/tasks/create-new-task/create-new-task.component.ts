@@ -130,7 +130,7 @@ export class CreateNewTaskComponent implements OnInit {
         if (permission === "granted") {
           const notification = new Notification("נוצרה לך משימה חדשה!",
             {
-              body: 'מה שלומך?',
+              body: ' ',
               icon: ''
             });
         }

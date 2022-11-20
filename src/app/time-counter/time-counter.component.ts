@@ -425,9 +425,9 @@ export class TimeCounterComponent implements OnInit {
             localStorage.removeItem('timeOnOpenTaskAfterDelayTimeZone');
             localStorage.removeItem('timeOnOpenTaskAfterDelayString');
           }
-          console.log(this.openTasksDetailsFromLsParseToJson);
+          // console.log(this.openTasksDetailsFromLsParseToJson);
           localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
-          console.log(this.openTasksDetailsFromLsParseToJson);
+          // console.log(this.openTasksDetailsFromLsParseToJson);
         }
       })
     }

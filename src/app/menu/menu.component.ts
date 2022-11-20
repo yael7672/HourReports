@@ -13,6 +13,7 @@ import { TimeCounterComponent } from '../time-counter/time-counter.component';
 import { ProjectType } from '../interfacees/ProjectType';
 import { SwPush } from '@angular/service-worker';
 import { OpenTask } from '../interfacees/OpenTask';
+import { TaskGuid, tasksDetails } from '../interfacees/tasksDetails';
 
 
 @Component({
@@ -77,10 +78,11 @@ export class MenuComponent implements OnInit {
   openTasksDetailsFromLs: any
   openTasksDetailsFromLsParseToJson!: OpenTask[]
   openTasksName: any = []
-  openTasksGuidArr: any[] = []
+  openTasksGuidArr: TaskGuid[] = []
   TasksName: any
   DeatailsOpenTasksArr: any
-  openTasksGuid:any
+  openTasksGuid: TaskGuid[]=[]
+  taskGuid: any;
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -162,10 +164,10 @@ export class MenuComponent implements OnInit {
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
     if (this.openTasksDetailsFromLsParseToJson != null) {
       this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
-        this.openTasksGuidArr.push(element?.TaskGuid)
+        this.openTasksGuidArr.push({Guid:element?.TaskGuid})
         localStorage.setItem("openTasksGuid", JSON.stringify(this.openTasksGuidArr))
       })
-      this. openTasksGuid=this.openTasksGuidArr
+      this.openTasksGuid = this.openTasksGuidArr
       this.GetDeatailsOpenTasks(this.systemGuid, this.openTasksGuid)
     }
   }
@@ -181,7 +183,14 @@ export class MenuComponent implements OnInit {
   }
 
   GetDeatailsOpenTasks(systemGuid: any, taskGuid: any) {
-    this.userService.GetDeatailsOpenTasks(this.systemGuid, taskGuid).subscribe(
+    this.taskGuid =
+    {
+      systemGuid: systemGuid,
+      // NotesToTheProjectManager: form.value.CommentsToTheProjectManager,הערות למנהל הפרוייקט
+      // Regardingobjectid: { "Guid": form.value.Regardingobject },לגבי
+      taskGuid:  taskGuid ,
+    }
+    this.userService.GetDeatailsOpenTasks(this.taskGuid).subscribe(
       (res: any) => {
         this.DeatailsOpenTasksArr = res;
         console.log(this.DeatailsOpenTasksArr)
