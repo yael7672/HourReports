@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TimeCounterComponent } from '../time-counter/time-counter.component';
 import { ProjectType } from '../interfacees/ProjectType';
 import { SwPush } from '@angular/service-worker';
+import { OpenTask } from '../interfacees/OpenTask';
 
 
 @Component({
@@ -72,6 +73,14 @@ export class MenuComponent implements OnInit {
   DateNowPause: any
   youAreInPause = false
   isAdminMode = false
+  isAdminModeLS: any
+  openTasksDetailsFromLs: any
+  openTasksDetailsFromLsParseToJson!: OpenTask[]
+  openTasksName: any = []
+  openTasksGuidArr: any[] = []
+  TasksName: any
+  DeatailsOpenTasksArr: any
+  openTasksGuid:any
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -109,11 +118,18 @@ export class MenuComponent implements OnInit {
     this.popUpService.getIsAdminMode().subscribe(res => {
       this.isAdminMode = res;
     })
+    this.isAdminModeLS = localStorage.getItem("AdminMode")
+    if (!this.isAdminModeLS) {
+      localStorage.setItem("AdminMode", 'false')
+    }
+
+
   }
   ngOnInit(): void {
-
+    this.isAdminModeLS = localStorage.getItem("AdminMode")
     this.GetWorkType()
     this.GetProject();
+    this.GetOpenTasks()
     this.MessageToTheManager();
     this.image = localStorage.getItem('image');
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -130,6 +146,29 @@ export class MenuComponent implements OnInit {
       this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
     }
   }
+  getTaskByGuid(taskGuid: any) {
+    this.userService.GetTaskByGuid(this.systemGuid, taskGuid).then(
+      (res: any) => {
+        this.TasksName = res.Name;
+        return this.TasksName
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
+
+  GetOpenTasks() {
+    this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
+    this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
+    if (this.openTasksDetailsFromLsParseToJson != null) {
+      this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
+        this.openTasksGuidArr.push(element?.TaskGuid)
+        localStorage.setItem("openTasksGuid", JSON.stringify(this.openTasksGuidArr))
+      })
+      this. openTasksGuid=this.openTasksGuidArr
+      this.GetDeatailsOpenTasks(this.systemGuid, this.openTasksGuid)
+    }
+  }
 
   returnToTheOpenTask() {
     this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
@@ -140,6 +179,18 @@ export class MenuComponent implements OnInit {
   closePersonalDetails() {
     this.openPersonalDetails = false;
   }
+
+  GetDeatailsOpenTasks(systemGuid: any, taskGuid: any) {
+    this.userService.GetDeatailsOpenTasks(this.systemGuid, taskGuid).subscribe(
+      (res: any) => {
+        this.DeatailsOpenTasksArr = res;
+        console.log(this.DeatailsOpenTasksArr)
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
+  }
+
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
       (res: any) => {

@@ -80,8 +80,8 @@ export class UserServiceService {
     return await this.http.get<any>(environment.url + 'GetMyProjectContentItemByTime?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&FromDate=' + FromDate + '&UntilDate=' + UntilDate + '&SelectedTime=' + SelectedTime).toPromise();
 
   }
-  GetTaskByGuid(SystemGuid: any, TaskGuid: any) {
-    return this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid);
+  async GetTaskByGuid(SystemGuid: any, TaskGuid: any) {
+    return await this.http.get<TaskByGuid>(environment.url + 'GetTaskByGuid?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid + '&TaskGuid=' + TaskGuid).toPromise();
 
   }
   GetActualTaskHours(SystemGuid: any, TaskGuid: any) {
@@ -178,5 +178,7 @@ export class UserServiceService {
   UpdateProjectContentItem(duration: any, ProjectContectItemId: any, isTaskAccomplished: boolean, descriptionTask: any) {
     return this.http.get<any>(environment.url +'UpdateProjectContentItem?OrganizationName=AuroraProd&ProjectContectItemId='+ProjectContectItemId+'&duration='+duration+'&IsTaskAccomplished='+isTaskAccomplished+'&DescriptionTask='+descriptionTask)
   }
-
+  GetDeatailsOpenTasks(SystemUser: any,tasksGuid:any) {
+    return this.http.get<any>(environment.url + 'GetDeatailsOpenTasks/?OrganizationName=AuroraProd&SystemUser=' + SystemUser + tasksGuid)
+  }
 }

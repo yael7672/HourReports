@@ -25,14 +25,23 @@ export class PersonalDetailsComponent implements OnInit {
   image: any;
   // showBackUserMode = false
   isAdminMode = false
+  systemMode: any;
+  isAdminModeLS: any = false
   constructor(public route: Router, private appService: AppService, private popUpService: PopUpServiceService
     , private userService: UserServiceService) {
     this.popUpService.getIsAdminMode().subscribe(res => {
       this.isAdminMode = res;
     })
+     this.isAdminModeLS = localStorage.getItem("AdminMode")
+     if(!this.isAdminModeLS){
+      localStorage.setItem("AdminMode",'false')
+
+     }
   }
 
   ngOnInit(): void {
+    this.isAdminModeLS = localStorage.getItem("AdminMode")
+
     this.systemGuid = localStorage.getItem('systemGuid');
     this.systemName = localStorage.getItem('systemName');
     this.systemMail = localStorage.getItem('systemMail');
@@ -66,7 +75,7 @@ export class PersonalDetailsComponent implements OnInit {
       }
     )
   }
- 
+
   goToDetailsOfWorkingHours() {
     this.popUpService.setNavBar(false);
     this.route.navigate(['/menu/details-of-working-hours-employee', this.systemGuid])
@@ -90,11 +99,15 @@ export class PersonalDetailsComponent implements OnInit {
 
   SwitchToAdminMode() {
     this.popUpService.setIsAdminMode(true);
+    this.systemMode = true
+    localStorage.setItem("AdminMode", this.systemMode)
     this.route.navigate(['/menu/show-my-task', this.systemGuid])
 
   }
-  SwitchToUserMode(){
+  SwitchToUserMode() {
     this.popUpService.setIsAdminMode(false);
+    this.systemMode = false
+    localStorage.setItem("AdminMode", this.systemMode)
     this.route.navigate(['/menu/show-my-task', this.systemGuid])
   }
 }

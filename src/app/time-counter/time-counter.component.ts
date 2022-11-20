@@ -81,6 +81,12 @@ export class TimeCounterComponent implements OnInit {
   timerOfTask: any
   timeInDateFormat: any
   prevTimeInDateFormat: any
+  ContinueToWorkOnATask2Params = false
+  TimeStartWorkAfterRefreshTaskDateNowOpenTask: any;
+  timeOnOpenTaskAfterDelayTimeZoneLS: any;
+  timeOnOpenTaskAfterDelayStringLS: any;
+  ifRefreshPageInMIddleWorkTask = false
+  timeTaskOnOpenTask: any
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router, private appService: AppService) {
     this.popUpService.getInPause().subscribe(res => {
@@ -106,9 +112,9 @@ export class TimeCounterComponent implements OnInit {
         this.hideStartAndShowCancelProjectContectItem = true;
       }
     }
-    debugger
+    //debugger
     this.CheckIfMiddleOfTask()
-  }   
+  }
 
   CheckIfMiddleOfTask() {
 
@@ -117,18 +123,43 @@ export class TimeCounterComponent implements OnInit {
     this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
     if (this.openTasksDetailsFromLsParseToJson != null) {
-      this.openTasksDetailsFromLsParseToJson.forEach((element,index) => {
-        if (this.TaskGuid2 == element.TaskGuid) {
-          this.openTasksDetailsFromLsParseToJson[index].ParseTime = localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone');
-          this.openTasksDetailsFromLsParseToJson[index].TimeTask = localStorage.getItem('timeOnOpenTaskAfterDelayString');
-          element.TimeTask = element.TimeTask.split(':')
-          this.workTime = [element.TimeTask[0] + ":" + element.TimeTask[1] + ":" + element.TimeTask[2]]
-          // this.workTime = this.datePipe.transform(element.ParseTime, 'HH:mm:ss', "+0000");
+      this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
+        if (this.TaskGuid2 == element?.TaskGuid) {
+          this.timeOnOpenTaskAfterDelayTimeZoneLS = localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone')
+          this.timeOnOpenTaskAfterDelayStringLS = localStorage.getItem('timeOnOpenTaskAfterDelayString')
+          if (this.timeOnOpenTaskAfterDelayTimeZoneLS && this.timeOnOpenTaskAfterDelayStringLS) {
+            this.openTasksDetailsFromLsParseToJson[index].ParseTime = this.timeOnOpenTaskAfterDelayTimeZoneLS;
+            this.openTasksDetailsFromLsParseToJson[index].TimeTask = this.timeOnOpenTaskAfterDelayStringLS;
+            this.hideDelayAndShowRenewProjectContectItemOnTask = false
+            element.TimeTask = this.timeOnOpenTaskAfterDelayStringLS.split(':')
+            if (element.TimeTask) {
+              // this.timeTaskOnOpenTask = element.TimeTask.split(':')
+              this.workTime = [element.TimeTask[0] + ":" + element.TimeTask[1] + ":" + element.TimeTask[2]]
+
+            }
+            localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
+            // this.workTime = this.datePipe.transform(element.ParseTime, 'HH:mm:ss', "+0000");
+          }
+          else {
+            // this.openTasksDetailsFromLsParseToJson[index].ParseTime = element.ParseTime;
+            // this.openTasksDetailsFromLsParseToJson[index].TimeTask = element.TimeTask;
+            this.hideDelayAndShowRenewProjectContectItemOnTask = true
+            if (element.TimeTask)
+            this.timeTaskOnOpenTask = element.TimeTask.split(':')
+            this.workTime = [this.timeTaskOnOpenTask[0] + ":" + this.timeTaskOnOpenTask[1] + ":" + this.timeTaskOnOpenTask[2]]
+            localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
+          }
+
           this.timeContinueTaskAfterDelay = element.ParseTime
           localStorage.setItem("timeContinueTaskAfterDelay", this.timeContinueTaskAfterDelay)
           this.inMiddleTask = true
           this.hideStartAndShowCancelProjectContectItem = true
-          this.hideDelayAndShowRenewProjectContectItemOnTask = true
+          localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
+          if (localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone') && localStorage.getItem('timeOnOpenTaskAfterDelayString')) {
+            var a = Date.now().toString()
+            this.ifRefreshPageInMIddleWorkTask = true
+            this.ContinueToWorkOnATask2(a, this.ifRefreshPageInMIddleWorkTask)
+          }
         }
         // else {
         // this.workTime = ["00:00:00"];
@@ -139,10 +170,11 @@ export class TimeCounterComponent implements OnInit {
         // }
       });
     }
+
   }
 
   startTimer() {
-    debugger
+    //debugger
     if (this.ifInPause) {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
@@ -235,7 +267,8 @@ export class TimeCounterComponent implements OnInit {
       swal("אין אפשרות לדווח פחות מ-1 דק")
     else {
       localStorage.removeItem("interval")
-
+      this.hideStartAndShowCancelProjectContectItem = false
+      this.hideDelayAndShowRenewProjectContectItemOnTask = true
       this.popUpService.setStartTimer(false);
       this.disabledPauseButton = true;
       this.disabledStartButton = false;
@@ -259,7 +292,7 @@ export class TimeCounterComponent implements OnInit {
         this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
         this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
         if (this.openTasksDetailsFromLsParseToJson != null) {
-          this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
+          this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
             if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid)
               this.projectContectItemGuid = element.ProjectContectItemGuid
 
@@ -277,7 +310,7 @@ export class TimeCounterComponent implements OnInit {
                 this.workTime = ["00:00:00"];
                 localStorage.removeItem("TimeInDateFormat")
                 localStorage.removeItem("timerOfTask")
-                this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
+                this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
                   if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid) delete this.openTasksDetailsFromLsParseToJson[index];
                 });
 
@@ -318,7 +351,7 @@ export class TimeCounterComponent implements OnInit {
     this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
     if (this.openTasksDetailsFromLsParseToJson != null) {
-      this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
+      this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
         if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid)
           this.projectContectItemGuid = element.ProjectContectItemGuid
 
@@ -336,7 +369,7 @@ export class TimeCounterComponent implements OnInit {
           // לבדוק - כמה משימות יחד 2 הנתונים הראשונים זה רק במקרה והמשימה נפתחה ונסגרה בפעם הראשןנה
           localStorage.removeItem("TimeInDateFormat")
           localStorage.removeItem("timerOfTask")
-          this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
+          this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
             if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid) delete this.openTasksInLs[index];
           });
           localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
@@ -384,21 +417,23 @@ export class TimeCounterComponent implements OnInit {
     this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
     if (this.openTasksDetailsFromLsParseToJson != null) {
-    this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
-      if (this.TaskGuid2 == element.TaskGuid) {
-        this.openTasksDetailsFromLsParseToJson[index].ParseTime = localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone');
-        this.openTasksDetailsFromLsParseToJson[index].TimeTask = localStorage.getItem('timeOnOpenTaskAfterDelayString');
-        localStorage.removeItem('timeOnOpenTaskAfterDelayTimeZone');
-        localStorage.removeItem('timeOnOpenTaskAfterDelayString');
-      }
-      console.log(this.openTasksDetailsFromLsParseToJson);
-      localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
-      console.log(this.openTasksDetailsFromLsParseToJson);
-    })}
+      this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
+        if (this.TaskGuid2 == element?.TaskGuid) {
+          if (localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone') && localStorage.getItem('timeOnOpenTaskAfterDelayString')) {
+            this.openTasksDetailsFromLsParseToJson[index].ParseTime = localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone');
+            this.openTasksDetailsFromLsParseToJson[index].TimeTask = localStorage.getItem('timeOnOpenTaskAfterDelayString');
+            localStorage.removeItem('timeOnOpenTaskAfterDelayTimeZone');
+            localStorage.removeItem('timeOnOpenTaskAfterDelayString');
+          }
+          console.log(this.openTasksDetailsFromLsParseToJson);
+          localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
+          console.log(this.openTasksDetailsFromLsParseToJson);
+        }
+      })
+    }
   }
   delayProjectContectItenOnTask(time: any) {
-
-     this.updateTimeOnOpenTaskAfterDelayInLocalStorage();
+    this.updateTimeOnOpenTaskAfterDelayInLocalStorage();
     localStorage.removeItem("interval");
     clearInterval(this.interval);
     this.TaskGuid2 = this.activatedRoute.snapshot.paramMap.get('id');
@@ -408,15 +443,15 @@ export class TimeCounterComponent implements OnInit {
       this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
       this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
       // אם המערך ריק מכניס אליו
-      if (this.openTasksDetailsFromLs == null) {
+      if (this.openTasksDetailsFromLs == null || this.openTasksDetailsFromLs?.length == 0) {
         this.openTasksInLs.push({ ProjectContectItemGuid: this.projectContectItemGuid, TaskGuid: this.TaskGuid2, TimeTask: this.timerOfTask, ParseTime: this.timeInDateFormat, Type: this.isInMiddleTask })
         localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
 
       }
       // עידכון מערך קיים- בודק אם יש כבר את המשימה במערך ומעדכן עליה
-      if (this.openTasksDetailsFromLs != null) {
-        this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
-          if (this.TaskGuid2 == element.TaskGuid) {
+      if (this.openTasksDetailsFromLs != null || this.openTasksDetailsFromLs?.length >= 0) {
+        this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
+          if (this.TaskGuid2 == element?.TaskGuid) {
             this.openTasksInLs.push({ ProjectContectItemGuid: this.openTasksDetailsFromLsParseToJson[index].ProjectContectItemGuid, TaskGuid: this.openTasksDetailsFromLsParseToJson[index].TaskGuid, TimeTask: this.openTasksDetailsFromLsParseToJson[index].TimeTask, ParseTime: this.openTasksDetailsFromLsParseToJson[index].ParseTime, Type: this.openTasksDetailsFromLsParseToJson[index].Type })
             this.openTasksInLs.push({ ProjectContectItemGuid: element.ProjectContectItemGuid, TaskGuid: element.TaskGuid, TimeTask: element.TimeTask, ParseTime: element.ParseTime, Type: element.Type })
             localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
@@ -424,7 +459,7 @@ export class TimeCounterComponent implements OnInit {
           }
           else {//אם משימה שלא עבדתי עליה ,אבל יש עוד משימות פתוחות
             // this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
-            this.openTasksInLs.push({ ProjectContectItemGuid: this.openTasksDetailsFromLsParseToJson[index].ProjectContectItemGuid, TaskGuid: this.openTasksDetailsFromLsParseToJson[index].TaskGuid, TimeTask: this.openTasksDetailsFromLsParseToJson[index].TimeTask, ParseTime: this.openTasksDetailsFromLsParseToJson[index].ParseTime, Type: this.openTasksDetailsFromLsParseToJson[index].Type })
+            this.openTasksInLs.push({ ProjectContectItemGuid: this.openTasksDetailsFromLsParseToJson[index]?.ProjectContectItemGuid, TaskGuid: this.openTasksDetailsFromLsParseToJson[index]?.TaskGuid, TimeTask: this.openTasksDetailsFromLsParseToJson[index]?.TimeTask, ParseTime: this.openTasksDetailsFromLsParseToJson[index]?.ParseTime, Type: this.openTasksDetailsFromLsParseToJson[index]?.Type })
             this.openTasksInLs.push({ ProjectContectItemGuid: this.projectContectItemGuid, TaskGuid: this.TaskGuid2, TimeTask: this.timerOfTask, ParseTime: this.timeInDateFormat, Type: this.isInMiddleTask })
             localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksInLs))
           }
@@ -466,8 +501,8 @@ export class TimeCounterComponent implements OnInit {
     this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
     if (this.openTasksDetailsFromLsParseToJson != null) {
-      this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
-        if (element.TaskGuid == this.TaskGuid2)
+      this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
+        if (element?.TaskGuid == this.TaskGuid2)
           this.projectContectItemGuid = element.ProjectContectItemGuid
       });
     }
@@ -499,7 +534,7 @@ export class TimeCounterComponent implements OnInit {
   }
 
   renewProjectContectItenOnTask(workTime: any) {
-    debugger
+    //debugger
     if (this.ifInPause) {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
@@ -522,11 +557,11 @@ export class TimeCounterComponent implements OnInit {
     }
   }
 
-  ContinueToWorkOnATask2() {
-    this.getCreatedProjectContentItemFromLoaclStorage2();
+  ContinueToWorkOnATask2(date?: any, ifRefreshPageInMIddleWorkTask?: any) {
+    this.getCreatedProjectContentItemFromLoaclStorage2(date, ifRefreshPageInMIddleWorkTask);
     this.interval = setInterval(() => {
       if (this.workTime) {
-        this.getCreatedProjectContentItemFromLoaclStorage2();
+        this.getCreatedProjectContentItemFromLoaclStorage2(date, ifRefreshPageInMIddleWorkTask);
         if (Number(this.interval) > 0 && this.interval != null) {
           localStorage.setItem("interval", this.interval)
         }
@@ -535,26 +570,36 @@ export class TimeCounterComponent implements OnInit {
     }, 1000)
   }
 
-  getCreatedProjectContentItemFromLoaclStorage2() {
-    debugger
+  getCreatedProjectContentItemFromLoaclStorage2(date?: any, ifRefreshPageInMIddleWorkTask?: any) {
+    //debugger
     this.TimeStartWorkTaskDateNow = localStorage.getItem('DateNow')
     this.TimeStartWorkTaskDateNowOpenTask = localStorage.getItem('DateNowOpenTask')
+    this.TimeStartWorkAfterRefreshTaskDateNowOpenTask = date
     if (this.TimeStartWorkTaskDateNow) {
       this.setWorkTime2(this.TimeStartWorkTaskDateNow)
     }
     else {
-      if (this.TimeStartWorkTaskDateNowOpenTask) {
-        this.setWorkTime2(this.TimeStartWorkTaskDateNowOpenTask)
+      if (this.TimeStartWorkAfterRefreshTaskDateNowOpenTask && ifRefreshPageInMIddleWorkTask) {
+        this.ifRefreshPageInMIddleWorkTask = false
+        ifRefreshPageInMIddleWorkTask = false
+        localStorage.setItem('DateNowOpenTask', this.TimeStartWorkAfterRefreshTaskDateNowOpenTask)
+        this.setWorkTime2(this.TimeStartWorkAfterRefreshTaskDateNowOpenTask)
+
+      }
+      else {
+        if (this.TimeStartWorkTaskDateNowOpenTask) {
+          this.setWorkTime2(this.TimeStartWorkTaskDateNowOpenTask)
+        }
       }
     }
 
   }
   setWorkTime2(res: any) {
-    debugger
+    //debugger
     this.workTime = this.convertTimeStempToTime3(res)
   }
   convertTimeStempToTime3(renewTime: any) {
-    debugger
+    //debugger
     var timestampCreatOn = renewTime;
     const timestampNow = Date.now();
     this.Time2 = timestampNow - Number(timestampCreatOn);
@@ -562,24 +607,24 @@ export class TimeCounterComponent implements OnInit {
     this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
     if (this.openTasksDetailsFromLsParseToJson != null) {
-      this.openTasksDetailsFromLsParseToJson.forEach((element, index) => {
-        if (this.TaskGuid2 == element.TaskGuid) {
+      this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
+        if (this.TaskGuid2 == element?.TaskGuid) {
           this.prevTimeInDateFormat = this.openTasksDetailsFromLsParseToJson[index].ParseTime;
-        } if (this.prevTimeInDateFormat != null) {
-          this.Time2 = Number(this.Time2) + Number(this.prevTimeInDateFormat);
-          console.log(this.Time2);
+          if (this.prevTimeInDateFormat != null) {
+            this.Time2 = Number(this.Time2) + Number(this.prevTimeInDateFormat);
+            // console.log(this.Time2);
 
+          }
+
+          this.timerNew = this.datePipe.transform(this.Time2, 'HH:mm:ss', "+0000");
+          this.openTasksDetailsFromLsParseToJson[index].ParseTime = 0;
+          this.openTasksDetailsFromLsParseToJson[index].ParseTime = this.Time2;
+          // console.log(this.openTasksDetailsFromLsParseToJson);
+          this.openTasksDetailsFromLsParseToJson[index].TimeTask = 0;
+          this.openTasksDetailsFromLsParseToJson[index].TimeTask = this.timerNew;
+          localStorage.setItem('timeOnOpenTaskAfterDelayTimeZone', this.Time2);
+          localStorage.setItem('timeOnOpenTaskAfterDelayString', this.timerNew);
         }
-
-        this.timerNew = this.datePipe.transform(this.Time2, 'HH:mm:ss', "+0000");
-        this.openTasksDetailsFromLsParseToJson[index].ParseTime = 0;
-        this.openTasksDetailsFromLsParseToJson[index].ParseTime = this.Time2;
-        console.log(this.openTasksDetailsFromLsParseToJson);
-        this.openTasksDetailsFromLsParseToJson[index].TimeTask = 0;
-        this.openTasksDetailsFromLsParseToJson[index].TimeTask = this.timerNew;
-        localStorage.setItem('timeOnOpenTaskAfterDelayTimeZone', this.Time2);
-        localStorage.setItem('timeOnOpenTaskAfterDelayString', this.timerNew);
-
         // localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
 
       })
@@ -590,7 +635,7 @@ export class TimeCounterComponent implements OnInit {
   }
 
   // convertTimeStempToTime2(ProjectContentItemContinueCreateDate: any) {
-  //   debugger
+  //   //debugger
   //   const timestampNow = Date.now();
   //   var timestampContinueCreatOn = Number(ProjectContentItemContinueCreateDate);
   //   this.Time = timestampNow - timestampContinueCreatOn;

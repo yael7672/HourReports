@@ -10,9 +10,9 @@
 
         <h5 class="card-title">{{systemName}}</h5>
         <p class="card-text">{{systemMail}}</p>
-        <button *ngIf="!isAdminMode" (click)="SwitchToAdminMode()" placement="bottom" ngbTooltip="עבור למצב מנהל"
+        <button *ngIf="isAdminModeLS=='false'" (click)="SwitchToAdminMode()" placement="bottom" ngbTooltip="עבור למצב מנהל"
           class="btn btn-color">עבור למצב מנהל</button>
-        <button *ngIf="isAdminMode" (click)="SwitchToUserMode()" placement="bottom" ngbTooltip="עבור למצב משתמש רגיל"
+        <button *ngIf="isAdminModeLS=='true'" (click)="SwitchToUserMode()" placement="bottom" ngbTooltip="עבור למצב משתמש רגיל"
           class="btn btn-color">עבור למצב משתמש רגיל</button>
       </div>
     </div>
@@ -24,18 +24,19 @@
       <p class="card-title">סה"כ ש"ע לחודש זה: {{DailyAndMonthlyWorkingHours?.MonthlyWorkingHours |number}}</p>
     </div>
     <div class="icons" *ngIf="systemGuid">
-      <a (click)="openPopUpp('sickLeave',true)" *ngIf="!isAdminMode" placement="top" ngbTooltip="דיווח מהיר של מחלה"><i
+      <a (click)="openPopUpp('sickLeave',true)" *ngIf="isAdminModeLS=='false'" placement="top" ngbTooltip="דיווח מהיר של מחלה"><i
           class="iconify" data-icon="ic:outline-sick"></i>
       </a>
-      <a (click)="openPopUpp('Freedom',true)" *ngIf="!isAdminMode" placement="top" ngbTooltip="דיווח מהיר של חופשה"><i
+      <a (click)="openPopUpp('Freedom',true)" *ngIf="isAdminModeLS=='false'" placement="top" ngbTooltip="דיווח מהיר של חופשה"><i
           class="iconify" data-icon="iconoir:sea-and-sun"></i>
       </a>
-      <a (click)="goTpHoursAwaitingApproval()" *ngIf="!isAdminMode" placement="top"
+      <a (click)="goTpHoursAwaitingApproval()" *ngIf="isAdminModeLS=='false'" placement="top"
         ngbTooltip="לצפייה ואישור של דיווחים הנדרשים לתיקון"><i class="iconify"
           data-icon="carbon:condition-wait-point"></i></a>
 
-      <a (click)="goToDetailsOfWorkingHours()" *ngIf="!isAdminMode" class="edit-button" class="edit-button">
-        <i class="fa fa-clock-o" aria-hidden="true" ngbTooltip="לצפייה בתפוקה היומית שלי"></i></a>
+      <a (click)="goToDetailsOfWorkingHours()" *ngIf="isAdminModeLS=='false'" class="edit-button" class="edit-button">
+        <!-- <i class="fa fa-clock-o" aria-hidden="true"></i> -->
+        <span class="iconify" data-icon="ion:alarm-outline" ngbTooltip="לצפייה בתפוקה היומית שלי"></span></a>
 
     </div>
   </div>

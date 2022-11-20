@@ -30,27 +30,28 @@
           </i> </a>
         <a (click)="openPopUp('creatTask',true)" placement="bottom" ngbTooltip="יצירת משימה"> <i class="fa fa-edit"></i>
         </a>
-        <a (click)="openPopUp('createAprojectContentItem',true);  removeDateFromLocalStorage()" *ngIf="!isAdminMode"
+        <a (click)="openPopUp('createAprojectContentItem',true);  removeDateFromLocalStorage()" *ngIf="isAdminModeLS=='false'"
           placement="bottom" ngbTooltip="יצירת דיווח"> <span class="iconify"
             data-icon="fluent:task-list-add-20-filled"></span>
         </a>
-        <a (click)="goToMyprojectContentItem()" *ngIf="!isAdminMode" placement="bottom" ngbTooltip="הדיווחים שלי"> <i
+        <a (click)="goToMyprojectContentItem()" *ngIf="isAdminModeLS=='false'" placement="bottom" ngbTooltip="הדיווחים שלי"> <i
             class="fa fa-calendar-check-o"></i>
         </a>
-        <a (click)="openPopUp('pause',true)" *ngIf="!isAdminMode" placement="bottom" ngbTooltip="צא להפסקה"> <i
+        <a (click)="openPopUp('pause',true)" *ngIf="isAdminModeLS=='false'" placement="bottom" ngbTooltip="צא להפסקה"> <i
             class="fa fa-coffee ThereNoInPause"
             [ngClass]="{'ThereNoInPause': youAreInPause == false ,'ThereInPause': youAreInPause == true}"></i></a>
-        <a (click)="openPopUp('timeOfProjectContectItem',true)" *ngIf="!isAdminMode" placement="bottom"
+        <a (click)="openPopUp('timeOfProjectContectItem',true)" *ngIf="isAdminModeLS=='false'" placement="bottom"
           ngbTooltip="יצירת מהירה של דיווח">
           <i class="fa fa-clock-o" aria-hidden="true"></i></a>
-        <a (click)="GoToStatisticsGraph() " *ngIf="!isAdminMode" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i
+        <a (click)="GoToStatisticsGraph() " *ngIf="isAdminModeLS=='false'" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i
             class="fa fa-bar-chart" aria-hidden="true"></i> </a>
-        <a (click)="goToEmployeeReport()" *ngIf="isAdminMode" placement="top" ngbTooltip="דוח עובדים / צוותים"><i
+        <a (click)="goToEmployeeReport()" *ngIf="isAdminModeLS=='true'" placement="top" ngbTooltip="דוח עובדים / צוותים"><i
             class="iconify" data-icon="carbon:report"></i></a>
-        <a (click)="goToSystemSetting()" *ngIf="isAdminMode"> <i class="fa fa-cog mt-2" ngbTooltip="הגדרות מנהל"
+        <a (click)="goToSystemSetting()" *ngIf="isAdminModeLS=='true'"> <i class="fa fa-cog mt-2" ngbTooltip="הגדרות מנהל"
             style="font-size: 24px;"></i></a>
-        <a (click)="openProjects()" *ngIf="isAdminMode" placement="top" ngbTooltip=" פרויקטים ">
-          <i class="fa fa-cog mt-2" style="font-size: 24px;"></i></a>
+        <a (click)="openProjects()" *ngIf="isAdminModeLS=='true'" placement="top" ngbTooltip=" פרויקטים ">
+          <span class="iconify" data-icon="carbon:gui-management"></span>
+        </a>
       </div>
     </div>
   </div>
@@ -59,7 +60,7 @@
       <i class="fa fa-bars" aria-hidden="true"></i></a>
     <!-- <p class="p-of-title ">דיווחי שעות </p> -->
     <div class="icons-right">
-      <a *ngIf="showMassgeToManager && isAdminMode" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
+      <a *ngIf="showMassgeToManager && isAdminModeLS=='true'" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
         ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNewMessege" style="font-size: 30px; "></i></a>
       <a (click)="openPopUpMyNewTask()" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
         (clickOutside)="onClickedOutsideMyNewTask($event)">
@@ -85,32 +86,32 @@
         </i> </a>
       <a (click)="openPopUp('creatTask',true)" placement="bottom" ngbTooltip="יצירת משימה"> <i class="fa fa-edit"></i>
       </a>
-      <a (click)="openPopUp('createAprojectContentItem',true); removeDateFromLocalStorage()" *ngIf="!isAdminMode"
+      <a (click)="openPopUp('createAprojectContentItem',true); removeDateFromLocalStorage()" *ngIf="isAdminModeLS=='false'"
         placement="bottom" ngbTooltip="יצירת דיווח"> <span class="iconify"
           data-icon="fluent:task-list-add-20-filled"></span>
       </a>
-      <a (click)="goToMyprojectContentItem()" *ngIf="!isAdminMode" placement="bottom" ngbTooltip="הדיווחים שלי"> <i
+      <a (click)="goToMyprojectContentItem()" *ngIf="isAdminModeLS=='false'" placement="bottom" ngbTooltip="הדיווחים שלי"> <i
           class="fa fa-calendar-check-o"></i>
       </a>
-      <a (click)="openPopUp('pause',true)" *ngIf="!isAdminMode" placement="bottom" ngbTooltip="צא להפסקה"> <i
+      <a (click)="openPopUp('pause',true)" *ngIf="isAdminModeLS=='false'" placement="bottom" ngbTooltip="צא להפסקה"> <i
           class="fa fa-coffee ThereNoInPause"
           [ngClass]="{'ThereNoInPause': youAreInPause == false ,'ThereInPause': youAreInPause == true}"></i></a>
-      <a (click)="openPopUp('timeOfProjectContectItem',true)" *ngIf="!isAdminMode" placement="bottom"
+      <a (click)="openPopUp('timeOfProjectContectItem',true)" *ngIf="isAdminModeLS=='false'" placement="bottom"
         ngbTooltip="יצירת מהירה של דיווח">
         <i class="fa fa-clock-o" aria-hidden="true"></i></a>
-      <a (click)="GoToStatisticsGraph()" *ngIf="!isAdminMode" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i
+      <a (click)="GoToStatisticsGraph()" *ngIf="isAdminModeLS=='false'" placement="bottom" ngbTooltip="צפיה בסטטיסטיקות"><i
           class="fa fa-bar-chart" aria-hidden="true"></i> </a>
-      <a (click)="goToEmployeeReport()" *ngIf="isAdminMode" placement="top" ngbTooltip="דוח עובדים / צוותים"><i
+      <a (click)="goToEmployeeReport()" *ngIf="isAdminModeLS=='true'" placement="top" ngbTooltip="דוח עובדים / צוותים"><i
           class="iconify" data-icon="carbon:report"></i></a>
-      <a (click)="goToSystemSetting()" *ngIf="isAdminMode"> <i class="fa fa-cog mt-2" ngbTooltip="הגדרות מנהל"
+      <a (click)="goToSystemSetting()" *ngIf="isAdminModeLS=='true'"> <i class="fa fa-cog mt-2" ngbTooltip="הגדרות מנהל"
           style="font-size: 24px;"></i></a>
-      <a (click)="openProjects()" *ngIf="isAdminMode" placement="top" ngbTooltip=" פרויקטים ">
-        <i class="fa fa-cog mt-2" style="font-size: 24px;"></i></a>
+      <a (click)="openProjects()" *ngIf="isAdminModeLS=='true'" placement="top" ngbTooltip=" פרויקטים ">
+        <span class="iconify" data-icon="carbon:gui-management"></span></a>
 
     </div>
     <!-- <p class="p-of-title ">דיווחי שעות </p> -->
     <div class="icons-right">
-      <a *ngIf="showMassgeToManager&&isAdminMode" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
+      <a *ngIf="showMassgeToManager&&isAdminModeLS=='true'" (click)="openPopUp('MessageToTheManager',true)" placement="bottom"
         ngbTooltip="התראות למנהל"> <i class="fa fa-envelope-o mt-3 ThereNewMessege" style="font-size: 30px; "></i></a>
       <a (click)="openPopUpMyNewTask()" placement="bottom" ngbTooltip="משימות חדשות שלא נקראו"
         (clickOutside)="onClickedOutsideMyNewTask($event)">
@@ -131,6 +132,12 @@
 
 
 <div *ngIf="startWorkOfTask">
+  <a (click)="returnToTheOpenTask()" placement="right"
+    ngbTooltip="חזרה למשימה : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
+      data-icon="bi:clock-history"></i></a>
+</div>
+
+<div >
   <a (click)="returnToTheOpenTask()" placement="right"
     ngbTooltip="חזרה למשימה : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
       data-icon="bi:clock-history"></i></a>
