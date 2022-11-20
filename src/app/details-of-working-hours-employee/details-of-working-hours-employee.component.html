@@ -67,8 +67,8 @@
       </div>
       <app-smart-card [title]="title +' לתאריך ' + spesificDate">
         <div body>
-          <app-smart-table *ngIf="reportsBySpesificDate.length > 0" [thArr]="thArrTableProjectContentItem"
-            [tableData]="reportsBySpesificDate" [tableDataKeys]="projectContentItemListKeys">
+          <app-smart-table *ngIf="reportsBySpesificDate.length > 0" [isUnder1100]="true" [widteOfCard]="'30rem'" [thArr]="thArrTableProjectContentItem"
+            [tableData]="reportsBySpesificDate" [tableDataKeys]="projectContentItemListKeys" >
           </app-smart-table>
           <div *ngIf="reportsBySpesificDate.length < 1">
             <br>

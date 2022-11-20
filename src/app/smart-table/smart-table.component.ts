@@ -39,7 +39,8 @@ export class SmartTableComponent implements OnInit {
   @Input() showMassgeToUserDeleteTask: any
   @Input() showEmployeeProductivityForMonth!: boolean;
   @Input() showEmployeeImageProfil!: boolean;
-  @Input() id:any
+  @Input() id: any
+  @Input() widteOfCard!: string
   @Output() EditProjectContentItemIcon = new EventEmitter<any>();
   @Output() DeleteProjectContentItemIcon = new EventEmitter<any>();
   @Output() SortTableDown = new EventEmitter<any>();
@@ -66,7 +67,8 @@ export class SmartTableComponent implements OnInit {
   arrayOfReports: any[] = [];
   isPopUpOpen: any;
   arr: any = [];
-  isUnder1100: any;
+
+  @Input() isUnder1100: any;
   defultImage = "https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png";
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private popUpService: PopUpServiceService, private appService: AppService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -77,6 +79,8 @@ export class SmartTableComponent implements OnInit {
     console.log(this.isUnder1100);
   }
   ngOnInit(): void {
+    console.log( this.widteOfCard);
+    
     console.log(this.ifShowpagination);
 
     this.ifAdmin = localStorage.getItem('ifAdmin');
