@@ -11,6 +11,7 @@ import { ProjectToCreate } from './interfacees/ProjectToCreate';
 import { ProjectType } from './interfacees/ProjectType';
 import { Regardingobjectid } from './interfacees/regardingobjectid';
 import { TaskByGuid } from './interfacees/TaskByGuid';
+import { tasksDetails } from './interfacees/tasksDetails';
 import { User } from './interfacees/user';
 import { WorkType } from './interfacees/work-type';
 @Injectable({
@@ -178,7 +179,7 @@ export class UserServiceService {
   UpdateProjectContentItem(duration: any, ProjectContectItemId: any, isTaskAccomplished: boolean, descriptionTask: any) {
     return this.http.get<any>(environment.url +'UpdateProjectContentItem?OrganizationName=AuroraProd&ProjectContectItemId='+ProjectContectItemId+'&duration='+duration+'&IsTaskAccomplished='+isTaskAccomplished+'&DescriptionTask='+descriptionTask)
   }
-  GetDeatailsOpenTasks(SystemUser: any,tasksGuid:any) {
-    return this.http.get<any>(environment.url + 'GetDeatailsOpenTasks/?OrganizationName=AuroraProd&SystemUser=' + SystemUser + tasksGuid)
+  GetDeatailsOpenTasks(tasksDetails:tasksDetails) {
+    return this.http.post<any>(environment.url + 'GetDeatailsOpenTasks/?OrganizationName=AuroraProd' , tasksDetails)
   }
 }

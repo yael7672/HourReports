@@ -105,18 +105,22 @@ export class CreateAprojectContentItemComponent implements OnInit {
 
   CreateNewProjectItem(form: NgForm) {
     this.appService.setSpinner(true);
-    form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid')},
-    form.value.Project = { "Guid": form.value.Project.Guid },
-    form.value.WorkType = { "Guid": form.value.workType.Guid }
+    form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
+      form.value.Project = { "Guid": form.value.Project.Guid },
+      form.value.WorkType = { "Guid": form.value.workType.Guid }
     // detailsOfWorkingHourByEmployee!: any[];
     // detailsOfWorkingHourByEmployeeToSend: any[] = [];
-    this.MoreEmployeeArr.forEach((x: any) => {
-      x = { "Guid": x }
-      this.MoreEmployeeGuid.push(x)
-    })
+    if (this.MoreEmployeeArr) {
+      this.MoreEmployeeArr.forEach((x: any) => {
+        x = { "Guid": x }
+        this.MoreEmployeeGuid.push(x)
+      })
+  
+    }
     form.value.MoreEmployee = this.MoreEmployeeGuid
-    console.log("עודבים נוספים");
-    console.log(form.value.MoreEmployeeGuid);
+      console.log("עובדים נוספים");
+      console.log(form.value.MoreEmployeeGuid);
+
     if (this.createProjectContectItemWithTimerMoreEmployee == true) {
       form.value.fromDate = this.datePipe.transform(this.todayDate, 'dd/MM/yyyy')
       form.value.untilDate = this.datePipe.transform(this.todayDate, 'dd/MM/yyyy')
@@ -137,6 +141,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.createProjectContectItemWithTimerMoreEmployee = false
           this.popUpService.setAllmyProjectContectItem(true)
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+          this.openInputReportMoreEmployee = false
           if (this.repeat == true) {
             this.dateToUpdate = localStorage.getItem('dateToUpdate');
             this.dateToUpdate = this.datePipe.transform(this.dateToUpdate, 'yyyy-MM-dd')
@@ -242,9 +247,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.CreateNewProjectItem(form)
         }
       },
-      (err) =>
-      {
-      this.appService.setSpinner(false);
+      (err) => {
+        this.appService.setSpinner(false);
         swal(err.error)
       })
   }
@@ -344,8 +348,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
         this.popUpService.setClosePopUp();
         this.popUpService.setAllmyProjectContectItem(true)
       },
-      (err) =>{
-      this.appService.setSpinner(false);
-        swal(err.error)})
+      (err) => {
+        this.appService.setSpinner(false);
+        swal(err.error)
+      })
   }
 }
