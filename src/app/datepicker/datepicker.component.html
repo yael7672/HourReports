@@ -1,0 +1,14 @@
+	
+      <div class="form-group">
+		<div class="input-group input-daterange">
+	  <input type="text" class="form-control" id="date" name="date" onclick="this.type='date'"
+		[(ngModel)]="fromDate" placeholder="מתאריך" max="{{todayDate | date: 'yyyy-MM-dd'}}" value="vv">
+	  <div class="input-group-addon">עד - </div>
+	  <input type="text" class="form-control" onclick="this.type='date'" max="{{todayDate | date: 'yyyy-MM-dd'}}" placeholder="לתאריך"
+		[(ngModel)]="untilDate">
+	</div>
+	<button (click)="sortByDateRange()" placement="right" ngbTooltip="מיין מידע בין טווח התאריכים"
+	  class="btn btn-color">מיין</button>
+  </div>
+
+  

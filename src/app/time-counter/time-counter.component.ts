@@ -2,6 +2,7 @@ import { DatePipe, DATE_PIPE_DEFAULT_TIMEZONE } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 // import { FlexStyleBuilder } from '@angular/flex-layout';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PopupComponent } from '@progress/kendo-angular-dropdowns';
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 // import { PopupService } from '@progress/kendo-angular-popup';
 import swal from 'sweetalert';
@@ -145,7 +146,7 @@ export class TimeCounterComponent implements OnInit {
             // this.openTasksDetailsFromLsParseToJson[index].TimeTask = element.TimeTask;
             this.hideDelayAndShowRenewProjectContectItemOnTask = true
             if (element.TimeTask)
-            this.timeTaskOnOpenTask = element.TimeTask.split(':')
+              this.timeTaskOnOpenTask = element.TimeTask.split(':')
             this.workTime = [this.timeTaskOnOpenTask[0] + ":" + this.timeTaskOnOpenTask[1] + ":" + this.timeTaskOnOpenTask[2]]
             localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
           }
@@ -161,24 +162,16 @@ export class TimeCounterComponent implements OnInit {
             this.ContinueToWorkOnATask2(a, this.ifRefreshPageInMIddleWorkTask)
           }
         }
-        // else {
-        // this.workTime = ["00:00:00"];
-        // this.workTime = [];
-        // this.inMiddleTask = true
-        // this.hideStartAndShowCancelProjectContectItem = false
-        // this.hideDelayAndShowRenewProjectContectItemOnTask = false
-        // }
       });
     }
-
   }
 
   startTimer() {
-    //debugger
     if (this.ifInPause) {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
     else {
+      this.popUpService.setifInTheMiddleOfWorkingOnATask(true);
       this.hideStartAndShowCancelProjectContectItem = true
       this.disabledStartButton = true;
       this.disabledPauseButton = false;
@@ -206,8 +199,6 @@ export class TimeCounterComponent implements OnInit {
         console.log(err.error);
       })
     }
-
-
   }
 
   clickNoFinishPauseAndStartTimerTask() {
@@ -245,7 +236,6 @@ export class TimeCounterComponent implements OnInit {
       this.DeleteProjectContentItemByGuid(this.projectContectItemGuid)
     }
     this.showMassgeToUserCancelProjectContectItemOfTask = false
-
   }
 
   DeleteProjectContentItemByGuid(projectContectItemByTaskGuid: any) {
@@ -263,9 +253,11 @@ export class TimeCounterComponent implements OnInit {
   }
 
   pauseTimer(time: any) {
+    debugger
     if (this.workTime == 0 || this.workTime < "00:01:00")
       swal("אין אפשרות לדווח פחות מ-1 דק")
     else {
+      this.popUpService.setifInTheMiddleOfWorkingOnATask(false);
       localStorage.removeItem("interval")
       this.hideStartAndShowCancelProjectContectItem = false
       this.hideDelayAndShowRenewProjectContectItemOnTask = true
@@ -330,8 +322,10 @@ export class TimeCounterComponent implements OnInit {
   }
 
   endTimer(time: any) {
-    localStorage.removeItem("interval")
-
+    debugger
+    this.appService.setSpinner(true);
+    this.popUpService.setifInTheMiddleOfWorkingOnATask(false);
+    localStorage.removeItem("interval");
     this.popUpService.setStartTimer(false);
     this.disabledPauseButton = true;
     this.disabledStartButton = true;
@@ -354,21 +348,23 @@ export class TimeCounterComponent implements OnInit {
       this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
         if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid)
           this.projectContectItemGuid = element.ProjectContectItemGuid
-
       });
     }
     else {
       this.projectContectItemGuid = localStorage.getItem("projectContectItemGuid");
     }
-
-    this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.projectContectItemGuid, this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
+    this.userService.UpdateProjectContectItemByTask(this.parseTime ? this.parseTime : "", this.taskListDataDetailsParseToJson.TaskGuid, this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
       res => {
         if (res) {
           this.massageFromServer = res;
+          this.appService.setSpinner(false);
           this.systemGuid = localStorage.getItem('systemGuid');
+          swal(this.massageFromServer);
           // לבדוק - כמה משימות יחד 2 הנתונים הראשונים זה רק במקרה והמשימה נפתחה ונסגרה בפעם הראשןנה
           localStorage.removeItem("TimeInDateFormat")
           localStorage.removeItem("timerOfTask")
+          localStorage.removeItem("DateNow")
+          localStorage.removeItem('DateNowOpenTask')
           this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
             if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid) delete this.openTasksInLs[index];
           });
@@ -381,6 +377,9 @@ export class TimeCounterComponent implements OnInit {
       },
       err => {
         console.log(err.error);
+        swal(err.error)
+        this.appService.setSpinner(false);
+
       }
     )
   }
@@ -433,6 +432,7 @@ export class TimeCounterComponent implements OnInit {
     }
   }
   delayProjectContectItenOnTask(time: any) {
+    this.popUpService.setifInTheMiddleOfWorkingOnATask(false);
     this.updateTimeOnOpenTaskAfterDelayInLocalStorage();
     localStorage.removeItem("interval");
     clearInterval(this.interval);
@@ -534,14 +534,12 @@ export class TimeCounterComponent implements OnInit {
   }
 
   renewProjectContectItenOnTask(workTime: any) {
-    //debugger
     if (this.ifInPause) {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
     else {
-      // this.interval = 1
+      this.popUpService.setifInTheMiddleOfWorkingOnATask(true);
       this.hideDelayAndShowRenewProjectContectItemOnTask = false
-      // this.hideStartAndShowCancelProjectContectItem = false
       this.disabledPauseButton = false
       const timeNow = Date.now()
       localStorage.setItem('DateNowOpenTask', timeNow.toString())

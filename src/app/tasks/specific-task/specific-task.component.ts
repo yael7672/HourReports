@@ -45,9 +45,13 @@ export class SpecificTaskComponent implements OnInit {
   taskListDataDetails: any;
   taskListDataDetailsParseToJson: any;
   openChartComparePopUp!: boolean
-
+  ifShowSpinner!: boolean;
   constructor(private appService: AppService, private popUpService: PopUpServiceService,
     private userService: UserServiceService, private activatedRoute: ActivatedRoute) {
+    this.appService.getSpinner().subscribe(res => {
+      
+      this.ifShowSpinner = res;
+    })
   }
 
   ngOnInit(): void {

@@ -3,7 +3,6 @@ import { NgStyle } from '@angular/common';
 import { HtmlTagDefinition } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SwPush } from '@angular/service-worker';
 import { AppService } from 'src/app/app-service.service';
 import { ButtonWorkingTaskService } from 'src/app/button-working-task.service';
 import { Project } from 'src/app/interfacees/project';
@@ -60,14 +59,17 @@ export class ShowMyTaskComponent implements OnInit {
   image!: any;
   ifThereNewTasks!: boolean
   MyNewTaskArr: any[] = [];
-  openTasks!: any[]
-  readonly VAPID_PUBLIC_KEY = "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
+  openTasks!: any[];
   Status: any;
   project: any;
-
+  ifShowSpinner!: boolean;
+  noTask=false;
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
-    private appService: AppService, private userService: UserServiceService, private route: Router,
-    private swPush: SwPush) {
+    private appService: AppService, private userService: UserServiceService, private route: Router) {
+
+    this.appService.getSpinner().subscribe(res => {
+      this.ifShowSpinner = res;
+    })
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
@@ -83,15 +85,11 @@ export class ShowMyTaskComponent implements OnInit {
     })
     this.popUpService.getOpenTaskPopUp().subscribe(res => {
       this.openTasks = res;
-      console.log("this.openTasks")
       console.log(this.openTasks)
     })
   }
   ngOnInit(): void {
     this.GetMyNewTasks()
-    // if (this.ifThereNewTasks = true) {
-    //   this.notifyMeMyNewTask()
-    // }
     this.GetProject();
     this.GetWorkType();
     this.GetMyTask();
@@ -101,16 +99,6 @@ export class ShowMyTaskComponent implements OnInit {
     this.ifAdmin = localStorage.getItem('ifAdmin');
     this.systemGuidFromLocalStorage = localStorage.getItem('systemGuid');
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    // this.requestSubscription();
-    const subscription = {
-      endpoint:
-        '<CLIENT_ENDPOINT>',
-      expirationTime: null,
-      keys: {
-        p256dh: '<CLIENT_P256DH>',
-        auth: '<CLIENT_AUTH>',
-      },
-    };
   }
 
   GetMyNewTasks() {
@@ -194,12 +182,13 @@ export class ShowMyTaskComponent implements OnInit {
   // notifyMe() {
 
 
-    // this.openTasks.forEach(element => {
-    //   if (this.taskListDataDetails.TaskGuid = element.ProjectContectItemGuid) { 
-    //     this.route.navigate(['/menu/specific-task', val.TaskGuid])
-    //   }
-    // });
+  // this.openTasks.forEach(element => {
+  //   if (this.taskListDataDetails.TaskGuid = element.ProjectContectItemGuid) { 
+  //     this.route.navigate(['/menu/specific-task', val.TaskGuid])
+  //   }
+  // });
   SelectedTask(val: any) {
+    debugger
     if (!this.startWorkOfTask) {
       this.taskListDataDetails = val;
 
@@ -240,12 +229,13 @@ export class ShowMyTaskComponent implements OnInit {
       res => {
         if (res) {
           this.taskArr = res;
+          
           this.taskArrCopy = res;
           this.sortTaskArr = res
         }
       }, err => {
         console.log(err.error)
-        this.ifThereAreTasks = true;
+        this.noTask = true;
       }
     )
   }

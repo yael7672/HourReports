@@ -60,7 +60,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
         else {
           this.fromDate = localStorage.getItem('fromDate');
           this.untilDate = localStorage.getItem('untilDate');
-          this.sortByDateRange();
+          // this.sortByDateRange();
         }
       }
     })
@@ -208,48 +208,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
     this.popUpService.setSpecificPopUp(true, 'DeleteProjectContentItemIcon');
     this.projectContentItemGuid = ProjectContentItem.Guid;
   }
-  sortByDateRange() {
-    if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
-      localStorage.setItem('fromDate', this.fromDate);
-      localStorage.setItem('untilDate', this.untilDate);
-      let d1 = new Date(this.fromDate);
-      let d2 = new Date(this.untilDate)
-      if (d1.getTime() < d2.getTime() || d1.getTime() == d2.getTime()) {
-        this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy');
-        this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy');
 
-        this.detailsOfWorkingHourByEmployeeToSend = [];
-        this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-        this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, 3, this.fromDate ? this.fromDate : "", this.untilDate ? this.untilDate : "").subscribe(res => {
-          if (res) {
-            this.detailsOfWorkingHourByEmployee = res;
-            this.detailsOfWorkingHourByEmployee.forEach(x => {
-              if (x.Date != null) {
-                this.detailsOfWorkingHourByEmployeeToSend.push(x)
-              }
-            })
-            this.detailsOfWorkingHourByEmployee.forEach((x: any) => {
-              if (x.HoursReportedThisMonth != 0) {
-                this.hoursReportedThisMonth = x.HoursReportedThisMonth;
-              }
-              if (x.WorkingDaysThisMonth != 0) {
-                this.workingDaysThisMonth = x.WorkingDaysThisMonth;
-              }
-            });
-          }
-        },
-          err => {
-            console.log(err.error);
-          })
-      }
-      else {
-        swal('!תאריך התחלה לא יכול להיות גדול מתאריך סיום')
-      }
-    }
-    else {
-      swal('עליך להזין תאריך התחלה ותאריך סיום')
-    }
-  }
   createReportWithDate(val: any) {
     this.dateToUpdate = val.Date;
     localStorage.setItem('dateToUpdate', this.dateToUpdate)
@@ -260,5 +219,32 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
     localStorage.setItem('dateToUpdate', this.spesificDateForCreateReport)
     this.appService.setIsPopUpOpen(true);
     this.popUpService.setSpecificPopUp(true, "createAprojectContentItem");
+  }
+  sortByDateRange(dates: any) {
+    this.detailsOfWorkingHourByEmployeeToSend = [];
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+    this.userService.GetDetailsOfWorkingHourByEmployee(this.systemGuid, 3, dates.fromDate, dates.untilDate).subscribe(res => {
+      if (res) {
+        this.detailsOfWorkingHourByEmployee = res;
+        this.detailsOfWorkingHourByEmployee.forEach(x => {
+          if (x.Date != null) {
+            this.detailsOfWorkingHourByEmployeeToSend.push(x)
+          }
+        })
+        this.detailsOfWorkingHourByEmployee.forEach((x: any) => {
+          if (x.HoursReportedThisMonth != 0) {
+            this.hoursReportedThisMonth = x.HoursReportedThisMonth;
+          }
+          if (x.WorkingDaysThisMonth != 0) {
+            this.workingDaysThisMonth = x.WorkingDaysThisMonth;
+          }
+
+        });
+        console.log(this.hoursReportedThisMonth);
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
   }
 }

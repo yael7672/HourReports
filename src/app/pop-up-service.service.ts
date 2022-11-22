@@ -23,7 +23,9 @@ export class PopUpServiceService {
   private middlePause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private isAdminMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private isOpenTask$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([])
-  OpenTask: OpenTask[]=[]
+  private ifInTheMiddleOfWorkingOnATask$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  OpenTask: OpenTask[] = []
 
   constructor() { }
 
@@ -147,12 +149,17 @@ export class PopUpServiceService {
     return this.isAdminMode$;
   }
 
-  setOpenTaskPopUp(ProjectContectItemGuid: any, TaskGuid: any,TimeTask:any,ParseTime:any, Type: any) {
-    this.OpenTask.push({ProjectContectItemGuid:ProjectContectItemGuid,TaskGuid:TaskGuid,TimeTask:TimeTask,ParseTime:ParseTime,Type:Type})
+  setOpenTaskPopUp(ProjectContectItemGuid: any, TaskGuid: any, TimeTask: any, ParseTime: any, Type: any) {
+    this.OpenTask.push({ ProjectContectItemGuid: ProjectContectItemGuid, TaskGuid: TaskGuid, TimeTask: TimeTask, ParseTime: ParseTime, Type: Type })
     this.isOpenTask$.next(this.OpenTask);
   }
   getOpenTaskPopUp() {
     return this.isOpenTask$;
   }
-
+  setifInTheMiddleOfWorkingOnATask(val:boolean) {
+    return this.ifInTheMiddleOfWorkingOnATask$.next(val);
+  }
+  getifInTheMiddleOfWorkingOnATask() {
+    return this.ifInTheMiddleOfWorkingOnATask$;
+  }
 }

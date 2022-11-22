@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { ButtonWorkingTaskService } from '../button-working-task.service';
 import { Project } from '../interfacees/project';
@@ -8,11 +7,11 @@ import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 import { TaskByGuid } from '../interfacees/TaskByGuid';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { TimeCounterComponent } from '../time-counter/time-counter.component';
 import { ProjectType } from '../interfacees/ProjectType';
-import { SwPush } from '@angular/service-worker';
 import { OpenTask } from '../interfacees/OpenTask';
+import { ActivatedRoute, Router } from '@angular/router';
+import  swal from 'sweetalert';
 
 
 @Component({
@@ -84,7 +83,7 @@ export class MenuComponent implements OnInit {
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
-    private appService: AppService, private swPush: SwPush, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
+    private appService: AppService, private buttonWorkingTaskService: ButtonWorkingTaskService, private datePipe: DatePipe) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
@@ -94,7 +93,6 @@ export class MenuComponent implements OnInit {
     })
     var appProperties = this.appService.getAppProperties()
     this.isUnder1100 = appProperties.isUnder1680$.value;
-    console.log(this.isUnder1100);
     this.popUpService.getAllMyNewTask().subscribe(res => {
       this.ifThereNewTasks = res;
       this.GetMyNewTasks();
@@ -102,7 +100,6 @@ export class MenuComponent implements OnInit {
     this.DateNowPause = localStorage.getItem("DateNowPause")
     if (this.DateNowPause) {
       this.popUpService.setInPause(true);
-
     }
     this.popUpService.getInPause().subscribe(res => {
       this.youAreInPause = res;
@@ -110,20 +107,16 @@ export class MenuComponent implements OnInit {
     this.popUpService.getNavBar().subscribe(res => {
       this.showNavBar = res ? res : false;
     })
-    //   this.popUpService.GetIfStartPouse().subscribe(res => {
-    //     if (res) {
-    //       this.showMassgeToUserIfInTheMiddleOfPauseAndRefreshWebsite = true;
-    //     }
-    //   })
     this.popUpService.getIsAdminMode().subscribe(res => {
       this.isAdminMode = res;
+    })
+    this.popUpService.getifInTheMiddleOfWorkingOnATask().subscribe(res => {
+      this.startWorkOfTask = res;
     })
     this.isAdminModeLS = localStorage.getItem("AdminMode")
     if (!this.isAdminModeLS) {
       localStorage.setItem("AdminMode", 'false')
     }
-
-
   }
   ngOnInit(): void {
     this.isAdminModeLS = localStorage.getItem("AdminMode")
@@ -142,6 +135,7 @@ export class MenuComponent implements OnInit {
     if (localStorage.getItem("DateNowProjectContectItemWithTimer")) {
       this.openPopUp('timeOfProjectContectItem', true)
     }
+    debugger
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
     }
@@ -203,10 +197,8 @@ export class MenuComponent implements OnInit {
 
   openPopUp(data: string, type: boolean) {
     if (data == 'pause') {
-      // this.popUpService.getStartTimer().subscribe(res => {
-      // if (res) {
       if (this.startWorkOfTask) {
-        // this.startWorkOfTask = true;
+        debugger
         this.taskNameFromLocalStorage = "שם המשימה:" + this.taskListDataDetailsParseToJson?.Subject;
         this.showMassgeToUserIfInTheMiddleOfWorkOnATaskAndOpenPause = true;
       }
@@ -214,11 +206,8 @@ export class MenuComponent implements OnInit {
         this.appService.setIsPopUpOpen(true);
         this.popUpService.setSpecificPopUp(type, data)
       }
-      // })
     }
-    // if (data == 'MyNewTask') {
-    //   this.openMyNewTaskPopUp = true
-    // }
+
     else {
       this.appService.setIsPopUpOpen(true);
       this.popUpService.setSpecificPopUp(type, data)

@@ -4,6 +4,7 @@ import { AdminSettingsComponent } from '../admin-settings/admin-settings.compone
 import { AuthGuard } from '../auth.guard';
 import { ChartsMyTaskComponent } from '../charts-my-task/charts-my-task.component';
 import { ChartsComponent } from '../charts/charts.component';
+import { DatepickerComponent } from '../datepicker/datepicker.component';
 import { DetailsOfWorkingHoursEmployeeForAdminComponent } from '../details-of-working-hours-employee-for-admin/details-of-working-hours-employee-for-admin.component';
 import { DetailsOfWorkingHoursEmployeeComponent } from '../details-of-working-hours-employee/details-of-working-hours-employee.component';
 import { EmployeeReportComponent } from '../employee-report/employee-report.component';
@@ -72,8 +73,9 @@ const routes: Routes = [
             { path: 'system-setting', component: SystemSettingComponent },
             { path: 'projects-by-employee', component: ProjectsByEmployeeComponent },
             { path: 'project-contect-item-by-project/:id/:userId', component: ProjectContectItemByProjectComponent },
-            { path: 'specific-project-details/:id/:userId', component: SpecificProjectDetailsComponent }
+            { path: 'specific-project-details/:id/:userId', component: SpecificProjectDetailsComponent },
 
+            { path: 'date', component: DatepickerComponent }
 
         ]
     },
