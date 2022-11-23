@@ -9,13 +9,13 @@
         <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked" (change)="checkValue(isChecked)">
       </div>
       <ng-container *ngIf="showInputsDates">
-        <div class="form-group ">
-          <div class="input-group input-daterange">
-            <input type="date" class="form-control" id="fromDate" name="fromDate"
-              [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateOne = $event">
-            <div class="input-group-addon">עד-</div>
-            <input type="date" class="form-control" id="untilDate" name="untilDate"
-              [ngModel]=" todayDate| date: 'yyyy-MM-dd'" (ngModelChange)="dateTwo = $event">
+        <div class="form-group">
+          <div class="input-group input-daterange">     
+          <input type="text" class="form-control" id="date" name="date" onclick="this.type='date'"
+            [(ngModel)]="fromDate" placeholder="מתאריך" [ngModelOptions]="{standalone: true}" >
+          <div class="input-group-addon">עד - </div>
+          <input type="text" class="form-control" onclick="this.type='date'"  placeholder="לתאריך"
+            [(ngModel)]="untilDate" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
       </ng-container>
