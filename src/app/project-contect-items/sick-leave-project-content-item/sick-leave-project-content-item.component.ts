@@ -56,6 +56,29 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
     }
   }
   CreateNewSickLeaveProjectItem(form: NgForm) {
+    if (this.isChecked) {
+      if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
+        let d1 = new Date(this.fromDate);
+        let d2 = new Date(this.untilDate)
+        if (d1.getTime() <= d2.getTime()) {
+          this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
+          this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
+        }
+        else {
+          swal('!תאריך התחלה לא יכול להיות גדול מתאריך סיום');
+          this.appService.setSpinner(false);
+          return;
+        }
+      }
+      else {
+        swal('!עליך להזין תאריך התחלה ותאריך סיום')
+        this.appService.setSpinner(false);
+        return;
+      }
+    } else {
+      this.fromDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+      this.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
+    }
     this.appService.setSpinner(true);
     this.isDisabled = true;
     form.value.Name = "חופשת מחלה";
@@ -65,14 +88,6 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
     form.value.Project = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560" }
     form.value.BillableHours = "2";
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') }
-    if (this.isChecked) {
-      this.fromDate = this.datepipe.transform(form.value.fromDate, 'dd/MM/yyyy')
-      this.untilDate = this.datepipe.transform(form.value.untilDate, 'dd/MM/yyyy')
-    }
-    else {
-      this.fromDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
-      this.untilDate = this.datepipe.transform(form.value.oneDate, 'dd/MM/yyyy')
-    }
     form.value.MoreEmployee = []
     this.projectContentItemToCreate = form.value;
     this.checkIfIsReportOnThisDate()
@@ -103,6 +118,8 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
       (res) => {
         this.appService.setSpinner(false);
         this.massage = res;
+        this.fromDate = "";
+        this.untilDate = "";
         swal(this.massage)
         this.popUpService.setAllmyProjectContectItem(true)
         this.popUpService.SetWorkTimeAfterProjectContectItem(true)
@@ -125,7 +142,8 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
     if (kindOfMassage = 'checkIfIsReportOnThisDate') {
       this.showMassgeToUser = false;
       this.isDisabled = false;
-
+      this.fromDate = "";
+      this.untilDate = "";
     }
   }
 }
