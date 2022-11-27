@@ -18,18 +18,20 @@
 
 
 <ng-container *ngIf="showCompareDatesEmployeeDetails">
-  <div class="form-group ">
+  <!-- <div class="form-group ">
     <button
       (click)="SortWorkTimeByWorkTypeAndWorkTimeCompareActualTimeByDateRange()"
       class="btn btn-color">השווה</button>
       <div class="input-group input-daterange">
-        <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
+        <input type="text" class="form-control" id="date" name="date" onfocus="this.type='date'"
           [(ngModel)]="untilDate" placeholder="מתאריך">
         <div class="input-group-addon">עד - </div>
-        <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
+        <input type="text" class="form-control" onfocus="this.type='date'" placeholder="לתאריך"
         [(ngModel)]="fromDate">
       </div>
-  </div>
+  </div> -->
+  <app-datepicker (SortByDateRange)="SortWorkTimeByWorkTypeAndWorkTimeCompareActualTimeByDateRange($event)"></app-datepicker>
+
 </ng-container>
 
 <div class="all-canvas-page">

@@ -21,12 +21,12 @@
             (DeleteTaskIcon)="DeleteTask($event)" [showMassgeToUserDeleteTask]="true"
             [ifDeleteOpen]="isPopUpOpen?.DeleteTask" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
         </app-smart-table>
-        <div *ngIf="sortTaskArr?.length==0">
+        <div *ngIf="taskArr?.length==0">
             <br>
             <h2>אין משימות פעילות!</h2>
           </div>
-          <!-- <div *ngIf="sortTaskArr?.length==0">
+          <div *ngIf="!taskArr">
             <h2>רק רגע...</h2>
-          </div> -->
+          </div>
     </div>
 </app-smart-card>

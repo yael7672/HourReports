@@ -60,11 +60,11 @@
       (EditEmployeeDetailsByAdmin)="editEmployeeDetailsByAdmin($event)" (SortTableDown)="SortTableDown($event)"
       (SortTableUp)="SortTableUp($event)" [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
     </app-smart-table>
-    <div *ngIf="thArrTask?.length==0">
+    <div *ngIf="noTask">
       <br>
       <h2>אין משימות פעילות!</h2>
     </div>
-    <div *ngIf=" !thArrTask">
+    <div *ngIf="!taskArr&&!noTask">
       <h2>רק רגע...</h2>
     </div>
   </div>

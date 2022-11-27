@@ -12,25 +12,16 @@
     </select>
   </div>
 
-  <ng-container *ngIf="showInputsDates">
-    <div class="form-group ">
-      <div class="input-group input-daterange">
-        <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
-          [(ngModel)]="fromDate" placeholder="מתאריך">
-        <div class="input-group-addon">עד - </div>
-        <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
-        [(ngModel)]="untilDate">
-      </div>
-      <button (click)="SortByDateRange()" placement="bottom"
-      ngbTooltip="השווה מידע בין 2 התאריכים" class="btn btn-color">השווה</button>
-    </div>
-  </ng-container>
+   <ng-container *ngIf="showInputsDates"> 
+      <app-datepicker (SortByDateRange)="SortByDateRange($event)"></app-datepicker>
+
+  </ng-container> 
+
 </div>
 <div class="all-canvas-page">
   <app-smart-card [title]="'השוואה בין שעות עבודה לשעות בפועל'" class="task-card-timer">
     <div header>
       <br>
-
     </div>
     <div body>
       <div class="canvas ">

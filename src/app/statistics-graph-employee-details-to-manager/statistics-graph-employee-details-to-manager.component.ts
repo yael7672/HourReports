@@ -182,22 +182,11 @@ export class StatisticsGraphEmployeeDetailsToManagerComponent implements OnInit 
     }
   }
 
-  SortWorkTimeByWorkTypeAndWorkTimeCompareActualTimeByDateRange() {
-    if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
-      let d1 = new Date(this.fromDate);
-      let d2 = new Date(this.untilDate);
-      if (d1.getTime() <= d2.getTime()) {
-        this.untilDate = this.datePipe.transform(this.untilDate, 'dd/MM/yyyy');
-        this.fromDate = this.datePipe.transform(this.fromDate, 'dd/MM/yyyy');
-        this.GetActualTimeAndWorkTime(this.EmployeeGuid, 1, this.fromDate, this.untilDate);
-        this.GetWorkTimeByWorkType(this.EmployeeGuid, 1, this.fromDate, this.untilDate);
+  SortWorkTimeByWorkTypeAndWorkTimeCompareActualTimeByDateRange(dates:any) {
+    
+        this.GetActualTimeAndWorkTime(this.EmployeeGuid, 1, dates.fromDate, dates.untilDate);
+        this.GetWorkTimeByWorkType(this.EmployeeGuid, 1, dates.fromDate, this.untilDate);
       }
-      else {
-        swal('!תאריך התחלה לא יכול להיות גדול מתאריך סיום')
-      }
-    }
-    else {
-      swal('עליך להזין תאריך התחלה ותאריך סיום')
-    }
-  }
+
+  
 }

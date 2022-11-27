@@ -12,25 +12,7 @@
   <div body>
     
     <ng-container *ngIf="showInputsDates">
-      <div class="form-group ">
-        <div class="input-group input-daterange">
-<!-- <<<<<<< HEAD
-
-          <input type="date" class="form-control" id="date" name="date" [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
-            (ngModelChange)="fromDate = $event" max="{{todayDate | date: 'yyyy-MM-dd'}}">
-          <div class="input-group-addon">עד - </div>
-          <input type="date" class="form-control" [ngModel]=" todayDate| date: 'yyyy-MM-dd'" max="{{todayDate | date: 'yyyy-MM-dd'}}"
-            (ngModelChange)="untilDate = $event"> -->
-
-          <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
-            [(ngModel)]="fromDate" placeholder="מתאריך">
-          <div class="input-group-addon">עד - </div>
-          <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
-          [(ngModel)]="untilDate">
-        </div>
-        <button (click)="sortByDateRange()" placement="right" ngbTooltip="סנן מידע בין טווח התאריכים"
-          class="btn btn-color">מיין</button>
-      </div>
+      <app-datepicker (SortByDateRange)="sortByDateRange($event)"></app-datepicker>
     </ng-container>
     <ng-container  >
     <p> סה"כ שעות מדווחות החודש: <span>{{hoursReportedThisMonth}}</span> </p>

@@ -18,23 +18,25 @@
 <div class="btnExport">
     <button (click)="ExportDataProjectContectItemToExcel2()" class="btn btn-color">יצא נתונים 2לקובץ Excel</button>
 </div>
-<div class="dateRange">
+<app-datepicker (SortByDateRange)="SortProjectProjectContectItemyDateRange($event)"></app-datepicker>
+
+<!-- <div class="dateRange">
     <div class="form-outline  inputDate ">
         <ng-container *ngIf="selectDate">
             <div class="form-group ">
                 <div class="input-group input-daterange">
-                    <input type="text" class="form-control" id="date" name="date" onmouseover="this.type='date'"
+                    <input type="text" class="form-control" id="date" name="date" onfocus="this.type='date'"
                         [(ngModel)]="fromDate" placeholder="מתאריך">
                     <div class="input-group-addon">עד - </div>
-                    <input type="text" class="form-control" onmouseover="this.type='date'" placeholder="לתאריך"
+                    <input type="text" class="form-control" onfocus="this.type='date'" placeholder="לתאריך"
                         [(ngModel)]="untilDate">
                 </div>
-                <button (click)="SortProjectProjectContectItemyDateRange($event)" class="btn btn-color">חפש</button>
             </div>
+            <button (click)="SortProjectProjectContectItemyDateRange($event)" class="btn btn-color">חפש</button>
 
         </ng-container>
     </div>
-</div>
+</div> -->
 <!-- עד לפה חיפוש ומיון-->
 <!-- הפרויקטים שלי -->
 

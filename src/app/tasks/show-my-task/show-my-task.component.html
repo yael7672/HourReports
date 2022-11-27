@@ -3,7 +3,7 @@
 <!-- <app-search-and-sort-tasks [taskArr]="taskArr"
  [taskArrCopy]="taskArrCopy"></app-search-and-sort-tasks> -->
 <h2>
- {{titleTableTask}} <img src="../../../assets/images/2387679.png" alt=""> 
+  {{titleTableTask}} <img src="../../../assets/images/2387679.png" alt="">
 </h2>
 <div class="select-table">
   <select id="inputState-1" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
@@ -18,7 +18,7 @@
 
 <!-- המשימות שלי -->
 
-<app-smart-card *ngIf="tableMyTaskOpen&&!ifThereAreTasks">
+<app-smart-card>
   >
   <div body>
     <div class="search">
@@ -44,7 +44,7 @@
         <option value="1"> הפרויקטים שלי</option>
       </select>
       <div class="autocomplete-2" *ngIf="showAllProjects&&taskArr">
-        <ng-autocomplete style="width: 100%;" dir="rtl" [data]="projectArr" [searchKeyword]="'Name'"
+        <ng-autocomplete style="width: 100%;" dir="rtl" [data]="project" [searchKeyword]="'Name'"
           placeholder="חפש לפי פרויקט" historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
           (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
           [notFoundTemplate]="notFoundTemplate2">
@@ -70,19 +70,20 @@
         </ng-template>
       </div>
     </div>
+
     <app-smart-table [ifDeleteTask]="true" [ifUpdateTask]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTask"
       [ifSortDown]="ifSortDown" [tableDataKeys]="taskListKeys" [tableData]="taskArr"
       (DeleteTaskIcon)="DeleteTask($event)" (EditProjectContentItemIcon)="editProjectContentItemIcon($event)"
       (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedTask($event)"
       [showMassgeToUserDeleteTask]="true" [ifDeleteOpen]="isPopUpOpen?.DeleteTask"
       [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails">
-      
+
     </app-smart-table>
-    <div *ngIf="taskArr?.length==0">
+    <div *ngIf="noTask&&!taskArr">
       <br>
       <h2>אין משימות פעילות!</h2>
     </div>
-    <div *ngIf=" !taskArr">
+    <div *ngIf="!taskArr&&!noTask">
       <h2>רק רגע...</h2>
     </div>
   </div>
@@ -105,3 +106,9 @@
   <app-delete-task [TaskGuid]="tasksGuid" [TasksName]="tasksName">
   </app-delete-task>
 </div>
+
+<app-pop-up-for-image *ngIf="ifShowSpinner">
+  <div body class="body-content">
+    <img src="../../assets/images/image_processing20210907-24087-1xvipj3.gif" id="pop-up-image" />
+  </div>
+</app-pop-up-for-image>

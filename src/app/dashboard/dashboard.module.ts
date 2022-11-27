@@ -64,6 +64,7 @@ import { SpecificProjectDetailsComponent } from '../specific-project-details/spe
 import { ProjectContectItemByProjectComponent } from '../project-contect-item-by-project/project-contect-item-by-project.component';
 import { TabNavMenuComponent } from '../tab-nav-menu/tab-nav-menu.component';
 import { PopUpForImageComponent } from '../pop-up-for-image/pop-up-for-image.component';
+import { DatepickerComponent } from '../datepicker/datepicker.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
     optionValueField: 'Guid',
@@ -123,7 +124,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     SpecificProjectDetailsComponent,
     ProjectContectItemByProjectComponent,
     TabNavMenuComponent,
-PopUpForImageComponent
+PopUpForImageComponent,
+DatepickerComponent
 
 ],
  imports : [

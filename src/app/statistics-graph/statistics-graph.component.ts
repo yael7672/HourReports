@@ -36,9 +36,6 @@ export class StatisticsGraphComponent implements OnInit {
   AverageBreaksByTimeBarChart!: averageBreaks;
   AverageBreaks: any;
   selectedItem: any;
-  todayDate!: any;
-  myDate = new Date();
-  todayDateCopy = new Date();
   showThisWeek!: any;
   showThisMonth:any
   dateAndCulculte: any;
@@ -51,12 +48,17 @@ export class StatisticsGraphComponent implements OnInit {
     this.showThisMonth = "3";
 
     this.systemGuid = localStorage.getItem('systemGuid');
+<<<<<<< HEAD
     this.GetAverageBreaksByTimeLineChart(this.systemGuid, "", "", this.showThisMonth)
     this.GetMyProjectContentItemByTimeLineChart(this.showThisMonth)
 
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
     this.untilDate=this.todayDate
     this.fromDate= this.todayDate
+=======
+    this.GetAverageBreaksByTimeLineChart(this.systemGuid, "", "", this.showThisWeek)
+    this.GetMyProjectContentItemByTimeLineChart(this.showThisWeek)
+>>>>>>> 5a169c051d664748b6c57c59864e59337a083f9b
     this.LineChart1 = new Chart('lineChart', {
       type: 'line',
       data: {
@@ -127,14 +129,6 @@ export class StatisticsGraphComponent implements OnInit {
     }
     this.showInputsDates = val == 0 || val == null ? true : false;
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
-    this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
-    if (!this.fromDate) {
-      this.fromDate = "";
-    }
-    if (!this.untilDate) {
-      this.untilDate = "";
-    }
     this.userService.GetMyProjectContentItemByTime(this.systemGuid, this.fromDate, this.untilDate, Number(val)).then(res => {
       if (res) {
         this.WorkingHoursAndActualHoursForLineChart = res;
@@ -142,8 +136,6 @@ export class StatisticsGraphComponent implements OnInit {
         this.actualHoursArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((actualHours: { actualHours: any; }) => actualHours.actualHours)
         this.dateArrForLineChart = this.WorkingHoursAndActualHoursForLineChart.map((Date: { Date: any; }) => this.datepipe.transform(Date.Date, 'dd/MM/yyyy'))
         this.updateLineChart();
-        this.fromDate = "";
-        this.untilDate = "";
         this.culculte = this.WorkingHoursAndActualHoursForLineChart.map((i: { workHours: number; actualHours: number; }) => (i.workHours * 100)
           / i.actualHours)
         this.CreateObjectWithDateAndCulculte(this.dateArrForLineChart, this.culculte)
@@ -204,22 +196,13 @@ export class StatisticsGraphComponent implements OnInit {
   //       console.log(err.error);
   //     })
   // }
-  SortByDateRange() {
-    if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
-      let d1 = new Date(this.fromDate);
-      let d2 = new Date(this.untilDate)
-      if (d1.getTime() <= d2.getTime()) {
-        this.GetMyProjectContentItemByTimeLineChart();
-        this.GetAverageBreaksByTimeLineChart(this.systemGuid, this.fromDate, this.untilDate, "")
-      }
-      else {
-        swal('!תאריך התחלה לא יכול להיות גדול מתאריך סיום')
-      }
-    }
-    else {
-      swal('עליך להזין תאריך התחלה ותאריך סיום')
-    }
+  SortByDateRange(dates: any) {
+    this.fromDate = dates.fromDate;
+    this.untilDate = dates.untilDate;
+    this.GetMyProjectContentItemByTimeLineChart();
+    this.GetAverageBreaksByTimeLineChart(this.systemGuid, dates.fromDate, dates.untilDate, "")
   }
+
 
   CreatColorArr() {
     this.culculteCopy = [...this.culculte]

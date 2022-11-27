@@ -73,22 +73,10 @@ export class ProjectContectItemByProjectComponent implements OnInit {
       })
   }
 
-  SortProjectProjectContectItemyDateRange(val: any) {
-    if (this.fromDate && this.untilDate != null && this.fromDate && this.untilDate != "") {
-      let d1 = new Date(this.fromDate);
-      let d2 = new Date(this.untilDate)
-      if (d1.getTime() <= d2.getTime()) {
-        this.untilDate = this.datePipe.transform(this.untilDate, 'dd/MM/yyyy')
-        this.fromDate = this.datePipe.transform(this.fromDate, 'dd/MM/yyyy')
-        // this.GetEmployeeDetails(this.systemGuid, this.fromDate, this.untilDate, 1)
-      }
-      else {
-        swal('!תאריך התחלה לא יכול להיות גדול מתאריך סיום')
-      }
-    }
-    else {
-      swal('עליך להזין תאריך התחלה ותאריך סיום')
-    }
+  SortProjectProjectContectItemyDateRange(dates: any) {
+    
+  //  this.GetEmployeeDetails(this.systemGuid, dates.fromDate, dates.untilDate, 1)
+
   }
 
   ExportDataProjectContectItemToExcel() {

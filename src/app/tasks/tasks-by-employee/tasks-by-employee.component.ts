@@ -33,6 +33,7 @@ export class TasksByEmployeeComponent implements OnInit {
   showMyProjects = true;
   myProjectArr!: Project[]
   Status:any;
+  noTask=false;
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService,
     private popUpService: PopUpServiceService) {
     this.popUpService.getKindOfPopUp().subscribe(res => {
@@ -43,6 +44,7 @@ export class TasksByEmployeeComponent implements OnInit {
     this.GetMyTask();
     this.GetProject();
     this.GetWorkType();
+    this.getMyProject()
     this.employeeDetails = localStorage.getItem('employeeDetails');
     this.employeeDetailsParseJson = JSON.parse(this.employeeDetails);
     this.titleTableTask = this.titleTableTask = ' המשימות של ' + this.employeeDetailsParseJson?.EmployeeName;
@@ -76,7 +78,7 @@ export class TasksByEmployeeComponent implements OnInit {
         }
       }, err => {
         console.log(err.error)
-        this.ifThereAreTasks = true;
+        this.noTask = true;
       }
     )
   }
@@ -202,6 +204,8 @@ export class TasksByEmployeeComponent implements OnInit {
     this.userService.GetProjectsBySystemUser(this.systemGuid,this.Status).subscribe(res => {
       if (res) {
         this.myProjectArr = res;
+        console.log(this.myProjectArr);
+        
       }
     },
       err => {
@@ -209,7 +213,6 @@ export class TasksByEmployeeComponent implements OnInit {
       })
   }
   getTaskAfterSort(task: any) {
-    
     this.taskArr = task;
   }
 }

@@ -22,15 +22,6 @@ export class TheLastTasksIWorkedComponent implements OnInit {
   tasksGuid: any;
   tasksName: any;
   isPopUpOpen: any;
-
-  constructor(private popUpService: PopUpServiceService, private activatedRoute: ActivatedRoute, private appService: AppService, private userService: UserServiceService, public route: Router) {
-    if (localStorage.getItem('DateNow')) {
-      this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
-    }
-    this.popUpService.getKindOfPopUp().subscribe(res => {
-      this.isPopUpOpen = res;
-    })
-  }
   startWorkOfTask = false;
   taskListDataDetails: any;
   titleLastTaskIWorkedOn = "המשימות האחרונות שעבדתי עליהן";
@@ -41,6 +32,16 @@ export class TheLastTasksIWorkedComponent implements OnInit {
   showMassgeToUser = false;
   projectContentItemGuid: any;
   ifSortDown = true;
+
+  constructor(private popUpService: PopUpServiceService, private activatedRoute: ActivatedRoute, private appService: AppService, private userService: UserServiceService, public route: Router) {
+    if (localStorage.getItem('DateNow')) {
+      this.startWorkOfTask = localStorage.getItem('DateNow') ? true : false;
+    }
+    this.popUpService.getKindOfPopUp().subscribe(res => {
+      this.isPopUpOpen = res;
+    })
+  }
+
   ngOnInit(): void {
     this.GetMyTask();
   }
@@ -142,8 +143,9 @@ export class TheLastTasksIWorkedComponent implements OnInit {
     }
   }
   SortLastTaskIWorkedOn() {
+    debugger
     this.sortTaskArr = this.sortTaskArr.sort((a: any, b: any) =>
-      (a.ProjctContentItem ? a.ProjctContentItem['CreatedOn'] : 0) > (b.ProjctContentItem ? b.ProjctContentItem['CreatedOn'] : 0) ? 1 : -1
+      (a.ProjctContentItem ? a.ProjctContentItem[0].CreatedOn : 0) < (b.ProjctContentItem ? b.ProjctContentItem[0].CreatedOn : 0) ? 1 : -1
     )
   }
   WhichTableOpen(val: any) {
