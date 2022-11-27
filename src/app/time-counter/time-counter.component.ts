@@ -118,53 +118,6 @@ export class TimeCounterComponent implements OnInit {
 
   CheckIfMiddleOfTask() {
     this.TaskGuid2 = this.activatedRoute.snapshot.paramMap.get('id');
-<<<<<<< HEAD
-
-=======
-    this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
-    this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
-    if (this.openTasksDetailsFromLsParseToJson != null) {
-      this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
-        if (this.TaskGuid2 == element?.TaskGuid) {
-          this.timeOnOpenTaskAfterDelayTimeZoneLS = localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone')
-          this.timeOnOpenTaskAfterDelayStringLS = localStorage.getItem('timeOnOpenTaskAfterDelayString')
-          if (this.timeOnOpenTaskAfterDelayTimeZoneLS && this.timeOnOpenTaskAfterDelayStringLS) {
-            this.openTasksDetailsFromLsParseToJson[index].ParseTime = this.timeOnOpenTaskAfterDelayTimeZoneLS;
-            this.openTasksDetailsFromLsParseToJson[index].TimeTask = this.timeOnOpenTaskAfterDelayStringLS;
-            this.hideDelayAndShowRenewProjectContectItemOnTask = false
-            element.TimeTask = this.timeOnOpenTaskAfterDelayStringLS.split(':')
-            if (element.TimeTask) {
-              // this.timeTaskOnOpenTask = element.TimeTask.split(':')
-              this.workTime = [element.TimeTask[0] + ":" + element.TimeTask[1] + ":" + element.TimeTask[2]]
-
-            }
-            localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
-            // this.workTime = this.datePipe.transform(element.ParseTime, 'HH:mm:ss', "+0000");
-          }
-          else {
-            // this.openTasksDetailsFromLsParseToJson[index].ParseTime = element.ParseTime;
-            // this.openTasksDetailsFromLsParseToJson[index].TimeTask = element.TimeTask;
-            this.hideDelayAndShowRenewProjectContectItemOnTask = true
-            if (element.TimeTask)
-              this.timeTaskOnOpenTask = element.TimeTask.split(':')
-            this.workTime = [this.timeTaskOnOpenTask[0] + ":" + this.timeTaskOnOpenTask[1] + ":" + this.timeTaskOnOpenTask[2]]
-            localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
-          }
-
-          this.timeContinueTaskAfterDelay = element.ParseTime
-          localStorage.setItem("timeContinueTaskAfterDelay", this.timeContinueTaskAfterDelay)
-          this.inMiddleTask = true
-          this.hideStartAndShowCancelProjectContectItem = true
-          localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
-          if (localStorage.getItem('timeOnOpenTaskAfterDelayTimeZone') && localStorage.getItem('timeOnOpenTaskAfterDelayString')) {
-            var a = Date.now().toString()
-            this.ifRefreshPageInMIddleWorkTask = true
-            this.ContinueToWorkOnATask2(a, this.ifRefreshPageInMIddleWorkTask)
-          }
-        }
-      });
-    }
->>>>>>> 5a169c051d664748b6c57c59864e59337a083f9b
   }
 
   startTimer() {
@@ -397,14 +350,7 @@ export class TimeCounterComponent implements OnInit {
   }
 
   delayProjectContectItenOnTask(time: any) {
-<<<<<<< HEAD
  
-=======
-    this.popUpService.setifInTheMiddleOfWorkingOnATask(false);
-    this.updateTimeOnOpenTaskAfterDelayInLocalStorage();
-    localStorage.removeItem("interval");
-    clearInterval(this.interval);
->>>>>>> 5a169c051d664748b6c57c59864e59337a083f9b
     this.TaskGuid2 = this.activatedRoute.snapshot.paramMap.get('id');
  
   
