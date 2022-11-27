@@ -182,4 +182,8 @@ export class UserServiceService {
   GetDeatailsOpenTasks(tasksDetails:tasksDetails) {
     return this.http.post<any>(environment.url + 'GetDeatailsOpenTasks/?OrganizationName=AuroraProd' , tasksDetails)
   }
+  UpdateTaskAtWork(   systemGuid:any,  taskId:any,  status:boolean) {
+    return this.http.get<any>(environment.url +'UpdateTaskAtWork?OrganizationName=AuroraProd&systemGuid='+systemGuid+'&taskId='+taskId+'&status='+status)
+  }
+
 }

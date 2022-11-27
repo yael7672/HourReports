@@ -16,11 +16,13 @@ import { SmartCardComponent } from './smart-card/smart-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CodeSpairComponent } from './code-spair/code-spair.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     AppComponent,
+    CodeSpairComponent,
   ],
   imports: [
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),

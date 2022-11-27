@@ -7,8 +7,8 @@
       <option value="" [disabled]="true">--בחר אחת מהאופציות הבאות--</option>
       <option value="0">מיון לפי טווח תאריכים </option>
       <option value="1"> היום </option>
-      <option value="2"> 7 ימים אחרונים </option>
-      <option value="3"> החודש האחרון</option>
+      <option value="2"> השבוע</option>
+      <option value="3"> חודש זה</option>
     </select>
   </div>
 
@@ -45,7 +45,7 @@
           <div class="frac">
             <span class="label label-default"> 
           {{AverageBreaksByTimeLineChart?.TotalBreakHours}} (סה"כ שעות הפסקה) </span><span class="symbol">/</span>
-            <span class="bottom"> {{AverageBreaksByTimeLineChart?.DiffrenceDay}} ימים</span>
+            <span class="bottom"> {{AverageBreaksByTimeLineChart?.DiffrenceDay}} ימי עבודה</span>
           </div>
         </h6>
 

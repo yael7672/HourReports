@@ -40,6 +40,7 @@ export class StatisticsGraphComponent implements OnInit {
   myDate = new Date();
   todayDateCopy = new Date();
   showThisWeek!: any;
+  showThisMonth:any
   dateAndCulculte: any;
   dateAndCulculteArr: any;
   constructor(private userService: UserServiceService, public datepipe: DatePipe) {
@@ -47,9 +48,11 @@ export class StatisticsGraphComponent implements OnInit {
   }
   ngOnInit(): void {
     this.showThisWeek = "2";
+    this.showThisMonth = "3";
+
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.GetAverageBreaksByTimeLineChart(this.systemGuid, "", "", this.showThisWeek)
-    this.GetMyProjectContentItemByTimeLineChart(this.showThisWeek)
+    this.GetAverageBreaksByTimeLineChart(this.systemGuid, "", "", this.showThisMonth)
+    this.GetMyProjectContentItemByTimeLineChart(this.showThisMonth)
 
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
     this.untilDate=this.todayDate
@@ -113,13 +116,14 @@ export class StatisticsGraphComponent implements OnInit {
     });
   }
 
-  GetMyProjectContentItemByTimeLineChart(val = null, showThisWeek = null) {
+  GetMyProjectContentItemByTimeLineChart(val = null, showThisMonth = null) {
+
     if (val == 0) {
       this.showInputsDates = true;
       return
     }
-    if (showThisWeek != null) {
-      val = showThisWeek;
+    if (showThisMonth != null) {
+      val = showThisMonth;
     }
     this.showInputsDates = val == 0 || val == null ? true : false;
     this.systemGuid = localStorage.getItem('systemGuid');

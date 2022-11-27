@@ -115,11 +115,16 @@ export class CreateAprojectContentItemComponent implements OnInit {
         x = { "Guid": x }
         this.MoreEmployeeGuid.push(x)
       })
-  
+
     }
-    form.value.MoreEmployee = this.MoreEmployeeGuid
-      console.log("עובדים נוספים");
-      console.log(form.value.MoreEmployeeGuid);
+    if (this.MoreEmployeeGuid) {
+      form.value.MoreEmployee = this.MoreEmployeeGuid
+    }
+    else {
+      form.value.MoreEmployee = ""
+    }
+    console.log("עובדים נוספים");
+    console.log(form.value.MoreEmployeeGuid);
 
     if (this.createProjectContectItemWithTimerMoreEmployee == true) {
       form.value.fromDate = this.datePipe.transform(this.todayDate, 'dd/MM/yyyy')
