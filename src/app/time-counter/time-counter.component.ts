@@ -100,7 +100,12 @@ export class TimeCounterComponent implements OnInit {
   hours: any;
   second: any;
   minutes: any;
-  timeBeforeParseDecimal:any
+  timeBeforeParseDecimal: any
+  minutes2: any;
+  timeBeforeParseInt2: any;
+  timeBeforeParseInt3: any;
+  secondEnd: any;
+  today=new Date()
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router, private appService: AppService) {
     this.popUpService.getInPause().subscribe(res => {
@@ -118,6 +123,9 @@ export class TimeCounterComponent implements OnInit {
   ngOnInit(): void {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.GetDetailsTaskAtWork(false)
+
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = true;
       this.ContinueToWorkOnATask();
@@ -250,8 +258,8 @@ export class TimeCounterComponent implements OnInit {
         this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
         this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
 
-        this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.projectContectItemGuid,
-          this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
+        this.userService.UpdateProjectContentItem(this.projectContectItemGuid, this.parseTime ? this.parseTime : 0
+          , this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
             res => {
               if (res) {
                 this.massageFromServer = res;
@@ -378,6 +386,8 @@ export class TimeCounterComponent implements OnInit {
     this.startWorkOfTask = false;
     this.isTaskAccomplished = false;
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
+
     if (time != "00:00:00" && time !== undefined && time != "") {
       this.timetoSend = time?.split(':');
       clearInterval(this.interval);
@@ -388,8 +398,8 @@ export class TimeCounterComponent implements OnInit {
       this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
     }
 
-    this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.projectContectItemGuid,
-      this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
+    this.userService.UpdateProjectContentItem(this.SpecificTaskDetails.LastProjectContectItemGuid, this.parseTime ? this.parseTime : 0
+      , this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
         res => {
           if (res) {
             this.massageFromServer = res;
@@ -458,17 +468,21 @@ export class TimeCounterComponent implements OnInit {
   }
 
 
-  GetDetailsTaskAtWork() {
+  GetDetailsTaskAtWork(IsConvert?: boolean) {
     this.userService.GetDetailsTaskAtWork(this.systemGuid).subscribe(
       res => {
         if (res) {
           this.DetailsTaskAtWork = res;
-          this.DetailsTaskAtWork?.forEach((element, index) => {
-            if (this.TaskGuid2 == element?.taskGuid) {
-              this.SpecificTaskDetails = element
+          if (this.DetailsTaskAtWork.length > 0) {
+            this.DetailsTaskAtWork?.forEach((element, index) => {
+              if (this.TaskGuid2 == element?.taskGuid) {
+                this.SpecificTaskDetails = element
+              }
+            })
+            if (!IsConvert) {
+              this.convertParseTimeToTimer(this.SpecificTaskDetails)
             }
-          })
-          this.convertParseTimeToTimer(this.SpecificTaskDetails)
+          }
         }
       },
       err => {
@@ -477,38 +491,112 @@ export class TimeCounterComponent implements OnInit {
     )
   }
   convertParseTimeToTimer(SpecificTaskDetails: any) {
-    this.timeFromServer = SpecificTaskDetails.timeWork
-    this.timeBeforeParse = Number(this.timeFromServer) * 60
-    this.timeBeforeParseDecimal = this.timeBeforeParse % 1
-    this.timeBeforeParseIntDecimal = this.timeBeforeParseDecimal * 60
-
-    this.timeBeforeParseInt = this.timeBeforeParse - this.timeBeforeParseDecimal
-
-    if (this.timeBeforeParseInt >= 60 && this.timeBeforeParseInt < 360) {
-      this.minutes = this.timeBeforeParseInt / 60
+    this.minutes = 0
+    this.second = 0
+    this.time = 0
+    this.hours = 0
+    this.minutes2 = 0
+    this.time = 1.86
+    this.minutes = (this.time % 1)
+    this.hours = this.time - this.minutes
+    if (this.hours < 10) {
+      this.hours = "0" + this.hours
     }
-    if (this.timeBeforeParseInt >= 360) {
-      this.hours = this.timeBeforeParseInt / 60
+    this.minutes = this.minutes * 60
+    if (this.minutes % 1 != 0) {
+      this.minutes2 = this.minutes - (this.minutes % 1)
+      this.second = this.minutes % 1
+      this.second = this.second * 60
+      // this.timeBeforeParseInt = this.second % 1
+      this.timeBeforeParseInt2 = this.second - (this.second % 1)
+      this.timeBeforeParseInt3 = this.timeBeforeParseInt2
+      if (this.timeBeforeParseInt2 >= 30 && this.timeBeforeParseInt2 <= 59) {
+        // this.timeBeforeParseInt3 = this.timeBeforeParseInt2 % 1
+        this.minutes2 = this.minutes2 + 1
+      }
+      this.secondEnd = this.second - (this.second % 1)
+      this.workTime = this.hours + ":" + this.minutes2 + ":" + this.secondEnd
     }
-    if (this.timeBeforeParseIntDecimal) {
-      this.second = this.timeBeforeParseIntDecimal * 60
-    }
-
-
-    // this.hours =
-    // this.second
-    // this.minutes
-
-    // if (time != "00:00:00" && time !== undefined && time != "") {
-    //   this.timetoSend = time?.split(':');
-    //   clearInterval(this.interval);
-    //   if (this.timetoSend[2] > 30) {
-    //     this.timetoSend[1] += 1;
-    //   }
-    //   this.timetoSend[1] = (this.timetoSend[1] / 60)
-    //   this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
-    // }
 
   }
 
+  check() {
+    this.minutes = 0
+    this.second = 0
+    this.time = 0
+    this.hours = 0
+    this.minutes2 = 0
+    this.time = 2.5
+    this.minutes = (this.time % 1)
+    this.hours = this.time - this.minutes
+    if (this.hours < 10) {
+      this.hours = "0" + this.hours
+    }
+    this.minutes = this.minutes * 60
+    if (this.minutes % 1 != 0) {
+      this.minutes2 = this.minutes - (this.minutes % 1)
+      this.second = this.minutes % 1
+      this.second = this.second * 60
+      // this.timeBeforeParseInt = this.second % 1
+      this.timeBeforeParseInt2 = this.second - (this.second % 1)
+      this.timeBeforeParseInt3 = this.timeBeforeParseInt2
+      if (this.timeBeforeParseInt2 >= 30 && this.timeBeforeParseInt2 <= 59) {
+        // this.timeBeforeParseInt3 = this.timeBeforeParseInt2 % 1
+        this.minutes2 = this.minutes2 + 1
+      }
+      this.secondEnd = this.second - (this.second % 1)
+    }
+    else {
+      this.secondEnd = "00"
+      this.minutes2 = this.minutes
+    }
+    this.workTime = this.hours + ":" + this.minutes2 + ":" + this.secondEnd
+    const javaScriptRelease = Date.parse(this.workTime);
+    alert(javaScriptRelease)
+    const Dates = this.today
+
+    this.today.setHours(this.hours)
+    this.today.setMinutes(this.minutes2)
+    this.today.setSeconds(this.secondEnd)
+
+    const javaScriptRelease2 = Date.parse(this.today.toISOString());
+    alert(javaScriptRelease2)
+    alert(this.datePipe.transform(javaScriptRelease2, 'HH:mm:ss', "+0000"));
+
+
+
+
+  }
 }
+// this.timeBeforeParse = Number(this.timeFromServer) * 60
+// this.minutes = this.timeFromServer % 1
+// this.timeBeforeParseIntDecimal = this.timeBeforeParseDecimal * 60
+
+// this.timeBeforeParseInt = this.timeBeforeParse - this.timeBeforeParseDecimal
+// if (this.timeBeforeParseInt || this.timeBeforeParseInt > 0) {
+//   if (this.timeBeforeParseInt >= 60 && this.timeBeforeParseInt < 360) {
+//     this.minutes = this.timeBeforeParseInt / 60
+//   }
+//   if (this.timeBeforeParseInt >= 360) {
+//     this.hours = this.timeBeforeParseInt / 60
+//   }
+// }
+// if (!this.hours || this.hours == "000") {
+//   this.hours = ('00')
+// }
+// else {
+//   if (this.hours < 10) {
+//     this.hours = '0' + this.hours
+//   }
+// }
+// if (!this.minutes || this.minutes == "000") {
+//   this.minutes = ('00')
+// }
+// else {
+//   if (this.minutes < 10) {
+//     this.minutes = '0' + this.minutes
+//   }
+// }
+
+
+// this.workTime = this.hours + ":" + this.minutes + ":" + ('00')

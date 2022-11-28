@@ -110,7 +110,7 @@ export class MenuComponent implements OnInit {
       this.showNavBar = res ? res : false;
     })
     this.popUpService.getIsAdminMode().subscribe(res => {
-      this.isAdminMode = res;
+      this.isAdminModeLS = res;
     })
     this.popUpService.getifInTheMiddleOfWorkingOnATask().subscribe(res => {
       this.startWorkOfTask = res;

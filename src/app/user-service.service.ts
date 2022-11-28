@@ -177,7 +177,7 @@ export class UserServiceService {
   async GetProjectByGuid(SystemUser: any, GuidProject: any) {
     return await this.http.get<any>(environment.url + 'GetProjectByGuid/?OrganizationName=AuroraProd&SystemUser=' + SystemUser + '&GuidProject=' + GuidProject).toPromise();
   }
-  UpdateProjectContentItem(duration: any, ProjectContectItemId: any, isTaskAccomplished: boolean, descriptionTask: any) {
+  UpdateProjectContentItem(ProjectContectItemId: any,duration: any,  isTaskAccomplished: boolean, descriptionTask: any) {
     return this.http.get<any>(environment.url +'UpdateProjectContentItem?OrganizationName=AuroraProd&ProjectContectItemId='+ProjectContectItemId+'&duration='+duration+'&IsTaskAccomplished='+isTaskAccomplished+'&DescriptionTask='+descriptionTask)
   }
   GetDeatailsOpenTasks(tasksDetails:tasksDetails) {
