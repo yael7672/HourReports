@@ -8,9 +8,11 @@ import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 import swal from 'sweetalert';
 import { CONFIRM_KEY } from 'sweetalert/typings/modules/options/buttons';
 import { AppService } from '../app-service.service';
+import { DetailsTaskAtWork } from '../interfacees/DetailsTaskAtWork';
 import { openSpecificTask } from '../interfacees/openSpecificTask';
 import { OpenTask } from '../interfacees/OpenTask';
 import { TaskByGuid } from '../interfacees/TaskByGuid';
+import { tasksDetails } from '../interfacees/tasksDetails';
 import { PopUpServiceService } from '../pop-up-service.service';
 import { UserServiceService } from '../user-service.service';
 
@@ -88,6 +90,17 @@ export class TimeCounterComponent implements OnInit {
   timeOnOpenTaskAfterDelayStringLS: any;
   ifRefreshPageInMIddleWorkTask = false
   timeTaskOnOpenTask: any
+  massageFromServerUpdateTaskAtWork: any
+  DetailsTaskAtWork!: DetailsTaskAtWork[]
+  timeFromServer: any
+  SpecificTaskDetails: any
+  timeBeforeParse: any
+  timeBeforeParseInt: any;
+  timeBeforeParseIntDecimal: any;
+  hours: any;
+  second: any;
+  minutes: any;
+  timeBeforeParseDecimal:any
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router, private appService: AppService) {
     this.popUpService.getInPause().subscribe(res => {
@@ -143,6 +156,7 @@ export class TimeCounterComponent implements OnInit {
           this.projectContectItemGuid = res;
           localStorage.setItem("projectContectItemGuid", this.projectContectItemGuid);
           let a = Date.now();
+          this.UpdateTaskAtWork(this.taskListDataDetailsParseToJson.TaskGuid, true)
           localStorage.setItem('DateNow', a.toString());
           this.ContinueToWorkOnATask();
           this.massageFromServer = res;
@@ -235,7 +249,7 @@ export class TimeCounterComponent implements OnInit {
         this.isTaskAccomplished = false;
         this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
         this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
- 
+
         this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.projectContectItemGuid,
           this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
             res => {
@@ -245,7 +259,7 @@ export class TimeCounterComponent implements OnInit {
                 this.workTime = ["00:00:00"];
                 localStorage.removeItem("TimeInDateFormat")
                 localStorage.removeItem("timerOfTask")
-   
+
                 this.popUpService.SetProjectContentItemByTaskGuid(true)
                 this.popUpService.SetWorkTimeAfterProjectContectItem(true);
                 this.hideStartAndShowCancelProjectContectItem = false;
@@ -281,17 +295,17 @@ export class TimeCounterComponent implements OnInit {
     }
     this.isTaskAccomplished = true;
     this.workTime = ["00:00:00"];
-    this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
-    this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
-    if (this.openTasksDetailsFromLsParseToJson != null) {
-      this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
-        if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid)
-          this.projectContectItemGuid = element.ProjectContectItemGuid
-      });
-    }
-    else {
-      this.projectContectItemGuid = localStorage.getItem("projectContectItemGuid");
-    }
+    // this.openTasksDetailsFromLs = localStorage.getItem('openTasksInLsDetails')
+    // this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
+    // if (this.openTasksDetailsFromLsParseToJson != null) {
+    //   this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
+    //     if (element.TaskGuid == this.taskListDataDetailsParseToJson.TaskGuid)
+    //       this.projectContectItemGuid = element.ProjectContectItemGuid
+    //   });
+    // }
+    // else {
+    //   this.projectContectItemGuid = localStorage.getItem("projectContectItemGuid");
+    // }
     this.userService.UpdateProjectContectItemByTask(this.parseTime ? this.parseTime : "", this.taskListDataDetailsParseToJson.TaskGuid, this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
       res => {
         if (res) {
@@ -328,7 +342,7 @@ export class TimeCounterComponent implements OnInit {
       if (this.workTime) {
         this.getCreatedProjectContentItemFromLoaclStorage();
       }
-  
+
     }, 1000)
   }
   getCreatedProjectContentItemFromLoaclStorage() {
@@ -345,18 +359,17 @@ export class TimeCounterComponent implements OnInit {
     const timestampNow = Date.now();
     this.Time = timestampNow - timestampCreatOn;
     this.timerOfTask = this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
- 
+
     return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
   }
 
   delayProjectContectItenOnTask(time: any) {
- 
+
     this.TaskGuid2 = this.activatedRoute.snapshot.paramMap.get('id');
- 
-  
+    localStorage.removeItem('DateNow')
     this.popUpService.setStartTimer(false);
 
-  
+
     this.hideDelayAndShowRenewProjectContectItemOnTask = true
     this.timePauseInterval = time
     this.popUpService.setStartTimer(false);
@@ -365,7 +378,35 @@ export class TimeCounterComponent implements OnInit {
     this.startWorkOfTask = false;
     this.isTaskAccomplished = false;
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+    if (time != "00:00:00" && time !== undefined && time != "") {
+      this.timetoSend = time?.split(':');
+      clearInterval(this.interval);
+      if (this.timetoSend[2] > 30) {
+        this.timetoSend[1] += 1;
+      }
+      this.timetoSend[1] = (this.timetoSend[1] / 60)
+      this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+    }
 
+    this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.projectContectItemGuid,
+      this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
+        res => {
+          if (res) {
+            this.massageFromServer = res;
+            // swal(this.massageFromServer);
+            // localStorage.removeItem("TimeInDateFormat")
+            // localStorage.removeItem("timerOfTask")
+
+            this.popUpService.SetProjectContentItemByTaskGuid(true)
+            this.popUpService.SetWorkTimeAfterProjectContectItem(true);
+            this.hideStartAndShowCancelProjectContectItem = false;
+
+          }
+        },
+        err => {
+          console.log(err.error);
+        }
+      )
   }
 
   renewProjectContectItenOnTask(workTime: any) {
@@ -377,7 +418,7 @@ export class TimeCounterComponent implements OnInit {
       this.hideDelayAndShowRenewProjectContectItemOnTask = false
       this.disabledPauseButton = false
       const timeNow = Date.now()
-      localStorage.setItem('DateNowOpenTask', timeNow.toString())
+      localStorage.setItem('DateNow', timeNow.toString())
       this.systemGuid = localStorage.getItem('systemGuid');
       this.startWorkOfTask = true;
       if (this.taskListDataDetailsParseToJson.OwnerId.Guid == this.systemGuid.toLowerCase())
@@ -385,25 +426,89 @@ export class TimeCounterComponent implements OnInit {
       else
         this.IftaskForTeam = true;
       this.taskListDataDetailsParseToJson.Date = this.todayDate
+      this.GetDetailsTaskAtWork()
       this.popUpService.SetWorkTimeAfterProjectContectItem(true)
-      this.ContinueToWorkOnATask2();
+      // this.ContinueToWorkOnATask2();
     }
   }
 
   ContinueToWorkOnATask2(date?: any, ifRefreshPageInMIddleWorkTask?: any) {
-
   }
 
   getCreatedProjectContentItemFromLoaclStorage2(date?: any, ifRefreshPageInMIddleWorkTask?: any) {
-   
+
   }
   setWorkTime2(res: any) {
     this.workTime = this.convertTimeStempToTime3(res)
   }
   convertTimeStempToTime3(renewTime: any) {
- 
+
+  }
+  UpdateTaskAtWork(taskId: any, status: boolean) {
+    this.userService.UpdateTaskAtWork(this.systemGuid, taskId, status).subscribe(
+      res => {
+        if (res) {
+          this.massageFromServerUpdateTaskAtWork = res;
+        }
+      },
+      err => {
+        console.log(err.error);
+      }
+    )
   }
 
- 
+
+  GetDetailsTaskAtWork() {
+    this.userService.GetDetailsTaskAtWork(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+          this.DetailsTaskAtWork = res;
+          this.DetailsTaskAtWork?.forEach((element, index) => {
+            if (this.TaskGuid2 == element?.taskGuid) {
+              this.SpecificTaskDetails = element
+            }
+          })
+          this.convertParseTimeToTimer(this.SpecificTaskDetails)
+        }
+      },
+      err => {
+        console.log(err.error);
+      }
+    )
+  }
+  convertParseTimeToTimer(SpecificTaskDetails: any) {
+    this.timeFromServer = SpecificTaskDetails.timeWork
+    this.timeBeforeParse = Number(this.timeFromServer) * 60
+    this.timeBeforeParseDecimal = this.timeBeforeParse % 1
+    this.timeBeforeParseIntDecimal = this.timeBeforeParseDecimal * 60
+
+    this.timeBeforeParseInt = this.timeBeforeParse - this.timeBeforeParseDecimal
+
+    if (this.timeBeforeParseInt >= 60 && this.timeBeforeParseInt < 360) {
+      this.minutes = this.timeBeforeParseInt / 60
+    }
+    if (this.timeBeforeParseInt >= 360) {
+      this.hours = this.timeBeforeParseInt / 60
+    }
+    if (this.timeBeforeParseIntDecimal) {
+      this.second = this.timeBeforeParseIntDecimal * 60
+    }
+
+
+    // this.hours =
+    // this.second
+    // this.minutes
+
+    // if (time != "00:00:00" && time !== undefined && time != "") {
+    //   this.timetoSend = time?.split(':');
+    //   clearInterval(this.interval);
+    //   if (this.timetoSend[2] > 30) {
+    //     this.timetoSend[1] += 1;
+    //   }
+    //   this.timetoSend[1] = (this.timetoSend[1] / 60)
+    //   this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
+    // }
+
+  }
 
 }

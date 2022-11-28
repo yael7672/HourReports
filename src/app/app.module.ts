@@ -11,25 +11,24 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SmartCardComponent } from './smart-card/smart-card.component';
 
 import { environment } from '../environments/environment';
-<<<<<<< HEAD
 import { CodeSpairComponent } from './code-spair/code-spair.component';
-=======
+
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ClickOutsideModule } from 'ng-click-outside';
->>>>>>> 5a169c051d664748b6c57c59864e59337a083f9b
+import { PopupModule } from '@progress/kendo-angular-popup';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [
     LoginComponent,
     AppComponent,
-<<<<<<< HEAD
     CodeSpairComponent,
-=======
-    
->>>>>>> 5a169c051d664748b6c57c59864e59337a083f9b
+
   ],
   imports: [
     BrowserModule,
@@ -38,10 +37,12 @@ import { ClickOutsideModule } from 'ng-click-outside';
   FormsModule ,
      CommonModule,
     NgbModule,
-    ClickOutsideModule,
-    AutocompleteLibModule,
-     NgxSelectModule,
-     NgxPaginationModule
+     ClickOutsideModule,
+     AutocompleteLibModule,
+      NgxSelectModule,
+      NgxPaginationModule,
+    //  PopupModule,
+      BrowserAnimationsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

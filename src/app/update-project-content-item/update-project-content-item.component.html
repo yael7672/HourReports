@@ -10,24 +10,48 @@
         <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
           class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" ngModel required>
       </div>
+      <ng-container *ngIf="ProjectContentItem.Regardingobjectid || ProjectContentItem.Project">
       <p class="p-autocomplete"> פרוייקט:</p>
-      <div class="autocomplete">
-        <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
-          placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
-          [(ngModel)]="ProjectContentItem.Project" ngModel name="Project" #Project="ngModel" required
-          [notFoundTemplate]="notFoundTemplate"   [ngClass]="{ 'is-invalid': f.submitted && Project.invalid }" >
-        </ng-autocomplete>
-        <ng-template #itemTemplate let-item>
-          <a [innerHTML]="item.Name"></a>
-        </ng-template>
-        <ng-template #notFoundTemplate let-notFound>
-          <div [innerHTML]="'לא נמצאו תוצאות'"></div>
-        </ng-template>
-      </div>
-      <div *ngIf="f.submitted && Project.invalid" class="text-danger">
-        <span *ngIf="Project.errors">שדה זה חובה</span>
-      </div>
+      <ng-container *ngIf="!ProjectContentItem.Regardingobjectid">
+        <div class="autocomplete">
+          <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
+            placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
+            [(ngModel)]="ProjectContentItem.Project" ngModel name="Project" #Project="ngModel" required
+            [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid': f.submitted && Project.invalid }">
+          </ng-autocomplete>
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.Name"></a>
+          </ng-template>
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+          </ng-template>
+        </div>
+        <div *ngIf="f.submitted && Project.invalid" class="text-danger">
+          <span *ngIf="Project.errors">שדה זה חובה</span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="ProjectContentItem.Regardingobjectid">
 
+        <div class="autocomplete" >
+          <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
+            placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
+            [(ngModel)]="ProjectContentItem.Regardingobjectid" ngModel name="Project" #Project="ngModel" required
+            [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid': f.submitted && Project.invalid }">
+          </ng-autocomplete>
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.Name"></a>
+          </ng-template>
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+          </ng-template>
+        </div>
+
+        <div *ngIf="f.submitted && Project.invalid" class="text-danger">
+          <span *ngIf="Project.errors">שדה זה חובה</span>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="ProjectContentItem.WorkType">
       <p class="p-autocomplete"> סוג עבודה:</p>
       <div class="autocomplete">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"
@@ -44,7 +68,8 @@
       </div>
       <div *ngIf="f.submitted && WorkType.invalid" class="text-danger">
         <span *ngIf="WorkType.errors">שדה זה חובה</span>
-    </div>
+      </div>
+      </ng-container>
       <p class="p-autocomplete" *ngIf="ifUpdateTask"> הקצה משימה:</p>
       <div *ngIf="ifUpdateTask" class="autocomplete">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="allUserAndTeams" [searchKeyword]="'Name'"

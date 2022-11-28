@@ -89,6 +89,8 @@ export class UpdateProjectContentItemComponent implements OnInit {
         this.popUpService.SetProjectContentItemByTaskGuid(true);
         this.appService.setIsPopUpOpen(false);
         this.popUpService.setClosePopUp();
+        this.popUpService.setAllmyTask(true)
+
       },
       (err) => {
         this.appService.setSpinner(false);

@@ -48,17 +48,8 @@ export class StatisticsGraphComponent implements OnInit {
     this.showThisMonth = "3";
 
     this.systemGuid = localStorage.getItem('systemGuid');
-<<<<<<< HEAD
-    this.GetAverageBreaksByTimeLineChart(this.systemGuid, "", "", this.showThisMonth)
-    this.GetMyProjectContentItemByTimeLineChart(this.showThisMonth)
-
-    this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
-    this.untilDate=this.todayDate
-    this.fromDate= this.todayDate
-=======
     this.GetAverageBreaksByTimeLineChart(this.systemGuid, "", "", this.showThisWeek)
     this.GetMyProjectContentItemByTimeLineChart(this.showThisWeek)
->>>>>>> 5a169c051d664748b6c57c59864e59337a083f9b
     this.LineChart1 = new Chart('lineChart', {
       type: 'line',
       data: {

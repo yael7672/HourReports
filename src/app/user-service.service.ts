@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Acccount } from './interfacees/Acccount';
 import { averageBreaks } from './interfacees/averageBreaks';
+import { DetailsTaskAtWork } from './interfacees/DetailsTaskAtWork';
 import { ownerid } from './interfacees/ownerid';
 import { Project } from './interfacees/project';
 import { ProjectContentItem } from './interfacees/project-content-item';
@@ -182,8 +183,12 @@ export class UserServiceService {
   GetDeatailsOpenTasks(tasksDetails:tasksDetails) {
     return this.http.post<any>(environment.url + 'GetDeatailsOpenTasks/?OrganizationName=AuroraProd' , tasksDetails)
   }
-  UpdateTaskAtWork(   systemGuid:any,  taskId:any,  status:boolean) {
+  UpdateTaskAtWork(systemGuid:any,  taskId:any,  status:boolean) {
     return this.http.get<any>(environment.url +'UpdateTaskAtWork?OrganizationName=AuroraProd&systemGuid='+systemGuid+'&taskId='+taskId+'&status='+status)
+  }
+  GetDetailsTaskAtWork(systemGuid:any){
+    return this.http.get<DetailsTaskAtWork[]>(environment.url +'GetDetailsTaskAtWork?OrganizationName=AuroraProd&systemGuid='+systemGuid)
+
   }
 
 }
