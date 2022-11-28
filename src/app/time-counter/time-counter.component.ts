@@ -105,7 +105,8 @@ export class TimeCounterComponent implements OnInit {
   timeBeforeParseInt2: any;
   timeBeforeParseInt3: any;
   secondEnd: any;
-  today=new Date()
+  today = new Date()
+  hoursForDate: any
   constructor(private activatedRoute: ActivatedRoute, private userService: UserServiceService, private datePipe: DatePipe,
     private popUpService: PopUpServiceService, public route: Router, private appService: AppService) {
     this.popUpService.getInPause().subscribe(res => {
@@ -496,7 +497,7 @@ export class TimeCounterComponent implements OnInit {
     this.time = 0
     this.hours = 0
     this.minutes2 = 0
-    this.time = 1.86
+    // this.time = 1.86
     this.minutes = (this.time % 1)
     this.hours = this.time - this.minutes
     if (this.hours < 10) {
@@ -526,9 +527,10 @@ export class TimeCounterComponent implements OnInit {
     this.time = 0
     this.hours = 0
     this.minutes2 = 0
-    this.time = 2.5
+    this.time = 3.5
     this.minutes = (this.time % 1)
     this.hours = this.time - this.minutes
+    this.hoursForDate = this.hours + 2
     if (this.hours < 10) {
       this.hours = "0" + this.hours
     }
@@ -555,7 +557,7 @@ export class TimeCounterComponent implements OnInit {
     alert(javaScriptRelease)
     const Dates = this.today
 
-    this.today.setHours(this.hours)
+    this.today.setHours(this.hoursForDate)
     this.today.setMinutes(this.minutes2)
     this.today.setSeconds(this.secondEnd)
 
@@ -563,7 +565,7 @@ export class TimeCounterComponent implements OnInit {
     alert(javaScriptRelease2)
     alert(this.datePipe.transform(javaScriptRelease2, 'HH:mm:ss', "+0000"));
 
-
+    this.workTime = this.datePipe.transform(javaScriptRelease2, 'HH:mm:ss', "+0000")
 
 
   }
