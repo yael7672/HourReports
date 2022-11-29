@@ -9,7 +9,7 @@
     <div class="button-box"><button [disabled]="disabledPauseButton" placement="top" ngbTooltip="בלחיצה על כפתור זה, מתעדכן משך זמן העבודה בדיווח שנוצר קודם, והטיימר מפסיק את פעולתו."(click)="pauseTimer(workTime)" class="btn btn-color">הפסק</button></div>
     <div class="button-box"><button [disabled]="disabledEndButton" placement="top" ngbTooltip="בלחיצה על כפתור זה, המשימה הושלמה והיא עוברת למצב של קריאה בלבד."(click)="endTimer(workTime)" class="btn btn-color">משימה הושלמה</button></div>
 </footer>
-<button (click)="check()">check</button>
+<!-- <button (click)="check()">check</button> -->
 
   <div *ngIf="showMassgeToUserCancelProjectContectItemOfTask">
     <app-pop-up>

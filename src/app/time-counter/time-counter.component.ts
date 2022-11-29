@@ -99,11 +99,11 @@ export class TimeCounterComponent implements OnInit {
   timeBeforeParseIntDecimal: any;
   hours: any;
   second: any;
-  minutes: any;
+  minutesInDec: any;
   timeBeforeParseDecimal: any
-  minutes2: any;
-  timeBeforeParseInt2: any;
-  timeBeforeParseInt3: any;
+  minutes: any;
+  secondInInt: any;
+  secondInInt1: any;
   secondEnd: any;
   today = new Date()
   hoursForDate: any
@@ -351,15 +351,15 @@ export class TimeCounterComponent implements OnInit {
       if (this.workTime) {
         this.getCreatedProjectContentItemFromLoaclStorage();
       }
-
     }, 1000)
   }
+  
   getCreatedProjectContentItemFromLoaclStorage() {
     if (localStorage.getItem('DateNow')) {
       this.setWorkTime(localStorage.getItem('DateNow'))
     }
-
   }
+
   setWorkTime(res: any) {
     this.workTime = this.convertTimeStempToTime(res)
   }
@@ -368,17 +368,13 @@ export class TimeCounterComponent implements OnInit {
     const timestampNow = Date.now();
     this.Time = timestampNow - timestampCreatOn;
     this.timerOfTask = this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
-
     return this.datePipe.transform(this.Time, 'HH:mm:ss', "+0000");
   }
 
   delayProjectContectItenOnTask(time: any) {
-
     this.TaskGuid2 = this.activatedRoute.snapshot.paramMap.get('id');
     localStorage.removeItem('DateNow')
     this.popUpService.setStartTimer(false);
-
-
     this.hideDelayAndShowRenewProjectContectItemOnTask = true
     this.timePauseInterval = time
     this.popUpService.setStartTimer(false);
@@ -407,7 +403,6 @@ export class TimeCounterComponent implements OnInit {
             // swal(this.massageFromServer);
             // localStorage.removeItem("TimeInDateFormat")
             // localStorage.removeItem("timerOfTask")
-
             this.popUpService.SetProjectContentItemByTaskGuid(true)
             this.popUpService.SetWorkTimeAfterProjectContectItem(true);
             this.hideStartAndShowCancelProjectContectItem = false;
@@ -492,113 +487,79 @@ export class TimeCounterComponent implements OnInit {
     )
   }
   convertParseTimeToTimer(SpecificTaskDetails: any) {
-    this.minutes = 0
-    this.second = 0
-    this.time = 0
-    this.hours = 0
-    this.minutes2 = 0
-    // this.time = 1.86
-    this.minutes = (this.time % 1)
-    this.hours = this.time - this.minutes
-    if (this.hours < 10) {
-      this.hours = "0" + this.hours
-    }
-    this.minutes = this.minutes * 60
-    if (this.minutes % 1 != 0) {
-      this.minutes2 = this.minutes - (this.minutes % 1)
-      this.second = this.minutes % 1
-      this.second = this.second * 60
-      // this.timeBeforeParseInt = this.second % 1
-      this.timeBeforeParseInt2 = this.second - (this.second % 1)
-      this.timeBeforeParseInt3 = this.timeBeforeParseInt2
-      if (this.timeBeforeParseInt2 >= 30 && this.timeBeforeParseInt2 <= 59) {
-        // this.timeBeforeParseInt3 = this.timeBeforeParseInt2 % 1
-        this.minutes2 = this.minutes2 + 1
-      }
-      this.secondEnd = this.second - (this.second % 1)
-      this.workTime = this.hours + ":" + this.minutes2 + ":" + this.secondEnd
-    }
-
-  }
-
-  check() {
-    this.minutes = 0
-    this.second = 0
-    this.time = 0
-    this.hours = 0
-    this.minutes2 = 0
-    this.time = 3.5
-    this.minutes = (this.time % 1)
-    this.hours = this.time - this.minutes
+    // this.minutesInDec = 0
+    // this.second = 0
+    // this.time = 0
+    // this.hours = 0
+    // this.minutes = 0
+    this.time = SpecificTaskDetails.timeWork
+    this.minutesInDec = (this.time % 1)
+    this.hours = this.time - this.minutesInDec
     this.hoursForDate = this.hours + 2
     if (this.hours < 10) {
       this.hours = "0" + this.hours
     }
-    this.minutes = this.minutes * 60
-    if (this.minutes % 1 != 0) {
-      this.minutes2 = this.minutes - (this.minutes % 1)
-      this.second = this.minutes % 1
+    this.minutesInDec = this.minutesInDec * 60
+    if (this.minutesInDec % 1 != 0) {
+      this.minutes = this.minutesInDec - (this.minutesInDec % 1)
+      this.second = this.minutesInDec % 1
       this.second = this.second * 60
-      // this.timeBeforeParseInt = this.second % 1
-      this.timeBeforeParseInt2 = this.second - (this.second % 1)
-      this.timeBeforeParseInt3 = this.timeBeforeParseInt2
-      if (this.timeBeforeParseInt2 >= 30 && this.timeBeforeParseInt2 <= 59) {
-        // this.timeBeforeParseInt3 = this.timeBeforeParseInt2 % 1
-        this.minutes2 = this.minutes2 + 1
+      this.secondInInt = this.second - (this.second % 1)
+      this.secondInInt1 = this.secondInInt
+      if (this.secondInInt >= 30 && this.secondInInt <= 59) {
+        this.minutes = this.minutes + 1
       }
       this.secondEnd = this.second - (this.second % 1)
     }
     else {
       this.secondEnd = "00"
-      this.minutes2 = this.minutes
+      this.minutes = this.minutesInDec
     }
-    this.workTime = this.hours + ":" + this.minutes2 + ":" + this.secondEnd
-    const javaScriptRelease = Date.parse(this.workTime);
-    alert(javaScriptRelease)
-    const Dates = this.today
-
-    this.today.setHours(this.hoursForDate)
-    this.today.setMinutes(this.minutes2)
-    this.today.setSeconds(this.secondEnd)
-
-    const javaScriptRelease2 = Date.parse(this.today.toISOString());
-    alert(javaScriptRelease2)
-    alert(this.datePipe.transform(javaScriptRelease2, 'HH:mm:ss', "+0000"));
-
-    this.workTime = this.datePipe.transform(javaScriptRelease2, 'HH:mm:ss', "+0000")
-
+    this.timeInDateFormat.setHours(this.hoursForDate)
+    this.timeInDateFormat.setMinutes(this.minutes)
+    this.timeInDateFormat.setSeconds(this.secondEnd)
+    const timeInTimeZone = Date.parse(this.timeInDateFormat.toISOString());
+    this.workTime = this.datePipe.transform(timeInTimeZone, 'HH:mm:ss', "+0000")
 
   }
+
+
+  // check() {
+  //   this.minutes = 0
+  //   this.second = 0
+  //   this.time = 0
+  //   this.hours = 0
+  //   this.minutes2 = 0
+  //   this.time = 3.5
+  //   this.minutes = (this.time % 1)
+  //   this.hours = this.time - this.minutes
+  //   this.hoursForDate = this.hours + 2
+  //   if (this.hours < 10) {
+  //     this.hours = "0" + this.hours
+  //   }
+  //   this.minutes = this.minutes * 60
+  //   if (this.minutes % 1 != 0) {
+  //     this.minutes2 = this.minutes - (this.minutes % 1)
+  //     this.second = this.minutes % 1
+  //     this.second = this.second * 60
+  //     this.timeBeforeParseInt2 = this.second - (this.second % 1)
+  //     this.timeBeforeParseInt3 = this.timeBeforeParseInt2
+  //     if (this.timeBeforeParseInt2 >= 30 && this.timeBeforeParseInt2 <= 59) {
+  //       this.minutes2 = this.minutes2 + 1
+  //     }
+  //     this.secondEnd = this.second - (this.second % 1)
+  //   }
+  //   else {
+  //     this.secondEnd = "00"
+  //     this.minutes2 = this.minutes
+  //   }
+  //   this.workTime = this.hours + ":" + this.minutes2 + ":" + this.secondEnd
+  //   this.today.setHours(this.hoursForDate)
+  //   this.today.setMinutes(this.minutes2)
+  //   this.today.setSeconds(this.secondEnd)
+  //   const javaScriptRelease2 = Date.parse(this.today.toISOString());
+  //   this.workTime = this.datePipe.transform(javaScriptRelease2, 'HH:mm:ss', "+0000")
+
+
+  // }
 }
-// this.timeBeforeParse = Number(this.timeFromServer) * 60
-// this.minutes = this.timeFromServer % 1
-// this.timeBeforeParseIntDecimal = this.timeBeforeParseDecimal * 60
-
-// this.timeBeforeParseInt = this.timeBeforeParse - this.timeBeforeParseDecimal
-// if (this.timeBeforeParseInt || this.timeBeforeParseInt > 0) {
-//   if (this.timeBeforeParseInt >= 60 && this.timeBeforeParseInt < 360) {
-//     this.minutes = this.timeBeforeParseInt / 60
-//   }
-//   if (this.timeBeforeParseInt >= 360) {
-//     this.hours = this.timeBeforeParseInt / 60
-//   }
-// }
-// if (!this.hours || this.hours == "000") {
-//   this.hours = ('00')
-// }
-// else {
-//   if (this.hours < 10) {
-//     this.hours = '0' + this.hours
-//   }
-// }
-// if (!this.minutes || this.minutes == "000") {
-//   this.minutes = ('00')
-// }
-// else {
-//   if (this.minutes < 10) {
-//     this.minutes = '0' + this.minutes
-//   }
-// }
-
-
-// this.workTime = this.hours + ":" + this.minutes + ":" + ('00')
