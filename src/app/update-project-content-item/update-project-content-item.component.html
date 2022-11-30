@@ -10,9 +10,9 @@
         <input style="max-height:100%;" type="date" id="CreatedOn" name="CreatedOn" #CreatedOn="ngModel"
           class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" ngModel required>
       </div>
-      <ng-container *ngIf="ProjectContentItem.Regardingobjectid || ProjectContentItem.Project">
+      <!-- <ng-container *ngIf="ProjectContentItem.Regardingobjectid || ProjectContentItem.Project"> -->
       <p class="p-autocomplete"> פרוייקט:</p>
-      <ng-container *ngIf="!ProjectContentItem.Regardingobjectid">
+      <ng-container *ngIf="!showRegardingobjectid">
         <div class="autocomplete">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
             placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
@@ -30,7 +30,7 @@
           <span *ngIf="Project.errors">שדה זה חובה</span>
         </div>
       </ng-container>
-      <ng-container *ngIf="ProjectContentItem.Regardingobjectid">
+      <ng-container *ngIf="showRegardingobjectid">
 
         <div class="autocomplete" >
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
@@ -50,8 +50,8 @@
           <span *ngIf="Project.errors">שדה זה חובה</span>
         </div>
       </ng-container>
-    </ng-container>
-    <ng-container *ngIf="ProjectContentItem.WorkType">
+    <!-- </ng-container> -->
+    <ng-container >
       <p class="p-autocomplete"> סוג עבודה:</p>
       <div class="autocomplete">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"

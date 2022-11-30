@@ -306,7 +306,7 @@ export class CodeSpairComponent implements OnInit {
           this.projectContectItemGuid = localStorage.getItem("projectContectItemGuid");
         }
         this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.projectContectItemGuid,
-          this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
+          this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").then(
             res => {
               if (res) {
                 this.massageFromServer = res;
@@ -365,7 +365,7 @@ export class CodeSpairComponent implements OnInit {
       this.projectContectItemGuid = localStorage.getItem("projectContectItemGuid");
     }
 
-    this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.projectContectItemGuid, this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(
+    this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : "", this.projectContectItemGuid, this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").then(
       res => {
         if (res) {
           this.massageFromServer = res;
@@ -523,7 +523,7 @@ export class CodeSpairComponent implements OnInit {
       this.parseTime = Number(this.timetoSend[0]) + this.timetoSend[1];
     }
     this.userService.UpdateProjectContentItem(this.parseTime ? this.parseTime : 0, this.projectContectItemGuid,
-      this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").subscribe(res => {
+      this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").then(res => {
         if (res) {
           this.massageFromServer = res;
           swal(this.massageFromServer);

@@ -39,6 +39,7 @@ export class UpdateProjectContentItemComponent implements OnInit {
   actualHours: any;
   date: any;
   ifShowSpinner!: boolean;
+  showRegardingobjectid:any
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserServiceService, private appService: AppService,
     private popUpService: PopUpServiceService, private elementRef: ElementRef, private buttonWorkingTaskService: ButtonWorkingTaskService
     , private datePipe: DatePipe) {
@@ -49,7 +50,13 @@ export class UpdateProjectContentItemComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.workType);
+    if (this.ProjectContentItem.Regardingobjectid) {
+      this.showRegardingobjectid = true
+    }
+    if (!this.ProjectContentItem.Regardingobjectid) {
+      this.showRegardingobjectid = false
 
+    }
     this.date = this.datePipe.transform(this.ProjectContentItem?.Date, 'yyyy-MM-dd');
     this.actualHours = Number(this.ProjectContentItem?.WorkingHours)
     if (this.ProjectContentItem?.ActualTime != "")
