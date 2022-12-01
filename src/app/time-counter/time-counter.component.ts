@@ -382,10 +382,9 @@ export class TimeCounterComponent implements OnInit {
     this.hideDelayAndShowRenewProjectContectItemOnTask = true
     this.hideStartAndShowCancelProjectContectItem = true
     this.timePauseInterval = time
-    this.popUpService.setStartTimer(false);
     this.disabledPauseButton = true;
     this.disabledStartButton = false;
-    this.startWorkOfTask = false;
+    // this.startWorkOfTask = false;
     this.isTaskAccomplished = false;
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
@@ -423,7 +422,7 @@ export class TimeCounterComponent implements OnInit {
     }
   }
 
-  renewProjectContectItenOnTask(workTime: any) {
+  renewProjectContectItenOnTask() {
     if (this.ifInPause) {
       this.showMassageToUSERifMiiddlePauseAndOpenTask = true
     }
@@ -435,11 +434,11 @@ export class TimeCounterComponent implements OnInit {
       const timeNow = Date.now()
       localStorage.setItem('DateNow', timeNow.toString())
       this.systemGuid = localStorage.getItem('systemGuid');
-      this.startWorkOfTask = true;
+      // this.startWorkOfTask = true;
       if (this.taskListDataDetailsParseToJson.OwnerId.Guid == this.systemGuid.toLowerCase())
         this.IftaskForTeam = false;
       else
-        this.IftaskForTeam = true;
+       { this.IftaskForTeam = true;}
       this.taskListDataDetailsParseToJson.Date = this.todayDate
       this.popUpService.SetWorkTimeAfterProjectContectItem(true)
 
@@ -449,18 +448,7 @@ export class TimeCounterComponent implements OnInit {
   }
 
 
-  UpdateTaskAtWork(taskId: any, status: boolean) {
-    this.userService.UpdateTaskAtWork(this.systemGuid, taskId, status).subscribe(
-      res => {
-        if (res) {
-          this.massageFromServerUpdateTaskAtWork = res;
-        }
-      },
-      err => {
-        console.log(err.error);
-      }
-    )
-  }
+
 
 
   GetDetailsTaskAtWork(IsConvert?: boolean) {
@@ -475,7 +463,7 @@ export class TimeCounterComponent implements OnInit {
               }
             })
             if (!IsConvert) {
-              this.convertParseTimeToTimer(this.SpecificTaskDetails)
+              this.ContinueToWorkOnATask2(this.SpecificTaskDetails)
             }
           }
         }
@@ -485,6 +473,7 @@ export class TimeCounterComponent implements OnInit {
       }
     )
   }
+
   convertParseTimeToTimer(SpecificTaskDetails: any) {
     this.minutesInDec = 0
     this.second = 0
@@ -520,17 +509,18 @@ export class TimeCounterComponent implements OnInit {
     this.timeInDateFormat.setMinutes(this.minutes)
     this.timeInDateFormat.setSeconds(this.secondEnd)
     this.timeBeforeInTimeZone = Date.parse(this.timeInDateFormat.toString());
+    return this.timeBeforeInTimeZone
     // this.workTime = this.datePipe.transform(this.timeBeforeInTimeZone, 'HH:mm:ss', "+0000")
-    this.ContinueToWorkOnATask2(this.timeBeforeInTimeZone)
 
   }
 
 
-  ContinueToWorkOnATask2(timeBeforeInTimeZone: any) {
-    this.getCreatedProjectContentItemFromLoaclStorage2(timeBeforeInTimeZone);
+  ContinueToWorkOnATask2(SpecificTaskDetails: any) {
+    this.timeBeforeInTimeZone = this.convertParseTimeToTimer(SpecificTaskDetails)
+    this.getCreatedProjectContentItemFromLoaclStorage2(this.timeBeforeInTimeZone);
     this.interval = setInterval(() => {
       if (this.workTime) {
-        this.getCreatedProjectContentItemFromLoaclStorage2(timeBeforeInTimeZone);
+        this.getCreatedProjectContentItemFromLoaclStorage2(this.timeBeforeInTimeZone);
       }
     }, 1000)
   }
@@ -549,11 +539,11 @@ export class TimeCounterComponent implements OnInit {
     const timestampNow = Date.now();
     this.Time = timestampNow - timestampCreatOn;
     this.timeWithTimeBefore = Number(this.Time) + Number(timeBeforeInTimeZone)
-    this.timerOfTask = this.datePipe.transform(this.timeWithTimeBefore, 'HH:mm:ss', "+0000");
+    this.workTime = this.datePipe.transform(this.timeWithTimeBefore, 'HH:mm:ss', "+0000");
 
-    if (this.timerOfTask != "" || !this.timerOfTask) {
-      this.timetoSend = this.timerOfTask.split(':')
-      clearInterval(this.interval);
+    if (this.workTime != "" || !this.workTime) {
+      this.timetoSend = this.workTime.split(':')
+      // clearInterval(this.interval);
       if (this.timetoSend[2] > 30) {
         this.timetoSend[1]++;
       }
@@ -574,9 +564,21 @@ export class TimeCounterComponent implements OnInit {
           }
         )
     }
-    return this.timerOfTask
+    return this.workTime
   }
 
+  UpdateTaskAtWork(taskId: any, status: boolean) {
+    this.userService.UpdateTaskAtWork(this.systemGuid, taskId, status).subscribe(
+      res => {
+        if (res) {
+          this.massageFromServerUpdateTaskAtWork = res;
+        }
+      },
+      err => {
+        console.log(err.error);
+      }
+    )
+  }
   // check() {
   //   this.minutes = 0
   //   this.second = 0
