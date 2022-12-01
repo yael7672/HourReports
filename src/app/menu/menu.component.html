@@ -107,18 +107,18 @@
 
 
 
-<div *ngIf="startWorkOfTask">
+<!-- <div *ngIf="startWorkOfTask">
   <a (click)="returnToTheOpenTask()" placement="right"
     ngbTooltip="חזרה למשימה : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
       data-icon="bi:clock-history"></i></a>
-</div>
-
-
-<!-- <div >
-  <a placement="right"
-    ngbTooltip="חזרה למשימה : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
-      data-icon="bi:clock-history"></i></a>
 </div> -->
+
+
+<div *ngFor="let taskAtOpen of DetailsTaskAtWork" >
+  <a placement="right"(click)="returnToTheOpenTaskAtWork(taskAtOpen.taskGuid)" 
+    ngbTooltip="חזרה למשימה : {{taskAtOpen.TaskName}}"><i id="clock-history" class="iconify"
+      data-icon="bi:clock-history"></i></a>
+</div>
 
 <div *ngIf="isPopUpOpen?.creatTask">
   <app-create-new-task></app-create-new-task>

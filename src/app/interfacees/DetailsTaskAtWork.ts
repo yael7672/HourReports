@@ -3,5 +3,6 @@ export interface DetailsTaskAtWork {
     LastProjectContectItemGuid:any;
     TimeTask:any;
     timeWork:any;
+    TaskName:any
 
     }

@@ -11,8 +11,9 @@ import { TimeCounterComponent } from '../time-counter/time-counter.component';
 import { ProjectType } from '../interfacees/ProjectType';
 import { OpenTask } from '../interfacees/OpenTask';
 import { ActivatedRoute, Router } from '@angular/router';
-import  swal from 'sweetalert';
+import swal from 'sweetalert';
 import { TaskGuid } from '../interfacees/tasksDetails';
+import { DetailsTaskAtWork } from '../interfacees/DetailsTaskAtWork';
 
 
 @Component({
@@ -80,8 +81,11 @@ export class MenuComponent implements OnInit {
   openTasksGuidArr: TaskGuid[] = []
   TasksName: any
   DeatailsOpenTasksArr: any
-  openTasksGuid: TaskGuid[]=[]
+  openTasksGuid: TaskGuid[] = []
   taskGuid: any;
+  countOfTaskAtOpen: any;
+  DetailsTaskAtWork!: DetailsTaskAtWork[];
+
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private userService: UserServiceService,
@@ -124,7 +128,8 @@ export class MenuComponent implements OnInit {
     this.isAdminModeLS = localStorage.getItem("AdminMode")
     this.GetWorkType()
     this.GetProject();
-    this.GetOpenTasks()
+    this.GetOpenTasks();
+    this.GetDetailsTaskAtWork();
     this.MessageToTheManager();
     this.image = localStorage.getItem('image');
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -158,7 +163,7 @@ export class MenuComponent implements OnInit {
     this.openTasksDetailsFromLsParseToJson = JSON.parse(this.openTasksDetailsFromLs)
     if (this.openTasksDetailsFromLsParseToJson != null) {
       this.openTasksDetailsFromLsParseToJson?.forEach((element, index) => {
-        this.openTasksGuidArr.push({Guid:element?.TaskGuid})
+        this.openTasksGuidArr.push({ Guid: element?.TaskGuid })
         localStorage.setItem("openTasksGuid", JSON.stringify(this.openTasksGuidArr))
       })
       this.openTasksGuid = this.openTasksGuidArr
@@ -168,6 +173,13 @@ export class MenuComponent implements OnInit {
 
   returnToTheOpenTask() {
     this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
+  }
+  returnToTheOpenTaskAtWork(taskGuid:any) {
+    setTimeout(() => {
+      let myCompLog = new TimeCounterComponent(this.activatedRoute,this.userService,this.datePipe,this.popUpService,this.router,this.appService)
+      myCompLog.GetDetailsTaskAtWork(true,true,this.systemGuid,taskGuid)
+    }, 500)
+    this.router.navigate(['/menu/specific-task', taskGuid])
   }
   checkIfMemuOpen() {
     this.popUpService.setNavBar(true)
@@ -182,7 +194,7 @@ export class MenuComponent implements OnInit {
       systemGuid: systemGuid,
       // NotesToTheProjectManager: form.value.CommentsToTheProjectManager,הערות למנהל הפרוייקט
       // Regardingobjectid: { "Guid": form.value.Regardingobject },לגבי
-      taskGuid:  taskGuid ,
+      taskGuid: taskGuid,
     }
     this.userService.GetDeatailsOpenTasks(this.taskGuid).subscribe(
       (res: any) => {
@@ -371,5 +383,25 @@ export class MenuComponent implements OnInit {
   }
   goToSystemSetting() {
     this.router.navigate(['/menu/system-setting'])
+  }
+
+  GetDetailsTaskAtWork() {
+    this.userService.GetDetailsTaskAtWork(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+          this.DetailsTaskAtWork = res;
+          console.log("this.DetailsTaskAtWork", this.DetailsTaskAtWork);
+
+          if (this.DetailsTaskAtWork.length > 0) {
+            this.DetailsTaskAtWork?.forEach((element, index) => {
+            })
+            this.countOfTaskAtOpen = this.DetailsTaskAtWork.length
+          }
+        }
+      },
+      err => {
+        console.log(err.error);
+      }
+    )
   }
 }

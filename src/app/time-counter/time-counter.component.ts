@@ -127,7 +127,7 @@ export class TimeCounterComponent implements OnInit {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.GetDetailsTaskAtWork(true)
+    this.GetDetailsTaskAtWork(true, true, this.systemGuid)
 
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = true;
@@ -240,7 +240,7 @@ export class TimeCounterComponent implements OnInit {
       this.popUpService.setifInTheMiddleOfWorkingOnATask(false);
       localStorage.removeItem("interval")
       this.hideStartAndShowCancelProjectContectItem = false
-      this.hideDelayAndShowRenewProjectContectItemOnTask = true
+      this.hideDelayAndShowRenewProjectContectItemOnTask = false
       this.popUpService.setStartTimer(false);
       this.disabledPauseButton = true;
       this.disabledStartButton = false;
@@ -275,6 +275,8 @@ export class TimeCounterComponent implements OnInit {
                 this.popUpService.SetProjectContentItemByTaskGuid(true)
                 this.popUpService.SetWorkTimeAfterProjectContectItem(true);
                 this.hideStartAndShowCancelProjectContectItem = false;
+                this.UpdateTaskAtWork(this.taskListDataDetailsParseToJson.TaskGuid, false)
+
 
               }
             },
@@ -338,6 +340,7 @@ export class TimeCounterComponent implements OnInit {
           this.popUpService.setAllmyTask(true)
           this.popUpService.SetProjectContentItemByTaskGuid(true)
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)
+          this.UpdateTaskAtWork(this.taskListDataDetailsParseToJson.TaskGuid, false)
         }
       },
       err => {
@@ -437,12 +440,11 @@ export class TimeCounterComponent implements OnInit {
       // this.startWorkOfTask = true;
       if (this.taskListDataDetailsParseToJson.OwnerId.Guid == this.systemGuid.toLowerCase())
         this.IftaskForTeam = false;
-      else
-       { this.IftaskForTeam = true;}
+      else { this.IftaskForTeam = true; }
       this.taskListDataDetailsParseToJson.Date = this.todayDate
       this.popUpService.SetWorkTimeAfterProjectContectItem(true)
 
-      this.GetDetailsTaskAtWork()
+      this.GetDetailsTaskAtWork(true, false, this.systemGuid)
       // this.ContinueToWorkOnATask2();
     }
   }
@@ -451,15 +453,22 @@ export class TimeCounterComponent implements OnInit {
 
 
 
-  GetDetailsTaskAtWork(IsConvert?: boolean) {
-    this.userService.GetDetailsTaskAtWork(this.systemGuid).subscribe(
+  GetDetailsTaskAtWork(IsConvert?: boolean, checkIfThisTaskAtWork?: boolean, systemGuid?: any, taskGuid?: any) {
+    this.userService.GetDetailsTaskAtWork(systemGuid).subscribe(
       res => {
         if (res) {
           this.DetailsTaskAtWork = res;
-          if (this.DetailsTaskAtWork.length > 0) {
+          if (this.DetailsTaskAtWork.length >= 0) {
             this.DetailsTaskAtWork?.forEach((element, index) => {
+              this.TaskGuid2 = this.activatedRoute.snapshot.paramMap.get('id');
+              if (taskGuid) {
+                this.TaskGuid2 = taskGuid
+              }
               if (this.TaskGuid2 == element?.taskGuid) {
                 this.SpecificTaskDetails = element
+                if (checkIfThisTaskAtWork) {
+                  this.workTime = this.convertParseTimeToTimer(this.SpecificTaskDetails, true)
+                }
               }
             })
             if (!IsConvert) {
@@ -474,7 +483,7 @@ export class TimeCounterComponent implements OnInit {
     )
   }
 
-  convertParseTimeToTimer(SpecificTaskDetails: any) {
+  convertParseTimeToTimer(SpecificTaskDetails: any, returnWorkTime?: boolean) {
     this.minutesInDec = 0
     this.second = 0
     this.timeTaskAtWork = 0
@@ -509,7 +518,17 @@ export class TimeCounterComponent implements OnInit {
     this.timeInDateFormat.setMinutes(this.minutes)
     this.timeInDateFormat.setSeconds(this.secondEnd)
     this.timeBeforeInTimeZone = Date.parse(this.timeInDateFormat.toString());
-    return this.timeBeforeInTimeZone
+    this.workTime = this.datePipe.transform(this.timeBeforeInTimeZone, 'HH:mm:ss', "+0000")
+    if (returnWorkTime && this.workTime != "00:00:00" && this.workTime !== undefined && this.workTime != "") {
+      this.hideStartAndShowCancelProjectContectItem = true
+      this.hideDelayAndShowRenewProjectContectItemOnTask = true
+      this.UpdateTaskAtWork(SpecificTaskDetails, false)
+      return this.datePipe.transform(this.timeBeforeInTimeZone, 'HH:mm:ss', "+0000")
+    }
+    else {
+      if (returnWorkTime = false || returnWorkTime == undefined || returnWorkTime == null)
+        return this.timeBeforeInTimeZone
+    }
     // this.workTime = this.datePipe.transform(this.timeBeforeInTimeZone, 'HH:mm:ss', "+0000")
 
   }
