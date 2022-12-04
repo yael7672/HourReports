@@ -85,6 +85,7 @@ export class MenuComponent implements OnInit {
   taskGuid: any;
   countOfTaskAtOpen: any;
   DetailsTaskAtWork!: DetailsTaskAtWork[];
+  showIconTaskAtWorkOpen = false
 
   constructor(public router: Router,
     private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
@@ -123,6 +124,9 @@ export class MenuComponent implements OnInit {
     if (!this.isAdminModeLS) {
       localStorage.setItem("AdminMode", 'false')
     }
+    this.popUpService.GetIconTaskAtWorkOpen().subscribe(res => {
+      this.showIconTaskAtWorkOpen = res ? res : false;
+    })
   }
   ngOnInit(): void {
     this.isAdminModeLS = localStorage.getItem("AdminMode")
@@ -174,10 +178,10 @@ export class MenuComponent implements OnInit {
   returnToTheOpenTask() {
     this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
   }
-  returnToTheOpenTaskAtWork(taskGuid:any) {
+  returnToTheOpenTaskAtWork(taskGuid: any) {
     setTimeout(() => {
-      let myCompLog = new TimeCounterComponent(this.activatedRoute,this.userService,this.datePipe,this.popUpService,this.router,this.appService)
-      myCompLog.GetDetailsTaskAtWork(true,true,this.systemGuid,taskGuid)
+      let myCompLog = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router, this.appService)
+      myCompLog.GetDetailsTaskAtWork(true, true, this.systemGuid, taskGuid)
     }, 500)
     this.router.navigate(['/menu/specific-task', taskGuid])
   }
@@ -403,5 +407,14 @@ export class MenuComponent implements OnInit {
         console.log(err.error);
       }
     )
+  }
+
+  MenuBacktaskAtWork() {
+    if (this.showIconTaskAtWorkOpen == false)
+      this.popUpService.setIconTaskAtWorkOpen(true)
+    else {
+      this.popUpService.setIconTaskAtWorkOpen(false)
+
+    }
   }
 }
