@@ -12,7 +12,7 @@
   <div body>
     
     <ng-container *ngIf="showInputsDates">
-      <app-datepicker (SortByDateRange)="sortByDateRange($event)"></app-datepicker>
+      <app-datepicker (SortByDateRange)="sortByDateRange($event)" [textOfButton]="'מיין'"></app-datepicker>
     </ng-container>
     <ng-container  >
     <p> סה"כ שעות מדווחות החודש: <span>{{hoursReportedThisMonth}}</span> </p>
