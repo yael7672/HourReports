@@ -24,6 +24,7 @@ export class PopUpServiceService {
   private isAdminMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private isOpenTask$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([])
   private ifInTheMiddleOfWorkingOnATask$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private   IconTaskAtWorkOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   OpenTask: OpenTask[] = []
 
@@ -161,5 +162,11 @@ export class PopUpServiceService {
   }
   getifInTheMiddleOfWorkingOnATask() {
     return this.ifInTheMiddleOfWorkingOnATask$;
+  }
+  setIconTaskAtWorkOpen(val: boolean) {
+    this.IconTaskAtWorkOpen$.next(val)
+  }
+  GetIconTaskAtWorkOpen() {
+    return this.IconTaskAtWorkOpen$;
   }
 }

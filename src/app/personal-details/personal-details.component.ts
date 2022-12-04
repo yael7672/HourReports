@@ -37,6 +37,7 @@ export class PersonalDetailsComponent implements OnInit {
       localStorage.setItem("AdminMode",'false')
 
      }
+  
   }
 
   ngOnInit(): void {

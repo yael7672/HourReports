@@ -2,14 +2,14 @@
     <p class="time">{{workTime}}</p>
 </div>
 <footer class="button-of-task">
-    <div class="button-box" *ngIf="!hideStartAndShowCancelProjectContectItem"><button   placement="top" ngbTooltip="בלחיצה על כפתור זה, נוצר במערכת דיווח, והטיימר מתחיל לפעול." (click)="startTimer()" class="btn btn-color">התחל</button></div>
+    <div class="button-box" *ngIf="!hideStartAndShowCancelProjectContectItem"><button placement="top" ngbTooltip="בלחיצה על כפתור זה, נוצר במערכת דיווח, והטיימר מתחיל לפעול." (click)="startTimer()" class="btn btn-color">התחל</button></div>
     <div class="button-box" *ngIf="hideStartAndShowCancelProjectContectItem"><button  placement="top" ngbTooltip="בלחיצה על כפתור זה, באפשרותך לבטל את  הדיווח שהותחל על משימה זו ."(click)="cancelProjectContectItenOnTask()" class="btn btn-color">בטל</button></div>
-    <div class="button-box" *ngIf="hideStartAndShowCancelProjectContectItem&&!hideDelayAndShowRenewProjectContectItemOnTask"><button  placement="top" ngbTooltip="בלחיצה על כפתור זה, באפשרותך להשהות עבודה על משימה זו" (click)="delayProjectContectItenOnTask(workTime)" class="btn btn-color">השהה</button></div>
-    <div class="button-box" *ngIf="hideDelayAndShowRenewProjectContectItemOnTask"><button  placement="top" ngbTooltip="בלחיצה על כפתור זה, באפשרותך להשהות עבודה על משימה זו" (click)="renewProjectContectItenOnTask(workTime)" class="btn btn-color">המשך</button></div>
+    <!-- <div class="button-box" *ngIf="hideStartAndShowCancelProjectContectItem&&!hideDelayAndShowRenewProjectContectItemOnTask"><button  placement="top" ngbTooltip="בלחיצה על כפתור זה, באפשרותך להשהות עבודה על משימה זו" (click)="delayProjectContectItenOnTask(workTime)" class="btn btn-color">השהה</button></div>
+    <div class="button-box" *ngIf="hideDelayAndShowRenewProjectContectItemOnTask"><button  placement="top" ngbTooltip="בלחיצה על כפתור זה, באפשרותך להשהות עבודה על משימה זו" (click)="renewProjectContectItenOnTask()" class="btn btn-color">המשך</button></div> -->
     <div class="button-box"><button [disabled]="disabledPauseButton" placement="top" ngbTooltip="בלחיצה על כפתור זה, מתעדכן משך זמן העבודה בדיווח שנוצר קודם, והטיימר מפסיק את פעולתו."(click)="pauseTimer(workTime)" class="btn btn-color">הפסק</button></div>
     <div class="button-box"><button [disabled]="disabledEndButton" placement="top" ngbTooltip="בלחיצה על כפתור זה, המשימה הושלמה והיא עוברת למצב של קריאה בלבד."(click)="endTimer(workTime)" class="btn btn-color">משימה הושלמה</button></div>
 </footer>
-
+<!-- <button (click)="check()">check</button> -->
 
   <div *ngIf="showMassgeToUserCancelProjectContectItemOfTask">
     <app-pop-up>

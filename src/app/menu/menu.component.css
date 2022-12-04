@@ -298,3 +298,26 @@ a.close {
     justify-content: center;
     align-items: end;
 }
+
+.icons-left {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.menu-bar2 {
+    display: flex;
+    justify-content: left;
+    position: relative;
+
+}
+
+.numberIcon {
+    color: red;
+    font-size: medium;
+    font-weight: 100;
+    position: absolute;
+    left: 45px;
+
+
+}

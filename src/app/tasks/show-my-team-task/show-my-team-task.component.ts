@@ -10,12 +10,13 @@ import { UserServiceService } from 'src/app/user-service.service';
 })
 export class ShowMyTeamTaskComponent implements OnInit {
   project!: any;
+  Regarding!: any;
   workType!: any;
   isPopUpOpen: any;
   tableMyTaskTeamsOpen = false;
   titleTableTeamsTask = 'המשימות של הצוותים אליהם אני שייך';
-  thArrTaskTeams = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'צוות'];
-  taskTeamsListKeys = ['Subject', 'CreatedOn', ['Project', 'Name'], ['OwnerId', 'Name']];
+  thArrTaskTeams = ['שם המשימה', 'נוצר ב', 'פרוייקט','סוג עבודה', 'צוות'];
+  taskTeamsListKeys = ['Subject', 'CreatedOn', ['Regardingobjectid', 'Name'], ['WorkType', 'Name'], ['OwnerId', 'Name']];
   taskTeamsArr: any;
   systemGuid: any;
   taskTeamsArrCopy: any;
@@ -48,6 +49,16 @@ export class ShowMyTeamTaskComponent implements OnInit {
     this.userService.GetProject().subscribe(res => {
       if (res) {
         this.project = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+      })
+  }
+  GetRegarding() {
+    this.userService.GetRegarding().subscribe(res => {
+      if (res) {
+        this.Regarding = res;
       }
     },
       err => {
