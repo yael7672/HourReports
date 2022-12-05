@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
@@ -66,10 +66,14 @@ import { TabNavMenuComponent } from '../tab-nav-menu/tab-nav-menu.component';
 import { PopUpForImageComponent } from '../pop-up-for-image/pop-up-for-image.component';
 import { DatepickerComponent } from '../datepicker/datepicker.component';
 
-const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
+ 
+
+const CustomSelectOptions:INgxSelectOptions = { // Check the interface for more options
     optionValueField: 'Guid',
     optionTextField: 'Name'
-};
+ }
+
+
 
 @NgModule({
  declarations:[
@@ -137,6 +141,7 @@ DatepickerComponent
     ClickOutsideModule,
     AutocompleteLibModule,
     NgxSelectModule.forRoot(CustomSelectOptions),
+
     NgxPaginationModule,
 ],
 providers: [],

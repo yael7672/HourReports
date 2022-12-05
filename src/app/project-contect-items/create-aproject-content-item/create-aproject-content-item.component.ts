@@ -13,6 +13,8 @@ import { AppService } from '../../app-service.service';
 import { PopUpServiceService } from '../../pop-up-service.service';
 import { ownerid } from 'src/app/interfacees/ownerid';
 import { INgxSelectOption } from 'ngx-select-ex/ngx-select/ngx-select.interfaces';
+import { Team } from 'src/app/interfacees/Teams';
+import { guid } from '@progress/kendo-angular-common';
 
 @Component({
   selector: 'app-create-aproject-content-item',
@@ -70,8 +72,17 @@ export class CreateAprojectContentItemComponent implements OnInit {
   ngxDisabled = false;
   repeat = false;
   ifShowSpinner!: boolean;
+  teamsDetails!: any
+  MoreEmployeeTeamArr: any = [];
+  isCheckedTeams: any
+  openInputReportMoreTeams = false
+  TeamArrSort: Team[] = []
+  TeamArr: any
+  TeamMemmber: any
+  EmployeeeArrWithOutMeCopy: any
   massgeUserCloseProjectContectItemByTimerCancel = "האם ברצונך לבטל דיווח זה?"
   showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
+  reportEmployee!:boolean
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.isDisabled = false;
@@ -87,20 +98,50 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   ngOnInit(): void {
     this.GetAllEmployee();
+    this.GetTeamDetails();
     this.GetRegarding();
     this.GetProject();
     this.GetWorkType();
     this.dateToUpdate = localStorage.getItem('dateToUpdate');
     console.log(this.dateToUpdate);
+    this.systemGuid = localStorage.getItem('systemGuid')
 
   }
   checkIfReportMoreEmployees(val: any) {
     if (val == true) {
       this.openInputReportMoreEmployee = true
+
     }
     if (val == false) {
       this.openInputReportMoreEmployee = false
+
     }
+  }
+
+  restartEmployeeIfChooseAll() {
+    if (this.MoreEmployeeArr == "1234") {
+      this.EmployeeeArrWithOutMeCopy = this.EmployeeeArrWithOutMe
+      this.EmployeeeArrWithOutMe = [{ "Guid": "1234", "Name": "כולם" }]
+    }
+
+  }
+  restartEmployeeIfChooseAllOnChange() {
+    if (this.EmployeeeArrWithOutMe = [{ "Guid": "1234", "Name": "כולם" }]) {
+      this.EmployeeeArrWithOutMe = this.EmployeeeArrWithOutMeCopy
+    }
+  }
+ 
+
+  checkIfReportMoreTeams(val: any) {
+    if (val == true) {
+      this.openInputReportMoreTeams = true
+    }
+    if (val == false) {
+      this.openInputReportMoreTeams = false
+    }
+  }
+  hideOtherSelect(){
+    
   }
 
   CreateNewProjectItem(form: NgForm) {
@@ -115,7 +156,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
         x = { "Guid": x }
         this.MoreEmployeeGuid.push(x)
       })
-
     }
     if (this.MoreEmployeeGuid) {
       form.value.MoreEmployee = this.MoreEmployeeGuid
@@ -123,6 +163,51 @@ export class CreateAprojectContentItemComponent implements OnInit {
     else {
       form.value.MoreEmployee = ""
     }
+    // דיווח על כל העובדים
+    if (this.MoreEmployeeArr) {
+      this.MoreEmployeeArr.forEach((x: any) => {
+        if (x == "1234") {
+          this.EmployeeeArrWithOutMeCopy.forEach((y: any) => {
+            if (y.Guid != "1234" && y.Guid != "7bf1cebd-5153-eb11-bb23-000d3a44a095" && y != this.systemGuid.toLowerCase()) { this.MoreEmployeeGuid.push(y) }
+            this.MoreEmployeeGuid = this.MoreEmployeeGuid.filter(guid => guid.Guid != "1234");
+
+          })
+        }
+        else {
+          x = { "Guid": x }
+          this.MoreEmployeeGuid.push(x)
+        }
+      })
+    }
+    if (this.MoreEmployeeGuid) {
+      form.value.MoreEmployee = this.MoreEmployeeGuid
+    }
+    else {
+      form.value.MoreEmployee = ""
+    }
+    // דיווח על צוות שלם
+    if (this.MoreEmployeeTeamArr) {
+      this.MoreEmployeeTeamArr.forEach((x: any) => {
+        x = { "Guid": x }
+        this.teamsDetails.forEach((y: any) => {
+          if (y.Guid == x.Guid) {
+            this.TeamMemmber = y.TeamMemmber
+          }
+        })
+        this.TeamMemmber.forEach((t: any) => {
+          if (t.Guid != "cb8bc41d-b8cd-4780-8638-586fd5509186" && t.Guid != this.systemGuid.toLowerCase()) {
+            this.MoreEmployeeGuid.push(t)
+          }
+        })
+      })
+    }
+    if (this.MoreEmployeeGuid) {
+      form.value.MoreEmployee = this.MoreEmployeeGuid
+    }
+    else {
+      form.value.MoreEmployee = ""
+    }
+    // עד לפה דיווח על צוות
     console.log("עובדים נוספים");
     console.log(form.value.MoreEmployeeGuid);
 
@@ -154,7 +239,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
               // this.popUpService.setClosePopUp();
               form.reset({
                 oneDate: this.dateToUpdate
-
               });
             }
             else {
@@ -162,7 +246,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
                 oneDate: this.todayDate
               });
             }
-
             this.appService.setIsPopUpOpen(true);
             this.popUpService.setSpecificPopUp(true, 'createAprojectContentItem')
           }
@@ -177,8 +260,22 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.appService.setSpinner(false);
           swal(err.error)
           this.isDisabled = false;
-
         })
+  }
+  GetTeamDetails() {
+    this.userServiceService.GetTeamDetails().subscribe(
+      (res: any) => {
+        this.teamsDetails = res;
+        this.teamsDetails.forEach((x: any) => {
+          this.TeamArr = { "Guid": x.Guid, "Name": x.TeamName }
+          this.TeamArrSort.push(this.TeamArr)
+        })
+        console.log(this.TeamArrSort);
+
+      },
+      (err: any) =>
+        console.log(err.error)
+    )
   }
   GetAllEmployee() {
     this.systemGuid = localStorage.getItem('systemGuid')
@@ -192,6 +289,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
             this.EmployeeeArrWithOutMe.push(x)
           }
         })
+        this.EmployeeeArrWithOutMe.push({ "Guid": "1234", "Name": "כולם" })
+        this.EmployeeeArrWithOutMeCopy = this.EmployeeeArrWithOutMe
       },
       (err: any) =>
         console.log(err.error)
