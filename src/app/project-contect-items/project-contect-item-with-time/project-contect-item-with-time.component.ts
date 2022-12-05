@@ -62,6 +62,9 @@ export class ProjectContectItemWithTimeComponent implements OnInit {
     if (kindOfMassage = 'projectContectItemByTimerCancel') {
       this.showMassgeToUserCancelProjectContectItemWithTimer = false
     }
+    if (kindOfMassage = 'projectContectItemByTimer') {
+      this.showMassgeToUserProjectContectItemWithTimer = false
+    }
   }
 
   clickYes(time: any) {

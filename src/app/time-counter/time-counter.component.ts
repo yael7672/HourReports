@@ -127,7 +127,7 @@ export class TimeCounterComponent implements OnInit {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.GetDetailsTaskAtWork(true, true, this.systemGuid)
+    // this.GetDetailsTaskAtWork(true, true, this.systemGuid)
 
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = true;
@@ -205,6 +205,7 @@ export class TimeCounterComponent implements OnInit {
   clickYes(time: any) {
     this.hideStartAndShowCancelProjectContectItem = false;
     this.hideDelayAndShowRenewProjectContectItemOnTask = false;
+    this.popUpService.setifInTheMiddleOfWorkingOnATask(false);
     if (time.worktime != "" || time != null) {
       clearInterval(this.interval);
       this.timeToSendCreate = time
