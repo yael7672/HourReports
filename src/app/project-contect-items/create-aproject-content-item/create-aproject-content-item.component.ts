@@ -82,7 +82,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   EmployeeeArrWithOutMeCopy: any
   massgeUserCloseProjectContectItemByTimerCancel = "האם ברצונך לבטל דיווח זה?"
   showMassgeToUserCancelProjectContectItemWithTimerInCreate = false
-  reportEmployee!:boolean
+  reportEmployee!: boolean
   constructor(private datePipe: DatePipe, private userServiceService: UserServiceService,
     private appService: AppService, private popUpService: PopUpServiceService) {
     this.isDisabled = false;
@@ -129,8 +129,9 @@ export class CreateAprojectContentItemComponent implements OnInit {
     if (this.EmployeeeArrWithOutMe = [{ "Guid": "1234", "Name": "כולם" }]) {
       this.EmployeeeArrWithOutMe = this.EmployeeeArrWithOutMeCopy
     }
+
   }
- 
+
 
   checkIfReportMoreTeams(val: any) {
     if (val == true) {
@@ -140,9 +141,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
       this.openInputReportMoreTeams = false
     }
   }
-  hideOtherSelect(){
-    
-  }
+ 
 
   CreateNewProjectItem(form: NgForm) {
     this.appService.setSpinner(true);
