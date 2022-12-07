@@ -5,7 +5,7 @@
         </h4>
         <form (ngSubmit)="f.valid &&CreateOrUpdateProjectContectItem(f)" #f="ngForm">
             <!-- <div class="checkbox" *ngIf="!KindPopUpUpdateProjectContectItemWithTime"> -->
-            <div class="checkbox">
+            <div class="checkbox" >
                 <label for="vehicle1"> לדיווח על מספר עובדים </label>
                 <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isChecked"
                     (change)="checkIfReportMoreEmployees(isChecked)">
@@ -14,20 +14,30 @@
                 <div class="example-block">
                     <div class="example-block__item">
                         <ngx-select [multiple]="true" [items]="this.EmployeeeArrWithOutMe" [disabled]="ngxDisabled"
-                            [(ngModel)]="MoreEmployeeArr" [autoClearSearch]="true" placeholder="לא נבחרו עובדים נוספים"
-                             ngModel name="MoreEmployee" #MoreEmployee="ngModel">
+                            [(ngModel)]="MoreEmployeeArr"  [autoClearSearch]="true" placeholder="לא נבחרו עובדים נוספים"
+                            ngModel name="MoreEmployee" #MoreEmployee="ngModel"  (select)="restartEmployeeIfChooseAll()" (ngModelChange)="restartEmployeeIfChooseAllOnChange()" >
                         </ngx-select>
-                        <!-- <p></p>
-                        <div class="alert alert-secondary">
-                            <pre>{{ngxValue | json}}</pre>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" (click)="ngxDisabled = !ngxDisabled">
-                                {{ngxDisabled ? 'Enable' : 'Disable'}}
-                            </button>
-                        </div> -->
                     </div>
                 </div>
+            </div>
+            <div class="checkbox"  >
+                <label for="vehicle1"> דיווח לפי צוותים </label>
+                <input type="checkbox" id="fewDays" name="fewDays" [(ngModel)]="isCheckedTeams"
+                    (change)="checkIfReportMoreTeams(isCheckedTeams)">
+
+            </div>
+        
+            <div *ngIf="openInputReportMoreTeams">
+                <div class="example-block">
+                    <div class="example-block__item">
+                        <ngx-select [multiple]="true" [items]="this.TeamArrSort" [disabled]="ngxDisabled"
+                            [(ngModel)]="MoreEmployeeTeamArr"  [autoClearSearch]="true" placeholder="לא נבחרו צוותים נוספים" 
+                            ngModel name="MoreTeams" #MoreTeams="ngModel">
+                        </ngx-select>
+
+                    </div>
+                </div>
+
             </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime &&!dateToUpdate"
                 class="form-outline d-flex justify-content-center">

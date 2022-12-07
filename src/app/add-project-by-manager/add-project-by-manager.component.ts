@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 import { AppService } from '../app-service.service';
 import { Acccount } from '../interfacees/Acccount';
 import { ownerid } from '../interfacees/ownerid';
@@ -46,7 +47,8 @@ export class AddProjectByManagerComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);          
+            swal("error!",err.error,"error");
         this.isDisabled = false;
       })
   }

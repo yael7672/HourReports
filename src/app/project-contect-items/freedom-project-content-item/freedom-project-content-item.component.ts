@@ -153,7 +153,7 @@ export class FreedomProjectContentItemComponent implements OnInit {
     },
       err => {
         this.appService.setSpinner(false);
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
 
   }

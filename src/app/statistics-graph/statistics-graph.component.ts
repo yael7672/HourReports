@@ -134,7 +134,7 @@ export class StatisticsGraphComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
     this.GetAverageBreaksByTimeLineChart(this.systemGuid, this.fromDate, this.untilDate, Number(val))
 
@@ -172,7 +172,7 @@ export class StatisticsGraphComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
 
@@ -184,7 +184,7 @@ export class StatisticsGraphComponent implements OnInit {
   //       }
   //     },
   //     err => {
-  //       console.log(err.error);
+  //       console.log(err.error);              swal("error!",err.error,"error");
   //     })
   // }
   SortByDateRange(dates: any) {

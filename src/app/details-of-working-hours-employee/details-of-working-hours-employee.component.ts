@@ -180,7 +180,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       },
         err => {
           this.appService.setSpinner(false);
-          console.log(err.error);
+          console.log(err.error);              swal("error!",err.error,"error");
         })
     }
   }
@@ -209,7 +209,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   closeDialog(val: any) { }
@@ -248,7 +248,7 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
 }

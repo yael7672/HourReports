@@ -109,7 +109,7 @@ export class SickLeaveProjectContentItemComponent implements OnInit {
     },
       err => {
         this.appService.setSpinner(false);
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   CreateNewProjectItem() {

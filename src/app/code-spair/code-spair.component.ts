@@ -149,7 +149,7 @@ export class CodeSpairComponent implements OnInit {
             // this.openTasksDetailsFromLsParseToJson[index].TimeTask = element.TimeTask;
             this.hideDelayAndShowRenewProjectContectItemOnTask = true
             if (element.TimeTask)
-            this.timeTaskOnOpenTask = element.TimeTask.split(':')
+              this.timeTaskOnOpenTask = element.TimeTask.split(':')
             this.workTime = [this.timeTaskOnOpenTask[0] + ":" + this.timeTaskOnOpenTask[1] + ":" + this.timeTaskOnOpenTask[2]]
             localStorage.setItem('openTasksInLsDetails', JSON.stringify(this.openTasksDetailsFromLsParseToJson))
           }
@@ -207,7 +207,8 @@ export class CodeSpairComponent implements OnInit {
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)
         }
       }, err => {
-        console.log(err.error);
+        console.log(err.error); 
+        swal("error!", err.error, "error");
       })
     }
 
@@ -326,7 +327,7 @@ export class CodeSpairComponent implements OnInit {
               }
             },
             err => {
-              console.log(err.error);
+              console.log(err.error); swal("error!", err.error, "error");
             }
           )
       }
@@ -384,7 +385,7 @@ export class CodeSpairComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);
+        console.log(err.error); swal("error!", err.error, "error");
       }
     )
   }
@@ -533,7 +534,7 @@ export class CodeSpairComponent implements OnInit {
         }
       },
         err => {
-          console.log(err.error);
+          console.log(err.error); swal("error!", err.error, "error");
         })
   }
 

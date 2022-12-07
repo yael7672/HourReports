@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert';
 import { Project } from '../interfacees/project';
 import { ProjectContentItem } from '../interfacees/project-content-item';
 import { ProjectToCreate } from '../interfacees/ProjectToCreate';
@@ -51,7 +52,7 @@ export class SpecificProjectDetailsComponent implements OnInit {
         }
       },
         err => {
-          console.log(err.error);
+          console.log(err.error);              swal("error!",err.error,"error");
         })
     
   }

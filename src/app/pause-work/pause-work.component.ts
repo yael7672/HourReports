@@ -56,6 +56,7 @@ export class PauseWorkComponent implements OnInit {
   massgeUserEditPauseHour1 = "עריכת שעות הפסקה"
   massageToUser: any;
   youAreInPause!: boolean
+  timerPause : any
   constructor(private userService: UserServiceService, private elementRef: ElementRef,
     private datePipe: DatePipe, private userServiceService: UserServiceService,
     public router: Router, private appService: AppService,
@@ -153,6 +154,7 @@ export class PauseWorkComponent implements OnInit {
   }
 
   clickYes(time: any) {
+    this.timerPause = time.worktime
     if (time.worktime != "" || time != null) {
       this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
       clearInterval(this.interval);
@@ -169,11 +171,15 @@ export class PauseWorkComponent implements OnInit {
 
     this.endButton = false
     this.showMassgeToUserEdit = true
+
     // this.PauseWork(this.parseTime)
   }
   clickNo() {
     this.showMassgeToUserEdit = false
     this.showMassgeToUser = false
+    this.endButton = true
+    this.ContinueToBePause()
+
   }
 
   closePopUp() {

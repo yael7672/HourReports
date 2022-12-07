@@ -127,7 +127,7 @@ export class TimeCounterComponent implements OnInit {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
     this.systemGuid = localStorage.getItem('systemGuid');
-    this.GetDetailsTaskAtWork(true, true, this.systemGuid)
+    // this.GetDetailsTaskAtWork(true, true, this.systemGuid)
 
     if (localStorage.getItem('DateNow')) {
       this.startWorkOfTask = true;
@@ -175,7 +175,7 @@ export class TimeCounterComponent implements OnInit {
           this.popUpService.SetWorkTimeAfterProjectContectItem(true)
         }
       }, err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
     }
   }
@@ -205,6 +205,7 @@ export class TimeCounterComponent implements OnInit {
   clickYes(time: any) {
     this.hideStartAndShowCancelProjectContectItem = false;
     this.hideDelayAndShowRenewProjectContectItemOnTask = false;
+    this.popUpService.setifInTheMiddleOfWorkingOnATask(false);
     if (time.worktime != "" || time != null) {
       clearInterval(this.interval);
       this.timeToSendCreate = time
@@ -233,6 +234,7 @@ export class TimeCounterComponent implements OnInit {
   }
 
   pauseTimer(time: any) {
+    
     debugger
     if (this.workTime == 0 || this.workTime < "00:01:00")
       swal("אין אפשרות לדווח פחות מ-1 דק")
@@ -261,12 +263,15 @@ export class TimeCounterComponent implements OnInit {
         this.isTaskAccomplished = false;
         this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
         this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
+         this.projectContectItemGuid = localStorage.getItem("projectContectItemGuid");
 
         this.userService.UpdateProjectContentItem(this.projectContectItemGuid, this.parseTime ? this.parseTime : 0
           , this.isTaskAccomplished, this.descriptionTask ? this.descriptionTask : "").then(
             res => {
               if (res) {
+
                 this.massageFromServer = res;
+                
                 swal(this.massageFromServer);
                 this.workTime = ["00:00:00"];
                 localStorage.removeItem("TimeInDateFormat")
@@ -281,7 +286,9 @@ export class TimeCounterComponent implements OnInit {
               }
             },
             err => {
-              console.log(err.error);
+              console.log(err.error);       
+              swal("error!",err.error,"error");
+
             }
           )
       }
@@ -344,7 +351,7 @@ export class TimeCounterComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
         swal(err.error)
         this.appService.setSpinner(false);
 
@@ -419,7 +426,7 @@ export class TimeCounterComponent implements OnInit {
             }
           },
           err => {
-            console.log(err.error);
+            console.log(err.error);              swal("error!",err.error,"error");
           }
         )
     }
@@ -478,7 +485,7 @@ export class TimeCounterComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       }
     )
   }
@@ -579,7 +586,7 @@ export class TimeCounterComponent implements OnInit {
             }
           },
           err => {
-            console.log(err.error);
+            console.log(err.error);              swal("error!",err.error,"error");
           }
         )
     }
@@ -594,7 +601,7 @@ export class TimeCounterComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       }
     )
   }

@@ -133,12 +133,12 @@ export class MenuComponent implements OnInit {
     this.GetWorkType()
     this.GetProject();
     this.GetOpenTasks();
-    this.GetDetailsTaskAtWork();
+    // this.GetDetailsTaskAtWork();
     this.MessageToTheManager();
     this.image = localStorage.getItem('image');
     this.systemGuid = localStorage.getItem('systemGuid');
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
-    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
+    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
     this.taskNameFromLocalStorage = localStorage.getItem("taskListDataDetails")
     if (localStorage.getItem("DateNowPause")) {
       this.openPopUp('pause', true)
@@ -176,8 +176,11 @@ export class MenuComponent implements OnInit {
   }
 
   returnToTheOpenTask() {
+    this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
     this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
   }
+
   returnToTheOpenTaskAtWork(taskGuid: any) {
     setTimeout(() => {
       let myCompLog = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router, this.appService)
@@ -185,6 +188,7 @@ export class MenuComponent implements OnInit {
     }, 500)
     this.router.navigate(['/menu/specific-task', taskGuid])
   }
+
   checkIfMemuOpen() {
     this.popUpService.setNavBar(true)
   }
@@ -251,7 +255,7 @@ export class MenuComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   GoToStatisticsGraph() {
@@ -327,7 +331,7 @@ export class MenuComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   removeDateFromLocalStorage() {
@@ -404,7 +408,7 @@ export class MenuComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       }
     )
   }
