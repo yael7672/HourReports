@@ -148,8 +148,8 @@ export class UserServiceService {
   DeleteTaskByGuid(TaskId: any) {
     return this.http.delete<any>(environment.url + 'DeleteTaskByGuid?OrganizationName=AuroraProd&TaskId=' + TaskId)
   }
-  GetAllEmployee(adminGuid: any) {
-    return this.http.get<ownerid[]>(environment.url + 'GetEmployees?OrganizationName=AuroraProd' + '&adminGuid=' + adminGuid);
+  GetAllEmployee(adminGuid: any, withAdmin:any) {
+    return this.http.get<ownerid[]>(environment.url + 'GetEmployees?OrganizationName=AuroraProd' + '&adminGuid=' + adminGuid+ 'withAdmin=' + withAdmin);
   }
   GetTaskByTeamGuid(TeamGuid: string) {
     return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)

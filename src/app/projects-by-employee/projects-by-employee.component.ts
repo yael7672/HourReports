@@ -82,7 +82,7 @@ export class ProjectsByEmployeeComponent implements OnInit {
   GetAllEmployee() {
     // לשים GUID אמיתי של מנהל
     this.adminGuid = ""
-    this.userService.GetAllEmployee(this.systemGuid).subscribe(
+    this.userService.GetAllEmployee(this.systemGuid,false).subscribe(
       (res: any) => {
         this.ProjectManagerOrHeadProgrammerArr = res;
 

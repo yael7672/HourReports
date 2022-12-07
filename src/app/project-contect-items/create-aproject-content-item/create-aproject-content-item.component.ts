@@ -281,7 +281,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid')
     // לשים GUID אמיתי של מנהל
     this.adminGuid = ""
-    this.userServiceService.GetAllEmployee(this.adminGuid).subscribe(
+    this.userServiceService.GetAllEmployee(this.adminGuid,true).subscribe(
       (res: any) => {
         this.EmployeeeArr = res;
         this.EmployeeeArr.forEach((x: any) => {
