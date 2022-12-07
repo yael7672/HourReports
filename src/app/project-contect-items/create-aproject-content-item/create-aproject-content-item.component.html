@@ -17,17 +17,10 @@
                             [(ngModel)]="MoreEmployeeArr" [autoClearSearch]="true" placeholder="לא נבחרו עובדים נוספים"
                              ngModel name="MoreEmployee" #MoreEmployee="ngModel">
                         </ngx-select>
-                        <!-- <p></p>
-                        <div class="alert alert-secondary">
-                            <pre>{{ngxValue | json}}</pre>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" (click)="ngxDisabled = !ngxDisabled">
-                                {{ngxDisabled ? 'Enable' : 'Disable'}}
-                            </button>
-                        </div> -->
+                     
                     </div>
                 </div>
+
             </div>
             <div *ngIf="!KindPopUpUpdateProjectContectItemWithTime &&!dateToUpdate"
                 class="form-outline d-flex justify-content-center">
