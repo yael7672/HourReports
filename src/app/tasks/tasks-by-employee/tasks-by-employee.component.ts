@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/interfacees/project';
+import swal from 'sweetalert';
 import { PopUpServiceService } from '../../pop-up-service.service';
 import { UserServiceService } from '../../user-service.service';
 
@@ -56,7 +57,7 @@ export class TasksByEmployeeComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   GetWorkType() {
@@ -209,7 +210,7 @@ export class TasksByEmployeeComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   getTaskAfterSort(task: any) {

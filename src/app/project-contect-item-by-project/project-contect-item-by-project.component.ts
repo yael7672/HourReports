@@ -69,7 +69,8 @@ export class ProjectContectItemByProjectComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);         
+             swal("error!",err.error,"error");
       })
   }
 

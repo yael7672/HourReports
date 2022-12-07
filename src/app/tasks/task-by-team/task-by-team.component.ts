@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert';
 import { PopUpServiceService } from '../../pop-up-service.service';
 import { UserServiceService } from '../../user-service.service';
 
@@ -56,7 +57,7 @@ export class TaskByTeamComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   GetTaskByTeamGuid() {

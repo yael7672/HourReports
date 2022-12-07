@@ -50,7 +50,7 @@ export class CreateNewTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       }
     )
   }
@@ -61,7 +61,7 @@ export class CreateNewTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       }
     )
   }
@@ -88,7 +88,7 @@ export class CreateNewTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
 
@@ -109,7 +109,7 @@ export class CreateNewTaskComponent implements OnInit {
     },
       err => {
         this.appService.setSpinner(false);
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
         this.isDisabled = false;
       }
     )

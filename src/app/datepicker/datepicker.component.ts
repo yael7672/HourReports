@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import swal from 'sweetalert';
 
 @Component({
@@ -16,7 +16,7 @@ export class DatepickerComponent implements OnInit {
   fromDate: any;
   untilDate: any;
   @Output() SortByDateRange = new EventEmitter<any>();
-
+  @Input() textOfButton!: string;
   ngOnInit(): void {
     this.todayDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
   }
@@ -32,8 +32,8 @@ export class DatepickerComponent implements OnInit {
         this.fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy')
         this.untilDate = this.datepipe.transform(this.untilDate, 'dd/MM/yyyy')
         this.SortByDateRange.emit({ fromDate: this.fromDate, untilDate: this.untilDate });
-        this.fromDate="";
-        this.untilDate ="";
+        this.fromDate = "";
+        this.untilDate = "";
       }
     }
     else {

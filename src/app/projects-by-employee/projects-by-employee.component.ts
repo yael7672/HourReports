@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import  swal from 'sweetalert';
 import { ownerid } from '../interfacees/ownerid';
 import { Project } from '../interfacees/project';
 import { UserServiceService } from '../user-service.service';
@@ -76,7 +77,7 @@ export class ProjectsByEmployeeComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   GetAllEmployee() {

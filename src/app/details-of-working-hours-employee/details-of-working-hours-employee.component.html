@@ -13,7 +13,7 @@
 <app-smart-card>
   <div body>
     <ng-container *ngIf="showInputsDates">
-      <app-datepicker (SortByDateRange)="sortByDateRange1($event)"></app-datepicker>
+      <app-datepicker (SortByDateRange)="sortByDateRange1($event)" [textOfButton]="'מיין'"></app-datepicker>
     </ng-container>
     <ng-container>
       <p> סה"כ שעות מדווחות : <span>{{hoursReportedThisMonth}}</span> </p>

@@ -44,3 +44,14 @@ img.image {
   margin-bottom: 0.5rem;
 
 }
+.form-group {
+  display: flex;
+  direction: rtl;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-group {
+  width: 30rem;
+}
