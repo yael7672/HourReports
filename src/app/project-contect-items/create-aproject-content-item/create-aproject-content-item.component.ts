@@ -38,6 +38,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
   EmployeeeArr!: ownerid[]
+  // teamMemmber!:teamMemmber[];
   EmployeeeArrWithOutMe: ownerid[] = []
   EmployeeeArr2!: any[]
   ProjectContentItem!: any
