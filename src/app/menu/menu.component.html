@@ -109,13 +109,13 @@
 
 
 
-<!-- <div *ngIf="startWorkOfTask">
+ <div *ngIf="startWorkOfTask">
   <a (click)="returnToTheOpenTask()" placement="right"
     ngbTooltip="חזרה למשימה : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
       data-icon="bi:clock-history"></i></a>
-</div> -->
+</div> 
 
-<div class="menu-bar2" *ngIf="countOfTaskAtOpen >= 0">
+<!-- <div class="menu-bar2" *ngIf="countOfTaskAtOpen >= 0">
   <a class="menu-icon" (click)="MenuBacktaskAtWork()">
     <i id="clock-history" class="iconify" data-icon="bi:clock-history"></i> </a>
   <p class="numberIcon"> {{countOfTaskAtOpen}}</p>
@@ -127,7 +127,7 @@
       </a>
     </div>
   </div>
-</div>
+</div> -->
 <!-- 
 <div *ngFor="let taskAtOpen of DetailsTaskAtWork" >
   <a placement="right"(click)="returnToTheOpenTaskAtWork(taskAtOpen.taskGuid)" 

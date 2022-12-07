@@ -133,7 +133,7 @@ export class MenuComponent implements OnInit {
     this.GetWorkType()
     this.GetProject();
     this.GetOpenTasks();
-    this.GetDetailsTaskAtWork();
+    // this.GetDetailsTaskAtWork();
     this.MessageToTheManager();
     this.image = localStorage.getItem('image');
     this.systemGuid = localStorage.getItem('systemGuid');
@@ -178,6 +178,7 @@ export class MenuComponent implements OnInit {
   returnToTheOpenTask() {
     this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
   }
+
   returnToTheOpenTaskAtWork(taskGuid: any) {
     setTimeout(() => {
       let myCompLog = new TimeCounterComponent(this.activatedRoute, this.userService, this.datePipe, this.popUpService, this.router, this.appService)
@@ -185,6 +186,7 @@ export class MenuComponent implements OnInit {
     }, 500)
     this.router.navigate(['/menu/specific-task', taskGuid])
   }
+
   checkIfMemuOpen() {
     this.popUpService.setNavBar(true)
   }
