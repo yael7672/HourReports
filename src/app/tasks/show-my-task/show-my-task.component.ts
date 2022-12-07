@@ -123,7 +123,7 @@ export class ShowMyTaskComponent implements OnInit {
           else {
             this.popUpService.setAllMyNewTask(false)
             if (this.ifThereNewTasks = true) {
-              this.notifyMeMyNewTask()
+              // this.notifyMeMyNewTask()
             }
           }
         }
@@ -137,25 +137,26 @@ export class ShowMyTaskComponent implements OnInit {
     return datum / 1000;
   }
 
-  notifyMeMyNewTask() {
-    if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
-    } else if (Notification.permission === "granted") {
-      const notification = new Notification("יש לך משימה/ות חדשה/ות !", {
-        body: "שם המשימה: " + this.MyNewTaskArr[0]?.Subject,
-        icon: '../../../assets/images/2387679.png'
-      });
-    } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          const notification = new Notification("יש לך משימה/ות חדשה/ות !", {
-            body: "שם המשימה: " + this.MyNewTaskArr[0]?.Subject,
-            icon: '../../../assets/images/2387679.png'
-          });
-        }
-      });
-    }
-  }
+  // notifyMeMyNewTask() {
+  //   if (!("Notification" in window)) {
+  //     alert("This browser does not support desktop notification");
+  //   } else if (Notification.permission === "granted") {
+  //     const notification = new Notification("יש לך משימה/ות חדשה/ות !", {
+  //       body: "שם המשימה: " + this.MyNewTaskArr[0]?.Subject,
+  //       icon: '../../../assets/images/2387679.png'
+  //     });
+  //   }
+  //    else if (Notification.permission !== "denied") {
+  //     Notification.requestPermission().then((permission) => {
+  //       if (permission === "granted") {
+  //         const notification = new Notification("יש לך משימה/ות חדשה/ות !", {
+  //           body: "שם המשימה: " + this.MyNewTaskArr[0]?.Subject,
+  //           icon: '../../../assets/images/2387679.png'
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
@@ -210,7 +211,7 @@ export class ShowMyTaskComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   GetProject() {
@@ -220,7 +221,7 @@ export class ShowMyTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   GetMyTask() {
@@ -393,7 +394,7 @@ export class ShowMyTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
 }

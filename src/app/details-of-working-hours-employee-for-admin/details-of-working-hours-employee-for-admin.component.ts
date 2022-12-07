@@ -179,7 +179,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
       },
         err => {
           this.appService.setSpinner(false);
-          console.log(err.error);
+          console.log(err.error);              swal("error!",err.error,"error");
         })
     }
   }
@@ -197,7 +197,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   editProjectContentItemIcon(val: any) {
@@ -244,7 +244,7 @@ export class DetailsOfWorkingHoursEmployeeForAdminComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
 }

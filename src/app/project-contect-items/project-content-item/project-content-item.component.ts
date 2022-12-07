@@ -73,7 +73,7 @@ export class ProjectContentItemComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   async GetProjectContentItemByTaskGuid(taskGuid: string) {
@@ -87,7 +87,7 @@ export class ProjectContentItemComponent implements OnInit {
           this.ifThereAreprojectContentItem = false;
       },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
         this.ifThereAreprojectContentItem = false;
       })
   }

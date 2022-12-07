@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Task } from 'src/app/interfacees/task';
 import { UserServiceService } from 'src/app/user-service.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-search-and-sort-tasks',
@@ -16,7 +17,6 @@ export class SearchAndSortTasksComponent implements OnInit {
   @Input() taskArrCopy: any
   projectArr: any;
   @Output() GetTaskAfterSort = new EventEmitter<any>();
-
   ngOnInit(): void {
     this.GetProject()
   }
@@ -41,7 +41,7 @@ export class SearchAndSortTasksComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   onSearchTask(filterKeyBySubject: any) {

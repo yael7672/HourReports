@@ -3,7 +3,6 @@
   text-align: right;
   position: relative;
   top: -10px;
-
 }
 
 p {
@@ -15,26 +14,43 @@ p {
 .input-group-addon {
   padding: 0.5rem
 }
-.input-group{
+
+.input-group {
   direction: rtl;
 
 }
+
 .form-group {
   margin-bottom: 1rem;
   display: flex;
   direction: rtl;
 }
 
-  input#fromDate {
-    width: 9rem;
+input#fromDate {
+  width: 9rem;
 }
+
 input#untilDate {
   width: 9rem;
 }
-label{
+
+label {
   padding: 0.5rem
 }
+
 img.image {
   height: 35px;
   width: 35px;
+}
+
+.form-group {
+  display: flex;
+  direction: rtl;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-group {
+  width: 30rem;
 }

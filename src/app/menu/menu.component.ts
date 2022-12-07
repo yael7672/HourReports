@@ -138,7 +138,7 @@ export class MenuComponent implements OnInit {
     this.image = localStorage.getItem('image');
     this.systemGuid = localStorage.getItem('systemGuid');
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
-    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
+    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
     this.taskNameFromLocalStorage = localStorage.getItem("taskListDataDetails")
     if (localStorage.getItem("DateNowPause")) {
       this.openPopUp('pause', true)
@@ -176,6 +176,8 @@ export class MenuComponent implements OnInit {
   }
 
   returnToTheOpenTask() {
+    this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+    this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
     this.router.navigate(['/menu/specific-task', this.taskListDataDetailsParseToJson.TaskGuid])
   }
 
@@ -253,7 +255,7 @@ export class MenuComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   GoToStatisticsGraph() {
@@ -329,7 +331,7 @@ export class MenuComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   removeDateFromLocalStorage() {
@@ -406,7 +408,7 @@ export class MenuComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       }
     )
   }

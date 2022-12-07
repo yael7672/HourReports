@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopUpServiceService } from 'src/app/pop-up-service.service';
 import { UserServiceService } from 'src/app/user-service.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-show-my-team-task',
@@ -52,7 +53,7 @@ export class ShowMyTeamTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   GetRegarding() {
@@ -62,7 +63,7 @@ export class ShowMyTeamTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);
+        console.log(err.error);              swal("error!",err.error,"error");
       })
   }
   getTaskForMyTeams() {

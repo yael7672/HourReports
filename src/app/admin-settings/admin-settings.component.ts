@@ -41,6 +41,10 @@ export class AdminSettingsComponent implements OnInit {
         },
         (err: any) =>
         {
+
+swal("error!"," ","error");
+
+
           console.log(err.error)
           this.disableAfterUpdate=true
           this.appService.setIsPopUpOpen(false);
