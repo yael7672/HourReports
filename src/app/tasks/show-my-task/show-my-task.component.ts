@@ -211,7 +211,7 @@ export class ShowMyTaskComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error);      swal("error!",err.error,"error");
       })
   }
   GetProject() {
@@ -353,6 +353,10 @@ export class ShowMyTaskComponent implements OnInit {
     if (val == 2) {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
+    }
+    if (val == 3) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/menu/pricing-tasks', this.systemGuid]);
     }
   }
   onSearchTask(filterKeyBySubject: any) {

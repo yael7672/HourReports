@@ -25,6 +25,8 @@ export class UserServiceService {
   GetMyTask(SystemGuid: string) {
     return this.http.get<any>(environment.url + 'GetTask/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
+
+  
   GetDailyWorkingHoursAndMonthlyWorkingHours(SystemGuid: string) {
     return this.http.get<any>(environment.url + 'GetDailyWorkingHoursAndMonthlyWorkingHours/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
@@ -189,6 +191,9 @@ export class UserServiceService {
   GetDetailsTaskAtWork(systemGuid:any){
     return this.http.get<DetailsTaskAtWork[]>(environment.url +'GetDetailsTaskAtWork?OrganizationName=AuroraProd&systemGuid='+systemGuid)
 
+  }
+  GetMyPricingTasks(SystemGuid: string) {
+    return this.http.get<any>(environment.url + 'GetTasksEffortEstimationQuoteCalculator/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
 
 }

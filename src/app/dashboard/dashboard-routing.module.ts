@@ -13,6 +13,7 @@ import { LoginComponent } from '../login/login.component';
 import { MenuComponent } from '../menu/menu.component';
 import { PersonalDetailsComponent } from '../personal-details/personal-details.component';
 import { PopUpComponent } from '../pop-up/pop-up.component';
+import { PricingTasksComponent } from '../pricing-tasks/pricing-tasks.component';
 import { ProjectContectItemByProjectComponent } from '../project-contect-item-by-project/project-contect-item-by-project.component';
 import { CreateAprojectContentItemComponent } from '../project-contect-items/create-aproject-content-item/create-aproject-content-item.component';
 import { MyProjectContectItemsComponent } from '../project-contect-items/my-project-contect-items/my-project-contect-items.component';
@@ -74,6 +75,7 @@ const routes: Routes = [
             { path: 'projects-by-employee', component: ProjectsByEmployeeComponent },
             { path: 'project-contect-item-by-project/:id/:userId', component: ProjectContectItemByProjectComponent },
             { path: 'specific-project-details/:id/:userId', component: SpecificProjectDetailsComponent },
+            { path: 'pricing-tasks/:id', component: PricingTasksComponent },
 
             { path: 'date', component: DatepickerComponent }
 
