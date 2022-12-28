@@ -34,8 +34,10 @@ export class PricingTasksComponent implements OnInit {
   titleTableTask = 'משימות לתמחור ';
   thArrTask2 = ['שם המשימה', 'נוצר ב', 'פרוייקט', 'שעות מוקצות למשימה', 'תאריך יעד', 'עדיפות'];
   taskListKeys2 = ['Subject', 'CreatedOn', ['Project', 'Name'], 'WorkingHours', 'ScheduledEndDate', 'PriorityCode'];
-  thArrTask = ['שם הערכת מאמץ'];
-  taskListKeys = ['evaluationToEstablishSystemName'];
+  thArrEvaluationToEstablishSystem = ['שם הערכת מאמץ'];
+  EvaluationToEstablishSystemListKeys = ['evaluationToEstablishSystemName'];
+  thArrQuoteCalculators = ['שם מחשבון הצעת מחיר '];
+  QuoteCalculatorsListKeys = ['QuoteCalculatorsName'];
   tableSpecificTaskOpen = false;
   startWorkOfTask = false;
   TasksGuid: any;
@@ -65,6 +67,13 @@ export class PricingTasksComponent implements OnInit {
   evaluationsToEstablishSystem!: any[]
   PricingTask!: any[]
   quoteCalculators!: any[]
+  EvaluationToEstablishDetails:any
+  QuoteCalculatorsDetails: any;
+  showPricingTask=false
+   showQuoteCalculators=false
+    showEvaluationsToEstablishSystem=true
+  noEvaluationToEstablishSystem =false
+  noQuoteCalculators=false
   constructor(private activatedRoute: ActivatedRoute, private popUpService: PopUpServiceService,
     private appService: AppService, private userService: UserServiceService, private route: Router) {
 
@@ -79,7 +88,7 @@ export class PricingTasksComponent implements OnInit {
     }
     this.popUpService.getAllmyTask().subscribe(res => {
       if (res)
-        this.GetMyPricingTask()
+        this.GetTasksEffortEstimationQuoteCalculator()
     })
     this.popUpService.getAllMyNewTask().subscribe(res => {
       this.ifThereNewTasks = res ? res : false;
@@ -92,18 +101,53 @@ export class PricingTasksComponent implements OnInit {
   ngOnInit(): void {
     this.GetProject()
     this.GetWorkType()
-    this.GetMyPricingTask()
+    this.GetTasksEffortEstimationQuoteCalculator()
+
+
   }
 
-  GetMyPricingTask() {
+  GetTasksEffortEstimationQuoteCalculator() {
     debugger;
-
     this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
-    this.userService.GetMyPricingTasks(this.systemGuid).subscribe(
+    this.userService.GetTasksEffortEstimationQuoteCalculator(this.systemGuid).subscribe(
+      (res: any) => {
+        if (res != null) {
+          this.noEvaluationToEstablishSystem = true
+          this.evaluationsToEstablishSystem = res[0].evaluationToEstablishSystem;
+        }
+      },
+      (err: any) => {
+        this.noEvaluationToEstablishSystem = true
+        console.log(err.error)
+      }
+
+    )
+  }
+  GetQuoteCalculatorsByEvaluationToEstablishSystem(EvaluationToEstablishSystemGuid:any) {
+    debugger;
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+    this.userService.GetQuoteCalculatorsByEvaluationToEstablishSystem(this.systemGuid,EvaluationToEstablishSystemGuid).subscribe(
+      (res: any) => {
+        if (res != null) {
+          this.noQuoteCalculators = true
+          this.quoteCalculators = res;
+        }
+      },
+      (err: any) => {
+        this.noQuoteCalculators = true
+        console.log(err.error)
+      }
+
+    )
+  }
+  GetPricingTask(QuoteCalculatorsGuid:any) {
+    debugger;
+    this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+    this.userService.GetPricingTask(this.systemGuid,QuoteCalculatorsGuid).subscribe(
       (res: any) => {
         if (res != null) {
           this.noTask = true
-          this.evaluationsToEstablishSystem = res[0].evaluationToEstablishSystem;
+          this.PricingTask = res;
         }
       },
       (err: any) => {
@@ -113,6 +157,9 @@ export class PricingTasksComponent implements OnInit {
 
     )
   }
+  // GetTasksEffortEstimationQuoteCalculator(SystemGuid: string) {
+  // GetQuoteCalculatorsByEvaluationToEstablishSystem(SystemGuid: string,EvaluationToEstablishSystemGuid:any) {
+  // GetPricingTask(SystemGuid: string,QuoteCalculatorsGuid:any) {
   GetWorkType() {
     this.userService.GetWorkType().subscribe(
       (res: any) => {
@@ -122,11 +169,46 @@ export class PricingTasksComponent implements OnInit {
         console.log(err.error)
     )
   }
+  SelectedEvaluationToEstablish(val: any) {
+    debugger
+    if (!this.startWorkOfTask) {
+      this.EvaluationToEstablishDetails = val;
+      localStorage.setItem('EvaluationToEstablishDetails', JSON.stringify(this.EvaluationToEstablishDetails))
+      clearInterval(this.interval);
+      this.GetQuoteCalculatorsByEvaluationToEstablishSystem(this.EvaluationToEstablishDetails.evaluationToEstablishSystemGuid)
+      this.showPricingTask=false
+       this.showQuoteCalculators=true
+        this.showEvaluationsToEstablishSystem=false      // this.getProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
+      // this.route.navigate(['/menu/specific-task', val.TaskGuid])
+    }
+    else {
+      swal("קיימת משימה פעילה")
+    }
+
+  }
+  SelectedQuoteCalculators(val: any) {
+    debugger
+    if (!this.startWorkOfTask) {
+      this.QuoteCalculatorsDetails = val;
+      localStorage.setItem('QuoteCalculatorsDetails', JSON.stringify(this.QuoteCalculatorsDetails))
+      clearInterval(this.interval);
+      this.GetPricingTask(this.QuoteCalculatorsDetails.QuoteCalculatorsGuid)
+      this.showPricingTask=true
+      this.showQuoteCalculators=false
+       this.showEvaluationsToEstablishSystem=false 
+
+      // this.getProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
+      // this.route.navigate(['/menu/specific-task', val.TaskGuid])
+    }
+    else {
+      swal("קיימת משימה פעילה")
+    }
+
+  }
   SelectedTask(val: any) {
     debugger
     if (!this.startWorkOfTask) {
       this.taskListDataDetails = val;
-
       localStorage.setItem('taskListDataDetails', JSON.stringify(this.taskListDataDetails))
       clearInterval(this.interval);
       this.getProjectContentItemByTaskGuid(this.taskListDataDetails.TaskGuid);
@@ -137,6 +219,7 @@ export class PricingTasksComponent implements OnInit {
     }
 
   }
+
   SortTableDown(thName: any) {
     this.ifSortDown = false;
     let keyToSort: any;
