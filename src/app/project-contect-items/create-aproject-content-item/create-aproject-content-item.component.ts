@@ -151,18 +151,18 @@ export class CreateAprojectContentItemComponent implements OnInit {
     form.value.WorkType = { "Guid": form.value.workType.Guid }
     // detailsOfWorkingHourByEmployee!: any[];
     // detailsOfWorkingHourByEmployeeToSend: any[] = [];
-    if (this.MoreEmployeeArr) {
-      this.MoreEmployeeArr.forEach((x: any) => {
-        x = { "Guid": x }
-        this.MoreEmployeeGuid.push(x)
-      })
-    }
-    if (this.MoreEmployeeGuid) {
-      form.value.MoreEmployee = this.MoreEmployeeGuid
-    }
-    else {
-      form.value.MoreEmployee = ""
-    }
+    // if (this.MoreEmployeeArr) {
+    //   this.MoreEmployeeArr.forEach((x: any) => {
+    //     x = { "Guid": x }
+    //     this.MoreEmployeeGuid.push(x)
+    //   })
+    // }
+    // if (this.MoreEmployeeGuid) {
+    //   form.value.MoreEmployee = this.MoreEmployeeGuid
+    // }
+    // else {
+    //   form.value.MoreEmployee = ""
+    // }
     // דיווח על כל העובדים
     if (this.MoreEmployeeArr) {
       this.MoreEmployeeArr.forEach((x: any) => {
@@ -177,6 +177,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
           x = { "Guid": x }
           this.MoreEmployeeGuid.push(x)
         }
+
       })
     }
     if (this.MoreEmployeeGuid) {

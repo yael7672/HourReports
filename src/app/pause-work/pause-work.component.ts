@@ -154,9 +154,9 @@ export class PauseWorkComponent implements OnInit {
   }
 
   clickYes(time: any) {
-    this.timerPause = time.worktime
-    if (time.worktime != "" || time != null) {
-      this.timetoSend = time.worktime ? time.worktime.split(':') : time.split(':')
+    this.timerPause = time
+    if (time != "" || time != null) {
+      this.timetoSend = time ? time.split(':') : time.split(':')
       clearInterval(this.interval);
       if (this.timetoSend[2] > 30) {
         this.timetoSend[1]++;
@@ -166,6 +166,8 @@ export class PauseWorkComponent implements OnInit {
       if (this.parseTime == undefined) {
         this.parseTime = "";
       }
+      this.timerPause =  this.parseTime
+
     }
     this.popUpService.setInPause(false);
 
