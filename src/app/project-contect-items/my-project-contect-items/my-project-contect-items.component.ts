@@ -87,6 +87,7 @@ export class MyProjectContectItemsComponent implements OnInit {
   }
 
   GetMyProjectContectItem(selectedTime: any, fromDate = "", untilDate = "") {
+    debugger
     if (selectedTime == "") {
       this.selectedTime = "2";
       selectedTime = "2";

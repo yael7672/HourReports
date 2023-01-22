@@ -393,7 +393,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
       this.subject1 = "הפסקות";
       this.billingHours1 = "2";
       this.actualTime = "1";
-
       this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
     } else
       if (val.Guid == "00ee906b-6add-ea11-a813-000d3a21015b") {

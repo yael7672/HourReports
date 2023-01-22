@@ -35,7 +35,7 @@
              <div class="InputWithText">
             <p class="date">תאריך התחלה</p>
             <div class="form-outline d-flex justify-content-center">
-                <input type="date" id="date" name="StartDate"value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"  [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
+                <input type="date" id="date" name="StartDate" value="{{todayDate| date: 'yyyy-MM-dd' }}" class="form-control"  [ngModel]=" todayDate| date: 'yyyy-MM-dd'"
                 [ngClass]="{ 'is-invalid': f.submitted && StartDate.invalid }" #StartDate="ngModel" ngModel required placeholder="תאריך התחלה " />
             </div>
         </div>

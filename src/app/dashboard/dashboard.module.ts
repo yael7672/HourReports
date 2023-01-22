@@ -141,7 +141,6 @@ DatepickerComponent
     ClickOutsideModule,
     AutocompleteLibModule,
     NgxSelectModule.forRoot(CustomSelectOptions),
-
     NgxPaginationModule,
 ],
 providers: [],

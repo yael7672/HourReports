@@ -38,7 +38,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AutocompleteLibModule,
     NgxSelectModule,
     NgxPaginationModule,
-    //  PopupModule,
     BrowserAnimationsModule
   ],
   providers: [DatePipe],

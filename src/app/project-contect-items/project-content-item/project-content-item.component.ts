@@ -42,14 +42,14 @@ export class ProjectContentItemComponent implements OnInit {
     this.popUpService.getKindOfPopUp().subscribe(res => {
       this.isPopUpOpen = res;
     })
-    this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
-      if (res) {
-      this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
-      this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
-        this.GetProjectContentItemByTaskGuid(this.taskListDataDetailsParseToJson?.TaskGuid);
-      }
-    })
-  }
+    // this.popUpService.GetProjectContentItemByTaskGuid().subscribe(res => {
+    //   if (res) {
+    //   this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
+    //   this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails);
+    //     this.GetProjectContentItemByTaskGuid(this.taskListDataDetailsParseToJson?.TaskGuid);
+    //   }
+    // })
+ }
   ngOnInit(): void {
     this.taskListDataDetails = localStorage.getItem('taskListDataDetails');
     this.taskListDataDetailsParseToJson = JSON.parse(this.taskListDataDetails)
@@ -73,10 +73,12 @@ export class ProjectContentItemComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error); 
+        swal("error!",err.error,"error");
       })
   }
   async GetProjectContentItemByTaskGuid(taskGuid: string) {
+    debugger
     this.userService.GetProjectContentItemByTaskGuid(taskGuid).then(
       res => {
         if (res.length > 0) {
