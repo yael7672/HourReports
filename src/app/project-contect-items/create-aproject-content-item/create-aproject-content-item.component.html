@@ -132,6 +132,22 @@
             <div *ngIf="f.submitted && project.invalid" class="text-danger">
                 <span *ngIf="project.errors">שדה זה חובה</span>
             </div>
+            <div class="form-outline d-flex justify-content-center mb-4">
+                <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="task" [searchKeyword]="'Name'"
+                    placeholder="משימה" historyIdentifier="task" [itemTemplate]="itemTemplate"
+                    [(ngModel)]="GuidProject" ngModel name="task" #project="ngModel" required
+                    [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.Name"></a>
+                </ng-template>
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+                </ng-template>
+            </div>
+            <div *ngIf="f.submitted && project.invalid" class="text-danger">
+                <span *ngIf="project.errors">שדה זה חובה</span>
+            </div>
             <div class="form-outline d-flex justify-content-center ">
                 <textarea style="max-height:100%;" type="text" id="FirstName" name="Description" #Description="ngModel"
                     class="form-control textarea" placeholder=" תאור " ngModel>

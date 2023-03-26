@@ -1,0 +1,78 @@
+<h2>
+    {{titlePricingTask}} <img src="../../../assets/images/2387679.png" alt="" >
+ </h2>
+<div class="select-table">
+   <select id="inputState" class="form-control" ngModel (ngModelChange)="WhichTableOpen($event)">
+       <option value="0">המשימות שלי </option>
+       <option value="1"> המשימות של הצוותים אליהם אני שייך</option>
+       <option value="2">המשימות האחרונות שעבדתי עליהן </option>
+       <option value=""> משימות לתמחור </option>
+
+   </select>
+</div>
+<!-- הערכות מאמף -->
+<ng-container *ngIf="showEvaluationsToEstablishSystem">
+
+<app-smart-card >
+   <div body>
+       <!-- חיפוש ומיון -->
+       <!-- <app-search-and-sort-tasks *ngIf="sortTaskArr.length > 0" [taskArr]="sortTaskArr"
+           (GetTaskAfterSort)="getTaskAfterSort($event)" [taskArrCopy]="sortTaskArr"></app-search-and-sort-tasks> -->
+    <app-smart-table [ifShowpagination]="[true,10]" [thArr]="thArrEvaluationToEstablishSystem"
+    [ifSortDown]="ifSortDown" [tableDataKeys]="EvaluationToEstablishSystemListKeys" [tableData]="evaluationsToEstablishSystem"
+    (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedEvaluationToEstablish($event)"
+    [showMassgeToUserDeleteTask]="true" 
+ >
+  </app-smart-table>
+  <div *ngIf="noEvaluationToEstablishSystem&&!evaluationsToEstablishSystem">
+    <br>
+    <h2>לא קיימות הערכות מאמץ!</h2>
+  </div>
+  <div *ngIf="!evaluationsToEstablishSystem&&!noEvaluationToEstablishSystem">
+    <h2>רק רגע...</h2>
+  </div>
+   </div>
+</app-smart-card>
+</ng-container>
+
+<!-- מחשבון -->
+<ng-container *ngIf="showQuoteCalculators ">
+<app-smart-card >
+    <div body>
+     <app-smart-table [ifShowpagination]="[true,10]" [thArr]="thArrQuoteCalculators"
+     [ifSortDown]="ifSortDown" [tableDataKeys]="QuoteCalculatorsListKeys" [tableData]="quoteCalculators"
+     (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedQuoteCalculators($event)"
+     [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails"> 
+   </app-smart-table>
+   <div *ngIf="noQuoteCalculators&&!quoteCalculators">
+     <br>
+     <h2>לא קיימים מחשבוני הצעת מחיר!</h2>
+   </div>
+   <div *ngIf="!quoteCalculators&&!noQuoteCalculators">
+     <h2>רק רגע...</h2>
+   </div>
+    </div>
+ </app-smart-card>
+ </ng-container>
+
+ <ng-container *ngIf="showPricingTask ">
+ <!-- משימות לתמחור -->
+ <app-smart-card >
+    <div body>  
+     <app-smart-table [ifDeleteTask]="true" [ifUpdateTask]="true" [ifShowpagination]="[true,10]" [thArr]="thArrTask2"
+     [ifSortDown]="ifSortDown" [tableDataKeys]="taskListKeys2" [tableData]="PricingTask"
+     (DeleteTaskIcon)="DeleteTask($event)" (EditProjectContentItemIcon)="editProjectContentItemIcon($event)"
+     (SortTableDown)="SortTableDown($event)" (SortTableUp)="SortTableUp($event)" (SelectedData)="SelectedTask($event)"
+     [showMassgeToUserDeleteTask]="true" [ifDeleteOpen]="isPopUpOpen?.DeleteTask"
+     [ifUpdateOpen]="isPopUpOpen?.UpdateProjectContentItemDetails"> 
+   </app-smart-table>
+   <div *ngIf="noTask&&!PricingTask">
+     <br>
+     <h2>לא קיימות הערכות מאמץ!</h2>
+   </div>
+   <div *ngIf="!PricingTask&&!noTask">
+     <h2>רק רגע...</h2>
+   </div>
+    </div>
+ </app-smart-card>
+</ng-container>

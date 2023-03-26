@@ -55,7 +55,7 @@ export class AddProjectByManagerComponent implements OnInit {
   GetAllEmployee() {
     // לשים GUID אמיתי של מנהל
     this.adminGuid = ""
-    this.userService.GetAllEmployee(this.adminGuid).subscribe(
+    this.userService.GetAllEmployee(this.adminGuid,true).subscribe(
       (res: any) => {
         this.ProjectManagerOrHeadProgrammerArr = res;
       

@@ -10,6 +10,8 @@
     <option value="">המשימות שלי </option>
     <option value="1"> המשימות של הצוותים אליהם אני שייך</option>
     <option value="2">המשימות האחרונות שעבדתי עליהן </option>
+    <option value="3"> משימות לתמחור </option>
+
   </select>
 </div>
 
@@ -22,7 +24,7 @@
   >
   <div body>
     <div class="search">
-      <div class="autocomplete-1" *ngIf="taskArr">
+        <div class="form-outline d-flex justify-content-center mb-4" *ngIf="taskArr" >
         <ng-autocomplete style="width: 100%;" class="autoComplete" dir="rtl" [data]="taskArr"
           [searchKeyword]="'Subject'" placeholder=" חפש לפי משימה" historyIdentifier="Subject"
           [itemTemplate]="itemTemplate" (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject"
@@ -43,9 +45,10 @@
         <option value="0">כל הפרויקטים </option>
         <option value="1"> הפרויקטים שלי</option>
       </select>
-      <div class="autocomplete-2" *ngIf="showAllProjects&&taskArr">
+
+      <div class="form-outline d-flex justify-content-center mb-4" *ngIf="showAllProjects&&taskArr">
         <ng-autocomplete style="width: 100%;" dir="rtl" [data]="project" [searchKeyword]="'Name'"
-          placeholder="חפש לפי פרויקט" historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
+          placeholder="חפש לפי פרויקט"  class="autoComplete" [itemTemplate]="itemTemplate2"
           (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
           [notFoundTemplate]="notFoundTemplate2">
         </ng-autocomplete>
@@ -56,9 +59,10 @@
           <div [innerHTML]="'לא נמצאו תוצאות'"></div>
         </ng-template>
       </div>
-      <div class="autocomplete-3" *ngIf="showMyProjects&&taskArr">
+
+      <div class="form-outline d-flex justify-content-center mb-4" *ngIf="showMyProjects&&taskArr">
         <ng-autocomplete style="width: 100%;" dir="rtl" [data]="myProjectArr" [searchKeyword]="'Name'"
-          placeholder="חפש לפי הפרויקטים שלי" historyIdentifier="Project" class="autoComplete"
+          placeholder="חפש לפי הפרויקטים שלי"  class="autoComplete"
           [itemTemplate]="itemTemplate2" (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask"
           #SourceTask="ngModel" required [notFoundTemplate]="notFoundTemplate2">
         </ng-autocomplete>

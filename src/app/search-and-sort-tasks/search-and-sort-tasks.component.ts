@@ -17,7 +17,6 @@ export class SearchAndSortTasksComponent implements OnInit {
   @Input() taskArrCopy: any
   projectArr: any;
   @Output() GetTaskAfterSort = new EventEmitter<any>();
-
   ngOnInit(): void {
     this.GetProject()
   }

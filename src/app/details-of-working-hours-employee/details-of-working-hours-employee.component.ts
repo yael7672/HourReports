@@ -248,7 +248,8 @@ export class DetailsOfWorkingHoursEmployeeComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error);       
+         swal("error!",err.error,"error");
       })
   }
 }

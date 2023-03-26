@@ -178,6 +178,10 @@ export class ShowMyTeamTaskComponent implements OnInit {
       this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
       this.route.navigate(['/menu/the-last-tasks-i-worked', this.systemGuid]);
     }
+    if (val == 3) {
+      this.systemGuid = this.activatedRoute.snapshot.paramMap.get('id');
+      this.route.navigate(['/menu/pricing-tasks', this.systemGuid]);
+    }
   }
   getTaskAfterSort(task: any) {
     this.taskTeamsArr = task;

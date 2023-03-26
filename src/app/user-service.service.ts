@@ -25,6 +25,8 @@ export class UserServiceService {
   GetMyTask(SystemGuid: string) {
     return this.http.get<any>(environment.url + 'GetTask/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
+
+  
   GetDailyWorkingHoursAndMonthlyWorkingHours(SystemGuid: string) {
     return this.http.get<any>(environment.url + 'GetDailyWorkingHoursAndMonthlyWorkingHours/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
   }
@@ -148,8 +150,8 @@ export class UserServiceService {
   DeleteTaskByGuid(TaskId: any) {
     return this.http.delete<any>(environment.url + 'DeleteTaskByGuid?OrganizationName=AuroraProd&TaskId=' + TaskId)
   }
-  GetAllEmployee(adminGuid: any) {
-    return this.http.get<ownerid[]>(environment.url + 'GetEmployees?OrganizationName=AuroraProd' + '&adminGuid=' + adminGuid);
+  GetAllEmployee(adminGuid: any, withAdmin:boolean) {
+    return this.http.get<ownerid[]>(environment.url + 'GetEmployees?OrganizationName=AuroraProd&adminGuid=' + adminGuid+ '&withAdmin=' + withAdmin);
   }
   GetTaskByTeamGuid(TeamGuid: string) {
     return this.http.get<any>(environment.url + 'GetTaskByTeamGuid/?OrganizationName=AuroraProd&TeamGuid=' + TeamGuid)
@@ -190,5 +192,13 @@ export class UserServiceService {
     return this.http.get<DetailsTaskAtWork[]>(environment.url +'GetDetailsTaskAtWork?OrganizationName=AuroraProd&systemGuid='+systemGuid)
 
   }
-
+  GetTasksEffortEstimationQuoteCalculator(SystemGuid: string) {
+    return this.http.get<any>(environment.url + 'GetTasksEffortEstimationQuoteCalculator/?OrganizationName=AuroraProd&SystemGuid=' + SystemGuid)
+  }
+  GetQuoteCalculatorsByEvaluationToEstablishSystem(SystemGuid: string,EvaluationToEstablishSystemGuid:any) {
+    return this.http.get<any>(environment.url + 'GetQuoteCalculatorsByEvaluationToEstablishSystem?OrganizationName=AuroraProd&SystemGuid='+SystemGuid+'&EvaluationToEstablishSystemGuid='+EvaluationToEstablishSystemGuid)
+  }
+  GetPricingTask(SystemGuid: string,QuoteCalculatorsGuid:any) {
+    return this.http.get<any>(environment.url + 'GetPricingTask?OrganizationName=AuroraProd&SystemGuid='+SystemGuid+'&QuoteCalculatorsGuid='+QuoteCalculatorsGuid)
+  }
 }

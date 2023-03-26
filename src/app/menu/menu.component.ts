@@ -267,6 +267,7 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['menu/show-my-task', this.systemGuid])
   }
   ClickPersonalDetails() {
+    debugger
     this.openPersonalDetails = true;
   }
   openPopUpMyNewTask() {
@@ -284,6 +285,7 @@ export class MenuComponent implements OnInit {
 
   onClickedOutside(val: any) {
     if (this.openPersonalDetails) {
+      debugger
       this.openPersonalDetails = false;
     }
   }

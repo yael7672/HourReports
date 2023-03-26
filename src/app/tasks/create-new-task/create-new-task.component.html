@@ -30,7 +30,7 @@
                     <div [innerHTML]="'לא נמצאו תוצאות'"></div>
                 </ng-template>
             </div>
-            <div *ngIf="f.submitted && workType.invalid" class="text-danger">
+            <div *ngIf="f.submitted && workType.invalid" class="text-danger-autoComplete">
                 <span *ngIf="workType.errors">שדה זה חובה</span>
             </div>
             <div class="form-outline d-flex justify-content-center ">
@@ -51,9 +51,28 @@
                     <div [innerHTML]="'לא נמצאו תוצאות'"></div>
                 </ng-template>
             </div>
-            <div *ngIf="f.submitted && project.invalid" class="text-danger">
+            <div *ngIf="f.submitted && project.invalid" class="text-danger-autoComplete">
                 <span *ngIf="project.errors">שדה זה חובה</span>
             </div>
+
+            <div class="form-outline d-flex justify-content-center mb-4">
+              <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="allUserAndTeams" [searchKeyword]="'Name'"
+                placeholder="הקצה משימה למשתמש או לצוות" 
+                historyIdentifier="assignTask" [itemTemplate]="itemTemplate" #assignTask="ngModel" name="assignTask" [(ngModel)]="ownerOfTask" ngModel 
+                [notFoundTemplate]="notFoundTemplate" required>
+              </ng-autocomplete>
+              <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.Name"></a>
+              </ng-template>
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+              </ng-template>
+            </div>
+            <div *ngIf="f.submitted && assignTask.invalid" class="text-danger-autoComplete">
+                <span *ngIf="assignTask.errors">שדה זה חובה</span>
+            </div>
+            
+
             <div class="form-outline d-flex justify-content-center">
                 <select id="inputState" class="form-control" name="BillableHours" #billableHours="ngModel" ngModel 
                 [ngClass]="{ 'is-invalid': f.submitted && billableHours.invalid }" required>

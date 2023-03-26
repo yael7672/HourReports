@@ -34,6 +34,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
   todayDate!: any;
   myDate = new Date()
   Project!: Project[];
+  task!: any;
+
   projectfilter: any
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
@@ -142,27 +144,27 @@ export class CreateAprojectContentItemComponent implements OnInit {
       this.openInputReportMoreTeams = false
     }
   }
- 
+
 
   CreateNewProjectItem(form: NgForm) {
     this.appService.setSpinner(true);
     form.value.OwnerId = { "Guid": localStorage.getItem('systemGuid') },
-      form.value.Project = { "Guid": form.value.Project.Guid },
-      form.value.WorkType = { "Guid": form.value.workType.Guid }
+    form.value.Project = { "Guid": form.value.Project.Guid },
+    form.value.WorkType = { "Guid": form.value.workType.Guid }
     // detailsOfWorkingHourByEmployee!: any[];
     // detailsOfWorkingHourByEmployeeToSend: any[] = [];
-    if (this.MoreEmployeeArr) {
-      this.MoreEmployeeArr.forEach((x: any) => {
-        x = { "Guid": x }
-        this.MoreEmployeeGuid.push(x)
-      })
-    }
-    if (this.MoreEmployeeGuid) {
-      form.value.MoreEmployee = this.MoreEmployeeGuid
-    }
-    else {
-      form.value.MoreEmployee = ""
-    }
+    // if (this.MoreEmployeeArr) {
+    //   this.MoreEmployeeArr.forEach((x: any) => {
+    //     x = { "Guid": x }
+    //     this.MoreEmployeeGuid.push(x)
+    //   })
+    // }
+    // if (this.MoreEmployeeGuid) {
+    //   form.value.MoreEmployee = this.MoreEmployeeGuid
+    // }
+    // else {
+    //   form.value.MoreEmployee = ""
+    // }
     // דיווח על כל העובדים
     if (this.MoreEmployeeArr) {
       this.MoreEmployeeArr.forEach((x: any) => {
@@ -177,6 +179,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
           x = { "Guid": x }
           this.MoreEmployeeGuid.push(x)
         }
+
       })
     }
     if (this.MoreEmployeeGuid) {
@@ -281,7 +284,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.systemGuid = localStorage.getItem('systemGuid')
     // לשים GUID אמיתי של מנהל
     this.adminGuid = ""
-    this.userServiceService.GetAllEmployee(this.adminGuid).subscribe(
+    this.userServiceService.GetAllEmployee(this.adminGuid,true).subscribe(
       (res: any) => {
         this.EmployeeeArr = res;
         this.EmployeeeArr.forEach((x: any) => {
@@ -389,32 +392,64 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   onWorkTypeSelected(val: any) {
     debugger
-    if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
-      this.subject1 = "הפסקות";
-      this.billingHours1 = "2";
-      this.actualTime = "1";
-      this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
-    } else
-      if (val.Guid == "00ee906b-6add-ea11-a813-000d3a21015b") {
-        this.subject1 = "יום חופש";
-        this.billingHours1 = "2";
-        this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
-      } else
-        if (val.Guid == "0c03dc7d-6add-ea11-a813-000d3a21015b") {
-          this.subject1 = "יום מחלה";
-          this.billingHours1 = "2";
-          this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
-        }
-        else
-          if (val.Guid == "894aec3d-e8ab-eb11-8236-0022488040a9") {
-            this.subject1 = "חג - ";
-            this.billingHours1 = "2";
-            this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
-          }
-          else {
-            this.GuidProject = { "Guid": "", "Name": "" }
+//     if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
+//       this.subject1 = "הפסקות";
+//       this.billingHours1 = "2";
+//       this.actualTime = "1";
+//       this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+//     } else
+//       if (val.Guid == "00ee906b-6add-ea11-a813-000d3a21015b") {
+//         this.subject1 = "יום חופש";
+//         this.billingHours1 = "2";
+//         this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+//       } else
+//         if (val.Guid == "0c03dc7d-6add-ea11-a813-000d3a21015b") {
+//           this.subject1 = "יום מחלה";
+//           this.billingHours1 = "2";
+//           this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+//         }
+//         else
+//           if (val.Guid == "894aec3d-e8ab-eb11-8236-0022488040a9") {
+//             this.subject1 = "חג - ";
+//             this.billingHours1 = "2";
+//             this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+//           }
+//           else {
+//             this.GuidProject = { "Guid": "", "Name": "" }
+// =======
+    // if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
+    //   this.subject1 = "הפסקות";
+    //   this.billingHours1 = "2";
+    //   this.actualTime = "1";
 
-          }
+    //   this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+    // } else
+    //   if (val.Guid == "00ee906b-6add-ea11-a813-000d3a21015b") {
+    //     this.subject1 = "יום חופש";
+    //     this.billingHours1 = "2";
+    //     this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+    //   } else
+    //     if (val.Guid == "0c03dc7d-6add-ea11-a813-000d3a21015b") {
+    //       this.subject1 = "יום מחלה";
+    //       this.billingHours1 = "2";
+    //       this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+    //     }
+    //     else
+    //       if (val.Guid == "894aec3d-e8ab-eb11-8236-0022488040a9") {
+    //         this.subject1 = "חג - ";
+    //         this.billingHours1 = "2";
+    //         this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+    //       }
+    //       else {
+    //         this.GuidProject = { "Guid": "", "Name": "" }
+    //       }
+          this.WorkType.forEach(element => {
+            if (val.Guid == element.Guid) 
+            {
+            this.billingHours1 = element.DefaultProject.isBillableHours;
+            this.GuidProject = { "Guid":element.DefaultProject.Guid , "Name":element.DefaultProject.Name }
+            }
+      });    
 
   }
   CancelProjectContectItem() {

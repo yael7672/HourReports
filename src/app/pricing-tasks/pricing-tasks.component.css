@@ -1,0 +1,27 @@
+.search {
+    display: flex;
+    justify-content: space-between;
+    direction: rtl;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 900px) {
+    .search {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        direction: rtl;
+        margin-bottom: 1rem;
+        align-items: center;
+    }
+}
+img {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 0.5rem
+}
+
+
+#inputState-1 {
+    width: 18rem;
+}
