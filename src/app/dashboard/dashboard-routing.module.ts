@@ -45,7 +45,7 @@ const routes: Routes = [
             { path: 'updateTask', component: UpdateAnExistingTaskComponent },
             { path: 'endOfTask', component: EndOfTaskComponent },
             { path: 'pop', component: PopUpComponent },
-            { path: 'createAprojectContentItem', component: CreateAprojectContentItemComponent },
+            { path: '4D', component: CreateAprojectContentItemComponent },
             { path: 'specific-task/:id', component: SpecificTaskComponent },
             { path: 'smartCard', component: SmartCardComponent },
             { path: 'personalDetails', component: PersonalDetailsComponent },
