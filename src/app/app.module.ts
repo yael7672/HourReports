@@ -18,6 +18,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { PopupModule } from '@progress/kendo-angular-popup';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PricingTasksComponent } from './pricing-tasks/pricing-tasks.component';
+import { SafeHtmlPipe } from 'src/safeHtml.pipe';
 
 
 
@@ -39,7 +40,6 @@ import { PricingTasksComponent } from './pricing-tasks/pricing-tasks.component';
     AutocompleteLibModule,
     NgxSelectModule,
     NgxPaginationModule,
-    //  PopupModule,
     BrowserAnimationsModule
   ],
   providers: [DatePipe],

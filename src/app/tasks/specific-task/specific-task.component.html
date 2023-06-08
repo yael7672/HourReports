@@ -4,7 +4,7 @@
 [textButtonBack]="textButtonBack" (clickBackToMyTask)="BackToMyTask()">
 <div body>
 <h5 *ngIf="taskListDataDetailsParseToJson?.Subject">{{taskListDataDetailsParseToJson.Subject}}</h5>
-<p *ngIf="taskListDataDetailsParseToJson?.Description" class="card-text">{{taskListDataDetailsParseToJson.Description}}</p>
+<p *ngIf="taskListDataDetailsParseToJson?.Description" class="card-text" [innerHTML]="taskListDataDetailsParseToJson.Description|safeHtml"></p>
 <p *ngIf="taskListDataDetailsParseToJson?.ScheduledEndDate" class="card-text"> תאריך יעד :{{taskListDataDetailsParseToJson.ScheduledEndDate | date: 'dd/MM/yyyy' }}
 </p>
 <p class="card-text"> משך זמן שהוקצה למשימה :{{taskListDataDetailsParseToJson.WorkingHours}}

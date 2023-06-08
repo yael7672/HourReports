@@ -66,6 +66,7 @@ import { TabNavMenuComponent } from '../tab-nav-menu/tab-nav-menu.component';
 import { PopUpForImageComponent } from '../pop-up-for-image/pop-up-for-image.component';
 import { DatepickerComponent } from '../datepicker/datepicker.component';
 import { PricingTasksComponent } from '../pricing-tasks/pricing-tasks.component';
+import { SafeHtmlPipe } from 'src/safeHtml.pipe';
 
 
 
@@ -78,6 +79,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
 
 @NgModule({
     declarations: [
+        SafeHtmlPipe,
         UpdateProjectContentItemComponent,
         CreateNewTaskComponent,
         UpdateAnExistingTaskComponent,
@@ -133,7 +135,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
         DatepickerComponent,
         PricingTasksComponent,
 
-    ],
+],
+
     imports: [
         CommonModule,
         DashboardRoutingModule,

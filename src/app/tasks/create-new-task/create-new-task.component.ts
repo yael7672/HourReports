@@ -29,7 +29,11 @@ export class CreateNewTaskComponent implements OnInit {
   projectArr!: Project[];
   getMyTasksProp = false;
   isDisabled = false;
-  ifShowSpinner!:boolean;
+  ifShowSpinner!: boolean;
+  allUserAndTeams: any
+  ownerOfTask: any;
+  employeeDetails:any;
+  employeeDetailsParseJson:any
   constructor(private buttonWorkingTaskService: ButtonWorkingTaskService, public router: Router, private datePipe: DatePipe, private userService: UserServiceService, private appService: AppService, private popUpService: PopUpServiceService) {
     this.todayDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.appService.getSpinner().subscribe(res => {
@@ -40,9 +44,21 @@ export class CreateNewTaskComponent implements OnInit {
     this.GetRegarding();
     this.GetWorkType();
     this.GetProject();
+    this.GetAllUserAndTeams();
+    const systemGuid = localStorage.getItem('systemGuid')
+    const systemName = localStorage.getItem('systemName')
+    if(window.location.pathname.includes("show-my-task"))
+    {
+    this.ownerOfTask = { "Guid": systemGuid, "Name": systemName }
+    }
+    if(window.location.pathname.includes("tasks-by-employee"))
+    {
+      this.employeeDetails = localStorage.getItem('employeeDetails');
+      this.employeeDetailsParseJson = JSON.parse(this.employeeDetails);
+      this.ownerOfTask= { "Guid":this.employeeDetailsParseJson?.EmployeeGuid , "Name": this.employeeDetailsParseJson?.EmployeeName }
+    }
   }
-  startTask() {
-  }
+
   GetWorkType() {
     this.userService.GetWorkType().subscribe(res => {
       if (res) {
@@ -50,7 +66,20 @@ export class CreateNewTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error);
+        swal("error!", err.error, "error");
+      }
+    )
+  }
+  GetAllUserAndTeams() {
+    this.userService.GetAllUserAndTeams().subscribe(res => {
+      if (res) {
+        this.allUserAndTeams = res;
+      }
+    },
+      err => {
+        console.log(err.error);
+        swal("error!", err.error, "error");
       }
     )
   }
@@ -61,11 +90,12 @@ export class CreateNewTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error); swal("error!", err.error, "error");
       }
     )
   }
   async CreateNewTask(form: NgForm) {
+    debugger
     this.appService.setSpinner(true);
     this.isDisabled = true;
     this.tasks =
@@ -73,10 +103,8 @@ export class CreateNewTaskComponent implements OnInit {
       Description: form.value.Description,
       BillableHours: form.value.BillableHours,
       Subject: form.value.Subject,
-      // NotesToTheProjectManager: form.value.CommentsToTheProjectManager,הערות למנהל הפרוייקט
-      // Regardingobjectid: { "Guid": form.value.Regardingobject },לגבי
       WorkType: { "Guid": form.value.workType.Guid },
-      OwnerId: { "Guid": localStorage.getItem('systemGuid') },
+      OwnerId: { "Guid": this.ownerOfTask?.Guid },
       Project: { "Guid": form.value.project.Guid }
     }
     this.AddNewTask()
@@ -88,10 +116,9 @@ export class CreateNewTaskComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error); swal("error!", err.error, "error");
       })
   }
-
   async AddNewTask() {
     this.userService.AddNewTask(this.tasks).then(res => {
       if (res) {
@@ -109,7 +136,7 @@ export class CreateNewTaskComponent implements OnInit {
     },
       err => {
         this.appService.setSpinner(false);
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error); swal("error!", err.error, "error");
         this.isDisabled = false;
       }
     )

@@ -34,6 +34,8 @@ export class CreateAprojectContentItemComponent implements OnInit {
   todayDate!: any;
   myDate = new Date()
   Project!: Project[];
+  task!: any;
+
   projectfilter: any
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
@@ -389,6 +391,31 @@ export class CreateAprojectContentItemComponent implements OnInit {
   }
   onWorkTypeSelected(val: any) {
     debugger
+//     if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
+//       this.subject1 = "הפסקות";
+//       this.billingHours1 = "2";
+//       this.actualTime = "1";
+//       this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+//     } else
+//       if (val.Guid == "00ee906b-6add-ea11-a813-000d3a21015b") {
+//         this.subject1 = "יום חופש";
+//         this.billingHours1 = "2";
+//         this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+//       } else
+//         if (val.Guid == "0c03dc7d-6add-ea11-a813-000d3a21015b") {
+//           this.subject1 = "יום מחלה";
+//           this.billingHours1 = "2";
+//           this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+//         }
+//         else
+//           if (val.Guid == "894aec3d-e8ab-eb11-8236-0022488040a9") {
+//             this.subject1 = "חג - ";
+//             this.billingHours1 = "2";
+//             this.GuidProject = { "Guid": "216003B0-9D6B-EC11-8943-000D3A38C560", "Name": "פרויקט-  2022 ניהול משרד💼  Aurora" }
+//           }
+//           else {
+//             this.GuidProject = { "Guid": "", "Name": "" }
+// =======
     // if (val.Guid == "790556d1-2ada-ea11-a813-000d3a21015b") {
     //   this.subject1 = "הפסקות";
     //   this.billingHours1 = "2";
@@ -418,12 +445,10 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.WorkType.forEach(element => {
             if (val.Guid == element.Guid) 
             {
-              this.subject1 = element.Name;
             this.billingHours1 = element.DefaultProject.isBillableHours;
             this.GuidProject = { "Guid":element.DefaultProject.Guid , "Name":element.DefaultProject.Name }
             }
       });    
-
 
   }
   CancelProjectContectItem() {

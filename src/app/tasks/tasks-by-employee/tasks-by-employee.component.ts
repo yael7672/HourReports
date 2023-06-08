@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppService } from 'src/app/app-service.service';
 import { Project } from 'src/app/interfacees/project';
 import swal from 'sweetalert';
 import { PopUpServiceService } from '../../pop-up-service.service';
@@ -57,8 +58,13 @@ export class TasksByEmployeeComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error);       
+      swal("error!",err.error,"error");
       })
+  }
+  newTask()
+  {
+    this.popUpService.setSpecificPopUp(true,'creatTask')
   }
   GetWorkType() {
     this.userService.GetWorkType().subscribe(

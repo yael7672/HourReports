@@ -1,10 +1,13 @@
 <h2>
-   {{titleTableTask}}<img src="../../../assets/images/2387679.png" alt="">
+  {{titleTableTask}}<img src="../../../assets/images/2387679.png" alt="">
 </h2>
 <app-smart-card>
   <div body>
+    <div >
+      <button class="btn btn-color" (click)="newTask()">הוסף משימה+</button>
+    </div>
     <div class="search">
-      <div class="autocomplete-1" *ngIf="taskArr">
+      <div class="form-outline d-flex justify-content-center" *ngIf="taskArr">
         <ng-autocomplete style="width: 100%;" class="autoComplete" dir="rtl" [data]="taskArr"
           [searchKeyword]="'Subject'" placeholder=" חפש לפי משימה" historyIdentifier="Subject"
           [itemTemplate]="itemTemplate" (ngModelChange)="onSearchTask($event.Subject)" ngModel name="Subject"
@@ -24,7 +27,7 @@
         <option value="0">כל הפרויקטים </option>
         <option value="1"> הפרויקטים שלי</option>
       </select>
-      <div class="autocomplete-2" *ngIf="showAllProjects&&taskArr">
+      <div class="form-outline d-flex justify-content-center" *ngIf="showAllProjects&&taskArr">
         <ng-autocomplete style="width: 100%;" dir="rtl" [data]="projectArr" [searchKeyword]="'Name'"
           placeholder="חפש לפי פרויקט" historyIdentifier="Project" class="autoComplete" [itemTemplate]="itemTemplate2"
           (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask" #SourceTask="ngModel" required
@@ -37,7 +40,7 @@
           <div [innerHTML]="'לא נמצאו תוצאות'"></div>
         </ng-template>
       </div>
-      <div class="autocomplete-3" *ngIf="showMyProjects&&taskArr">
+      <div class="form-outline d-flex justify-content-center" *ngIf="showMyProjects&&taskArr">
         <ng-autocomplete style="width: 100%;" dir="rtl" [data]="myProjectArr" [searchKeyword]="'Name'"
           placeholder="חפש לפי הפרויקטים שלי" historyIdentifier="Project" class="autoComplete"
           [itemTemplate]="itemTemplate2" (ngModelChange)="onSearchProject($event)" ngModel name="SourceTask"
