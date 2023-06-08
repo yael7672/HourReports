@@ -67,6 +67,7 @@ import { PopUpForImageComponent } from '../pop-up-for-image/pop-up-for-image.com
 import { DatepickerComponent } from '../datepicker/datepicker.component';
 import { PricingTasksComponent } from '../pricing-tasks/pricing-tasks.component';
 import { SafeHtmlPipe } from 'src/safeHtml.pipe';
+import { TimeClockEmployeeComponent } from '../time-clock-employee/time-clock-employee.component';
 
 
 
@@ -134,6 +135,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
         PopUpForImageComponent,
         DatepickerComponent,
         PricingTasksComponent,
+        TimeClockEmployeeComponent,
 
 ],
 

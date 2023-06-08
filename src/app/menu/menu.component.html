@@ -24,13 +24,17 @@
           <i class="fa fa-clock-o" aria-hidden="true"></i></a>
         <a (click)="GoToStatisticsGraph() " *ngIf="isAdminModeLS=='false'" placement="bottom"
           ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
+          <a class="timeClockIcon" (click)="openPopUp('timeClock',true)" *ngIf="isAdminModeLS=='false'" placement="top" ngbTooltip="שעון נוכחות">
+            <img src="../../assets/images/TimeClock.png" alt="">
+        </a>
         <a (click)="goToEmployeeReport()" *ngIf="isAdminModeLS=='true'" placement="top"
           ngbTooltip="דוח עובדים / צוותים"><i class="iconify" data-icon="carbon:report"></i></a>
         <a (click)="goToSystemSetting()" *ngIf="isAdminModeLS=='true'"> <i class="fa fa-cog mt-2"
             ngbTooltip="הגדרות מנהל" style="font-size: 24px;"></i></a>
         <a (click)="openProjects()" *ngIf="isAdminModeLS=='true'" placement="top" ngbTooltip=" פרויקטים ">
-          <span class="iconify" data-icon="carbon:gui-management"></span>
         </a>
+          <span class="iconify" data-icon="carbon:gui-management"></span>
+          
       </div>
     </div>
   </div>
@@ -80,12 +84,16 @@
         <i class="fa fa-clock-o" aria-hidden="true"></i></a>
       <a (click)="GoToStatisticsGraph()" *ngIf="isAdminModeLS=='false'" placement="bottom"
         ngbTooltip="צפיה בסטטיסטיקות"><i class="fa fa-bar-chart" aria-hidden="true"></i> </a>
+        <a (click)="openPopUp('timeClock',true)" *ngIf="isAdminModeLS=='false'" placement="top" ngbTooltip="שעון נוכחות">
+          <img class="timeClockIcon" src="../../assets/images/TimeClock.png" alt="">
+      </a>
       <a (click)="goToEmployeeReport()" *ngIf="isAdminModeLS=='true'" placement="top"
         ngbTooltip="דוח עובדים / צוותים"><i class="iconify" data-icon="carbon:report"></i></a>
       <a (click)="goToSystemSetting()" *ngIf="isAdminModeLS=='true'"> <i class="fa fa-cog mt-2" ngbTooltip="הגדרות מנהל"
           style="font-size: 24px;"></i></a>
       <a (click)="openProjects()" *ngIf="isAdminModeLS=='true'" placement="top" ngbTooltip=" פרויקטים ">
         <span class="iconify" data-icon="carbon:gui-management"></span></a>
+       
     </div>
     <div class="icons-right">
       <a *ngIf="showMassgeToManager&&isAdminModeLS=='true'" (click)="openPopUp('MessageToTheManager',true)"
@@ -108,7 +116,8 @@
 </ng-container>
 
 
-
+<h1><i class='fa fa-user-clock'></i>
+</h1>
 <div *ngIf="startWorkOfTask">
   <a (click)="returnToTheOpenTask()" placement="right"
     ngbTooltip="חזרה למשימה : {{taskListDataDetailsParseToJson?.Subject}}"><i id="clock-history" class="iconify"
@@ -136,6 +145,11 @@
     ngbTooltip="חזרה למשימה : {{taskAtOpen.TaskName}}"><i id="clock-history" class="iconify"
       data-icon="bi:clock-history"></i></a>
 </div> -->
+
+
+<div *ngIf="isPopUpOpen?.timeClock">
+  <app-time-clock-employee></app-time-clock-employee>
+</div>
 
 <div *ngIf="isPopUpOpen?.creatTask">
   <app-create-new-task></app-create-new-task>

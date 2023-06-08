@@ -52,7 +52,7 @@ export class PopUpServiceService {
       ProjectContentItemBySpesificDate: type === 'ProjectContentItemBySpesificDate' ? data : false,
       AddProject: type === 'AddProject' ? data : false,
       AddUser: type === 'AddUser' ? data : false,
-
+      timeClock: type === 'timeClock' ? data : false,
     }
     this.setKindOfPopUp(obj)
   }

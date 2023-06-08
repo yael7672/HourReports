@@ -1,0 +1,50 @@
+<app-pop-up #upPopUP [ifX]="true">
+    <div body>
+        <h4 header class="mb-4">שעון נוכחות</h4>
+        <img src="..\../assets/images/TimeClockIMG.png"  class="image" alt="profile">
+        <div class="form-outline d-flex justify-content-center">
+            <p *ngIf="workTimeHour" class="Time">
+                {{workTimeHour}}
+            </p>
+            <button class="btn"  (click)="startWork()">התחל </button>
+        </div>
+        <div class="flex-button">
+            <form (ngSubmit)="EndWork()" #f=ngForm>
+                <button type="submit" class="btn ">סיים </button>
+            </form>
+            <!-- <button  type="submit" class="btn " (click)="CancelPause()">בטל הפסקה</button> -->
+        </div>
+    </div>
+    <div footer>
+    </div>
+</app-pop-up>
+<!-- <div *ngIf="showMassgeToUser">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user [kindOfMassage]="popUpPause" [massgeUserHeader]="massgeUserCloseWorkPause1"
+                (clickYes)="clickYes(workTimeHour)" (clickNo)="clickNo()" [ifButton]="true"
+                [textOfBtnNo]="'טעות! מעוניין להמשיך בהפסקה'" [textOfBtnYes]="'כן, אני רוצה לסיים את ההפסקה '">
+            </app-massge-to-user>
+        </div>
+    </app-pop-up>
+</div> -->
+<!-- <div *ngIf="showMassgeToUserEdit">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user-with-edit [kindOfMassage]="'EditPauseHour'"
+                [massgeUserHeader]="massgeUserEditPauseHour1" [Time]="timerPause" (clickNo)="clickCancelEdit()"
+                (clickEdit)="Edit($event)" [ifButton]="true"></app-massge-to-user-with-edit>
+        </div>
+    </app-pop-up>
+</div>
+<div *ngIf="showMassgeToUserCancelPause">
+    <app-pop-up>
+        <div body>
+            <app-massge-to-user [textOfBtnNo]="' לא, אני רוצה להמשיך בהפסקה ' "
+                [textOfBtnYes]="'כן, אני רוצה לבטל את ההפסקה '" [kindOfMassage]="cancelPause"
+                [massgeUserHeader]="'שים לב אתה באמצע הפסקה'" [massgeUserBody2]="' האם ברצונך לבטל אותה?'"
+                (clickYes)="clickYesCancel(workTimeHour)" (clickNo)="clickNoCancel()" [ifButton]="true">
+            </app-massge-to-user>
+        </div>
+    </app-pop-up>
+</div> -->

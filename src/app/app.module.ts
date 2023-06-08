@@ -19,6 +19,7 @@ import { PopupModule } from '@progress/kendo-angular-popup';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PricingTasksComponent } from './pricing-tasks/pricing-tasks.component';
 import { SafeHtmlPipe } from 'src/safeHtml.pipe';
+import { TimeClockEmployeeComponent } from './time-clock-employee/time-clock-employee.component';
 
 
 
