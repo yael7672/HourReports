@@ -15,6 +15,7 @@ import { TaskByGuid } from './interfacees/TaskByGuid';
 import { tasksDetails } from './interfacees/tasksDetails';
 import { User } from './interfacees/user';
 import { WorkType } from './interfacees/work-type';
+import { String } from 'lodash';
 @Injectable({
   providedIn: 'root'
 })
@@ -200,5 +201,16 @@ export class UserServiceService {
   }
   GetPricingTask(SystemGuid: string,QuoteCalculatorsGuid:any) {
     return this.http.get<any>(environment.url + 'GetPricingTask?OrganizationName=AuroraProd&SystemGuid='+SystemGuid+'&QuoteCalculatorsGuid='+QuoteCalculatorsGuid)
+  }
+
+  async  UpdateBusinessHours(StartTime:Date, EndTime:Date, SystemGuid:any, Guid:any) {
+    return await this.http.get<any>(environment.url + 'CreateBusinessHours?OrganizationName=AuroraProd&SystemGuid='+SystemGuid+'&SystemGuid='+SystemGuid +'&Guid='+Guid).toPromise();
+  }
+  async  CreateBusinessHours(StartTime:Date, EndTime:Date, SystemGuid:any ) {
+    return await this.http.get<any>(environment.url + 'UpdateBusinessHours?OrganizationName=AuroraProd&StartTime='+StartTime+'&EndTime='+EndTime +'&EndTime='+EndTime).toPromise();
+  }
+
+  async GetBusinessHourOfEmployeeByDate(SystemGuid:any ) {
+    return await this.http.get<any>(environment.url + 'GetBusinessHourOfEmployeeByDate?OrganizationName=AuroraProd&SystemGuid='+SystemGuid).toPromise();
   }
 }

@@ -6,11 +6,11 @@
             <p *ngIf="workTimeHour" class="Time">
                 {{workTimeHour}}
             </p>
-            <button class="btn"  (click)="startWork()">התחל </button>
+            <button class="btn" *ngIf="!hideButtonEndTime" (click)="startWork()">התחל </button>
         </div>
         <div class="flex-button">
             <form (ngSubmit)="EndWork()" #f=ngForm>
-                <button type="submit" class="btn ">סיים </button>
+                <button type="submit" *ngIf="hideButtonEndTime" class="btn ">סיים </button>
             </form>
             <!-- <button  type="submit" class="btn " (click)="CancelPause()">בטל הפסקה</button> -->
         </div>
