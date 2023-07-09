@@ -17,7 +17,8 @@ export class TimeClockEmployeeComponent implements OnInit {
   guidOfBusinessHour: any
   hideButtonEndTime = false
   businesHourDetails: any;
-
+  businessHourToCreateObject:any
+  businessHourToUpdateObject:any
   constructor(private datePipe: DatePipe, private userService: UserServiceService) { }
 
   ngOnInit(): void {
@@ -30,18 +31,41 @@ export class TimeClockEmployeeComponent implements OnInit {
     this.hideButtonEndTime = true;
     // this.popUpService.setStartTimer(true);
     let a = Date.now();
-    localStorage.setItem('DateNow', a.toString());
+    localStorage.setItem('DateNowTimer', a.toString());
     debugger;
     this.startDate = this.datePipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss')
-    this.CreateBusinessHours(this.startDate, null, this.systemGuid)
+    // this.startDate = this.datePipe.transform(new Date().toUTCString(), 'yyyy-MM-ddTHH:mm:ss.SSSZ', 'UTC'); // Convert to valid format
+    let parsedDate = new Date(Date.parse(this.startDate));
+    if (!isNaN(parsedDate.getTime())) {
+      this.businessHourToCreateObject = {
+        Guid:null,
+        SystemUserGuid: this.systemGuid,
+        StartTime:this.startDate,
+        EndTime:null
+        // Participants: ParticipantInGuidence[];
+      }
+      this.CreateBusinessHours(this.businessHourToCreateObject)
+    }
   }
 
 
   EndWork() {
+    debugger
     this.hideButtonEndTime = false;
     this.endDate = this.datePipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss')
-    this.guidOfBusinessHour = localStorage.getItem("GuidOfBusinessHour")
-    this.UpdateBusinessHours(null, this.endDate, this.systemGuid, this.guidOfBusinessHour)
+    // this.endDate = this.datePipe.transform(new Date().toUTCString(), 'yyyy-MM-ddTHH:mm:ss.SSSZ', 'UTC'); // Convert to valid format
+    let parsedDate = new Date(Date.parse(this.endDate));
+    if (!isNaN(parsedDate.getTime())) {
+      this.guidOfBusinessHour = localStorage.getItem("GuidOfBusinessHour")
+        this.businessHourToUpdateObject = {
+          Guid:this.guidOfBusinessHour,
+          SystemUserGuid: this.systemGuid,
+          StartTime:null,
+          EndTime:this.endDate
+          // Participants: ParticipantInGuidence[];
+        }
+      this.UpdateBusinessHours(this.businessHourToCreateObject)
+    }
   }
 
 
@@ -51,10 +75,12 @@ export class TimeClockEmployeeComponent implements OnInit {
       res => {
         if (res)
           this.businesHourDetails = res;
-          if(this.businesHourDetails.startTime){
+        if (this.businesHourDetails.length > 0) {
+          if (this.businesHourDetails.startTime) {
             this.hideButtonEndTime = true;
           }
-        localStorage.removeItem("GuidOfBusinessHour")
+          localStorage.removeItem("GuidOfBusinessHour")
+        }
         debugger;
       },
       err => {
@@ -65,9 +91,9 @@ export class TimeClockEmployeeComponent implements OnInit {
   }
 
 
-  async UpdateBusinessHours(startDate: any, endDate: any, systemGuid: any, Guid: any) {
+  async UpdateBusinessHours(businessHourObject:any) {
     debugger;
-    this.userService.UpdateBusinessHours(startDate, endDate, systemGuid, Guid).then(
+    this.userService.UpdateBusinessHours(businessHourObject).then(
       res => {
         if (res)
           this.updateBusinessHoursRes = res;
@@ -81,9 +107,9 @@ export class TimeClockEmployeeComponent implements OnInit {
     )
   }
 
-  async CreateBusinessHours(startDate: any, endDate: any, systemGuid: any) {
+  async CreateBusinessHours(businessHourToCreateObject:any) {
     debugger;
-    this.userService.CreateBusinessHours(startDate, endDate, systemGuid).then(
+    this.userService.CreateBusinessHours(businessHourToCreateObject).then(
       res => {
         if (res)
           this.guidOfBusinessHour = res;

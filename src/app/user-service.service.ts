@@ -203,11 +203,11 @@ export class UserServiceService {
     return this.http.get<any>(environment.url + 'GetPricingTask?OrganizationName=AuroraProd&SystemGuid='+SystemGuid+'&QuoteCalculatorsGuid='+QuoteCalculatorsGuid)
   }
 
-  async  UpdateBusinessHours(StartTime:Date, EndTime:Date, SystemGuid:any, Guid:any) {
-    return await this.http.get<any>(environment.url + 'CreateBusinessHours?OrganizationName=AuroraProd&SystemGuid='+SystemGuid+'&SystemGuid='+SystemGuid +'&Guid='+Guid).toPromise();
+  async  UpdateBusinessHours(businessHourObject:any) {
+    return await this.http.post<any>(environment.url + 'CreateBusinessHours?OrganizationName=AuroraProd',businessHourObject).toPromise();
   }
-  async  CreateBusinessHours(StartTime:Date, EndTime:Date, SystemGuid:any ) {
-    return await this.http.get<any>(environment.url + 'UpdateBusinessHours?OrganizationName=AuroraProd&StartTime='+StartTime+'&EndTime='+EndTime +'&EndTime='+EndTime).toPromise();
+  async  CreateBusinessHours(businessHourObject:any ) {
+    return await this.http.get<any>(environment.url + 'CreateBusinessHours?OrganizationName=AuroraProd',businessHourObject).toPromise();
   }
 
   async GetBusinessHourOfEmployeeByDate(SystemGuid:any ) {
