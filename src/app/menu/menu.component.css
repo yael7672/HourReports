@@ -318,6 +318,10 @@ a.close {
     font-weight: 100;
     position: absolute;
     left: 45px;
+}
 
-
+.timeClockIcon{
+width: 30px;
+height: 30px;
+margin-top: 12px;
 }

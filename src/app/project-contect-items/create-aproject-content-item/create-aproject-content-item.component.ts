@@ -172,7 +172,6 @@ export class CreateAprojectContentItemComponent implements OnInit {
           this.EmployeeeArrWithOutMeCopy.forEach((y: any) => {
             if (y.Guid != "1234" && y.Guid != "7bf1cebd-5153-eb11-bb23-000d3a44a095" && y != this.systemGuid.toLowerCase()) { this.MoreEmployeeGuid.push(y) }
             this.MoreEmployeeGuid = this.MoreEmployeeGuid.filter(guid => guid.Guid != "1234");
-
           })
         }
         else {

@@ -1,0 +1,25 @@
+.close {
+    justify-content: center;
+}
+
+
+.Time {
+    font-weight: bold;
+    font-size: large;
+
+}
+
+.flex-button {
+    display: flex;
+}
+
+.btn {
+    margin: 1rem;
+}
+
+img.image {
+    margin-bottom: 1rem;
+    margin-left: 0.9rem;
+    height: 110px;
+    width: 150px;
+}

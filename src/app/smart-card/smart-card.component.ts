@@ -37,7 +37,7 @@ export class SmartCardComponent implements OnInit {
   @Input() textButtonBack!: any;
   @Input() showChrtEmployee!: any;
   @Output() clickBackToMyTask= new EventEmitter<any>();
-  @Output()clickCloseCard = new EventEmitter<any>();
+  @Output() clickCloseCard = new EventEmitter<any>();
   @Output()clickStartTimer = new EventEmitter<any>();
   @Output()clickPauseTimer = new EventEmitter<any>();
   @Output()clickdeleteTimer = new EventEmitter<any>();
