@@ -200,8 +200,7 @@ export class MenuComponent implements OnInit {
     this.taskGuid =
     {
       systemGuid: systemGuid,
-      // NotesToTheProjectManager: form.value.CommentsToTheProjectManager,הערות למנהל הפרוייקט
-      // Regardingobjectid: { "Guid": form.value.Regardingobject },לגבי
+    
       taskGuid: taskGuid,
     }
     this.userService.GetDeatailsOpenTasks(this.taskGuid).subscribe(
@@ -255,7 +254,7 @@ export class MenuComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error); swal("error!", err.error, "error");
       })
   }
   GoToStatisticsGraph() {
@@ -333,7 +332,7 @@ export class MenuComponent implements OnInit {
       }
     },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error); swal("error!", err.error, "error");
       })
   }
   removeDateFromLocalStorage() {
@@ -410,7 +409,7 @@ export class MenuComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error);              swal("error!",err.error,"error");
+        console.log(err.error); swal("error!", err.error, "error");
       }
     )
   }

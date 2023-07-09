@@ -14,7 +14,6 @@ import { PopUpServiceService } from '../../pop-up-service.service';
 import { ownerid } from 'src/app/interfacees/ownerid';
 import { INgxSelectOption } from 'ngx-select-ex/ngx-select/ngx-select.interfaces';
 import { Team } from 'src/app/interfacees/Teams';
-import { guid } from '@progress/kendo-angular-common';
 
 @Component({
   selector: 'app-create-aproject-content-item',
@@ -22,7 +21,7 @@ import { guid } from '@progress/kendo-angular-common';
   styleUrls: ['./create-aproject-content-item.component.css']
 })
 export class CreateAprojectContentItemComponent implements OnInit {
-  @Input() MyTask!: any;
+ myTask!: any;
   @Input() dateToUpdate!: any;
   @Input() actualTime: any;
   @Input() KindPopUpUpdateProjectContectItemWithTime: any;
@@ -35,7 +34,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
   myDate = new Date()
   Project!: Project[];
   task!: any;
-
+  GuidTask:any
   projectfilter: any
   WorkType!: WorkType[];
   Regarding!: Regardingobjectid[];
@@ -105,6 +104,7 @@ export class CreateAprojectContentItemComponent implements OnInit {
     this.GetRegarding();
     this.GetProject();
     this.GetWorkType();
+    this.GetMyNewTasks()
     this.dateToUpdate = localStorage.getItem('dateToUpdate');
     console.log(this.dateToUpdate);
     this.systemGuid = localStorage.getItem('systemGuid')
@@ -389,6 +389,20 @@ export class CreateAprojectContentItemComponent implements OnInit {
       this.Project = this.Project.filter((f: Project) => f?.Name.includes(this.ProjectFilter));
     }
 
+  }
+  GetMyNewTasks() {
+    this.systemGuid = localStorage.getItem('systemGuid');
+    this.userServiceService.GetMyNewTasks(this.systemGuid).subscribe(
+      res => {
+        if (res) {
+         console.log(res);
+         
+          this.myTask = res;
+        }
+      }, err => {
+        console.log(err.error)
+      }
+    )
   }
   onWorkTypeSelected(val: any) {
     debugger

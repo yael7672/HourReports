@@ -11,9 +11,9 @@
           class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" ngModel required>
       </div>
       <!-- <ng-container *ngIf="ProjectContentItem.Regardingobjectid || ProjectContentItem.Project"> -->
-      <p class="p-autocomplete"> פרוייקט:</p>
+      <p > פרוייקט:</p>
       <ng-container *ngIf="!showRegardingobjectid">
-        <div class="autocomplete">
+        <div class="form-outline d-flex justify-content-center mb-4">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
             placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
             [(ngModel)]="ProjectContentItem.Project" ngModel name="Project" #Project="ngModel" required
@@ -30,9 +30,10 @@
           <span *ngIf="Project.errors">שדה זה חובה</span>
         </div>
       </ng-container>
+
       <ng-container *ngIf="showRegardingobjectid">
 
-        <div class="autocomplete" >
+        <div class="form-outline d-flex justify-content-center mb-4">
           <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="project" [searchKeyword]="'Name'"
             placeholder="פרויקט " historyIdentifier="Project" [itemTemplate]="itemTemplate"
             [(ngModel)]="ProjectContentItem.Regardingobjectid" ngModel name="Project" #Project="ngModel" required
@@ -52,8 +53,8 @@
       </ng-container>
     <!-- </ng-container> -->
     <ng-container >
-      <p class="p-autocomplete"> סוג עבודה:</p>
-      <div class="autocomplete">
+      <p > סוג עבודה:</p>
+      <div class="form-outline d-flex justify-content-center mb-4">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="workType" [searchKeyword]="'Name'"
           placeholder="סוג עבודה" historyIdentifier="WorkType" [itemTemplate]="itemTemplate"
           [(ngModel)]="ProjectContentItem.WorkType" ngModel name="WorkType" #WorkType="ngModel" required
@@ -70,8 +71,8 @@
         <span *ngIf="WorkType.errors">שדה זה חובה</span>
       </div>
       </ng-container>
-      <p class="p-autocomplete" *ngIf="ifUpdateTask"> הקצה משימה:</p>
-      <div *ngIf="ifUpdateTask" class="autocomplete">
+      <p  *ngIf="ifUpdateTask"> הקצה משימה:</p>
+      <div class="form-outline d-flex justify-content-center mb-4" *ngIf="ifUpdateTask">
         <ng-autocomplete style="width: 100%;" class="autoComplete" [data]="allUserAndTeams" [searchKeyword]="'Name'"
           placeholder="הקצה משימה למשתמש או לצוות" [(ngModel)]="ProjectContentItem.OwnerId"
           historyIdentifier="AssignTask" [itemTemplate]="itemTemplate" ngModel name="AssignTask"
