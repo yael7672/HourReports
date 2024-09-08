@@ -37,7 +37,6 @@ export class UserServiceService {
   }
   UpdateProjectContectItemWithTime(ProjectItemToUpdate: ProjectContentItem) {
     return this.http.post<string>(environment.url + '/UpdateProjectContectItemWithTimer/?OrganizationName=AuroraProd', ProjectItemToUpdate);
-
   }
   UpdateTaskDetails(taskId: any, ProjectGuid: any, DescriptionTask: string, TaskSubject: string, WorkType: any, AssignTask: any) {
     this.a = environment.url + '/UpdateTaskDetails/?OrganizationName=AuroraProd&taskId=' + taskId + '&ProjectGuid=' + ProjectGuid + '&DescriptionTask=' + DescriptionTask + '&TaskSubject=' + TaskSubject + '&WorkType=' + WorkType + '&AssignTask=' + AssignTask;

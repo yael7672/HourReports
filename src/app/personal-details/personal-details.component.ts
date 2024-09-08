@@ -54,9 +54,7 @@ export class PersonalDetailsComponent implements OnInit {
     localStorage.clear();
     this.route.navigate(['/menu/login'])
   }
-  openPopUpp(data: string, type: boolean) {
-    this.openPopUp.emit({ date: data, type: type })
-  }
+
   closePersonalDetailss() {
     this.closePersonalDetails.emit()
   }
@@ -95,6 +93,10 @@ export class PersonalDetailsComponent implements OnInit {
       this.IfMessageToTheManager = true
       // this.route.navigate(['/menu/employee-report'])
     }
+  }
+  
+  openPopUpp(data: string, type: boolean) {
+    this.openPopUp.emit({ date: data, type: type })
   }
 
 

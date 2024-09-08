@@ -235,7 +235,6 @@ export class MenuComponent implements OnInit {
         this.popUpService.setSpecificPopUp(type, data)
       }
     }
-
     else {
       this.appService.setIsPopUpOpen(true);
       this.popUpService.setSpecificPopUp(type, data)

@@ -59,41 +59,6 @@ export class CreateNewTaskComponent implements OnInit {
     }
   }
 
-  GetWorkType() {
-    this.userService.GetWorkType().subscribe(res => {
-      if (res) {
-        this.workTypeArr = res;
-      }
-    },
-      err => {
-        console.log(err.error);
-        swal("error!", err.error, "error");
-      }
-    )
-  }
-  GetAllUserAndTeams() {
-    this.userService.GetAllUserAndTeams().subscribe(res => {
-      if (res) {
-        this.allUserAndTeams = res;
-      }
-    },
-      err => {
-        console.log(err.error);
-        swal("error!", err.error, "error");
-      }
-    )
-  }
-  GetRegarding() {
-    this.userService.GetRegarding().subscribe(res => {
-      if (res) {
-        this.RegardingobjectArr = res;
-      }
-    },
-      err => {
-        console.log(err.error); swal("error!", err.error, "error");
-      }
-    )
-  }
   async CreateNewTask(form: NgForm) {
     debugger
     this.appService.setSpinner(true);
